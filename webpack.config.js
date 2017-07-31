@@ -30,12 +30,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js$|\.jsx$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env']
+            presets: ['env', 'react']
           }
         }
       }
@@ -48,21 +48,6 @@ module.exports = {
     //     test: /\.html$/,
     //     loader: "file?name=[name].[ext]",
     //   },
-      
-      // {
-      //   test: /\.coffee?$/,
-      //   exclude: /node_modules/,
-      //   loader: 'coffee',
-
-      // },
-
-      // {
-      //   test: /\.cjsx?$/,
-      //   exclude: /node_modules/,
-      //   loaders: ['coffee', "cjsx"],
-      // },
-
-
 
       // {
       //   test: /\.jsx?$/,
