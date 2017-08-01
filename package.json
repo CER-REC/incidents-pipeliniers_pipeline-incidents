@@ -7,7 +7,8 @@
     "test": "npm run test",
     "webpack": "webpack",
     "watch": "webpack -w",
-    "webserver": "webpack-dev-server --inline --hot"
+    "webserver": "webpack-dev-server --inline --hot",
+    "start": "node servers/DevelopmentServer/DevelopmentServer.js"
   },
   "author": "Patrick King, Alaa Azazi, Charlie Cheung",
   "license": "ISC",
@@ -21,6 +22,7 @@
     "chroma-js": "^1.3.4",
     "d3": "^4.10.0",
     "domready": "^1.0.8",
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "flow": "^0.2.3",
     "immutable": "^3.8.1",
@@ -34,6 +36,8 @@
     "redux": "^3.7.2",
     "request": "^2.81.0",
     "should": "^11.2.1",
-    "webpack": "^3.4.1"
+    "webpack": "^3.4.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.6.1"
   }
 }
