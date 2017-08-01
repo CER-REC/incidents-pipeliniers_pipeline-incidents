@@ -1,21 +1,21 @@
-const express = require('express')
-const path = require('path')
-const mustacheExpress = require('mustache-express')
+const Express = require('express')
+const Path = require('path')
+const MustacheExpress = require('mustache-express')
 
 const ApplicationRoot = require('../../ApplicationRoot.js')
 
 
 DevelopmentPageMiddleware = function () {
  
-  const app = express()
+  const app = Express()
 
   // view engine setup
-  app.engine('mustache', mustacheExpress())
+  app.engine('mustache', MustacheExpress())
 
-  app.set('views', path.join(ApplicationRoot, 'servers', 'views'))
+  app.set('views', Path.join(ApplicationRoot, 'servers', 'views'))
   app.set('view engine', 'mustache')
 
-  const router = express.Router()
+  const router = Express.Router()
 
   // Direct the root to the newer template
   router.get('/', function (req, res) {

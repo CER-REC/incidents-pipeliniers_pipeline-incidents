@@ -1,12 +1,12 @@
-const webpack = require('webpack');
-const path = require('path');
+const Webpack = require('webpack')
+const Path = require('path')
 
-const BUILD_DIR = path.resolve(__dirname, 'dist');
+const BUILD_DIR = Path.resolve(__dirname, 'dist')
 
 
 module.exports = {
   entry: {
-    bundle: ['./app/app.jsx']
+    bundle: ['./app/App.jsx']
     // bundle: ['webpack-hot-middleware/client', './app/app.jsx'] // , 'webpack/hot/dev-server'
     // html: './app/app.html'
   },
@@ -46,9 +46,7 @@ module.exports = {
   },
 
   plugins: [
-    // OccurenceOrderPlugin is needed for webpack 1.x only
-    // new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-    // new webpack.NoErrorsPlugin()
+    new Webpack.HotModuleReplacementPlugin()
+    // new Webpack.NoErrorsPlugin()
   ]
 }

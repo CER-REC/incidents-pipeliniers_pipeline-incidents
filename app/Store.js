@@ -1,11 +1,11 @@
 
 const Redux = require('redux')
 
-const ViewportDimensions = require('./reducers/ViewportDimensions')
+const ViewportReducer = require('./reducers/ViewportReducer')
 
 
 const reducers = Redux.combineReducers({
-  ViewportDimensions
+  viewport: ViewportReducer
 })
 
 

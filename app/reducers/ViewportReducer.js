@@ -5,13 +5,14 @@ const defaults = Immutable.fromJS({
   y: 0
 })
 
-const ViewportDimensions = (state = defaults, action) => {
+const ViewportReducer = (state = defaults, action) => {
 
   switch(action.type) {
 
-    case 'ScreenResized':
+    case 'ResizeScreen':
       // TODO: validate this
-      return action.delete('type')
+
+      return state.set('x', action.x).set('y', action.y)
 
       break
     default:
@@ -24,4 +25,4 @@ const ViewportDimensions = (state = defaults, action) => {
 }
 
 
-module.exports = ViewportDimensions
+module.exports = ViewportReducer
