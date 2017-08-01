@@ -1,6 +1,8 @@
 
+const WebpackHotMiddleware = require("webpack-hot-middleware");
 const webpackDevMiddleware = require("webpack-dev-middleware");
 const webpack = require("webpack");
+const Express = require('express')
 
 const config = require('../../webpack.config.js')
 
@@ -12,10 +14,16 @@ const config = require('../../webpack.config.js')
 
 const compiler = webpack(config)
 
+
 module.exports = function () {
-  return webpackDevMiddleware(compiler, {
+  const app = Express()
+  app.use(webpackDevMiddleware(compiler, {
       // options
-  });
+  }));
+
+  app.use(WebpackHotMiddleware(compiler))
+  
+  return app
 }
 
 

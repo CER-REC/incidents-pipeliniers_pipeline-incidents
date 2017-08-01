@@ -6,12 +6,13 @@ const BUILD_DIR = path.resolve(__dirname, 'dist');
 
 module.exports = {
   entry: {
-    javascript: './app/app.jsx'
+    bundle: ['./app/app.jsx']
+    // bundle: ['webpack-hot-middleware/client', './app/app.jsx'] // , 'webpack/hot/dev-server'
     // html: './app/app.html'
   },
   output: {
     path: BUILD_DIR,
-    filename: 'bundle.js',
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -31,5 +32,12 @@ module.exports = {
   },
   resolve: {
    extensions: ['.js', '.jsx', '.json']
-  }
+  },
+
+  plugins: [
+    // OccurenceOrderPlugin is needed for webpack 1.x only
+    // new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+    // new webpack.NoErrorsPlugin()
+  ]
 }

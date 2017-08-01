@@ -3,10 +3,6 @@ const Constants = require('../Constants')
 
 const ViewportDimensions = (previousState = Constants.defaultViewportDimensions, action) => {
 
-  if (typeof action == 'undefined') {
-    return previousState
-  }
-
   switch(action.type) {
 
     case 'ScreenResized':

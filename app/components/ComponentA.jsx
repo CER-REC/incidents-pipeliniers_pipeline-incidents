@@ -1,20 +1,20 @@
 
 const React = require('react')
-
+const ReactRedux = require('react-redux')
 
 
 
 class ComponentA extends React.Component {
   render() {
-    return <h1>Component A</h1>;
+    return <h1>Component A {this.props.ViewportDimensions.x}</h1>;
   }
 }
 
 const mapStateToProps = state => {
   return {
-    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+    ViewportDimensions: state.ViewportDimensions
   }
 
 }
 
-module.exports = ComponentA
+module.exports = ReactRedux.connect(mapStateToProps)(ComponentA)
