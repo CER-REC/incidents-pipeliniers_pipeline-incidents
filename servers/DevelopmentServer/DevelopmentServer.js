@@ -12,17 +12,17 @@ Server = require('../Server.js');
 const PublicFilesMiddleware = require('../middleware/PublicFilesMiddleware.js');
 const WebpackDevMiddleware = require('../middleware/WebpackDevMiddleware.js')
 // const ImageGenerationMiddleware = require('../../middleware/ImageGenerationMiddleware.js');
-// const DevelopmentPageMiddleware = require('../../middleware/DevelopmentPageMiddleware.js');
+const DevelopmentPageMiddleware = require('../middleware/DevelopmentPageMiddleware.js');
 // const JsonDataMiddleware = require('../../middleware/JsonDataMiddleware.js');
 // const CSVDataMiddleware = require('../../middleware/CSVDataMiddleware.js');
 // const BitlyMiddleware = require('../../middleware/BitlyMiddleware.js');
 
 Server([
   PublicFilesMiddleware(),
-  WebpackDevMiddleware()
+  WebpackDevMiddleware(),
   // ImageGenerationMiddleware(),
   // JsonDataMiddleware(),
-  // DevelopmentPageMiddleware(),
+  DevelopmentPageMiddleware(),
   // CSVDataMiddleware(),
   // BitlyMiddleware()
 ]);

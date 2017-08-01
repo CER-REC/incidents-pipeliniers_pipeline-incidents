@@ -1,8 +1,19 @@
 
 
-console.log('woo!!')
+const React = require('react')
+const ReactDOM = require('react-dom')
+const DomReady = require('domready')
+
+const Root = require('./components/Root.jsx')
 
 
-const fragment = (
-  <div> Hello, this is a div </div>
-  )
+
+
+
+
+DomReady( () => {
+
+  ReactDOM.render(<Root/>, document.getElementById('reactRoot'));
+  
+})
+
