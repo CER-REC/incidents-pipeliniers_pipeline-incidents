@@ -10,10 +10,19 @@ const Root = require('./components/Root.jsx')
 
 
 
+const ReactRedux = require('react-redux')
+const Redux = require('redux')
+
+const store = require('./Store')()
+window.store = store
+
+
 
 DomReady( () => {
+  const app = <ReactRedux.Provider store={store}>
+    <Root />
+  </ReactRedux.Provider>
 
-  ReactDOM.render(<Root/>, document.getElementById('reactRoot'));
-  
+  ReactDOM.render(app, document.getElementById('reactRoot'));
 })
 

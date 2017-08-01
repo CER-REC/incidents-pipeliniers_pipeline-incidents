@@ -10,4 +10,11 @@ class ComponentA extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+  }
+
+}
+
 module.exports = ComponentA
