@@ -8,7 +8,8 @@
     "webpack": "webpack",
     "watch": "webpack -w",
     "webserver": "webpack-dev-server --inline --hot",
-    "start": "node servers/DevelopmentServer/DevelopmentServer.js"
+    "start": "nodemon servers/DevelopmentServer/DevelopmentServer.js",
+    "debug": "nodemon --debug --inspect servers/DevelopmentServer/DevelopmentServer.js"
   },
   "author": "Patrick King, Alaa Azazi, Charlie Cheung",
   "license": "ISC",
