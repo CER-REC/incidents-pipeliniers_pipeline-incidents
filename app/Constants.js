@@ -1,10 +1,8 @@
+const Immutable = require('immutable')
+
+const Constants = Immutable.fromJS({
+})
 
 
-//  TODO: immutable.js me!
+module.exports = Constants
 
-module.exports = {
-  defaultViewportDimensions: {
-    x: 1000,
-    y: 1000
-  }
-}

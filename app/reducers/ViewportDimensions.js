@@ -1,19 +1,21 @@
+const Immutable = require('immutable')
 
-const Constants = require('../Constants')
+const defaults = Immutable.fromJS({
+  x: 0,
+  y: 0
+})
 
-const ViewportDimensions = (previousState = Constants.defaultViewportDimensions, action) => {
+const ViewportDimensions = (state = defaults, action) => {
 
   switch(action.type) {
 
     case 'ScreenResized':
-      return {
-        x: action.x,
-        y: action.y
-      }
+      // TODO: validate this
+      return action.delete('type')
 
       break
     default:
-      return previousState
+      return state
   }
 
 

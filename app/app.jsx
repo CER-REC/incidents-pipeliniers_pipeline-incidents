@@ -1,21 +1,15 @@
-
-
 const React = require('react')
 const ReactDOM = require('react-dom')
 const DomReady = require('domready')
+const Redux = require('redux')
+const ReactRedux = require('react-redux')
 
 const Root = require('./components/Root.jsx')
-
-
-
-
-
-const ReactRedux = require('react-redux')
-const Redux = require('redux')
-
+const Resized = require('./actionCreators/ScreenResized')
 const store = require('./Store')()
-window.store = store
 
+window.store = store
+window.resized = Resized
 
 
 DomReady( () => {
