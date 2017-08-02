@@ -40,7 +40,7 @@ const Constants = Immutable.fromJS({
   },
 
 
-  maxColumnsWithoutSroll: 4,
+  maxColumnsWithoutScroll: 4,
 
   columnNames: [
     'incidentType',
