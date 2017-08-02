@@ -9,7 +9,8 @@
     "watch": "webpack -w",
     "webserver": "webpack-dev-server --inline --hot",
     "start": "node servers/DevelopmentServer/DevelopmentServer.js",
-    "debug": "nodemon --debug --inspect servers/DevelopmentServer/DevelopmentServer.js"
+    "debug": "nodemon --debug --inspect servers/DevelopmentServer/DevelopmentServer.js",
+    "lint": "eslint --ext .jsx,.js app/** servers/**"
   },
   "author": "Patrick King, Alaa Azazi, Charlie Cheung",
   "license": "ISC",
@@ -49,5 +50,9 @@
     "webpack-dev-middleware": "^1.12.0",
     "webpack-dev-server": "^2.6.1",
     "webpack-hot-middleware": "^2.18.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-plugin-react": "^7.1.0"
   }
 }

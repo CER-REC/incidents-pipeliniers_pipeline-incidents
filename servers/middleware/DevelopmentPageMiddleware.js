@@ -5,7 +5,7 @@ const MustacheExpress = require('mustache-express')
 const ApplicationRoot = require('../../ApplicationRoot.js')
 
 
-DevelopmentPageMiddleware = function () {
+const DevelopmentPageMiddleware = function () {
  
   const app = Express()
 

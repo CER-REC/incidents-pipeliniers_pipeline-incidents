@@ -10,7 +10,7 @@ const PublicFilesMiddleware = require('../middleware/PublicFilesMiddleware.js')
 const WebpackDevMiddleware = require('../middleware/WebpackDevMiddleware.js')
 const DevelopmentPageMiddleware = require('../middleware/DevelopmentPageMiddleware.js')
 
-Server = require('../Server.js')
+const Server = require('../Server.js')
 
 Server([
   PublicFilesMiddleware(),

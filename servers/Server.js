@@ -1,11 +1,9 @@
-
-
 const Express = require('express')
 // Compression = require('compression')
 
-Server = function(middlewares) {
-  var app, i, len, middleware, rootApp
-  rootApp = Express()
+const Server = function(middlewares) {
+  let app, i, len, middleware
+  const rootApp = Express()
   if (process.env.APP_PATH_PREFIX) {
     app = Express()
     rootApp.use(process.env.APP_PATH_PREFIX, app)
@@ -24,13 +22,14 @@ Server = function(middlewares) {
 
   rootApp.listen(process.env.PORT || process.env.PORT_NUMBER, function() {
     if (process.env.APP_PATH_PREFIX) {
-      console.log("Ready: " + process.env.HOST + ":" + process.env.PORT_NUMBER + process.env.APP_PATH_PREFIX)
+      console.log(`Ready: ${process.env.HOST}:${process.env.PORT_NUMBER}${process.env.APP_PATH_PREFIX}`)
     } else {
-      console.log("Ready: " + process.env.HOST + ":" + process.env.PORT_NUMBER)
+      console.log(`Ready: ${process.env.HOST}:${process.env.PORT_NUMBER}`)
     }
     return rootApp.emit('server-online')
   })
   return rootApp
 }
+
 
 module.exports = Server

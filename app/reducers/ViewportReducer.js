@@ -9,14 +9,13 @@ const ViewportReducer = (state = defaults, action) => {
 
   switch(action.type) {
 
-    case 'ResizeScreen':
-      // TODO: validate this
+  case 'ResizeScreen':
+    // TODO: validate this
 
-      return state.set('x', action.x).set('y', action.y)
+    return state.set('x', action.x).set('y', action.y)
 
-      break
-    default:
-      return state
+  default:
+    return state
   }
 
 
