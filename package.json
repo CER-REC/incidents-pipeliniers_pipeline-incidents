@@ -10,7 +10,7 @@
     "webserver": "webpack-dev-server --inline --hot",
     "start": "node servers/DevelopmentServer/DevelopmentServer.js",
     "debug": "nodemon --debug --inspect servers/DevelopmentServer/DevelopmentServer.js",
-    "lint": "eslint --ext .jsx,.js app/** servers/**"
+    "lint": "eslint --ext .jsx,.js app/**"
   },
   "author": "Patrick King, Alaa Azazi, Charlie Cheung",
   "license": "ISC",

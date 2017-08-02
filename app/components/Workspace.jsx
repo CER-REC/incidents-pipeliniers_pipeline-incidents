@@ -16,14 +16,13 @@ class Workspace extends React.Component {
 				<Header />
 				
 			</svg>
-
   }
 }
 
 const mapStateToProps = state => {
   return {
-    		viewport: state.viewport
-		 }
+    viewport: state.viewport
+  }
 }
 
 module.exports = ReactRedux.connect(mapStateToProps)(Workspace)
