@@ -1,0 +1,46 @@
+//import google fonts
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Condensed);
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed);
+
+@import "./Colours.scss";
+//TO DO: import medium and semi bold
+
+$fira-sans-condensed: 'Fira Sans Condensed', sans-serif;
+//subheading font
+$fira-sans-extra: 'Fira Sans Extra Condensed', sans-serif;
+
+//heading
+h1 {
+	font-family: $fira-sans-condensed;
+	font-style: light;
+	font-size: 22px;
+	color: black;
+	//align left
+}
+
+//subheading, pop-up text
+h2 {
+	font-family: $fira-sans-extra;
+	font-style: regular;
+	font-size: 12px;
+	color: black;
+	//align left
+}
+
+//category labels (active)
+h3 {
+	font-family: $fira-sans-extra;
+	font-style: medium;
+	font-size: 13px;
+	color: black;
+	//align left
+}
+
+//category labels (inactive)
+h4 {
+	font-family: $fira-sans-extra;
+	font-style: medium;
+	font-size: 13px;
+	color: $near-black;
+	//align left
+}
