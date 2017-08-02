@@ -1,16 +1,12 @@
 
 const React = require('react')
 
-
-const ComponentA = require('./ComponentA')
-const ComponentB = require('./ComponentB')
-
+const Workspace = require('./Workspace')
 
 class Root extends React.Component {
   render() {
     return <div>
-      <ComponentA/>
-      <ComponentB/>
+      <Workspace/>
     </div>
 
   }
