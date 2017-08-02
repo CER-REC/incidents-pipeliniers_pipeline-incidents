@@ -7,16 +7,16 @@ const ReactRedux = require('react-redux')
 
 class Workspace extends React.Component {
   render() {
-    return 	<svg width={this.props.viewport.get('x')}
- 				height={this.props.viewport.get('y')}>
-			</svg>
+    return  <svg width={this.props.viewport.get('x')}
+      height={this.props.viewport.get('y')}>
+    </svg>
   }
 }
 
 const mapStateToProps = state => {
   return {
-    		viewport: state.viewport
-		 }
+    viewport: state.viewport
+  }
 }
 
 module.exports = ReactRedux.connect(mapStateToProps)(Workspace)

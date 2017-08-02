@@ -11,6 +11,9 @@ const ViewportReducer = (state = defaults, action) => {
 
   case 'ResizeScreen':
     // TODO: validate this
+    // numbers
+    // max width 1200
+    
 
     return state.set('x', action.x).set('y', action.y)
 
