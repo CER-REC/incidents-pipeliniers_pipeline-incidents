@@ -16,6 +16,8 @@ const DataProvider = require('./DataProvider.js')
 const dataProvider = new DataProvider
 dataProvider.loadDataCsv()
 
+window.dataProvider = dataProvider
+
 DomReady( () => {
 
   resizeScreenHandler()

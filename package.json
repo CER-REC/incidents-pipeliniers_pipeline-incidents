@@ -33,6 +33,7 @@
     "immutable": "^3.8.1",
     "lodash": "^4.17.4",
     "mocha": "^3.4.2",
+    "moment": "^2.18.1",
     "mustache": "^2.3.0",
     "mustache-express": "^1.2.5",
     "node-sass": "^4.5.3",
