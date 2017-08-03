@@ -2,7 +2,7 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
-//require('./Workspace.scss')
+require('./Workspace.scss')
 
 const IncidentBar = require('./IncidentBar.jsx')
 const Column = require('./Column.jsx')
@@ -19,7 +19,7 @@ class Workspace extends React.Component {
   }
 
   render() {
-    return  <svg width={this.props.viewport.get('x')}
+    return  <svg className="Workspace" width={this.props.viewport.get('x')}
       height={this.props.viewport.get('y')}>
 
       <IncidentBar/>
