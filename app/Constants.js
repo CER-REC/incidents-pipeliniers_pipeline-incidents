@@ -19,6 +19,11 @@ const Constants = Immutable.fromJS({
 
   },
 
+  //between home icon and heading: 17;
+  //from top to heading: 13;
+  //leading: 19;
+  //emptyCategoryHeight:16;
+
   pinColumn: {
     horizontalMargins: 11, // both left and right
     width: 96,
