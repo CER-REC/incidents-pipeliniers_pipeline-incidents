@@ -18,9 +18,10 @@ width
 */
 
 // TODO: is this necessary?
-WorkspaceComputations.mapDisplayed = function(store) {
+// columns: the columns state
+WorkspaceComputations.mapDisplayed = function(columns) {
   // TODO: should the 'map' string and others like it be constants somehow?
-  return store.columns.contains('map')
+  return columns.contains('map')
 }
 
 
@@ -36,14 +37,16 @@ WorkspaceComputations.topBarHeight = function () {
   return height
 }
 
-WorkspaceComputations.columnHeight = function (store) {
-  return store.viewport.get('y') - WorkspaceComputations.topBarHeight() - Constants.get('bottomOuterMargin')
+// viewport: the viewport state
+WorkspaceComputations.columnHeight = function (viewport) {
+  return viewport.get('y') - WorkspaceComputations.topBarHeight() - Constants.get('bottomOuterMargin')
 }
 
 
-WorkspaceComputations.columnWidth = function (store) {
+// columns: the columns state
+WorkspaceComputations.columnWidth = function (columns) {
   // TODO: update me when we add the currently displayed columns to the store
-  if (store.columns.count() > Constants.get('maxColumnsWithoutScroll')) {
+  if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
     return Constants.get('columnNarrowWidth')
   }
   else {
@@ -51,43 +54,44 @@ WorkspaceComputations.columnWidth = function (store) {
   }
 }
 
-
-WorkspaceComputations.columnPathWidth = function (store) {
-  if (store.columns.count() > Constants.get('maxColumnsWithoutScroll')) {
+// columns: the columns state
+WorkspaceComputations.columnPathWidth = function (columns) {
+  if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
     return Constants.get('minimumColumnPathWidth')
   }
   else {
-    let availableWidth = WorkspaceComputations.workspaceWidth(store)
+    let availableWidth = WorkspaceComputations.workspaceWidth(columns)
 
     availableWidth -= Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
     availableWidth -= Constants.getIn(['pinColumn', 'width'])
-    availableWidth -= store.columns.count() * Constants.get('columnWideWidth')
+    availableWidth -= columns.count() * Constants.get('columnWideWidth')
     availableWidth -= Constants.getIn(['socialBar', 'width'])
     availableWidth -= Constants.getIn(['socialBar', 'leftMargin'])
-    return availableWidth / store.columns.count()
+    return availableWidth / columns.count()
   }
 }
 
-
-WorkspaceComputations.sidebarWidth = function (store) {
+// columns: the columns state
+WorkspaceComputations.sidebarWidth = function (columns) {
   let width = Constants.getIn(['sidebar', 'columWidth'])
-  const columnCount = (Constants.get('columnNames').count() - store.columns.count() - 1)
+  const columnCount = (Constants.get('columnNames').count() - columns.count() - 1)
   width += Constants.getIn(['sidebar', 'columnOffset']) * columnCount
   return width
 }
 
+// columns: the columns state
+// viewport: the viewport state
+WorkspaceComputations.workspaceWidth = function (columns, viewport) {
 
-WorkspaceComputations.workspaceWidth = function (store) {
-
-  if (store.columns.count() > Constants.get('maxColumnsWithoutScroll')) {
+  if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
     // right margin, social media bar width
     let width = Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
     width += Constants.getIn(['pinColumn', 'width'])
 
     // TODO: verify that this works when we add columns reducer
-    width += (Constants.get('columnNarrowWidth') + Constants.get('minimumColumnPathWidth')) * store.columns.count() 
+    width += (Constants.get('columnNarrowWidth') + Constants.get('minimumColumnPathWidth')) * columns.count() 
 
-    width += WorkspaceComputations.sidebarWidth(store)
+    width += WorkspaceComputations.sidebarWidth(columns)
 
     width += Constants.getIn(['socialBar', 'width'])
     width += Constants.getIn(['socialBar', 'leftMargin'])
@@ -95,7 +99,7 @@ WorkspaceComputations.workspaceWidth = function (store) {
     return width
   }
   else {
-    return store.viewport.get('x')
+    return viewport.get('x')
   }
 
 }
