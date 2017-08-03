@@ -78,11 +78,11 @@ WorkspaceComputations.columnPathWidth = function (columns, viewport) {
   }
   else {
     let availableWidth = WorkspaceComputations.workspaceWidth(columns, viewport)
-
     availableWidth -= Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
     availableWidth -= Constants.getIn(['pinColumn', 'width'])
     availableWidth -= columns.count() * Constants.get('columnWideWidth')
     availableWidth -= Constants.getIn(['socialBar', 'width'])
+    availableWidth -= WorkspaceComputations.sidebarWidth(columns)
     availableWidth -= Constants.getIn(['socialBar', 'leftMargin'])
     return availableWidth / columns.count()
   }
