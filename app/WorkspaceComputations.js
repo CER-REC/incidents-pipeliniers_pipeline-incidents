@@ -88,6 +88,11 @@ WorkspaceComputations.columnPathWidth = function (columns, viewport) {
   }
 }
 
+WorkspaceComputations.columnPathX = function (columns, viewport, i) {
+  return WorkspaceComputations.columnX(columns, viewport, i) 
+    + WorkspaceComputations.columnWidth(columns)
+}
+
 // columns: the columns state
 WorkspaceComputations.sidebarWidth = function (columns) {
   let width = Constants.getIn(['sidebar', 'columWidth'])

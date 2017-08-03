@@ -2,22 +2,20 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
-const ColumnPaths = require('./ColumnPaths.jsx')
 
-require('./Column.scss')
+// require('./ColumnPaths.scss')
 
-class Column extends React.Component {
+class ColumnPaths extends React.Component {
 
   render() {
     return <g>
       <rect
-        x={ WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index) }
+        x={ WorkspaceComputations.columnPathX(this.props.columns, this.props.viewport, this.props.index) }
         y={ WorkspaceComputations.topBarHeight() }
-        width={ WorkspaceComputations.columnWidth(this.props.columns) }
+        width={ WorkspaceComputations.columnPathWidth(this.props.columns, this.props.viewport) }
         height={ WorkspaceComputations.columnHeight(this.props.viewport) }
-        fill='#FFDDFF'
+        fill='#FFFFDD'
       />
-      <ColumnPaths index={this.props.index}/>
     </g>
   }
 }
@@ -30,4 +28,4 @@ const mapStateToProps = state => {
 }
 
 
-module.exports = ReactRedux.connect(mapStateToProps)(Column)
+module.exports = ReactRedux.connect(mapStateToProps)(ColumnPaths)
