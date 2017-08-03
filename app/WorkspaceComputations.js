@@ -5,15 +5,6 @@ const WorkspaceComputations = {}
 
 
 /*
-functions we'll need:
-
-
-concerns
-  -is the top bar height constant? maybe?
-  -is the incident bar width constant? maybe?
-
-
-
 height
   -column height, sensitive to viewport height
   
@@ -24,16 +15,16 @@ width
   -workspace width, sensitive to number of columns
 
   -sidebar width, sensitive to number of sidebar columns
-
 */
 
+// TODO: is this necessary?
 WorkspaceComputations.mapDisplayed = function(store) {
   // TODO: should the 'map' string and others like it be constants somehow?
   return store.columns.contains('map')
 }
 
 
-// TODO: should I be put in the constants file? memoize the computation
+// TODO: should I be put in the constants file? memoize the computation?
 WorkspaceComputations.topBarHeight = function () {
   let height = Constants.get('topOuterMargin')
   const lineHeight = Constants.getIn(['topBar', 'headingLineHeight'])
