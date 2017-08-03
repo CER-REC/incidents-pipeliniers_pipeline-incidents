@@ -1,8 +1,8 @@
-const Promise = require('bluebird')
 const Request = require('client-request/promise')
 const D3 = require('d3')
 const Moment = require('moment')
 
+const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
 
 
 
@@ -64,36 +64,23 @@ function csvColumnMapping (d) {
 
 
 
-class DataProvider {
+const DataLoader = {
 
-  /*
-  TODO:
-    provider method(s) ... like what?
-    constant ennumeration of as many of the column vocabularies as possible
-  */
-
-  constructor() {
-    // TODO: should the data be stored as an Immutable.js object?
-    this.data = null
-  }
-
-
-
-
+  // TODO: constant ennumeration of as many of the column vocabularies as
+  // possible
 
 
   // Load the application data from a single remote CSV file
-  loadDataCsv() {
+  loadDataCsv: function (store) {
 
     const options = {
       uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-08-03 2008 - 2017 Incidents data sheet for UofC.csv`,
     }
 
-    const self = this
-
     Request(options)
       .then(function (response) {
-        self.data = D3.csvParse(response.body.toString(), csvColumnMapping)
+        const data = D3.csvParse(response.body.toString(), csvColumnMapping)
+        store.dispatch(DataLoadedCreator(data))
       })
       .catch(function (error) {
         throw error
@@ -101,8 +88,8 @@ class DataProvider {
 
   }
 
-  // TODO: in the future, other loader methods will be present for the NEB data
-  // service.
+  // TODO: in the future, other loader functions will be present for the NEB
+  // data service.
 
 }
 
@@ -120,5 +107,5 @@ class DataProvider {
 
 
 
-module.exports = DataProvider
+module.exports = DataLoader
 

@@ -7,16 +7,14 @@ const Constants = require('./Constants.js')
 const Root = require('./components/Root.jsx')
 const Resized = require('./actionCreators/ResizeScreenCreator.js')
 const store = require('./Store.js')()
-const DataProvider = require('./DataProvider.js')
+const DataLoader = require('./DataLoader.js')
 
 // Uncomment for debugging only.
-// window.store = store
+window.store = store
 
 // TODO: is this the best place for this?
-const dataProvider = new DataProvider
-dataProvider.loadDataCsv()
+DataLoader.loadDataCsv(store)
 
-window.dataProvider = dataProvider
 
 DomReady( () => {
 
