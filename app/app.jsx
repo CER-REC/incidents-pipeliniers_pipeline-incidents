@@ -3,6 +3,7 @@ const DomReady = require('domready')
 const ReactRedux = require('react-redux')
 const React = require('react')
 
+const Constants = require('./Constants.js')
 const Root = require('./components/Root.jsx')
 const Resized = require('./actionCreators/ResizeScreenCreator.js')
 const store = require('./Store.js')()
@@ -24,7 +25,10 @@ DomReady( () => {
 
 function resizeScreenHandler()  
 {
-  const w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-  const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+  // Ensures the width and height of the workspace keep the ratio 900:600
+  // TODO: Increase the height of the workspace by emptyCategoryOffsetRatio if
+  // the empty categories are visible.
+  const w = document.getElementById('reactRoot').clientWidth
+  const h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])
   store.dispatch(Resized(w,h))
 }

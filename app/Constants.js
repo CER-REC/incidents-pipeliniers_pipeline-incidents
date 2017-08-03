@@ -2,6 +2,12 @@ const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
 
+  workspace: {
+    maxWidth: 1138,
+    heightToWidthRatio: 0.66,
+    emptyCategoryOffsetRatio: 0.06,
+  },
+
   // All in px
   leftOuterMargin: 5,
   topOuterMargin: 5,
