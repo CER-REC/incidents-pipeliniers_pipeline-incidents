@@ -54,13 +54,30 @@ WorkspaceComputations.columnWidth = function (columns) {
   }
 }
 
+WorkspaceComputations.columnX = function(columns, viewport, i) {
+
+  // Define the left and right bounds of where we will be drawing columns and
+  // paths.
+  const leftBounds = Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
+    + Constants.getIn(['pinColumn', 'width'])
+  const rightBounds = WorkspaceComputations.sidebarX(columns, viewport)
+
+  // Divide the space up between the number of columns
+  // TODO: this math will need to be altered if the map column is on display
+  const spacePerColumn = (rightBounds - leftBounds) / columns.count()
+
+  // Supply the coordinate for the current column
+  return leftBounds + spacePerColumn * i
+}
+
 // columns: the columns state
-WorkspaceComputations.columnPathWidth = function (columns) {
+// viewport: the viewport state
+WorkspaceComputations.columnPathWidth = function (columns, viewport) {
   if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
     return Constants.get('minimumColumnPathWidth')
   }
   else {
-    let availableWidth = WorkspaceComputations.workspaceWidth(columns)
+    let availableWidth = WorkspaceComputations.workspaceWidth(columns, viewport)
 
     availableWidth -= Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
     availableWidth -= Constants.getIn(['pinColumn', 'width'])
@@ -77,6 +94,13 @@ WorkspaceComputations.sidebarWidth = function (columns) {
   const columnCount = (Constants.get('columnNames').count() - columns.count() - 1)
   width += Constants.getIn(['sidebar', 'columnOffset']) * columnCount
   return width
+}
+
+WorkspaceComputations.sidebarX = function (columns, viewport) {
+  return viewport.get('x')
+    - Constants.getIn(['socialBar', 'width'])
+    - Constants.getIn(['socialBar', 'leftMargin'])
+    - WorkspaceComputations.sidebarWidth(columns)
 }
 
 // columns: the columns state
