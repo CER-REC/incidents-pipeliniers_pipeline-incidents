@@ -5,6 +5,7 @@ const ReactRedux = require('react-redux')
 //require('./Workspace.scss')
 
 const IncidentBar = require('./IncidentBar.jsx')
+const SideBar = require('./SideBar.jsx')
 const SocialBar = require('./SocialBar.jsx')
 
 class Workspace extends React.Component {
@@ -13,6 +14,7 @@ class Workspace extends React.Component {
       height={this.props.viewport.get('y')}>
 
       <IncidentBar/>
+      <SideBar/>
       <SocialBar/>
 
     </svg>

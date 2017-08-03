@@ -9,22 +9,28 @@ require('./Sidebar.scss')
 class Sidebar extends React.Component {
 
   render() {
-    return <g/>
+    // TODO: should this be a computation? getting complex
+    const x = this.props.viewport.get('x') 
+      - Constants.getIn(['socialBar', 'width'])
+      - Constants.getIn(['socialBar', 'leftMargin'])
+      - WorkspaceComputations.sidebarWidth(this.props.columns)
+
+    return <g>
+      <rect
+        x={ x }
+        y={ WorkspaceComputations.topBarHeight() }
+        width={ WorkspaceComputations.sidebarWidth(this.props.columns) }
+        height={ WorkspaceComputations.columnHeight(this.props.viewport) }
+        fill='#DDDDFF'
+      />
+    </g>
   }
-    // return <g>
-    //   <rect
-    //     x={ this.props.viewport.get('x') - Constants.getIn(['Sidebar', 'width']) }
-    //     y={ WorkspaceComputations.topBarHeight() }
-    //     width={ Constants.getIn(['Sidebar', 'width']) }
-    //     height={ Constants.getIn(['Sidebar', 'height']) }
-    //     fill='#FFDDDD'
-    //   />
-    // </g>
 }
 
 const mapStateToProps = state => {
   return {
-    viewport: state.viewport
+    viewport: state.viewport,
+    columns: state.columns,
   }
 }
 
