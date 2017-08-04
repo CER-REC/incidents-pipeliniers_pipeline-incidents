@@ -3,6 +3,7 @@ const D3 = require('d3')
 const Moment = require('moment')
 
 const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
+const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
 
 
 
@@ -81,6 +82,9 @@ const DataLoader = {
       .then(function (response) {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
         store.dispatch(DataLoadedCreator(data))
+
+        const state = store.getState(data)
+        store.dispatch(SetInitialCategoryStateCreator(state.data))
       })
       .catch(function (error) {
         throw error

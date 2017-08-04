@@ -59,7 +59,7 @@ const Constants = Immutable.fromJS({
     'whatHappened',
     'whyItHappened',
     'pipelinePhase',
-    'approxVolReleased',
+    'approximateVolumeReleased',
     'substanceCategory',
     'pipelineSystemComponentsInvolved',
     'map',
@@ -72,7 +72,9 @@ const Constants = Immutable.fromJS({
 
 
   // Some columns do not have fixed categories, so they don't appear here
-  // including: reportedDate, company, approxVolReleased, map
+  // including: reportedDate, company
+  // NB also: map has no categories at all
+
   // TODO: validate more of these against the source data... 
   categoryNames: {
     incidentTypes: [
@@ -191,6 +193,14 @@ const Constants = Immutable.fromJS({
       'Regulating Facility',
       'Storage Facility',
       'Vehicle/Mobile Equipment',
+    ],
+    'approximateVolumeReleased': [
+      'Not Applicable',
+      'Not Provided',
+      'Less Than 1 m³',
+      '1 m³ to 1,000 m³',
+      '1,000 m³ to 1,000,000 m³',
+      'More than 1,000,000 m³',
     ],
   }
 
