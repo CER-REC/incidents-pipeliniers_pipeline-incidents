@@ -6,6 +6,7 @@ require('./Workspace.scss')
 
 const IncidentBar = require('./IncidentBar.jsx')
 const Column = require('./Column.jsx')
+const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
 const SocialBar = require('./SocialBar.jsx')
 
@@ -14,7 +15,12 @@ class Workspace extends React.Component {
 
   columns() {
     return this.props.columns.map( (columnName, i) => {
-      return <Column columnName={columnName} key={columnName} index={i} />
+      if (columnName === 'map') {
+        return <MapColumn index={i} />
+      }
+      else {
+        return <Column columnName={columnName} key={columnName} index={i} />
+      }
     }).toArray()
   }
 

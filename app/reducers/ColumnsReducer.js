@@ -5,7 +5,26 @@ const Constants = require('../Constants.js')
 const defaults = Immutable.fromJS([
   'incidentTypes',
   'province',
+
+  'reportedDate',
+  'company',
+  'status',
+
+  'substance',
+  'releaseType',
+  'whatHappened',
+
+  'whyItHappened',
+  'pipelinePhase',
+  'volumeCategory',
+
+  'substanceCategory',
+  'pipelineSystemComponentsInvolved',
+
+  'map',
 ])
+
+
 
 
 const ColumnsReducer = (state = defaults, action) => {
