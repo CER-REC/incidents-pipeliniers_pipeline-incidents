@@ -150,5 +150,4 @@ WorkspaceComputations.categoryHeights = function (viewport, data, categories, co
 
 }
 
-window.wc = WorkspaceComputations
 module.exports = WorkspaceComputations

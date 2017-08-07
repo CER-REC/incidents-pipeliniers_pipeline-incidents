@@ -1,5 +1,12 @@
+const Chroma = require('chroma-js')
+const Immutable = require('immutable')
+
+const Constants = require('./Constants.js')
+
 const CategoryComputations = {}
 
+// data: the incident data from the store
+// categories: the category display data from the store
 CategoryComputations.itemsInColumn = function (data, categories, columnName) {
 
   return categories
@@ -12,6 +19,7 @@ CategoryComputations.itemsInColumn = function (data, categories, columnName) {
 
 }
 
+// data: the incident data from the store
 CategoryComputations.itemsInCategory = function (data, columnName, categoryName) {
 
   switch (columnName) {
@@ -33,6 +41,7 @@ CategoryComputations.itemsInCategory = function (data, columnName, categoryName)
 
 }
 
+// data: the incident data from the store
 CategoryComputations.itemsInSimpleCategory = function (data, columnName, categoryName) {
   
   return data.filter( item => {
@@ -41,6 +50,7 @@ CategoryComputations.itemsInSimpleCategory = function (data, columnName, categor
   
 }
 
+// data: the incident data from the store
 CategoryComputations.itemsInMultipleCategory = function (data, columnName, categoryName) {
 
   return data.filter( item => {
@@ -50,6 +60,7 @@ CategoryComputations.itemsInMultipleCategory = function (data, columnName, categ
 }
 
 
+// data: the incident data from the store
 CategoryComputations.itemsInReportedDateCategory = function (data, categoryName) {
 
   return data.filter( item => {
@@ -58,5 +69,21 @@ CategoryComputations.itemsInReportedDateCategory = function (data, categoryName)
 
 }
 
+// Returns a map of category names to Chroma colours
+// categories: the category display data from the store
+CategoryComputations.coloursForColumn = function (categories, columnName) {
+  const categoryInfo = categories.get(columnName)
+  const colourInfo = Constants.getIn(['columnBaseColors', columnName])
+  
+  const chromaColours = Chroma.scale([
+    colourInfo.get('start'),
+    colourInfo.get('middle'),
+    colourInfo.get('end'),
+  ]).mode('lab').colors(categoryInfo.count())
 
+  return Immutable.Map(categoryInfo.keySeq().zip(chromaColours))
+
+}
+
+window.cc = CategoryComputations
 module.exports = CategoryComputations

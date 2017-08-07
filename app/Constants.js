@@ -202,7 +202,76 @@ const Constants = Immutable.fromJS({
       '1,000 m³ to 1,000,000 m³',
       'More than 1,000,000 m³',
     ],
-  }
+  },
+
+
+  columnBaseColors: {
+    'incidentTypes': {
+      start: '#1A548E',
+      middle: '#E66CE2',
+      end: '#FFAEAB',
+    },
+    'reportedDate': {
+      start: '#D6106E',
+      middle: '#E66F45',
+      end: '#FCFF96',
+    },
+    'company': {
+      start: '#64347F',
+      middle: '#E6A1C9',
+      end: '#FFF9E6',
+    },
+    'status': {
+      start: '#29836F',
+      middle: '#73ADE6',
+      end: '#E6E0FF',
+    },
+    'province': {
+      start: '#870E4A',
+      middle: '#E6D65E',
+      end: '#DCFF82',
+    },
+    'substance': {
+      start: '#951379',
+      middle: '#E66364',
+      end: '#FFE0A3',
+    },
+    'releaseType': {
+      start: '#63BCE3',
+      middle: '#D69BE7',
+      end: '#FFE0E7',
+    },
+    'whatHappened': {
+      start: '#194613',
+      middle: '#86D0E6',
+      end: '#D4EFFF',
+    },
+    'whyItHappened': {
+      start: '#F56A39',
+      middle: '#E6E06C',
+      end: '#ABFFAC',
+    },
+    'pipelinePhase': {
+      start: '#F8B51C',
+      middle: '#78E690',
+      end: '#A8EAFF',
+    },
+    'volumeCategory': {
+      start: '#4E2F2C',
+      middle: '#E6C56A',
+      end: '#FBFFAB',
+    },
+    'substanceCategory': {
+      start: '#84B551',
+      middle: '#7CE6DF',
+      end: '#C7E9FF',
+    },
+    'pipelineSystemComponentsInvolved': {
+      start: '#E42236',
+      middle: '#E6A761',
+      end: '#FFFFA9',
+    },
+  },
 
 
 })
