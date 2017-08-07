@@ -19,6 +19,14 @@ class Workspace extends React.Component {
   }
 
   render() {
+
+    // Many of the downstream computations require that the data be loaded
+    // Bail out here if it isn't
+    // TODO: show a loading screen of some sort?
+    if (this.props.data.count() === 0 || this.props.categories.count() === 0) {
+      return <svg/>
+    }
+
     return  <svg className="Workspace" width={this.props.viewport.get('x')}
       height={this.props.viewport.get('y')}>
 
@@ -35,6 +43,8 @@ const mapStateToProps = state => {
   return {
     viewport: state.viewport,
     columns: state.columns,
+    data: state.data,
+    categories: state.categories,
   }
 }
 

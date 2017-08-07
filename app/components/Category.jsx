@@ -1,30 +1,20 @@
 const React = require('react')
-const ReactRedux = require('react-redux')
-
-// const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 
 class Category extends React.Component {
 
   render() {
 
-    return <g></g>
-  }
-  // <rect
-  //   x={ WorkspaceComputations.sidebarX(this.props.columns, this.props.viewport) }
-  //   y={ WorkspaceComputations.topBarHeight() }
-  //   width={ WorkspaceComputations.sidebarWidth(this.props.columns) }
-  //   height={ WorkspaceComputations.columnHeight(this.props.viewport) }
-  //   fill='#DDDDFF'
-  // />
-}
+    const transformString = `translate(${this.props.x}, ${this.props.y})`
 
-const mapStateToProps = state => {
-  return {
-    viewport: state.viewport,
-    columns: state.columns,
+    return <g transform={transformString}>
+      <rect
+        width={this.props.width}
+        height={this.props.height}
+        fill={this.props.colour}
+      />
+    </g>
   }
 }
 
-
-module.exports = ReactRedux.connect(mapStateToProps)(Category)
+module.exports = Category

@@ -3,7 +3,7 @@ const Immutable = require('immutable')
 // NB: The reportedDate objects contained in this dataset are not immutable,
 // but are Moment date objects.
 
-const DataReducer = (state = {}, action) => {
+const DataReducer = (state = Immutable.List(), action) => {
 
   switch(action.type) {
   case 'DataLoaded':
