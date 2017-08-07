@@ -21,6 +21,11 @@ function parseYesNo (value, record) {
   }
 }
 
+// TODO: This function requires that there be no space after the comma sparating
+// values in a list of items. The export tool was including commas at last run,
+// ensure that the production export tool is altered to not do this.
+// At last writing, this affected the incident types, why it happened, and what 
+// happened columns. It didn't affect pipeline system components involved
 function parseList (value) {
   if (value === '') {
     // Calling string.split on an empty string returns an array containing an
@@ -30,6 +35,34 @@ function parseList (value) {
   else {
     return value.split(',')
   }
+}
+
+function volumeCategory(record, volumeString) {
+
+  if (volumeString === 'Not Applicable' || volumeString === 'Not Provided') {
+    return volumeString
+  }
+
+  const volume = parseFloat(volumeString)
+  
+  if (isNaN(volume) || volume < 0) {
+    console.warn('Bad numeric volume for incident record', record)
+    return 'Not Provided'
+  }
+
+  if (volume < 1) {
+    return 'Less Than 1 m³'
+  }
+  else if (volume < 1000) {
+    return '1 m³ to 1,000 m³'
+  } 
+  else if (volume < 1000000) {
+    return '1,000 m³ to 1,000,000 m³'
+  }
+  else {
+    return 'More than 1,000,000 m³'
+  }
+
 }
 
 
@@ -51,6 +84,7 @@ function csvColumnMapping (d) {
     affectsPipelineRightOfWay: parseYesNo(d['Affects Pipeline right-of-way'], d),
     affectsOffPipelineRightOfWay: parseYesNo(d['Affects off Pipeline right-of-way'], d),
     approximateVolumeReleased: d['Approximate Volume Released (m3)'],
+    volumeCategory: volumeCategory(d, d['Approximate Volume Released (m3)']),
     substance: d['Substance'],
     substanceCategory: d['SubstanceCategory'],
     releaseType: d['Release Type'],

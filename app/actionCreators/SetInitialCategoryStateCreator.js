@@ -25,7 +25,7 @@ function SetInitialCategoryStateCreator (data) {
     case 'pipelinePhase':
     case 'substanceCategory':
     case 'pipelineSystemComponentsInvolved':
-    case 'approximateVolumeReleased': {
+    case 'volumeCategory': {
       // Eleven of the columns have a fixed set of categories:
 
       let activeCategories = Immutable.Map()

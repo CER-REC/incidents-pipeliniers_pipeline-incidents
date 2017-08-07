@@ -59,7 +59,7 @@ const Constants = Immutable.fromJS({
     'whatHappened',
     'whyItHappened',
     'pipelinePhase',
-    'approximateVolumeReleased',
+    'volumeCategory',
     'substanceCategory',
     'pipelineSystemComponentsInvolved',
     'map',
@@ -194,7 +194,7 @@ const Constants = Immutable.fromJS({
       'Storage Facility',
       'Vehicle/Mobile Equipment',
     ],
-    'approximateVolumeReleased': [
+    'volumeCategory': [
       'Not Applicable',
       'Not Provided',
       'Less Than 1 m³',

@@ -12,7 +12,6 @@ const CategoriesReducer = (state = defaultState, action) => {
   switch(action.type) {
 
   case 'SetInitialCategoryState':
-    console.log('here', action.state)
     return action.state
   default:
     return state
