@@ -11,7 +11,8 @@ const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCateg
 function parseYesNo (value, record) {
   if (value === 'Yes' || value === 'yes') {
     return true
-  } else if (value === 'No' || (value === '')) {
+  } 
+  else if (value === 'No' || (value === '')) {
     // For older incidents, the 'is pipeline system component involved' field is
     // empty. We're interpret this to mean 'no'.
     return false
@@ -77,8 +78,8 @@ function csvColumnMapping (d) {
     province: d['Province'],
     company: d['Company'],
     status: d['Status'],
-    latitude: d['Latitude'],
-    longitude: d['Longitude'],
+    latitude: d['Latitude'], // TODO: parse float
+    longitude: d['Longitude'], // TODO: parse float
     affectsCompanyProperty: parseYesNo(d['Affects Company Property'], d),
     offCompanyProperty: parseYesNo(d['Off Company Property'], d),
     affectsPipelineRightOfWay: parseYesNo(d['Affects Pipeline right-of-way'], d),
@@ -88,7 +89,7 @@ function csvColumnMapping (d) {
     substance: d['Substance'],
     substanceCategory: d['SubstanceCategory'],
     releaseType: d['Release Type'],
-    year: d['Year'],
+    year: d['Year'], // TODO: parse with Moment? Unclear if needed.
     whatHappened: parseList(d['What Happened?']),
     whyItHappened: parseList(d['Why it Happened?']),
     pipelinePhase: d['Pipeline Phase'],
@@ -100,10 +101,6 @@ function csvColumnMapping (d) {
 
 
 const DataLoader = {
-
-  // TODO: constant ennumeration of as many of the column vocabularies as
-  // possible
-
 
   // Load the application data from a single remote CSV file
   loadDataCsv: function (store) {

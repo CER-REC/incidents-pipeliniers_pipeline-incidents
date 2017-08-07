@@ -1,19 +1,11 @@
-
-
-
-
-
-
 const CategoryComputations = {}
-
 
 CategoryComputations.itemsInColumn = function (data, categories, columnName) {
 
   return categories
     .get(columnName)
-    .entrySeq()
-    .filter(([categoryName, present]) => present === true)
-    .map( ([categoryName, present]) => {
+    .filter( present => present === true)
+    .map( (present, categoryName) => {
       return CategoryComputations.itemsInCategory(data, columnName, categoryName)
     } )
     .reduce( (sum, count) => {return sum + count}, 0)
@@ -32,12 +24,14 @@ CategoryComputations.itemsInCategory = function (data, columnName, categoryName)
   case 'whyItHappened':
     return CategoryComputations.itemsInMultipleCategory(data, columnName, categoryName)
 
+  case 'reportedDate':
+    return CategoryComputations.itemsInReportedDateCategory(data, categoryName)
+
   default: 
     return CategoryComputations.itemsInSimpleCategory(data, columnName, categoryName)
   }
 
 }
-
 
 CategoryComputations.itemsInSimpleCategory = function (data, columnName, categoryName) {
   
@@ -56,17 +50,13 @@ CategoryComputations.itemsInMultipleCategory = function (data, columnName, categ
 }
 
 
+CategoryComputations.itemsInReportedDateCategory = function (data, categoryName) {
+
+  return data.filter( item => {
+    return item.get('reportedDate').year() === categoryName
+  }).count()
+
+}
 
 
-
-
-
-
-
-
-
-
-
-
-window.cats = CategoryComputations
 module.exports = CategoryComputations

@@ -1,21 +1,10 @@
 const Constants = require('./Constants.js')
-
+const CategoryComputations = require('./CategoryComputations.js')
 
 const WorkspaceComputations = {}
 
 
-/*
-height
-  -column height, sensitive to viewport height
-  
-width
-  -column width. sensitive to number of columns
-  -column + path width, sensitive to 
 
-  -workspace width, sensitive to number of columns
-
-  -sidebar width, sensitive to number of sidebar columns
-*/
 
 // TODO: is this necessary?
 // columns: the columns state
@@ -134,4 +123,32 @@ WorkspaceComputations.workspaceWidth = function (columns, viewport) {
 }
 
 
+// Returns an immutable map of category names to category heights, for the given
+// column name.
+// viewport: the viewport state
+// data: the data state
+// categories: the category display state
+WorkspaceComputations.categoryHeights = function (viewport, data, categories, columnName) {
+
+  const columnHeight = WorkspaceComputations.columnHeight(viewport)
+
+  // Due to multiple selection categories (where an incident can appear in
+  // multiple categories) the number of items we have to display can be larger
+  // (or even smaller) than the number of incidents.
+  const itemsInColumn = CategoryComputations.itemsInColumn(data, categories, columnName)
+
+  const heightPerItem = columnHeight / itemsInColumn
+
+  return categories.get(columnName)
+    .filter( (present) => present === true)
+    .map( (present, categoryName) => {
+      const items = CategoryComputations.itemsInCategory(data, columnName, categoryName)
+      return items * heightPerItem
+    })
+    .filter( (height) => height > 0)
+
+
+}
+
+window.wc = WorkspaceComputations
 module.exports = WorkspaceComputations
