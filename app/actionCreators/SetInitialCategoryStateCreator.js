@@ -28,7 +28,7 @@ function SetInitialCategoryStateCreator (data) {
     case 'volumeCategory': {
       // Eleven of the columns have a fixed set of categories:
 
-      let activeCategories = Immutable.Map()
+      let activeCategories = Immutable.OrderedMap()
 
       Constants.getIn(['categoryNames', columnName]).forEach( categoryName => {
         activeCategories = activeCategories.set(categoryName, true)
@@ -49,7 +49,7 @@ function SetInitialCategoryStateCreator (data) {
       const uniqueCompanyNames = _.uniq(companyNames)
       // TODO: Need to sort this?
 
-      let activeCategories = Immutable.Map()
+      let activeCategories = Immutable.OrderedMap()
 
       for(const companyName of uniqueCompanyNames) {
         activeCategories = activeCategories.set(companyName, true)
@@ -66,10 +66,9 @@ function SetInitialCategoryStateCreator (data) {
         return incident.get('reportedDate').year()
       }).toArray()
 
-      const uniqueReportedYears = _.uniq(reportedYears)
-      // TODO: Need to sort this?
+      const uniqueReportedYears = _.uniq(reportedYears).sort().reverse()
 
-      let activeCategories = Immutable.Map()
+      let activeCategories = Immutable.OrderedMap()
 
       for(const year of uniqueReportedYears) {
         activeCategories = activeCategories.set(year, true)

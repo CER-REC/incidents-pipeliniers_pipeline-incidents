@@ -16,7 +16,7 @@ class Workspace extends React.Component {
   columns() {
     return this.props.columns.map( (columnName, i) => {
       if (columnName === 'map') {
-        return <MapColumn index={i} />
+        return <MapColumn key={columnName} index={i} />
       }
       else {
         return <Column columnName={columnName} key={columnName} index={i} />
