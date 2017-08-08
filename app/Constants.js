@@ -6,6 +6,8 @@ const Constants = Immutable.fromJS({
   leftOuterMargin: 5,
   topOuterMargin: 5,
   bottomOuterMargin: 5,
+  showHideTopMargin: 100,
+  showHideLeftMargin: 5,
 
   topBar: {
     homeIconWidth: 18,
@@ -23,6 +25,11 @@ const Constants = Immutable.fromJS({
   //from top to heading: 13;
   //leading: 19;
   //emptyCategoryHeight:16;
+
+  showHide: {
+    showHideIconHeight: 15,
+    showHideIconWidth: 15,
+  },
 
   pinColumn: {
     horizontalMargins: 11, // both left and right
