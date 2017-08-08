@@ -132,7 +132,7 @@ const Constants = Immutable.fromJS({
       'Potassium Hydroxide (caustic solution)',
       'Produced Water',
       'Propane',
-      'Pulp Slurry',
+      'Pulp slurry',
       'Sulphur',
       'Sulphur Dioxide',
       'Waste Oil',
@@ -272,6 +272,8 @@ const Constants = Immutable.fromJS({
       end: '#FFFFA9',
     },
   },
+
+  emptyCategoryHeight: 20, // px
 
 
 })

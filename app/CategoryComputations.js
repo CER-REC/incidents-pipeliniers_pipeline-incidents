@@ -85,5 +85,70 @@ CategoryComputations.coloursForColumn = function (categories, columnName) {
 
 }
 
+// Computes the amount of height needed for empty categories, across the enire
+// visualization
+
+// TODO: What do we do if there is a huge number of empty categories (like for
+// companies) and the height takes too much of the visualization space?
+
+// columns: the list of columns on display, from the store
+// data: the incident data from the store
+CategoryComputations.emptyCategoryHeight = function(columns, data) {
+
+  // Calculate how much height is needed for each column, the amount needed
+  // overall is the maximum among those heights.
+  return columns.map( columnName => {
+    return CategoryComputations.emptyCategoryHeightForColumn(columnName, data)
+  }).reduce( (max, height) => {return Math.max(max, height)}, 0)
+
+}
+
+
+CategoryComputations.emptyCategoryHeightForColumn = function(columnName, data) {
+
+  switch(columnName) {
+
+  case 'reportedDate':
+  case 'company':
+  case 'status':
+  case 'province':
+  case 'substance':
+  case 'releaseType':
+  case 'pipelinePhase':
+  case 'volumeCategory':
+  case 'substanceCategory':
+
+
+
+  case 'incidentTypes':
+  case 'whatHappened':
+  case 'whyItHappened':
+  case 'pipelineSystemComponentsInvolved':
+
+
+
+  case 'map':
+    // No categories for map, so it's always zero
+    return 0
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 window.cc = CategoryComputations
 module.exports = CategoryComputations
