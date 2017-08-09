@@ -12,7 +12,6 @@ const DataLoader = require('./DataLoader.js')
 // Uncomment for debugging only.
 window.store = store
 window._ = require('lodash')
-require('./IncidentComputations.js')
 
 // TODO: is this the best place for this?
 DataLoader.loadDataCsv(store)

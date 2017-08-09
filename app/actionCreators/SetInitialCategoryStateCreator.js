@@ -80,6 +80,7 @@ function SetInitialCategoryStateCreator (data) {
     }
     case 'map': 
       // Uniquely, the map has no categories
+      state = state.set('map', Immutable.Map())
       break
     }
 

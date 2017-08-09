@@ -2,6 +2,7 @@ const Chroma = require('chroma-js')
 const Immutable = require('immutable')
 
 const Constants = require('./Constants.js')
+const IncidentComputations = require('./IncidentComputations.js')
 
 const CategoryComputations = {}
 
@@ -93,43 +94,106 @@ CategoryComputations.coloursForColumn = function (categories, columnName) {
 
 // columns: the list of columns on display, from the store
 // data: the incident data from the store
-CategoryComputations.emptyCategoryHeight = function(columns, data) {
+CategoryComputations.emptyCategoryHeight = function(data, columns, categories) {
 
   // Calculate how much height is needed for each column, the amount needed
   // overall is the maximum among those heights.
   return columns.map( columnName => {
-    return CategoryComputations.emptyCategoryHeightForColumn(columnName, data)
-  }).reduce( (max, height) => {return Math.max(max, height)}, 0)
+    return CategoryComputations.emptyCategoriesForColumn(data, columns, categories, columnName)
+  }).reduce( (max, categoryList) => {
+    return Math.max(max, categoryList.count() * Constants.get('emptyCategoryHeight'))
+  }, 0)
 
 }
 
 
-CategoryComputations.emptyCategoryHeightForColumn = function(columnName, data) {
+
+// For the given column name, return a list of categories which are both visible
+// and empty (based on the categories which have been filtered out by the user).
+
+// data: the incident data from the store
+// columns: the list of columns on display, from the store
+// categories: the category display data from the store
+CategoryComputations.emptyCategoriesForColumn = function(data, columns, categories, columnName) {
+
+  // TODO: so, we're filtering the data for every column? DEFINITELY need to
+  // consider the performance implications of doing this ... 
+  const filteredData = IncidentComputations.filteredIncidents(data, columns, categories)
+
+  // TODO: We will only count categories which are visible as being empty
+  // Is this a design problem? if a category is empty, and hidden, is it
+  // possible to get the category back on display? 
+  // If the 'reset' button is added to the show/hide box for the category, then
+  // this will need to be revisited, as it may never be possible to access that
+  // box unless the category is shown somewhere!
+  const visibleCategoryInfo = categories.get(columnName).filter( present => {
+    return present === true
+  })
 
   switch(columnName) {
 
-  case 'reportedDate':
-  case 'company':
+  case 'company': 
   case 'status':
   case 'province':
   case 'substance':
   case 'releaseType':
   case 'pipelinePhase':
   case 'volumeCategory':
-  case 'substanceCategory':
+  case 'substanceCategory': {
+    return visibleCategoryInfo.filter( (present, categoryName) => {
+      const result = filteredData.find( item => {
+        return item.get(columnName) === categoryName
+      })
 
+      // If we do not find a result, the category is empty, return true
+      // If we find a result, the category is not empty, return false
+      return typeof result === 'undefined'
 
+    // Transform the map of {categoryName: present} to just a sequence of
+    // empty category names
+    }).keySeq()
+
+  }
+
+  case 'reportedDate': {
+    return visibleCategoryInfo.filter( (present, categoryName) => {
+      const result = filteredData.find( item => {
+        return item.get('reportedDate').year() === categoryName
+      })
+
+      // If we do not find a result, the category is empty, return true
+      // If we find a result, the category is not empty, return false
+      return typeof result === 'undefined'
+
+    // Transform the map of {categoryName: present} to just a sequence of
+    // empty category names
+    }).keySeq()
+
+  }
 
   case 'incidentTypes':
   case 'whatHappened':
   case 'whyItHappened':
-  case 'pipelineSystemComponentsInvolved':
+  case 'pipelineSystemComponentsInvolved': {
+    return visibleCategoryInfo.filter( (present, categoryName) => {
+      const result = filteredData.find( item => {
+        return item.get(columnName).contains(categoryName)
+      })
 
+      // If we do not find a result, the category is empty, return true
+      // If we find a result, the category is not empty, return false
+      return typeof result === 'undefined'
+
+    // Transform the map of {categoryName: present} to just a sequence of
+    // empty category names
+    }).keySeq()
+
+  }
 
 
   case 'map':
-    // No categories for map, so it's always zero
-    return 0
+    // No categories for map, so it's always empty
+    return Immutable.List()
 
   }
 
