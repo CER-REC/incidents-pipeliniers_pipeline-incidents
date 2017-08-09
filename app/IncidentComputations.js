@@ -42,8 +42,8 @@ IncidentComputations.filteredIncidents = function (data, columns, categories) {
         return categoryInfo.get(item.get('volumeCategory')) === true
       case 'substanceCategory':
         return categoryInfo.get(item.get('substanceCategory')) === true
-      case 'reportedDate':
-        return categoryInfo.get(item.get('reportedDate').year()) === true
+      case 'year':
+        return categoryInfo.get(item.get('year')) === true
 
 
       // The multiple category columns are more complex

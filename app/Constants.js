@@ -50,7 +50,7 @@ const Constants = Immutable.fromJS({
 
   columnNames: [
     'incidentTypes',
-    'reportedDate',
+    'year',
     'company',
     'status',
     'province',
@@ -72,7 +72,7 @@ const Constants = Immutable.fromJS({
 
 
   // Some columns do not have fixed categories, so they don't appear here
-  // including: reportedDate, company
+  // including: year, company
   // NB also: map has no categories at all
 
   // TODO: validate more of these against the source data... 
@@ -211,7 +211,7 @@ const Constants = Immutable.fromJS({
       middle: '#E66CE2',
       end: '#FFAEAB',
     },
-    'reportedDate': {
+    'year': {
       start: '#D6106E',
       middle: '#E66F45',
       end: '#FCFF96',

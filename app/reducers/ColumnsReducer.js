@@ -7,7 +7,7 @@ const defaults = Immutable.fromJS([
   // 'province',
 
   'incidentTypes',
-  'reportedDate',
+  'year',
   'company',
   'status',
   'province',

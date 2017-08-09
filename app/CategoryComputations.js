@@ -33,9 +33,6 @@ CategoryComputations.itemsInCategory = function (data, columnName, categoryName)
   case 'whyItHappened':
     return CategoryComputations.itemsInMultipleCategory(data, columnName, categoryName)
 
-  case 'reportedDate':
-    return CategoryComputations.itemsInReportedDateCategory(data, categoryName)
-
   default: 
     return CategoryComputations.itemsInSimpleCategory(data, columnName, categoryName)
   }
@@ -60,15 +57,6 @@ CategoryComputations.itemsInMultipleCategory = function (data, columnName, categ
 
 }
 
-
-// data: the incident data from the store
-CategoryComputations.itemsInReportedDateCategory = function (data, categoryName) {
-
-  return data.filter( item => {
-    return item.get('reportedDate').year() === categoryName
-  }).count()
-
-}
 
 // Returns a map of category names to Chroma colours
 // categories: the category display data from the store
@@ -139,26 +127,11 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
   case 'releaseType':
   case 'pipelinePhase':
   case 'volumeCategory':
+  case 'year': 
   case 'substanceCategory': {
     return visibleCategoryInfo.filter( (present, categoryName) => {
       const result = filteredData.find( item => {
         return item.get(columnName) === categoryName
-      })
-
-      // If we do not find a result, the category is empty, return true
-      // If we find a result, the category is not empty, return false
-      return typeof result === 'undefined'
-
-    // Transform the map of {categoryName: present} to just a sequence of
-    // empty category names
-    }).keySeq()
-
-  }
-
-  case 'reportedDate': {
-    return visibleCategoryInfo.filter( (present, categoryName) => {
-      const result = filteredData.find( item => {
-        return item.get('reportedDate').year() === categoryName
       })
 
       // If we do not find a result, the category is empty, return true

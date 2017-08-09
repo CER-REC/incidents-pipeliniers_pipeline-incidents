@@ -59,11 +59,11 @@ function SetInitialCategoryStateCreator (data) {
 
       break
     }
-    case 'reportedDate': {
+    case 'year': {
       // Each year appearing in the dataset will be a category
 
       const reportedYears = data.map( incident => {
-        return incident.get('reportedDate').year()
+        return incident.get('year')
       }).toArray()
 
       const uniqueReportedYears = _.uniq(reportedYears).sort().reverse()
@@ -74,7 +74,7 @@ function SetInitialCategoryStateCreator (data) {
         activeCategories = activeCategories.set(year, true)
       }
 
-      state = state.set('reportedDate', activeCategories)
+      state = state.set('year', activeCategories)
 
       break
     }
