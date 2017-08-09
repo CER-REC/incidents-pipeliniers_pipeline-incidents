@@ -10,6 +10,9 @@ const TranslationTable = require('../TranslationTable.js')
 
 require('./Column.scss')
 
+// TODO: Get this from the URL query? Cookies?
+const language = 'en'
+
 class Column extends React.Component {
 
   // Specifically: non-empty AND visible categories
@@ -24,7 +27,7 @@ class Column extends React.Component {
       this.props.columnName) 
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
-    let categoryY = WorkspaceComputations.topBarHeight() + 42
+    let categoryY = WorkspaceComputations.topBarHeight() + Constants.get('columnHeadingHeight')
 
     return this.props.categories.get(this.props.columnName)
       .filter( (visible) => visible === true)
@@ -48,6 +51,13 @@ class Column extends React.Component {
 
   barHeading() {
     let currentY = WorkspaceComputations.topBarHeight()
+
+    // Check if the subheading is visible. If it is not, 
+    // add Constants.get('columnSubheadingHeight') to currentY.
+    if(this.props.filters.get(this.props.columnName) === undefined) {
+      currentY += Constants.get('columnSubheadingHeight')
+    }
+
     const currentX = WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)
     return  this.splitHeading().map((word) => {
       currentY += Constants.get('columnHeadingLineOffset')
@@ -60,7 +70,13 @@ class Column extends React.Component {
   }
 
   barSubHeading() {
-    let currentY = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset')
+    // Only render the sub-heading if filters are on.
+    if(this.props.filters.get(this.props.columnName) === undefined) {
+      return
+    }
+
+    const currentY = WorkspaceComputations.topBarHeight() + 
+                     Constants.get('columnSubheadingOffset')
     const currentX = WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)
     return <tspan className='barsSubHeading' 
       x={currentX} 
@@ -81,7 +97,7 @@ class Column extends React.Component {
   }
 
   splitHeading() {
-    const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, 'en'])
+    const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, language])
     const splitIndex = columnHeading.lastIndexOf(' ')
     const topLine = columnHeading.substring(0, splitIndex)
     const bottomLine = columnHeading.substring(splitIndex+1)
@@ -95,6 +111,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     data: state.data,
+    filters: state.filters
   }
 }
 

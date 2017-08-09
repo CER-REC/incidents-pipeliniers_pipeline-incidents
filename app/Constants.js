@@ -54,6 +54,7 @@ const Constants = Immutable.fromJS({
 
   columnHeadingHeight: 42,
   columnHeadingLineOffset: 15,
+  columnSubheadingHeight: 10,
   columnSubheadingOffset: 40,
 
   socialBar: {
