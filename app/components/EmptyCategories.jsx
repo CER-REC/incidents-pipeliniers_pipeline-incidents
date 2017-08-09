@@ -15,24 +15,37 @@ class EmptyCategories extends React.Component {
   }
 
   showImage() {
-    const height = Constants.getIn(['showHide', 'showHideIconHeight'])
-    const width = Constants.getIn(['showHide', 'showHideIconWidth'])
+    const height = Constants.getIn(['showHideEmptyCategories', 'showHideIconHeight'])
+    const width = Constants.getIn(['showHideEmptyCategories', 'showHideIconWidth'])
+
+    let transformShowImage = `translate(${Constants.getIn(['showHideEmptyCategories','xShowImage'])},${Constants.getIn(['showHideEmptyCategories','yShowImage'])})`
+
     if (this.props.showEmptyCategories) {
-      return <image height = {height} width = {width} transform = {'translate(10,997)'} xlinkHref='images/button-down.svg'></image>
+      return <image 
+        height = {height} 
+        width = {width} 
+        transform = {transformShowImage} 
+        xlinkHref='images/button-down.svg'></image>
     }
     else {
-      return <image height = {height} width = {width} transform = {'translate(10,997)'} xlinkHref='images/button-up.svg'></image>
+      return <image 
+        height = {height} 
+        width = {width} 
+        transform = {transformShowImage} 
+        xlinkHref='images/button-up.svg'></image>
     }
   }
   showText() {
+    const xShowText = Constants.getIn(['showHideEmptyCategories', 'xShowText'])
+    const yShowText = Constants.getIn(['showHideEmptyCategories', 'yShowText'])
     if (this.props.showEmptyCategories) {
-      return <text x="35" y="1008" className="emptyCategories">
+      return <text x={xShowText} y={yShowText} className="emptyCategories">
         <tspan>hide empty categories</tspan>
       </text>
 
     }
     else {
-      return <text x="35" y="1008" className="emptyCategories">
+      return <text x={xShowText} y={yShowText} className="emptyCategories">
         <tspan>show empty categories</tspan>
       </text>
     }
@@ -47,13 +60,6 @@ class EmptyCategories extends React.Component {
     )
   }
 }
-
-/**
- <text x="35" y="1008" className="emptyCategories">
-        <tspan onClick={this.props.onClick}>show empty categories</tspan>
-        {this.props.showEmptyCategories && <Child />}
-      </text>
-      **/
 
 const mapStateToProps = state => {
   return {
