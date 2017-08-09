@@ -1,6 +1,9 @@
 
 const React = require('react')
 const ReactRedux = require('react-redux')
+const Header = require('./header.jsx')
+const EmptyCategories = require('./EmptyCategories.jsx')
+const SocialBar = require('./SocialBar.jsx')
 
 require('./Workspace.scss')
 
@@ -8,7 +11,6 @@ const IncidentBar = require('./IncidentBar.jsx')
 const Column = require('./Column.jsx')
 const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
-const SocialBar = require('./SocialBar.jsx')
 
 class Workspace extends React.Component {
 
@@ -35,7 +37,9 @@ class Workspace extends React.Component {
 
     return  <svg className="Workspace" width={this.props.viewport.get('x')}
       height={this.props.viewport.get('y')}>
+      <Header />
 
+      <EmptyCategories />
       <IncidentBar/>
       {this.columns()}
       <SideBar/>
