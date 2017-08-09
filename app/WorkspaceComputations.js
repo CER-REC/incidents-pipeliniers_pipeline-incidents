@@ -128,12 +128,12 @@ WorkspaceComputations.workspaceWidth = function (columns, viewport) {
 // viewport: the viewport state
 // data: the data state
 // categories: the category display state
-WorkspaceComputations.categoryHeights = function (viewport, data, categories, columnName) {
+WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport, data, columns, categories, columnName) {
 
   // TODO: for now, we use the entire column height.
   // Other column elements (and empty categories) will eventually need to cut
   // into this height
-  const columnHeight = WorkspaceComputations.columnHeight(viewport)
+  const columnHeight = WorkspaceComputations.columnNormalCategoryHeight(showEmptyCategories, viewport, data, columns, categories)
 
   // Due to multiple selection categories (where an incident can appear in
   // multiple categories) the number of items we have to display can be larger
@@ -152,5 +152,88 @@ WorkspaceComputations.categoryHeights = function (viewport, data, categories, co
 
 
 }
+
+
+// Returns the height that each empty category should have.
+
+WorkspaceComputations.emptyCategoryHeight = function(showEmptyCategories, viewport, data, columns, categories) {
+
+  const columnHeight = WorkspaceComputations.columnHeight(viewport)
+
+  const desiredEmptyCategoryHeight = CategoryComputations.desiredEmptyCategoryHeight(data, columns, categories)
+
+
+  if (desiredEmptyCategoryHeight > columnHeight / 2) {
+    const maxEmptyCategories = CategoryComputations.maxEmptyCategories(data, columns, categories)
+    return (columnHeight / 2) / maxEmptyCategories
+  }
+  else {
+    return Constants.get('emptyCategoryHeight')
+  }
+
+
+
+}
+
+
+
+// Computes the height of the 'baseline', the line above which regular
+// categories sit, and below which empty categories sit.
+
+WorkspaceComputations.baselineHeight = function (showEmptyCategories, viewport, data, columns, categories) {
+
+  // TODO: currently we're using the entire column height. we should actually 
+  // be using the portion of the column height available to categories, less
+  // the heading and drag handle, etc.
+  const columnHeight = WorkspaceComputations.columnHeight(viewport)
+
+  if (showEmptyCategories) {
+    // When empty categories are shown, the baseline is determined by how many 
+    // empty categories we have to show, up to a maximum of half of the 
+    // workspace height
+    const desiredEmptyCategoryHeight = CategoryComputations.desiredEmptyCategoryHeight(data, columns, categories)
+
+    if (desiredEmptyCategoryHeight > columnHeight / 2) {
+      return columnHeight / 2 + WorkspaceComputations.topBarHeight()
+    }
+    else {
+      return WorkspaceComputations.topBarHeight() + columnHeight - desiredEmptyCategoryHeight
+    }
+
+  }
+  else {
+    // When empty categories are not shown, the baseline lies next to the bottom
+    // margin of the workspace and no space is set aside for empty categories.
+    return columnHeight
+  }
+
+}
+
+
+
+// The full amount of column space set aside for normal categories
+
+WorkspaceComputations.columnNormalCategoryHeight = function (showEmptyCategories, viewport, data, columns, categories) {
+
+  // TODO: currently, we're just using the top bar height, but this should
+  // possibly account for the height of the heading? 
+  return WorkspaceComputations.baselineHeight(showEmptyCategories, viewport, data, columns, categories) - WorkspaceComputations.topBarHeight()
+
+}
+
+// The full amount of column space set aside for empty categories
+
+WorkspaceComputations.columnEmptyCategoryHeight = function (showEmptyCategories, viewport, data, columns, categories) {
+
+  // TODO: currently, we're using the bottom margin, but this doesn't take into
+  // account the bottom drag handle
+  return WorkspaceComputations.baselineHeight(showEmptyCategories, viewport, data, columns, categories) - Constants.get('bottomOuterMargin')
+
+}
+
+
+
+
+
 
 module.exports = WorkspaceComputations

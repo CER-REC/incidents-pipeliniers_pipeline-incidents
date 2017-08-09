@@ -16,8 +16,13 @@ class Column extends React.Component {
       this.props.categories,
       this.props.columnName)
     const categoryHeights = WorkspaceComputations.categoryHeights(
+      // TODO: replace me when Charlie merges
+      // this.props.showEmptyCategories
+      true,
+
       this.props.viewport,
-      this.props.data, 
+      this.props.data,
+      this.props.columns,
       this.props.categories, 
       this.props.columnName) 
 
@@ -44,9 +49,74 @@ class Column extends React.Component {
 
   }
 
+  emptyCategories() {
+    
+    // TODO: replace me when Charlie merges
+    // if (!this.props.showEmptyCategories) {
+    if (false) {
+      // If not showing empty categories, bail out
+      return null
+    }
+
+
+    const categoryColours = CategoryComputations.coloursForColumn(
+      this.props.categories,
+      this.props.columnName)
+
+    const baselineHeight = WorkspaceComputations.baselineHeight(
+      // TODO: replace me when Charlie merges
+      // this.props.showEmptyCategories,
+      true, 
+
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    const emptyCategoryHeight = WorkspaceComputations.emptyCategoryHeight(
+      // TODO: replace me when Charlie merges
+      // this.props.showEmptyCategories,
+      true, 
+
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    // TODO: I'm not very happy computing the vertical layout this way, refactor!
+    let categoryY = baselineHeight
+
+    return CategoryComputations.emptyCategoriesForColumn(
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.columnName
+    ).map( categoryName => {
+      const currentY = categoryY
+      categoryY += emptyCategoryHeight
+
+      return <Category
+        categoryName={categoryName}
+        key={categoryName}
+        colour={categoryColours.get(categoryName)} 
+        height={emptyCategoryHeight}
+        width={ WorkspaceComputations.columnWidth(this.props.columns) }
+        x={WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)}
+        y={currentY}
+      />
+
+    }).toArray()
+
+
+
+  }
+
+
+
   render() {
     return <g>
       { this.nonEmptyCategories() }
+      { this.emptyCategories() }
       <ColumnPaths index={this.props.index}/>
     </g>
   }
@@ -68,6 +138,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     data: state.data,
+    // showEmptyCategories: state.showEmptyCategories,
   }
 }
 

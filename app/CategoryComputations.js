@@ -74,7 +74,7 @@ CategoryComputations.coloursForColumn = function (categories, columnName) {
 
 }
 
-// Computes the amount of height needed for empty categories, across the enire
+// Computes the amount of height desired for empty categories, across the entire
 // visualization
 
 // TODO: What do we do if there is a huge number of empty categories (like for
@@ -82,18 +82,27 @@ CategoryComputations.coloursForColumn = function (categories, columnName) {
 
 // columns: the list of columns on display, from the store
 // data: the incident data from the store
-CategoryComputations.emptyCategoryHeight = function(data, columns, categories) {
+CategoryComputations.desiredEmptyCategoryHeight = function (data, columns, categories) {
 
   // Calculate how much height is needed for each column, the amount needed
   // overall is the maximum among those heights.
-  return columns.map( columnName => {
-    return CategoryComputations.emptyCategoriesForColumn(data, columns, categories, columnName)
-  }).reduce( (max, categoryList) => {
-    return Math.max(max, categoryList.count() * Constants.get('emptyCategoryHeight'))
-  }, 0)
+
+  return CategoryComputations.maxEmptyCategories(data, columns, categories) *
+    Constants.get('emptyCategoryHeight')
 
 }
 
+
+// Return the maximum number of empty categories, across all displayed columns
+CategoryComputations.maxEmptyCategories = function (data, columns, categories) {
+
+  return columns.map( columnName => {
+    return CategoryComputations.emptyCategoriesForColumn(data, columns, categories, columnName)
+  }).reduce( (max, categoryList) => {
+    return Math.max(max, categoryList.count())
+  }, 0)
+
+}
 
 
 // For the given column name, return a list of categories which are both visible
