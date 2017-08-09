@@ -38,11 +38,12 @@ class Workspace extends React.Component {
     return  <svg className="Workspace" width={this.props.viewport.get('x')}
       height={this.props.viewport.get('y')}>
       <Header />
-
-      <EmptyCategories />
       <IncidentBar/>
+      
+      
       {this.columns()}
       <SideBar/>
+      <EmptyCategories />
       <SocialBar/>
 
     </svg>

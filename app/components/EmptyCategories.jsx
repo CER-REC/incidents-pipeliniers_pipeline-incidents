@@ -18,7 +18,7 @@ class EmptyCategories extends React.Component {
     const height = Constants.getIn(['showHideEmptyCategories', 'showHideIconHeight'])
     const width = Constants.getIn(['showHideEmptyCategories', 'showHideIconWidth'])
 
-    let transformShowImage = `translate(${Constants.getIn(['showHideEmptyCategories','xShowImage'])},${Constants.getIn(['showHideEmptyCategories','yShowImage'])})`
+    const transformShowImage = `translate(${Constants.getIn(['showHideEmptyCategories','xShowImage'])},${Constants.getIn(['showHideEmptyCategories','yShowImage'])})`
 
     if (this.props.showEmptyCategories) {
       return <image 
@@ -46,7 +46,7 @@ class EmptyCategories extends React.Component {
     }
     else {
       return <text x={xShowText} y={yShowText} className="emptyCategories">
-        <tspan>show empty categories</tspan>
+        <tspan>see empty categories</tspan>
       </text>
     }
   }

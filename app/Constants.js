@@ -31,10 +31,10 @@ const Constants = Immutable.fromJS({
   },
 
   showHideEmptyCategories: {
-    xShowImage: 10,
-    yShowImage: 997,
-    xShowText: 35,
-    yShowText: 1008,
+    xShowImage: -5,
+    yShowImage: 350,
+    xShowText: 15,
+    yShowText: 360,
     showHideIconHeight: 15,
     showHideIconWidth: 15,
   },
