@@ -52,6 +52,10 @@ const Constants = Immutable.fromJS({
   columnNarrowWidth: 24,
   minimumColumnPathWidth: 80,
 
+  columnHeadingHeight: 42,
+  columnHeadingLineOffset: 15,
+  columnSubheadingOffset: 40,
+
   socialBar: {
     width: 23, 
     height: 115,
@@ -217,7 +221,6 @@ const Constants = Immutable.fromJS({
       'More than 1,000,000 m³',
     ],
   },
-
 
   columnBaseColors: {
     'incidentTypes': {

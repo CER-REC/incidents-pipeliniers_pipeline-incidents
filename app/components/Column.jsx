@@ -5,6 +5,8 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
 const Category = require('./Category.jsx')
+const Constants = require('../Constants.js')
+const TranslationTable = require('../TranslationTable.js')
 
 require('./Column.scss')
 
@@ -22,7 +24,7 @@ class Column extends React.Component {
       this.props.columnName) 
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
-    let categoryY = WorkspaceComputations.topBarHeight()
+    let categoryY = WorkspaceComputations.topBarHeight() + 42
 
     return this.props.categories.get(this.props.columnName)
       .filter( (visible) => visible === true)
@@ -44,23 +46,48 @@ class Column extends React.Component {
 
   }
 
+  barHeading() {
+    let currentY = WorkspaceComputations.topBarHeight()
+    const currentX = WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)
+    return  this.splitHeading().map((word) => {
+      currentY += Constants.get('columnHeadingLineOffset')
+      return <tspan className='barsHeading' 
+        x={currentX} 
+        y={currentY}>
+        {word}
+      </tspan>
+    })
+  }
+
+  barSubHeading() {
+    let currentY = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset')
+    const currentX = WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)
+    return <tspan className='barsSubHeading' 
+      x={currentX} 
+      y={currentY}>
+      578/1017 shown
+    </tspan>
+  }
+
   render() {
     return <g>
+      <text>
+        {this.barHeading()}
+        {this.barSubHeading()}
+      </text>
       { this.nonEmptyCategories() }
       <ColumnPaths index={this.props.index}/>
     </g>
   }
-}
 
-/*
-      <rect
-        x={ WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index) }
-        y={ WorkspaceComputations.topBarHeight() }
-        width={ WorkspaceComputations.columnWidth(this.props.columns) }
-        height={ WorkspaceComputations.columnHeight(this.props.viewport) }
-        fill='#FFDDFF'
-      />
-*/
+  splitHeading() {
+    const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, 'en'])
+    const splitIndex = columnHeading.lastIndexOf(' ')
+    const topLine = columnHeading.substring(0, splitIndex)
+    const bottomLine = columnHeading.substring(splitIndex+1)
+    return [topLine, bottomLine]
+  }
+}
 
 const mapStateToProps = state => {
   return {
