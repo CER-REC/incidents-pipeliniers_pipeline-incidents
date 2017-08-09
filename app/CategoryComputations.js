@@ -184,7 +184,66 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
 
 
 
+// For the columns which have multiple categories, an incident may have one
+// category that is hidden and another that is not.
+// In that case, each hidden category is called a 'related hidden category',
+// and these are not fully hidden: we show a reduced height box in its place.
 
+// This function returns a map of {categoryName: true} for each related hidden
+// category in the given column. 
+
+CategoryComputations.relatedHiddenCategories = function (data, columns, categories, columnName) {
+
+  switch(columnName) {
+
+  case 'year':
+  case 'company':
+  case 'status':
+  case 'province':
+  case 'substance':
+  case 'releaseType':
+  case 'pipelinePhase':
+  case 'volumeCategory':
+  case 'substanceCategory':
+  case 'map':
+    // These columns will never have related hidden categories, each incident is
+    // only in one category at a time
+    return Immutable.Map()
+
+  case 'incidentTypes':
+  case 'whatHappened':
+  case 'whyItHappened':
+  case 'pipelineSystemComponentsInvolved': {
+
+    const filteredData = IncidentComputations.filteredIncidents(data, columns, categories)
+
+    return categories.get(columnName)
+      // Only a category which is hidden can potentially be a related hidden
+      // category.
+      .filter( present => present === false )
+      .filter( (present, categoryName) => {
+
+        // Find an incident with the hidden category in the set of displayed
+        // incidents. If such an incident exists, we are a hidden related
+        // category
+
+        const foundItem = filteredData.find( item => {
+          return item.get(columnName).contains(categoryName)
+        })
+
+        return typeof foundItem !== 'undefined'
+
+      }).map ( () => {
+        // Kind of silly, but the mapped values are each false, makes more sense
+        // for them to be true
+        return true
+      })
+
+  }
+
+  }
+
+}
 
 
 
@@ -202,6 +261,5 @@ const MemoizedComputations = {}
 for (const name of Object.keys(CategoryComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(CategoryComputations[name])
 }
-
 
 module.exports = MemoizedComputations

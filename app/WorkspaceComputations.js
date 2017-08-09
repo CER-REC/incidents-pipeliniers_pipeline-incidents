@@ -152,7 +152,6 @@ WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport,
     })
     .filter( (height) => height > 0)
 
-
 }
 
 
@@ -172,8 +171,6 @@ WorkspaceComputations.emptyCategoryHeight = function(showEmptyCategories, viewpo
   else {
     return Constants.get('emptyCategoryHeight')
   }
-
-
 
 }
 
@@ -241,6 +238,5 @@ const MemoizedComputations = {}
 for (const name of Object.keys(WorkspaceComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(WorkspaceComputations[name])
 }
-
 
 module.exports = MemoizedComputations
