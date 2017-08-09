@@ -1,9 +1,7 @@
+const MemoizeImmutable = require('memoize-immutable')
 
 
 const IncidentComputations = {}
-
-
-
 
 
 
@@ -122,5 +120,10 @@ IncidentComputations.filteredIncidents = function (data, columns, categories) {
 
 
 
-window.ic = IncidentComputations
-module.exports = IncidentComputations
+const MemoizedComputations = {}
+
+for (const name of Object.keys(IncidentComputations)) {
+  MemoizedComputations[name] = MemoizeImmutable(IncidentComputations[name])
+}
+
+module.exports = MemoizedComputations

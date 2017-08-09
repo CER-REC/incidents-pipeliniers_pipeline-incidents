@@ -1,3 +1,5 @@
+const MemoizeImmutable = require('memoize-immutable')
+
 const Constants = require('./Constants.js')
 const CategoryComputations = require('./CategoryComputations.js')
 
@@ -234,6 +236,11 @@ WorkspaceComputations.columnEmptyCategoryHeight = function (showEmptyCategories,
 
 
 
+const MemoizedComputations = {}
+
+for (const name of Object.keys(WorkspaceComputations)) {
+  MemoizedComputations[name] = MemoizeImmutable(WorkspaceComputations[name])
+}
 
 
-module.exports = WorkspaceComputations
+module.exports = MemoizedComputations

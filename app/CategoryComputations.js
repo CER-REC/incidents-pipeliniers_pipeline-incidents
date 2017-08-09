@@ -1,5 +1,6 @@
 const Chroma = require('chroma-js')
 const Immutable = require('immutable')
+const MemoizeImmutable = require('memoize-immutable')
 
 const Constants = require('./Constants.js')
 const IncidentComputations = require('./IncidentComputations.js')
@@ -196,5 +197,11 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
 
 
 
-window.cc = CategoryComputations
-module.exports = CategoryComputations
+const MemoizedComputations = {}
+
+for (const name of Object.keys(CategoryComputations)) {
+  MemoizedComputations[name] = MemoizeImmutable(CategoryComputations[name])
+}
+
+
+module.exports = MemoizedComputations
