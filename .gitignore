@@ -2,3 +2,5 @@ node_modules/
 dist/
 npm-debug.log
 .DS_Store
+incident-visualization.sublime-workspace
+*.~lock*

@@ -28,7 +28,7 @@ class Header extends React.Component {
 			
         <text x={xHeading} y={yHeading} className="heading">Heading</text>
         <text x={xSubpop} y={ySubpop} className="subpop">subheading</text>				
-				
+
       </svg>
     </g>
     )
