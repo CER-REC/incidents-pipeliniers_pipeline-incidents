@@ -95,7 +95,8 @@ class Column extends React.Component {
       this.props.columns,
       this.props.categories,
       this.props.columnName
-    ).map( categoryName => {
+    ).map( (visible, categoryName) => {
+      // TODO: I think that we don't care whether an empty category is visible or not?
       const currentY = categoryY
       categoryY += emptyCategoryHeight
 

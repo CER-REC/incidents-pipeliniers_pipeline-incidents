@@ -106,7 +106,7 @@ CategoryComputations.maxEmptyCategories = function (data, columns, categories) {
 }
 
 
-// For the given column name, return a list of categories which are both visible
+// For the given column name, return a map of categories which are both visible
 // and empty (based on the categories which have been filtered out by the user).
 
 // data: the incident data from the store
@@ -148,9 +148,7 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
       // If we find a result, the category is not empty, return false
       return typeof result === 'undefined'
 
-    // Transform the map of {categoryName: visible} to just a sequence of
-    // empty category names
-    }).keySeq()
+    })
 
   }
 
@@ -167,16 +165,14 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
       // If we find a result, the category is not empty, return false
       return typeof result === 'undefined'
 
-    // Transform the map of {categoryName: visible} to just a sequence of
-    // empty category names
-    }).keySeq()
+    })
 
   }
 
 
   case 'map':
     // No categories for map, so it's always empty
-    return Immutable.List()
+    return Immutable.Map()
 
   }
 
@@ -253,11 +249,30 @@ CategoryComputations.relatedHiddenCategories = function (data, columns, categori
 
 CategoryComputations.displayedCategories = function (data, columns, categories, columnName) {
 
+  const emptyCategoriesForColumn = CategoryComputations.emptyCategoriesForColumn(data, columns, categories, columnName)
+
   const relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
 
-  return categories.get(columnName).map( (visible, categoryName) => {
-    return !!(visible || relatedHiddenCategories.get(categoryName))
-  }).filter( visible => visible === true )
+  // We need to accomplish several things here:
+  // - Columns which are empty should not be displayed
+  // - Columns which are empty but which are a related hidden category SHOULD be
+  //   displayed
+  // - Columns which are not visible should not be displayed
+
+  return categories.get(columnName)
+    .map( (visible, categoryName) => {
+      const isEmpty = typeof emptyCategoriesForColumn.get(categoryName) !== 'undefined'
+
+      if (isEmpty) {
+        const isRelatedHiddenCategory = relatedHiddenCategories.get(categoryName)
+        return isRelatedHiddenCategory
+      }
+      else {
+        return visible
+      }
+
+    })
+    .filter( visible => visible === true )
 
 }
 

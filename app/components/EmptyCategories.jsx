@@ -7,14 +7,8 @@ require('../styles/Common.scss')
 
 
 class EmptyCategories extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      childVisible: false
-    }
-  }
 
-showImage() {
+  showImage() {
     const height = Constants.getIn(['showHideEmptyCategories', 'showHideIconHeight'])
     const width = Constants.getIn(['showHideEmptyCategories', 'showHideIconWidth'])
 
