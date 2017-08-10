@@ -46,6 +46,7 @@ class SocialBar extends React.Component {
         x = {this.props.viewport.get('x') - (Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'iconSideMargin']))}
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'emailIconPadding'])}
         xlinkHref='images/email.svg'
+        className="socialBar"
         onClick = {emailClick()}></image>
       <image 
         height = {iconSize} 
@@ -53,6 +54,7 @@ class SocialBar extends React.Component {
         x = {this.props.viewport.get('x') - (Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'iconSideMargin']))}
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'linkedinIconPadding'])}
         xlinkHref='images/linkedin.svg'
+        className="socialBar"
         onClick = {linkedinClick()}></image>
       <image 
         height = {iconSize} 
@@ -60,6 +62,7 @@ class SocialBar extends React.Component {
         x = {this.props.viewport.get('x') - (Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'iconSideMargin']))}
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'twitterIconPadding'])}
         xlinkHref='images/twitter.svg'
+        className="socialBar"
         onClick = {twitterClick()}></image>
       <image 
         height = {iconSize} 
@@ -67,6 +70,7 @@ class SocialBar extends React.Component {
         x = {this.props.viewport.get('x') - (Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'iconSideMargin']))}
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'downloadIconPadding'])}
         xlinkHref='images/download_file.svg'
+        className="socialBar"
         onClick = {downloadFileClick()}></image>
       <image 
         height = {iconSize} 
@@ -74,6 +78,7 @@ class SocialBar extends React.Component {
         x = {this.props.viewport.get('x') - (Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'iconSideMargin']))}
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'downloadImageIconPadding'])}
         xlinkHref='images/download_image.svg'
+        className="socialBar"
         onClick = {downloadImageClick()}></image>
     </g>
   }
