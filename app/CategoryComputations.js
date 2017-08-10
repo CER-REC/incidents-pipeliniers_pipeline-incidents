@@ -114,8 +114,6 @@ CategoryComputations.maxEmptyCategories = function (data, columns, categories) {
 // categories: the category display data from the store
 CategoryComputations.emptyCategoriesForColumn = function(data, columns, categories, columnName) {
 
-  // TODO: so, we're filtering the data for every column? DEFINITELY need to
-  // consider the performance implications of doing this ... 
   const filteredData = IncidentComputations.filteredIncidents(data, columns, categories)
 
   // TODO: We will only count categories which are visible as being empty
