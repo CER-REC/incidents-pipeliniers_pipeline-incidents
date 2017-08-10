@@ -5,6 +5,8 @@ const ViewportReducer = require('./reducers/ViewportReducer')
 const ColumnsReducer = require('./reducers/ColumnsReducer')
 const DataReducer = require('./reducers/DataReducer')
 const CategoriesReducer = require('./reducers/CategoriesReducer')
+const EmptyCategoriesReducer = require('./reducers/EmptyCategoriesReducer')
+
 
 
 const reducers = Redux.combineReducers({
@@ -12,10 +14,8 @@ const reducers = Redux.combineReducers({
   columns: ColumnsReducer,
   data: DataReducer,
   categories: CategoriesReducer,
+  showEmptyCategories: EmptyCategoriesReducer
 })
-
-
-
 
 module.exports = function () {
   return Redux.createStore(reducers)

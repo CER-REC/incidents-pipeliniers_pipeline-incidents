@@ -27,5 +27,4 @@ const mapStateToProps = state => {
   }
 }
 
-
 module.exports = ReactRedux.connect(mapStateToProps)(SocialBar)
