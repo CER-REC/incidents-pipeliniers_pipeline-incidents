@@ -1,6 +1,7 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
+const Request = require('client-request/promise')
 
 require('../styles/Common.scss')
 require('../styles/Colours.scss')
@@ -8,15 +9,45 @@ require('./SocialBar.scss')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 
+function makeBitlyPromise() {
+  const options = {
+    uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}/bitly_url`,
+    json: true
+  }
+  return Request(options)
+    .then(function (response) {
+      return response
+    })
+    .catch(function (error) {
+      throw error
+    })
+}
+
 function emailClick() {
+  makeBitlyPromise().then(function(response){
+    console.log(response)
+    const emailBody = `${response.body.data.url}%0A%0A TODO`
+
+    const emailUrl = `mailto:?subject=TODO &body= ${emailBody}`
+
+    window.location.href = emailUrl
+  })
   console.log('email clicked')
 }
 
 function linkedinClick() {
+  makeBitlyPromise().then(function(response){
+    console.log(response)
+
+  })
   console.log('linkedin clicked')
 }
 
 function twitterClick() {
+  makeBitlyPromise().then(function(response){
+    console.log(response)
+    
+  })
   console.log('twitter clicked')
 }
 
@@ -47,7 +78,7 @@ class SocialBar extends React.Component {
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'emailIconPadding'])}
         xlinkHref='images/email.svg'
         className="socialBar"
-        onClick = {emailClick()}></image>
+        onClick = {emailClick}></image>
       <image 
         height = {iconSize} 
         width = {iconSize} 
@@ -55,7 +86,7 @@ class SocialBar extends React.Component {
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'linkedinIconPadding'])}
         xlinkHref='images/linkedin.svg'
         className="socialBar"
-        onClick = {linkedinClick()}></image>
+        onClick = {linkedinClick}></image>
       <image 
         height = {iconSize} 
         width = {iconSize} 
@@ -63,7 +94,7 @@ class SocialBar extends React.Component {
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'twitterIconPadding'])}
         xlinkHref='images/twitter.svg'
         className="socialBar"
-        onClick = {twitterClick()}></image>
+        onClick = {twitterClick}></image>
       <image 
         height = {iconSize} 
         width = {iconSize} 
@@ -71,7 +102,7 @@ class SocialBar extends React.Component {
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'downloadIconPadding'])}
         xlinkHref='images/download_file.svg'
         className="socialBar"
-        onClick = {downloadFileClick()}></image>
+        onClick = {downloadFileClick}></image>
       <image 
         height = {iconSize} 
         width = {iconSize} 
@@ -79,7 +110,7 @@ class SocialBar extends React.Component {
         y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'downloadImageIconPadding'])}
         xlinkHref='images/download_image.svg'
         className="socialBar"
-        onClick = {downloadImageClick()}></image>
+        onClick = {downloadImageClick}></image>
     </g>
   }
 }
