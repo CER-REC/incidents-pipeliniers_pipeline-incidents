@@ -218,7 +218,7 @@ WorkspaceComputations.baselineHeight = function (showEmptyCategories, viewport, 
   else {
     // When empty categories are not shown, the baseline lies next to the bottom
     // margin of the workspace and no space is set aside for empty categories.
-    return columnHeight
+    return WorkspaceComputations.topBarHeight() + columnHeight
   }
 
 }

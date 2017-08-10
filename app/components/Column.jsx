@@ -16,10 +16,7 @@ class Column extends React.Component {
       this.props.categories,
       this.props.columnName)
     const categoryHeights = WorkspaceComputations.categoryHeights(
-      // TODO: replace me when Charlie merges
-      // this.props.showEmptyCategories
-      true,
-
+      this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
@@ -55,9 +52,7 @@ class Column extends React.Component {
 
   emptyCategories() {
     
-    // TODO: replace me when Charlie merges
-    // if (!this.props.showEmptyCategories) {
-    if (false) {
+    if (!this.props.showEmptyCategories) {
       // If not showing empty categories, bail out
       return null
     }
@@ -68,20 +63,14 @@ class Column extends React.Component {
       this.props.columnName)
 
     const baselineHeight = WorkspaceComputations.baselineHeight(
-      // TODO: replace me when Charlie merges
-      // this.props.showEmptyCategories,
-      true, 
-
+      this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
       this.props.categories)
 
     const emptyCategoryHeight = WorkspaceComputations.emptyCategoryHeight(
-      // TODO: replace me when Charlie merges
-      // this.props.showEmptyCategories,
-      true, 
-
+      this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
@@ -135,7 +124,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     data: state.data,
-    // showEmptyCategories: state.showEmptyCategories,
+    showEmptyCategories: state.showEmptyCategories,
   }
 }
 
