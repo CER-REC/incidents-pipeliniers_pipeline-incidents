@@ -254,21 +254,42 @@ CategoryComputations.displayedCategories = function (data, columns, categories, 
   const relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
 
   // We need to accomplish several things here:
-  // - Columns which are empty should not be displayed
-  // - Columns which are empty but which are a related hidden category SHOULD be
-  //   displayed
+  // - Columns which are empty should not be displayed (above the baseline for
+  //   the column, at any rate)
   // - Columns which are not visible should not be displayed
+  // - Columns which are not visible but which are a related hidden category
+  //   SHOULD be displayed
+
+  /* 
+  In more detail, to help me get this logic right: 
+  RHC = related hidden category
+
+  visible, empty, not RHC: not shown
+  visible, not empty, RHC: shown in full
+  visible, not empty, not RHC: shown in full
+  
+  not visible, empty, not RHC: not shown
+  not visible, not empty, RHC: shown as RHC
+  not visible, not empty, not RHC: not shown
+
+  visible, empty, RHC: impossible, can't be empty and RHC
+  not visible, empty, RHC: impossible, can't be empty and RHC
+  */
 
   return categories.get(columnName)
     .map( (visible, categoryName) => {
       const isEmpty = typeof emptyCategoriesForColumn.get(categoryName) !== 'undefined'
 
       if (isEmpty) {
-        const isRelatedHiddenCategory = relatedHiddenCategories.get(categoryName)
-        return isRelatedHiddenCategory
+        return false
+      }
+
+      if (visible) {
+        return true
       }
       else {
-        return visible
+        const isRelatedHiddenCategory = relatedHiddenCategories.get(categoryName)
+        return isRelatedHiddenCategory
       }
 
     })
