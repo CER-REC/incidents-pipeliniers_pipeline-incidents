@@ -12,7 +12,7 @@ class IncidentBar extends React.Component {
     return <g>
       <rect
         x={ Constants.getIn(['pinColumn', 'horizontalMargins']) }
-        y={ WorkspaceComputations.topBarHeight() }
+        y={ WorkspaceComputations.columnY() }
         width={ Constants.getIn(['pinColumn', 'width']) }
         height={ WorkspaceComputations.columnHeight(this.props.viewport) }
         fill='#DDFFDD'

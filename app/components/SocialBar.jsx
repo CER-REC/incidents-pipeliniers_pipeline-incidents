@@ -12,7 +12,7 @@ class SocialBar extends React.Component {
     return <g>
       <rect
         x={ this.props.viewport.get('x') - Constants.getIn(['socialBar', 'width']) }
-        y={ WorkspaceComputations.topBarHeight() }
+        y={ WorkspaceComputations.columnY() }
         width={ Constants.getIn(['socialBar', 'width']) }
         height={ Constants.getIn(['socialBar', 'height']) }
         fill='#FFDDDD'

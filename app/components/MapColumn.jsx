@@ -9,7 +9,7 @@ class MapColumn extends React.Component {
     return <g>
       <rect
         x={ WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index) }
-        y={ WorkspaceComputations.topBarHeight() }
+        y={ WorkspaceComputations.columnY() }
         width={ WorkspaceComputations.columnWidth(this.props.columns) }
         height={ WorkspaceComputations.columnHeight(this.props.viewport) }
         fill='#000'

@@ -27,7 +27,7 @@ class Column extends React.Component {
       this.props.columnName) 
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
-    let categoryY = WorkspaceComputations.topBarHeight() + Constants.get('columnHeadingHeight')
+    let categoryY = WorkspaceComputations.columnY()
 
     return this.props.categories.get(this.props.columnName)
       .filter( (visible) => visible === true)
@@ -46,7 +46,6 @@ class Column extends React.Component {
           y={currentY}
         />
       }).toArray()
-
   }
 
   barHeading() {
@@ -85,13 +84,23 @@ class Column extends React.Component {
     </tspan>
   }
 
+  dragArrow() {
+    return <image xlinkHref='images/horizontal_drag.svg' 
+      height = {Constants.getIn(['dragArrow', 'height'])}
+      width = {Constants.getIn(['dragArrow', 'width'])}
+      x= {WorkspaceComputations.dragArrowX(this.props.columns, this.props.viewport, this.props.index)}
+      y= {WorkspaceComputations.dragArrowY(this.props.viewport)}>
+    </image>
+  }
+
   render() {
     return <g>
       <text>
         {this.barHeading()}
         {this.barSubHeading()}
       </text>
-      { this.nonEmptyCategories() }
+      {this.nonEmptyCategories()}
+      {this.dragArrow()}
       <ColumnPaths index={this.props.index}/>
     </g>
   }
@@ -114,6 +123,5 @@ const mapStateToProps = state => {
     filters: state.filters
   }
 }
-
 
 module.exports = ReactRedux.connect(mapStateToProps)(Column)
