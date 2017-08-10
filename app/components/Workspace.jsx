@@ -11,6 +11,7 @@ const IncidentBar = require('./IncidentBar.jsx')
 const Column = require('./Column.jsx')
 const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
+const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 class Workspace extends React.Component {
 
@@ -32,20 +33,26 @@ class Workspace extends React.Component {
     // Bail out here if it isn't
     // TODO: show a loading screen of some sort?
     if (this.props.data.count() === 0 || this.props.categories.count() === 0) {
-      return <svg/>
+      return <div/>
     }
 
-    return  <svg className="Workspace" width={this.props.viewport.get('x')}
-      height={this.props.viewport.get('y')}>
-      <Header />
+    const width = WorkspaceComputations.workspaceWidth(
+      this.props.columns,
+      this.props.viewport)
 
-      <EmptyCategories />
-      <IncidentBar/>
-      {this.columns()}
-      <SideBar/>
-      <SocialBar/>
+    return <div className='workspace'>
+      <svg width={width}
+        height={this.props.viewport.get('y')}>
+        <Header />
 
-    </svg>
+        <EmptyCategories />
+        <IncidentBar/>
+        {this.columns()}
+        <SideBar/>
+        <SocialBar/>
+
+      </svg>
+    </div>
   }
 }
 

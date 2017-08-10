@@ -16,7 +16,7 @@ WorkspaceComputations.mapDisplayed = function(columns) {
 }
 
 
-// TODO: should I be put in the constants file? memoize the computation?
+// NB: Thanks to memoize-immutable, this function is effectively always memoized
 WorkspaceComputations.topBarHeight = function () {
   let height = Constants.get('topOuterMargin')
   const lineHeight = Constants.getIn(['topBar', 'headingLineHeight'])
@@ -30,7 +30,9 @@ WorkspaceComputations.topBarHeight = function () {
 
 // viewport: the viewport state
 WorkspaceComputations.columnHeight = function (viewport) {
-  return viewport.get('y') - WorkspaceComputations.topBarHeight() - Constants.get('bottomOuterMargin')
+  return viewport.get('y') 
+    - WorkspaceComputations.topBarHeight()
+    - Constants.get('bottomOuterMargin')
 }
 
 
@@ -45,7 +47,7 @@ WorkspaceComputations.columnWidth = function (columns) {
   }
 }
 
-WorkspaceComputations.columnX = function(columns, viewport, i) {
+WorkspaceComputations.columnX = function (columns, viewport, i) {
 
   // Define the left and right bounds of where we will be drawing columns and
   // paths.
@@ -93,7 +95,7 @@ WorkspaceComputations.sidebarWidth = function (columns) {
 }
 
 WorkspaceComputations.sidebarX = function (columns, viewport) {
-  return viewport.get('x')
+  return WorkspaceComputations.workspaceWidth(columns, viewport)
     - Constants.getIn(['socialBar', 'width'])
     - Constants.getIn(['socialBar', 'leftMargin'])
     - WorkspaceComputations.sidebarWidth(columns)

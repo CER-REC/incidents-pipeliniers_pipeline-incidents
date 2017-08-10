@@ -276,6 +276,8 @@ CategoryComputations.displayedCategories = function (data, columns, categories, 
   not visible, empty, RHC: impossible, can't be empty and RHC
   */
 
+  // TODO: I'm STILL not 100% confident I have this logic correct
+
   return categories.get(columnName)
     .map( (visible, categoryName) => {
       const isEmpty = typeof emptyCategoriesForColumn.get(categoryName) !== 'undefined'
