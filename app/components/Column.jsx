@@ -29,9 +29,13 @@ class Column extends React.Component {
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     let categoryY = WorkspaceComputations.topBarHeight()
 
-    return this.props.categories.get(this.props.columnName)
-      .filter( (visible) => visible === true)
-      .filter( (visible, categoryName) => categoryHeights.get(categoryName) !== undefined)
+    const displayedCategories = CategoryComputations.displayedCategories(
+      this.props.data,
+      this.props.columns,
+      this.props.categories, 
+      this.props.columnName)
+
+    return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
         categoryY += categoryHeights.get(categoryName)
@@ -122,15 +126,7 @@ class Column extends React.Component {
   }
 }
 
-/*
-      <rect
-        x={ WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index) }
-        y={ WorkspaceComputations.topBarHeight() }
-        width={ WorkspaceComputations.columnWidth(this.props.columns) }
-        height={ WorkspaceComputations.columnHeight(this.props.viewport) }
-        fill='#FFDDFF'
-      />
-*/
+
 
 const mapStateToProps = state => {
   return {

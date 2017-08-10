@@ -13,8 +13,8 @@ CategoryComputations.itemsInColumn = function (data, categories, columnName) {
 
   return categories
     .get(columnName)
-    .filter( present => present === true)
-    .map( (present, categoryName) => {
+    .filter( visible => visible === true)
+    .map( (visible, categoryName) => {
       return CategoryComputations.itemsInCategory(data, columnName, categoryName)
     } )
     .reduce( (sum, count) => {return sum + count}, 0)
@@ -124,8 +124,8 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
   // If the 'reset' button is added to the show/hide box for the category, then
   // this will need to be revisited, as it may never be possible to access that
   // box unless the category is shown somewhere!
-  const visibleCategoryInfo = categories.get(columnName).filter( present => {
-    return present === true
+  const visibleCategoryInfo = categories.get(columnName).filter( visible => {
+    return visible === true
   })
 
   switch(columnName) {
@@ -139,7 +139,7 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
   case 'volumeCategory':
   case 'year': 
   case 'substanceCategory': {
-    return visibleCategoryInfo.filter( (present, categoryName) => {
+    return visibleCategoryInfo.filter( (visible, categoryName) => {
       const result = filteredData.find( item => {
         return item.get(columnName) === categoryName
       })
@@ -148,7 +148,7 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
       // If we find a result, the category is not empty, return false
       return typeof result === 'undefined'
 
-    // Transform the map of {categoryName: present} to just a sequence of
+    // Transform the map of {categoryName: visible} to just a sequence of
     // empty category names
     }).keySeq()
 
@@ -158,7 +158,7 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
   case 'whatHappened':
   case 'whyItHappened':
   case 'pipelineSystemComponentsInvolved': {
-    return visibleCategoryInfo.filter( (present, categoryName) => {
+    return visibleCategoryInfo.filter( (visible, categoryName) => {
       const result = filteredData.find( item => {
         return item.get(columnName).contains(categoryName)
       })
@@ -167,7 +167,7 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
       // If we find a result, the category is not empty, return false
       return typeof result === 'undefined'
 
-    // Transform the map of {categoryName: present} to just a sequence of
+    // Transform the map of {categoryName: visible} to just a sequence of
     // empty category names
     }).keySeq()
 
@@ -220,8 +220,8 @@ CategoryComputations.relatedHiddenCategories = function (data, columns, categori
     return categories.get(columnName)
       // Only a category which is hidden can potentially be a related hidden
       // category.
-      .filter( present => present === false )
-      .filter( (present, categoryName) => {
+      .filter( visible => visible === false )
+      .filter( (visible, categoryName) => {
 
         // Find an incident with the hidden category in the set of displayed
         // incidents. If such an incident exists, we are a hidden related
@@ -247,6 +247,19 @@ CategoryComputations.relatedHiddenCategories = function (data, columns, categori
 
 
 
+// Merges the visible categories and related hidden categories for a column, to
+// form the full set of categories which should be displayed above the baseline.
+// We filter out the categories which are not displayed.
+
+CategoryComputations.displayedCategories = function (data, columns, categories, columnName) {
+
+  const relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
+
+  return categories.get(columnName).map( (visible, categoryName) => {
+    return !!(visible || relatedHiddenCategories.get(categoryName))
+  }).filter( visible => visible === true )
+
+}
 
 
 
