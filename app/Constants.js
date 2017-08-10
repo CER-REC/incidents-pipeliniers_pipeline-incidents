@@ -41,7 +41,7 @@ const Constants = Immutable.fromJS({
 
   pinColumn: {
     horizontalMargins: 11, // both left and right
-    width: 96,
+    width: 132,
     pinIconSize: 17,
     textWidth: 79,
     connectorDotSize: 6,
