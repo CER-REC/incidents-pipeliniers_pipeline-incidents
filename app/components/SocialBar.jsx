@@ -20,12 +20,12 @@ function twitterClick() {
   console.log('twitter clicked')
 }
 
-function downloadClick() {
-  console.log('download clicked')
+function downloadFileClick() {
+  console.log('download file clicked')
 }
 
-function facebookClick() {
-  console.log('facebook clicked')
+function downloadImageClick() {
+  console.log('download image clicked')
 }
 
 class SocialBar extends React.Component {
@@ -62,14 +62,14 @@ class SocialBar extends React.Component {
         height = {iconSize} 
         width = {iconSize} 
         transform = {'translate(700,152)'} 
-        xlinkHref='images/download.svg'
-        onClick = {downloadClick()}></image>
+        xlinkHref='images/download_file.svg'
+        onClick = {downloadFileClick()}></image>
       <image 
         height = {iconSize} 
         width = {iconSize} 
         transform = {'translate(700,175)'} 
-        xlinkHref='images/facebook.svg'
-        onClick = {facebookClick()}></image>
+        xlinkHref='images/download_image.svg'
+        onClick = {downloadImageClick()}></image>
     </g>
   }
 }
