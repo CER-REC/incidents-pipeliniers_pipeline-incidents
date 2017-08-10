@@ -101,7 +101,7 @@ class Column extends React.Component {
       </text>
       {this.nonEmptyCategories()}
       {this.dragArrow()}
-      <ColumnPaths index={this.props.index}/>
+      <ColumnPaths index={this.props.index} columnName={this.props.columnName} index={this.props.index}/>
     </g>
   }
 
