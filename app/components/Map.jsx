@@ -3,7 +3,7 @@ const ReactRedux = require('react-redux')
 
 // const WorkspaceComputations = require('../WorkspaceComputations.js')
 
-class MapColumn extends React.Component {
+class Map extends React.Component {
 
   render() {
     return <div>
@@ -25,4 +25,4 @@ const mapStateToProps = state => {
 }
 
 
-module.exports = ReactRedux.connect(mapStateToProps)(MapColumn)
+module.exports = ReactRedux.connect(mapStateToProps)(Map)

@@ -12,6 +12,8 @@ const Column = require('./Column.jsx')
 const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const MapContainer = require('./MapContainer.jsx')
+
 
 class Workspace extends React.Component {
 
@@ -44,18 +46,23 @@ class Workspace extends React.Component {
       this.props.categories)
 
 
-    return <div className='workspace'>
-      <svg width={horizontalPositions.getIn(['workspace', 'width'])}
-        height={horizontalPositions.getIn(['workspace', 'height'])}>
-        <Header />
+    return <div>
+      <div className='workspace'>
+        <MapContainer/>
+        <svg 
+          className = 'workspaceSvg'
+          width = { horizontalPositions.getIn(['workspace', 'width']) }
+          height = { horizontalPositions.getIn(['workspace', 'height']) }>
+          <Header />
 
-        <EmptyCategories />
-        <IncidentBar/>
-        {this.columns()}
-        <SideBar/>
-        <SocialBar/>
+          <EmptyCategories />
+          <IncidentBar/>
+          {this.columns()}
+          <SideBar/>
+          <SocialBar/>
 
-      </svg>
+        </svg>
+      </div>
     </div>
   }
 }
