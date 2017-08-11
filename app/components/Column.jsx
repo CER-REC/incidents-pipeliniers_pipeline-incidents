@@ -32,12 +32,14 @@ class Column extends React.Component {
       this.props.categories, 
       this.props.columnName)
 
-    const x = WorkspaceComputations.columnXCoordinates(
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories).get(this.props.columnName)
+      this.props.categories)
+      .getIn(['columns', this.props.columnName])
+
 
     return displayedCategories
       .map( (visible, categoryName) => {
@@ -49,8 +51,8 @@ class Column extends React.Component {
           key={categoryName}
           colour={categoryColours.get(categoryName)} 
           height={categoryHeights.get(categoryName)}
-          width={ WorkspaceComputations.columnWidth(this.props.columns) }
-          x={ x }
+          width={ columnMeasurements.get('width') }
+          x={ columnMeasurements.get('x') }
           y={currentY}
         />
       }).toArray()
@@ -83,12 +85,13 @@ class Column extends React.Component {
       this.props.columns,
       this.props.categories)
 
-    const x = WorkspaceComputations.columnXCoordinates(
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories).get(this.props.columnName)
+      this.props.categories)
+      .getIn(['columns', this.props.columnName])
 
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
@@ -109,8 +112,8 @@ class Column extends React.Component {
         key={categoryName}
         colour={categoryColours.get(categoryName)} 
         height={emptyCategoryHeight}
-        width={ WorkspaceComputations.columnWidth(this.props.columns) }
-        x={ x }
+        width={ columnMeasurements.get('width') }
+        x={ columnMeasurements.get('x') }
         y={currentY}
       />
 

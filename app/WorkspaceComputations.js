@@ -49,110 +49,7 @@ WorkspaceComputations.columnWidth = function (columns) {
 }
 
 
-// // The leftmost part of the SVG where columns begin
-// WorkspaceComputations.columnsLeftBounds = function () {
-//   return Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
-//     + Constants.getIn(['pinColumn', 'width'])
-// }
 
-// // The rightmost part of the SVG, where the columns end.
-// // Sidebar space is further right in the SVG. 
-// WorkspaceComputations.columnsRightBounds = function (showEmptyCategories, viewport, data, columns, categories) {
-//   return WorkspaceComputations.sidebarX(showEmptyCategories, viewport, data, columns, categories)
-// }
-
-// The total amount of width available for ordinary columns, with the space
-// needed for the map column subtracted if it is present
-// WorkspaceComputations.ordinaryColumnAvailableWidth = function (showEmptyCategories, viewport, data, columns, categories) {
-  
-//   // Define the left and right bounds of where we will be drawing columns and
-//   // paths.
-//   const leftBounds = WorkspaceComputations.columnsLeftBounds()
-//   const rightBounds = WorkspaceComputations.columnsRightBounds(showEmptyCategories, viewport, data, columns, categories) 
-
-//   let availableSpace = rightBounds - leftBounds
-//   if (WorkspaceComputations.mapDisplayed(columns)) {
-//     availableSpace -= WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
-//   }
-//   return availableSpace
-// }
-
-
-
-// The amount of width each ordinary column has for rendering
-// WorkspaceComputations.widthPerOrdinaryColumn = function (showEmptyCategories, viewport, data, columns, categories) {
-
-//   const availableSpace = WorkspaceComputations.ordinaryColumnAvailableWidth(showEmptyCategories, viewport, data, columns, categories)
-
-//   const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
-//   const widthPerOrdinaryColumn = availableSpace / ordinaryColumnsCount
-
-//   return widthPerOrdinaryColumn
-// }
-
-
-// A hash of {columnName: xCoordinate}, the coordinate used for positioning the
-// column horizontally
-WorkspaceComputations.columnXCoordinates = function (showEmptyCategories, viewport, data, columns, categories) {
-
-  const widthPerOrdinaryColumn = WorkspaceComputations.widthPerOrdinaryColumn(showEmptyCategories, viewport, data, columns, categories)
-
-  let columnXCoordinates = Immutable.Map()
-  let cumulativeXCoordinate = WorkspaceComputations.columnsLeftBounds()
-
-  columns.forEach( columnName => {
-    if (columnName === 'map') {
-
-      let columnX = cumulativeXCoordinate
-
-      // For the column to the left of the map, we do not render the usual paths
-      // to the right of that column. The map is positioned adjacent to the
-      // column to its left to compensate.
-      // We only do this if there is a column left of the map
-      if (columns.get(0) !== 'map') {
-        const columnPathWidth = WorkspaceComputations.columnPathWidth(showEmptyCategories, viewport, data, columns, categories)
-        columnX -= columnPathWidth
-        cumulativeXCoordinate -= columnPathWidth
-      }
-
-      columnXCoordinates = columnXCoordinates.set('map', columnX)
-      cumulativeXCoordinate += WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
-    }
-    else {
-      columnXCoordinates = columnXCoordinates.set(columnName, cumulativeXCoordinate)
-      cumulativeXCoordinate += widthPerOrdinaryColumn
-    }
-  })
-
-  return columnXCoordinates
-}
-
-
-// columns: the columns state
-// viewport: the viewport state
-WorkspaceComputations.columnPathWidth = function (showEmptyCategories, viewport, data, columns, categories) {
-
-  if (WorkspaceComputations.useScrollingWorkspace(columns)) {
-    return Constants.get('minimumColumnPathWidth')
-  }
-  else {
-    const widthPerOrdinaryColumn = WorkspaceComputations.widthPerOrdinaryColumn(showEmptyCategories, viewport, data, columns, categories)
-
-    const columnWidth = WorkspaceComputations.columnWidth(columns)
-
-    return widthPerOrdinaryColumn - columnWidth
-  }
-}
-
-
-// A hash of {columnName: xCoordinate}, the coordinate used for positioning the
-// column path horizontally
-WorkspaceComputations.columnPathXCoordinates = function (showEmptyCategories, viewport, data, columns, categories) {
-  return WorkspaceComputations.columnXCoordinates(showEmptyCategories, viewport, data, columns, categories)
-    .map( xCoordinate => {
-      return xCoordinate + WorkspaceComputations.columnWidth(columns)
-    })
-}
 
 // columns: the columns state
 WorkspaceComputations.sidebarWidth = function (columns) {
@@ -162,13 +59,6 @@ WorkspaceComputations.sidebarWidth = function (columns) {
   return width
 }
 
-
-// WorkspaceComputations.sidebarX = function (showEmptyCategories, viewport, data, columns, categories) {
-//   return WorkspaceComputations.workspaceWidth(showEmptyCategories, viewport, data, columns, categories)
-//     - Constants.getIn(['socialBar', 'width'])
-//     - Constants.getIn(['socialBar', 'leftMargin'])
-//     - WorkspaceComputations.sidebarWidth(columns)
-// }
 
 
 
@@ -208,44 +98,6 @@ WorkspaceComputations.useScrollingWorkspace = function (columns) {
 }
 
 
-// columns: the columns state
-// viewport: the viewport state
-WorkspaceComputations.workspaceWidth = function (showEmptyCategories, viewport, data, columns, categories) {
-
-  const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
-  const useScrollingWorkspace = WorkspaceComputations.useScrollingWorkspace(columns)
-
-  if (useScrollingWorkspace) {
-    let width = Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
-    width += Constants.getIn(['pinColumn', 'width'])
-
-    width += (Constants.get('columnNarrowWidth') + Constants.get('minimumColumnPathWidth')) 
-      * ordinaryColumnsCount
-
-    if (WorkspaceComputations.mapDisplayed(columns)) {
-      width += WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
-    }
-
-    // TODO: This is a giant hack. We could use a saner way to calculate the
-    // column x coordinates
-    // If the map is not the first column, then the path for the column to its
-    // left is not rendered, subtract that width from the available page space
-    if (WorkspaceComputations.mapDisplayed(columns) && columns.get(0) !== 'map') {
-      width -= WorkspaceComputations.columnPathWidth(showEmptyCategories, viewport, data, columns, categories)
-    }
-
-    width += WorkspaceComputations.sidebarWidth(columns)
-
-    width += Constants.getIn(['socialBar', 'width'])
-    width += Constants.getIn(['socialBar', 'leftMargin'])
-
-    return width
-  }
-  else {
-    return viewport.get('x')
-  }
-
-}
 
 
 // Returns an immutable map of category names to category heights, for the given
@@ -398,33 +250,236 @@ WorkspaceComputations.shouldRenderColumnPath = function (columns, columnName) {
 
 
 // Returns an immutable hash with positions and sizing information for most 
-// elements which are laid out left to right.
-
-/*
-TODO: include
-  pin column
-  columns
-  column paths
-  sibedar
-  social bar
-  workspace
-*/
+// elements which are laid out left to right. Keys include: 
+//   pinColumn
+//   columns
+//   columnPaths
+//   sideBar
+//   socialBar
+//   workspace - with width and height for the entire workspace
 
 
 WorkspaceComputations.horizontalPositions = function(showEmptyCategories, viewport, data, columns, categories) {
-
   if (WorkspaceComputations.useScrollingWorkspace(columns)) {
     return WorkspaceComputations.horizontalPositionsWithScroll(showEmptyCategories, viewport, data, columns, categories)
   }
   else {
-    return WorkspaceComputations.horizontalPositionsFixedWidth(showEmptyCategories, viewport, data, columns, categories)
-
+    return WorkspaceComputations.horizontalPositionsFixedWidth(viewport, columns)
   }
-
 }
 
 
 
+
+
+
+
+WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategories, viewport, data, columns, categories) {
+
+  const columnHeight = WorkspaceComputations.columnHeight(viewport)
+  const topBarHeight = WorkspaceComputations.topBarHeight()
+
+  // Move through each element left to right
+
+  let measurements = Immutable.Map()
+  let cumulativeX = 0
+
+  // Pin column
+  measurements = measurements.set('pinColumn', Immutable.fromJS({
+    width: Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins']) * 2,
+    innerWidth: Constants.getIn(['pinColumn', 'width']),
+    height: columnHeight,
+    x: Constants.getIn(['pinColumn', 'horizontalMargins']),
+    y: topBarHeight,
+  }))
+
+  cumulativeX += measurements.getIn(['pinColumn', 'width'])
+
+
+
+  // Columns + Column Paths
+  const widthPerColumn = Constants.get('columnNarrowWidth')
+  const minimumColumnPathWidth = Constants.get('minimumColumnPathWidth')
+
+  measurements = measurements.set('columns', Immutable.Map())
+  measurements = measurements.set('columnPaths', Immutable.Map())
+
+  columns.forEach( columnName => {
+
+    if(columnName === 'map') {
+
+      const mapDimensions = WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories)
+
+      measurements = measurements.setIn(['columns', columnName], Immutable.fromJS({
+        width: mapDimensions.get('width'),
+        height: mapDimensions.get('height'),
+        x: cumulativeX,
+        y: topBarHeight,
+      }))
+
+      cumulativeX += measurements.getIn(['columns', columnName, 'width'])
+    }
+    else {
+      // All other columns except the map
+
+      measurements = measurements.setIn(['columns', columnName], Immutable.fromJS({
+        width: widthPerColumn,
+        height: columnHeight,
+        x: cumulativeX,
+        y: topBarHeight,
+      }))
+
+      cumulativeX += measurements.getIn(['columns', columnName, 'width'])
+
+      // If the column to our right is the map column, we don't render our paths
+      if(!WorkspaceComputations.shouldRenderColumnPath(columns, columnName)) {
+        return
+      }
+
+      measurements = measurements.setIn(['columnPaths', columnName], Immutable.fromJS({
+        width: minimumColumnPathWidth,
+        height: columnHeight,
+        x: cumulativeX,
+        y: topBarHeight,
+      }))
+
+      cumulativeX += measurements.getIn(['columnPaths', columnName, 'width'])
+    }
+
+  })
+
+
+
+  // Sidebar
+  measurements = measurements.set('sideBar', Immutable.fromJS({
+    width: WorkspaceComputations.sidebarWidth(columns),
+    height: columnHeight,
+    x: cumulativeX,
+    y: topBarHeight,
+  }))
+  cumulativeX += measurements.getIn(['sideBar', 'width'])
+
+
+  // Social Bar
+  measurements = measurements.set('socialBar', Immutable.fromJS({
+    width: Constants.getIn(['socialBar', 'width']) + Constants.getIn(['socialBar', 'leftMargin']),
+    innerWidth: Constants.getIn(['socialBar', 'width']),
+    height: Constants.getIn(['socialBar', 'height']),
+    x: cumulativeX,
+    y: topBarHeight,
+  }))
+  cumulativeX += measurements.getIn(['socialBar', 'width'])
+
+
+
+  // Workspace
+  measurements = measurements.set('workspace', Immutable.fromJS({
+    width: cumulativeX,
+    height: viewport.get('y'),
+  }))
+
+
+  return measurements
+}
+
+
+// When the workspace width is fixed to the size of the viewport, the strategy
+// for laying out elements is different. 
+WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns) {
+
+  const workspaceWidth = viewport.get('x')
+  const columnHeight = WorkspaceComputations.columnHeight(viewport)
+  const topBarHeight = WorkspaceComputations.topBarHeight()
+
+  let measurements = Immutable.Map()
+
+
+  // First, address the elements with fixed widths surrounding the columns
+  // in the middle: pin column, sidebar, social bar
+
+  // Pin column
+  measurements = measurements.set('pinColumn', Immutable.fromJS({
+    width: Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins']) * 2,
+    innerWidth: Constants.getIn(['pinColumn', 'width']),
+    height: columnHeight,
+    x: Constants.getIn(['pinColumn', 'horizontalMargins']),
+    y: topBarHeight,
+  }))
+
+  // Social bar
+  measurements = measurements.set('socialBar', Immutable.fromJS({
+    width: Constants.getIn(['socialBar', 'width']) + Constants.getIn(['socialBar', 'leftMargin']),
+    innerWidth: Constants.getIn(['socialBar', 'width']),
+    height: Constants.getIn(['socialBar', 'height']),
+    x: workspaceWidth - Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'leftMargin']),
+    y: topBarHeight,
+  }))
+
+  // Sidebar
+  measurements = measurements.set('sideBar', Immutable.fromJS({
+    width: WorkspaceComputations.sidebarWidth(columns),
+    height: columnHeight,
+    y: topBarHeight,
+  }))
+  measurements = measurements.setIn(['sideBar', 'x'],
+    workspaceWidth
+    - measurements.getIn(['socialBar', 'width'])
+    - measurements.getIn(['sideBar', 'width'])
+  )
+
+
+  // Sum up how much space is available for the columns and paths.
+  let remainingSpace = workspaceWidth
+  remainingSpace -= measurements.getIn(['pinColumn', 'width'])
+  remainingSpace -= measurements.getIn(['socialBar', 'width'])
+  remainingSpace -= measurements.getIn(['sideBar', 'width'])
+
+
+
+  // TODO: at this time, the map column never appears in fixed display mode
+  // This math will need to be tweaked if we do permit it in.
+
+  const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
+  const widthPerOrdinaryColumnAndPath = remainingSpace / ordinaryColumnsCount
+  const widthPerColumn = Constants.get('columnWideWidth')
+  const widthPerColumnPath = widthPerOrdinaryColumnAndPath - widthPerColumn
+
+  measurements = measurements.set('columns', Immutable.Map())
+  measurements = measurements.set('columnPaths', Immutable.Map())
+
+  let cumulativeX = measurements.getIn(['pinColumn', 'width']) + measurements.getIn(['socialBar', 'width'])
+
+  // Columns + Column paths
+  columns.forEach( columnName => {
+
+    measurements = measurements.setIn(['columns', columnName], Immutable.fromJS({
+      width: widthPerColumn,
+      height: columnHeight,
+      x: cumulativeX,
+      y: topBarHeight,
+    }))
+    cumulativeX += widthPerColumn
+
+    measurements = measurements.setIn(['columnPaths', columnName], Immutable.fromJS({
+      width: widthPerColumnPath,
+      height: columnHeight,
+      x: cumulativeX,
+      y: topBarHeight,
+    }))
+
+    cumulativeX += widthPerColumnPath
+
+  })
+
+
+  // Workspace
+  measurements = measurements.set('workspace', Immutable.fromJS({
+    width: workspaceWidth,
+    height: viewport.get('y'),
+  }))
+
+  return measurements
+}
 
 
 

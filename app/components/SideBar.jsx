@@ -15,19 +15,20 @@ class Sidebar extends React.Component {
 
   render() {
 
-    const x = WorkspaceComputations.sidebarX(
+    const measurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
       this.props.categories)
+      .get('sideBar')
 
     return <g>
       <rect
-        x={ x }
-        y={ WorkspaceComputations.topBarHeight() }
-        width={ WorkspaceComputations.sidebarWidth(this.props.columns) }
-        height={ WorkspaceComputations.columnHeight(this.props.viewport) }
+        x={ measurements.get('x') }
+        y={ measurements.get('y') }
+        width={ measurements.get('width') }
+        height={ measurements.get('height') }
         fill='#DDDDFF'
       />
     </g>

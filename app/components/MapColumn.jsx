@@ -7,27 +7,20 @@ class MapColumn extends React.Component {
 
   render() {
 
-    const x = WorkspaceComputations.columnXCoordinates(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories).get('map')
-
-    const dimensions = WorkspaceComputations.mapDimensions(
+    const measurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
       this.props.categories)
-
+      .getIn(['columns', 'map'])
 
     return <g>
       <rect
-        x={ x }
-        y={ WorkspaceComputations.topBarHeight() }
-        width={ dimensions.get('width') }
-        height={ dimensions.get('height') }
+        x={ measurements.get('x') }
+        y={ measurements.get('y') }
+        width={ measurements.get('width') }
+        height={ measurements.get('height') }
         fill='#888'
       />
     </g>

@@ -10,27 +10,21 @@ class ColumnPaths extends React.Component {
 
 
   render() {
-    const width = WorkspaceComputations.columnPathWidth(
+
+    const pathMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
       this.props.categories)
-
-
-    const x = WorkspaceComputations.columnPathXCoordinates(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories).get(this.props.columnName)
+      .getIn(['columnPaths', this.props.columnName])
 
     return <g>
       <rect
-        x={ x }
-        y={ WorkspaceComputations.topBarHeight() }
-        width={ width }
-        height={ WorkspaceComputations.columnHeight(this.props.viewport) }
+        x={ pathMeasurements.get('x') }
+        y={ pathMeasurements.get('y') }
+        width={ pathMeasurements.get('width') }
+        height={ pathMeasurements.get('height') }
         fill='#FFFFDD'
       />
     </g>

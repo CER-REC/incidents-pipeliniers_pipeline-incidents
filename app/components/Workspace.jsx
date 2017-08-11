@@ -36,16 +36,17 @@ class Workspace extends React.Component {
       return <div/>
     }
 
-    const width = WorkspaceComputations.workspaceWidth(
+    const horizontalPositions = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
       this.props.categories)
 
+
     return <div className='workspace'>
-      <svg width={width}
-        height={this.props.viewport.get('y')}>
+      <svg width={horizontalPositions.getIn(['workspace', 'width'])}
+        height={horizontalPositions.getIn(['workspace', 'height'])}>
         <Header />
 
         <EmptyCategories />
