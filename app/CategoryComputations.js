@@ -40,6 +40,26 @@ CategoryComputations.itemsInCategory = function (data, columnName, categoryName)
 
 }
 
+CategoryComputations.itemsInBothCategories = function (data, homeColumnName, homeCategoryName, awayColumnName, awayCategoryName) {
+  return data.filter( item => {
+    return CategoryComputations.itemInCategory(item, homeColumnName, homeCategoryName) &&
+           CategoryComputations.itemInCategory(item, awayColumnName, awayCategoryName)
+  }).count()
+}
+
+CategoryComputations.itemInCategory = function(item, columnName, categoryName) {
+  if(columnName === 'reportedDate') {
+    return item.get('reportedDate').year() === categoryName
+  }
+  else if(typeof(item.get(columnName)) === 'string' ||
+          typeof(item.get(columnName)) === 'number') {
+    return item.get(columnName) === categoryName
+  }
+  else {
+    return item.get(columnName).contains(categoryName)
+  }
+}
+
 // data: the incident data from the store
 CategoryComputations.itemsInSimpleCategory = function (data, columnName, categoryName) {
   

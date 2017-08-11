@@ -92,6 +92,7 @@ class Column extends React.Component {
 
   dragArrow() {
     return <image xlinkHref='images/horizontal_drag.svg' 
+      className = 'dragArrow'
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, this.props.viewport, this.props.index)}

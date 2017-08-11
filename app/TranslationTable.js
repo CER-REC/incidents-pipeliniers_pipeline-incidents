@@ -19,7 +19,7 @@ const TranslationTable = Immutable.fromJS({
       fr:'TODO',
     },
     province: {
-      en:'PROVINCE',
+      en:'PROVINCES',
       fr:'TODO',
     },
     substance: {
