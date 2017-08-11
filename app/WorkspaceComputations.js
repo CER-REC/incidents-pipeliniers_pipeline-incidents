@@ -32,7 +32,7 @@ WorkspaceComputations.topBarHeight = function () {
 WorkspaceComputations.columnHeight = function (viewport) {
   return viewport.get('y') - 
          WorkspaceComputations.topBarHeight() - 
-         Constants.get('bottomOuterMargin') - 
+         Constants.get('bottomOuterMargin') -
          Constants.get('columnHeadingHeight')
 }
 
@@ -229,17 +229,17 @@ WorkspaceComputations.baselineHeight = function (showEmptyCategories, viewport, 
     const desiredEmptyCategoryHeight = CategoryComputations.desiredEmptyCategoryHeight(data, columns, categories)
 
     if (desiredEmptyCategoryHeight > columnHeight / 2) {
-      return columnHeight / 2 + WorkspaceComputations.topBarHeight()
+      return columnHeight / 2 + WorkspaceComputations.columnY()
     }
     else {
-      return WorkspaceComputations.topBarHeight() + columnHeight - desiredEmptyCategoryHeight
+      return WorkspaceComputations.columnY() + columnHeight - desiredEmptyCategoryHeight
     }
 
   }
   else {
     // When empty categories are not shown, the baseline lies next to the bottom
     // margin of the workspace and no space is set aside for empty categories.
-    return WorkspaceComputations.topBarHeight() + columnHeight
+    return WorkspaceComputations.columnY() + columnHeight
   }
 
 }
@@ -252,7 +252,7 @@ WorkspaceComputations.columnNormalCategoryHeight = function (showEmptyCategories
 
   // TODO: currently, we're just using the top bar height, but this should
   // possibly account for the height of the heading? 
-  return WorkspaceComputations.baselineHeight(showEmptyCategories, viewport, data, columns, categories) - WorkspaceComputations.topBarHeight()
+  return WorkspaceComputations.baselineHeight(showEmptyCategories, viewport, data, columns, categories) - WorkspaceComputations.columnY()
 
 }
 

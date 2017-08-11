@@ -78,7 +78,7 @@ class SocialBar extends React.Component {
       - Constants.getIn(['socialBar', 'width'])
       - Constants.getIn(['socialBar', 'iconSideMargin'])
 
-    let transformSocialIcons = `translate(${x},${WorkspaceComputations.topBarHeight()})`
+    let transformSocialIcons = `translate(${x},${WorkspaceComputations.columnY()})`
 
     return <g transform = {transformSocialIcons}>
       <rect
