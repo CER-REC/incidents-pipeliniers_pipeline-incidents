@@ -31,22 +31,25 @@ function emailClick() {
   })
 }
 
+function facebookClick() {
+  makeBitlyPromise().then(function(response){
+    const facebookinUrl = `https://www.facebook.com/sharer/sharer.php?u=${response.body.data.url}`
+    window.open(facebookinUrl , 'targetWindow' , 'width=650,height=650') 
+  })
+}
+
 function linkedinClick() {
   makeBitlyPromise().then(function(response){
-    console.log(response)
-    //const linkedinResponse = `${response.body.data.url}`
     const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${response.body.data.url}&summary=${response.body.data.url}`
     window.open(linkedinUrl , 'targetWindow' , 'width=650,height=650') 
   })
-  console.log('linkedin clicked')
 }
 
 function twitterClick() {
   makeBitlyPromise().then(function(response){
-    console.log(response)
-    //https://twitter.com/intent/tweet?url=#{url}", 'targetWindow', 'width=650,height=650'
+    const twitterUrl = `https://twitter.com/intent/tweet?url=${response.body.data.url}`
+    window.open(twitterUrl , 'targetWindow' , 'width=650,height=650') 
   })
-  console.log('twitter clicked')
 }
 
 function downloadFileClick() {
@@ -77,6 +80,14 @@ class SocialBar extends React.Component {
         xlinkHref='images/email.svg'
         className="socialBar"
         onClick = {emailClick}></image>
+      <image 
+        height = {iconSize} 
+        width = {iconSize}
+        x = {this.props.viewport.get('x') - (Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'iconSideMargin']))}
+        y = {WorkspaceComputations.topBarHeight() + Constants.getIn(['socialBar', 'facebookIconPadding'])}
+        xlinkHref='images/facebook.svg'
+        className="socialBar"
+        onClick = {facebookClick}></image>
       <image 
         height = {iconSize} 
         width = {iconSize} 
