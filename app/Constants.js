@@ -11,7 +11,7 @@ const Constants = Immutable.fromJS({
   // All in px
   leftOuterMargin: 5,
   topOuterMargin: 5,
-  bottomOuterMargin: 5,
+  bottomOuterMargin: 17,
   showHideTopMargin: 100,
   showHideLeftMargin: 5,
 
@@ -32,16 +32,16 @@ const Constants = Immutable.fromJS({
 
   showHideEmptyCategories: {
     xShowImage: 10,
-    yShowImage: 997,
-    xShowText: 35,
-    yShowText: 1008,
+    yShowImage: 10,
+    xShowText: 20,
     showHideIconHeight: 15,
     showHideIconWidth: 15,
+    fontSize: 12,
   },
 
   pinColumn: {
     horizontalMargins: 11, // both left and right
-    width: 96,
+    width: 132,
     pinIconSize: 17,
     textWidth: 79,
     connectorDotSize: 6,
@@ -52,11 +52,29 @@ const Constants = Immutable.fromJS({
   columnNarrowWidth: 24,
   minimumColumnPathWidth: 80,
 
+  columnHeadingHeight: 42,
+  columnHeadingLineOffset: 15,
+  columnSubheadingHeight: 10,
+  columnSubheadingOffset: 40,
+
+  dragArrow: {
+    width: 24,
+    height: 10,
+    topMargin: 7,
+  },
+
   socialBar: {
     width: 23, 
-    height: 115,
+    height: 137,
     iconSize: 16,
     leftMargin: 5,
+    iconSideMargin: 3.5,
+    emailIconPadding: 3,
+    facebookIconPadding: 26,
+    linkedinIconPadding: 49,
+    twitterIconPadding: 72,
+    downloadIconPadding: 95,
+    downloadImageIconPadding: 118,
   },
 
 
@@ -64,7 +82,7 @@ const Constants = Immutable.fromJS({
 
   columnNames: [
     'incidentTypes',
-    'reportedDate',
+    'year',
     'company',
     'status',
     'province',
@@ -86,7 +104,7 @@ const Constants = Immutable.fromJS({
 
 
   // Some columns do not have fixed categories, so they don't appear here
-  // including: reportedDate, company
+  // including: year, company
   // NB also: map has no categories at all
 
   // TODO: validate more of these against the source data... 
@@ -146,7 +164,7 @@ const Constants = Immutable.fromJS({
       'Potassium Hydroxide (caustic solution)',
       'Produced Water',
       'Propane',
-      'Pulp Slurry',
+      'Pulp slurry',
       'Sulphur',
       'Sulphur Dioxide',
       'Waste Oil',
@@ -218,14 +236,13 @@ const Constants = Immutable.fromJS({
     ],
   },
 
-
   columnBaseColors: {
     'incidentTypes': {
       start: '#1A548E',
       middle: '#E66CE2',
       end: '#FFAEAB',
     },
-    'reportedDate': {
+    'year': {
       start: '#D6106E',
       middle: '#E66F45',
       end: '#FCFF96',
@@ -286,6 +303,8 @@ const Constants = Immutable.fromJS({
       end: '#FFFFA9',
     },
   },
+
+  emptyCategoryHeight: 20, // px
 
 
 })

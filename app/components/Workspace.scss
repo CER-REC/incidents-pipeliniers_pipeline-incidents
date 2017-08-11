@@ -1,4 +1,11 @@
 @import "../styles/Colours.scss";
 
-.Workspace {
+.workspace {
+  // This places scrollbar chrome below the visualization, at all times. As an
+  // option, we could program the workspace to not set the style that enables
+  // scrolling unless we detect that the displayed data is large enough to
+  // warrant it, which would let us hide the chrome some of the time.
+
+  overflow-x: scroll;
 }
+

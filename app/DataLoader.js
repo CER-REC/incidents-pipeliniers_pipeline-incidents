@@ -66,6 +66,20 @@ function volumeCategory(record, volumeString) {
 
 }
 
+function parseYear(record, yearString) {
+
+  const float = parseFloat(yearString)
+  
+  if (isNaN(float)) {
+    console.warn('Bad year value for incident record', record)
+    // TODO: strictly speaking, there are no good return values to use here
+    return 'Not Provided'
+  }
+
+  return float
+
+}
+
 
 // Map from the column names to a friendlier internal format
 function csvColumnMapping (d) {
@@ -89,7 +103,7 @@ function csvColumnMapping (d) {
     substance: d['Substance'],
     substanceCategory: d['SubstanceCategory'],
     releaseType: d['Release Type'],
-    year: d['Year'], // TODO: parse with Moment? Unclear if needed.
+    year: parseYear(d, d['Year']), 
     whatHappened: parseList(d['What Happened?']),
     whyItHappened: parseList(d['Why it Happened?']),
     pipelinePhase: d['Pipeline Phase'],

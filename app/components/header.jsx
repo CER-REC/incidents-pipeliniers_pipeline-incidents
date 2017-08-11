@@ -25,10 +25,10 @@ class Header extends React.Component {
     return (<g transform = {transformString}>
       {homeButton()}
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
-            
+			
         <text x={xHeading} y={yHeading} className="heading">Heading</text>
-        <text x={xSubpop} y={ySubpop} className="subpop">subheading</text>              
-                
+        <text x={xSubpop} y={ySubpop} className="subpop">subheading</text>				
+
       </svg>
     </g>
     )
