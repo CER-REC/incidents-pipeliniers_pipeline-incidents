@@ -7,6 +7,11 @@ require('./Sidebar.scss')
 
 class Sidebar extends React.Component {
 
+  // TODO: we should think about sidebar rendering in two special cases:
+  // - when the sidebar is empty, do we show something to indicate where it is?
+  // - when the user is dragging a column around, should we show something on
+  //   the sidebar to indicate that it is a drop target?
+
   render() {
     return <g>
       <rect

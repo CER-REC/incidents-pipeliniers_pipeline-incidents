@@ -32,16 +32,16 @@ const Constants = Immutable.fromJS({
 
   showHideEmptyCategories: {
     xShowImage: 10,
-    yShowImage: 997,
-    xShowText: 35,
-    yShowText: 1008,
+    yShowImage: 10,
+    xShowText: 20,
     showHideIconHeight: 15,
     showHideIconWidth: 15,
+    fontSize: 12,
   },
 
   pinColumn: {
     horizontalMargins: 11, // both left and right
-    width: 96,
+    width: 132,
     pinIconSize: 17,
     textWidth: 79,
     connectorDotSize: 6,
@@ -64,7 +64,7 @@ const Constants = Immutable.fromJS({
 
   columnNames: [
     'incidentTypes',
-    'reportedDate',
+    'year',
     'company',
     'status',
     'province',
@@ -86,7 +86,7 @@ const Constants = Immutable.fromJS({
 
 
   // Some columns do not have fixed categories, so they don't appear here
-  // including: reportedDate, company
+  // including: year, company
   // NB also: map has no categories at all
 
   // TODO: validate more of these against the source data... 
@@ -146,7 +146,7 @@ const Constants = Immutable.fromJS({
       'Potassium Hydroxide (caustic solution)',
       'Produced Water',
       'Propane',
-      'Pulp Slurry',
+      'Pulp slurry',
       'Sulphur',
       'Sulphur Dioxide',
       'Waste Oil',
@@ -225,7 +225,7 @@ const Constants = Immutable.fromJS({
       middle: '#E66CE2',
       end: '#FFAEAB',
     },
-    'reportedDate': {
+    'year': {
       start: '#D6106E',
       middle: '#E66F45',
       end: '#FCFF96',
@@ -287,6 +287,7 @@ const Constants = Immutable.fromJS({
     },
   },
 
+  emptyCategoryHeight: 20, // px
   mapWidthHeightRatio: 510 / 375,
 
 })
