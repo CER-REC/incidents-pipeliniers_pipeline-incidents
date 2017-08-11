@@ -8,13 +8,14 @@ const WorkspaceComputations = {}
 
 
 
-
+// Is the map on display?
 // columns: the columns state
 WorkspaceComputations.mapDisplayed = function(columns) {
   return columns.contains('map')
 }
 
 
+// The height of top bar, containing a heading, subheading, and home icon
 // NB: Thanks to memoize-immutable, this function is effectively always memoized
 WorkspaceComputations.topBarHeight = function () {
   let height = Constants.get('topOuterMargin')
@@ -27,6 +28,7 @@ WorkspaceComputations.topBarHeight = function () {
   return height
 }
 
+// This is the entire height of the column, including all its decorations
 // viewport: the viewport state
 WorkspaceComputations.columnHeight = function (viewport) {
   return viewport.get('y') 
@@ -47,57 +49,78 @@ WorkspaceComputations.columnWidth = function (columns) {
 }
 
 
+// // The leftmost part of the SVG where columns begin
+// WorkspaceComputations.columnsLeftBounds = function () {
+//   return Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
+//     + Constants.getIn(['pinColumn', 'width'])
+// }
 
-WorkspaceComputations.columnsLeftBounds = function () {
-  return Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
-    + Constants.getIn(['pinColumn', 'width'])
-}
+// // The rightmost part of the SVG, where the columns end.
+// // Sidebar space is further right in the SVG. 
+// WorkspaceComputations.columnsRightBounds = function (showEmptyCategories, viewport, data, columns, categories) {
+//   return WorkspaceComputations.sidebarX(showEmptyCategories, viewport, data, columns, categories)
+// }
 
-WorkspaceComputations.columnsRightBounds = function (showEmptyCategories, viewport, data, columns, categories) {
-  return WorkspaceComputations.sidebarX(showEmptyCategories, viewport, data, columns, categories)
-}
-
-WorkspaceComputations.ordinaryColumnAvailableWidth = function (showEmptyCategories, viewport, data, columns, categories) {
+// The total amount of width available for ordinary columns, with the space
+// needed for the map column subtracted if it is present
+// WorkspaceComputations.ordinaryColumnAvailableWidth = function (showEmptyCategories, viewport, data, columns, categories) {
   
-  // Define the left and right bounds of where we will be drawing columns and
-  // paths.
-  const leftBounds = WorkspaceComputations.columnsLeftBounds()
-  const rightBounds = WorkspaceComputations.columnsRightBounds(showEmptyCategories, viewport, data, columns, categories) 
+//   // Define the left and right bounds of where we will be drawing columns and
+//   // paths.
+//   const leftBounds = WorkspaceComputations.columnsLeftBounds()
+//   const rightBounds = WorkspaceComputations.columnsRightBounds(showEmptyCategories, viewport, data, columns, categories) 
 
-  let availableSpace = rightBounds - leftBounds
-  if (WorkspaceComputations.mapDisplayed(columns)) {
-    availableSpace -= WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
-  }
-  return availableSpace
-}
-
-
-WorkspaceComputations.spacePerOrdinaryColumn = function (showEmptyCategories, viewport, data, columns, categories) {
-
-  const availableSpace = WorkspaceComputations.ordinaryColumnAvailableWidth(showEmptyCategories, viewport, data, columns, categories)
-
-  const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
-  const spacePerOrdinaryColumn = availableSpace / ordinaryColumnsCount
-
-  return spacePerOrdinaryColumn
-}
+//   let availableSpace = rightBounds - leftBounds
+//   if (WorkspaceComputations.mapDisplayed(columns)) {
+//     availableSpace -= WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
+//   }
+//   return availableSpace
+// }
 
 
+
+// The amount of width each ordinary column has for rendering
+// WorkspaceComputations.widthPerOrdinaryColumn = function (showEmptyCategories, viewport, data, columns, categories) {
+
+//   const availableSpace = WorkspaceComputations.ordinaryColumnAvailableWidth(showEmptyCategories, viewport, data, columns, categories)
+
+//   const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
+//   const widthPerOrdinaryColumn = availableSpace / ordinaryColumnsCount
+
+//   return widthPerOrdinaryColumn
+// }
+
+
+// A hash of {columnName: xCoordinate}, the coordinate used for positioning the
+// column horizontally
 WorkspaceComputations.columnXCoordinates = function (showEmptyCategories, viewport, data, columns, categories) {
 
-  const spacePerOrdinaryColumn = WorkspaceComputations.spacePerOrdinaryColumn(showEmptyCategories, viewport, data, columns, categories)
+  const widthPerOrdinaryColumn = WorkspaceComputations.widthPerOrdinaryColumn(showEmptyCategories, viewport, data, columns, categories)
 
   let columnXCoordinates = Immutable.Map()
   let cumulativeXCoordinate = WorkspaceComputations.columnsLeftBounds()
 
   columns.forEach( columnName => {
     if (columnName === 'map') {
-      columnXCoordinates = columnXCoordinates.set('map', cumulativeXCoordinate)
+
+      let columnX = cumulativeXCoordinate
+
+      // For the column to the left of the map, we do not render the usual paths
+      // to the right of that column. The map is positioned adjacent to the
+      // column to its left to compensate.
+      // We only do this if there is a column left of the map
+      if (columns.get(0) !== 'map') {
+        const columnPathWidth = WorkspaceComputations.columnPathWidth(showEmptyCategories, viewport, data, columns, categories)
+        columnX -= columnPathWidth
+        cumulativeXCoordinate -= columnPathWidth
+      }
+
+      columnXCoordinates = columnXCoordinates.set('map', columnX)
       cumulativeXCoordinate += WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
     }
     else {
       columnXCoordinates = columnXCoordinates.set(columnName, cumulativeXCoordinate)
-      cumulativeXCoordinate += spacePerOrdinaryColumn
+      cumulativeXCoordinate += widthPerOrdinaryColumn
     }
   })
 
@@ -113,16 +136,17 @@ WorkspaceComputations.columnPathWidth = function (showEmptyCategories, viewport,
     return Constants.get('minimumColumnPathWidth')
   }
   else {
-    const spacePerOrdinaryColumn = WorkspaceComputations.spacePerOrdinaryColumn(showEmptyCategories, viewport, data, columns, categories)
+    const widthPerOrdinaryColumn = WorkspaceComputations.widthPerOrdinaryColumn(showEmptyCategories, viewport, data, columns, categories)
 
     const columnWidth = WorkspaceComputations.columnWidth(columns)
 
-    return spacePerOrdinaryColumn - columnWidth
+    return widthPerOrdinaryColumn - columnWidth
   }
 }
 
 
-
+// A hash of {columnName: xCoordinate}, the coordinate used for positioning the
+// column path horizontally
 WorkspaceComputations.columnPathXCoordinates = function (showEmptyCategories, viewport, data, columns, categories) {
   return WorkspaceComputations.columnXCoordinates(showEmptyCategories, viewport, data, columns, categories)
     .map( xCoordinate => {
@@ -138,12 +162,13 @@ WorkspaceComputations.sidebarWidth = function (columns) {
   return width
 }
 
-WorkspaceComputations.sidebarX = function (showEmptyCategories, viewport, data, columns, categories) {
-  return WorkspaceComputations.workspaceWidth(showEmptyCategories, viewport, data, columns, categories)
-    - Constants.getIn(['socialBar', 'width'])
-    - Constants.getIn(['socialBar', 'leftMargin'])
-    - WorkspaceComputations.sidebarWidth(columns)
-}
+
+// WorkspaceComputations.sidebarX = function (showEmptyCategories, viewport, data, columns, categories) {
+//   return WorkspaceComputations.workspaceWidth(showEmptyCategories, viewport, data, columns, categories)
+//     - Constants.getIn(['socialBar', 'width'])
+//     - Constants.getIn(['socialBar', 'leftMargin'])
+//     - WorkspaceComputations.sidebarWidth(columns)
+// }
 
 
 
@@ -159,6 +184,9 @@ WorkspaceComputations.ordinaryColumnsCount = function(columns) {
   return ordinaryColumnsCount
 }
 
+// The maximum number of columns which may be present before we should extend 
+// the SVG beyond the viewport, so that it scrolls, and so that we have more
+// space to lay out elements.
 WorkspaceComputations.maxColumnsWithoutScroll = function (columns) {
   if (WorkspaceComputations.mapDisplayed(columns)) {
     return Constants.get('maxColumnsWithoutScrollWithMap')
@@ -169,6 +197,9 @@ WorkspaceComputations.maxColumnsWithoutScroll = function (columns) {
 
 }
 
+
+// Should we use math that can produce a horizontally scrolling workspace, or 
+// not?
 WorkspaceComputations.useScrollingWorkspace = function (columns) {
   const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
   const maxColumnsWithoutScroll = WorkspaceComputations.maxColumnsWithoutScroll(columns)
@@ -193,6 +224,14 @@ WorkspaceComputations.workspaceWidth = function (showEmptyCategories, viewport, 
 
     if (WorkspaceComputations.mapDisplayed(columns)) {
       width += WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
+    }
+
+    // TODO: This is a giant hack. We could use a saner way to calculate the
+    // column x coordinates
+    // If the map is not the first column, then the path for the column to its
+    // left is not rendered, subtract that width from the available page space
+    if (WorkspaceComputations.mapDisplayed(columns) && columns.get(0) !== 'map') {
+      width -= WorkspaceComputations.columnPathWidth(showEmptyCategories, viewport, data, columns, categories)
     }
 
     width += WorkspaceComputations.sidebarWidth(columns)
@@ -330,6 +369,7 @@ WorkspaceComputations.columnEmptyCategoryHeight = function (showEmptyCategories,
 }
 
 
+// The width and height of the map column
 WorkspaceComputations.mapDimensions = function(showEmptyCategories, viewport, data, columns, categories) {
 
   const height = WorkspaceComputations.columnNormalCategoryHeight(
@@ -347,6 +387,45 @@ WorkspaceComputations.mapDimensions = function(showEmptyCategories, viewport, da
   })
 
 }
+
+// Should the named column render its connected paths? 
+WorkspaceComputations.shouldRenderColumnPath = function (columns, columnName) {
+  // If the column to our right is the map column, we don't render our paths
+  const index = columns.indexOf(columnName)
+  return columns.get(index + 1) !== 'map'
+}
+
+
+
+// Returns an immutable hash with positions and sizing information for most 
+// elements which are laid out left to right.
+
+/*
+TODO: include
+  pin column
+  columns
+  column paths
+  sibedar
+  social bar
+  workspace
+*/
+
+
+WorkspaceComputations.horizontalPositions = function(showEmptyCategories, viewport, data, columns, categories) {
+
+  if (WorkspaceComputations.useScrollingWorkspace(columns)) {
+    return WorkspaceComputations.horizontalPositionsWithScroll(showEmptyCategories, viewport, data, columns, categories)
+  }
+  else {
+    return WorkspaceComputations.horizontalPositionsFixedWidth(showEmptyCategories, viewport, data, columns, categories)
+
+  }
+
+}
+
+
+
+
 
 
 

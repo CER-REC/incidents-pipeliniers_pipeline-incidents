@@ -120,13 +120,25 @@ class Column extends React.Component {
 
   }
 
+  columnPaths() {
+    if (WorkspaceComputations.shouldRenderColumnPath(
+      this.props.columns,
+      this.props.columnName)) {
+      return <ColumnPaths index={this.props.index} columnName={this.props.columnName}/>
+    }
+    else {
+      return null
+    }
+    
+  }
+
 
 
   render() {
     return <g>
       { this.nonEmptyCategories() }
       { this.emptyCategories() }
-      <ColumnPaths index={this.props.index} columnName={this.props.columnName}/>
+      { this.columnPaths() }
     </g>
   }
 }
