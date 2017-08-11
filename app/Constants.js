@@ -59,11 +59,11 @@ const Constants = Immutable.fromJS({
     leftMargin: 5,
     iconSideMargin: 3.5,
     emailIconPadding: 3,
-    facebookIconPadding: 25,
-    linkedinIconPadding: 46,
-    twitterIconPadding: 69,
-    downloadIconPadding: 93,
-    downloadImageIconPadding: 116,
+    facebookIconPadding: 26,
+    linkedinIconPadding: 48,
+    twitterIconPadding: 70,
+    downloadIconPadding: 92,
+    downloadImageIconPadding: 114,
   },
 
 

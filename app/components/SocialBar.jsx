@@ -33,8 +33,8 @@ function emailClick() {
 
 function facebookClick() {
   makeBitlyPromise().then(function(response){
-    const facebookinUrl = `https://www.facebook.com/sharer/sharer.php?u=${response.body.data.url}`
-    window.open(facebookinUrl , 'targetWindow' , 'width=650,height=650') 
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${response.body.data.url}`
+    window.open(facebookUrl , 'targetWindow' , 'width=650,height=650') 
   })
 }
 
