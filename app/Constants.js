@@ -287,6 +287,7 @@ const Constants = Immutable.fromJS({
     },
   },
 
+  mapWidthHeightRatio: 510 / 375,
 
 })
 
