@@ -11,7 +11,7 @@ const Constants = Immutable.fromJS({
   // All in px
   leftOuterMargin: 5,
   topOuterMargin: 5,
-  bottomOuterMargin: 5,
+  bottomOuterMargin: 17,
   showHideTopMargin: 100,
   showHideLeftMargin: 5,
 
@@ -51,6 +51,17 @@ const Constants = Immutable.fromJS({
   columnWideWidth: 62,
   columnNarrowWidth: 24,
   minimumColumnPathWidth: 80,
+
+  columnHeadingHeight: 42,
+  columnHeadingLineOffset: 15,
+  columnSubheadingHeight: 10,
+  columnSubheadingOffset: 40,
+
+  dragArrow: {
+    width: 24,
+    height: 10,
+    topMargin: 7,
+  },
 
   socialBar: {
     width: 23, 
@@ -224,7 +235,6 @@ const Constants = Immutable.fromJS({
       'More than 1,000,000 m³',
     ],
   },
-
 
   columnBaseColors: {
     'incidentTypes': {

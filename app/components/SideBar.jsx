@@ -16,7 +16,7 @@ class Sidebar extends React.Component {
     return <g>
       <rect
         x={ WorkspaceComputations.sidebarX(this.props.columns, this.props.viewport) }
-        y={ WorkspaceComputations.topBarHeight() }
+        y={ WorkspaceComputations.columnY() }
         width={ WorkspaceComputations.sidebarWidth(this.props.columns) }
         height={ WorkspaceComputations.columnHeight(this.props.viewport) }
         fill='#DDDDFF'

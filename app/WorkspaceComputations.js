@@ -30,9 +30,10 @@ WorkspaceComputations.topBarHeight = function () {
 
 // viewport: the viewport state
 WorkspaceComputations.columnHeight = function (viewport) {
-  return viewport.get('y') 
-    - WorkspaceComputations.topBarHeight()
-    - Constants.get('bottomOuterMargin')
+  return viewport.get('y') - 
+         WorkspaceComputations.topBarHeight() - 
+         Constants.get('bottomOuterMargin') - 
+         Constants.get('columnHeadingHeight')
 }
 
 
@@ -45,6 +46,11 @@ WorkspaceComputations.columnWidth = function (columns) {
   else {
     return Constants.get('columnWideWidth')
   }
+}
+
+WorkspaceComputations.columnY = function() {
+  return WorkspaceComputations.topBarHeight() + 
+         Constants.get('columnHeadingHeight')
 }
 
 WorkspaceComputations.columnX = function (columns, viewport, i) {
@@ -126,6 +132,19 @@ WorkspaceComputations.workspaceWidth = function (columns, viewport) {
 
 }
 
+WorkspaceComputations.dragArrowX = function (columns, viewport, index) {
+  const columnX = WorkspaceComputations.columnX(columns, viewport, index)
+  const columnWidth = WorkspaceComputations.columnWidth(columns)
+  const dragArrowWidth = Constants.getIn(['dragArrow', 'width'])
+
+  return columnX + columnWidth / 2 - dragArrowWidth / 2
+}
+
+WorkspaceComputations.dragArrowY = function (viewport) {
+  return WorkspaceComputations.topBarHeight() + 
+         Constants.get('columnSubheadingOffset') + 
+         WorkspaceComputations.columnHeight(viewport) + 7
+}
 
 // Returns an immutable map of category names to category heights, for the given
 // column name.
