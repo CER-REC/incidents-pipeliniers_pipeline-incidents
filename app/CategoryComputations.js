@@ -298,6 +298,14 @@ CategoryComputations.displayedCategories = function (data, columns, categories, 
 }
 
 
+// Returns true or false: are any categories filtered on this column?
+CategoryComputations.columnFiltered = function(categories, columnName) {
+  const result = categories.get(columnName).find( visible => {
+    return visible === false
+  })
+
+  return typeof result !== 'undefined'
+}
 
 
 

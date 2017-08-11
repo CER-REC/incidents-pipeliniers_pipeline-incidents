@@ -31,9 +31,10 @@ WorkspaceComputations.topBarHeight = function () {
 // This is the entire height of the column, including all its decorations
 // viewport: the viewport state
 WorkspaceComputations.columnHeight = function (viewport) {
-  return viewport.get('y') 
-    - WorkspaceComputations.topBarHeight()
-    - Constants.get('bottomOuterMargin')
+  return viewport.get('y') - 
+         WorkspaceComputations.topBarHeight() - 
+         Constants.get('bottomOuterMargin') -
+         Constants.get('columnHeadingHeight')
 }
 
 
@@ -48,6 +49,11 @@ WorkspaceComputations.columnWidth = function (columns) {
   }
 }
 
+
+WorkspaceComputations.columnY = function() {
+  return WorkspaceComputations.topBarHeight() + 
+         Constants.get('columnHeadingHeight')
+}
 
 
 
@@ -87,6 +93,18 @@ WorkspaceComputations.maxColumnsWithoutScroll = function (columns) {
 
 }
 
+WorkspaceComputations.dragArrowX = function (columns, xCoordinate) {
+  const columnWidth = WorkspaceComputations.columnWidth(columns)
+  const dragArrowWidth = Constants.getIn(['dragArrow', 'width'])
+
+  return xCoordinate + columnWidth / 2 - dragArrowWidth / 2
+}
+
+WorkspaceComputations.dragArrowY = function (viewport) {
+  return WorkspaceComputations.topBarHeight() + 
+         Constants.get('columnSubheadingOffset') + 
+         WorkspaceComputations.columnHeight(viewport) + 7
+}
 
 // Should we use math that can produce a horizontally scrolling workspace, or 
 // not?
@@ -183,17 +201,17 @@ WorkspaceComputations.baselineHeight = function (showEmptyCategories, viewport, 
     const desiredEmptyCategoryHeight = CategoryComputations.desiredEmptyCategoryHeight(data, columns, categories)
 
     if (desiredEmptyCategoryHeight > columnHeight / 2) {
-      return columnHeight / 2 + WorkspaceComputations.topBarHeight()
+      return columnHeight / 2 + WorkspaceComputations.columnY()
     }
     else {
-      return WorkspaceComputations.topBarHeight() + columnHeight - desiredEmptyCategoryHeight
+      return WorkspaceComputations.columnY() + columnHeight - desiredEmptyCategoryHeight
     }
 
   }
   else {
     // When empty categories are not shown, the baseline lies next to the bottom
     // margin of the workspace and no space is set aside for empty categories.
-    return WorkspaceComputations.topBarHeight() + columnHeight
+    return WorkspaceComputations.columnY() + columnHeight
   }
 
 }
@@ -206,7 +224,7 @@ WorkspaceComputations.columnNormalCategoryHeight = function (showEmptyCategories
 
   // TODO: currently, we're just using the top bar height, but this should
   // possibly account for the height of the heading? 
-  return WorkspaceComputations.baselineHeight(showEmptyCategories, viewport, data, columns, categories) - WorkspaceComputations.topBarHeight()
+  return WorkspaceComputations.baselineHeight(showEmptyCategories, viewport, data, columns, categories) - WorkspaceComputations.columnY()
 
 }
 
@@ -277,7 +295,7 @@ WorkspaceComputations.horizontalPositions = function(showEmptyCategories, viewpo
 WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategories, viewport, data, columns, categories) {
 
   const columnHeight = WorkspaceComputations.columnHeight(viewport)
-  const topBarHeight = WorkspaceComputations.topBarHeight()
+  const topBarHeight = WorkspaceComputations.columnY()
 
   // Move through each element left to right
 
@@ -389,7 +407,7 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
 
   const workspaceWidth = viewport.get('x')
   const columnHeight = WorkspaceComputations.columnHeight(viewport)
-  const topBarHeight = WorkspaceComputations.topBarHeight()
+  const topBarHeight = WorkspaceComputations.columnY()
 
   let measurements = Immutable.Map()
 

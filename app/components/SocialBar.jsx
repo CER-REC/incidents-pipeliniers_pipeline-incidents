@@ -80,6 +80,7 @@ class SocialBar extends React.Component {
       this.props.categories)
       .get('socialBar')
 
+
     let transformContainer = `translate(${measurements.get('x') + Constants.getIn(['socialBar', 'leftMargin'])},${measurements.get('y')})`
     let transformSocialIcons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
 

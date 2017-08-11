@@ -14,7 +14,7 @@ const reducers = Redux.combineReducers({
   columns: ColumnsReducer,
   data: DataReducer,
   categories: CategoriesReducer,
-  showEmptyCategories: EmptyCategoriesReducer
+  showEmptyCategories: EmptyCategoriesReducer,
 })
 
 module.exports = function () {

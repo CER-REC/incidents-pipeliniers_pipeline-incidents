@@ -2,7 +2,6 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
-
 // require('./ColumnPaths.scss')
 
 class ColumnPaths extends React.Component {
