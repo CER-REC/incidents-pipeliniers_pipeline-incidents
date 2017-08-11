@@ -25,20 +25,18 @@ function makeBitlyPromise() {
 
 function emailClick() {
   makeBitlyPromise().then(function(response){
-    console.log(response)
     const emailBody = `${response.body.data.url}%0A%0A TODO`
-
     const emailUrl = `mailto:?subject=TODO &body= ${emailBody}`
-
     window.location.href = emailUrl
   })
-  console.log('email clicked')
 }
 
 function linkedinClick() {
   makeBitlyPromise().then(function(response){
     console.log(response)
-
+    //const linkedinResponse = `${response.body.data.url}`
+    const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${response.body.data.url}&summary=${response.body.data.url}`
+    window.open(linkedinUrl , 'targetWindow' , 'width=650,height=650') 
   })
   console.log('linkedin clicked')
 }
@@ -46,7 +44,7 @@ function linkedinClick() {
 function twitterClick() {
   makeBitlyPromise().then(function(response){
     console.log(response)
-    
+    //https://twitter.com/intent/tweet?url=#{url}", 'targetWindow', 'width=650,height=650'
   })
   console.log('twitter clicked')
 }
