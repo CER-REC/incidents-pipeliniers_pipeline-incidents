@@ -62,14 +62,6 @@ function downloadImageClick() {
 
 class SocialBar extends React.Component {
 
-/*
-let transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
-    <g transform = {transformString}>
-      {homeButton()}
-*/
-
-
-
   render() {
     const iconSize = Constants.getIn(['socialBar', 'iconSize'])
     let transformSocialIcons = `translate(${this.props.viewport.get('x') - (Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'iconSideMargin']))},${WorkspaceComputations.topBarHeight()})`
