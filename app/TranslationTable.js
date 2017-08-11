@@ -6,7 +6,7 @@ const TranslationTable = Immutable.fromJS({
       en:'INCIDENT TYPE',
       fr:'TODO',
     },
-    reportedDate: {
+    year: {
       en:'REPORTED DATE/YEAR',
       fr:'TODO',
     },
