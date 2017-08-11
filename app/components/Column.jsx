@@ -32,6 +32,13 @@ class Column extends React.Component {
       this.props.categories, 
       this.props.columnName)
 
+    const x = WorkspaceComputations.columnXCoordinates(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories).get(this.props.columnName)
+
     return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
@@ -43,7 +50,7 @@ class Column extends React.Component {
           colour={categoryColours.get(categoryName)} 
           height={categoryHeights.get(categoryName)}
           width={ WorkspaceComputations.columnWidth(this.props.columns) }
-          x={WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)}
+          x={ x }
           y={currentY}
         />
       }).toArray()
@@ -76,6 +83,14 @@ class Column extends React.Component {
       this.props.columns,
       this.props.categories)
 
+    const x = WorkspaceComputations.columnXCoordinates(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories).get(this.props.columnName)
+
+
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     let categoryY = baselineHeight
 
@@ -95,7 +110,7 @@ class Column extends React.Component {
         colour={categoryColours.get(categoryName)} 
         height={emptyCategoryHeight}
         width={ WorkspaceComputations.columnWidth(this.props.columns) }
-        x={WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)}
+        x={ x }
         y={currentY}
       />
 
@@ -111,7 +126,7 @@ class Column extends React.Component {
     return <g>
       { this.nonEmptyCategories() }
       { this.emptyCategories() }
-      <ColumnPaths index={this.props.index}/>
+      <ColumnPaths index={this.props.index} columnName={this.props.columnName}/>
     </g>
   }
 }

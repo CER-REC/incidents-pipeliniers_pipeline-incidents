@@ -1,4 +1,5 @@
 const MemoizeImmutable = require('memoize-immutable')
+const Immutable = require('immutable')
 
 const Constants = require('./Constants.js')
 const CategoryComputations = require('./CategoryComputations.js')
@@ -8,10 +9,8 @@ const WorkspaceComputations = {}
 
 
 
-// TODO: is this necessary?
 // columns: the columns state
 WorkspaceComputations.mapDisplayed = function(columns) {
-  // TODO: should the 'map' string and others like it be constants somehow?
   return columns.contains('map')
 }
 
@@ -36,10 +35,10 @@ WorkspaceComputations.columnHeight = function (viewport) {
 }
 
 
+// NB: this is the width of ordinary columns, not the map column
 // columns: the columns state
 WorkspaceComputations.columnWidth = function (columns) {
-  // TODO: update me when we add the currently displayed columns to the store
-  if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
+  if (WorkspaceComputations.useScrollingWorkspace(columns)) {
     return Constants.get('columnNarrowWidth')
   }
   else {
@@ -47,43 +46,88 @@ WorkspaceComputations.columnWidth = function (columns) {
   }
 }
 
-WorkspaceComputations.columnX = function (columns, viewport, i) {
 
+
+WorkspaceComputations.columnsLeftBounds = function () {
+  return Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
+    + Constants.getIn(['pinColumn', 'width'])
+}
+
+WorkspaceComputations.columnsRightBounds = function (showEmptyCategories, viewport, data, columns, categories) {
+  return WorkspaceComputations.sidebarX(showEmptyCategories, viewport, data, columns, categories)
+}
+
+WorkspaceComputations.ordinaryColumnAvailableWidth = function (showEmptyCategories, viewport, data, columns, categories) {
+  
   // Define the left and right bounds of where we will be drawing columns and
   // paths.
-  const leftBounds = Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
-    + Constants.getIn(['pinColumn', 'width'])
-  const rightBounds = WorkspaceComputations.sidebarX(columns, viewport)
+  const leftBounds = WorkspaceComputations.columnsLeftBounds()
+  const rightBounds = WorkspaceComputations.columnsRightBounds(showEmptyCategories, viewport, data, columns, categories) 
 
-  // Divide the space up between the number of columns
-  // TODO: this math will need to be altered if the map column is on display
-  const spacePerColumn = (rightBounds - leftBounds) / columns.count()
-
-  // Supply the coordinate for the current column
-  return leftBounds + spacePerColumn * i
+  let availableSpace = rightBounds - leftBounds
+  if (WorkspaceComputations.mapDisplayed(columns)) {
+    availableSpace -= WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
+  }
+  return availableSpace
 }
+
+
+WorkspaceComputations.spacePerOrdinaryColumn = function (showEmptyCategories, viewport, data, columns, categories) {
+
+  const availableSpace = WorkspaceComputations.ordinaryColumnAvailableWidth(showEmptyCategories, viewport, data, columns, categories)
+
+  const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
+  const spacePerOrdinaryColumn = availableSpace / ordinaryColumnsCount
+
+  return spacePerOrdinaryColumn
+}
+
+
+WorkspaceComputations.columnXCoordinates = function (showEmptyCategories, viewport, data, columns, categories) {
+
+  const spacePerOrdinaryColumn = WorkspaceComputations.spacePerOrdinaryColumn(showEmptyCategories, viewport, data, columns, categories)
+
+  let columnXCoordinates = Immutable.Map()
+  let cumulativeXCoordinate = WorkspaceComputations.columnsLeftBounds()
+
+  columns.forEach( columnName => {
+    if (columnName === 'map') {
+      columnXCoordinates = columnXCoordinates.set('map', cumulativeXCoordinate)
+      cumulativeXCoordinate += WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
+    }
+    else {
+      columnXCoordinates = columnXCoordinates.set(columnName, cumulativeXCoordinate)
+      cumulativeXCoordinate += spacePerOrdinaryColumn
+    }
+  })
+
+  return columnXCoordinates
+}
+
 
 // columns: the columns state
 // viewport: the viewport state
-WorkspaceComputations.columnPathWidth = function (columns, viewport) {
-  if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
+WorkspaceComputations.columnPathWidth = function (showEmptyCategories, viewport, data, columns, categories) {
+
+  if (WorkspaceComputations.useScrollingWorkspace(columns)) {
     return Constants.get('minimumColumnPathWidth')
   }
   else {
-    let availableWidth = WorkspaceComputations.workspaceWidth(columns, viewport)
-    availableWidth -= Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
-    availableWidth -= Constants.getIn(['pinColumn', 'width'])
-    availableWidth -= columns.count() * Constants.get('columnWideWidth')
-    availableWidth -= Constants.getIn(['socialBar', 'width'])
-    availableWidth -= WorkspaceComputations.sidebarWidth(columns)
-    availableWidth -= Constants.getIn(['socialBar', 'leftMargin'])
-    return availableWidth / columns.count()
+    const spacePerOrdinaryColumn = WorkspaceComputations.spacePerOrdinaryColumn(showEmptyCategories, viewport, data, columns, categories)
+
+    const columnWidth = WorkspaceComputations.columnWidth(columns)
+
+    return spacePerOrdinaryColumn - columnWidth
   }
 }
 
-WorkspaceComputations.columnPathX = function (columns, viewport, i) {
-  return WorkspaceComputations.columnX(columns, viewport, i) 
-    + WorkspaceComputations.columnWidth(columns)
+
+
+WorkspaceComputations.columnPathXCoordinates = function (showEmptyCategories, viewport, data, columns, categories) {
+  return WorkspaceComputations.columnXCoordinates(showEmptyCategories, viewport, data, columns, categories)
+    .map( xCoordinate => {
+      return xCoordinate + WorkspaceComputations.columnWidth(columns)
+    })
 }
 
 // columns: the columns state
@@ -94,24 +138,62 @@ WorkspaceComputations.sidebarWidth = function (columns) {
   return width
 }
 
-WorkspaceComputations.sidebarX = function (columns, viewport) {
-  return WorkspaceComputations.workspaceWidth(columns, viewport)
+WorkspaceComputations.sidebarX = function (showEmptyCategories, viewport, data, columns, categories) {
+  return WorkspaceComputations.workspaceWidth(showEmptyCategories, viewport, data, columns, categories)
     - Constants.getIn(['socialBar', 'width'])
     - Constants.getIn(['socialBar', 'leftMargin'])
     - WorkspaceComputations.sidebarWidth(columns)
 }
 
+
+
+// The number of 'ordinary' columns on display right now
+WorkspaceComputations.ordinaryColumnsCount = function(columns) {
+
+  let ordinaryColumnsCount = columns.count()
+  if (WorkspaceComputations.mapDisplayed(columns)) {
+    // The map column doesn't count as an ordinary column
+    ordinaryColumnsCount -= 1
+  }
+ 
+  return ordinaryColumnsCount
+}
+
+WorkspaceComputations.maxColumnsWithoutScroll = function (columns) {
+  if (WorkspaceComputations.mapDisplayed(columns)) {
+    return Constants.get('maxColumnsWithoutScrollWithMap')
+  }
+  else {
+    return Constants.get('maxColumnsWithoutScroll')
+  }
+
+}
+
+WorkspaceComputations.useScrollingWorkspace = function (columns) {
+  const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
+  const maxColumnsWithoutScroll = WorkspaceComputations.maxColumnsWithoutScroll(columns)
+
+  return ordinaryColumnsCount > maxColumnsWithoutScroll
+}
+
+
 // columns: the columns state
 // viewport: the viewport state
-WorkspaceComputations.workspaceWidth = function (columns, viewport) {
+WorkspaceComputations.workspaceWidth = function (showEmptyCategories, viewport, data, columns, categories) {
 
-  if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
-    // right margin, social media bar width
+  const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
+  const useScrollingWorkspace = WorkspaceComputations.useScrollingWorkspace(columns)
+
+  if (useScrollingWorkspace) {
     let width = Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
     width += Constants.getIn(['pinColumn', 'width'])
 
-    // TODO: verify that this works when we add columns reducer
-    width += (Constants.get('columnNarrowWidth') + Constants.get('minimumColumnPathWidth')) * columns.count() 
+    width += (Constants.get('columnNarrowWidth') + Constants.get('minimumColumnPathWidth')) 
+      * ordinaryColumnsCount
+
+    if (WorkspaceComputations.mapDisplayed(columns)) {
+      width += WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories).get('width')
+    }
 
     width += WorkspaceComputations.sidebarWidth(columns)
 
@@ -248,6 +330,26 @@ WorkspaceComputations.columnEmptyCategoryHeight = function (showEmptyCategories,
 }
 
 
+WorkspaceComputations.mapDimensions = function(showEmptyCategories, viewport, data, columns, categories) {
+
+  const height = WorkspaceComputations.columnNormalCategoryHeight(
+    showEmptyCategories,
+    viewport,
+    data,
+    columns,
+    categories)
+
+  // TODO: The map seems way too big!
+
+  return Immutable.Map({
+    width: height * Constants.get('mapWidthHeightRatio'),
+    height: height,
+  })
+
+}
+
+
+
 
 
 const MemoizedComputations = {}
@@ -256,4 +358,5 @@ for (const name of Object.keys(WorkspaceComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(WorkspaceComputations[name])
 }
 
+window.wc = MemoizedComputations
 module.exports = MemoizedComputations

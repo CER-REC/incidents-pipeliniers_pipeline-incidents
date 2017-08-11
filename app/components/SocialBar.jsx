@@ -16,9 +16,13 @@ class SocialBar extends React.Component {
     // just end up placing a second svg adjacent to the first, in a container
     // floated left ... 
 
+
     const x = WorkspaceComputations.workspaceWidth(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
       this.props.columns,
-      this.props.viewport)
+      this.props.categories)
       - Constants.getIn(['socialBar', 'width'])
 
     return <g>
@@ -35,8 +39,11 @@ class SocialBar extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
+    data: state.data,
     columns: state.columns,
+    categories: state.categories,
   }
 }
 

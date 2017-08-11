@@ -60,7 +60,10 @@ const Constants = Immutable.fromJS({
   },
 
 
-  maxColumnsWithoutScroll: 4,
+  maxColumnsWithoutScroll: 5,
+
+  // i.e. ordinary columns, excludes the map column
+  maxColumnsWithoutScrollWithMap: -1,
 
   columnNames: [
     'incidentTypes',
@@ -288,6 +291,7 @@ const Constants = Immutable.fromJS({
   },
 
   emptyCategoryHeight: 20, // px
+  
   mapWidthHeightRatio: 510 / 375,
 
 })
