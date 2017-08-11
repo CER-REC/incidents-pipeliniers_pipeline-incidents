@@ -31,10 +31,10 @@ const Constants = Immutable.fromJS({
   },
 
   showHideEmptyCategories: {
-    xShowImage: 10,
-    yShowImage: 997,
-    xShowText: 35,
-    yShowText: 1008,
+    xShowImage: -5,
+    yShowImage: 350,
+    xShowText: 15,
+    yShowText: 360,
     showHideIconHeight: 15,
     showHideIconWidth: 15,
   },
@@ -54,9 +54,16 @@ const Constants = Immutable.fromJS({
 
   socialBar: {
     width: 23, 
-    height: 115,
+    height: 137,
     iconSize: 16,
     leftMargin: 5,
+    iconSideMargin: 3.5,
+    emailIconPadding: 3,
+    facebookIconPadding: 26,
+    linkedinIconPadding: 49,
+    twitterIconPadding: 72,
+    downloadIconPadding: 95,
+    downloadImageIconPadding: 118,
   },
 
 
