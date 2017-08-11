@@ -63,8 +63,23 @@ function downloadImageClick() {
 class SocialBar extends React.Component {
 
   render() {
+
     const iconSize = Constants.getIn(['socialBar', 'iconSize'])
-    let transformSocialIcons = `translate(${this.props.viewport.get('x') - (Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'iconSideMargin']))},${WorkspaceComputations.topBarHeight()})`
+
+    // TODO: an issue with the social bar: it is intended to 'float along' to 
+    // the left of the SVG content.
+    // Doing this inside the SVG itself would be really, really hard. We may
+    // just end up placing a second svg adjacent to the first, in a container
+    // floated left ... 
+
+    const x = WorkspaceComputations.workspaceWidth(
+      this.props.columns,
+      this.props.viewport)
+      - Constants.getIn(['socialBar', 'width'])
+      - Constants.getIn(['socialBar', 'iconSideMargin'])
+
+    let transformSocialIcons = `translate(${x},${WorkspaceComputations.topBarHeight()})`
+
     return <g transform = {transformSocialIcons}>
       <rect
         x={-Constants.getIn(['socialBar', 'iconSideMargin'])}
@@ -120,7 +135,8 @@ class SocialBar extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    viewport: state.viewport
+    viewport: state.viewport,
+    columns: state.columns,
   }
 }
 

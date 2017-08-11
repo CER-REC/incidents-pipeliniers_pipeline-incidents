@@ -16,17 +16,23 @@ class Column extends React.Component {
       this.props.categories,
       this.props.columnName)
     const categoryHeights = WorkspaceComputations.categoryHeights(
+      this.props.showEmptyCategories,
       this.props.viewport,
-      this.props.data, 
+      this.props.data,
+      this.props.columns,
       this.props.categories, 
       this.props.columnName) 
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     let categoryY = WorkspaceComputations.topBarHeight()
 
-    return this.props.categories.get(this.props.columnName)
-      .filter( (visible) => visible === true)
-      .filter( (visible, categoryName) => categoryHeights.get(categoryName) !== undefined)
+    const displayedCategories = CategoryComputations.displayedCategories(
+      this.props.data,
+      this.props.columns,
+      this.props.categories, 
+      this.props.columnName)
+
+    return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
         categoryY += categoryHeights.get(categoryName)
@@ -44,23 +50,73 @@ class Column extends React.Component {
 
   }
 
+  emptyCategories() {
+    
+    if (!this.props.showEmptyCategories) {
+      // If not showing empty categories, bail out
+      return null
+    }
+
+
+    const categoryColours = CategoryComputations.coloursForColumn(
+      this.props.categories,
+      this.props.columnName)
+
+    const baselineHeight = WorkspaceComputations.baselineHeight(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    const emptyCategoryHeight = WorkspaceComputations.emptyCategoryHeight(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    // TODO: I'm not very happy computing the vertical layout this way, refactor!
+    let categoryY = baselineHeight
+
+    return CategoryComputations.emptyCategoriesForColumn(
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.columnName
+    ).map( (visible, categoryName) => {
+      // TODO: I think that we don't care whether an empty category is visible or not?
+      const currentY = categoryY
+      categoryY += emptyCategoryHeight
+
+      return <Category
+        categoryName={categoryName}
+        key={categoryName}
+        colour={categoryColours.get(categoryName)} 
+        height={emptyCategoryHeight}
+        width={ WorkspaceComputations.columnWidth(this.props.columns) }
+        x={WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)}
+        y={currentY}
+      />
+
+    }).toArray()
+
+
+
+  }
+
+
+
   render() {
     return <g>
       { this.nonEmptyCategories() }
+      { this.emptyCategories() }
       <ColumnPaths index={this.props.index}/>
     </g>
   }
 }
 
-/*
-      <rect
-        x={ WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index) }
-        y={ WorkspaceComputations.topBarHeight() }
-        width={ WorkspaceComputations.columnWidth(this.props.columns) }
-        height={ WorkspaceComputations.columnHeight(this.props.viewport) }
-        fill='#FFDDFF'
-      />
-*/
+
 
 const mapStateToProps = state => {
   return {
@@ -68,6 +124,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     data: state.data,
+    showEmptyCategories: state.showEmptyCategories,
   }
 }
 
