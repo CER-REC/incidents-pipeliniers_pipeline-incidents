@@ -318,7 +318,9 @@ const Constants = Immutable.fromJS({
       height: 600,
     },
 
-    backgroundColour: 'rgb(239, 236, 231)'
+    backgroundColour: 'rgb(239, 236, 231)',
+    incidentCircleColour: 'rgb(80, 113, 82)',
+    incidentRadius: 5,
 
   }
 

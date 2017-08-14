@@ -4,6 +4,7 @@ const ReactRedux = require('react-redux')
 // const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 const MapComputations = require('../MapComputations.js')
+const IncidentComputations = require('../IncidentComputations.js')
 const MapRenderer = require('../MapRenderer.js')
 
 class Map extends React.Component {
@@ -33,7 +34,12 @@ class Map extends React.Component {
       this.props.columns,
       this.props.categories)
 
-    MapRenderer(canvas, basemapPosition)
+    const filteredData = IncidentComputations.filteredIncidents(
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    MapRenderer(canvas, basemapPosition, filteredData)
   }
 
 

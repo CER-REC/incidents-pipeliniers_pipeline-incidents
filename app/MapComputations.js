@@ -33,6 +33,8 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
     ratio = Math.min(xRatio, yRatio)
   }
 
+  position = position.set('ratio', ratio)
+
   position = position.set('width', ratio * Constants.getIn(['map', 'coordinateSpace', 'width']))
   position = position.set('height', ratio * Constants.getIn(['map', 'coordinateSpace', 'height']))
 
