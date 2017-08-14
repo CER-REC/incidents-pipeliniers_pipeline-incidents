@@ -13,6 +13,8 @@ const DataLoader = require('./DataLoader.js')
 window.store = store
 window._ = require('lodash')
 
+require('./MapComputations.js')
+
 // TODO: is this the best place for this?
 DataLoader.loadDataCsv(store)
 
