@@ -2,6 +2,7 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const MapComponent = require('./Map.jsx')
 
 require('./MapContainer.scss')
 
@@ -19,13 +20,10 @@ class MapContainer extends React.Component {
 
 
     return {
-
       width: `${mapPositions.get('width')}px`,
       height: `${mapPositions.get('height')}px`,
       left: `${mapPositions.get('x')}px`,
       top: `${mapPositions.get('y')}px`,
-      backgroundColor: 'azure' ,
-
     }
   }
 
@@ -40,7 +38,7 @@ class MapContainer extends React.Component {
       <div className='innerContainer'
         style = { this.mapContainerStyle() }
       >
-        
+        <MapComponent />
       </div>
 
     </div>

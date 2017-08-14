@@ -16,8 +16,8 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
 
   const mapDimensions = WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories)
 
-  const xRatio = mapDimensions.get('width') / Constants.getIn(['mapCoordinateSpace', 'width'])
-  const yRatio = mapDimensions.get('height') / Constants.getIn(['mapCoordinateSpace', 'height'])
+  const xRatio = mapDimensions.get('width') / Constants.getIn(['map', 'coordinateSpace', 'width'])
+  const yRatio = mapDimensions.get('height') / Constants.getIn(['map', 'coordinateSpace', 'height'])
 
   let ratio
   if (xRatio < 1 && yRatio < 1) {
@@ -33,8 +33,8 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
     ratio = Math.min(xRatio, yRatio)
   }
 
-  position = position.set('width', ratio * Constants.getIn(['mapCoordinateSpace', 'width']))
-  position = position.set('height', ratio * Constants.getIn(['mapCoordinateSpace', 'height']))
+  position = position.set('width', ratio * Constants.getIn(['map', 'coordinateSpace', 'width']))
+  position = position.set('height', ratio * Constants.getIn(['map', 'coordinateSpace', 'height']))
 
   
   // For each width and height, if the map SVG will be scaled smaller than the

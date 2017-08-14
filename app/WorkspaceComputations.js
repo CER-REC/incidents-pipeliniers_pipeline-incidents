@@ -252,7 +252,7 @@ WorkspaceComputations.mapDimensions = function(showEmptyCategories, viewport, da
   // TODO: The map seems way too big!
 
   return Immutable.Map({
-    width: height * Constants.get('mapWidthHeightRatio'),
+    width: height * Constants.getIn(['map', 'widthHeightRatio']),
     height: height,
   })
 

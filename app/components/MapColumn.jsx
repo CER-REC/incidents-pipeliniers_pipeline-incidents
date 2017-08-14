@@ -27,7 +27,7 @@ class MapColumn extends React.Component {
         y={ measurements.get('y') }
         width={ measurements.get('width') }
         height={ measurements.get('height') }
-        fill='#888'
+        fill='#fff'
       />
     </g>
   }

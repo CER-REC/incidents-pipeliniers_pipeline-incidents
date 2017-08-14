@@ -3,15 +3,69 @@ const ReactRedux = require('react-redux')
 
 // const WorkspaceComputations = require('../WorkspaceComputations.js')
 
+const MapComputations = require('../MapComputations.js')
+const MapRenderer = require('../MapRenderer.js')
+
 class Map extends React.Component {
 
-  render() {
-    return <div>
-      
-      <canvas/>
 
-    </div>
+
+
+
+
+  componentDidMount() {
+    this.renderCanvas()
   }
+
+  componentDidUpdate() {
+    this.renderCanvas()
+  }
+
+
+
+  renderCanvas() {
+    const canvas = document.getElementById('mapCanvas')
+
+    const basemapPosition = MapComputations.basemapPosition(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    MapRenderer(canvas, basemapPosition)
+  }
+
+
+
+
+  render() {
+
+    const basemapPosition = MapComputations.basemapPosition(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+
+    const element = <div> 
+      <canvas 
+        id="mapCanvas"
+        width={basemapPosition.get('width')} 
+        height={basemapPosition.get('height')} 
+      />
+    </div>
+
+    // NB: We can't call renderCanvas in render itself.
+    // On first render, the canvas element doesn't exist in the dom yet.
+    // On subsequent renders, if the canvas dimensions change, the canvas
+    // contents are erased. The canvas dimension changes will occur after the
+    // render call has completed.
+
+    return element
+  }
+
 }
 
 
@@ -19,8 +73,11 @@ class Map extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
+    data: state.data,
     columns: state.columns,
+    categories: state.categories,
   }
 }
 
