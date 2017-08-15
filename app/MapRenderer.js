@@ -1,4 +1,4 @@
-const d3geo = require('d3-geo')
+const D3geo = require('d3-geo')
 
 const Constants = require('./Constants.js')
 const MapComputations = require('./MapComputations.js')
@@ -9,7 +9,8 @@ const CategoryComputations = require('./CategoryComputations.js')
 // NB: The configuration of the projection here *must* match the settings used
 // to produce the canada.svg, or the incidents will not be positioned
 // accurately!
-const projection = d3geo.geoConicEqualArea()
+// See the Canada-Geoprojection repository associated with this project.
+const projection = D3geo.geoConicEqualArea()
   .parallels([50, 70])
   .rotate([105, 0])
   .translate([279.8074028618924, 764.3666957846632])
@@ -38,6 +39,45 @@ const RenderRoutines = {
 
 
 
+  // To help de-clutter the map, the control point for the bezier curve in/out
+  // of each map point is positioned toward the edge of the map.
+  // To do this, we take the centre of the map and project a line from the
+  // centre through the incident point, out to a fixed distance.
+  // Since the bezier curve will try to approach the incident point from the
+  // direction of the control point, this has the effect of pushing the curves
+  // away from the centre of the map, towards the perimeter.
+  // TODO: at least I sure hope it's going to work this way =/
+
+  // props: the Map properties object
+  // incidentPoint: a plain javascript object with x, y, map coordinates as
+  //   prepared by longLatToMapCoordinates
+  radialControlPoint(props, incidentPoint) {
+
+    const basemapCentre = MapComputations.basemapCentre(
+      props.showEmptyCategories,
+      props.viewport,
+      props.data,
+      props.columns,
+      props.categories)
+
+    const radialControlPointDistance = Constants.getIn(['map', 'radialControlPointDistance'])
+
+    // First, find the angle between the centre point and our incident
+    const distance = Math.sqrt(
+      Math.pow(basemapCentre.get('x') - incidentPoint.x, 2) + 
+      Math.pow(basemapCentre.get('y') - incidentPoint.y, 2)
+    )
+
+    const angle = Math.atan2(incidentPoint.y - basemapCentre.get('y'),
+      incidentPoint.x - basemapCentre.get('x'))
+
+    // define the new point some distance along the line
+    return {
+      x: basemapCentre.get('x') + Math.cos(angle) * (distance + radialControlPointDistance),
+      y: basemapCentre.get('y') + Math.sin(angle) * (distance + radialControlPointDistance),
+    }
+
+  },
 
 
 
@@ -146,7 +186,6 @@ const RenderRoutines = {
 
     context.strokeStyle = Constants.getIn(['map', 'lightGrey'])
 
-    // iterate over categories
     itemsInCategories.forEach( (count, categoryName) => {
 
       const categoryHeight = categoryHeights.get(categoryName)
@@ -167,7 +206,6 @@ const RenderRoutines = {
         categoryName) 
 
 
-      // iterate over items in the category
       subsetData.forEach ( (incident, index) => {
 
         // Don't try to draw lines for incidents without location data
@@ -178,13 +216,11 @@ const RenderRoutines = {
 
         const bundleY = bundleRegionTopY + (bundleRegionBottomY - bundleRegionTopY) * (index / categoryCount)
 
-        // per item, draw its line from its slot in category to bundle point to point on map (or vice versa)
-
         // From the wiki, on cubic bezier curves
         // The curve starts at P0 going toward P1 and arrives at P3 coming 
         // from the direction of P2
 
-        // Draw paths from left column to bundle point
+        // Draw paths from left column to bundle region
         context.beginPath()
         context.moveTo(0, currentY + categoryHeight * (index / categoryCount))
 
@@ -195,13 +231,11 @@ const RenderRoutines = {
           currentY + categoryHeight * (index / categoryCount),
 
           // The second control point is to the left of the bundle point
-          // for this category
-          // TODO: For now, converge all the incidents on one point. We
-          // would like to have a spread of points, rather than one
+          // for this incident
           bundleOffsetDistance - 10,
           bundleY,
 
-          // The bundle point for this category / incident
+          // The bundle point for this incident
           bundleOffsetDistance, 
           bundleY
         )
@@ -209,17 +243,17 @@ const RenderRoutines = {
 
 
 
-        // Draw paths from bundle point to incidents
-
+        // Draw paths from bundle region to incidents on map
         const incidentPosition = RenderRoutines.longLatToMapCoordinates(
           incident.get('longitude'),
           incident.get('latitude'),
           basemapPosition
         )
 
+        const destinationControlPoint = RenderRoutines.radialControlPoint(props, incidentPosition)
 
         context.beginPath()
-        // The bundle collection point
+        // The incident's point in the bundle region
         context.moveTo(bundleOffsetDistance, bundleY)
 
         context.bezierCurveTo(
@@ -227,14 +261,12 @@ const RenderRoutines = {
           bundleOffsetDistance + 10,
           bundleY,
 
-          // Control point 2, just going to drop this right on the
-          // projected point
+          // Control point 2, placed away from the destination point
+          destinationControlPoint.x,
+          destinationControlPoint.y,
 
-          incidentPosition.x,
-          incidentPosition.y,
           incidentPosition.x,
           incidentPosition.y
-
         )
         context.stroke()
 
@@ -308,6 +340,7 @@ const RenderRoutines = {
       )
 
 
+
       // Drop shadow behind each incident
       context.fillStyle = shadowColour
       context.beginPath()
@@ -322,6 +355,7 @@ const RenderRoutines = {
       context.fill()
 
 
+
       // The incident itself
       context.fillStyle = incidentColour
       context.beginPath()
@@ -334,6 +368,13 @@ const RenderRoutines = {
         2 * Math.PI
       )
       context.fill()
+
+
+
+
+
+
+
 
     })
 

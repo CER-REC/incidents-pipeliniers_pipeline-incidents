@@ -22,8 +22,10 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
     .set('width', mapDimensions.get('width') - padding * 2)
     .set('height', mapDimensions.get('height') - padding * 2)
 
-  const xRatio = paddedDimensions.get('width') / Constants.getIn(['map', 'coordinateSpace', 'width'])
-  const yRatio = paddedDimensions.get('height') / Constants.getIn(['map', 'coordinateSpace', 'height'])
+  const xRatio = paddedDimensions.get('width') / 
+    Constants.getIn(['map', 'coordinateSpace', 'width'])
+  const yRatio = paddedDimensions.get('height') /
+    Constants.getIn(['map', 'coordinateSpace', 'height'])
 
   let ratio
   if (xRatio < 1 && yRatio < 1) {
@@ -41,8 +43,10 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
 
   position = position.set('ratio', ratio)
 
-  position = position.set('width', ratio * Constants.getIn(['map', 'coordinateSpace', 'width']))
-  position = position.set('height', ratio * Constants.getIn(['map', 'coordinateSpace', 'height']))
+  position = position.set('width', ratio * 
+    Constants.getIn(['map', 'coordinateSpace', 'width']))
+  position = position.set('height', ratio * 
+    Constants.getIn(['map', 'coordinateSpace', 'height']))
 
   
   // For each width and height, if the map SVG will be scaled smaller than the
@@ -50,7 +54,7 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
   // height/width to centre it
 
   if (position.get('width') < paddedDimensions.get('width') ) {
-    let space = paddedDimensions.get('width') - position.get('width')
+    const space = paddedDimensions.get('width') - position.get('width')
     position = position.set('x', space / 2)
   }
   else {
@@ -58,7 +62,7 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
   }
 
   if (position.get('height') < paddedDimensions.get('height') ) {
-    let space = paddedDimensions.get('height') - position.get('height')
+    const space = paddedDimensions.get('height') - position.get('height')
     position = position.set('y', space / 2)
   }
   else {
@@ -76,7 +80,22 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
 
 
 
+// The centre of the map element.
+MapComputations.basemapCentre = function (showEmptyCategories, viewport, data, columns, categories) {
 
+  const mapDimensions = WorkspaceComputations.mapDimensions(
+    showEmptyCategories,
+    viewport,
+    data,
+    columns,
+    categories)  
+
+  return Immutable.Map({
+    x: mapDimensions.get('width') / 2,
+    y: mapDimensions.get('height') / 2,
+  })
+
+}
 
 
 

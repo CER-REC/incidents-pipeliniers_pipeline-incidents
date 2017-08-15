@@ -322,11 +322,12 @@ const Constants = Immutable.fromJS({
     backgroundColour: 'rgb(239, 236, 231)',
     incidentCircleColour: 'rgb(80, 113, 82)',
     shadowColour: '#333',
-    lightGrey: '#ccc',
+    lightGrey: 'rgba(102, 102, 102, 0.4)',
 
     incidentRadius: 5,
     padding: 10,
     bundleOffsetDistance: 25,
+    radialControlPointDistance: 150,
 
   }
 
