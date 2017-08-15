@@ -14,10 +14,16 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
 
   let position = Immutable.Map()
 
+  const padding = Constants.getIn(['map', 'padding'])
+
   const mapDimensions = WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories)
 
-  const xRatio = mapDimensions.get('width') / Constants.getIn(['map', 'coordinateSpace', 'width'])
-  const yRatio = mapDimensions.get('height') / Constants.getIn(['map', 'coordinateSpace', 'height'])
+  const paddedDimensions = mapDimensions
+    .set('width', mapDimensions.get('width') - padding * 2)
+    .set('height', mapDimensions.get('height') - padding * 2)
+
+  const xRatio = paddedDimensions.get('width') / Constants.getIn(['map', 'coordinateSpace', 'width'])
+  const yRatio = paddedDimensions.get('height') / Constants.getIn(['map', 'coordinateSpace', 'height'])
 
   let ratio
   if (xRatio < 1 && yRatio < 1) {
@@ -43,16 +49,16 @@ MapComputations.basemapPosition = function (showEmptyCategories, viewport, data,
   // height of the container element, we offset its position by half its
   // height/width to centre it
 
-  if (position.get('width') < mapDimensions.get('width') ) {
-    let space = mapDimensions.get('width') - position.get('width')
+  if (position.get('width') < paddedDimensions.get('width') ) {
+    let space = paddedDimensions.get('width') - position.get('width')
     position = position.set('x', space / 2)
   }
   else {
     position = position.set('x', 0)
   }
 
-  if (position.get('height') < mapDimensions.get('height') ) {
-    let space = mapDimensions.get('height') - position.get('height')
+  if (position.get('height') < paddedDimensions.get('height') ) {
+    let space = paddedDimensions.get('height') - position.get('height')
     position = position.set('y', space / 2)
   }
   else {

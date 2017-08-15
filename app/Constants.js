@@ -323,6 +323,7 @@ const Constants = Immutable.fromJS({
     shadowColour: '#333',
 
     incidentRadius: 5,
+    padding: 10
 
   }
 

@@ -240,6 +240,9 @@ WorkspaceComputations.columnEmptyCategoryHeight = function (showEmptyCategories,
 
 
 // The width and height of the map column
+// These measurements are the outer dimensions of the map container, the map
+// itself is drawn within padding inside of these measurements, and is
+// scaled and centred to take maximum space without exceeding its bounds.
 WorkspaceComputations.mapDimensions = function(showEmptyCategories, viewport, data, columns, categories) {
 
   const height = WorkspaceComputations.columnNormalCategoryHeight(

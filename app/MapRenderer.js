@@ -25,13 +25,14 @@ const RenderRoutines = {
 
   drawMap(context, basemapPosition) {
     const basemapImage = document.getElementById('canadaImage')
+    const padding = Constants.getIn(['map', 'padding'])
 
     // TODO:
     // I hope there are no race conditions associated with loading the
     // image. may need to manage that ourselves.
     context.drawImage(basemapImage, 
-      basemapPosition.get('x'),
-      basemapPosition.get('y'),
+      basemapPosition.get('x') + padding,
+      basemapPosition.get('y') + padding,
       basemapPosition.get('width'),
       basemapPosition.get('height')
 
@@ -47,7 +48,7 @@ const RenderRoutines = {
 
     const incidentColour = Constants.getIn(['map', 'incidentCircleColour'])
     const shadowColour = Constants.getIn(['map', 'shadowColour'])
-    
+    const padding = Constants.getIn(['map', 'padding'])
 
     const incidentRadius = Constants.getIn(['map', 'incidentRadius'])
     const xOffset = basemapPosition.get('x')
@@ -68,8 +69,8 @@ const RenderRoutines = {
       context.beginPath()
       // x, y, radius, start angle, end angle, anticlockwise
       context.arc(
-        projectedPosition[0] * ratio + xOffset + 1,
-        projectedPosition[1] * ratio + yOffset + 1,
+        projectedPosition[0] * ratio + xOffset + 1 + padding,
+        projectedPosition[1] * ratio + yOffset + 1 + padding,
         incidentRadius,
         0,
         2 * Math.PI
@@ -82,8 +83,8 @@ const RenderRoutines = {
       context.beginPath()
       // x, y, radius, start angle, end angle, anticlockwise
       context.arc(
-        projectedPosition[0] * ratio + xOffset,
-        projectedPosition[1] * ratio + yOffset,
+        projectedPosition[0] * ratio + xOffset + padding,
+        projectedPosition[1] * ratio + yOffset + padding,
         incidentRadius,
         0,
         2 * Math.PI
