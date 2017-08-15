@@ -5,6 +5,7 @@ const ReactRedux = require('react-redux')
 
 const MapComputations = require('../MapComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
+const WorkspaceComputations = require('../WorkspaceComputations.js')
 const MapRenderer = require('../MapRenderer.js')
 
 class Map extends React.Component {
@@ -39,27 +40,33 @@ class Map extends React.Component {
       this.props.columns,
       this.props.categories)
 
-    MapRenderer(canvas, basemapPosition, filteredData)
-  }
-
-
-
-
-  render() {
-
-    const basemapPosition = MapComputations.basemapPosition(
+    const mapDimensions = WorkspaceComputations.mapDimensions(
       this.props.showEmptyCategories,
       this.props.viewport,
       this.props.data,
       this.props.columns,
       this.props.categories)
 
+    MapRenderer(canvas, basemapPosition, filteredData, mapDimensions)
+  }
+
+
+
+
+  render() {
+    
+    const mapDimensions = WorkspaceComputations.mapDimensions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
 
     const element = <div> 
       <canvas 
         id="mapCanvas"
-        width={basemapPosition.get('width')} 
-        height={basemapPosition.get('height')} 
+        width={mapDimensions.get('width')} 
+        height={mapDimensions.get('height')} 
       />
     </div>
 

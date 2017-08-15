@@ -16,16 +16,17 @@ window.projection = projection
 
 const RenderRoutines = {
 
-  clear(context, basemapPosition) {
+  clear(context, mapDimensions) {
 
     context.fillStyle = Constants.getIn(['map', 'backgroundColour'])
-    context.fillRect(0, 0, basemapPosition.get('width'), basemapPosition.get('height'))
+    context.fillRect(0, 0, mapDimensions.get('width'), mapDimensions.get('height'))
 
   },
 
   drawMap(context, basemapPosition) {
     const basemapImage = document.getElementById('canadaImage')
 
+    // TODO:
     // I hope there are no race conditions associated with loading the
     // image. may need to manage that ourselves.
     context.drawImage(basemapImage, 
@@ -44,7 +45,10 @@ const RenderRoutines = {
 
   drawPoints(context, basemapPosition, filteredData) {
 
-    context.fillStyle = Constants.getIn(['map', 'incidentCircleColour'])
+    const incidentColour = Constants.getIn(['map', 'incidentCircleColour'])
+    const shadowColour = Constants.getIn(['map', 'shadowColour'])
+    
+
     const incidentRadius = Constants.getIn(['map', 'incidentRadius'])
     const xOffset = basemapPosition.get('x')
     const yOffset = basemapPosition.get('y')
@@ -58,6 +62,23 @@ const RenderRoutines = {
         incident.get('latitude')
       ])
 
+
+      // Drop shadow behind each incident
+      context.fillStyle = shadowColour
+      context.beginPath()
+      // x, y, radius, start angle, end angle, anticlockwise
+      context.arc(
+        projectedPosition[0] * ratio + xOffset + 1,
+        projectedPosition[1] * ratio + yOffset + 1,
+        incidentRadius,
+        0,
+        2 * Math.PI
+      )
+      context.fill()
+
+
+      // The incident itself
+      context.fillStyle = incidentColour
       context.beginPath()
       // x, y, radius, start angle, end angle, anticlockwise
       context.arc(
@@ -89,12 +110,13 @@ const RenderRoutines = {
 // canvas: the canvas DOM element we are rendering to
 // basemapPosition: the result of the MapComputation by that name, an Immutable
 // hash with width, height, and x, y (offsets to map position)
-module.exports = function MapRenderer (canvas, basemapPosition, filteredData) {
+module.exports = function MapRenderer (canvas, basemapPosition, filteredData, mapDimensions) {
+
 
   const context = canvas.getContext('2d')
 
   // clear and fill
-  RenderRoutines.clear(context, basemapPosition)
+  RenderRoutines.clear(context, mapDimensions)
 
   // draw the map
   RenderRoutines.drawMap(context, basemapPosition)

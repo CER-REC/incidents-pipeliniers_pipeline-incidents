@@ -320,6 +320,8 @@ const Constants = Immutable.fromJS({
 
     backgroundColour: 'rgb(239, 236, 231)',
     incidentCircleColour: 'rgb(80, 113, 82)',
+    shadowColour: '#333',
+
     incidentRadius: 5,
 
   }
