@@ -322,9 +322,19 @@ CategoryComputations.mapAdjacentColumns = function(columns) {
   }
 
   const index = columns.indexOf('map')
-  
+
+  // Negative indexes will actually index from the end of the list, so this
+  // is necessary.
+  let left
+  if (index - 1 < 0) {
+    left = null 
+  }
+  else {
+    left = columns.get(index - 1)
+  }
+
   return Immutable.Map({
-    left: columns.get(index - 1) || null,
+    left: left,
     right: columns.get(index + 1) || null,
   })
 
