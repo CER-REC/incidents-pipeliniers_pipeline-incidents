@@ -6,6 +6,8 @@ const ReactRedux = require('react-redux')
 const MapComputations = require('../MapComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const CategoryComputations = require('../CategoryComputations.js')
+
 const MapRenderer = require('../MapRenderer.js')
 
 class Map extends React.Component {
@@ -28,26 +30,8 @@ class Map extends React.Component {
   renderCanvas() {
     const canvas = document.getElementById('mapCanvas')
 
-    const basemapPosition = MapComputations.basemapPosition(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-
-    const filteredData = IncidentComputations.filteredIncidents(
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-
-    const mapDimensions = WorkspaceComputations.mapDimensions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-
-    MapRenderer(canvas, basemapPosition, filteredData, mapDimensions)
+    // Passing the entire props object is convenient, but possibly a bad idea?
+    MapRenderer(canvas, this.props)
   }
 
 
