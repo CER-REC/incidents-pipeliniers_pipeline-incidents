@@ -152,8 +152,14 @@ const RenderRoutines = {
       const categoryHeight = categoryHeights.get(categoryName)
       const categoryCount = itemsInCategories.get(categoryName)
 
-      const categoryBundleX = bundleOffsetDistance
-      const categoryBundleY = currentY + categoryHeight / 2
+      // The bundle region is a line 1/2 the height of the column itself,
+      // parallel to it, bundleOffsetDistance away.
+      // The incident paths are pulled together into the bundle region, and
+      // then are allowed to fan out onto the map itself.
+      // We define the top and bottom coordinates for the region
+      // TODO: These parameters may need tweaking
+      const bundleRegionTopY = currentY + categoryHeight / 4
+      const bundleRegionBottomY = currentY + categoryHeight * 3 / 4
 
       const subsetData = IncidentComputations.categorySubset(
         filteredData,
@@ -169,6 +175,8 @@ const RenderRoutines = {
           incident.get('latitude') === 'Not Provided') {
           return
         }
+
+        const bundleY = bundleRegionTopY + (bundleRegionBottomY - bundleRegionTopY) * (index / categoryCount)
 
         // per item, draw its line from its slot in category to bundle point to point on map (or vice versa)
 
@@ -190,12 +198,12 @@ const RenderRoutines = {
           // for this category
           // TODO: For now, converge all the incidents on one point. We
           // would like to have a spread of points, rather than one
-          categoryBundleX - 10,
-          categoryBundleY,
+          bundleOffsetDistance - 10,
+          bundleY,
 
           // The bundle point for this category / incident
-          categoryBundleX, 
-          categoryBundleY
+          bundleOffsetDistance, 
+          bundleY
         )
         context.stroke()
 
@@ -212,12 +220,12 @@ const RenderRoutines = {
 
         context.beginPath()
         // The bundle collection point
-        context.moveTo(categoryBundleX, categoryBundleY)
+        context.moveTo(bundleOffsetDistance, bundleY)
 
         context.bezierCurveTo(
           // Control point 1, right of the bundle
-          categoryBundleX + 10,
-          categoryBundleY,
+          bundleOffsetDistance + 10,
+          bundleY,
 
           // Control point 2, just going to drop this right on the
           // projected point
@@ -289,7 +297,6 @@ const RenderRoutines = {
 
     const incidentColour = Constants.getIn(['map', 'incidentCircleColour'])
     const shadowColour = Constants.getIn(['map', 'shadowColour'])
-
     const incidentRadius = Constants.getIn(['map', 'incidentRadius'])
 
     filteredData.forEach( incident => {
