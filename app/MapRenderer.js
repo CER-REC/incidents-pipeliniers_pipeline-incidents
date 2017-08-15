@@ -46,7 +46,7 @@ const RenderRoutines = {
   // Since the bezier curve will try to approach the incident point from the
   // direction of the control point, this has the effect of pushing the curves
   // away from the centre of the map, towards the perimeter.
-  // TODO: at least I sure hope it's going to work this way =/
+  // TODO: This is an improvement, but it's not good enough.
 
   // props: the Map properties object
   // incidentPoint: a plain javascript object with x, y, map coordinates as
@@ -71,7 +71,8 @@ const RenderRoutines = {
     const angle = Math.atan2(incidentPoint.y - basemapCentre.get('y'),
       incidentPoint.x - basemapCentre.get('x'))
 
-    // define the new point some distance along the line
+    // Second, define the new point some distance from the incident, along
+    // the line given by the angle and the map centre.
     return {
       x: basemapCentre.get('x') + Math.cos(angle) * (distance + radialControlPointDistance),
       y: basemapCentre.get('y') + Math.sin(angle) * (distance + radialControlPointDistance),
@@ -133,9 +134,9 @@ const RenderRoutines = {
       RenderRoutines.drawLeftLines(context, props, mapAdjacentColumns.get('left'))
     }
 
-    // if (mapAdjacentColumns.get('right') !== null) {
-    //   RenderRoutines.drawRightLines(context, props, mapAdjacentColumns.get('right'))
-    // }
+    if (mapAdjacentColumns.get('right') !== null) {
+      RenderRoutines.drawRightLines(context, props, mapAdjacentColumns.get('right'))
+    }
 
   },
 
@@ -270,41 +271,165 @@ const RenderRoutines = {
         )
         context.stroke()
 
+      })
+
+      currentY += categoryHeight
+    })
+    
+  },
+
+
+
+  drawRightLines(context, props, columnName) {
+
+    const filteredData = IncidentComputations.filteredIncidents(
+      props.data,
+      props.columns,
+      props.categories)
+
+    const displayedCategories = CategoryComputations.displayedCategories(
+      props.data,
+      props.columns,
+      props.categories,
+      columnName)
+
+    // count of items
+    const itemsInCategories = displayedCategories.map( (displayed, categoryName) => {
+  
+      return CategoryComputations.itemsInCategory(
+        props.data,
+        columnName,
+        categoryName
+      )
+    })
+
+    const categoryHeights = WorkspaceComputations.categoryHeights(
+      props.showEmptyCategories,
+      props.viewport,
+      props.data,
+      props.columns,
+      props.categories, 
+      columnName) 
+
+    const basemapPosition = MapComputations.basemapPosition(
+      props.showEmptyCategories,
+      props.viewport,
+      props.data,
+      props.columns,
+      props.categories)
+
+    const mapDimensions = WorkspaceComputations.mapDimensions(
+      props.showEmptyCategories,
+      props.viewport,
+      props.data,
+      props.columns,
+      props.categories)
+
+
+
+    // TODO: Once again, not that happy accumulating height like this
+    let currentY = 0
+
+    const rightCanvasEdge = mapDimensions.get('width')
+    const bundleOffsetDistance = rightCanvasEdge - Constants.getIn(['map', 'bundleOffsetDistance'])
+
+    context.strokeStyle = Constants.getIn(['map', 'lightGrey'])
+
+    itemsInCategories.forEach( (count, categoryName) => {
+
+      const categoryHeight = categoryHeights.get(categoryName)
+      const categoryCount = itemsInCategories.get(categoryName)
+
+      // The bundle region is a line 1/2 the height of the column itself,
+      // parallel to it, bundleOffsetDistance away.
+      // The incident paths are pulled together into the bundle region, and
+      // then are allowed to fan out onto the map itself.
+      // We define the top and bottom coordinates for the region
+      // TODO: These parameters may need tweaking
+      const bundleRegionTopY = currentY + categoryHeight / 4
+      const bundleRegionBottomY = currentY + categoryHeight * 3 / 4
+
+      const subsetData = IncidentComputations.categorySubset(
+        filteredData,
+        columnName,
+        categoryName) 
+
+
+      subsetData.forEach ( (incident, index) => {
+
+        // Don't try to draw lines for incidents without location data
+        if (incident.get('longitude') === 'Not Provided' || 
+          incident.get('latitude') === 'Not Provided') {
+          return
+        }
+
+        const bundleY = bundleRegionTopY + (bundleRegionBottomY - bundleRegionTopY) * (index / categoryCount)
+
+
+        // Draw paths from incident to right bundle region
+        const incidentPosition = RenderRoutines.longLatToMapCoordinates(
+          incident.get('longitude'),
+          incident.get('latitude'),
+          basemapPosition
+        )
+
+        const departureControlPoint = RenderRoutines.radialControlPoint(props, incidentPosition)
+
+        context.beginPath()
+        context.moveTo(incidentPosition.x, incidentPosition.y)
+
+        context.bezierCurveTo(
+          // Control point 1, towards the edge of the map from the point
+          departureControlPoint.x,
+          departureControlPoint.y,
+
+          // Control point 2, placed away from the bundle point
+          bundleOffsetDistance - 10,
+          bundleY,
+
+          // Destination, point in the bundle group
+          bundleOffsetDistance,
+          bundleY
+        )
+        context.stroke()
+
+
+        // // Draw paths from bundle region to right column
+        context.beginPath()
+        context.moveTo(bundleOffsetDistance, bundleY)
+
+        context.bezierCurveTo(
+          // The first control point is to the right of the incident's 
+          // bundle point
+          bundleOffsetDistance + 10,
+          bundleY,
+
+          // The second control point is to the left of the incident's position
+          // in the column
+          rightCanvasEdge - 10,
+          currentY + categoryHeight * (index / categoryCount),
+
+          // The bundle point for this incident
+          rightCanvasEdge, 
+          currentY + categoryHeight * (index / categoryCount)
+        )
+        context.stroke()
+
+
+
 
 
 
 
       })
 
-
       currentY += categoryHeight
     })
-
-
-
     
+
+
+
   },
-
-
-  // hold that thought
-
-  // drawRightLines(context, props, columnName) {
-
-  //   const displayedCategories = CategoryComputations.displayedCategories(
-  //     props.data,
-  //     props.columns,
-  //     props.categories,
-  //     props.columnName
-  //   ).get(columnName)
-
-  //   CategoryComputations.itemsInCategory(
-  //     props.data,
-  //     columnName
-  //   )
-
-  //   // draw paths from incident to right bundle point
-  //   // draw paths from bundle point to right column
-  // },
 
 
 
