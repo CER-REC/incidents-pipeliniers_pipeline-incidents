@@ -1,9 +1,9 @@
-const IncidentSelectionStateReducer = (state = false, action) => {
+const IncidentSelectionStateReducer = (state = null, action) => {
 
   switch(action.type) {
 
   case 'incidentSelectedState':
-    return JSON.stringify(this.props.data)
+    return action.data
 
 
   case 'incidentDeselectedState':

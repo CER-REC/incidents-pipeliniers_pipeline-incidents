@@ -1,7 +1,6 @@
-function IncidentDeselectionStateCreator (data) {
+function IncidentDeselectionStateCreator () {
   return {
     type: 'IncidentDeselectionState',
-    data: data,
   }
 }
 
