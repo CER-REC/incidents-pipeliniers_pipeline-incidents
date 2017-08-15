@@ -318,12 +318,15 @@ const Constants = Immutable.fromJS({
       height: 600,
     },
 
+    // TODO: colours should maybe be their own segment of constants?
     backgroundColour: 'rgb(239, 236, 231)',
     incidentCircleColour: 'rgb(80, 113, 82)',
     shadowColour: '#333',
+    lightGrey: '#ccc',
 
     incidentRadius: 5,
-    padding: 10
+    padding: 10,
+    bundleOffsetDistance: 25,
 
   }
 

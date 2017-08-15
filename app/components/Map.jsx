@@ -1,13 +1,7 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
-// const WorkspaceComputations = require('../WorkspaceComputations.js')
-
-const MapComputations = require('../MapComputations.js')
-const IncidentComputations = require('../IncidentComputations.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
-const CategoryComputations = require('../CategoryComputations.js')
-
 const MapRenderer = require('../MapRenderer.js')
 
 class Map extends React.Component {
