@@ -33,7 +33,12 @@ class ColumnPaths extends React.Component {
           width:WorkspaceComputations.columnWidth(this.props.columns),
           x:WorkspaceComputations.columnX(this.props.columns, this.props.viewport, columnIndex),
           y:currentY,
-          count: count
+          count: count,
+          totalOutgoingIncidents: 0,
+          totalIncomingIncidents: 0,
+          intersectionThreshold: 0,
+          outgoingCategories: [],
+          incomingCategories: []
         }
       })
   }
@@ -46,7 +51,7 @@ class ColumnPaths extends React.Component {
     // we don't have one. 
     if (this.props.index >= this.props.columns.count() - 1) return pathArray
 
-    const sourceColumn = {
+    let sourceColumn = {
       index: this.props.index,
       name: this.props.columnName,
       categories: this.categoriesForColumn(this.props.index),
@@ -55,22 +60,16 @@ class ColumnPaths extends React.Component {
         this.props.index)
     }
 
-    const destinationColumn = {
+    let destinationColumn = {
       index: this.props.index + 1,
       name: this.props.columns.get(this.props.index + 1),
       categories: this.categoriesForColumn(this.props.index + 1),
-      x: WorkspaceComputations.columnPathX(this.props.columns, 
+      x: WorkspaceComputations.columnX(this.props.columns, 
         this.props.viewport, 
         this.props.index + 1)
     }
 
-    let destinationCategoriesYs = {}
-
     sourceColumn.categories.forEach((sourceCategory) => {
-
-      let totalUnfilteredIncidents = 0
-      let destinationCategories = []
-
       destinationColumn.categories.forEach((destinationCategory) => {
         const mutualIncidentCount = CategoryComputations.itemsInBothCategories(
           this.props.data, 
@@ -79,48 +78,50 @@ class ColumnPaths extends React.Component {
           destinationColumn.name, destinationCategory.categoryName)
 
         if(mutualIncidentCount !== 0) {
-          totalUnfilteredIncidents += mutualIncidentCount
-          
-          let entry = {
-            category: destinationCategory,
-            mutualIncidentCount: mutualIncidentCount,
-            yOffset: 0
-          }
+          sourceCategory.totalOutgoingIncidents += mutualIncidentCount
+          destinationCategory.totalIncomingIncidents += mutualIncidentCount
 
-          destinationCategories.push(entry)
+          sourceCategory.outgoingCategories.push({'key': destinationCategory.key, 'mutualIncidentCount': mutualIncidentCount})
+          destinationCategory.incomingCategories.push({'key': sourceCategory.key, 'mutualIncidentCount': mutualIncidentCount})
         }
+
+        const multipleDestinationCategoryIncidents = (destinationCategory.totalIncomingIncidents > destinationCategory.count)? 
+          destinationCategory.totalIncomingIncidents - 
+          destinationCategory.count : 0
+        destinationCategory.intersectionThreshold = multipleDestinationCategoryIncidents / 
+          (destinationCategory.incomingCategories.length - 1) * 
+          destinationCategory.height / destinationCategory.count
+
+        const multipeSourceCategoryIncidents = (sourceCategory.totalOutgoingIncidents > sourceCategory.count)? 
+          sourceCategory.totalOutgoingIncidents - 
+          sourceCategory.count : 0
+        sourceCategory.intersectionThreshold = multipeSourceCategoryIncidents / 
+          (sourceCategory.outgoingCategories.length - 1) * 
+          sourceCategory.height / sourceCategory.count
       })
+    })
 
-      const multipeCategoryIncidents = (totalUnfilteredIncidents > sourceCategory.count)? totalUnfilteredIncidents - sourceCategory.count : 0
-      const intersectionThresholdInIncidents = multipeCategoryIncidents / (destinationCategories.length - 1)
-      const intersectionThreshold = intersectionThresholdInIncidents * sourceCategory.height / sourceCategory.count
-
+    sourceColumn.categories.forEach((sourceCategory) => {
       const pathsForSourceCategory = this.buildPathsForCategory(sourceColumn, 
-        sourceCategory, destinationColumn, 
-        destinationCategories, intersectionThreshold, destinationCategoriesYs)
-
+        sourceCategory, destinationColumn)
       pathArray = pathArray.concat(pathsForSourceCategory)
     })
 
     return pathArray
   }
 
-  buildPathsForCategory(sourceColumn, sourceCategory, destinationColumn, destinationCategories, intersectionThreshold, destinationCategoriesYs) {
+  buildPathsForCategory(sourceColumn, sourceCategory, destinationColumn) {
     
     let pathsForCategory = []
-
     const curveControlThreshold = Math.abs(sourceColumn.x - destinationColumn.x) / 2.5
-    let sourceCategoryYShift = 0
 
-    destinationCategories.forEach((destinationCategory) => {
-      if(destinationCategoriesYs[destinationCategory.category.categoryName] === undefined) {
-        destinationCategoriesYs[destinationCategory.category.categoryName] = 0
-      }
+    sourceCategory.outgoingCategories.forEach((destinationCategoryKeyAndCount) => {
+      let destinationCategory = destinationColumn.categories.get(destinationCategoryKeyAndCount.key)
 
-      const sourceColumnY = sourceCategory.y + sourceCategoryYShift
-      const destinationColumnY = destinationCategory.category.y + destinationCategoriesYs[destinationCategory.category.categoryName]
-      const sourceCurveHeight = sourceCategory.height * (destinationCategory.mutualIncidentCount/sourceCategory.count)
-      const destinationCurveHeight = destinationCategory.category.height * (destinationCategory.mutualIncidentCount/destinationCategory.category.count)
+      const sourceColumnY = sourceCategory.y
+      const destinationColumnY = destinationCategory.y
+      const sourceCurveHeight = sourceCategory.height * (destinationCategoryKeyAndCount.mutualIncidentCount/sourceCategory.count)
+      const destinationCurveHeight = destinationCategory.height * (destinationCategoryKeyAndCount.mutualIncidentCount/destinationCategory.count)
 
       let d = `M ${sourceColumn.x} ${sourceColumnY} `
       d += `C ${sourceColumn.x + curveControlThreshold} ${sourceColumnY} `
@@ -131,69 +132,20 @@ class ColumnPaths extends React.Component {
       d += `${sourceColumn.x + curveControlThreshold} ${sourceColumnY + sourceCurveHeight} `
       d += `${sourceColumn.x} ${sourceColumnY + sourceCurveHeight}`
 
-      const disPath = <path d={d} className='ColumnPaths'/>
-      pathsForCategory.push(disPath)      
+      const currentPath = <path d={d} className='ColumnPaths'/>
+      pathsForCategory.push(currentPath)
 
-      sourceCategoryYShift += sourceCurveHeight
-      sourceCategoryYShift -= intersectionThreshold
-      destinationCategoriesYs[destinationCategory.category.categoryName] += destinationCurveHeight
+      sourceCategory.y += sourceCurveHeight
+      sourceCategory.y -= sourceCategory.intersectionThreshold
+
+      destinationCategory.y += destinationCurveHeight
+      destinationCategory.y -= destinationCategory.intersectionThreshold
     })
 
     return pathsForCategory
   }
 
   render() {
-    /*let pathObjs = []
-    if(this.props.index < this.props.columns.count() - 1) {
-      const nextColumnName = this.props.columns.get(this.props.index + 1)
-      const homeCategories = this.categoriesForColumn(this.props.index)
-      const awayCategories = this.categoriesForColumn(this.props.index + 1)
-      
-      const homeColumnPathX = WorkspaceComputations.columnPathX(this.props.columns, this.props.viewport, this.props.index)
-      const awayColumnPathX = WorkspaceComputations.columnPathX(this.props.columns, this.props.viewport, this.props.index + 1)
-
-      let awayCategoriesYs = {}
-
-      homeCategories.forEach((homeCategory) => {
-        const itemsInHomeCategory = CategoryComputations.itemsInCategory(this.props.data, this.props.columnName, homeCategory.categoryName)
-        let previousHeight = 0
-        awayCategories.forEach((awayCategory) => {
-
-
-          const count = CategoryComputations.itemsInBothCategories(this.props.data, this.props.columnName, homeCategory.categoryName, nextColumnName, awayCategory.categoryName)
-
-          if(count !== 0)
-          {
-            const curveControlThreshold = Math.abs(homeColumnPathX - awayColumnPathX) / 2.5
-
-            const homeColumnPathY = homeCategory.y + previousHeight
-            const awayColumnPathY = awayCategory.y + (awayCategoriesYs[awayCategory.categoryName]? awayCategoriesYs[awayCategory.categoryName] : 0) 
-            const height = homeCategory.height * (count/itemsInHomeCategory)
-
-            let d = `M ${homeColumnPathX} ${homeColumnPathY} `
-            d += `C ${homeColumnPathX + curveControlThreshold} ${homeColumnPathY} `
-            d += `${awayColumnPathX - curveControlThreshold} ${awayColumnPathY} `
-            d += `${awayColumnPathX} ${awayColumnPathY} `
-            d += `L ${awayColumnPathX} ${awayColumnPathY + height} `
-            d += `C ${awayColumnPathX - curveControlThreshold} ${awayColumnPathY + height} `
-            d += `${homeColumnPathX + curveControlThreshold} ${homeColumnPathY + height} `
-            d += `${homeColumnPathX} ${homeColumnPathY + height}`
-
-
-            const disPath = <path d={d} className='ColumnPaths'/>
-            pathObjs.push(disPath)      
-
-            previousHeight += height
-            awayCategoriesYs[awayCategory.categoryName]? awayCategoriesYs[awayCategory.categoryName] += height : awayCategoriesYs[awayCategory.categoryName] = height
-          }
-
-        })
-      })
-    }*/
-
-    /*return <g>
-      {pathObjs}
-    </g>*/
     return <g>
       {this.paths()}
     </g>
