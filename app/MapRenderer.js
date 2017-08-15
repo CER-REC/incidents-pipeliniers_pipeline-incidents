@@ -520,7 +520,7 @@ const RenderRoutines = {
 
 // canvas: the canvas DOM element we are rendering to
 // props: the props object from Map, which should include the main 5 state 
-// items: showEmptyCategories, viewport, data, columns, categories
+//   items; showEmptyCategories, viewport, data, columns, categories
 module.exports = function MapRenderer (canvas, props) {
 
   const context = canvas.getContext('2d')
@@ -537,45 +537,5 @@ module.exports = function MapRenderer (canvas, props) {
   //   also draw to the point input buffer
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

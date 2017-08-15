@@ -99,9 +99,55 @@ MapComputations.basemapCentre = function (showEmptyCategories, viewport, data, c
 
 
 
+// In order to make lines and other features clickable on the map canvas, we
+// assign a unique colour to each incident. In a hidden, internal canvas 
+// element, we paint the incident's lines and dot with its colour. Then, 
+// finding the incident which was clicked on is as simple as looking up the
+// colour at the click point in the hidden canvas.
+
+// In order to look up the incident efficiently, and to look up its colour to
+// paint with we need a bidirectional map of incidents => colours and
+// colours => incidents
+
+MapComputations.canvasInputColourMap = function (data) {
+
+  // With 24 bits of colour, we can handle 2^24 = 16 million incidents.
+  // More than we will presumably ever be tasked with rendering.
+  let r = 0
+  let g = 0
+  let b = 0
+
+  const incidentNumberToColourMap = {}
+  const colourToIncidentNumberMap = {}
+
+  data.forEach( incident => {
+
+    const colour = `rgb(${r}, ${g}, ${b})`
+    incidentNumberToColourMap[incident.get('incidentNumber')] = colour
+    colourToIncidentNumberMap[colour] = incident.get('incidentNumber')
+
+    r += 1
+    if (r === 256) {
+      r = 0
+      g += 1
+    }
+    if (g === 256) {
+      g = 0
+      b += 1
+    }
+    if (b === 256) {
+      throw new Error('too many incidents to render!')
+    }
+
+  })
+
+  return Immutable.Map({
+    incidentNumberToColourMap: incidentNumberToColourMap,
+    colourToIncidentNumberMap: colourToIncidentNumberMap,
+  })
 
 
-
+}
 
 
 
