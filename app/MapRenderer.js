@@ -81,6 +81,31 @@ const RenderRoutines = {
   },
 
 
+  drawCircle(context, fillStyle, x, y, radius) {
+
+    context.fillStyle = fillStyle
+    context.beginPath()
+    context.arc(x, y, radius, 0, 2 * Math.PI)
+    context.fill()
+
+  },
+
+
+  drawBezier(context, strokeStyle, x0, y0, x1, y1, x2, y2, x3, y3) {
+
+    // From the wiki, on cubic bezier curves:
+    // The curve starts at P0 going toward P1 and arrives at P3 coming 
+    // from the direction of P2
+
+    context.strokeStyle = strokeStyle
+    context.beginPath()
+    context.moveTo(x0, y0)
+    context.bezierCurveTo(x1, y1, x2, y2, x3, y3)
+    context.stroke()
+
+  },
+
+
 
 
   clear(context, props) {
@@ -185,8 +210,6 @@ const RenderRoutines = {
 
     const bundleOffsetDistance = Constants.getIn(['map', 'bundleOffsetDistance'])
 
-    context.strokeStyle = Constants.getIn(['map', 'lightGrey'])
-
     itemsInCategories.forEach( (count, categoryName) => {
 
       const categoryHeight = categoryHeights.get(categoryName)
@@ -217,17 +240,17 @@ const RenderRoutines = {
 
         const bundleY = bundleRegionTopY + (bundleRegionBottomY - bundleRegionTopY) * (index / categoryCount)
 
-        // From the wiki, on cubic bezier curves
-        // The curve starts at P0 going toward P1 and arrives at P3 coming 
-        // from the direction of P2
-
         // Draw paths from left column to bundle region
-        context.beginPath()
-        context.moveTo(0, currentY + categoryHeight * (index / categoryCount))
+        RenderRoutines.drawBezier(
+          context,
+          Constants.getIn(['map', 'lightGrey']),
 
-        context.bezierCurveTo(
+          // Starting point, on the left column
+          0,
+          currentY + categoryHeight * (index / categoryCount),
+
           // The first control point is to the right of the incident's 
-          // slot on the column.
+          // slot on the column
           bundleOffsetDistance,
           currentY + categoryHeight * (index / categoryCount),
 
@@ -240,9 +263,6 @@ const RenderRoutines = {
           bundleOffsetDistance, 
           bundleY
         )
-        context.stroke()
-
-
 
         // Draw paths from bundle region to incidents on map
         const incidentPosition = RenderRoutines.longLatToMapCoordinates(
@@ -253,11 +273,16 @@ const RenderRoutines = {
 
         const destinationControlPoint = RenderRoutines.radialControlPoint(props, incidentPosition)
 
-        context.beginPath()
-        // The incident's point in the bundle region
-        context.moveTo(bundleOffsetDistance, bundleY)
 
-        context.bezierCurveTo(
+        // Draw paths from left column to bundle region
+        RenderRoutines.drawBezier(
+          context,
+          Constants.getIn(['map', 'lightGrey']),
+
+          // The incident's point in the bundle region
+          bundleOffsetDistance,
+          bundleY,
+
           // Control point 1, right of the bundle
           bundleOffsetDistance + 10,
           bundleY,
@@ -269,7 +294,6 @@ const RenderRoutines = {
           incidentPosition.x,
           incidentPosition.y
         )
-        context.stroke()
 
       })
 
@@ -333,8 +357,6 @@ const RenderRoutines = {
     const rightCanvasEdge = mapDimensions.get('width')
     const bundleOffsetDistance = rightCanvasEdge - Constants.getIn(['map', 'bundleOffsetDistance'])
 
-    context.strokeStyle = Constants.getIn(['map', 'lightGrey'])
-
     itemsInCategories.forEach( (count, categoryName) => {
 
       const categoryHeight = categoryHeights.get(categoryName)
@@ -375,10 +397,13 @@ const RenderRoutines = {
 
         const departureControlPoint = RenderRoutines.radialControlPoint(props, incidentPosition)
 
-        context.beginPath()
-        context.moveTo(incidentPosition.x, incidentPosition.y)
+        RenderRoutines.drawBezier(
+          context,
+          Constants.getIn(['map', 'lightGrey']),
 
-        context.bezierCurveTo(
+          incidentPosition.x,
+          incidentPosition.y,
+          
           // Control point 1, towards the edge of the map from the point
           departureControlPoint.x,
           departureControlPoint.y,
@@ -391,14 +416,17 @@ const RenderRoutines = {
           bundleOffsetDistance,
           bundleY
         )
-        context.stroke()
 
 
-        // // Draw paths from bundle region to right column
-        context.beginPath()
-        context.moveTo(bundleOffsetDistance, bundleY)
+        // Draw paths from bundle region to right column
 
-        context.bezierCurveTo(
+        RenderRoutines.drawBezier(
+          context,
+          Constants.getIn(['map', 'lightGrey']),
+
+          bundleOffsetDistance,
+          bundleY,
+
           // The first control point is to the right of the incident's 
           // bundle point
           bundleOffsetDistance + 10,
@@ -413,13 +441,6 @@ const RenderRoutines = {
           rightCanvasEdge, 
           currentY + categoryHeight * (index / categoryCount)
         )
-        context.stroke()
-
-
-
-
-
-
 
       })
 
@@ -464,41 +485,23 @@ const RenderRoutines = {
         basemapPosition
       )
 
-
-
       // Drop shadow behind each incident
-      context.fillStyle = shadowColour
-      context.beginPath()
-      // x, y, radius, start angle, end angle, anticlockwise
-      context.arc(
+      RenderRoutines.drawCircle(
+        context,
+        shadowColour, 
         incidentPosition.x + 1,
         incidentPosition.y + 1,
-        incidentRadius,
-        0,
-        2 * Math.PI
+        incidentRadius
       )
-      context.fill()
-
-
 
       // The incident itself
-      context.fillStyle = incidentColour
-      context.beginPath()
-      // x, y, radius, start angle, end angle, anticlockwise
-      context.arc(
+      RenderRoutines.drawCircle(
+        context,
+        incidentColour, 
         incidentPosition.x,
         incidentPosition.y,
-        incidentRadius,
-        0,
-        2 * Math.PI
+        incidentRadius
       )
-      context.fill()
-
-
-
-
-
-
 
 
     })
