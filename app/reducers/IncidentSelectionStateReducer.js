@@ -1,29 +1,17 @@
-const Immutable = require('immutable')
-
-//store object
-const defaultState = Immutable.Map()
-
 const IncidentSelectionStateReducer = (state = false, action) => {
 
   switch(action.type) {
 
-  case 'incidentSelected':
-    //if selected, then show incident number string
-    //set immutable incident object state
-    return state
+  case 'incidentSelectedState':
+    return JSON.stringify(this.props.data)
 
 
-  case 'incidentDeselected':
-    //show null
-    return state
-
+  case 'incidentDeselectedState':
+    return null
 
   default:
     return state
   }
-
-
-
 
 }
 
