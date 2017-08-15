@@ -2,11 +2,11 @@ const IncidentSelectionStateReducer = (state = null, action) => {
 
   switch(action.type) {
 
-  case 'incidentSelectedState':
+  case 'IncidentSelectionState':
     return action.data
 
 
-  case 'incidentDeselectedState':
+  case 'IncidentDeselectionState':
     return null
 
   default:
