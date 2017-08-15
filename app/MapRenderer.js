@@ -18,6 +18,30 @@ const projection = d3geo.geoConicEqualArea()
 
 const RenderRoutines = {
 
+
+
+  longLatToMapCoordinates(long, lat, basemapPosition) {
+
+    const projectedPosition = projection([long, lat])
+
+    const padding = Constants.getIn(['map', 'padding'])
+    const xOffset = basemapPosition.get('x')
+    const yOffset = basemapPosition.get('y')
+    const ratio = basemapPosition.get('ratio')
+
+    return {
+      x: projectedPosition[0] * ratio + xOffset + padding,
+      y: projectedPosition[1] * ratio + yOffset + padding,
+    }
+
+  },
+
+
+
+
+
+
+
   clear(context, props) {
 
     const mapDimensions = WorkspaceComputations.mapDimensions(
@@ -119,10 +143,6 @@ const RenderRoutines = {
     let currentY = 0
 
     const bundleOffsetDistance = Constants.getIn(['map', 'bundleOffsetDistance'])
-    const padding = Constants.getIn(['map', 'padding'])
-    const xOffset = basemapPosition.get('x')
-    const yOffset = basemapPosition.get('y')
-    const ratio = basemapPosition.get('ratio')
 
     context.strokeStyle = Constants.getIn(['map', 'lightGrey'])
 
@@ -143,6 +163,13 @@ const RenderRoutines = {
 
       // iterate over items in the category
       subsetData.forEach ( (incident, index) => {
+
+        // Don't try to draw lines for incidents without location data
+        if (incident.get('longitude') === 'Not Provided' || 
+          incident.get('latitude') === 'Not Provided') {
+          return
+        }
+
         // per item, draw its line from its slot in category to bundle point to point on map (or vice versa)
 
         // From the wiki, on cubic bezier curves
@@ -172,16 +199,18 @@ const RenderRoutines = {
         )
         context.stroke()
 
+
+
         // Draw paths from bundle point to incidents
 
-        const projectedPosition = projection([
+        const incidentPosition = RenderRoutines.longLatToMapCoordinates(
           incident.get('longitude'),
-          incident.get('latitude')
-        ])
+          incident.get('latitude'),
+          basemapPosition
+        )
 
 
         context.beginPath()
-        // TODO: is this moveTo call strictly necesary
         // The bundle collection point
         context.moveTo(categoryBundleX, categoryBundleY)
 
@@ -193,13 +222,10 @@ const RenderRoutines = {
           // Control point 2, just going to drop this right on the
           // projected point
 
-          // TODO: this should be a FUNCTION! doing it MORE THAN ONCE
-          projectedPosition[0] * ratio + xOffset + padding,
-          projectedPosition[1] * ratio + yOffset + padding,
-
-          projectedPosition[0] * ratio + xOffset + padding,
-          projectedPosition[1] * ratio + yOffset + padding
-
+          incidentPosition.x,
+          incidentPosition.y,
+          incidentPosition.x,
+          incidentPosition.y
 
         )
         context.stroke()
@@ -263,20 +289,16 @@ const RenderRoutines = {
 
     const incidentColour = Constants.getIn(['map', 'incidentCircleColour'])
     const shadowColour = Constants.getIn(['map', 'shadowColour'])
-    const padding = Constants.getIn(['map', 'padding'])
 
     const incidentRadius = Constants.getIn(['map', 'incidentRadius'])
-    const xOffset = basemapPosition.get('x')
-    const yOffset = basemapPosition.get('y')
-    const ratio = basemapPosition.get('ratio')
-
 
     filteredData.forEach( incident => {
 
-      const projectedPosition = projection([
+      const incidentPosition = RenderRoutines.longLatToMapCoordinates(
         incident.get('longitude'),
-        incident.get('latitude')
-      ])
+        incident.get('latitude'),
+        basemapPosition
+      )
 
 
       // Drop shadow behind each incident
@@ -284,8 +306,8 @@ const RenderRoutines = {
       context.beginPath()
       // x, y, radius, start angle, end angle, anticlockwise
       context.arc(
-        projectedPosition[0] * ratio + xOffset + 1 + padding,
-        projectedPosition[1] * ratio + yOffset + 1 + padding,
+        incidentPosition.x + 1,
+        incidentPosition.y + 1,
         incidentRadius,
         0,
         2 * Math.PI
@@ -298,8 +320,8 @@ const RenderRoutines = {
       context.beginPath()
       // x, y, radius, start angle, end angle, anticlockwise
       context.arc(
-        projectedPosition[0] * ratio + xOffset + padding,
-        projectedPosition[1] * ratio + yOffset + padding,
+        incidentPosition.x,
+        incidentPosition.y,
         incidentRadius,
         0,
         2 * Math.PI
