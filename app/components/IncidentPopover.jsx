@@ -34,7 +34,7 @@ class IncidentPopover extends React.Component {
       {this.showBorder()}
       <text
         className="subpop">
-        <tspan x={0} dy=".6em">INCIDENT#</tspan>
+        <tspan x={0} dy=".6em">{this.props.selectedIncident.get('incidentNumber')}</tspan>
         <tspan x={0} dy="1.2em">Near LOCATION</tspan>
         <tspan x={0} dy="1.2em">Date reported:</tspan>
         <tspan x={0} dy="1.2em">DATE</tspan>
@@ -50,5 +50,10 @@ class IncidentPopover extends React.Component {
 
 }
 
+const mapStateToProps = state => {
+  return {
+    selectedIncident: state.selectedIncident,
+  }
+}
 
-module.exports = IncidentPopover
+module.exports = ReactRedux.connect(mapStateToProps)(IncidentPopover)
