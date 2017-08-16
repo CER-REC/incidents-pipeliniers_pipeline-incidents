@@ -12,13 +12,23 @@ class Sidebar extends React.Component {
   // - when the user is dragging a column around, should we show something on
   //   the sidebar to indicate that it is a drop target?
 
+
   render() {
+
+    const measurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .get('sideBar')
+
     return <g>
       <rect
-        x={ WorkspaceComputations.sidebarX(this.props.columns, this.props.viewport) }
-        y={ WorkspaceComputations.columnY() }
-        width={ WorkspaceComputations.sidebarWidth(this.props.columns) }
-        height={ WorkspaceComputations.columnHeight(this.props.viewport) }
+        x={ measurements.get('x') }
+        y={ measurements.get('y') }
+        width={ measurements.get('width') }
+        height={ measurements.get('height') }
         fill='#DDDDFF'
       />
     </g>
@@ -27,8 +37,11 @@ class Sidebar extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
+    data: state.data,
     columns: state.columns,
+    categories: state.categories,
   }
 }
 

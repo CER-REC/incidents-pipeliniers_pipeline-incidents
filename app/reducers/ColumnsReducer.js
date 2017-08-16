@@ -11,6 +11,7 @@ const defaults = Immutable.fromJS([
   'company',
   'status',
   'province',
+  'map',
   'substance',
   'releaseType',
   'whatHappened',
@@ -19,7 +20,6 @@ const defaults = Immutable.fromJS([
   'volumeCategory',
   'substanceCategory',
   'pipelineSystemComponentsInvolved',
-  'map',
 ])
 
 

@@ -6,13 +6,24 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 class ColumnPaths extends React.Component {
 
+
+
   render() {
+
+    const pathMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columnPaths', this.props.columnName])
+
     return <g>
       <rect
-        x={ WorkspaceComputations.columnPathX(this.props.columns, this.props.viewport, this.props.index) }
-        y={ WorkspaceComputations.columnY()}
-        width={ WorkspaceComputations.columnPathWidth(this.props.columns, this.props.viewport) }
-        height={ WorkspaceComputations.columnHeight(this.props.viewport)}
+        x={ pathMeasurements.get('x') }
+        y={ pathMeasurements.get('y') }
+        width={ pathMeasurements.get('width') }
+        height={ pathMeasurements.get('height') }
         fill='#FFFFDD'
       />
     </g>
@@ -21,11 +32,11 @@ class ColumnPaths extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
+    data: state.data,
     columns: state.columns,
     categories: state.categories,
-    data: state.data,
-    filters: state.filters    
   }
 }
 

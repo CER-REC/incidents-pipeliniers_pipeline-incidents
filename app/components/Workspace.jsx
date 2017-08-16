@@ -17,12 +17,12 @@ class Workspace extends React.Component {
 
 
   columns() {
-    return this.props.columns.map( (columnName, i) => {
+    return this.props.columns.map( (columnName) => {
       if (columnName === 'map') {
-        return <MapColumn key={columnName} index={i} />
+        return <MapColumn key={columnName}/>
       }
       else {
-        return <Column columnName={columnName} key={columnName} index={i} />
+        return <Column columnName={columnName} key={columnName}/>
       }
     }).toArray()
   }
@@ -36,13 +36,17 @@ class Workspace extends React.Component {
       return <div/>
     }
 
-    const width = WorkspaceComputations.workspaceWidth(
+    const horizontalPositions = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
       this.props.columns,
-      this.props.viewport)
+      this.props.categories)
+
 
     return <div className='workspace'>
-      <svg width={width}
-        height={this.props.viewport.get('y')}>
+      <svg width={horizontalPositions.getIn(['workspace', 'width'])}
+        height={horizontalPositions.getIn(['workspace', 'height'])}>
         <Header />
 
         <EmptyCategories />
@@ -58,9 +62,10 @@ class Workspace extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-    columns: state.columns,
     data: state.data,
+    columns: state.columns,
     categories: state.categories,
   }
 }

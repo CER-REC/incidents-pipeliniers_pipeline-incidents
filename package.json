@@ -26,6 +26,8 @@
     "client-request": "^2.0.0",
     "css-loader": "^0.28.4",
     "d3": "^4.10.0",
+    "d3-geo": "^1.6.4",
+    "d3-geo-projection": "^2.2.0",
     "domready": "^1.0.8",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",

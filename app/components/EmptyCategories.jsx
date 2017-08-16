@@ -58,6 +58,8 @@ class EmptyCategories extends React.Component {
       this.props.categories
     ) - Constants.getIn(['showHideEmptyCategories', 'fontSize'])
 
+    // TODO: adapt empty categories to use horizontalComputations
+
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
     return ( 
       <g transform = {transformShowHide} onClick={this.props.onClick}> 
