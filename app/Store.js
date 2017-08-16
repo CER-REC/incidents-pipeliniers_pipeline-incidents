@@ -16,7 +16,7 @@ const reducers = Redux.combineReducers({
   data: DataReducer,
   categories: CategoriesReducer,
   showEmptyCategories: EmptyCategoriesReducer,
-  IncidentSelectionStateReducer: IncidentSelectionStateReducer,
+  selectedIncident: IncidentSelectionStateReducer,
 })
 
 module.exports = function () {

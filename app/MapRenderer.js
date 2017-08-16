@@ -179,6 +179,21 @@ const RenderRoutines = {
   },
 
 
+  strokeColour(incident, props) {
+    if (props.selectedIncident === null) {
+      return Constants.getIn(['map', 'lightGrey'])
+    }
+    else if (props.selectedIncident === incident){
+      return Constants.getIn(['map', 'selectedLightGrey'])
+    }
+    else {
+      return Constants.getIn(['map', 'deselectedLightGrey'])
+    }
+
+
+  },
+
+
   drawLeftLines(renderContext, inputContext, props, columnName) {
 
     const filteredData = IncidentComputations.filteredIncidents(
@@ -255,13 +270,15 @@ const RenderRoutines = {
           return
         }
 
+        const strokeColour = RenderRoutines.strokeColour(incident, props)
+
         const bundleY = bundleRegionTopY + (bundleRegionBottomY - bundleRegionTopY) * (index / categoryCount)
 
         // Draw paths from left column to bundle region
         RenderRoutines.drawBezier(
           [{
             context: renderContext,
-            strokeStyle: Constants.getIn(['map', 'lightGrey']),
+            strokeStyle: strokeColour,
           },
           {
             context: inputContext,
@@ -300,7 +317,7 @@ const RenderRoutines = {
         RenderRoutines.drawBezier(
           [{
             context: renderContext,
-            strokeStyle: Constants.getIn(['map', 'lightGrey']),
+            strokeStyle: strokeColour,
           },
           {
             context: inputContext,
@@ -416,6 +433,8 @@ const RenderRoutines = {
           return
         }
 
+        const strokeColour = RenderRoutines.strokeColour(incident, props)
+
         const bundleY = bundleRegionTopY + (bundleRegionBottomY - bundleRegionTopY) * (index / categoryCount)
 
 
@@ -431,7 +450,7 @@ const RenderRoutines = {
         RenderRoutines.drawBezier(
           [{
             context: renderContext,
-            strokeStyle: Constants.getIn(['map', 'lightGrey']),
+            strokeStyle: strokeColour,
           },
           {
             context: inputContext,
@@ -460,7 +479,7 @@ const RenderRoutines = {
         RenderRoutines.drawBezier(
           [{
             context: renderContext,
-            strokeStyle: Constants.getIn(['map', 'lightGrey']),
+            strokeStyle: strokeColour,
           },
           {
             context: inputContext,
@@ -520,11 +539,18 @@ const RenderRoutines = {
       props.data)
       .get('incidentNumberToColourMap')
 
-    const incidentColour = Constants.getIn(['map', 'incidentCircleColour'])
     const shadowColour = Constants.getIn(['map', 'shadowColour'])
     const incidentRadius = Constants.getIn(['map', 'incidentRadius'])
 
     filteredData.forEach( incident => {
+      
+      let incidentColour
+      if (props.selectedIncident === incident) {
+        incidentColour = Constants.getIn(['map', 'selectedIncidentCircleColour'])
+      }
+      else {
+        incidentColour = Constants.getIn(['map', 'incidentCircleColour'])
+      }
 
       const incidentPosition = RenderRoutines.longLatToMapCoordinates(
         incident.get('longitude'),
@@ -542,6 +568,8 @@ const RenderRoutines = {
         incidentPosition.y + 1,
         incidentRadius
       )
+
+
 
       // The incident itself
       RenderRoutines.drawCircle(
