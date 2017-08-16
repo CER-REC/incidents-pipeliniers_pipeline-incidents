@@ -316,6 +316,13 @@ const Constants = Immutable.fromJS({
   
   mapWidthHeightRatio: 510 / 375,
 
+  categoryLabelOffset: 4,
+  singleLineCategoryLabelHeight: 15,
+  doubleLineCategoryLabelHeight: 30,
+  tripleLineCategoryLabelHeight: 45,
+
+  categoryLabelLineLength: 12
+
 })
 
 
