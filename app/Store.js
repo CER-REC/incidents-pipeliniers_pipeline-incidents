@@ -6,6 +6,7 @@ const ColumnsReducer = require('./reducers/ColumnsReducer')
 const DataReducer = require('./reducers/DataReducer')
 const CategoriesReducer = require('./reducers/CategoriesReducer')
 const EmptyCategoriesReducer = require('./reducers/EmptyCategoriesReducer')
+const IncidentSelectionStateReducer = require('./reducers/IncidentSelectionStateReducer')
 
 
 
@@ -15,6 +16,7 @@ const reducers = Redux.combineReducers({
   data: DataReducer,
   categories: CategoriesReducer,
   showEmptyCategories: EmptyCategoriesReducer,
+  IncidentSelectionStateReducer: IncidentSelectionStateReducer,
 })
 
 module.exports = function () {
