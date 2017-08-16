@@ -113,7 +113,8 @@ MapComputations.canvasInputColourMap = function (data) {
 
   // With 24 bits of colour, we can handle 2^24 = 16 million incidents.
   // More than we will presumably ever be tasked with rendering.
-  let r = 0
+  // NB: We use 0,0,0 as the 'clear' style for the canvas element
+  let r = 1
   let g = 0
   let b = 0
 
@@ -141,7 +142,7 @@ MapComputations.canvasInputColourMap = function (data) {
 
   })
 
-  return Immutable.Map({
+  return Immutable.fromJS({
     incidentNumberToColourMap: incidentNumberToColourMap,
     colourToIncidentNumberMap: colourToIncidentNumberMap,
   })
