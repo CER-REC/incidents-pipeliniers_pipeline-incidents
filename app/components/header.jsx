@@ -1,21 +1,6 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
-const Request = require('client-request/promise')
-
-function makeBitlyPromise() {
-  const options = {
-    uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}/bitly_url`,
-    json: true
-  }
-  return Request(options)
-    .then(function (response) {
-      return response
-    })
-    .catch(function (error) {
-      throw error
-    })
-}
 
 //home button
 function homeButton() {
@@ -24,13 +9,6 @@ function homeButton() {
     width = {Constants.getIn(['topBar', 'homeIconWidth'])}
   ></image>
   return image
-}
-
-function methodologyClick() {
-  makeBitlyPromise().then(function(response){
-    const methodologyUrl = `TODO${response.body.data.url}`
-    window.open(methodologyUrl , 'targetWindow' , '_blank') 
-  })
 }
 
 //top bar header
@@ -51,7 +29,7 @@ class Header extends React.Component {
         y =  "25" //change to constant
         xlinkHref='images/pinned.svg' //placeholder until icon received
         className="socialBar"
-        onClick = {methodologyClick}
+        //onClick Xlink:Href
       ></image>
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
 			
