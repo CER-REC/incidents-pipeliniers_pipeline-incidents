@@ -119,13 +119,13 @@ MapComputations.canvasInputColourMap = function (data) {
   let b = 0
 
   const incidentNumberToColourMap = {}
-  const colourToIncidentNumberMap = {}
+  const colourToIncidentMap = {}
 
   data.forEach( incident => {
 
     const colour = `rgb(${r}, ${g}, ${b})`
     incidentNumberToColourMap[incident.get('incidentNumber')] = colour
-    colourToIncidentNumberMap[colour] = incident.get('incidentNumber')
+    colourToIncidentMap[colour] = incident
 
     r += 1
     if (r === 256) {
@@ -144,7 +144,7 @@ MapComputations.canvasInputColourMap = function (data) {
 
   return Immutable.fromJS({
     incidentNumberToColourMap: incidentNumberToColourMap,
-    colourToIncidentNumberMap: colourToIncidentNumberMap,
+    colourToIncidentMap: colourToIncidentMap,
   })
 
 

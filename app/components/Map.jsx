@@ -14,20 +14,20 @@ class Map extends React.Component {
     // click on a canvas ... 
     const canvas = document.getElementById('mapCanvas')
     const bounds = canvas.getBoundingClientRect()
-    const x = event.pageX - bounds.left
-    const y = event.pageY - bounds.top
+    const x = event.pageX - (bounds.left + window.scrollX)
+    const y = event.pageY - (bounds.top + window.scrollY)
 
     const colourData = this.props.canvasInputBuffer
       .getContext('2d')
       .getImageData(x, y, 1, 1)
 
-    const str = `rgb(${colourData.data[0]}, ${colourData.data[1]}, ${colourData.data[2]})`
+    const colourString = `rgb(${colourData.data[0]}, ${colourData.data[1]}, ${colourData.data[2]})`
 
-    const colourToIncidentNumberMap = MapComputations.canvasInputColourMap(
+    const colourToIncidentMap = MapComputations.canvasInputColourMap(
       this.props.data)
-      .get('colourToIncidentNumberMap')
+      .get('colourToIncidentMap')
 
-    console.log(colourToIncidentNumberMap.get(str))
+    console.log(colourToIncidentMap.get(colourString).toJS())
 
   }
 
