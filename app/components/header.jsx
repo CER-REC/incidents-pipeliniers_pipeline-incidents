@@ -23,14 +23,6 @@ class Header extends React.Component {
     let transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
     return (<g transform = {transformString}>
       {homeButton()}
-      <image 
-        height = {Constants.getIn(['topBar', 'homeIconHeight'])} //rename?
-        width = {Constants.getIn(['topBar', 'homeIconWidth'])}       
-        y =  "25" //change to constant
-        xlinkHref='images/pinned.svg' //placeholder until icon received
-        className="socialBar"
-        //onClick Xlink:Href
-      ></image>
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
 			
         <text x={xHeading} y={yHeading} className="heading">Heading</text>

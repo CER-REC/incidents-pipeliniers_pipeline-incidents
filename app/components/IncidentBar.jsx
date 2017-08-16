@@ -9,14 +9,14 @@ require('./IncidentBar.scss')
 class IncidentBar extends React.Component {
 
   render() {
-    //  <rect
-    //    x={ Constants.getIn(['pinColumn', 'horizontalMargins']) }
-    //    y={ WorkspaceComputations.topBarHeight() }
-    //    width={ Constants.getIn(['pinColumn', 'width']) }
-    //    height={ WorkspaceComputations.columnHeight(this.props.viewport) }
-    //    fill='#DDFFDD'
-    //  />
     return <g>
+      <rect
+        x={ Constants.getIn(['pinColumn', 'horizontalMargins']) }
+        y={ WorkspaceComputations.topBarHeight() }
+        width={ Constants.getIn(['pinColumn', 'width']) }
+        height={ WorkspaceComputations.columnHeight(this.props.viewport) }
+        fill='#DDFFDD'
+      />
     </g>
   }
 }
