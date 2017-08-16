@@ -280,10 +280,11 @@ const RenderRoutines = {
             context: renderContext,
             strokeStyle: strokeColour,
           },
-          {
-            context: inputContext,
-            strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
-          }],
+          // {
+          //   context: inputContext,
+          //   strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
+          // }
+          ],
           // Starting point, on the left column
           0,
           currentY + categoryHeight * (index / categoryCount),
@@ -319,10 +320,11 @@ const RenderRoutines = {
             context: renderContext,
             strokeStyle: strokeColour,
           },
-          {
-            context: inputContext,
-            strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
-          }],
+          // {
+          //   context: inputContext,
+          //   strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
+          // }
+          ],
 
           // The incident's point in the bundle region
           bundleOffsetDistance,
@@ -452,10 +454,11 @@ const RenderRoutines = {
             context: renderContext,
             strokeStyle: strokeColour,
           },
-          {
-            context: inputContext,
-            strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
-          }],
+          // {
+          //   context: inputContext,
+          //   strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
+          // }
+          ],
 
           incidentPosition.x,
           incidentPosition.y,
@@ -481,10 +484,11 @@ const RenderRoutines = {
             context: renderContext,
             strokeStyle: strokeColour,
           },
-          {
-            context: inputContext,
-            strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
-          }],
+          // {
+          //   context: inputContext,
+          //   strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
+          // }
+          ],
 
           bundleOffsetDistance,
           bundleY,
