@@ -109,6 +109,7 @@ MapComputations.basemapCentre = function (showEmptyCategories, viewport, data, c
 // paint with we need a bidirectional map of incidents => colours and
 // colours => incidents
 
+
 MapComputations.canvasInputColourMap = function (data) {
 
   // With 24 bits of colour, we can handle 2^24 = 16 million incidents.

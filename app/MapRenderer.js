@@ -306,7 +306,7 @@ const RenderRoutines = {
             context: inputContext,
             strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
           }],
-          
+
           // The incident's point in the bundle region
           bundleOffsetDistance,
           bundleY,
@@ -578,12 +578,11 @@ const RenderRoutines = {
 
 // canvas: the canvas DOM element we are rendering to
 // props: the props object from Map, which should include the main 5 state 
-//   items; showEmptyCategories, viewport, data, columns, categories, 
-//   and also canvasInputBuffer
-module.exports = function MapRenderer (canvas, props) {
+//   items; showEmptyCategories, viewport, data, columns, categories
+module.exports = function MapRenderer (renderCanvas, inputCanvas, props) {
 
-  const renderContext = canvas.getContext('2d')
-  const inputContext = props.canvasInputBuffer.getContext('2d')
+  const renderContext = renderCanvas.getContext('2d')
+  const inputContext = inputCanvas.getContext('2d')
 
   // Clear both the displayed canvas and the input buffer
   RenderRoutines.clear(renderContext, 

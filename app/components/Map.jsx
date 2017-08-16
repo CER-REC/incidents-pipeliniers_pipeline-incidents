@@ -4,7 +4,6 @@ const ReactRedux = require('react-redux')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const MapComputations = require('../MapComputations.js')
 const MapRenderer = require('../MapRenderer.js')
-const ResizeInputCanvasCreator = require('../actionCreators/ResizeInputCanvasCreator.js')
 
 class Map extends React.Component {
 
@@ -17,7 +16,7 @@ class Map extends React.Component {
     const x = event.pageX - (bounds.left + window.scrollX)
     const y = event.pageY - (bounds.top + window.scrollY)
 
-    const colourData = this.props.canvasInputBuffer
+    const colourData = this.state.canvasInputBuffer
       .getContext('2d')
       .getImageData(x, y, 1, 1)
 
@@ -43,11 +42,19 @@ class Map extends React.Component {
     const canvas = document.getElementById('mapCanvas')
 
     // Passing the entire props object is convenient, but possibly a bad idea?
-    MapRenderer(canvas, this.props)
+    MapRenderer(canvas, this.state.canvasInputBuffer, this.props)
   }
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      canvasInputBuffer: document.createElement('canvas')
+    }
+  } 
+
   render() {
-    
+
     const mapDimensions = WorkspaceComputations.mapDimensions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -55,11 +62,9 @@ class Map extends React.Component {
       this.props.columns,
       this.props.categories)
 
-    // TODO: this isn't awesome and is possibly a problem ... 
-    this.props.dispatch(ResizeInputCanvasCreator(
-      mapDimensions.get('width'), 
-      mapDimensions.get('height')
-    ))
+    this.state.canvasInputBuffer.setAttribute('width', mapDimensions.get('width'))
+    this.state.canvasInputBuffer.setAttribute('height', mapDimensions.get('height'))
+
 
     const element = <div> 
       <canvas 
