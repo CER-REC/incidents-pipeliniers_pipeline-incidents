@@ -67,12 +67,12 @@ function volumeCategory(record, volumeString) {
 
 }
 
-function parseYear(record, yearString) {
+function readFloat(record, accessor) {
 
-  const float = parseFloat(yearString)
+  const float = parseFloat(record[accessor])
   
   if (isNaN(float)) {
-    console.warn('Bad year value for incident record', record)
+    console.warn(`Bad ${accessor} value for incident record`, record)
     // TODO: strictly speaking, there are no good return values to use here
     return 'Not Provided'
   }
@@ -93,8 +93,8 @@ function csvColumnMapping (d) {
     province: d['Province'],
     company: d['Company'],
     status: d['Status'],
-    latitude: d['Latitude'], // TODO: parse float
-    longitude: d['Longitude'], // TODO: parse float
+    latitude: readFloat(d, 'Latitude'),
+    longitude: readFloat(d, 'Longitude'), 
     affectsCompanyProperty: parseYesNo(d['Affects Company Property'], d),
     offCompanyProperty: parseYesNo(d['Off Company Property'], d),
     affectsPipelineRightOfWay: parseYesNo(d['Affects Pipeline right-of-way'], d),
@@ -104,7 +104,7 @@ function csvColumnMapping (d) {
     substance: d['Substance'],
     substanceCategory: d['SubstanceCategory'],
     releaseType: d['Release Type'],
-    year: parseYear(d, d['Year']), 
+    year: readFloat(d, 'Year'), 
     whatHappened: parseList(d['What Happened?']),
     whyItHappened: parseList(d['Why it Happened?']),
     pipelinePhase: d['Pipeline Phase'],

@@ -7,5 +7,13 @@
   // warrant it, which would let us hide the chrome some of the time.
 
   overflow-x: scroll;
+
+  // NB: necessary to establish stacking context for z-index
+  position: relative;
+
+  .workspaceSvg {
+    z-index: 1;
+  }
+
 }
 

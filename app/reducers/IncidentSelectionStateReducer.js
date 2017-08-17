@@ -5,7 +5,6 @@ const IncidentSelectionStateReducer = (state = null, action) => {
   case 'IncidentSelectionState':
     return action.data
 
-
   case 'IncidentDeselectionState':
     return null
 
