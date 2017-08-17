@@ -314,7 +314,34 @@ const Constants = Immutable.fromJS({
 
   emptyCategoryHeight: 20, // px
   
-  mapWidthHeightRatio: 510 / 375,
+  map: {
+    widthHeightRatio: 510 / 375,
+    
+    // NB: Must match dimensions of canada.svg
+    coordinateSpace: {
+      width: 800,
+      height: 600,
+    },
+
+    // TODO: colours should maybe be their own segment of constants?
+    backgroundColour: 'rgb(239, 236, 231)',
+    incidentCircleColour: 'rgb(80, 113, 82)',
+    selectedIncidentCircleColour: 'rgb(149, 183, 181)',
+    shadowColour: '#333',
+    lightGrey: 'rgba(102, 102, 102, 0.4)',
+    deselectedLightGrey: 'rgba(207, 207, 207, 0.2)',
+    selectedLightGrey: 'rgb(48, 48, 48)',
+
+    incidentRadius: 5,
+    padding: 10,
+    bundleOffsetDistance: 25,
+    radialControlPointDistance: 150,
+
+  }
+
+
+
+
 
   categoryLabelOffset: 4,
   singleLineCategoryLabelHeight: 15,

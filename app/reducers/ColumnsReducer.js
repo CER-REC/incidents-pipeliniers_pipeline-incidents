@@ -6,20 +6,23 @@ const defaults = Immutable.fromJS([
   // 'incidentTypes',
   // 'province',
 
-  'incidentTypes',
-  'year',
+  // 'incidentTypes',
+  // 'year',
+  // 'status',
+  // 'pipelineSystemComponentsInvolved',
+  // 'substance',
+  // 'volumeCategory',
+  // 'releaseType',
+  // 'whatHappened',
+  // 'whyItHappened',
+  // 'pipelinePhase',
+  // 'substanceCategory',
   'company',
-  'status',
+  // 'map',
   'province',
-  'map',
-  'substance',
-  'releaseType',
-  'whatHappened',
-  'whyItHappened',
-  'pipelinePhase',
-  'volumeCategory',
-  'substanceCategory',
-  'pipelineSystemComponentsInvolved',
+
+
+
 ])
 
 
