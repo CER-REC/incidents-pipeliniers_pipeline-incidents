@@ -31,7 +31,6 @@ class Category extends React.Component {
   }
 
   render() {
-
     const transformString = `translate(${this.props.x}, ${this.props.y})`
 
     // TODO: data-cat attribute is for dev purposes only, delete later!
@@ -51,7 +50,6 @@ class Category extends React.Component {
   splitHeading(fullLabel) {
     // TODO: We will need to fetch the category labels from 
     // a translation table to account for french translations.
-    //const columnHeading = TranslationTable.getIn(['categoryLabels', this.props.categoryName, language])
     const label = fullLabel
 
     // No need to split into multiple lines.
@@ -60,24 +58,22 @@ class Category extends React.Component {
       return [label]
     }
 
-    // Split right at the maxmium allows characters per line.
-    if(label[Constants.get('categoryLabelLineLength')] === ' ') {
-      return [this.splitHeading(label.substring(0,Constants.get('categoryLabelLineLength'))), 
-        this.splitHeading(label.substring(Constants.get('categoryLabelLineLength') + 1))]
+    // Split (on spaces or dashes) right at the maxmium allows characters per line.
+    // Case 1: split right at the line length limit.
+    if(label[Constants.get('categoryLabelLineLength')] === ' ' || 
+       label[Constants.get('categoryLabelLineLength')] === '-') {
+      return [this.splitHeading(label.substring(0,Constants.get('categoryLabelLineLength')))].concat( 
+        this.splitHeading(label.substring(Constants.get('categoryLabelLineLength') + 1)))
     }
 
-
-    const firstLineSplitPoint = label.substring(0, Constants.get('categoryLabelLineLength')).lastIndexOf(' ')
-    
-    // TODO: This is a hack just until the translation table is 
-    // in place. Delete after the translation table is in place. 
+    // Case 2: split at the closest space or dash.
+    let firstLineSplitPoint = label.substring(0, Constants.get('categoryLabelLineLength')).lastIndexOf(' ')
     if(firstLineSplitPoint < 0) {
-      return [fullLabel]
+      firstLineSplitPoint = label.substring(0, Constants.get('categoryLabelLineLength')).lastIndexOf('-')
     }
 
-    // Split at the closest space.
-    return [this.splitHeading(label.substring(0, firstLineSplitPoint)), 
-      this.splitHeading(label.substring(firstLineSplitPoint + 1))]
+    return [this.splitHeading(label.substring(0, firstLineSplitPoint))].concat( 
+      this.splitHeading(label.substring(firstLineSplitPoint + 1)))
   }
 }
 

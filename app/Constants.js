@@ -321,7 +321,7 @@ const Constants = Immutable.fromJS({
   doubleLineCategoryLabelHeight: 30,
   tripleLineCategoryLabelHeight: 45,
 
-  categoryLabelLineLength: 12
+  categoryLabelLineLength: 14
 
 })
 
