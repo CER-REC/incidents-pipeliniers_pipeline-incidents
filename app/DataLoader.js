@@ -133,7 +133,7 @@ const DataLoader = {
         store.dispatch(SetInitialCategoryStateCreator(state.data))
 
 
-        store.dispatch(IncidentSelectionStateCreator(state.data.get(456)))
+        store.dispatch(IncidentSelectionStateCreator(state.data.get(645)))
       })
       .catch(function (error) {
         throw error

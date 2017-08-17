@@ -21,20 +21,20 @@ class IncidentPopover extends React.Component {
 
   showBorder() {
     return <svg 
-      x="1" y="-8"
+      x="0" y="-12.5"
       xmlnsXlink='http://www.w3.org/1999/xlink'> 
-      <line x1={0} y1={0} x2={78} y2={0} stroke="#888889"
-        stroke-width="1" /> //horizontal line
-      <line x1={78} y1={0} x2={78} y2={55} 
-        stroke="#888889" stroke-width="1" /> //vertical line
-      <line x1={78} y1={55} x2={83} y2={55} 
-        stroke="#888889" stroke-width="1" /> //horizontal stub
-      <circle cx="85" cy="55" r="3" fill="#888889"/>
+      <line x1={0} y1={0} x2={120} y2={0} stroke="#888889"
+        strokeWidth="2" /> //horizontal line
+      <line x1={120} y1={0} x2={120} y2={55} 
+        stroke="#888889" strokeWidth="1" /> //vertical line
+      <line x1={120} y1={55} x2={125} y2={55} 
+        stroke="#888889" strokeWidth="1" /> //horizontal stub
+      <circle cx="127" cy="55" r="3" fill="#888889"/>
     </svg>
   }
 
   render() {
-    const transformPopover = 'translate(65,170)' //dependent on location of incident in the bar?
+    const transformPopover = 'translate(25,170)' //dependent on location of incident in the bar?
     return <g transform = {transformPopover}>
       {this.showPinImage()}
       {this.showBorder()}

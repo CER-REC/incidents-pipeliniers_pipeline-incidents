@@ -67,6 +67,7 @@ class Column extends React.Component {
     return  this.splitHeading().map((word) => {
       currentY += Constants.get('columnHeadingLineOffset')
       return <tspan className='barsHeading' 
+        key={word}
         x={currentX} 
         y={currentY}>
         {word}
@@ -84,6 +85,7 @@ class Column extends React.Component {
                      Constants.get('columnSubheadingOffset')
     const currentX = WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)
     return <tspan className='barsSubHeading' 
+      key='barSubHeading'
       x={currentX} 
       y={currentY}>
       578/1017 shown
