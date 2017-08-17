@@ -1,4 +1,5 @@
 const MemoizeImmutable = require('memoize-immutable')
+const Immutable = require('immutable')
 
 const Constants = require('./Constants.js')
 const CategoryComputations = require('./CategoryComputations.js')
@@ -7,15 +8,14 @@ const WorkspaceComputations = {}
 
 
 
-
-// TODO: is this necessary?
+// Is the map on display?
 // columns: the columns state
 WorkspaceComputations.mapDisplayed = function(columns) {
-  // TODO: should the 'map' string and others like it be constants somehow?
   return columns.contains('map')
 }
 
 
+// The height of top bar, containing a heading, subheading, and home icon
 // NB: Thanks to memoize-immutable, this function is effectively always memoized
 WorkspaceComputations.topBarHeight = function () {
   let height = Constants.get('topOuterMargin')
@@ -28,6 +28,7 @@ WorkspaceComputations.topBarHeight = function () {
   return height
 }
 
+// This is the entire height of the column, including all its decorations
 // viewport: the viewport state
 WorkspaceComputations.columnHeight = function (viewport) {
   return viewport.get('y') - 
@@ -37,10 +38,10 @@ WorkspaceComputations.columnHeight = function (viewport) {
 }
 
 
+// NB: this is the width of ordinary columns, not the map column
 // columns: the columns state
 WorkspaceComputations.columnWidth = function (columns) {
-  // TODO: update me when we add the currently displayed columns to the store
-  if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
+  if (WorkspaceComputations.useScrollingWorkspace(columns)) {
     return Constants.get('columnNarrowWidth')
   }
   else {
@@ -48,49 +49,13 @@ WorkspaceComputations.columnWidth = function (columns) {
   }
 }
 
+
 WorkspaceComputations.columnY = function() {
   return WorkspaceComputations.topBarHeight() + 
          Constants.get('columnHeadingHeight')
 }
 
-WorkspaceComputations.columnX = function (columns, viewport, i) {
 
-  // Define the left and right bounds of where we will be drawing columns and
-  // paths.
-  const leftBounds = Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
-    + Constants.getIn(['pinColumn', 'width'])
-  const rightBounds = WorkspaceComputations.sidebarX(columns, viewport)
-
-  // Divide the space up between the number of columns
-  // TODO: this math will need to be altered if the map column is on display
-  const spacePerColumn = (rightBounds - leftBounds) / columns.count()
-
-  // Supply the coordinate for the current column
-  return leftBounds + spacePerColumn * i
-}
-
-// columns: the columns state
-// viewport: the viewport state
-WorkspaceComputations.columnPathWidth = function (columns, viewport) {
-  if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
-    return Constants.get('minimumColumnPathWidth')
-  }
-  else {
-    let availableWidth = WorkspaceComputations.workspaceWidth(columns, viewport)
-    availableWidth -= Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
-    availableWidth -= Constants.getIn(['pinColumn', 'width'])
-    availableWidth -= columns.count() * Constants.get('columnWideWidth')
-    availableWidth -= Constants.getIn(['socialBar', 'width'])
-    availableWidth -= WorkspaceComputations.sidebarWidth(columns)
-    availableWidth -= Constants.getIn(['socialBar', 'leftMargin'])
-    return availableWidth / columns.count()
-  }
-}
-
-WorkspaceComputations.columnPathX = function (columns, viewport, i) {
-  return WorkspaceComputations.columnX(columns, viewport, i) 
-    + WorkspaceComputations.columnWidth(columns)
-}
 
 // columns: the columns state
 WorkspaceComputations.sidebarWidth = function (columns) {
@@ -100,44 +65,39 @@ WorkspaceComputations.sidebarWidth = function (columns) {
   return width
 }
 
-WorkspaceComputations.sidebarX = function (columns, viewport) {
-  return WorkspaceComputations.workspaceWidth(columns, viewport)
-    - Constants.getIn(['socialBar', 'width'])
-    - Constants.getIn(['socialBar', 'leftMargin'])
-    - WorkspaceComputations.sidebarWidth(columns)
+
+
+
+// The number of 'ordinary' columns on display right now
+WorkspaceComputations.ordinaryColumnsCount = function(columns) {
+
+  let ordinaryColumnsCount = columns.count()
+  if (WorkspaceComputations.mapDisplayed(columns)) {
+    // The map column doesn't count as an ordinary column
+    ordinaryColumnsCount -= 1
+  }
+ 
+  return ordinaryColumnsCount
 }
 
-// columns: the columns state
-// viewport: the viewport state
-WorkspaceComputations.workspaceWidth = function (columns, viewport) {
-
-  if (columns.count() > Constants.get('maxColumnsWithoutScroll')) {
-    // right margin, social media bar width
-    let width = Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
-    width += Constants.getIn(['pinColumn', 'width'])
-
-    // TODO: verify that this works when we add columns reducer
-    width += (Constants.get('columnNarrowWidth') + Constants.get('minimumColumnPathWidth')) * columns.count() 
-
-    width += WorkspaceComputations.sidebarWidth(columns)
-
-    width += Constants.getIn(['socialBar', 'width'])
-    width += Constants.getIn(['socialBar', 'leftMargin'])
-
-    return width
+// The maximum number of columns which may be present before we should extend 
+// the SVG beyond the viewport, so that it scrolls, and so that we have more
+// space to lay out elements.
+WorkspaceComputations.maxColumnsWithoutScroll = function (columns) {
+  if (WorkspaceComputations.mapDisplayed(columns)) {
+    return Constants.get('maxColumnsWithoutScrollWithMap')
   }
   else {
-    return viewport.get('x')
+    return Constants.get('maxColumnsWithoutScroll')
   }
 
 }
 
-WorkspaceComputations.dragArrowX = function (columns, viewport, index) {
-  const columnX = WorkspaceComputations.columnX(columns, viewport, index)
+WorkspaceComputations.dragArrowX = function (columns, xCoordinate) {
   const columnWidth = WorkspaceComputations.columnWidth(columns)
   const dragArrowWidth = Constants.getIn(['dragArrow', 'width'])
 
-  return columnX + columnWidth / 2 - dragArrowWidth / 2
+  return xCoordinate + columnWidth / 2 - dragArrowWidth / 2
 }
 
 WorkspaceComputations.dragArrowY = function (viewport) {
@@ -145,6 +105,18 @@ WorkspaceComputations.dragArrowY = function (viewport) {
          Constants.get('columnSubheadingOffset') + 
          WorkspaceComputations.columnHeight(viewport) + 7
 }
+
+// Should we use math that can produce a horizontally scrolling workspace, or 
+// not?
+WorkspaceComputations.useScrollingWorkspace = function (columns) {
+  const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
+  const maxColumnsWithoutScroll = WorkspaceComputations.maxColumnsWithoutScroll(columns)
+
+  return ordinaryColumnsCount > maxColumnsWithoutScroll
+}
+
+
+
 
 // Returns an immutable map of category names to category heights, for the given
 // column name.
@@ -267,6 +239,272 @@ WorkspaceComputations.columnEmptyCategoryHeight = function (showEmptyCategories,
 }
 
 
+// The width and height of the map column
+// These measurements are the outer dimensions of the map container, the map
+// itself is drawn within padding inside of these measurements, and is
+// scaled and centred to take maximum space without exceeding its bounds.
+WorkspaceComputations.mapDimensions = function(showEmptyCategories, viewport, data, columns, categories) {
+
+  const height = WorkspaceComputations.columnNormalCategoryHeight(
+    showEmptyCategories,
+    viewport,
+    data,
+    columns,
+    categories)
+
+  // TODO: The map seems way too big!
+
+  return Immutable.Map({
+    width: height * Constants.getIn(['map', 'widthHeightRatio']),
+    height: height,
+  })
+
+}
+
+// Should the named column render its connected paths? 
+WorkspaceComputations.shouldRenderColumnPath = function (columns, columnName) {
+  // If the column to our right is the map column, we don't render our paths
+  const index = columns.indexOf(columnName)
+  return columns.get(index + 1) !== 'map'
+}
+
+
+
+// Returns an immutable hash with positions and sizing information for most 
+// elements which are laid out left to right. Keys include: 
+//   pinColumn
+//   columns
+//   columnPaths
+//   sideBar
+//   socialBar
+//   workspace - with width and height for the entire workspace
+
+
+WorkspaceComputations.horizontalPositions = function(showEmptyCategories, viewport, data, columns, categories) {
+  if (WorkspaceComputations.useScrollingWorkspace(columns)) {
+    return WorkspaceComputations.horizontalPositionsWithScroll(showEmptyCategories, viewport, data, columns, categories)
+  }
+  else {
+    return WorkspaceComputations.horizontalPositionsFixedWidth(viewport, columns)
+  }
+}
+
+
+
+
+
+
+
+WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategories, viewport, data, columns, categories) {
+
+  const columnHeight = WorkspaceComputations.columnHeight(viewport)
+  const topBarHeight = WorkspaceComputations.columnY()
+
+  // Move through each element left to right
+
+  let measurements = Immutable.Map()
+  let cumulativeX = 0
+
+  // Pin column
+  measurements = measurements.set('pinColumn', Immutable.fromJS({
+    width: Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins']) * 2,
+    innerWidth: Constants.getIn(['pinColumn', 'width']),
+    height: columnHeight,
+    x: Constants.getIn(['pinColumn', 'horizontalMargins']),
+    y: topBarHeight,
+  }))
+
+  cumulativeX += measurements.getIn(['pinColumn', 'width'])
+
+
+
+  // Columns + Column Paths
+  const widthPerColumn = Constants.get('columnNarrowWidth')
+  const minimumColumnPathWidth = Constants.get('minimumColumnPathWidth')
+
+  measurements = measurements.set('columns', Immutable.Map())
+  measurements = measurements.set('columnPaths', Immutable.Map())
+
+  columns.forEach( columnName => {
+
+    if(columnName === 'map') {
+
+      const mapDimensions = WorkspaceComputations.mapDimensions(showEmptyCategories, viewport, data, columns, categories)
+
+      measurements = measurements.setIn(['columns', columnName], Immutable.fromJS({
+        width: mapDimensions.get('width'),
+        height: mapDimensions.get('height'),
+        x: cumulativeX,
+        y: topBarHeight,
+      }))
+
+      cumulativeX += measurements.getIn(['columns', columnName, 'width'])
+    }
+    else {
+      // All other columns except the map
+
+      measurements = measurements.setIn(['columns', columnName], Immutable.fromJS({
+        width: widthPerColumn,
+        height: columnHeight,
+        x: cumulativeX,
+        y: topBarHeight,
+      }))
+
+      cumulativeX += measurements.getIn(['columns', columnName, 'width'])
+
+      // If the column to our right is the map column, we don't render our paths
+      if(!WorkspaceComputations.shouldRenderColumnPath(columns, columnName)) {
+        return
+      }
+
+      measurements = measurements.setIn(['columnPaths', columnName], Immutable.fromJS({
+        width: minimumColumnPathWidth,
+        height: columnHeight,
+        x: cumulativeX,
+        y: topBarHeight,
+      }))
+
+      cumulativeX += measurements.getIn(['columnPaths', columnName, 'width'])
+    }
+
+  })
+
+
+
+  // Sidebar
+  measurements = measurements.set('sideBar', Immutable.fromJS({
+    width: WorkspaceComputations.sidebarWidth(columns),
+    height: columnHeight,
+    x: cumulativeX,
+    y: topBarHeight,
+  }))
+  cumulativeX += measurements.getIn(['sideBar', 'width'])
+
+
+  // Social Bar
+  measurements = measurements.set('socialBar', Immutable.fromJS({
+    width: Constants.getIn(['socialBar', 'width']) + Constants.getIn(['socialBar', 'leftMargin']),
+    innerWidth: Constants.getIn(['socialBar', 'width']),
+    height: Constants.getIn(['socialBar', 'height']),
+    x: cumulativeX,
+    y: topBarHeight,
+  }))
+  cumulativeX += measurements.getIn(['socialBar', 'width'])
+
+
+
+  // Workspace
+  measurements = measurements.set('workspace', Immutable.fromJS({
+    width: cumulativeX,
+    height: viewport.get('y'),
+  }))
+
+
+  return measurements
+}
+
+
+// When the workspace width is fixed to the size of the viewport, the strategy
+// for laying out elements is different. 
+WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns) {
+
+  const workspaceWidth = viewport.get('x')
+  const columnHeight = WorkspaceComputations.columnHeight(viewport)
+  const topBarHeight = WorkspaceComputations.columnY()
+
+  let measurements = Immutable.Map()
+
+
+  // First, address the elements with fixed widths surrounding the columns
+  // in the middle: pin column, sidebar, social bar
+
+  // Pin column
+  measurements = measurements.set('pinColumn', Immutable.fromJS({
+    width: Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins']) * 2,
+    innerWidth: Constants.getIn(['pinColumn', 'width']),
+    height: columnHeight,
+    x: Constants.getIn(['pinColumn', 'horizontalMargins']),
+    y: topBarHeight,
+  }))
+
+  // Social bar
+  measurements = measurements.set('socialBar', Immutable.fromJS({
+    width: Constants.getIn(['socialBar', 'width']) + Constants.getIn(['socialBar', 'leftMargin']),
+    innerWidth: Constants.getIn(['socialBar', 'width']),
+    height: Constants.getIn(['socialBar', 'height']),
+    x: workspaceWidth - Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'leftMargin']),
+    y: topBarHeight,
+  }))
+
+  // Sidebar
+  measurements = measurements.set('sideBar', Immutable.fromJS({
+    width: WorkspaceComputations.sidebarWidth(columns),
+    height: columnHeight,
+    y: topBarHeight,
+  }))
+  measurements = measurements.setIn(['sideBar', 'x'],
+    workspaceWidth
+    - measurements.getIn(['socialBar', 'width'])
+    - measurements.getIn(['sideBar', 'width'])
+  )
+
+
+  // Sum up how much space is available for the columns and paths.
+  let remainingSpace = workspaceWidth
+  remainingSpace -= measurements.getIn(['pinColumn', 'width'])
+  remainingSpace -= measurements.getIn(['socialBar', 'width'])
+  remainingSpace -= measurements.getIn(['sideBar', 'width'])
+
+
+
+  // TODO: at this time, the map column never appears in fixed display mode
+  // This math will need to be tweaked if we do permit it in.
+
+  const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
+  const widthPerOrdinaryColumnAndPath = remainingSpace / ordinaryColumnsCount
+  const widthPerColumn = Constants.get('columnWideWidth')
+  const widthPerColumnPath = widthPerOrdinaryColumnAndPath - widthPerColumn
+
+  measurements = measurements.set('columns', Immutable.Map())
+  measurements = measurements.set('columnPaths', Immutable.Map())
+
+  let cumulativeX = measurements.getIn(['pinColumn', 'width']) + measurements.getIn(['socialBar', 'width'])
+
+  // Columns + Column paths
+  columns.forEach( columnName => {
+
+    measurements = measurements.setIn(['columns', columnName], Immutable.fromJS({
+      width: widthPerColumn,
+      height: columnHeight,
+      x: cumulativeX,
+      y: topBarHeight,
+    }))
+    cumulativeX += widthPerColumn
+
+    measurements = measurements.setIn(['columnPaths', columnName], Immutable.fromJS({
+      width: widthPerColumnPath,
+      height: columnHeight,
+      x: cumulativeX,
+      y: topBarHeight,
+    }))
+
+    cumulativeX += widthPerColumnPath
+
+  })
+
+
+  // Workspace
+  measurements = measurements.set('workspace', Immutable.fromJS({
+    width: workspaceWidth,
+    height: viewport.get('y'),
+  }))
+
+  return measurements
+}
+
+
+
+
 
 
 const MemoizedComputations = {}
@@ -275,4 +513,5 @@ for (const name of Object.keys(WorkspaceComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(WorkspaceComputations[name])
 }
 
+window.wc = MemoizedComputations
 module.exports = MemoizedComputations

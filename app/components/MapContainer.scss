@@ -1,0 +1,19 @@
+
+
+.mapContainer {
+
+  // NB: necessary to establish stacking context for z-index
+  position: relative;
+
+  z-index: 2;
+
+  .innerContainer {
+    position: absolute;
+  }
+
+  canvas {
+    display: block;
+    cursor: pointer;
+  }
+
+}

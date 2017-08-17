@@ -12,19 +12,30 @@ const Column = require('./Column.jsx')
 const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const MapContainer = require('./MapContainer.jsx')
+
 
 class Workspace extends React.Component {
 
 
   columns() {
-    return this.props.columns.map( (columnName, i) => {
+    return this.props.columns.map( (columnName) => {
       if (columnName === 'map') {
-        return <MapColumn key={columnName} index={i} />
+        return <MapColumn key={columnName}/>
       }
       else {
-        return <Column columnName={columnName} key={columnName} index={i} />
+        return <Column columnName={columnName} key={columnName}/>
       }
     }).toArray()
+  }
+
+  mapContainer() {
+    if (WorkspaceComputations.mapDisplayed(this.props.columns)) {
+      return <MapContainer/>
+    }
+    else {
+      return null
+    }
   }
 
   render() {
@@ -36,31 +47,42 @@ class Workspace extends React.Component {
       return <div/>
     }
 
-    const width = WorkspaceComputations.workspaceWidth(
+    const horizontalPositions = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
       this.props.columns,
-      this.props.viewport)
+      this.props.categories)
 
-    return <div className='workspace'>
-      <svg width={width}
-        height={this.props.viewport.get('y')}>
-        <Header />
 
-        <EmptyCategories />
-        <IncidentBar/>
-        {this.columns()}
-        <SideBar/>
-        <SocialBar/>
+    return <div>
+      <div className='workspace'>
+        { this.mapContainer() }
+        <svg 
+          className = 'workspaceSvg'
+          width = { horizontalPositions.getIn(['workspace', 'width']) }
+          height = { horizontalPositions.getIn(['workspace', 'height']) }>
+          <Header />
 
-      </svg>
+          <EmptyCategories />
+          <IncidentBar/>
+          {this.columns()}
+          <SideBar/>
+          <SocialBar/>
+
+        </svg>
+      </div>
+      <img id='canadaImage' src='canada.svg' className='hidden'/>
     </div>
   }
 }
 
 const mapStateToProps = state => {
   return {
+    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-    columns: state.columns,
     data: state.data,
+    columns: state.columns,
     categories: state.categories,
   }
 }

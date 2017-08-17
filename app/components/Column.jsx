@@ -10,7 +10,7 @@ const TranslationTable = require('../TranslationTable.js')
 
 require('./Column.scss')
 
-// TODO: Get this from the URL query? Cookies?
+// TODO: Get this from the URL query? Cookies? language reducer! 
 const language = 'en'
 
 class Column extends React.Component {
@@ -37,6 +37,15 @@ class Column extends React.Component {
       this.props.categories, 
       this.props.columnName)
 
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columns', this.props.columnName])
+
+
     return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
@@ -47,8 +56,8 @@ class Column extends React.Component {
           key={categoryName}
           colour={categoryColours.get(categoryName)} 
           height={categoryHeights.get(categoryName)}
-          width={ WorkspaceComputations.columnWidth(this.props.columns) }
-          x={WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)}
+          width={ columnMeasurements.get('width') }
+          x={ columnMeasurements.get('x') }
           y={currentY}
         />
       }).toArray()
@@ -59,15 +68,22 @@ class Column extends React.Component {
 
     // Check if the subheading is visible. If it is not, 
     // add Constants.get('columnSubheadingHeight') to currentY.
-    if(this.props.filters.get(this.props.columnName) === undefined) {
+    if(CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
       currentY += Constants.get('columnSubheadingHeight')
     }
 
-    const currentX = WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columns', this.props.columnName])
+
     return  this.splitHeading().map((word) => {
       currentY += Constants.get('columnHeadingLineOffset')
       return <tspan className='barsHeading' 
-        x={currentX} 
+        x={columnMeasurements.get('x')} 
         y={currentY}>
         {word}
       </tspan>
@@ -76,25 +92,41 @@ class Column extends React.Component {
 
   barSubHeading() {
     // Only render the sub-heading if filters are on.
-    if(this.props.filters.get(this.props.columnName) === undefined) {
+    if(CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
       return
     }
 
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columns', this.props.columnName])
+
     const currentY = WorkspaceComputations.topBarHeight() + 
                      Constants.get('columnSubheadingOffset')
-    const currentX = WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)
     return <tspan className='barsSubHeading' 
-      x={currentX} 
+      x={columnMeasurements.get('x')} 
       y={currentY}>
       578/1017 shown
     </tspan>
   }
 
   dragArrow() {
+
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columns', this.props.columnName])
+
     return <image xlinkHref='images/horizontal_drag.svg' 
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
-      x= {WorkspaceComputations.dragArrowX(this.props.columns, this.props.viewport, this.props.index)}
+      x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
       y= {WorkspaceComputations.dragArrowY(this.props.viewport)}>
     </image>
   }
@@ -125,6 +157,15 @@ class Column extends React.Component {
       this.props.columns,
       this.props.categories)
 
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columns', this.props.columnName])
+
+
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     let categoryY = baselineHeight
 
@@ -143,8 +184,8 @@ class Column extends React.Component {
         key={categoryName}
         colour={categoryColours.get(categoryName)} 
         height={emptyCategoryHeight}
-        width={ WorkspaceComputations.columnWidth(this.props.columns) }
-        x={WorkspaceComputations.columnX(this.props.columns, this.props.viewport, this.props.index)}
+        width={ columnMeasurements.get('width') }
+        x={ columnMeasurements.get('x') }
         y={currentY}
       />
 
@@ -152,6 +193,18 @@ class Column extends React.Component {
 
 
 
+  }
+
+  columnPaths() {
+    if (WorkspaceComputations.shouldRenderColumnPath(
+      this.props.columns,
+      this.props.columnName)) {
+      return <ColumnPaths index={this.props.index} columnName={this.props.columnName}/>
+    }
+    else {
+      return null
+    }
+    
   }
 
 
@@ -164,8 +217,8 @@ class Column extends React.Component {
       </text>
       { this.nonEmptyCategories() }
       { this.emptyCategories() }
-      {this.dragArrow()}
-      <ColumnPaths index={this.props.index} columnName={this.props.columnName} index={this.props.index}/>
+      { this.columnPaths() }
+      { this.dragArrow() }
     </g>
   }
 
@@ -184,8 +237,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     data: state.data,
-    showEmptyCategories: state.showEmptyCategories,
-    filters: state.filters
+    showEmptyCategories: state.showEmptyCategories
   }
 }
 
