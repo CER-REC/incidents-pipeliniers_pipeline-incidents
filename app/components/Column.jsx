@@ -10,7 +10,7 @@ const TranslationTable = require('../TranslationTable.js')
 
 require('./Column.scss')
 
-// TODO: Get this from the URL query? Cookies?
+// TODO: Get this from the URL query? Cookies? language reducer! 
 const language = 'en'
 
 class Column extends React.Component {

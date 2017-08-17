@@ -1,5 +1,5 @@
 const MemoizeImmutable = require('memoize-immutable')
-
+const Immutable = require('immutable')
 
 const IncidentComputations = {}
 
@@ -115,6 +115,41 @@ IncidentComputations.filteredIncidents = function (data, columns, categories) {
 }
 
 
+// Returns a subset of the given list of data, containing only elements in the
+// given category.
+IncidentComputations.categorySubset = function(data, columnName, categoryName) {
+
+  switch (columnName) {
+
+  case 'year':
+  case 'company':
+  case 'status':
+  case 'province':
+  case 'substance':
+  case 'releaseType':
+  case 'pipelinePhase':
+  case 'volumeCategory':
+  case 'substanceCategory':
+    // For the single selection columns
+    return data.filter( item => {
+      return item.get(columnName) === categoryName
+    })
+
+  case 'incidentTypes':
+  case 'whatHappened':
+  case 'whyItHappened':
+  case 'pipelineSystemComponentsInvolved':
+    // For the multiple selection columns
+    return data.filter( item => {
+      return item.get(columnName).contains(categoryName)
+    })
+
+  case 'map':
+    // This should never happen, but
+    return Immutable.List()
+  }
+
+}
 
 
 
