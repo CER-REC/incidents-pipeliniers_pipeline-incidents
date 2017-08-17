@@ -11,7 +11,6 @@ const IncidentBar = require('./IncidentBar.jsx')
 const Column = require('./Column.jsx')
 const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
-const IncidentPopover = require('./IncidentPopover.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 class Workspace extends React.Component {
@@ -47,7 +46,6 @@ class Workspace extends React.Component {
         <Header />
         <EmptyCategories />
         <IncidentBar/>
-        <IncidentPopover />
         {this.columns()}
         <SideBar/>
         <SocialBar/>

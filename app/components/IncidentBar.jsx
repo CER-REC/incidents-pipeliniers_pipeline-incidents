@@ -21,20 +21,22 @@ class IncidentBar extends React.Component {
       />
     }
   }
-
-  render() {
-    //TODO: put as many of the popovers as needed (max 5)
-    //if empty, produce an empty array
-    //show only the selected and pinned incidents
-    return <g>
-
-      <rect
+  /*
+ <rect
         x={ Constants.getIn(['pinColumn', 'horizontalMargins']) }
         y={ WorkspaceComputations.topBarHeight() }
         width={ Constants.getIn(['pinColumn', 'width']) }
         height={ WorkspaceComputations.columnHeight(this.props.viewport) }
         fill='#DDFFDD'
       />
+*/
+  render() {
+    //TODO: put as many of the popovers as needed (max 5)
+    //if empty, produce an empty array
+    //show only the selected and pinned incidents
+    return <g>
+
+     
 
       {this.selectedIncident()}
 

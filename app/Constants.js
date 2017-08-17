@@ -51,6 +51,7 @@ const Constants = Immutable.fromJS({
   incidentPopover: {
     height: 65,
     width: 95,
+    pinIconXY: -15,
   },
 
   columnWideWidth: 62,

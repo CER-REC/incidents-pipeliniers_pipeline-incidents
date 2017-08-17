@@ -4,6 +4,8 @@ const ReactRedux = require('react-redux')
 const IncidentBar = require('./IncidentBar.jsx')
 const Constants = require('../Constants.js')
 
+require('../styles/Colours.scss')
+
 class IncidentPopover extends React.Component {
 
   showPinImage() {
@@ -12,17 +14,21 @@ class IncidentPopover extends React.Component {
     return <image 
       height = {height} 
       width = {width} 
-      x="-15" y="-15" //change to constants once sure
+      x={Constants.getIn(['incidentPopover', 'pinIconXY'])}
+      y={Constants.getIn(['incidentPopover', 'pinIconXY'])}
       xlinkHref='images/unpinned.svg'></image>
   }
 
   showBorder() {
     return <svg 
-      x="1" y="-8" //change to constants
-      xmlnsXlink='http://www.w3.org/1999/xlink'> //svg height and width bigger
-      <line x1={0} y1={0} x2={78} y2={0} stroke="#888889" stroke-width="1" /> //horizontal line
-      <line x1={78} y1={0} x2={78} y2={55} stroke="#888889" stroke-width="1" /> //vertical line
-      <line x1={78} y1={55} x2={83} y2={55} stroke="#888889" stroke-width="1" /> //horizontal stub
+      x="1" y="-8"
+      xmlnsXlink='http://www.w3.org/1999/xlink'> 
+      <line x1={0} y1={0} x2={78} y2={0} stroke="#888889"
+        stroke-width="1" /> //horizontal line
+      <line x1={78} y1={0} x2={78} y2={55} 
+        stroke="#888889" stroke-width="1" /> //vertical line
+      <line x1={78} y1={55} x2={83} y2={55} 
+        stroke="#888889" stroke-width="1" /> //horizontal stub
       <circle cx="85" cy="55" r="3" fill="#888889"/>
     </svg>
   }
@@ -34,12 +40,10 @@ class IncidentPopover extends React.Component {
       {this.showBorder()}
       <text
         className="subpop">
-
         <tspan x={0} dy=".6em">{this.props.selectedIncident.get('incidentNumber')}</tspan>
-
-        <tspan x={0} dy="1.2em">Near LOCATION</tspan>
+        <tspan x={0} dy="1.2em">Near {this.props.selectedIncident.get('nearestPopulatedCentre')}</tspan>
         <tspan x={0} dy="1.2em">Date reported:</tspan>
-        <tspan x={0} dy="1.2em">DATE</tspan>
+        <tspan x={0} dy="1.2em">{(this.props.selectedIncident.get('reportedDate').format('DD/MM/YYYY'))}</tspan>
       </text>
     </g>
   }
