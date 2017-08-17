@@ -29,6 +29,15 @@ class Workspace extends React.Component {
     }).toArray()
   }
 
+  mapContainer() {
+    if (WorkspaceComputations.mapDisplayed(this.props.columns)) {
+      return <MapContainer/>
+    }
+    else {
+      return null
+    }
+  }
+
   render() {
 
     // Many of the downstream computations require that the data be loaded
@@ -48,7 +57,7 @@ class Workspace extends React.Component {
 
     return <div>
       <div className='workspace'>
-        <MapContainer/>
+        { this.mapContainer() }
         <svg 
           className = 'workspaceSvg'
           width = { horizontalPositions.getIn(['workspace', 'width']) }

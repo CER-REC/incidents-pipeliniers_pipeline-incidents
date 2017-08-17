@@ -309,7 +309,7 @@ CategoryComputations.columnFiltered = function(categories, columnName) {
 
 
 
-// Returns an object with two keys, left and right, each witth the name of
+// Returns an object with two keys, left and right, each with the name of
 // a column adjacent to the map column.
 // Either left or right may be null if the map is at one end of the display
 // Both will be null if the map is not on display.
@@ -321,12 +321,14 @@ CategoryComputations.mapAdjacentColumns = function(columns) {
     })
   }
 
+  // When the map is not present this returns undefined, and the map we
+  // return should have null for left and right.
   const index = columns.indexOf('map')
 
   // Negative indexes will actually index from the end of the list, so this
   // is necessary.
   let left
-  if (index - 1 < 0) {
+  if (index === 0) {
     left = null 
   }
   else {
@@ -334,7 +336,7 @@ CategoryComputations.mapAdjacentColumns = function(columns) {
   }
 
   return Immutable.Map({
-    left: left,
+    left: left || null,
     right: columns.get(index + 1) || null,
   })
 
