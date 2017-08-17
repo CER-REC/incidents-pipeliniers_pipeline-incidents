@@ -1,4 +1,5 @@
 const D3geo = require('d3-geo')
+const Promise = require('bluebird')
 
 const Constants = require('./Constants.js')
 const MapComputations = require('./MapComputations.js')
@@ -15,6 +16,17 @@ const projection = D3geo.geoConicEqualArea()
   .rotate([105, 0])
   .translate([279.8074028618924, 764.3666957846632])
   .scale(874.913034725085)
+
+
+const mapPromise = new Promise ( (resolve, reject) => {
+
+  const image = document.createElement('img')
+
+  image.onload = () => resolve(image)
+
+  image.setAttribute('src', 'canada.svg')
+
+})
 
 
 const RenderRoutines = {
@@ -140,8 +152,7 @@ const RenderRoutines = {
 
 
 
-  drawMap(renderContext, props) {
-    const basemapImage = document.getElementById('canadaImage')
+  drawMap(renderContext, props, basemapImage) {
     const padding = Constants.getIn(['map', 'padding'])
 
     const basemapPosition = MapComputations.basemapPosition(
@@ -151,9 +162,6 @@ const RenderRoutines = {
       props.columns,
       props.categories)
 
-    // TODO:
-    // I hope there are no race conditions associated with loading the
-    // image. may need to manage that ourselves.
     renderContext.drawImage(basemapImage, 
       basemapPosition.get('x') + padding,
       basemapPosition.get('y') + padding,
@@ -613,21 +621,25 @@ const RenderRoutines = {
 //   items; showEmptyCategories, viewport, data, columns, categories
 module.exports = function MapRenderer (renderCanvas, inputCanvas, props) {
 
-  const renderContext = renderCanvas.getContext('2d')
-  const inputContext = inputCanvas.getContext('2d')
+  // TODO: I hope that making this draw asynchronously isn't a problem... 
+  mapPromise.then( (basemapImage) => {    
 
-  // Clear both the displayed canvas and the input buffer
-  RenderRoutines.clear(renderContext, 
-    Constants.getIn(['map', 'backgroundColour']), 
-    props
-  )
-  RenderRoutines.clear(inputContext, 'rgb(0, 0, 0)', props)
+    const renderContext = renderCanvas.getContext('2d')
+    const inputContext = inputCanvas.getContext('2d')
 
-  RenderRoutines.drawMap(renderContext, props)
+    // Clear both the displayed canvas and the input buffer
+    RenderRoutines.clear(renderContext, 
+      Constants.getIn(['map', 'backgroundColour']), 
+      props
+    )
+    RenderRoutines.clear(inputContext, 'rgb(0, 0, 0)', props)
 
-  // Draw lines, then points, to both displayed canvas and input buffer
-  RenderRoutines.drawLines(renderContext, inputContext, props)
-  RenderRoutines.drawPoints(renderContext, inputContext, props)
+    RenderRoutines.drawMap(renderContext, props, basemapImage)
+
+    // Draw lines, then points, to both displayed canvas and input buffer
+    RenderRoutines.drawLines(renderContext, inputContext, props)
+    RenderRoutines.drawPoints(renderContext, inputContext, props)
+  })
 
 }
 

@@ -72,7 +72,6 @@ class Workspace extends React.Component {
 
         </svg>
       </div>
-      <img id='canadaImage' src='canada.svg' className='hidden'/>
     </div>
   }
 }
