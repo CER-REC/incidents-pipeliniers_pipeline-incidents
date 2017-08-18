@@ -60,6 +60,7 @@ const Constants = Immutable.fromJS({
     showYLineY: 155,
     horizontalLineXStart: 151,
     dotRadius: 3,
+    lineHeight: 16.2,
   },
 
   columnWideWidth: 62,

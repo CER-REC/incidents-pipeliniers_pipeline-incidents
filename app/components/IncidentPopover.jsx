@@ -29,14 +29,15 @@ class IncidentPopover extends React.Component {
     const pinWidth = Constants.getIn(['pinColumn', 'pinIconSize'])
     const showPopoverBodyY = Constants.getIn(['incidentPopover', 'showPopoverBodyY'])
     const transformPopoverBody = `translate(${popoverX},${showPopoverBodyY})`
+    const lineHeight = Constants.getIn(['incidentPopover', 'lineHeight'])
 
     return <g transform = {transformPopoverBody}>
       
       <text className="subpop">
         <tspan x={0} dy=".6em">{this.props.selectedIncident.get('incidentNumber')}</tspan>
-        <tspan x={0} dy="1.2em">Near {this.props.selectedIncident.get('nearestPopulatedCentre')}</tspan>
-        <tspan x={0} dy="1.2em">Date reported:</tspan>
-        <tspan x={0} dy="1.2em">{(this.props.selectedIncident.get('reportedDate').format('DD/MM/YYYY'))}</tspan>
+        <tspan x={0} dy={lineHeight}>Near {this.props.selectedIncident.get('nearestPopulatedCentre')}</tspan>
+        <tspan x={0} dy={lineHeight}>Date reported:</tspan>
+        <tspan x={0} dy={lineHeight}>{(this.props.selectedIncident.get('reportedDate').format('DD/MM/YYYY'))}</tspan>
       </text>
       <image 
         height = {pinHeight} 
