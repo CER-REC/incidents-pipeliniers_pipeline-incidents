@@ -25,13 +25,15 @@ class Header extends React.Component {
     let transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
     return (<g transform = {transformString}>
       {homeButton()}
-      <image 
-        height = {Constants.getIn(['topBar', 'headerIconHeight'])}
-        width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
-        y = {methodologyIconY}
-        xlinkHref='images/methodology-icon-black.svg'
-        //Xlink:Href
-      ></image>
+      //TODO: change link once we get PDF
+      <a href='https://google.ca' target="_blank">
+        <image 
+          height = {Constants.getIn(['topBar', 'headerIconHeight'])}
+          width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
+          y = {methodologyIconY}
+          xlinkHref='images/methodology-icon-black.svg'
+        ></image>
+      </a>
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
 			
         <text x={xHeading} y={yHeading} className="heading">Heading</text>
