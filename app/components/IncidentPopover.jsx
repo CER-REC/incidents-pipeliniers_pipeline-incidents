@@ -9,10 +9,13 @@ const IncidentComputations = require('../IncidentComputations.js')
 
 require('../styles/Colours.scss')
 
+const popoverX = Constants.getIn(['incidentPopover', 'popoverX'])
+
 class IncidentPopover extends React.Component {
 
   horizontalLine() {
-    const transformHorizontal = 'translate(25,155)'
+    const horizontalLineY = Constants.getIn(['incidentPopover', 'horizontalLineY'])
+    const transformHorizontal = `translate(${popoverX},${horizontalLineY})`
     return <g transform = {transformHorizontal}>
       <line x1={0} y1={0} x2={120} y2={0} stroke="#888889"
         strokeWidth="1" /> //horizontal line
@@ -23,8 +26,10 @@ class IncidentPopover extends React.Component {
 
     const pinHeight = Constants.getIn(['pinColumn', 'pinIconSize'])
     const pinWidth = Constants.getIn(['pinColumn', 'pinIconSize'])
+    const showPopoverBodyY = Constants.getIn(['incidentPopover', 'showPopoverBodyY'])
+    const transformPopoverBody = `translate(${popoverX},${showPopoverBodyY})`
 
-    return <g transform = 'translate(25,170)'>
+    return <g transform = {transformPopoverBody}>
       
       <text
         className="subpop">
@@ -52,7 +57,6 @@ class IncidentPopover extends React.Component {
       this.props.columns,
       this.props.categories, 
       this.props.columns.get(0)) 
-    //console.log(categoryHeights.toJS())
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     let categoryY = WorkspaceComputations.columnY()
@@ -70,8 +74,6 @@ class IncidentPopover extends React.Component {
 
         return currentY
       })
-    //console.log(categoryYCoordinates.toJS())
-
 
     const categoryName = this.props.selectedIncident.get(this.props.columns.get(0))
 
@@ -81,23 +83,18 @@ class IncidentPopover extends React.Component {
       this.props.columns.get(0), 
       categoryName)
 
-    //console.log(categoryName)
-
     const incidentIndex = incidentsSubset.indexOf(this.props.selectedIncident)
     const y = categoryYCoordinates.get(categoryName) + categoryHeights.get(categoryName) * (incidentIndex/incidentsSubset.count())
-    let transformLine = `translate(0,${y})`
-
-    console.log(y, categoryYCoordinates.get(categoryName), categoryHeights.get(categoryName), incidentIndex, incidentsSubset.count())
+    const transformLine = `translate(0,${y})`
     
     return <svg 
-      x="25" y="0"
       xmlnsXlink='http://www.w3.org/1999/xlink'> 
-      <line x1={120} y1={155} x2={120} y2={y}
+      <line x1={145} y1={155} x2={145} y2={y}
         stroke="#888889" strokeWidth="1" /> //vertical line
       <g transform = {transformLine}>
-        <line x1={120} y1={0} x2={125} y2={0} 
+        <line x1={145} y1={0} x2={150} y2={0} 
           stroke="#888889" strokeWidth="1" /> //horizontal stub
-        <circle cx="127" cy="0" r="3" fill="#888889"/>
+        <circle cx="151" cy="0" r="3" fill="#888889"/>
       </g>
     </svg>
   }

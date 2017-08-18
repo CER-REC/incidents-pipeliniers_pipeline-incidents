@@ -52,6 +52,9 @@ const Constants = Immutable.fromJS({
     height: 65,
     width: 95,
     pinIconXY: -25,
+    popoverX: 25,
+    horizontalLineY: 155,
+    showPopoverBodyY: 170,
   },
 
   columnWideWidth: 62,
