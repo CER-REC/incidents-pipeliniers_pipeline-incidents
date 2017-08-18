@@ -1,0 +1,10 @@
+@import "../styles/Colours.scss";
+
+.horizontalLine {
+  stroke: $popoverStroke;
+}
+
+.verticalLine {
+  fill: $popoverStroke;
+  stroke: $popoverStroke;
+}

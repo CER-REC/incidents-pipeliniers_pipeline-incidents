@@ -42,15 +42,25 @@ const Constants = Immutable.fromJS({
   pinColumn: {
     horizontalMargins: 11, // both left and right
     width: 132,
-    pinIconSize: 17,
+    pinIconSize: 25,
     textWidth: 79,
     connectorDotSize: 6,
     connectorLength: 5,
   },
 
-  incidentPopUp: {
+  incidentPopover: {
     height: 65,
     width: 95,
+    pinIconXY: -25,
+    popoverX: 25,
+    horizontalLineY: 155,
+    showPopoverBodyY: 170,
+    horizontalLineEnd: 120,
+    lineHeightX: 145,
+    showYLineY: 155,
+    horizontalLineXStart: 151,
+    dotRadius: 3,
+    lineHeight: 16.2,
   },
 
   columnWideWidth: 62,

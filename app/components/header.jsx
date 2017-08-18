@@ -1,7 +1,6 @@
 const React = require('react')
 const Constants = require('../Constants.js')
 
-
 //home button
 function homeButton() {
   const image = <image xlinkHref='images/home.svg' 
