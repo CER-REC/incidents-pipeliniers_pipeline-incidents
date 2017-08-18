@@ -1,6 +1,6 @@
 function IncidentDeselectionStateCreator () {
   return {
-    type: 'IncidentDeselectionState'
+    type: 'IncidentDeselectionState',
   }
 }
 
