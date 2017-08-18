@@ -31,7 +31,10 @@ class ColumnPaths extends React.Component {
           key:categoryName, 
           height:categoryHeights.get(categoryName),
           width:WorkspaceComputations.columnWidth(this.props.columns),
-          x:WorkspaceComputations.columnX(this.props.columns, this.props.viewport, columnIndex),
+          x:WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+            this.props.viewport, this.props.data,
+            this.props.columns, this.props.categories)
+            .getIn(['columns', columnName]).get('x'),
           y:currentY,
           count: count,
           totalOutgoingIncidents: 0,
@@ -49,24 +52,29 @@ class ColumnPaths extends React.Component {
     // TODO: This will probably have to change later on, but for
     // now we are disregarding paths to the SideBar because
     // we don't have one. 
-    if (this.props.index >= this.props.columns.count() - 1) return pathArray
+    const currentColumnIndex = this.props.columns.indexOf(this.props.columnName)
+    const nextColumnIndex = currentColumnIndex + 1
+    if (currentColumnIndex >= this.props.columns.count() - 1) return pathArray
 
     let sourceColumn = {
       index: this.props.index,
       name: this.props.columnName,
-      categories: this.categoriesForColumn(this.props.index),
-      x: WorkspaceComputations.columnPathX(this.props.columns, 
-        this.props.viewport, 
-        this.props.index)
+      categories: this.categoriesForColumn(currentColumnIndex),
+      x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+        this.props.viewport, this.props.data,
+        this.props.columns, this.props.categories)
+        .getIn(['columns', this.props.columnName]).get('x') + 
+        WorkspaceComputations.columnWidth(this.props.columns)
     }
 
     let destinationColumn = {
       index: this.props.index + 1,
-      name: this.props.columns.get(this.props.index + 1),
-      categories: this.categoriesForColumn(this.props.index + 1),
-      x: WorkspaceComputations.columnX(this.props.columns, 
-        this.props.viewport, 
-        this.props.index + 1)
+      name: this.props.columns.get(nextColumnIndex),
+      categories: this.categoriesForColumn(nextColumnIndex),
+      x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+        this.props.viewport, this.props.data,
+        this.props.columns, this.props.categories)
+        .getIn(['columns', this.props.columns.get(nextColumnIndex)]).get('x')
     }
 
     sourceColumn.categories.forEach((sourceCategory) => {
@@ -148,15 +156,6 @@ class ColumnPaths extends React.Component {
 
 
   render() {
-
-    const pathMeasurements = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-      .getIn(['columnPaths', this.props.columnName])
-
     return <g>
       {this.paths()}
     </g>
