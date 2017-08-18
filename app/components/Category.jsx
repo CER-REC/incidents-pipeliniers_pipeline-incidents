@@ -50,11 +50,10 @@ class Category extends React.Component {
   splitHeading(fullLabel) {
     // TODO: We will need to fetch the category labels from 
     // a translation table to account for french translations.
-    const label = fullLabel
+    const label = fullLabel.toString().toUpperCase()
 
     // No need to split into multiple lines.
-    if(typeof(label) === 'number' || 
-       label.length <= Constants.get('categoryLabelLineLength')) {
+    if(label.length <= Constants.get('categoryLabelLineLength')) {
       return [label]
     }
 
