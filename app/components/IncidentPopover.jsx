@@ -7,7 +7,7 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
 
-require('../styles/Colours.scss')
+require('./IncidentPopover.scss')
 
 const popoverX = Constants.getIn(['incidentPopover', 'popoverX'])
 
@@ -16,9 +16,10 @@ class IncidentPopover extends React.Component {
   horizontalLine() {
     const horizontalLineY = Constants.getIn(['incidentPopover', 'horizontalLineY'])
     const transformHorizontal = `translate(${popoverX},${horizontalLineY})`
-    return <g transform = {transformHorizontal}>
-      <line x1={0} y1={0} x2={120} y2={0} stroke="#888889"
-        strokeWidth="1" /> //horizontal line
+    const horizontalLineEnd = Constants.getIn(['incidentPopover', 'horizontalLineEnd'])
+    return <g className="horizontalLine" transform = {transformHorizontal} >
+      <line x1={0} y1={0} x2={horizontalLineEnd} y2={0} strokeWidth="1" />
+      }
     </g>
   }
 
@@ -31,8 +32,7 @@ class IncidentPopover extends React.Component {
 
     return <g transform = {transformPopoverBody}>
       
-      <text
-        className="subpop">
+      <text className="subpop">
         <tspan x={0} dy=".6em">{this.props.selectedIncident.get('incidentNumber')}</tspan>
         <tspan x={0} dy="1.2em">Near {this.props.selectedIncident.get('nearestPopulatedCentre')}</tspan>
         <tspan x={0} dy="1.2em">Date reported:</tspan>
@@ -86,21 +86,24 @@ class IncidentPopover extends React.Component {
     const incidentIndex = incidentsSubset.indexOf(this.props.selectedIncident)
     const y = categoryYCoordinates.get(categoryName) + categoryHeights.get(categoryName) * (incidentIndex/incidentsSubset.count())
     const transformLine = `translate(0,${y})`
+
+    const lineHeightX = Constants.getIn(['incidentPopover', 'lineHeightX'])
+    const dotRadius = Constants.getIn(['incidentPopover', 'dotRadius'])
+    const showYLineY = Constants.getIn(['incidentPopover', 'showYLineY'])
+    const horizontalLineXStart = Constants.getIn(['incidentPopover', 'horizontalLineXStart'])
     
-    return <svg 
+    return <svg className="verticalLine"
       xmlnsXlink='http://www.w3.org/1999/xlink'> 
-      <line x1={145} y1={155} x2={145} y2={y}
-        stroke="#888889" strokeWidth="1" /> //vertical line
+      <line x1={lineHeightX} y1={showYLineY} x2={lineHeightX} y2={y} strokeWidth="1" /> //vertical line
       <g transform = {transformLine}>
-        <line x1={145} y1={0} x2={150} y2={0} 
-          stroke="#888889" strokeWidth="1" /> //horizontal stub
-        <circle cx="151" cy="0" r="3" fill="#888889"/>
+        <line x1={lineHeightX} y1={0} x2={horizontalLineXStart} y2={0} strokeWidth="1" /> //horizontal stub
+        <circle cx={horizontalLineXStart} cy="0" r={dotRadius}/>
       </g>
     </svg>
   }
 
   render() {
-    return <g >
+    return <g>
       {this.showPopoverBody()}
       {this.horizontalLine()}
       {this.showYLine()}
@@ -123,7 +126,6 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
-
   }
 }
 
