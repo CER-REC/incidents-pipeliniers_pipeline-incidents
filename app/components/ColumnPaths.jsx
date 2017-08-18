@@ -24,7 +24,7 @@ class ColumnPaths extends React.Component {
         y={ pathMeasurements.get('y') }
         width={ pathMeasurements.get('width') }
         height={ pathMeasurements.get('height') }
-        fill='#FFFFDD'
+        fill='#FFFFFF'
       />
     </g>
   }

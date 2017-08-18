@@ -337,7 +337,7 @@ const Constants = Immutable.fromJS({
     bundleOffsetDistance: 25,
     radialControlPointDistance: 150,
 
-  }
+  },
 
 
 
