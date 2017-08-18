@@ -42,10 +42,25 @@ const Constants = Immutable.fromJS({
   pinColumn: {
     horizontalMargins: 11, // both left and right
     width: 132,
-    pinIconSize: 17,
+    pinIconSize: 25,
     textWidth: 79,
     connectorDotSize: 6,
     connectorLength: 5,
+  },
+
+  incidentPopover: {
+    height: 65,
+    width: 95,
+    pinIconXY: -25,
+    popoverX: 25,
+    horizontalLineY: 155,
+    showPopoverBodyY: 170,
+    horizontalLineEnd: 120,
+    lineHeightX: 145,
+    showYLineY: 155,
+    horizontalLineXStart: 151,
+    dotRadius: 3,
+    lineHeight: 16.2,
   },
 
   columnWideWidth: 62,
@@ -78,7 +93,10 @@ const Constants = Immutable.fromJS({
   },
 
 
-  maxColumnsWithoutScroll: 4,
+  maxColumnsWithoutScroll: 5,
+
+  // i.e. ordinary columns, excludes the map column
+  maxColumnsWithoutScrollWithMap: -1,
 
   columnNames: [
     'incidentTypes',
@@ -305,6 +323,34 @@ const Constants = Immutable.fromJS({
   },
 
   emptyCategoryHeight: 20, // px
+  
+  map: {
+    widthHeightRatio: 510 / 375,
+    
+    // NB: Must match dimensions of canada.svg
+    coordinateSpace: {
+      width: 800,
+      height: 600,
+    },
+
+    // TODO: colours should maybe be their own segment of constants?
+    backgroundColour: 'rgb(239, 236, 231)',
+    incidentCircleColour: 'rgb(80, 113, 82)',
+    selectedIncidentCircleColour: 'rgb(149, 183, 181)',
+    shadowColour: '#333',
+    lightGrey: 'rgba(102, 102, 102, 0.4)',
+    deselectedLightGrey: 'rgba(207, 207, 207, 0.2)',
+    selectedLightGrey: 'rgb(48, 48, 48)',
+
+    incidentRadius: 5,
+    padding: 10,
+    bundleOffsetDistance: 25,
+    radialControlPointDistance: 150,
+
+  }
+
+
+
 
 
 })

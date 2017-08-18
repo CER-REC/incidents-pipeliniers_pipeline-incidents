@@ -145,7 +145,18 @@ class ColumnPaths extends React.Component {
     return pathsForCategory
   }
 
+
+
   render() {
+
+    const pathMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columnPaths', this.props.columnName])
+
     return <g>
       {this.paths()}
     </g>
@@ -154,12 +165,12 @@ class ColumnPaths extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
+    data: state.data,
     columns: state.columns,
     categories: state.categories,
-    data: state.data,
     filters: state.filters,
-    showEmptyCategories: state.showEmptyCategories 
   }
 }
 

@@ -1,7 +1,5 @@
 const React = require('react')
-const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
-
 
 //home button
 function homeButton() {
