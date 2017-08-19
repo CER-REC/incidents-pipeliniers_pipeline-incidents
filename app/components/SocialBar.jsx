@@ -85,10 +85,9 @@ class SocialBar extends React.Component {
     let transformSocialIcons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
 
     return <g transform = {transformContainer}>
-      <rect
+      <rect className = "socialBar"
         width={ measurements.get('innerWidth') }
         height={ measurements.get('height') }
-        fill='#555556'
       />
       <g transform = {transformSocialIcons}>
         <image 
