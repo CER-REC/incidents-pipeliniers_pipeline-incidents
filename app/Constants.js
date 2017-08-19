@@ -16,8 +16,8 @@ const Constants = Immutable.fromJS({
   showHideLeftMargin: 5,
 
   topBar: {
-    homeIconWidth: 18,
-    homeIconHeight: 20,
+    headerIconWidth: 18,
+    headerIconHeight: 20,
     width: 550,
     height: 100,
     xHeading: 35,
@@ -28,6 +28,7 @@ const Constants = Immutable.fromJS({
     subheadingFontSize: 12,
     headingLineHeight: 1.5, // e.g., 0.5x the font size in padding, on top
     topBarBottomMargin: 5,
+    methodologyIconY: 25,
   },
 
   showHideEmptyCategories: {
@@ -42,15 +43,25 @@ const Constants = Immutable.fromJS({
   pinColumn: {
     horizontalMargins: 11, // both left and right
     width: 132,
-    pinIconSize: 17,
+    pinIconSize: 25,
     textWidth: 79,
     connectorDotSize: 6,
     connectorLength: 5,
   },
 
-  incidentPopUp: {
+  incidentPopover: {
     height: 65,
     width: 95,
+    pinIconXY: -25,
+    popoverX: 25,
+    horizontalLineY: 155,
+    showPopoverBodyY: 170,
+    horizontalLineEnd: 120,
+    lineHeightX: 145,
+    showYLineY: 155,
+    horizontalLineXStart: 151,
+    dotRadius: 3,
+    lineHeight: 16.2,
   },
 
   columnWideWidth: 62,
