@@ -48,15 +48,17 @@ CategoryComputations.itemsInBothCategories = function (data, homeColumnName, hom
 }
 
 CategoryComputations.itemInCategory = function(item, columnName, categoryName) {
-  if(columnName === 'reportedDate') {
-    return item.get('reportedDate').year() === categoryName
-  }
-  else if(typeof(item.get(columnName)) === 'string' ||
-          typeof(item.get(columnName)) === 'number') {
-    return item.get(columnName) === categoryName
-  }
-  else {
+  switch (columnName) {
+  // Four of the columns have 'multiple selections', where an item can belong
+  // to more than one category at once. These need different handling ... 
+  case 'incidentTypes':
+  case 'pipelineSystemComponentsInvolved':
+  case 'whatHappened':
+  case 'whyItHappened':
     return item.get(columnName).contains(categoryName)
+
+  default:
+    return item.get(columnName) === categoryName
   }
 }
 
