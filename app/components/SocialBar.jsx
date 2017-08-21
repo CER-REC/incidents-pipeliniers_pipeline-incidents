@@ -1,3 +1,4 @@
+//SOCIALBAR
 const React = require('react')
 const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
@@ -85,9 +86,10 @@ class SocialBar extends React.Component {
     let transformSocialIcons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
 
     return <g transform = {transformContainer}>
-      <rect className = "socialBar"
+      <rect
         width={ measurements.get('innerWidth') }
         height={ measurements.get('height') }
+        fill='#555556'
       />
       <g transform = {transformSocialIcons}>
         <image 
@@ -118,13 +120,9 @@ class SocialBar extends React.Component {
           xlinkHref='images/twitter.svg'
           className="socialBar"
           onClick = {twitterClick}></image>
-        <image 
-          height = {iconSize} 
-          width = {iconSize} 
-          y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
-          xlinkHref='images/download_file.svg'
-          className="socialBar"
-          onClick = {downloadFileClick}></image>
+        <line x1={0} y1={Constants.getIn(['socialBar', 'dividerLine'])}
+          x2={iconSize} y2={Constants.getIn(['socialBar', 'dividerLine'])}
+          strokeWidth="1" stroke = "white" />
         <image 
           height = {iconSize} 
           width = {iconSize} 
@@ -132,6 +130,13 @@ class SocialBar extends React.Component {
           xlinkHref='images/download_image.svg'
           className="socialBar"
           onClick = {downloadImageClick}></image>
+        <image 
+          height = {iconSize} 
+          width = {iconSize} 
+          y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
+          xlinkHref='images/download_file.svg'
+          className="socialBar"
+          onClick = {downloadFileClick}></image>
       </g>
     </g>
   }

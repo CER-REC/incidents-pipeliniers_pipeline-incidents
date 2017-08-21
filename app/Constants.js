@@ -1,3 +1,4 @@
+//CONSTANTS
 const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
@@ -80,7 +81,7 @@ const Constants = Immutable.fromJS({
 
   socialBar: {
     width: 23, 
-    height: 137,
+    height: 148,
     iconSize: 16,
     leftMargin: 5,
     iconSideMargin: 3.5,
@@ -88,8 +89,9 @@ const Constants = Immutable.fromJS({
     facebookIconPadding: 26,
     linkedinIconPadding: 49,
     twitterIconPadding: 72,
-    downloadIconPadding: 95,
-    downloadImageIconPadding: 118,
+    dividerLine: 95,
+    downloadImageIconPadding: 105,
+    downloadIconPadding: 128,
   },
 
 
