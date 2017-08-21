@@ -292,7 +292,7 @@ const Constants = Immutable.fromJS({
       end: '#FCFF96',
     },
     'whatHappened': {
-      start: '#870E4A',
+      start: '#55A2E7',
       middle: '#D69BE7',
       end: '#FFE0E7',
     },
@@ -307,9 +307,9 @@ const Constants = Immutable.fromJS({
       end: '#C7E9FF',
     },
     'volumeCategory': {
-      start: '#4E2F2C',
-      middle: '#4E2F2C',
-      end: '#FBFFAB',
+      start: '#64347F',
+      middle: '#E6A1C9',
+      end: '#FFF9E6',
     },
     'substanceCategory': {
       start: '#F8B51C',
