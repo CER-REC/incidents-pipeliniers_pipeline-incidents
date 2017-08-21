@@ -348,11 +348,19 @@ const Constants = Immutable.fromJS({
     bundleOffsetDistance: 25,
     radialControlPointDistance: 150,
 
-  }
+  },
 
 
 
 
+
+  categoryLabelOffset: 4,
+  singleLineCategoryLabelHeight: 15,
+  doubleLineCategoryLabelHeight: 30,
+  tripleLineCategoryLabelHeight: 45,
+  maxCategoryLabelLines: 3,
+  categoryLabelTerminatingDots: 3,
+  categoryLabelLineLength: 14
 
 })
 

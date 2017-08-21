@@ -218,9 +218,9 @@ class Column extends React.Component {
         {this.barHeading()}
         {this.barSubHeading()}
       </text>
+      { this.columnPaths() }
       { this.nonEmptyCategories() }
       { this.emptyCategories() }
-      { this.columnPaths() }
       { this.dragArrow() }
     </g>
   }
