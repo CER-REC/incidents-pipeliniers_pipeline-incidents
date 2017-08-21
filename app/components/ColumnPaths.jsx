@@ -140,7 +140,7 @@ class ColumnPaths extends React.Component {
       d += `${sourceColumn.x + curveControlThreshold} ${sourceColumnY + sourceCurveHeight} `
       d += `${sourceColumn.x} ${sourceColumnY + sourceCurveHeight}`
 
-      const currentPath = <path d={d} className='ColumnPaths'/>
+      const currentPath = <path d={d} className='ColumnPaths' key={sourceCategory.categoryName + destinationCategory.categoryName}/>
       pathsForCategory.push(currentPath)
 
       sourceCategory.y += sourceCurveHeight

@@ -11,7 +11,7 @@ class Category extends React.Component {
     }
 
     let currentY = this.props.height/2
-
+    let lineCount = 0
     // When labelLines.length = 1 => currentY += Constants.get('singleLineCategoryLabelHeight')/2 
     // When labelLines.length = 2 => currentY won't change
     // When labelLines.length = 3 => currentY -= Constants.get('singleLineCategoryLabelHeight')/2
@@ -19,10 +19,12 @@ class Category extends React.Component {
 
     // Decrement just before it's increcemented inside the map.
     currentY -= Constants.get('singleLineCategoryLabelHeight')
- 
+
     return labelLines.map((line) => {
       currentY += Constants.get('singleLineCategoryLabelHeight')
+      lineCount += 1
       return <tspan className='activeCategoryLabels'
+        key={this.props.categoryName + 'CategoryLabelLine' + lineCount}
         y={currentY}
         x={this.props.width + Constants.get('categoryLabelOffset')}>
         {line}
