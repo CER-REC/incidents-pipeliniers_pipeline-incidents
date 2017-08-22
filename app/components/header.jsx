@@ -21,7 +21,12 @@ class Header extends React.Component {
     const ySubpop = Constants.getIn(['topBar', 'ySubpop'])
     let transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
     return (<g transform = {transformString}>
-      {homeButton()}
+
+      //TODO: create a link for the default state (two bars at the beginning)
+      <a href='http://localhost:3001/incident-visualization/' > 
+        {homeButton()}
+      </a>
+
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
 			
         <text x={xHeading} y={yHeading} className="heading">Heading</text>
