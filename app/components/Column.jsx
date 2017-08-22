@@ -126,6 +126,7 @@ class Column extends React.Component {
       .getIn(['columns', this.props.columnName])
 
     return <image xlinkHref='images/horizontal_drag.svg' 
+      className = 'dragArrow'
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
@@ -217,9 +218,9 @@ class Column extends React.Component {
         {this.barHeading()}
         {this.barSubHeading()}
       </text>
+      { this.columnPaths() }
       { this.nonEmptyCategories() }
       { this.emptyCategories() }
-      { this.columnPaths() }
       { this.dragArrow() }
     </g>
   }

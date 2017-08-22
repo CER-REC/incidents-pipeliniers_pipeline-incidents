@@ -3,16 +3,13 @@ const Immutable = require('immutable')
 const Constants = require('../Constants.js')
 
 const defaults = Immutable.fromJS([
-  // 'incidentTypes',
-  // 'province',
-
   //'incidentTypes',
-   'year',
-   'status',
-   'pipelineSystemComponentsInvolved',
-   'substance',
-   'volumeCategory',
-   'releaseType',
+  'year',
+  'status',
+  'pipelineSystemComponentsInvolved',
+  'substance',
+  'volumeCategory',
+  'releaseType',
   'whatHappened',
   'whyItHappened',
   'pipelinePhase',
@@ -20,9 +17,6 @@ const defaults = Immutable.fromJS([
   'company',
   'map',
   'province',
-
-
-
 ])
 
 

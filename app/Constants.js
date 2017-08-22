@@ -17,8 +17,8 @@ const Constants = Immutable.fromJS({
   showHideLeftMargin: 5,
 
   topBar: {
-    homeIconWidth: 18,
-    homeIconHeight: 20,
+    headerIconWidth: 18,
+    headerIconHeight: 20,
     width: 550,
     height: 100,
     xHeading: 35,
@@ -29,6 +29,7 @@ const Constants = Immutable.fromJS({
     subheadingFontSize: 12,
     headingLineHeight: 1.5, // e.g., 0.5x the font size in padding, on top
     topBarBottomMargin: 5,
+    methodologyIconY: 25,
   },
 
   showHideEmptyCategories: {
@@ -349,11 +350,19 @@ const Constants = Immutable.fromJS({
     bundleOffsetDistance: 25,
     radialControlPointDistance: 150,
 
-  }
+  },
 
 
 
 
+
+  categoryLabelOffset: 4,
+  singleLineCategoryLabelHeight: 15,
+  doubleLineCategoryLabelHeight: 30,
+  tripleLineCategoryLabelHeight: 45,
+  maxCategoryLabelLines: 3,
+  categoryLabelTerminatingDots: 3,
+  categoryLabelLineLength: 14
 
 })
 
