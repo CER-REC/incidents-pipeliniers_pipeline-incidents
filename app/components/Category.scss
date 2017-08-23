@@ -1,14 +1,16 @@
 @import "../styles/Colours.scss";
+@import "../styles/Fonts.scss";
+
 
 .Category {
-  cursor: pointer;
+  cursor:pointer;
   &:hover {
     stroke: $black;
-    //opacity: 0.3;
     transition: 200ms;
     transition-timing-function: ease-in-out;
     -webkit-transition: 200ms;
     -webkit-transition-timing-function: ease-in-out;
   }
 }
+
 
