@@ -25,6 +25,7 @@ class Header extends React.Component {
 
 
       //TODO: create a link for the default state (two bars at the beginning)
+      // home button currently refreshes the page
       <a href='http://localhost:3001/incident-visualization/' > 
         {homeButton()}
       </a>

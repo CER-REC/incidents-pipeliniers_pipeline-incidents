@@ -1,6 +1,11 @@
 const React = require('react')
+const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
+const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
+const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
+
+require('./Category.scss')
 
 class Category extends React.Component {
 
@@ -42,6 +47,7 @@ class Category extends React.Component {
         height={this.props.height}
         fill={this.props.colour}
         data-cat={this.props.categoryName}
+        className='Category'
       />
       <text>
         {this.label()}
@@ -78,4 +84,23 @@ class Category extends React.Component {
   }
 }
 
-module.exports = Category
+
+const mapStateToProps = state => {
+  return {
+    showEmptyCategories: state.showEmptyCategories,
+    viewport: state.viewport,
+    data: state.data,
+    columns: state.columns,
+    categories: state.categories,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onmouseover: () => {
+      dispatch(CategoryHoverStateCreator())
+    }
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Category)

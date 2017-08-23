@@ -1,9 +1,8 @@
-function CategoryHoverStateCreator (data, columnName, category) {
+function CategoryHoverStateCreator (columnNames, categoryNames) {
   return {
     type: 'CategoryHoverState',
-    data: data,
-    columnName: columnName,
-    category: category,
+    columnNames: columnNames,
+    categoryNames: categoryNames,
   }
 }
 
