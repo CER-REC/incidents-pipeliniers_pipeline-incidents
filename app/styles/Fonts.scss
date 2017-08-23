@@ -44,7 +44,7 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   font-family: $fira-sans-extra-condensed-medium;
   font-style: medium;
   font-size: 11.5px;
-  color: $near-black;
+  color: $dark-grey;
   text-align: left;
 }
 
@@ -79,7 +79,8 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
 .filterBox {
   font-family: $fira-sans-extra-condensed;
-  font-size: 10.5px;
+  font-style: regular;
+  font-size: 9px;
   text-align:left;
   color: $near-black;
 }
