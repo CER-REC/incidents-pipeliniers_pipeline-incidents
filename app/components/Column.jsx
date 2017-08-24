@@ -213,6 +213,9 @@ class Column extends React.Component {
     case 'SIDEBAR': {
       return <g>
         {this.sideBarColumn()}
+        <text>
+          {this.sidebarHeading()}
+        </text>
       </g>
     }
     case 'WORKSPACE':
@@ -286,6 +289,22 @@ class Column extends React.Component {
           y={currentY}
         />
       }).toArray()
+  }
+
+  sidebarHeading() {
+    let currentY = this.props.columnY
+    return  this.splitHeading().map((word) => {
+      // Terminating space.
+      if(word === '') return null
+      currentY += Constants.get('columnHeadingLineOffset')
+
+      return <tspan className='sidebars'
+        key={word}
+        x={this.props.columnX + Constants.getIn(['sidebar', 'labelHorizontalOffset'])}
+        y={currentY}>
+        {word}
+      </tspan>
+    })
   }
 }
 

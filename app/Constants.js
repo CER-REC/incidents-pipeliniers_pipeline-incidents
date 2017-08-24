@@ -119,6 +119,8 @@ const Constants = Immutable.fromJS({
   sidebar: {
     columWidth: 70,
     columnOffset: 10,
+
+    labelHorizontalOffset: 7,
   },
 
 
