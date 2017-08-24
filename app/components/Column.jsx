@@ -223,6 +223,7 @@ class Column extends React.Component {
       { this.emptyCategories() }
       { this.dragArrow() }
     </g>
+
   }
 
   splitHeading() {

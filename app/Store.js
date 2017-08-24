@@ -8,6 +8,7 @@ const CategoriesReducer = require('./reducers/CategoriesReducer.js')
 const EmptyCategoriesReducer = require('./reducers/EmptyCategoriesReducer.js')
 const IncidentSelectionStateReducer = require('./reducers/IncidentSelectionStateReducer.js')
 const PinnedIncidentReducer = require('./reducers/PinnedIncidentReducer.js')
+const CategoryHoverStateReducer = require('./reducers/CategoryHoverStateReducer.js')
 
 
 
@@ -19,6 +20,7 @@ const reducers = Redux.combineReducers({
   showEmptyCategories: EmptyCategoriesReducer,
   selectedIncident: IncidentSelectionStateReducer,
   pinnedIncidents: PinnedIncidentReducer,
+  categoryHoverState: CategoryHoverStateReducer,
 })
 
 module.exports = function () {

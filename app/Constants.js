@@ -308,7 +308,7 @@ const Constants = Immutable.fromJS({
       middle: '#78E690',
       end: '#A8EAFF',
     },
-    'volumeCategory': {
+    'volumeCategory': { 
       start: '#64347F',
       middle: '#E6A1C9',
       end: '#FFF9E6',
