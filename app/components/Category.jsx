@@ -5,6 +5,10 @@ const Constants = require('../Constants.js')
 class Category extends React.Component {
 
   label() {
+    if(this.props.columnType === 'SIDEBAR') {
+      return null
+    }
+
     const labelLines = this.splitHeading(this.props.categoryName)
     if(labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height) {
       return null

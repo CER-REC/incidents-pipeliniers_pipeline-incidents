@@ -161,6 +161,41 @@ WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport,
 
 }
 
+WorkspaceComputations.sideBarCategoryHeights = function (columnHeight, showEmptyCategories, viewport, data, columns, categories, columnName) {
+  // TODO: for now, we use the entire column height.
+  // Other column elements (and empty categories) will eventually need to cut
+  // into this height
+  let relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
+
+  // TODO: currently, we place no limits on the space the related hidden
+  // categories can take up. I suspect this number will always be small, but if
+  // it turns out to be large, we may need to cap it.
+  const relatedHiddenCategoryHeight = relatedHiddenCategories.count() * Constants.get('emptyCategoryHeight')
+
+  const availableColumnHeight = columnHeight - relatedHiddenCategoryHeight
+
+  // Due to multiple selection categories (where an incident can appear in
+  // multiple categories) the number of items we have to display can be larger
+  // (or even smaller) than the number of incidents.
+  const itemsInColumn = CategoryComputations.itemsInColumn(data, categories, columnName)
+
+  const heightPerItem = availableColumnHeight / itemsInColumn
+
+  const displayedCategories = CategoryComputations.displayedCategories(data, columns, categories, columnName)
+
+  return displayedCategories.map( (present, categoryName) => {
+    if (relatedHiddenCategories.get(categoryName) === true) {
+      // This item is a related hidden category, so it gets a fixed height
+      return Constants.get('emptyCategoryHeight')
+    }
+    else {
+      const items = CategoryComputations.itemsInCategory(data, columnName, categoryName)
+      return items * heightPerItem
+    }
+  })
+    .filter( (height) => height > 0)
+
+}
 
 // Returns the height that each empty category should have.
 
@@ -501,7 +536,10 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   return measurements
 }
 
-
+WorkspaceComputations.sidebarColumns = function(columns) {
+  return Constants.get('columnNames').filter(
+    (columnName) => columns.indexOf(columnName) < 0 )
+}
 
 
 

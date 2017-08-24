@@ -193,36 +193,42 @@ class Column extends React.Component {
       />
 
     }).toArray()
-
-
-
   }
 
   columnPaths() {
     if (WorkspaceComputations.shouldRenderColumnPath(
       this.props.columns,
       this.props.columnName)) {
-      return <ColumnPaths index={this.props.index} columnName={this.props.columnName}/>
+      return <ColumnPaths 
+        index={this.props.index} 
+        columnName={this.props.columnName}/>
     }
     else {
       return null
     }
-    
   }
 
-
-
   render() {
-    return <g>
-      <text>
-        {this.barHeading()}
-        {this.barSubHeading()}
-      </text>
-      { this.columnPaths() }
-      { this.nonEmptyCategories() }
-      { this.emptyCategories() }
-      { this.dragArrow() }
-    </g>
+    switch(this.props.columnType) {
+    case 'SIDEBAR': {
+      return <g>
+        {this.sideBarColumn()}
+      </g>
+    }
+    case 'WORKSPACE':
+    default: {
+      return <g>
+        <text>
+          {this.barHeading()}
+          {this.barSubHeading()}
+        </text>
+        { this.columnPaths() }
+        { this.nonEmptyCategories() }
+        { this.emptyCategories() }
+        { this.dragArrow() }
+      </g>        
+    }
+    }
   }
 
   splitHeading() {
@@ -231,6 +237,55 @@ class Column extends React.Component {
     const topLine = columnHeading.substring(0, splitIndex)
     const bottomLine = columnHeading.substring(splitIndex+1)
     return [topLine, bottomLine]
+  }
+
+  sideBarColumn() {
+    if(this.props.columnName === 'map') {
+      return <image xlinkHref='images/sidebar_map.svg' 
+        height={ this.props.columnHeight }
+        width={ this.props.columnWidth }
+        x={ this.props.columnX }
+        y={ this.props.columnY }>
+      </image>
+
+    }
+    const categoryColours = CategoryComputations.coloursForColumn(
+      this.props.categories,
+      this.props.columnName)
+    const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
+      this.props.columnHeight,
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories, 
+      this.props.columnName) 
+
+    // TODO: I'm not very happy computing the vertical layout this way, refactor!
+    let categoryY = this.props.columnY
+
+    const displayedCategories = CategoryComputations.displayedCategories(
+      this.props.data,
+      this.props.columns,
+      this.props.categories, 
+      this.props.columnName)
+
+    return displayedCategories
+      .map( (visible, categoryName) => {
+        const currentY = categoryY
+        categoryY += categoryHeights.get(categoryName)
+
+        return <Category
+          columnType={this.props.columnType}
+          categoryName={categoryName}
+          key={categoryName}
+          colour={categoryColours.get(categoryName)} 
+          height={categoryHeights.get(categoryName)}
+          width={ this.props.columnWidth }
+          x={ this.props.columnX }
+          y={currentY}
+        />
+      }).toArray()
   }
 }
 
