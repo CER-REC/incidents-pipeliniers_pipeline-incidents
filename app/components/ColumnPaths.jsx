@@ -70,8 +70,6 @@ class ColumnPaths extends React.Component {
       this.props.categories, 
       columnName) 
 
-    console.log(columnHeight)
-
     let categoryY = columnY
 
     return this.props.categories.get(columnName)
