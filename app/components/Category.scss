@@ -5,11 +5,15 @@
 .Category {
   cursor:pointer;
   &:hover {
-    stroke: $black !important;
-    font-style: $fira-sans-extra-condensed-medium;
+    stroke: $black;
     transition: 200ms;
     transition-timing-function: ease-in-out;
     -webkit-transition: 200ms;
     -webkit-transition-timing-function: ease-in-out;
+    ~ .Label {
+        fill: black;
+        @extend .inactiveCategoryLabels;
+    }
   }
 }
+

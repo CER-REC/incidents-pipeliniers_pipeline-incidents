@@ -156,7 +156,7 @@ class ColumnPaths extends React.Component {
 
 
   render() {
-    return <g>
+    return <g className='ColumnPaths'>
       {this.paths()}
     </g>
   }

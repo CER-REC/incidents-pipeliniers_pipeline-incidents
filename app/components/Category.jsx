@@ -6,6 +6,7 @@ const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateC
 const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
 
 require('./Category.scss')
+require('../styles/Fonts.scss')
 
 class Category extends React.Component {
 
@@ -41,14 +42,15 @@ class Category extends React.Component {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
 
     // TODO: data-cat attribute is for dev purposes only, delete later!
-    return <g className='Category' transform={transformString} >
+    return <g transform={transformString} >
       <rect 
         width={this.props.width}
         height={this.props.height}
         fill={this.props.colour}
         data-cat={this.props.categoryName}
+        className='Category'
       />
-      <text>
+      <text className='Label' fill='#666'>
         {this.label()}
       </text>
     </g>
