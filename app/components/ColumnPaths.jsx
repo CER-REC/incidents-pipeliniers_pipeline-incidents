@@ -59,7 +59,7 @@ class ColumnPaths extends React.Component {
     // Sidebar Column Height = Height of Sidebar - 
     //                         ((Columns in Sidebar - 1) * Sidebar Stacking Offset)
     const columnHeight = measurements.get('height') - 
-                         ((WorkspaceComputations.columnsInSidebar(this.props.columns) - 1) * 
+                         ((WorkspaceComputations.numberOfColumnsInSidebar(this.props.columns) - 1) * 
                          Constants.getIn(['sidebar', 'verticalStackingOffset']))
 
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(

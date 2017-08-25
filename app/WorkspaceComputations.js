@@ -541,7 +541,8 @@ WorkspaceComputations.sidebarColumns = function(columns) {
     (columnName) => columns.indexOf(columnName) < 0 )
 }
 
-WorkspaceComputations.columnsInSidebar = function(columns) {
+// Returns the number of columns in the sidebar.
+WorkspaceComputations.numberOfColumnsInSidebar = function(columns) {
   return Constants.get('columnNames').count() - columns.count()
 }
 

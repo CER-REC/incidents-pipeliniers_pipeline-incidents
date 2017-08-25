@@ -28,9 +28,9 @@ class Sidebar extends React.Component {
       this.props.categories)
       .get('sideBar')
 
-    const columnsInSidebar = WorkspaceComputations.columnsInSidebar(this.props.columns)
+    const numberOfColumnsInSidebar = WorkspaceComputations.numberOfColumnsInSidebar(this.props.columns)
     const columnWidth = measurements.get('width') - 
-                        ((columnsInSidebar - 1) * 
+                        ((numberOfColumnsInSidebar - 1) * 
                         Constants.getIn(['sidebar', 'horizontalStackingOffset']))
 
     let index = 0
@@ -39,7 +39,7 @@ class Sidebar extends React.Component {
         index += 1
         const columnHeight = measurements.get('height') - 
                              ((index-1)*Constants.getIn(['sidebar', 'labelHeight'])) - 
-                             (columnsInSidebar - index) * 
+                             (numberOfColumnsInSidebar - index) * 
                              Constants.getIn(['sidebar', 'verticalStackingOffset'])
         const columnX = ((index-1) * 
                         Constants.getIn(['sidebar', 'horizontalStackingOffset'])) + 
