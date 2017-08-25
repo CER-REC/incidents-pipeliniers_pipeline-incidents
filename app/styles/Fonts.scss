@@ -63,9 +63,10 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
 .sidebars {
   font-family: $fira-sans-extra-condensed-semibold;
-  font-size: 14px;
-  color: white;
+  font-size: 13px;
+  color: $white;
   text-align: left;
+  fill: $white;
 }
 
 .emptyCategories {

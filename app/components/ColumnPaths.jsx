@@ -3,6 +3,7 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
+const Constants = require('../Constants.js')
 
 require('./Category.scss')
 //require('./ColumnPaths.scss')
@@ -47,15 +48,65 @@ class ColumnPaths extends React.Component {
       })
   }
 
+  categoriesForSidebarColumn(sidebarColumnName) {
+    const measurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .get('sideBar')
+
+    // Sidebar Column Height = Height of Sidebar - 
+    //                         ((Columns in Sidebar - 1) * Sidebar Stacking Offset)
+    const columnHeight = measurements.get('height') - 
+                         ((WorkspaceComputations.numberOfColumnsInSidebar(this.props.columns) - 1) * 
+                         Constants.getIn(['sidebar', 'verticalStackingOffset']))
+
+    const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
+      columnHeight,
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data, 
+      this.props.columns,
+      this.props.categories, 
+      sidebarColumnName) 
+
+    let categoryY = measurements.get('y')
+
+    return this.props.categories.get(sidebarColumnName)
+      .filter( (visible) => visible === true)
+      .filter( (visible, categoryName) => categoryHeights.get(categoryName) !== undefined)
+      .map( (visible, categoryName) => {
+        const currentY = categoryY
+        categoryY += categoryHeights.get(categoryName)
+        const count = CategoryComputations.itemsInCategory(this.props.data, sidebarColumnName, categoryName)
+        return {
+          categoryName:categoryName,
+          key:categoryName, 
+          height:categoryHeights.get(categoryName),
+          x:measurements.get('x'),
+          y:currentY,
+          count: count,
+          totalOutgoingIncidents: 0,
+          totalIncomingIncidents: 0,
+          intersectionThreshold: 0,
+          outgoingCategories: [],
+          incomingCategories: []
+        }
+      })
+  }
+
   paths() {
     let pathArray = []
 
-    // TODO: This will probably have to change later on, but for
-    // now we are disregarding paths to the SideBar because
-    // we don't have one. 
     const currentColumnIndex = this.props.columns.indexOf(this.props.columnName)
     const nextColumnIndex = currentColumnIndex + 1
-    if (currentColumnIndex >= this.props.columns.count() - 1) return pathArray
+
+    // Compute the paths to the left most sidebar column.
+    if (currentColumnIndex >= this.props.columns.count() - 1) {
+      return pathArray.concat(this.pathsToSideBar())
+    }
 
     let sourceColumn = {
       index: this.props.index,
@@ -78,37 +129,45 @@ class ColumnPaths extends React.Component {
         .getIn(['columns', this.props.columns.get(nextColumnIndex)]).get('x')
     }
 
+    CategoryComputations.ComputeSourceAndDestinationColumnPaths(sourceColumn, destinationColumn, this.props.data)
+
     sourceColumn.categories.forEach((sourceCategory) => {
-      destinationColumn.categories.forEach((destinationCategory) => {
-        const mutualIncidentCount = CategoryComputations.itemsInBothCategories(
-          this.props.data, 
-          sourceColumn.name, 
-          sourceCategory.categoryName, 
-          destinationColumn.name, destinationCategory.categoryName)
-
-        if(mutualIncidentCount !== 0) {
-          sourceCategory.totalOutgoingIncidents += mutualIncidentCount
-          destinationCategory.totalIncomingIncidents += mutualIncidentCount
-
-          sourceCategory.outgoingCategories.push({'key': destinationCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-          destinationCategory.incomingCategories.push({'key': sourceCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-        }
-
-        const multipleDestinationCategoryIncidents = (destinationCategory.totalIncomingIncidents > destinationCategory.count)? 
-          destinationCategory.totalIncomingIncidents - 
-          destinationCategory.count : 0
-        destinationCategory.intersectionThreshold = multipleDestinationCategoryIncidents / 
-          (destinationCategory.incomingCategories.length - 1) * 
-          destinationCategory.height / destinationCategory.count
-
-        const multipeSourceCategoryIncidents = (sourceCategory.totalOutgoingIncidents > sourceCategory.count)? 
-          sourceCategory.totalOutgoingIncidents - 
-          sourceCategory.count : 0
-        sourceCategory.intersectionThreshold = multipeSourceCategoryIncidents / 
-          (sourceCategory.outgoingCategories.length - 1) * 
-          sourceCategory.height / sourceCategory.count
-      })
+      const pathsForSourceCategory = this.buildPathsForCategory(sourceColumn, 
+        sourceCategory, destinationColumn)
+      pathArray = pathArray.concat(pathsForSourceCategory)
     })
+
+    return pathArray
+  }
+
+  pathsToSideBar() {
+    let pathArray = []
+
+    const currentColumnIndex = this.props.columns.indexOf(this.props.columnName)
+    const SideBarColumns = WorkspaceComputations.sidebarColumns(this.props.columns)
+    const firstSideBarColumn = SideBarColumns.get(0)
+
+    let sourceColumn = {
+      index: currentColumnIndex,
+      name: this.props.columnName,
+      categories: this.categoriesForColumn(currentColumnIndex),
+      x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+        this.props.viewport, this.props.data,
+        this.props.columns, this.props.categories)
+        .getIn(['columns', this.props.columnName]).get('x') + 
+        WorkspaceComputations.columnWidth(this.props.columns)
+    }
+
+    let destinationColumn = {
+      name: firstSideBarColumn,
+      categories: this.categoriesForSidebarColumn(firstSideBarColumn),
+      x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+        this.props.viewport, this.props.data,
+        this.props.columns, this.props.categories)
+        .getIn(['sideBar', 'x'])
+    }
+
+    CategoryComputations.ComputeSourceAndDestinationColumnPaths(sourceColumn, destinationColumn, this.props.data)
 
     sourceColumn.categories.forEach((sourceCategory) => {
       const pathsForSourceCategory = this.buildPathsForCategory(sourceColumn, 
@@ -153,8 +212,6 @@ class ColumnPaths extends React.Component {
 
     return pathsForCategory
   }
-
-
 
   render() {
     return <g className='ColumnPaths'>
