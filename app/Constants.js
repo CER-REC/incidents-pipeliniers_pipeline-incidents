@@ -120,9 +120,12 @@ const Constants = Immutable.fromJS({
     columWidth: 70,
     columnOffset: 10,
 
-    labelHorizontalOffset: 7,
-  },
+    verticalStackingOffset: 2,
+    horizontalStackingOffset: 10,
 
+    labelHorizontalOffset: 7,
+    labelHeight: 35,
+  },
 
   // Some columns do not have fixed categories, so they don't appear here
   // including: year, company

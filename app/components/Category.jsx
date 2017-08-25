@@ -2,10 +2,16 @@ const React = require('react')
 
 const Constants = require('../Constants.js')
 
+const COLUMN_TYPE = {
+  SIDEBAR: 'SIDEBAR',
+  WORKSPACE: 'WORKSPACE'
+}
+
 class Category extends React.Component {
 
+  // Do not render category labels for sidebar columns.
   label() {
-    if(this.props.columnType === 'SIDEBAR') {
+    if(this.props.columnType === COLUMN_TYPE.SIDEBAR) {
       return null
     }
 

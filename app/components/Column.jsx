@@ -8,6 +8,11 @@ const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
 
+const COLUMN_TYPE = {
+  SIDEBAR: 'SIDEBAR',
+  WORKSPACE: 'WORKSPACE'
+}
+
 require('./Column.scss')
 
 // TODO: Get this from the URL query? Cookies? language reducer! 
@@ -116,7 +121,6 @@ class Column extends React.Component {
   }
 
   dragArrow() {
-
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -210,7 +214,7 @@ class Column extends React.Component {
 
   render() {
     switch(this.props.columnType) {
-    case 'SIDEBAR': {
+    case COLUMN_TYPE.SIDEBAR: {
       return <g>
         {this.sideBarColumn()}
         <text>
@@ -218,7 +222,7 @@ class Column extends React.Component {
         </text>
       </g>
     }
-    case 'WORKSPACE':
+    case COLUMN_TYPE.WORKSPACE:
     default: {
       return <g>
         <text>
@@ -243,18 +247,15 @@ class Column extends React.Component {
   }
 
   sideBarColumn() {
+    // Handle the sidebar map column differently.
     if(this.props.columnName === 'map') {
-      return <image xlinkHref='images/sidebar_map.svg' 
-        height={ this.props.columnHeight }
-        width={ this.props.columnWidth }
-        x={ this.props.columnX }
-        y={ this.props.columnY }>
-      </image>
-
+      return this.sidebarMapColumn()
     }
+
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.categories,
       this.props.columnName)
+
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
       this.props.columnHeight,
       this.props.showEmptyCategories,
@@ -264,15 +265,13 @@ class Column extends React.Component {
       this.props.categories, 
       this.props.columnName) 
 
-    // TODO: I'm not very happy computing the vertical layout this way, refactor!
-    let categoryY = this.props.columnY
-
     const displayedCategories = CategoryComputations.displayedCategories(
       this.props.data,
       this.props.columns,
       this.props.categories, 
       this.props.columnName)
 
+    let categoryY = this.props.columnY
     return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
@@ -289,6 +288,16 @@ class Column extends React.Component {
           y={currentY}
         />
       }).toArray()
+  }
+
+  sidebarMapColumn() {
+    return <image 
+      xlinkHref='images/sidebar_map.svg' 
+      height={ this.props.columnHeight }
+      width={ this.props.columnWidth }
+      x={ this.props.columnX }
+      y={ this.props.columnY }>
+    </image> 
   }
 
   sidebarHeading() {

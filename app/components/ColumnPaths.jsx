@@ -48,8 +48,6 @@ class ColumnPaths extends React.Component {
   }
 
   categoriesForSidebarColumn(sidebarColumnName) {
-    const columnName = sidebarColumnName
-
     const measurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -58,9 +56,12 @@ class ColumnPaths extends React.Component {
       this.props.categories)
       .get('sideBar')
 
-    const sideBarColumnsCount = Constants.get('columnNames').count() - this.props.columns.count()
-    const columnHeight = measurements.get('height') - ((sideBarColumnsCount - 1) * 2)
-    const columnY = measurements.get('y')
+    // Sidebar Column Height = Height of Sidebar - 
+    //                         ((Columns in Sidebar - 1) * Sidebar Stacking Offset)
+    const columnHeight = measurements.get('height') - 
+                         ((WorkspaceComputations.columnsInSidebar(this.props.columns) - 1) * 
+                         Constants.getIn(['sidebar', 'verticalStackingOffset']))
+
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
       columnHeight,
       this.props.showEmptyCategories,
@@ -68,17 +69,17 @@ class ColumnPaths extends React.Component {
       this.props.data, 
       this.props.columns,
       this.props.categories, 
-      columnName) 
+      sidebarColumnName) 
 
-    let categoryY = columnY
+    let categoryY = measurements.get('y')
 
-    return this.props.categories.get(columnName)
+    return this.props.categories.get(sidebarColumnName)
       .filter( (visible) => visible === true)
       .filter( (visible, categoryName) => categoryHeights.get(categoryName) !== undefined)
       .map( (visible, categoryName) => {
         const currentY = categoryY
         categoryY += categoryHeights.get(categoryName)
-        const count = CategoryComputations.itemsInCategory(this.props.data, columnName, categoryName)
+        const count = CategoryComputations.itemsInCategory(this.props.data, sidebarColumnName, categoryName)
         return {
           categoryName:categoryName,
           key:categoryName, 
@@ -93,17 +94,15 @@ class ColumnPaths extends React.Component {
           incomingCategories: []
         }
       })
-
   }
 
   paths() {
     let pathArray = []
 
-    // TODO: This will probably have to change later on, but for
-    // now we are disregarding paths to the SideBar because
-    // we don't have one.
     const currentColumnIndex = this.props.columns.indexOf(this.props.columnName)
     const nextColumnIndex = currentColumnIndex + 1
+
+    // Compute the paths to the left most sidebar column.
     if (currentColumnIndex >= this.props.columns.count() - 1) {
       return pathArray.concat(this.pathsToSideBar())
     }
@@ -129,37 +128,7 @@ class ColumnPaths extends React.Component {
         .getIn(['columns', this.props.columns.get(nextColumnIndex)]).get('x')
     }
 
-    sourceColumn.categories.forEach((sourceCategory) => {
-      destinationColumn.categories.forEach((destinationCategory) => {
-        const mutualIncidentCount = CategoryComputations.itemsInBothCategories(
-          this.props.data, 
-          sourceColumn.name, 
-          sourceCategory.categoryName, 
-          destinationColumn.name, destinationCategory.categoryName)
-
-        if(mutualIncidentCount !== 0) {
-          sourceCategory.totalOutgoingIncidents += mutualIncidentCount
-          destinationCategory.totalIncomingIncidents += mutualIncidentCount
-
-          sourceCategory.outgoingCategories.push({'key': destinationCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-          destinationCategory.incomingCategories.push({'key': sourceCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-        }
-
-        const multipleDestinationCategoryIncidents = (destinationCategory.totalIncomingIncidents > destinationCategory.count)? 
-          destinationCategory.totalIncomingIncidents - 
-          destinationCategory.count : 0
-        destinationCategory.intersectionThreshold = multipleDestinationCategoryIncidents / 
-          (destinationCategory.incomingCategories.length - 1) * 
-          destinationCategory.height / destinationCategory.count
-
-        const multipeSourceCategoryIncidents = (sourceCategory.totalOutgoingIncidents > sourceCategory.count)? 
-          sourceCategory.totalOutgoingIncidents - 
-          sourceCategory.count : 0
-        sourceCategory.intersectionThreshold = multipeSourceCategoryIncidents / 
-          (sourceCategory.outgoingCategories.length - 1) * 
-          sourceCategory.height / sourceCategory.count
-      })
-    })
+    CategoryComputations.ComputeSourceAndDestinationColumnPaths(sourceColumn, destinationColumn, this.props.data)
 
     sourceColumn.categories.forEach((sourceCategory) => {
       const pathsForSourceCategory = this.buildPathsForCategory(sourceColumn, 
@@ -197,40 +166,7 @@ class ColumnPaths extends React.Component {
         .getIn(['sideBar', 'x'])
     }
 
-    //console.log(sourceColumn.categories.toArray())
-    //console.log(destinationColumn.categories.toArray())
-
-    sourceColumn.categories.forEach((sourceCategory) => {
-      destinationColumn.categories.forEach((destinationCategory) => {
-        const mutualIncidentCount = CategoryComputations.itemsInBothCategories(
-          this.props.data, 
-          sourceColumn.name, 
-          sourceCategory.categoryName, 
-          destinationColumn.name, destinationCategory.categoryName)
-
-        if(mutualIncidentCount !== 0) {
-          sourceCategory.totalOutgoingIncidents += mutualIncidentCount
-          destinationCategory.totalIncomingIncidents += mutualIncidentCount
-
-          sourceCategory.outgoingCategories.push({'key': destinationCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-          destinationCategory.incomingCategories.push({'key': sourceCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-        }
-
-        const multipleDestinationCategoryIncidents = (destinationCategory.totalIncomingIncidents > destinationCategory.count)? 
-          destinationCategory.totalIncomingIncidents - 
-          destinationCategory.count : 0
-        destinationCategory.intersectionThreshold = multipleDestinationCategoryIncidents / 
-          (destinationCategory.incomingCategories.length - 1) * 
-          destinationCategory.height / destinationCategory.count
-
-        const multipeSourceCategoryIncidents = (sourceCategory.totalOutgoingIncidents > sourceCategory.count)? 
-          sourceCategory.totalOutgoingIncidents - 
-          sourceCategory.count : 0
-        sourceCategory.intersectionThreshold = multipeSourceCategoryIncidents / 
-          (sourceCategory.outgoingCategories.length - 1) * 
-          sourceCategory.height / sourceCategory.count
-      })
-    })
+    CategoryComputations.ComputeSourceAndDestinationColumnPaths(sourceColumn, destinationColumn, this.props.data)
 
     sourceColumn.categories.forEach((sourceCategory) => {
       const pathsForSourceCategory = this.buildPathsForCategory(sourceColumn, 
@@ -275,8 +211,6 @@ class ColumnPaths extends React.Component {
 
     return pathsForCategory
   }
-
-
 
   render() {
     return <g>

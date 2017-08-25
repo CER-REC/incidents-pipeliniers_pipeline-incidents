@@ -161,10 +161,9 @@ WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport,
 
 }
 
+// Returns an immutable map of category names to category heights, for the given
+// column name in the sidebar.
 WorkspaceComputations.sideBarCategoryHeights = function (columnHeight, showEmptyCategories, viewport, data, columns, categories, columnName) {
-  // TODO: for now, we use the entire column height.
-  // Other column elements (and empty categories) will eventually need to cut
-  // into this height
   let relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
 
   // TODO: currently, we place no limits on the space the related hidden
@@ -536,12 +535,15 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   return measurements
 }
 
+// Returns an immutable list of the columns in the sidebar.
 WorkspaceComputations.sidebarColumns = function(columns) {
   return Constants.get('columnNames').filter(
     (columnName) => columns.indexOf(columnName) < 0 )
 }
 
-
+WorkspaceComputations.columnsInSidebar = function(columns) {
+  return Constants.get('columnNames').count() - columns.count()
+}
 
 
 const MemoizedComputations = {}

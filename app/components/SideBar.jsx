@@ -3,10 +3,14 @@ const ReactRedux = require('react-redux')
 
 const Column = require('./Column.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
-
 const Constants = require('../Constants.js')
 
 require('./Sidebar.scss')
+
+const COLUMN_TYPE = {
+  SIDEBAR: 'SIDEBAR',
+  WORKSPACE: 'WORKSPACE'
+}
 
 class Sidebar extends React.Component {
 
@@ -24,20 +28,33 @@ class Sidebar extends React.Component {
       this.props.categories)
       .get('sideBar')
 
-    const sideBarColumnsCount = Constants.get('columnNames').count() - this.props.columns.count()
-    let index = 0
+    const columnsInSidebar = WorkspaceComputations.columnsInSidebar(this.props.columns)
+    const columnWidth = measurements.get('width') - 
+                        ((columnsInSidebar - 1) * 
+                        Constants.getIn(['sidebar', 'horizontalStackingOffset']))
 
+    let index = 0
     return Constants.get('columnNames').map((columnName) => {
       if(this.props.columns.indexOf(columnName) < 0) {
         index += 1
+        const columnHeight = measurements.get('height') - 
+                             ((index-1)*Constants.getIn(['sidebar', 'labelHeight'])) - 
+                             (columnsInSidebar - index) * 
+                             Constants.getIn(['sidebar', 'verticalStackingOffset'])
+        const columnX = ((index-1) * 
+                        Constants.getIn(['sidebar', 'horizontalStackingOffset'])) + 
+                        measurements.get('x')
+        const columnY = ((index-1) * 
+                        Constants.getIn(['sidebar', 'labelHeight'])) + 
+                        measurements.get('y')
         return <Column 
           columnName={columnName} 
           key={columnName} 
-          columnType='SIDEBAR' 
-          columnWidth={measurements.get('width') - ((sideBarColumnsCount - 1) * 10)}
-          columnHeight={measurements.get('height') - ((index-1)*35) - (sideBarColumnsCount - index) * 2}
-          columnX={((index-1) * 10) + measurements.get('x')}
-          columnY={((index-1) * 35) + measurements.get('y')}/>
+          columnType={COLUMN_TYPE.SIDEBAR}
+          columnWidth={columnWidth}
+          columnHeight={columnHeight}
+          columnX={columnX}
+          columnY={columnY}/>
       }
     }).toArray()
   }
