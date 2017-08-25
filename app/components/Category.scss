@@ -17,3 +17,12 @@
   }
 }
 
+.ColumnPaths {
+  fill: $light-grey;
+  fill-opacity: 0.6;
+  cursor: pointer;
+  &:hover {
+    fill: #666666;
+    opacity: 0.8;
+  }
+}

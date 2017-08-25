@@ -4,7 +4,8 @@ const ReactRedux = require('react-redux')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 
-require('./ColumnPaths.scss')
+require('./Category.scss')
+//require('./ColumnPaths.scss')
 
 class ColumnPaths extends React.Component {
   categoriesForColumn(columnIndex) {

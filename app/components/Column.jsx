@@ -8,6 +8,7 @@ const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
 
+require('./Category.scss')
 require('./Column.scss')
 
 // TODO: Get this from the URL query? Cookies? language reducer! 
@@ -202,7 +203,9 @@ class Column extends React.Component {
     if (WorkspaceComputations.shouldRenderColumnPath(
       this.props.columns,
       this.props.columnName)) {
-      return <ColumnPaths index={this.props.index} columnName={this.props.columnName}/>
+      return <ColumnPaths index={this.props.index} 
+        columnName={this.props.columnName} 
+        className='ColumnPaths'/>
     }
     else {
       return null
