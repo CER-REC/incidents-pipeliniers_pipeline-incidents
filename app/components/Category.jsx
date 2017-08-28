@@ -22,21 +22,24 @@ class Category extends React.Component {
       return null
     }
 
+
+    let labelClassName = 'inactiveCategoryLabels'
+    let filterBoxOffset = 0
+
     // TODO: Check if the category is hovered-on/selected to assign it
     // with the proper class name. For now, I am assigning a filter box
     // randomly to 20% of the categories for test purposes only. 
     // This will change once the the category hover/selection reducer is inplace.
-    let labelClassName = 'inactiveCategoryLabels'
-    let filterBoxOffset = 0
     const isSelected = Math.random() < 0.2
     if(isSelected) {
       labelClassName = 'activeCategoryLabels'
-      filterBoxOffset = 13.25
+      filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
-    let currentY = this.props.height/2 - filterBoxOffset
+    let currentY = (this.props.height/2) - filterBoxOffset
     let lineCount = 0
-    currentY += (1 - labelLines.length*0.5) * Constants.get('singleLineCategoryLabelHeight')
+    currentY += (1 - (labelLines.length/2)) * 
+                Constants.get('singleLineCategoryLabelHeight')
 
     // Decrement just before it's increcemented inside the map.
     currentY -= Constants.get('singleLineCategoryLabelHeight')
@@ -54,7 +57,7 @@ class Category extends React.Component {
           </tspan>
         })}
       </text>
-      {this.filterBox(isSelected, currentY + 3)}
+      {this.filterBox(isSelected, currentY + Constants.getIn(['filterbox', 'labelOffset']))}
     </g>
   }
 
@@ -69,44 +72,64 @@ class Category extends React.Component {
           className='filterBoxRect'
           y={startingY}
           x={this.props.width + Constants.get('categoryLabelOffset')}
-          width={56}
-          height={13}>
+          width={Constants.getIn(['filterbox', 'filterButtonWidth'])}
+          height={Constants.getIn(['filterbox', 'filterButtonHeight'])}>
         </rect>
         <image xlinkHref='images/filter.svg'
-          height = {7}
-          width = {7}
-          x= {this.props.width + Constants.get('categoryLabelOffset') + 3}
-          y= {startingY + 3}>
+          height = {Constants.getIn(['filterbox', 'iconSize'])}
+          width = {Constants.getIn(['filterbox', 'iconSize'])}
+          x= {
+            this.props.width + 
+            Constants.get('categoryLabelOffset') + 
+            Constants.getIn(['filterbox', 'iconHorizontalOffset'])
+          }
+          y= {startingY + Constants.getIn(['filterbox', 'filterIconVerticalOffset'])}>
         </image>
         <text
           className = 'filterBox'
-          height = {7}
-          width =  {40}
-          x = {this.props.width + Constants.get('categoryLabelOffset') + 3 + 10}
-          y = {startingY + 9.5}>
+          height = {Constants.getIn(['filterbox', 'textHeight'])}
+          width =  {Constants.getIn(['filterbox', 'textWidth'])}
+          x = {
+            this.props.width + 
+            Constants.get('categoryLabelOffset') + 
+            Constants.getIn(['filterbox', 'iconHorizontalOffset']) + 
+            Constants.getIn(['filterbox', 'iconSize']) + 
+            Constants.getIn(['filterbox', 'iconTextOffset'])
+          }
+          y = {startingY + Constants.getIn(['filterbox', 'textVerticalOffset'])}>
           SHOW ONLY
         </text>
       </g>
       <g className='filterBoxButton'>
         <rect
           className='filterBoxRect'
-          y={startingY + 13.5}
+          y={startingY + Constants.getIn(['filterbox', 'lineVerticalOffset'])}
           x={this.props.width + Constants.get('categoryLabelOffset')}
-          width={56}
-          height={13}>
+          width={Constants.getIn(['filterbox', 'filterButtonWidth'])}
+          height={Constants.getIn(['filterbox', 'filterButtonHeight'])}>
         </rect>
         <image xlinkHref='images/hide_(close).svg' 
-          height = {7}
-          width = {7}
-          x= {this.props.width + Constants.get('categoryLabelOffset') + 3}
-          y= {startingY + 13.5 + 3}>
+          height = {Constants.getIn(['filterbox', 'iconSize'])}
+          width = {Constants.getIn(['filterbox', 'iconSize'])}
+          x= {this.props.width + Constants.get('categoryLabelOffset') + Constants.getIn(['filterbox', 'iconHorizontalOffset'])}
+          y= {startingY + Constants.getIn(['filterbox', 'lineVerticalOffset']) + Constants.getIn(['filterbox', 'filterIconVerticalOffset'])}>
         </image>
         <text
           className = 'filterBox'
-          height = {7}
-          width =  {40}
-          x = {this.props.width + Constants.get('categoryLabelOffset') + 3 + 10}
-          y = {startingY + 13.5 + 3 + 6.5}>
+          height = {Constants.getIn(['filterbox', 'textHeight'])}
+          width =  {Constants.getIn(['filterbox', 'textWidth'])}
+          x = {
+            this.props.width + 
+            Constants.get('categoryLabelOffset') + 
+            Constants.getIn(['filterbox', 'iconHorizontalOffset']) + 
+            Constants.getIn(['filterbox', 'iconSize']) + 
+            Constants.getIn(['filterbox', 'iconTextOffset'])
+          }
+          y = {
+            startingY + 
+            Constants.getIn(['filterbox', 'lineVerticalOffset']) + 
+            Constants.getIn(['filterbox', 'textVerticalOffset'])
+          }>
           HIDE
         </text>
       </g>
@@ -114,33 +137,41 @@ class Category extends React.Component {
         <rect
           className='filterBoxRect'
           y={startingY}
-          x={this.props.width + Constants.get('categoryLabelOffset') + 56}
-          width={10}
-          height={26.5}>
+          x={
+            this.props.width + 
+            Constants.get('categoryLabelOffset') + 
+            Constants.getIn(['filterbox', 'filterButtonWidth'])
+          }
+          width={Constants.getIn(['filterbox', 'dragButtonWidth'])}
+          height={Constants.getIn(['filterbox', 'dragButtonHeight'])}>
         </rect>
         <image xlinkHref='images/vertical_drag.svg' 
           className = 'verticalDrag'
-          height = {15.3}
-          width = {6.5}
-          x= {this.props.width + Constants.get('categoryLabelOffset') + 56 + 1.75}
-          y= {startingY + 6}>
+          height = {Constants.getIn(['filterbox', 'dragIconHeight'])}
+          width = {Constants.getIn(['filterbox', 'dragIconWidth'])}
+          x= {
+            this.props.width + 
+            Constants.get('categoryLabelOffset') + 
+            Constants.getIn(['filterbox', 'filterButtonWidth']) + 
+            Constants.getIn(['filterbox', 'dragIconHorizontalOffset'])
+          }
+          y= {startingY + Constants.getIn(['filterbox', 'dragIconVerticalOffset'])}>
         </image>
       </g>
       <line className='filterBoxLine'
         x1={this.props.width}
-        y1={startingY + 13.5}
+        y1={startingY + Constants.getIn(['filterbox', 'lineVerticalOffset'])}
         x2={this.props.width + Constants.get('categoryLabelOffset')}
-        y2={startingY + 13.5}>
+        y2={startingY + Constants.getIn(['filterbox', 'lineVerticalOffset'])}>
       </line>
     </g>
   }
 
   render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
-
-    return <g transform={transformString}>
+    return <g 
+      transform={transformString}>
       <rect
-
         width={this.props.width}
         height={this.props.height}
         fill={this.props.colour}

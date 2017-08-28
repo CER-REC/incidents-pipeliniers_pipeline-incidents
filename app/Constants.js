@@ -129,6 +129,36 @@ const Constants = Immutable.fromJS({
     columnHoverOffset: -3,
   },
 
+  filterbox: {
+    labelOffset: 3,
+
+    filterButtonWidth: 56,
+    filterButtonHeight: 13,
+
+    lineVerticalOffset: 13.5,
+
+    iconSize: 7,
+
+    filterBoxOffset: 13.25,
+
+    iconTextOffset: 3,
+    iconHorizontalOffset: 3,
+
+    filterIconVerticalOffset: 3,
+
+    dragButtonWidth: 10,
+    dragButtonHeight: 26.5,
+
+    dragIconWidth: 6.5,
+    dragIconHeight: 15.3,
+    dragIconHorizontalOffset: 1.75,
+    dragIconVerticalOffset: 6,
+
+    textHeight: 7,
+    textWidth: 40,
+    textVerticalOffset: 9.5,
+  },
+
   // Some columns do not have fixed categories, so they don't appear here
   // including: year, company
   // NB also: map has no categories at all
