@@ -157,6 +157,19 @@ const Constants = Immutable.fromJS({
     textHeight: 7,
     textWidth: 40,
     textVerticalOffset: 9.5,
+
+    SHOW_ONLY: {
+      rectVerticalOffset: 0,
+      imagePath: 'images/filter.svg',
+      text: 'SHOW ONLY',
+    },
+
+    HIDE: {
+      rectVerticalOffset: 13.5,
+      imagePath: 'images/hide_(close).svg',
+      text: 'HIDE',
+    },
+
   },
 
   // Some columns do not have fixed categories, so they don't appear here
