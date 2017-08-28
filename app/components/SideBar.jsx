@@ -41,9 +41,15 @@ class Sidebar extends React.Component {
                              ((index-1)*Constants.getIn(['sidebar', 'labelHeight'])) - 
                              (numberOfColumnsInSidebar - index) * 
                              Constants.getIn(['sidebar', 'verticalStackingOffset'])
-        const columnX = ((index-1) * 
+        let columnX = ((index-1) * 
                         Constants.getIn(['sidebar', 'horizontalStackingOffset'])) + 
                         measurements.get('x')
+
+        // Handle sidebar column hover by offseting its position
+        // by the sidebar column hover offset.
+        if(this.props.sidebarColumnHover === columnName) {
+          columnX += Constants.getIn(['sidebar', 'columnHoverOffset'])
+        }
         const columnY = ((index-1) * 
                         Constants.getIn(['sidebar', 'labelHeight'])) + 
                         measurements.get('y')
@@ -73,8 +79,8 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    sidebarColumnHover: state.sidebarColumnHover,
   }
 }
-
 
 module.exports = ReactRedux.connect(mapStateToProps)(Sidebar)
