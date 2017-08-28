@@ -16,8 +16,6 @@ const COLUMN_TYPE = {
 
 require('./Column.scss')
 
-// TODO: Get this from the URL query? Cookies? language reducer! 
-const language = 'en'
 
 class Column extends React.Component {
 
@@ -253,7 +251,7 @@ class Column extends React.Component {
   }
 
   splitHeading() {
-    const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, language])
+    const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language])
     const splitIndex = columnHeading.lastIndexOf(' ')
     const topLine = columnHeading.substring(0, splitIndex)
     const bottomLine = columnHeading.substring(splitIndex+1)
@@ -338,6 +336,7 @@ const mapStateToProps = state => {
     categories: state.categories,
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
+    language: state.language
   }
 }
 

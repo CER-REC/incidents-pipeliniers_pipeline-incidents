@@ -9,6 +9,7 @@ const EmptyCategoriesReducer = require('./reducers/EmptyCategoriesReducer.js')
 const IncidentSelectionStateReducer = require('./reducers/IncidentSelectionStateReducer.js')
 const PinnedIncidentReducer = require('./reducers/PinnedIncidentReducer.js')
 const SidebarColumnHoverReducer = require('./reducers/SidebarColumnHoverReducer.js')
+const LanguageReducer = require('./reducers/LanguageReducer.js')
 
 
 const reducers = Redux.combineReducers({
@@ -20,6 +21,7 @@ const reducers = Redux.combineReducers({
   selectedIncident: IncidentSelectionStateReducer,
   pinnedIncidents: PinnedIncidentReducer,
   sidebarColumnHover: SidebarColumnHoverReducer,
+  language: LanguageReducer,
 })
 
 module.exports = function () {
