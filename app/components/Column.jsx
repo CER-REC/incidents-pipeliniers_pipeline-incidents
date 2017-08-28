@@ -213,14 +213,21 @@ class Column extends React.Component {
     }
   }
 
+  handleMouseEnter() {
+    this.props.onMouseEnter(this.props.columnName)
+  }
+  handleMouseLeave() {
+    this.props.onMouseLeave()
+  }
+
   render() {
     switch(this.props.columnType) {
     case COLUMN_TYPE.SIDEBAR: {
       return <g 
         className='Column' 
-        id={this.props.columnName} 
-        onMouseEnter={this.props.onMouseEnter.bind(this, this.props.columnName)}
-        onMouseLeave={this.props.onMouseLeave.bind(this)}>
+        id={this.props.columnName}
+        onMouseEnter={this.handleMouseEnter.bind(this)}
+        onMouseLeave={this.handleMouseLeave.bind(this)}>
         {this.sideBarColumn()}
         <text>
           {this.sidebarHeading()}
@@ -339,7 +346,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(SidebarColumnHoverCreator(columnName))
     },
     onMouseLeave: () => {
-      dispatch(SidebarColumnHoverCreator(''))
+      dispatch(SidebarColumnHoverCreator(null))
     }
   }
 }
