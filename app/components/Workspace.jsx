@@ -63,13 +63,11 @@ class Workspace extends React.Component {
           width = { horizontalPositions.getIn(['workspace', 'width']) }
           height = { horizontalPositions.getIn(['workspace', 'height']) }>
           <Header />
-
           <EmptyCategories />
           <IncidentBar/>
           {this.columns()}
           <SideBar/>
           <SocialBar/>
-
         </svg>
       </div>
     </div>

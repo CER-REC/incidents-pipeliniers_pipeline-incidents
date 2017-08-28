@@ -1,6 +1,7 @@
 const React = require('react')
 
 const Constants = require('../Constants.js')
+const Tr = require('../TranslationTable.js')
 
 const COLUMN_TYPE = {
   SIDEBAR: 'SIDEBAR',
@@ -15,7 +16,7 @@ class Category extends React.Component {
       return null
     }
 
-    const labelLines = this.splitHeading(this.props.categoryName)
+    const labelLines = this.labelLines(this.props.categoryName)
     if(labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height) {
       return null
     }
@@ -59,10 +60,37 @@ class Category extends React.Component {
     </g>
   }
 
-  splitHeading(fullLabel) {
-    // TODO: We will need to fetch the category labels from 
-    // a translation table to account for french translations.
-    const label = fullLabel.toString().toUpperCase()
+  labelLines(categoryName) {
+
+    switch(this.props.columnName) {
+    case 'incidentTypes':
+    case 'status':
+    case 'province':
+    case 'substance':
+    case 'releaseType':
+    case 'whatHappened':
+    case 'whyItHappened':
+    case 'pipelinePhase':
+    case 'volumeCategory':
+    case 'substanceCategory':
+    case 'pipelineSystemComponentsInvolved': { 
+      // These columns draw category names from a defined vocabulary
+      // TODO: language reducer
+      const label = Tr.getIn(['categories', this.props.columnName, categoryName, 'en'])
+      return this.splitHeading(label.toUpperCase())
+
+    }
+    case 'company':
+    case 'year':
+      // These columns use the category name directly
+      // Years are numbers, and we need a string here
+      return this.splitHeading(categoryName.toString())
+
+    // No categories for map column
+    }
+  }
+
+  splitHeading(label) {
 
     // No need to split into multiple lines.
     if(label.length <= Constants.get('categoryLabelLineLength')) {

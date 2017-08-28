@@ -164,7 +164,7 @@ WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport,
 // Returns an immutable map of category names to category heights, for the given
 // column name in the sidebar.
 WorkspaceComputations.sideBarCategoryHeights = function (columnHeight, showEmptyCategories, viewport, data, columns, categories, columnName) {
-  let relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
+  const relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
 
   // TODO: currently, we place no limits on the space the related hidden
   // categories can take up. I suspect this number will always be small, but if

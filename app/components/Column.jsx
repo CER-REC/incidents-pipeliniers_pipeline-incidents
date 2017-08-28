@@ -51,13 +51,13 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-
     return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
         categoryY += categoryHeights.get(categoryName)
 
         return <Category
+          columnName={this.props.columnName}
           categoryName={categoryName}
           key={categoryName}
           colour={categoryColours.get(categoryName)} 
@@ -140,7 +140,7 @@ class Column extends React.Component {
   }
 
   emptyCategories() {
-    
+
     if (!this.props.showEmptyCategories) {
       // If not showing empty categories, bail out
       return null
@@ -198,6 +198,7 @@ class Column extends React.Component {
       />
 
     }).toArray()
+
   }
 
   columnPaths() {
@@ -246,7 +247,7 @@ class Column extends React.Component {
         { this.nonEmptyCategories() }
         { this.emptyCategories() }
         { this.dragArrow() }
-      </g>        
+      </g>
     }
     }
   }
