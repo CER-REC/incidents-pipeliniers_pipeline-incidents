@@ -57,6 +57,7 @@ CategoryComputations.itemInCategory = function(item, columnName, categoryName) {
   case 'whyItHappened':
     return item.get(columnName).contains(categoryName)
 
+  // TODO: better to spell out the other column names explicitly ...
   default:
     return item.get(columnName) === categoryName
   }
