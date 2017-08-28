@@ -29,6 +29,10 @@ class Sidebar extends React.Component {
       .get('sideBar')
 
     const numberOfColumnsInSidebar = WorkspaceComputations.numberOfColumnsInSidebar(this.props.columns)
+
+    // Don't render any columns if the sidebar is empty.
+    if(numberOfColumnsInSidebar < 1) return null
+
     const columnWidth = measurements.get('width') - 
                         ((numberOfColumnsInSidebar - 1) * 
                         Constants.getIn(['sidebar', 'horizontalStackingOffset']))

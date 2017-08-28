@@ -146,6 +146,9 @@ class ColumnPaths extends React.Component {
     const SideBarColumns = WorkspaceComputations.sidebarColumns(this.props.columns)
     const firstSideBarColumn = SideBarColumns.get(0)
 
+    // Don't render paths to sidebar if sidebar is empty.
+    if(firstSideBarColumn === undefined) return pathArray
+
     let sourceColumn = {
       index: currentColumnIndex,
       name: this.props.columnName,
