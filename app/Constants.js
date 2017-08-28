@@ -119,8 +119,15 @@ const Constants = Immutable.fromJS({
   sidebar: {
     columWidth: 70,
     columnOffset: 10,
-  },
 
+    verticalStackingOffset: 2,
+    horizontalStackingOffset: 10,
+
+    labelHorizontalOffset: 7,
+    labelHeight: 35,
+
+    columnHoverOffset: -3,
+  },
 
 
 
@@ -131,9 +138,9 @@ const Constants = Immutable.fromJS({
       end: '#FFAEAB',
     },
     'year': {
-      start: '#D6106E',
-      middle: '#E66F45',
-      end: '#FCFF96',
+      start: '#E42236',
+      middle: '#E6A761',
+      end: '#FFFFA9',
     },
     'company': {
       start: '#4E2F2C',
@@ -141,9 +148,9 @@ const Constants = Immutable.fromJS({
       end: '#FBFFAB',
     },
     'status': {
-      start: '#29836F',
-      middle: '#73ADE6',
-      end: '#E6E0FF',
+      start: '#194613',
+      middle: '#86D0E6',
+      end: '#D4EFFF',
     },
     'province': {
       start: '#870E4A',
@@ -156,14 +163,14 @@ const Constants = Immutable.fromJS({
       end: '#FFE0A3',
     },
     'releaseType': {
-      start: '#63BCE3',
-      middle: '#D69BE7',
-      end: '#FFE0E7',
+      start: '#DF0070',
+      middle: '#E66F45',
+      end: '#FCFF96',
     },
     'whatHappened': {
-      start: '#194613',
-      middle: '#86D0E6',
-      end: '#D4EFFF',
+      start: '#55A2E7',
+      middle: '#D69BE7',
+      end: '#FFE0E7',
     },
     'whyItHappened': {
       start: '#F56A39',
@@ -171,9 +178,9 @@ const Constants = Immutable.fromJS({
       end: '#ABFFAC',
     },
     'pipelinePhase': {
-      start: '#F8B51C',
-      middle: '#78E690',
-      end: '#A8EAFF',
+      start: '#84B551',
+      middle: '#7CE6DF',
+      end: '#C7E9FF',
     },
     'volumeCategory': {
       start: '#64347F',
@@ -181,14 +188,14 @@ const Constants = Immutable.fromJS({
       end: '#FFF9E6',
     },
     'substanceCategory': {
-      start: '#84B551',
-      middle: '#7CE6DF',
-      end: '#C7E9FF',
+      start: '#F8B51C',
+      middle: '#78E690',
+      end: '#A8EAFF',
     },
     'pipelineSystemComponentsInvolved': {
-      start: '#E42236',
-      middle: '#E6A761',
-      end: '#FFFFA9',
+      start: '#29836F',
+      middle: '#73ADE6',
+      end: '#E6E0FF',
     },
   },
 
@@ -217,11 +224,19 @@ const Constants = Immutable.fromJS({
     bundleOffsetDistance: 25,
     radialControlPointDistance: 150,
 
-  }
+  },
 
 
 
 
+
+  categoryLabelOffset: 4,
+  singleLineCategoryLabelHeight: 15,
+  doubleLineCategoryLabelHeight: 30,
+  tripleLineCategoryLabelHeight: 45,
+  maxCategoryLabelLines: 3,
+  categoryLabelTerminatingDots: 3,
+  categoryLabelLineLength: 14
 
 })
 

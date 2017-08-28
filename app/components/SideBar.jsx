@@ -1,9 +1,16 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
+const Column = require('./Column.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const Constants = require('../Constants.js')
 
 require('./Sidebar.scss')
+
+const COLUMN_TYPE = {
+  SIDEBAR: 'SIDEBAR',
+  WORKSPACE: 'WORKSPACE'
+}
 
 class Sidebar extends React.Component {
 
@@ -12,9 +19,7 @@ class Sidebar extends React.Component {
   // - when the user is dragging a column around, should we show something on
   //   the sidebar to indicate that it is a drop target?
 
-
-  render() {
-
+  columns() {
     const measurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -23,14 +28,46 @@ class Sidebar extends React.Component {
       this.props.categories)
       .get('sideBar')
 
+    const numberOfColumnsInSidebar = WorkspaceComputations.numberOfColumnsInSidebar(this.props.columns)
+    const columnWidth = measurements.get('width') - 
+                        ((numberOfColumnsInSidebar - 1) * 
+                        Constants.getIn(['sidebar', 'horizontalStackingOffset']))
+
+    let index = 0
+    return Constants.get('columnNames').map((columnName) => {
+      if(this.props.columns.indexOf(columnName) < 0) {
+        index += 1
+        const columnHeight = measurements.get('height') - 
+                             ((index-1)*Constants.getIn(['sidebar', 'labelHeight'])) - 
+                             (numberOfColumnsInSidebar - index) * 
+                             Constants.getIn(['sidebar', 'verticalStackingOffset'])
+        let columnX = ((index-1) * 
+                        Constants.getIn(['sidebar', 'horizontalStackingOffset'])) + 
+                        measurements.get('x')
+
+        // Handle sidebar column hover by offseting its position
+        // by the sidebar column hover offset.
+        if(this.props.sidebarColumnHover === columnName) {
+          columnX += Constants.getIn(['sidebar', 'columnHoverOffset'])
+        }
+        const columnY = ((index-1) * 
+                        Constants.getIn(['sidebar', 'labelHeight'])) + 
+                        measurements.get('y')
+        return <Column 
+          columnName={columnName} 
+          key={columnName} 
+          columnType={COLUMN_TYPE.SIDEBAR}
+          columnWidth={columnWidth}
+          columnHeight={columnHeight}
+          columnX={columnX}
+          columnY={columnY}/>
+      }
+    }).toArray()
+  }
+
+  render() {
     return <g>
-      <rect
-        x={ measurements.get('x') }
-        y={ measurements.get('y') }
-        width={ measurements.get('width') }
-        height={ measurements.get('height') }
-        fill='#DDDDFF'
-      />
+      {this.columns()}
     </g>
   }
 }
@@ -42,8 +79,8 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    sidebarColumnHover: state.sidebarColumnHover,
   }
 }
-
 
 module.exports = ReactRedux.connect(mapStateToProps)(Sidebar)

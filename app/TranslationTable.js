@@ -51,11 +51,11 @@ const TranslationTable = Immutable.fromJS({
       fr:'TODO',
     },
     pipelineSystemComponentsInvolved: {
-      en:'SYSTEM COMPONENTS INVOLVED',
+      en:'SYS. COMP. INVOLVED',
       fr:'TODO',
     },
     map: {
-      en:'MAP',
+      en:'MAP OVERVIEW',
       fr:'TODO',
     }
   },

@@ -76,6 +76,8 @@ class IncidentPopover extends React.Component {
         return currentY
       })
 
+    // TODO: This crashes when the selected incident belongs to multiple 
+    // categories.
     const categoryName = this.props.selectedIncident.get(this.props.columns.get(0))
 
     const incidents = IncidentComputations.filteredIncidents(this.props.data, this.props.columns, this.props.categories)

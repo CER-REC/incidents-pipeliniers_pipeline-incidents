@@ -3,10 +3,16 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
+const SidebarColumnHoverCreator = require('../actionCreators/SidebarColumnHoverCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
+
+const COLUMN_TYPE = {
+  SIDEBAR: 'SIDEBAR',
+  WORKSPACE: 'WORKSPACE'
+}
 
 require('./Column.scss')
 
@@ -116,7 +122,6 @@ class Column extends React.Component {
   }
 
   dragArrow() {
-
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -193,36 +198,57 @@ class Column extends React.Component {
       />
 
     }).toArray()
-
-
-
   }
 
   columnPaths() {
     if (WorkspaceComputations.shouldRenderColumnPath(
       this.props.columns,
       this.props.columnName)) {
-      return <ColumnPaths index={this.props.index} columnName={this.props.columnName}/>
+      return <ColumnPaths 
+        index={this.props.index} 
+        columnName={this.props.columnName}/>
     }
     else {
       return null
     }
-    
   }
 
-
+  handleMouseEnter() {
+    this.props.onMouseEnter(this.props.columnName)
+  }
+  handleMouseLeave() {
+    this.props.onMouseLeave()
+  }
 
   render() {
-    return <g>
-      <text>
-        {this.barHeading()}
-        {this.barSubHeading()}
-      </text>
-      { this.nonEmptyCategories() }
-      { this.emptyCategories() }
-      { this.columnPaths() }
-      { this.dragArrow() }
-    </g>
+    switch(this.props.columnType) {
+    case COLUMN_TYPE.SIDEBAR: {
+      return <g 
+        className='Column' 
+        id={this.props.columnName}
+        onMouseEnter={this.handleMouseEnter.bind(this)}
+        onMouseLeave={this.handleMouseLeave.bind(this)}>
+        {this.sideBarColumn()}
+        <text>
+          {this.sidebarHeading()}
+        </text>
+
+      </g>
+    }
+    case COLUMN_TYPE.WORKSPACE:
+    default: {
+      return <g>
+        <text>
+          {this.barHeading()}
+          {this.barSubHeading()}
+        </text>
+        { this.columnPaths() }
+        { this.nonEmptyCategories() }
+        { this.emptyCategories() }
+        { this.dragArrow() }
+      </g>        
+    }
+    }
   }
 
   splitHeading() {
@@ -232,6 +258,76 @@ class Column extends React.Component {
     const bottomLine = columnHeading.substring(splitIndex+1)
     return [topLine, bottomLine]
   }
+
+  sideBarColumn() {
+    // Handle the sidebar map column differently.
+    if(this.props.columnName === 'map') {
+      return this.sidebarMapColumn()
+    }
+
+    const categoryColours = CategoryComputations.coloursForColumn(
+      this.props.categories,
+      this.props.columnName)
+
+    const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
+      this.props.columnHeight,
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories, 
+      this.props.columnName) 
+
+    const displayedCategories = CategoryComputations.displayedCategories(
+      this.props.data,
+      this.props.columns,
+      this.props.categories, 
+      this.props.columnName)
+
+    let categoryY = this.props.columnY
+    return displayedCategories
+      .map( (visible, categoryName) => {
+        const currentY = categoryY
+        categoryY += categoryHeights.get(categoryName)
+
+        return <Category
+          columnType={this.props.columnType}
+          categoryName={categoryName}
+          key={categoryName}
+          colour={categoryColours.get(categoryName)} 
+          height={categoryHeights.get(categoryName)}
+          width={ this.props.columnWidth }
+          x={ this.props.columnX }
+          y={currentY}
+        />
+      }).toArray()
+  }
+
+  sidebarMapColumn() {
+    return <image 
+      xlinkHref='images/sidebar_map.svg' 
+      height={ this.props.columnHeight }
+      width={ this.props.columnWidth }
+      x={ this.props.columnX }
+      y={ this.props.columnY }>
+    </image> 
+  }
+
+  sidebarHeading() {
+    let currentY = this.props.columnY
+    return  this.splitHeading().map((word) => {
+      // Terminating space.
+      if(word === '') return null
+      currentY += Constants.get('columnHeadingLineOffset')
+
+      return <tspan className='sidebars'
+        key={word}
+        x={this.props.columnX + Constants.getIn(['sidebar', 'labelHorizontalOffset'])}
+        y={currentY}>
+        {word}
+      </tspan>
+    })
+  }
 }
 
 const mapStateToProps = state => {
@@ -240,8 +336,19 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     data: state.data,
-    showEmptyCategories: state.showEmptyCategories
+    showEmptyCategories: state.showEmptyCategories,
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(Column)
+const mapDispatchToProps = dispatch => {
+  return {
+    onMouseEnter: (columnName) => {
+      dispatch(SidebarColumnHoverCreator(columnName))
+    },
+    onMouseLeave: () => {
+      dispatch(SidebarColumnHoverCreator(null))
+    }
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Column)
