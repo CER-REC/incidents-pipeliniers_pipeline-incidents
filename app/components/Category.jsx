@@ -4,9 +4,19 @@ const Constants = require('../Constants.js')
 
 require('./Category.scss')
 
+const COLUMN_TYPE = {
+  SIDEBAR: 'SIDEBAR',
+  WORKSPACE: 'WORKSPACE'
+}
+
 class Category extends React.Component {
 
+  // Do not render category labels for sidebar columns.
   label() {
+    if(this.props.columnType === COLUMN_TYPE.SIDEBAR) {
+      return null
+    }
+
     const labelLines = this.splitHeading(this.props.categoryName)
     if(labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height) {
       return null
