@@ -3,6 +3,7 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
+const SidebarColumnHoverCreator = require('../actionCreators/SidebarColumnHoverCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
@@ -218,15 +219,27 @@ class Column extends React.Component {
     }
   }
 
+  handleMouseEnter() {
+    this.props.onMouseEnter(this.props.columnName)
+  }
+  handleMouseLeave() {
+    this.props.onMouseLeave()
+  }
+
   render() {
 
     switch(this.props.columnType) {
     case COLUMN_TYPE.SIDEBAR: {
-      return <g>
+      return <g 
+        className='Column' 
+        id={this.props.columnName}
+        onMouseEnter={this.handleMouseEnter.bind(this)}
+        onMouseLeave={this.handleMouseLeave.bind(this)}>
         {this.sideBarColumn()}
         <text>
           {this.sidebarHeading()}
         </text>
+
       </g>
     }
     case COLUMN_TYPE.WORKSPACE:
@@ -331,8 +344,19 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     data: state.data,
-    showEmptyCategories: state.showEmptyCategories
+    showEmptyCategories: state.showEmptyCategories,
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(Column)
+const mapDispatchToProps = dispatch => {
+  return {
+    onMouseEnter: (columnName) => {
+      dispatch(SidebarColumnHoverCreator(columnName))
+    },
+    onMouseLeave: () => {
+      dispatch(SidebarColumnHoverCreator(null))
+    }
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Column)

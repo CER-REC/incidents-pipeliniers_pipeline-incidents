@@ -127,6 +127,8 @@ const Constants = Immutable.fromJS({
 
     labelHorizontalOffset: 7,
     labelHeight: 35,
+
+    columnHoverOffset: -3,
   },
 
   // Some columns do not have fixed categories, so they don't appear here
