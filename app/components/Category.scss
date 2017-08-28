@@ -11,18 +11,23 @@
     -webkit-transition: 200ms;
     -webkit-transition-timing-function: ease-in-out;
     ~ .Label {
-        fill: black;
-        @extend .inactiveCategoryLabels;
+      fill: black;
+      @extend .inactiveCategoryLabels;
     }
   }
 }
 
+
 .ColumnPaths {
   fill: $light-grey;
   fill-opacity: 0.6;
-  cursor: pointer;
+}
+
+.Both {
   &:hover {
-    fill: #666666;
-    opacity: 0.8;
+  @extend .Category;
+  include .ColumnPaths { 
+    opacity: 0.6;
+    }
   }
 }

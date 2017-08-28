@@ -1,20 +1,16 @@
 const Immutable = require('immutable')
 
-const Constants = require('../Constants.js')
-
-const CategoryHoverStateReducer = (state = null, action) => {
+const CategoryHoverStateReducer = (state = Immutable.Map({columnName: null, categoryName: null}), action) => {
 
   switch(action.type) {
 
-  case 'CategoryHoverStateCreator':
+  case 'CategoryHoverState':
     // When hovered, neither name or category should be null
-    if((Constants.get('columnNames') !== null) && (Constants.get('categoryNames') !== null)) {
-      return action.state
-    }
-    break
+    return Immutable.Map({columnName: action.columnName, categoryName: action.categoryName}) 
+    
 
-  case 'CategoryUnhoverStateCreator':
-    return state
+  case 'CategoryUnhoverState':
+    return Immutable.Map({columnName: null, categoryName: null})
 
   default:
     return state

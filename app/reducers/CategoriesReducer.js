@@ -17,9 +17,6 @@ const CategoriesReducer = (state = defaultState, action) => {
     return state
   }
 
-
-
-
 }
 
 

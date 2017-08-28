@@ -197,6 +197,7 @@ class Column extends React.Component {
         width={ columnMeasurements.get('width') }
         x={ columnMeasurements.get('x') }
         y={currentY}
+
       />
 
     }).toArray()
@@ -210,7 +211,7 @@ class Column extends React.Component {
       return <ColumnPaths 
         index={this.props.index} 
         columnName={this.props.columnName}
-        className='ColumnPaths'/>
+        className='SelectedPaths'/>
     }
     else {
       return null

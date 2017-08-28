@@ -52,15 +52,15 @@ class Category extends React.Component {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
 
     // TODO: data-cat attribute is for dev purposes only, delete later!
-    return <g transform={transformString} >
+    return <g transform={transformString}>
       <rect 
         width={this.props.width}
         height={this.props.height}
         fill={this.props.colour}
         data-cat={this.props.categoryName}
-        className='Category'
+        className='Both'
       />
-      <text className='Label' fill='#666'>
+      <text className='Label' fill='#666666'>
         {this.label()}
       </text>
     </g>
@@ -108,7 +108,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onmouseover: () => {
+    onMouseOver: () => {
       dispatch(CategoryHoverStateCreator())
     }
   }
