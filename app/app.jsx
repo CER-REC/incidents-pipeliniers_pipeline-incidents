@@ -6,6 +6,8 @@ const React = require('react')
 const Constants = require('./Constants.js')
 const Root = require('./components/Root.jsx')
 const Resized = require('./actionCreators/ResizeScreenCreator.js')
+const DragColumn = require('./actionCreators/DragColumnCreator.js')
+const DragColumnEnded = require('./actionCreators/DragColumnEndedCreator.js')
 const store = require('./Store.js')()
 const DataLoader = require('./DataLoader.js')
 
@@ -20,6 +22,14 @@ DomReady( () => {
 
   resizeScreenHandler()
   window.addEventListener('resize', resizeScreenHandler)
+  
+  // These handlers will help keep the dragged column moving
+  // even when the cursor is off the dragging handle. This
+  // is necessary because the dragging handle is too small
+  // making it harder to drag without the cursor leaving 
+  // the handle.
+  window.addEventListener('mouseup', mouseUpHandler)
+  window.addEventListener('mousemove', mouseMoveHandler)
 
   const app = <ReactRedux.Provider store={store}>
     <Root />
@@ -27,6 +37,16 @@ DomReady( () => {
 
   ReactDOM.render(app, document.getElementById('reactRoot'))
 })
+
+function mouseUpHandler()
+{
+  store.dispatch(DragColumnEnded(false))
+}
+
+function mouseMoveHandler(e)
+{
+  store.dispatch(DragColumn(e.clientX))
+}
 
 function resizeScreenHandler()  
 {

@@ -4,6 +4,9 @@ const ReactRedux = require('react-redux')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const SidebarColumnHoverCreator = require('../actionCreators/SidebarColumnHoverCreator.js')
+const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCreator.js')
+const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
+const DragColumnEndedCreator = require('../actionCreators/DragColumnEndedCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
@@ -135,7 +138,10 @@ class Column extends React.Component {
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
-      y= {WorkspaceComputations.dragArrowY(this.props.viewport)}>
+      y= {WorkspaceComputations.dragArrowY(this.props.viewport)}
+      onMouseDown={this.handleDragStart.bind(this)}
+      onMouseMove={this.handleDragMove.bind(this)}
+      onMouseUp={this.handleDragEnd.bind(this)}>
     </image>
   }
 
@@ -213,6 +219,32 @@ class Column extends React.Component {
     }
   }
 
+  handleDragStart(e) {
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    const oldX = WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.getIn(['columns', this.props.columnName, 'x']))
+    const offset = e.clientX - oldX
+    const newX = e.clientX - offset
+
+    this.props.onColumnDragStarted(true, this.props.columnName, oldX, e.clientX, offset)
+  }
+
+  handleDragMove(e) {
+    // No need to fire unneeded events if drag hasn't started.
+    if(!this.props.columnDragStatus.get('isStarted')) return 
+
+    this.props.onColumnDrag(e.clientX)
+  }
+
+  handleDragEnd(e) {
+    this.props.onColumnDragEnded(false)
+  }
+
   handleMouseEnter() {
     this.props.onMouseEnter(this.props.columnName)
   }
@@ -232,12 +264,11 @@ class Column extends React.Component {
         <text>
           {this.sidebarHeading()}
         </text>
-
       </g>
     }
     case COLUMN_TYPE.WORKSPACE:
     default: {
-      return <g>
+      return <g transform={this.columnTransform()}>
         <text>
           {this.barHeading()}
           {this.barSubHeading()}
@@ -257,6 +288,18 @@ class Column extends React.Component {
     const topLine = columnHeading.substring(0, splitIndex)
     const bottomLine = columnHeading.substring(splitIndex+1)
     return [topLine, bottomLine]
+  }
+
+  columnTransform() {
+    let transformString = 'translate(0,0)'
+    if(this.props.columnDragStatus.get('isStarted') &&
+       this.props.columnDragStatus.get('columnName') === this.props.columnName) {
+      const xTransform = this.props.columnDragStatus.get('newX') - 
+                         this.props.columnDragStatus.get('offset') - 
+                         this.props.columnDragStatus.get('oldX')
+      transformString = `translate(${xTransform},0)`
+    }
+    return transformString
   }
 
   sideBarColumn() {
@@ -337,6 +380,7 @@ const mapStateToProps = state => {
     categories: state.categories,
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
+    columnDragStatus: state.columnDragStatus
   }
 }
 
@@ -347,6 +391,15 @@ const mapDispatchToProps = dispatch => {
     },
     onMouseLeave: () => {
       dispatch(SidebarColumnHoverCreator(null))
+    },
+    onColumnDragStarted: (isStarted, columnName, oldX, newX, offset) => {
+      dispatch(DragColumnStartedCreator(isStarted, columnName, oldX, newX, offset))
+    },
+    onColumnDrag: (newX) => {
+      dispatch(DragColumnCreator(newX))
+    },
+    onColumnDragEnded: (isStarted) => {
+      dispatch(DragColumnEndedCreator(isStarted))
     }
   }
 }
