@@ -2,6 +2,7 @@ const Immutable = require('immutable')
 const _ = require('lodash')
 
 const Constants = require('../Constants.js')
+const CategoryConstants = require('../CategoryConstants.js')
 
 
 
@@ -30,12 +31,12 @@ function SetInitialCategoryStateCreator (data) {
 
       let activeCategories = Immutable.OrderedMap()
 
-      Constants.getIn(['categoryNames', columnName]).forEach( categoryName => {
+      CategoryConstants.getIn(['dataLoaderCategoryNames', columnName]).forEach( (categoryName, csvHeading) => {
         activeCategories = activeCategories.set(categoryName, true)
 
       })
 
-      state = state.set(columnName,activeCategories)
+      state = state.set(columnName, activeCategories)
 
       break
     }
