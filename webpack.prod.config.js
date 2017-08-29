@@ -8,7 +8,6 @@ const prodPlugin = new Webpack.DefinePlugin({
   }
 })
 
-// TODO: do I need this?
 const uglifyPlugin = new Webpack.optimize.UglifyJsPlugin()
 
 config.plugins.push(prodPlugin)

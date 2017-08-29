@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test",
-    "webpack": "webpack",
+    "webpack": "webpack --config webpack.prod.config.js",
     "watch": "webpack -w",
     "webserver": "webpack-dev-server --inline --hot",
     "start": "node servers/DevelopmentServer/DevelopmentServer.js",

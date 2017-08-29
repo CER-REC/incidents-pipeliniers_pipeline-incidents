@@ -1,7 +1,7 @@
 const Webpack = require('webpack')
 const Path = require('path')
 
-const BUILD_DIR = Path.resolve(__dirname, 'public')
+const BUILD_DIR = Path.resolve(__dirname, 'public/script')
 
 
 module.exports = {

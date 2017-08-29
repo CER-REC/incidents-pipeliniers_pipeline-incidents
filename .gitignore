@@ -1,5 +1,5 @@
 node_modules/
-public/bundle.js
+public/script/bundle.js
 npm-debug.log
 .DS_Store
 incident-visualization.sublime-workspace
