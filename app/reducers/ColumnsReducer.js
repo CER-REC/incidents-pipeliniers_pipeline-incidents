@@ -1,17 +1,18 @@
 const Immutable = require('immutable')
 
 const Constants = require('../Constants.js')
+const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 const defaults = Immutable.fromJS([
   'year',
   'incidentTypes',
   'status',
   'pipelineSystemComponentsInvolved',
-  //'substance',
-  //'volumeCategory',
-  //'releaseType',
-  //'whatHappened',
-  //'whyItHappened',
+  /*'substance',
+  'volumeCategory',
+  'releaseType',
+  'whatHappened',
+  'whyItHappened',*/
   //'pipelinePhase',
   //'substanceCategory',
   //'company',
@@ -62,11 +63,39 @@ const ColumnsReducer = (state = defaults, action) => {
     return Immutable.List(validatedColumnNames)
   }
 
+  case 'SnapColumn': {
+    const currentIndex = state.indexOf(action.columnName)
+    const columnWidth = WorkspaceComputations.columnWidth(state)
+
+    let multiplier = 3
+    if(columnWidth === Constants.get('columnNarrowWidth')) {
+      multiplier = 5
+    }
+
+    const jump = Math.round(Math.abs(action.newX - action.oldX)/(multiplier*columnWidth))
+
+    if(action.oldX > action.newX) {
+      const newIndex = Math.max(currentIndex - jump, 0)
+      return state.delete(currentIndex).insert(newIndex, action.columnName)
+    }
+
+    else if(action.oldX < action.newX) {
+      const newIndex = currentIndex + jump
+
+      if(newIndex < state.count()) {
+        return state.delete(currentIndex).insert(newIndex, action.columnName)        
+      }
+      else {
+        return state.delete(currentIndex)
+      }
+    }
+
+    return state
+  }
 
   default:
     return state
   }
-
 }
 
 

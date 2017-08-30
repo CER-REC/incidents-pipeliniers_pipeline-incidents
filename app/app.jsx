@@ -38,13 +38,17 @@ DomReady( () => {
   ReactDOM.render(app, document.getElementById('reactRoot'))
 })
 
-function mouseUpHandler()
+function mouseUpHandler(e)
 {
+  e.stopPropagation()
+  e.preventDefault()
   store.dispatch(DragColumnEnded(false))
 }
 
 function mouseMoveHandler(e)
 {
+  e.stopPropagation()
+  e.preventDefault()
   store.dispatch(DragColumn(e.clientX))
 }
 
