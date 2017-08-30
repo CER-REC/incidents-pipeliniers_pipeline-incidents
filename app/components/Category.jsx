@@ -98,17 +98,17 @@ class Category extends React.Component {
       strokeWidth = '1px'
       fill = 'black'
       
-      if (this.props.categoryName === ColumnPaths(this.props.sourceCategory) && 
-      this.props.columnName === this.props.ColumnPaths(this.props.sourceColumnY)) {
+      if (this.props.categoryName === ColumnPaths.getIn(['buildPathsForCategory', this.props.sourceCategory]) && 
+      this.props.columnName === ColumnPaths.buildPathsForCategory.get(this.props.sourceColumnY)) {
         opacity = '0.6'
         fillPath = '#666666'
-        console.log('path touches the source category')
+        console.log('path connected to the source category')
       }
-      else if (this.props.categoryName === this.props.ColumnPaths(this.props.destinationCategory) &&
-        this.props.columnName === this.props.ColumnPaths(this.props.destinationColumnY)) {
+      else if (this.props.categoryName === ColumnPaths.buildPathsForCategory.get(this.props.destinationCategory) &&
+        this.props.columnName === ColumnPaths.buildPathsForCategory.get(this.props.destinationColumnY)) {
         opacity = '0.6'
         fillPath = '#666666'
-        console.log('path touches the destination category')
+        console.log('path connected to the destination category')
       }
       else {
         opacity = '0.6'
@@ -126,8 +126,8 @@ class Category extends React.Component {
     }
 
     return <g transform={transformString}>
-      {opacity} 
-      {fillPath}
+      {this.opacity} 
+      {this.fillPath}
       <rect 
         strokeWidth={strokeWidth}
         width={this.props.width}

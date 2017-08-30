@@ -3,11 +3,9 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
-const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 
-require('./Category.scss')
-//require('./ColumnPaths.scss')
+require('./ColumnPaths.scss')
 
 class ColumnPaths extends React.Component {
   categoriesForColumn(columnIndex) {
@@ -204,7 +202,7 @@ class ColumnPaths extends React.Component {
       d += `${sourceColumn.x + curveControlThreshold} ${sourceColumnY + sourceCurveHeight} `
       d += `${sourceColumn.x} ${sourceColumnY + sourceCurveHeight}`
 
-      const currentPath = <path d={d} key={sourceCategory.categoryName + destinationCategory.categoryName}/>
+      const currentPath = <path d={d} className='ColumnPaths' key={sourceCategory.categoryName + destinationCategory.categoryName}/>
       pathsForCategory.push(currentPath)
 
       sourceCategory.y += sourceCurveHeight
@@ -218,17 +216,9 @@ class ColumnPaths extends React.Component {
   }
 
   render() {
-    return <svg><g 
-      opacity={this.opacity}
-      fill={this.fillPath}
-      className='ColumnPaths'>
+    return <g>
       {this.paths()}
-      }
     </g>
-    <g 
-      opacity={this.opacity}
-      fill={this.fillPath}
-      className='ColumnPaths'>{this.currentPath}</g></svg>
   }
 }
 
