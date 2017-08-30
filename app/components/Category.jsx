@@ -4,6 +4,10 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 
+const BeginIncidentDragCreator = require('../actionCreators/BeginIncidentDragCreator.js')
+const UpdateIncidentDragCreator = require('../actionCreators/UpdateIncidentDragCreator.js')
+const EndIncidentDragCreator = require('../actionCreators/EndIncidentDragCreator.js')
+
 const COLUMN_TYPE = {
   SIDEBAR: 'SIDEBAR',
   WORKSPACE: 'WORKSPACE'
@@ -44,6 +48,21 @@ class Category extends React.Component {
     })
   }
 
+  handleOnMouseDown() {
+    this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
+  }
+  handleOnMouseMove() {
+
+    if (this.props.incidentDragState.get('currentlyDragging')) {
+      this.props.onUpdateDrag(this.props.columnName, this.props.categoryName)
+    }
+  }
+  handleOnMouseUp() {
+    this.props.onEndDrag()
+  }
+
+
+
   render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
 
@@ -54,6 +73,10 @@ class Category extends React.Component {
         height={this.props.height}
         fill={this.props.colour}
         data-cat={this.props.categoryName}
+
+        onMouseDown={this.handleOnMouseDown.bind(this)}
+        onMouseUp={this.handleOnMouseUp.bind(this)}
+        onMouseMove={this.handleOnMouseMove.bind(this)}
       />
       <text>
         {this.label()}
@@ -123,9 +146,23 @@ class Category extends React.Component {
 const mapStateToProps = state => {
   return {
     language: state.language,
+    incidentDragState: state.incidentDragState
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onBeginDrag: (columnName, categoryName) => {
+      dispatch(BeginIncidentDragCreator(columnName, categoryName))
+    },
+    onUpdateDrag: (columnName, categoryName) => {
+      dispatch(UpdateIncidentDragCreator(columnName, categoryName))
+    },
+    onEndDrag: () => {
+      dispatch(EndIncidentDragCreator())
+    }
   }
 }
 
 
-
-module.exports = ReactRedux.connect(mapStateToProps)(Category)
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Category)
