@@ -9,7 +9,6 @@ require('./MapContainer.scss')
 class MapContainer extends React.Component {
 
   mapContainerStyle() {
-
     const mapPositions = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -18,35 +17,33 @@ class MapContainer extends React.Component {
       this.props.categories)
       .getIn(['columns', 'map'])
 
+    // Compute the left offset if the map is being dragged.
+    let leftX = mapPositions.get('x')
+    if(this.props.columnDragStatus.get('isStarted') &&
+       this.props.columnDragStatus.get('columnName') === 'map') {
+      leftX = this.props.columnDragStatus.get('newX') - 
+              this.props.columnDragStatus.get('offset') - 
+              mapPositions.get('width')/2
+    }
 
     return {
       width: `${mapPositions.get('width')}px`,
       height: `${mapPositions.get('height')}px`,
-      left: `${mapPositions.get('x')}px`,
+      left: `${leftX}px`,
       top: `${mapPositions.get('y')}px`,
     }
   }
 
-
   render() {
-
-
-
-    return <div className='mapContainer'
-    >
-
+    return <div 
+      className='mapContainer'>
       <div className='innerContainer'
-        style = { this.mapContainerStyle() }
-      >
+        style = {this.mapContainerStyle()}>
         <MapComponent />
       </div>
-
     </div>
   }
 }
-
-
-
 
 const mapStateToProps = state => {
   return {
@@ -55,8 +52,8 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    columnDragStatus: state.columnDragStatus,
   }
 }
-
 
 module.exports = ReactRedux.connect(mapStateToProps)(MapContainer)
