@@ -7,6 +7,9 @@ const Tr = require('../TranslationTable.js')
 const BeginIncidentDragCreator = require('../actionCreators/BeginIncidentDragCreator.js')
 const UpdateIncidentDragCreator = require('../actionCreators/UpdateIncidentDragCreator.js')
 const EndIncidentDragCreator = require('../actionCreators/EndIncidentDragCreator.js')
+const IncidentSelectionStateCreator = require('../actionCreators/IncidentSelectionStateCreator.js')
+
+const IncidentComputations = require('../IncidentComputations.js')
 
 const COLUMN_TYPE = {
   SIDEBAR: 'SIDEBAR',
@@ -51,10 +54,34 @@ class Category extends React.Component {
   handleOnMouseDown() {
     this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
   }
-  handleOnMouseMove() {
-
+  handleOnMouseMove(event) {
     if (this.props.incidentDragState.get('currentlyDragging')) {
       this.props.onUpdateDrag(this.props.columnName, this.props.categoryName)
+
+      const bounds = this.rect.getBoundingClientRect()
+      const localY = event.clientY - bounds.top
+
+      const filteredIncidents = IncidentComputations.filteredIncidents(
+        this.props.data,
+        this.props.columns,
+        this.props.categories
+      )
+
+      const categoryIncidents = IncidentComputations.categorySubset(
+        filteredIncidents,
+        this.props.columnName,
+        this.props.categoryName
+      )
+
+      const categoryHeightFraction = localY / bounds.height
+      const incidentIndex = Math.round(categoryHeightFraction * categoryIncidents.count())
+
+      const incident = categoryIncidents.get(incidentIndex)
+
+      if (typeof incident !== 'undefined') {
+        this.props.selectIncident(incident)
+      }
+
     }
   }
   handleOnMouseUp() {
@@ -77,6 +104,8 @@ class Category extends React.Component {
         onMouseDown={this.handleOnMouseDown.bind(this)}
         onMouseUp={this.handleOnMouseUp.bind(this)}
         onMouseMove={this.handleOnMouseMove.bind(this)}
+
+        ref={ (element) => this.rect = element }
       />
       <text>
         {this.label()}
@@ -146,7 +175,10 @@ class Category extends React.Component {
 const mapStateToProps = state => {
   return {
     language: state.language,
-    incidentDragState: state.incidentDragState
+    incidentDragState: state.incidentDragState,
+    data: state.data,
+    columns: state.columns, 
+    categories: state.categories,
   }
 }
 
@@ -160,6 +192,9 @@ const mapDispatchToProps = dispatch => {
     },
     onEndDrag: () => {
       dispatch(EndIncidentDragCreator())
+    },
+    selectIncident: (incident) => {
+      dispatch(IncidentSelectionStateCreator(incident))
     }
   }
 }
