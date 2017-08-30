@@ -17,13 +17,16 @@ class MapContainer extends React.Component {
       this.props.categories)
       .getIn(['columns', 'map'])
 
-    // Compute the left offset if the map is being dragged.
+    // Compute the left offset and opacity if the 
+    // map is being dragged.
     let leftX = mapPositions.get('x')
+    let opacity = 1
     if(this.props.columnDragStatus.get('isStarted') &&
        this.props.columnDragStatus.get('columnName') === 'map') {
       leftX = this.props.columnDragStatus.get('newX') - 
               this.props.columnDragStatus.get('offset') - 
               mapPositions.get('width')/2
+      opacity = 0.6
     }
 
     return {
@@ -31,6 +34,7 @@ class MapContainer extends React.Component {
       height: `${mapPositions.get('height')}px`,
       left: `${leftX}px`,
       top: `${mapPositions.get('y')}px`,
+      opacity: opacity,
     }
   }
 
