@@ -8,16 +8,16 @@ const defaults = Immutable.fromJS([
   'incidentTypes',
   'status',
   'pipelineSystemComponentsInvolved',
-  /*'substance',
+  'substance',
   'volumeCategory',
   'releaseType',
   'whatHappened',
-  'whyItHappened',*/
-  //'pipelinePhase',
-  //'substanceCategory',
-  //'company',
+  'whyItHappened',
+  'pipelinePhase',
+  'substanceCategory',
+  'company',
   //'map',
-  //'province',
+  'province',
 ])
 
 
@@ -65,17 +65,15 @@ const ColumnsReducer = (state = defaults, action) => {
 
   case 'SnapColumn': {
     const currentIndex = state.indexOf(action.columnName)
-    const columnWidth = WorkspaceComputations.columnWidth(state)
 
-    let multiplier = 3
-    if(columnWidth === Constants.get('columnNarrowWidth')) {
-      multiplier = 5
-    }
-
-    const jump = Math.round(Math.abs(action.newX - action.oldX)/(multiplier*columnWidth))
+    // Determine the size of the columns and paths based on the
+    // number of columns in the workspace. Note that the dimensions
+    // do not change after 6 columns.
+    const columnCount = (state.count() >= 6)? 6 : state.count()
+    const jump = Math.floor(Math.abs(action.newX - action.oldX)/(Constants.getIn(['columnDragOffsets', columnCount.toString()])))
 
     if(action.oldX > action.newX) {
-      const newIndex = Math.max(currentIndex - jump, 0)
+      const newIndex = (currentIndex - jump < 0)? 0: Math.max(currentIndex - jump, 0)
       return state.delete(currentIndex).insert(newIndex, action.columnName)
     }
 
@@ -83,7 +81,7 @@ const ColumnsReducer = (state = defaults, action) => {
       const newIndex = currentIndex + jump
 
       if(newIndex < state.count()) {
-        return state.delete(currentIndex).insert(newIndex, action.columnName)        
+        return state.delete(currentIndex).insert(currentIndex + jump, action.columnName)        
       }
       else {
         return state.delete(currentIndex)

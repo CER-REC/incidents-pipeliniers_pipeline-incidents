@@ -255,7 +255,7 @@ class Column extends React.Component {
     this.props.onColumnDragEnded(false)
     const newX = this.props.columnDragStatus.get('newX') - 
                  this.props.columnDragStatus.get('offset')
-    this.props.onColumnSnap(this.props.columnName, this.props.columnDragStatus.get('oldX'), newX)
+    this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX)
   }
 
   handleMouseEnter() {
