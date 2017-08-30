@@ -1,7 +1,6 @@
 const Immutable = require('immutable')
 
 const Constants = require('../Constants.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 const defaults = Immutable.fromJS([
   'year',
