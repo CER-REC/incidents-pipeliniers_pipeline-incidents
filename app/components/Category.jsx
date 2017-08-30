@@ -2,6 +2,7 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
+const ColumnPaths = require('./ColumnPaths.jsx')
 const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
 const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
 
@@ -48,24 +49,6 @@ class Category extends React.Component {
     })
   }
 
-  render() {
-    const transformString = `translate(${this.props.x}, ${this.props.y})`
-
-    // TODO: data-cat attribute is for dev purposes only, delete later!
-    return <g transform={transformString}>
-      <rect 
-        width={this.props.width}
-        height={this.props.height}
-        fill={this.props.colour}
-        data-cat={this.props.categoryName}
-        className='Both'
-      />
-      <text className='Label' fill='#666666'>
-        {this.label()}
-      </text>
-    </g>
-  }
-
   splitHeading(fullLabel) {
     // TODO: We will need to fetch the category labels from 
     // a translation table to account for french translations.
@@ -93,23 +76,89 @@ class Category extends React.Component {
     return [this.splitHeading(label.substring(0, firstLineSplitPoint))].concat( 
       this.splitHeading(label.substring(firstLineSplitPoint + 1)))
   }
+
+  handleMouseEnter() {
+    this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
+    //console.log('handler works')
+  }
+  handleMouseLeave() {
+    this.props.onMouseLeave()
+  }
+
+  render() {
+    const transformString = `translate(${this.props.x}, ${this.props.y})`
+
+    let strokeWidth
+    let fill 
+    let opacity
+    let fillPath
+
+    if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
+      this.props.columnName === this.props.categoryHoverState.get('columnName')) {
+      strokeWidth = '1px'
+      fill = 'black'
+      
+      if (this.props.categoryName === ColumnPaths(this.props.sourceCategory) && 
+      this.props.columnName === this.props.ColumnPaths(this.props.sourceColumnY)) {
+        opacity = '0.6'
+        fillPath = '#666666'
+        console.log('path touches the source category')
+      }
+      else if (this.props.categoryName === this.props.ColumnPaths(this.props.destinationCategory) &&
+        this.props.columnName === this.props.ColumnPaths(this.props.destinationColumnY)) {
+        opacity = '0.6'
+        fillPath = '#666666'
+        console.log('path touches the destination category')
+      }
+      else {
+        opacity = '0.6'
+        fillPath = '#e6e6e6'
+        console.log('not connected to the hovered category')
+      }
+      
+      console.log(this.props.categoryName)
+    }
+    else {
+      strokeWidth = '0px'
+      fill = '#666666'
+      opacity ='0.6'
+      fillPath='#cccccc'
+    }
+
+    return <g transform={transformString}>
+      {opacity} 
+      {fillPath}
+      <rect 
+        strokeWidth={strokeWidth}
+        width={this.props.width}
+        height={this.props.height}
+        fill={this.props.colour}
+        className='Category'
+        onMouseEnter={this.handleMouseEnter.bind(this)}
+        onMouseLeave={this.handleMouseLeave.bind(this)}
+      />
+      <text fill={fill}>
+        {this.label()}
+      </text>
+    </g> 
+  }
 }
 
 
 const mapStateToProps = state => {
   return {
-    showEmptyCategories: state.showEmptyCategories,
-    viewport: state.viewport,
-    data: state.data,
-    columns: state.columns,
-    categories: state.categories,
+    categoryHoverState: state.categoryHoverState,
   }
 }
 
+
 const mapDispatchToProps = dispatch => {
   return {
-    onMouseOver: () => {
-      dispatch(CategoryHoverStateCreator())
+    onMouseEnter: (columnName, categoryName) => {
+      dispatch(CategoryHoverStateCreator(columnName, categoryName))
+    },
+    onMouseLeave: () => {
+      dispatch(CategoryUnhoverStateCreator())
     }
   }
 }

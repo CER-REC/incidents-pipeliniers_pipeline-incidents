@@ -67,7 +67,7 @@ const Constants = Immutable.fromJS({
 
   columnWideWidth: 62,
   columnNarrowWidth: 24,
-  minimumColumnPathWidth: 80,
+  minimumColumnPathWidth: 90,
 
   columnHeadingHeight: 42,
   columnHeadingLineOffset: 15,
@@ -369,7 +369,7 @@ const Constants = Immutable.fromJS({
   tripleLineCategoryLabelHeight: 45,
   maxCategoryLabelLines: 3,
   categoryLabelTerminatingDots: 3,
-  categoryLabelLineLength: 14
+  categoryLabelLineLength: 14,
 
 })
 

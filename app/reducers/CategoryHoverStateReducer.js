@@ -5,7 +5,7 @@ const CategoryHoverStateReducer = (state = Immutable.Map({columnName: null, cate
   switch(action.type) {
 
   case 'CategoryHoverState':
-    // When hovered, neither name or category should be null
+   // console.log('reducer works')
     return Immutable.Map({columnName: action.columnName, categoryName: action.categoryName}) 
     
 

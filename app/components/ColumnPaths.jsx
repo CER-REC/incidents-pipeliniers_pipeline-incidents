@@ -3,6 +3,7 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
+const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 
 require('./Category.scss')
@@ -217,11 +218,17 @@ class ColumnPaths extends React.Component {
   }
 
   render() {
-    return <svg><g className='ColumnPaths'>
+    return <svg><g 
+      opacity={this.opacity}
+      fill={this.fillPath}
+      className='ColumnPaths'>
       {this.paths()}
       }
     </g>
-    <g className='ColumnPaths'>{this.currentPath}</g></svg>
+    <g 
+      opacity={this.opacity}
+      fill={this.fillPath}
+      className='ColumnPaths'>{this.currentPath}</g></svg>
   }
 }
 

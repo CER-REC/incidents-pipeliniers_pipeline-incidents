@@ -61,6 +61,7 @@ class Column extends React.Component {
         categoryY += categoryHeights.get(categoryName)
 
         return <Category
+          columnName={this.props.columnName}
           categoryName={categoryName}
           key={categoryName}
           colour={categoryColours.get(categoryName)} 
@@ -212,7 +213,7 @@ class Column extends React.Component {
       return <ColumnPaths 
         index={this.props.index} 
         columnName={this.props.columnName}
-        className='SelectedPaths'/>
+        className='ColumnPaths'/>
     }
     else {
       return null

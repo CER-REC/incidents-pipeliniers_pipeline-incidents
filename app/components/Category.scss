@@ -4,30 +4,11 @@
 
 .Category {
   cursor:pointer;
-  &:hover {
-    stroke: $black;
-    transition: 200ms;
-    transition-timing-function: ease-in-out;
-    -webkit-transition: 200ms;
-    -webkit-transition-timing-function: ease-in-out;
-    ~ .Label {
-      fill: black;
-      @extend .inactiveCategoryLabels;
-    }
-  }
+  stroke: $black;
 }
-
 
 .ColumnPaths {
   fill: $light-grey;
   fill-opacity: 0.6;
 }
 
-.Both {
-  &:hover {
-  @extend .Category;
-  include .ColumnPaths { 
-    opacity: 0.6;
-    }
-  }
-}
