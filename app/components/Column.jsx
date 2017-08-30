@@ -23,6 +23,8 @@ const COLUMN_TYPE = {
   WORKSPACE: 'WORKSPACE'
 }
 
+let columnWindowMoveHandler = null
+let columnWindowEndHandler = null
 let sidebarWindowMoveHandler = null
 let sidebarWindowEndHandler = null
 
@@ -248,8 +250,10 @@ class Column extends React.Component {
     // is necessary because the dragging handle is too small
     // making it harder to drag without the cursor leaving 
     // the handle.
-    window.addEventListener('mouseup', this.handleDragEnd.bind(this))
-    window.addEventListener('mousemove', this.handleDragMove.bind(this))
+    columnWindowMoveHandler = this.handleDragMove.bind(this)
+    columnWindowEndHandler = this.handleDragEnd.bind(this)
+    window.addEventListener('mouseup', columnWindowEndHandler)
+    window.addEventListener('mousemove', columnWindowMoveHandler)
   }
 
   handleDragMove(e) {
@@ -275,8 +279,8 @@ class Column extends React.Component {
     this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX)
 
     // Remove the window event handlers previously attached.
-    window.removeEventListener('mouseup', this.handleDragEnd.bind(this))
-    window.removeEventListener('mousemove', this.handleDragMove.bind(this))
+    window.removeEventListener('mouseup', columnWindowEndHandler)
+    window.removeEventListener('mousemove', columnWindowMoveHandler)
   }
 
   handleSidebarDragStart(e) {
