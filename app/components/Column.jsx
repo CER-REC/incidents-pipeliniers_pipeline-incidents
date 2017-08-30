@@ -16,8 +16,6 @@ const COLUMN_TYPE = {
 
 require('./Column.scss')
 
-// TODO: Get this from the URL query? Cookies? language reducer! 
-const language = 'en'
 
 class Column extends React.Component {
 
@@ -51,13 +49,13 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-
     return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
         categoryY += categoryHeights.get(categoryName)
 
         return <Category
+          columnName={this.props.columnName}
           categoryName={categoryName}
           key={categoryName}
           colour={categoryColours.get(categoryName)} 
@@ -140,7 +138,7 @@ class Column extends React.Component {
   }
 
   emptyCategories() {
-    
+
     if (!this.props.showEmptyCategories) {
       // If not showing empty categories, bail out
       return null
@@ -198,6 +196,7 @@ class Column extends React.Component {
       />
 
     }).toArray()
+
   }
 
   columnPaths() {
@@ -246,13 +245,13 @@ class Column extends React.Component {
         { this.nonEmptyCategories() }
         { this.emptyCategories() }
         { this.dragArrow() }
-      </g>        
+      </g>
     }
     }
   }
 
   splitHeading() {
-    const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, language])
+    const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language])
     const splitIndex = columnHeading.lastIndexOf(' ')
     const topLine = columnHeading.substring(0, splitIndex)
     const bottomLine = columnHeading.substring(splitIndex+1)
@@ -337,6 +336,7 @@ const mapStateToProps = state => {
     categories: state.categories,
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
+    language: state.language
   }
 }
 
