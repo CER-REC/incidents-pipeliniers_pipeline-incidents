@@ -1,7 +1,10 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
+const Constants = require('../Constants.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+
+require('./MapColumn.scss')
 
 // NB: The 'map column' is not responsible for actually drawing the map. It is
 // just a dummy object to occupy the same space as the actual map canvas.
@@ -10,6 +13,28 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 // a bad idea. See MapContainer and Map components.
 
 class MapColumn extends React.Component {
+
+  dragArrow() {
+    const measurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columns', 'map'])
+
+    const dragArrowX = measurements.get('x') + 
+                       (measurements.get('width') / 2) - 
+                       (Constants.getIn(['dragArrow', 'width']) / 2)
+
+    return <image xlinkHref='images/horizontal_drag.svg' 
+      className = 'dragArrow'
+      height = {Constants.getIn(['dragArrow', 'height'])}
+      width = {Constants.getIn(['dragArrow', 'width'])}
+      x= {dragArrowX}
+      y= {WorkspaceComputations.dragArrowY(this.props.viewport)}>
+    </image>
+  }
 
   render() {
 
@@ -30,6 +55,7 @@ class MapColumn extends React.Component {
         fill='#fff'
         opacity='0'
       />
+      {this.dragArrow()}
     </g>
   }
 }
