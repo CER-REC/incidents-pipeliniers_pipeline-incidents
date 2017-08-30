@@ -10,10 +10,12 @@
 ## Setup
 
 Prerequisites
+
 - Node + NPM
 - Git
 
 Running it
+
 - `git clone`
 - `npm install`
 - `npm run start`
@@ -21,6 +23,9 @@ Running it
 
 
 
+## Deployment
+
+- `npm run build`
 
 
 
