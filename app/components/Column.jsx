@@ -234,6 +234,14 @@ class Column extends React.Component {
     const offset = e.clientX - oldX
 
     this.props.onColumnDragStarted(true, this.props.columnName, oldX, e.clientX, offset)
+
+    // These handlers will help keep the dragged column moving
+    // even when the cursor is off the dragging handle. This
+    // is necessary because the dragging handle is too small
+    // making it harder to drag without the cursor leaving 
+    // the handle.
+    window.addEventListener('mouseup', this.handleDragEnd.bind(this))
+    window.addEventListener('mousemove', this.handleDragMove.bind(this))
   }
 
   handleDragMove(e) {
@@ -256,6 +264,10 @@ class Column extends React.Component {
     const newX = this.props.columnDragStatus.get('newX') - 
                  this.props.columnDragStatus.get('offset')
     this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX)
+
+    // Remove the window event handlers previously attached.
+    window.removeEventListener('mouseup', this.handleDragEnd.bind(this))
+    window.removeEventListener('mousemove', this.handleDragMove.bind(this))
   }
 
   handleMouseEnter() {
