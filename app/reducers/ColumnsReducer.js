@@ -41,6 +41,34 @@ const ColumnsReducer = (state = defaults, action) => {
       return state.push(action.columnName)
     }
 
+  case 'AddColumnAtPosition':
+    // Only real column names allowed
+    if(!Constants.get('columnNames').contains(action.columnName)) {
+      return state
+    }
+
+    if (state.contains(action.columnName)) {
+      // Return if this column already exists in the set
+      return state
+    }
+
+    // Dragging a sidebar column to the right should
+    // do nothing.
+    else if(action.oldX < action.newX) {
+      return state
+    }
+
+    else {
+      // Determine the size of the columns and paths based on the
+      // number of columns in the workspace. Note that the dimensions
+      // do not change after 6 columns.
+      const columnCount = (state.count() >= 6)? 6 : state.count()
+      const jump = Math.floor(Math.abs(action.newX - action.oldX)/(Constants.getIn(['columnDragOffsets', columnCount.toString()])))
+      
+      const newIndex = (state.count() - jump < 0)? 0: state.count() - jump
+      return state.insert(newIndex, action.columnName)      
+    }
+
   case 'RemoveColumn':
     if (state.contains(action.columnName)) {
       return state.filter( item => {

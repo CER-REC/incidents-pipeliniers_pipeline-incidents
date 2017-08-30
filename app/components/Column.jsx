@@ -9,6 +9,10 @@ const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
 const DragColumnEndedCreator = require('../actionCreators/DragColumnEndedCreator.js')
 const SnapColumnCreator = require('../actionCreators/SnapColumnCreator.js')
 const AddColumnCreator = require('../actionCreators/AddColumnCreator.js')
+const DragSidebarColumnStartedCreator = require('../actionCreators/DragSidebarColumnStartedCreator.js')
+const DragSidebarColumnEndedCreator = require('../actionCreators/DragSidebarColumnEndedCreator.js')
+const DragSidebarColumnCreator = require('../actionCreators/DragSidebarColumnCreator.js')
+const AddColumnAtPositionCreator = require('../actionCreators/AddColumnAtPositionCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
@@ -18,6 +22,9 @@ const COLUMN_TYPE = {
   SIDEBAR: 'SIDEBAR',
   WORKSPACE: 'WORKSPACE'
 }
+
+let sidebarWindowMoveHandler = null
+let sidebarWindowEndHandler = null
 
 require('./Column.scss')
 
@@ -272,17 +279,59 @@ class Column extends React.Component {
     window.removeEventListener('mousemove', this.handleDragMove.bind(this))
   }
 
-  handleMouseEnter(e) {
+  handleSidebarDragStart(e) {
     e.stopPropagation()
     e.preventDefault()
-    this.props.onMouseEnter(this.props.columnName)
-  }
-  handleMouseLeave(e) {
-    e.stopPropagation()
-    e.preventDefault()
-    this.props.onMouseLeave()
+
+    const oldX = this.props.columnX
+    const offset = e.clientX - oldX
+
+    this.props.onSidebarDragStarted(true, this.props.columnName, oldX, e.clientX, offset)
+
+    // These handlers will help keep the dragged column moving
+    // even when the cursor is off the dragging handle. This
+    // is necessary because the dragging handle is too small
+    // making it harder to drag without the cursor leaving 
+    // the handle.
+    sidebarWindowMoveHandler = this.handleSidebarDragMove.bind(this)
+    sidebarWindowEndHandler = this.handleSidebarDragEnd.bind(this)
+    window.addEventListener('mouseup', sidebarWindowEndHandler)
+    window.addEventListener('mousemove', sidebarWindowMoveHandler)
   }
 
+  handleSidebarDragEnd(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded evenets if drag hasn't started.
+    if(!this.props.sidebarDragStatus.get('isStarted')) return
+
+    this.props.onSidebarDragEnded(false)
+    const newX = this.props.sidebarDragStatus.get('newX') - 
+                 this.props.sidebarDragStatus.get('offset')
+    this.props.onSidebarColumnSnap(this.props.sidebarDragStatus.get('columnName'), this.props.sidebarDragStatus.get('oldX'), newX)
+
+    // Remove the window event handlers previously attached.
+    window.removeEventListener('mouseup', sidebarWindowEndHandler)
+    window.removeEventListener('mousemove', sidebarWindowMoveHandler)
+  }
+
+  handleSidebarDragMove(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded evenets if drag hasn't started.
+    if(!this.props.sidebarDragStatus.get('isStarted')) return
+
+    this.props.onSidebarDrag(e.clientX)
+  }
+
+  handleMouseEnter() {
+    this.props.onMouseEnter(this.props.columnName)
+  }
+  handleMouseLeave() {
+    this.props.onMouseLeave()
+  }
   handleMouseClick(e) {
     e.stopPropagation()
     e.preventDefault()
@@ -293,9 +342,12 @@ class Column extends React.Component {
     switch(this.props.columnType) {
     case COLUMN_TYPE.SIDEBAR: {
       return <g 
+        transform={this.sidebarColumnTransform()}
         className='Column' 
         id={this.props.columnName}
-        onClick={this.handleMouseClick.bind(this)}
+        onMouseDown={this.handleSidebarDragStart.bind(this)}
+        onMouseMove={this.handleSidebarDragMove.bind(this)}
+        onMouseUp={this.handleSidebarDragEnd.bind(this)}
         onMouseEnter={this.handleMouseEnter.bind(this)}
         onMouseLeave={this.handleMouseLeave.bind(this)}>
         {this.sideBarColumn()}
@@ -327,6 +379,18 @@ class Column extends React.Component {
     const topLine = columnHeading.substring(0, splitIndex)
     const bottomLine = columnHeading.substring(splitIndex+1)
     return [topLine, bottomLine]
+  }
+
+  sidebarColumnTransform() {
+    let transformString = 'translate(0,0)'
+    if(this.props.sidebarDragStatus.get('isStarted') &&
+       this.props.sidebarDragStatus.get('columnName') === this.props.columnName) {
+      const xTransform = this.props.sidebarDragStatus.get('newX') - 
+                         this.props.sidebarDragStatus.get('offset') - 
+                         this.props.sidebarDragStatus.get('oldX')
+      transformString = `translate(${xTransform},0)`
+    }
+    return transformString    
   }
 
   columnTransform() {
@@ -420,6 +484,7 @@ const mapStateToProps = state => {
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
     columnDragStatus: state.columnDragStatus,
+    sidebarDragStatus: state.sidebarDragStatus,
     language: state.language
   }
 }
@@ -446,6 +511,18 @@ const mapDispatchToProps = dispatch => {
     },
     onSidebarColumnClicked: (columnName) => {
       dispatch(AddColumnCreator(columnName))
+    },
+    onSidebarDragStarted: (isStarted, columnName, oldX, newX, offset) => {
+      dispatch(DragSidebarColumnStartedCreator(isStarted, columnName, oldX, newX, offset))
+    },
+    onSidebarDragEnded: (isStarted) => {
+      dispatch(DragSidebarColumnEndedCreator(isStarted))
+    },
+    onSidebarDrag: (newX) => {
+      dispatch(DragSidebarColumnCreator(newX))
+    },
+    onSidebarColumnSnap: (columnName, oldX, newX) => {
+      dispatch(AddColumnAtPositionCreator(columnName, oldX, newX))
     }
   }
 }
