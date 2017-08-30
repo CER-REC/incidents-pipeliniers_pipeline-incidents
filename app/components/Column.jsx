@@ -8,6 +8,7 @@ const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCre
 const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
 const DragColumnEndedCreator = require('../actionCreators/DragColumnEndedCreator.js')
 const SnapColumnCreator = require('../actionCreators/SnapColumnCreator.js')
+const AddColumnCreator = require('../actionCreators/AddColumnCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
@@ -260,6 +261,7 @@ class Column extends React.Component {
 
     // No need to fire unneeded evenets if drag hasn't started.
     if(!this.props.columnDragStatus.get('isStarted')) return
+
     this.props.onColumnDragEnded(false)
     const newX = this.props.columnDragStatus.get('newX') - 
                  this.props.columnDragStatus.get('offset')
@@ -270,11 +272,21 @@ class Column extends React.Component {
     window.removeEventListener('mousemove', this.handleDragMove.bind(this))
   }
 
-  handleMouseEnter() {
+  handleMouseEnter(e) {
+    e.stopPropagation()
+    e.preventDefault()
     this.props.onMouseEnter(this.props.columnName)
   }
-  handleMouseLeave() {
+  handleMouseLeave(e) {
+    e.stopPropagation()
+    e.preventDefault()
     this.props.onMouseLeave()
+  }
+
+  handleMouseClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.props.onSidebarColumnClicked(this.props.columnName)
   }
 
   render() {
@@ -283,6 +295,7 @@ class Column extends React.Component {
       return <g 
         className='Column' 
         id={this.props.columnName}
+        onClick={this.handleMouseClick.bind(this)}
         onMouseEnter={this.handleMouseEnter.bind(this)}
         onMouseLeave={this.handleMouseLeave.bind(this)}>
         {this.sideBarColumn()}
@@ -294,8 +307,7 @@ class Column extends React.Component {
     case COLUMN_TYPE.WORKSPACE:
     default: {
       return <g 
-        transform={this.columnTransform()}
-        onMouseUp={this.handleDragEnd.bind(this)}>
+        transform={this.columnTransform()}>
         <text>
           {this.barHeading()}
           {this.barSubHeading()}
@@ -431,6 +443,9 @@ const mapDispatchToProps = dispatch => {
     },
     onColumnSnap: (columnName, oldX, newX) => {
       dispatch(SnapColumnCreator(columnName, oldX, newX))
+    },
+    onSidebarColumnClicked: (columnName) => {
+      dispatch(AddColumnCreator(columnName))
     }
   }
 }
