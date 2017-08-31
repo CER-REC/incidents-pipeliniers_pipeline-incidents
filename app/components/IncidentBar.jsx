@@ -18,13 +18,20 @@ class IncidentBar extends React.Component {
     else {
       return <IncidentPopover
         incident={this.props.selectedIncident}
-      />
+        y={WorkspaceComputations.columnY()}/>
     }
   }
 
   pinnedIncidents() {
+    let index = 0
     return this.props.pinnedIncidents.map(incident => {
-      return <IncidentPopover key={incident.get('incidentNumber')} incident={incident}/>
+      let y = (Constants.getIn(['pinColumn', 'pinIconSize']) * index) + WorkspaceComputations.columnY()
+      if(this.props.selectedIncident !== null) {
+        y += Constants.getIn(['pinColumn', 'pinIconSize'])
+      }
+      index += 1
+
+      return <IncidentPopover key={incident.get('incidentNumber')} incident={incident} y={y}/>
     })
   }
 

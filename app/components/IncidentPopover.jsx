@@ -16,7 +16,7 @@ const popoverX = Constants.getIn(['incidentPopover', 'popoverX'])
 class IncidentPopover extends React.Component {
 
   horizontalLine() {
-    const horizontalLineY = Constants.getIn(['incidentPopover', 'horizontalLineY'])
+    const horizontalLineY = this.props.y//Constants.getIn(['incidentPopover', 'horizontalLineY'])
     const transformHorizontal = `translate(${popoverX},${horizontalLineY})`
     const horizontalLineEnd = Constants.getIn(['incidentPopover', 'horizontalLineEnd'])
     return <g className="horizontalLine" transform = {transformHorizontal} >
@@ -29,7 +29,7 @@ class IncidentPopover extends React.Component {
 
     const pinHeight = Constants.getIn(['pinColumn', 'pinIconSize'])
     const pinWidth = Constants.getIn(['pinColumn', 'pinIconSize'])
-    const showPopoverBodyY = Constants.getIn(['incidentPopover', 'showPopoverBodyY'])
+    const showPopoverBodyY = this.props.y + 15 //Constants.getIn(['incidentPopover', 'showPopoverBodyY'])
     const transformPopoverBody = `translate(${popoverX},${showPopoverBodyY})`
     const lineHeight = Constants.getIn(['incidentPopover', 'lineHeight'])
 
@@ -109,7 +109,7 @@ class IncidentPopover extends React.Component {
 
     const lineHeightX = Constants.getIn(['incidentPopover', 'lineHeightX'])
     const dotRadius = Constants.getIn(['incidentPopover', 'dotRadius'])
-    const showYLineY = Constants.getIn(['incidentPopover', 'showYLineY'])
+    const showYLineY = this.props.y//Constants.getIn(['incidentPopover', 'showYLineY'])
     const horizontalLineXStart = Constants.getIn(['incidentPopover', 'horizontalLineXStart'])
     
     return <svg className="verticalLine"
@@ -123,7 +123,7 @@ class IncidentPopover extends React.Component {
   }
 
   render() {
-    return <g>
+    return <g transform='translate(0,0)'>
       {this.showPopoverBody()}
       {this.horizontalLine()}
       {this.showYLine()}
