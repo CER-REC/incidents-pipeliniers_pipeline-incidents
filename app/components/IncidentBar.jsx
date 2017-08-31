@@ -24,6 +24,13 @@ class IncidentBar extends React.Component {
   }
 
   incidentHeight(incident) {
+    // Handle the case when the map is the first column. Ideally, one 
+    // would want to assign the incident height based on the order of clicks
+    // (or geographic distance if feeling too fancy), but this is up to the 
+    // design team to decide. For now, all incidents will be assigned an 
+    // equal height of zero.
+    if(this.props.columns.get(0) === 'map') return 0
+
     const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -32,6 +39,7 @@ class IncidentBar extends React.Component {
       this.props.categories,
       this.props.columns.get(0)
     )
+
     return IncidentPathComputations.incidentHeightsInColumn(
       incident,
       this.props.columns.get(0),

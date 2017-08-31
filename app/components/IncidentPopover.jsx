@@ -93,9 +93,9 @@ class IncidentPopover extends React.Component {
         return currentY
       })
 
-    // TODO: This crashes when the selected incident belongs to multiple 
-    // categories.
-    const categoryName = this.props.incident.get(this.props.columns.get(0))
+    // Returning the name of the [first] category that the
+    // incident belongs to in the first column.
+    const categoryName = this.firstCategoryName()
 
     const incidents = IncidentComputations.filteredIncidents(this.props.data, this.props.columns, this.props.categories)
     const incidentsSubset = IncidentComputations.categorySubset(
@@ -104,7 +104,16 @@ class IncidentPopover extends React.Component {
       categoryName)
 
     const incidentIndex = incidentsSubset.indexOf(this.props.incident)
-    const y = categoryYCoordinates.get(categoryName) + categoryHeights.get(categoryName) * (incidentIndex/incidentsSubset.count())
+    let y = categoryYCoordinates.get(categoryName) + categoryHeights.get(categoryName) * (incidentIndex/incidentsSubset.count())
+
+    // Handle the case when the map is the first column. Ideally, one 
+    // would want the line to connect to the incident point on the map,
+    // but this is up to the design team to decide. For now, all incidents
+    // will be stacked starting at the top left corner of the map.
+    if(this.props.columns.get(0) === 'map') {
+      y = WorkspaceComputations.columnY()
+    }
+
     const transformLine = `translate(0,${y})`
 
     const lineHeightX = Constants.getIn(['incidentPopover', 'lineHeightX'])
@@ -120,6 +129,22 @@ class IncidentPopover extends React.Component {
         <circle cx={horizontalLineXStart} cy="0" r={dotRadius}/>
       </g>
     </svg>
+  }
+
+  firstCategoryName() {
+    switch (this.props.columns.get(0)) {
+
+    // Four of the columns have 'multiple selections', where an item can belong
+    // to more than one category at once. These need different handling ... 
+    case 'incidentTypes':
+    case 'pipelineSystemComponentsInvolved':
+    case 'whatHappened':
+    case 'whyItHappened':
+      return this.props.incident.get(this.props.columns.get(0)).get(0)
+
+    default: 
+      return this.props.incident.get(this.props.columns.get(0))
+    }
   }
 
   render() {
