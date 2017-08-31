@@ -282,6 +282,13 @@ const Constants = Immutable.fromJS({
   selectedIncidentPathControlPointOffset: 30,
   selectedIncidentPathColour: '#1A1A1A',
 
+  columnTypes: {
+    SIDEBAR: 'SIDEBAR',
+    WORKSPACE: 'WORKSPACE'
+  },
+
+
+
 })
 
 

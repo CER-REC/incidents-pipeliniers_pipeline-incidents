@@ -66,6 +66,7 @@ class Column extends React.Component {
           width={ columnMeasurements.get('width') }
           x={ columnMeasurements.get('x') }
           y={currentY}
+          columnType={this.props.columnType}
         />
       }).toArray()
   }
@@ -196,6 +197,7 @@ class Column extends React.Component {
         width={ columnMeasurements.get('width') }
         x={ columnMeasurements.get('x') }
         y={currentY}
+        columnType={this.props.columnType}
       />
 
     }).toArray()
@@ -213,57 +215,6 @@ class Column extends React.Component {
     else {
       return null
     }
-  }
-
-  // These are the faint bars which appear on the columns themselves, indicating
-  // the selected incident's position(s) in the column.
-  selectedIncidentBars() {
-
-    if (this.props.selectedIncident === null) {
-      return null
-    }
-
-    const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      this.props.columnName
-    )
-
-    const incidentHeightsInColumn = IncidentPathComputations.incidentHeightsInColumn(
-      this.props.selectedIncident,
-      this.props.columnName,
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      categoryVerticalPositions
-    )
-
-    const columnMeasurements = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-      .getIn(['columns', this.props.columnName])
-
-    return incidentHeightsInColumn.map( (height, i) => {
-      return <line 
-        stroke = '#FFF'
-        strokeWidth = '2px'
-        strokeOpacity = '0.5'
-        x1 = { columnMeasurements.get('x') }
-        y1 = { height }
-        x2 = { columnMeasurements.get('x') + columnMeasurements.get('width') }
-        y2 = { height }
-        key = { i }
-      />
-    }).toArray()
-
   }
 
 
@@ -355,7 +306,7 @@ class Column extends React.Component {
 
   render() {
     switch(this.props.columnType) {
-    case COLUMN_TYPE.SIDEBAR: {
+    case Constants.getIn(['columnTypes', 'SIDEBAR']): {
       return <g 
         className='Column' 
         id={this.props.columnName}
@@ -368,7 +319,7 @@ class Column extends React.Component {
 
       </g>
     }
-    case COLUMN_TYPE.WORKSPACE:
+    case Constants.getIn(['columnTypes', 'WORKSPACE']):
     default: {
       return <g>
         <text>
@@ -381,7 +332,6 @@ class Column extends React.Component {
           categoryName = { this.props.categoryName }
         />
         { this.nonEmptyCategories() }
-        { this.selectedIncidentBars() }
         { this.emptyCategories() }
         { this.dragArrow() }
       </g>
