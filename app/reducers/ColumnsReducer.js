@@ -8,7 +8,7 @@ const defaults = Immutable.fromJS([
   'incidentTypes',
   'status',
   'pipelineSystemComponentsInvolved',
-  /*'substance',
+  'substance',
   'volumeCategory',
   'releaseType',
   'whatHappened',
@@ -66,19 +66,62 @@ const ColumnsReducer = (state = defaults, action) => {
   case 'SnapColumn': {
     const currentIndex = state.indexOf(action.columnName)
 
+    // Compute the map width (if visible).
+    const mapWidth = WorkspaceComputations.mapDragWidth(action.viewport)
+    const mapIndex = state.indexOf('map')
+
     const stepWidth = WorkspaceComputations.stepWidth(state, action.viewport)
-    const jump = Math.floor(Math.abs(action.newX - action.oldX)/stepWidth)
+    let displacement = Math.abs(action.newX - action.oldX)
+
+    // The step width when dragging the map has to take 
+    // into consideration the width of the map.
+    if(action.columnName === 'map') {
+      displacement -= (mapWidth / 2)
+      displacement = (displacement > 0)? displacement + stepWidth: 0
+    }
+    let jump = Math.floor(displacement/stepWidth)
 
     if(action.oldX > action.newX) {
-      const newIndex = (currentIndex - jump < 0)? 0: Math.max(currentIndex - jump, 0)
+      let newIndex = (currentIndex - jump < 0)? 0: Math.max(currentIndex - jump, 0)
+
+      // Handle jumping over the map.
+      if(mapIndex < currentIndex &&
+        currentIndex - mapIndex <= jump) {
+        const mapStepSize = Math.floor(mapWidth/stepWidth)
+        const stepRemainder = (jump - ((currentIndex - 1) - mapIndex)) - (mapStepSize - 1)
+        if(stepRemainder >= 0) {
+          jump = ((currentIndex - 1) - mapIndex) + stepRemainder + 1
+        }
+        else {
+          jump = (currentIndex - 1) - mapIndex
+        }
+
+        newIndex = (currentIndex - jump < 0)? 0 : currentIndex - jump
+      }
+
       return state.delete(currentIndex).insert(newIndex, action.columnName)
     }
 
     else if(action.oldX < action.newX) {
-      const newIndex = currentIndex + jump
+      let newIndex = currentIndex + jump
+
+      // Handle jumping over the map.
+      if(mapIndex > currentIndex &&
+        mapIndex - currentIndex <= jump) {
+        const mapStepSize = Math.floor(mapWidth/stepWidth)
+        const stepRemainder = (jump - (mapIndex - (currentIndex + 1))) - (mapStepSize - 1)
+        if(stepRemainder >= 0) {
+          jump = (mapIndex - (currentIndex + 1)) + stepRemainder + 1
+        }
+        else {
+          jump = mapIndex - (currentIndex + 1)
+        }
+
+        newIndex = currentIndex + jump
+      }
 
       if(newIndex < state.count()) {
-        return state.delete(currentIndex).insert(currentIndex + jump, action.columnName)        
+        return state.delete(currentIndex).insert(newIndex, action.columnName)        
       }
       else {
         return state.delete(currentIndex)
@@ -92,6 +135,5 @@ const ColumnsReducer = (state = defaults, action) => {
     return state
   }
 }
-
 
 module.exports = ColumnsReducer
