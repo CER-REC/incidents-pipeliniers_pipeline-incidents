@@ -21,6 +21,27 @@ require('./Category.scss')
 
 class Category extends React.Component {
 
+  filterboxActive() {
+
+    const filterboxState = this.props.filterboxActivationState
+    return filterboxState.get('columnName') === this.props.columnName &&
+      filterboxState.get('categoryName') === this.props.categoryName
+
+  }
+
+  filterbox(currentY) {
+    if (this.filterboxActive()) {
+      return <Filterbox
+        width = { this.props.width }
+        y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
+      />
+    }
+    else {
+      return null
+    }
+
+  }
+
   // Do not render category labels for sidebar columns.
   label() {
     if(this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
@@ -32,16 +53,10 @@ class Category extends React.Component {
       return null
     }
 
-
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
-    // TODO: Check if the category is hovered-on/selected to assign it
-    // with the proper class name. For now, I am assigning a filter box
-    // randomly to 20% of the categories for test purposes only. 
-    // This will change once the the category hover/selection reducer is inplace.
-    const isSelected = Math.random() < 0.2
-    if(isSelected) {
+    if(this.filterboxActive()) {
       labelClassName = 'activeCategoryLabels'
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
@@ -67,7 +82,7 @@ class Category extends React.Component {
           </tspan>
         })}
       </text>
-      {<Filterbox isSelected={isSelected} width={this.props.width} y={currentY + Constants.getIn(['filterbox', 'labelOffset'])}/>}
+      { this.filterbox(currentY) }
     </g>
   }
 
@@ -263,7 +278,7 @@ class Category extends React.Component {
     return <g
       onMouseUp = { this.handleOnMouseUp.bind(this) }
       className = 'category'
-      >
+    >
       <g transform={transformString}>
         <rect
           width={this.props.width}
@@ -292,7 +307,8 @@ const mapStateToProps = state => {
     categories: state.categories,
     selectedIncident: state.selectedIncident,
     showEmptyCategories: state.showEmptyCategories,
-    viewport: state.viewport
+    viewport: state.viewport,
+    filterboxActivationState: state.filterboxActivationState,
   }
 }
 
