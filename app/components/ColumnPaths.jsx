@@ -3,7 +3,6 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
-const Constants = require('../Constants.js')
 
 require('./ColumnPaths.scss')
 
@@ -56,11 +55,7 @@ class ColumnPaths extends React.Component {
       this.props.categories)
       .get('sideBar')
 
-    // Sidebar Column Height = Height of Sidebar - 
-    //                         ((Columns in Sidebar - 1) * Sidebar Stacking Offset)
-    const columnHeight = measurements.get('height') - 
-                         ((WorkspaceComputations.numberOfColumnsInSidebar(this.props.columns) - 1) * 
-                         Constants.getIn(['sidebar', 'verticalStackingOffset']))
+    const columnHeight = WorkspaceComputations.rightSidebarColumnHeight(measurements.get('height'), this.props.columns)
 
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
       columnHeight,
