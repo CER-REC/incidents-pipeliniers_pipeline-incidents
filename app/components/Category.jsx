@@ -71,14 +71,20 @@ class Category extends React.Component {
     </g>
   }
 
-  handleOnMouseDown() {
+
+  // preventDefault is added to these event handlers to disable browser image
+  // drag functionality
+
+  handleOnMouseDown(event) {
+    event.preventDefault()
     this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
   }
   handleOnMouseMove(event) {
-    console.log('byope')
+    event.preventDefault()
     this.selectIncidentAtMousePosition(event)
   }
   handleOnMouseUp(event) {
+    event.preventDefault()
     this.selectIncidentAtMousePosition(event)
     this.props.onEndDrag()
   }
@@ -254,7 +260,10 @@ class Category extends React.Component {
     // TODO: Placing the mouseup handler so high up could cause it to be 
     // triggered by the filter box, we'll have to make sure.
 
-    return <g onMouseUp={this.handleOnMouseUp.bind(this)}>
+    return <g
+      onMouseUp = { this.handleOnMouseUp.bind(this) }
+      className = 'category'
+      >
       <g transform={transformString}>
         <rect
           width={this.props.width}
