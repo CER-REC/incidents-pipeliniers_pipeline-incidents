@@ -268,9 +268,6 @@ const Constants = Immutable.fromJS({
   },
 
 
-
-
-
   categoryLabelOffset: 4,
   singleLineCategoryLabelHeight: 15,
   doubleLineCategoryLabelHeight: 30,

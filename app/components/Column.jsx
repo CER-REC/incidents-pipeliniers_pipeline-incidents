@@ -4,6 +4,15 @@ const ReactRedux = require('react-redux')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const SidebarColumnHoverCreator = require('../actionCreators/SidebarColumnHoverCreator.js')
+const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCreator.js')
+const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
+const DragColumnEndedCreator = require('../actionCreators/DragColumnEndedCreator.js')
+const SnapColumnCreator = require('../actionCreators/SnapColumnCreator.js')
+const AddColumnCreator = require('../actionCreators/AddColumnCreator.js')
+const DragSidebarColumnStartedCreator = require('../actionCreators/DragSidebarColumnStartedCreator.js')
+const DragSidebarColumnEndedCreator = require('../actionCreators/DragSidebarColumnEndedCreator.js')
+const DragSidebarColumnCreator = require('../actionCreators/DragSidebarColumnCreator.js')
+const AddColumnAtPositionCreator = require('../actionCreators/AddColumnAtPositionCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
@@ -16,11 +25,15 @@ const COLUMN_TYPE = {
   WORKSPACE: 'WORKSPACE'
 }
 
+let columnWindowMoveHandler = null
+let columnWindowEndHandler = null
+let sidebarWindowMoveHandler = null
+let sidebarWindowEndHandler = null
+
 require('./Column.scss')
 
 
 class Column extends React.Component {
-
   // Specifically: non-empty AND visible categories
   nonEmptyCategories() {
     const categoryColours = CategoryComputations.coloursForColumn(
@@ -137,7 +150,10 @@ class Column extends React.Component {
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
-      y= {WorkspaceComputations.dragArrowY(this.props.viewport)}>
+      y= {WorkspaceComputations.dragArrowY(this.props.viewport)}
+      onMouseDown={this.handleDragStart.bind(this)}
+      onMouseMove={this.handleDragMove.bind(this)}
+      onMouseUp={this.handleDragEnd.bind(this)}>
     </image>
   }
 
@@ -218,12 +234,117 @@ class Column extends React.Component {
     }
   }
 
+  handleDragStart(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    const oldX = WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.getIn(['columns', this.props.columnName, 'x']))
+    const offset = e.clientX - oldX
+
+    this.props.onColumnDragStarted(true, this.props.columnName, oldX, e.clientX, offset)
+
+    // These handlers will help keep the dragged column moving
+    // even when the cursor is off the dragging handle. This
+    // is necessary because the dragging handle is too small
+    // making it harder to drag without the cursor leaving 
+    // the handle.
+    columnWindowMoveHandler = this.handleDragMove.bind(this)
+    columnWindowEndHandler = this.handleDragEnd.bind(this)
+    window.addEventListener('mouseup', columnWindowEndHandler)
+    window.addEventListener('mousemove', columnWindowMoveHandler)
+  }
+
+  handleDragMove(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded events if drag hasn't started.
+    if(!this.props.columnDragStatus.get('isStarted')) return 
+
+    this.props.onColumnDrag(e.clientX)
+  }
+
+  handleDragEnd(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded evenets if drag hasn't started.
+    if(!this.props.columnDragStatus.get('isStarted')) return
+
+    this.props.onColumnDragEnded(false)
+    const newX = this.props.columnDragStatus.get('newX') - 
+                 this.props.columnDragStatus.get('offset')
+    this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
+
+    // Remove the window event handlers previously attached.
+    window.removeEventListener('mouseup', columnWindowEndHandler)
+    window.removeEventListener('mousemove', columnWindowMoveHandler)
+  }
+
+  handleSidebarDragStart(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const oldX = this.props.columnX
+    const offset = e.clientX - oldX
+
+    this.props.onSidebarDragStarted(true, this.props.columnName, oldX, e.clientX, offset)
+
+    // These handlers will help keep the dragged column moving
+    // even when the cursor is off the dragging handle. This
+    // is necessary because the dragging handle is too small
+    // making it harder to drag without the cursor leaving 
+    // the handle.
+    sidebarWindowMoveHandler = this.handleSidebarDragMove.bind(this)
+    sidebarWindowEndHandler = this.handleSidebarDragEnd.bind(this)
+    window.addEventListener('mouseup', sidebarWindowEndHandler)
+    window.addEventListener('mousemove', sidebarWindowMoveHandler)
+  }
+
+  handleSidebarDragEnd(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded evenets if drag hasn't started.
+    if(!this.props.sidebarDragStatus.get('isStarted')) return
+
+    this.props.onSidebarDragEnded(false)
+    const newX = this.props.sidebarDragStatus.get('newX') - 
+                 this.props.sidebarDragStatus.get('offset')
+    this.props.onSidebarColumnSnap(this.props.sidebarDragStatus.get('columnName'), this.props.sidebarDragStatus.get('oldX'), newX, this.props.viewport)
+
+    // Remove the window event handlers previously attached.
+    window.removeEventListener('mouseup', sidebarWindowEndHandler)
+    window.removeEventListener('mousemove', sidebarWindowMoveHandler)
+  }
+
+  handleSidebarDragMove(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded evenets if drag hasn't started.
+    if(!this.props.sidebarDragStatus.get('isStarted')) return
+
+    this.props.onSidebarDrag(e.clientX)
+  }
 
   handleMouseEnter() {
     this.props.onMouseEnter(this.props.columnName)
   }
   handleMouseLeave() {
     this.props.onMouseLeave()
+  }
+  handleMouseClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.props.onSidebarColumnClicked(this.props.columnName)
   }
 
   splitHeading() {
@@ -232,6 +353,30 @@ class Column extends React.Component {
     const topLine = columnHeading.substring(0, splitIndex)
     const bottomLine = columnHeading.substring(splitIndex+1)
     return [topLine, bottomLine]
+  }
+
+  sidebarColumnTransform() {
+    let transformString = 'translate(0,0)'
+    if(this.props.sidebarDragStatus.get('isStarted') &&
+       this.props.sidebarDragStatus.get('columnName') === this.props.columnName) {
+      const xTransform = this.props.sidebarDragStatus.get('newX') - 
+                         this.props.sidebarDragStatus.get('offset') - 
+                         this.props.sidebarDragStatus.get('oldX')
+      transformString = `translate(${xTransform},0)`
+    }
+    return transformString    
+  }
+
+  columnTransform() {
+    let transformString = 'translate(0,0)'
+    if(this.props.columnDragStatus.get('isStarted') &&
+       this.props.columnDragStatus.get('columnName') === this.props.columnName) {
+      const xTransform = this.props.columnDragStatus.get('newX') - 
+                         this.props.columnDragStatus.get('offset') - 
+                         this.props.columnDragStatus.get('oldX')
+      transformString = `translate(${xTransform},0)`
+    }
+    return transformString
   }
 
   sideBarColumn() {
@@ -310,8 +455,12 @@ class Column extends React.Component {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
       return <g 
+        transform={this.sidebarColumnTransform()}
         className='Column' 
         id={this.props.columnName}
+        onMouseDown={this.handleSidebarDragStart.bind(this)}
+        onMouseMove={this.handleSidebarDragMove.bind(this)}
+        onMouseUp={this.handleSidebarDragEnd.bind(this)}
         onMouseEnter={this.handleMouseEnter.bind(this)}
         onMouseLeave={this.handleMouseLeave.bind(this)}>
         {this.sideBarColumn()}
@@ -323,7 +472,9 @@ class Column extends React.Component {
     }
     case Constants.getIn(['columnTypes', 'WORKSPACE']):
     default: {
-      return <g>
+      return <g
+        transform={this.columnTransform()}
+      >
         <text>
           {this.barHeading()}
           {this.barSubHeading()}
@@ -352,6 +503,8 @@ const mapStateToProps = state => {
     showEmptyCategories: state.showEmptyCategories,
     language: state.language,
     selectedIncident: state.selectedIncident,
+    columnDragStatus: state.columnDragStatus,
+    sidebarDragStatus: state.sidebarDragStatus,
   }
 }
 
@@ -362,6 +515,33 @@ const mapDispatchToProps = dispatch => {
     },
     onMouseLeave: () => {
       dispatch(SidebarColumnHoverCreator(null))
+    },
+    onColumnDragStarted: (isStarted, columnName, oldX, newX, offset) => {
+      dispatch(DragColumnStartedCreator(isStarted, columnName, oldX, newX, offset))
+    },
+    onColumnDrag: (newX) => {
+      dispatch(DragColumnCreator(newX))
+    },
+    onColumnDragEnded: (isStarted) => {
+      dispatch(DragColumnEndedCreator(isStarted))
+    },
+    onColumnSnap: (columnName, oldX, newX, viewport) => {
+      dispatch(SnapColumnCreator(columnName, oldX, newX, viewport))
+    },
+    onSidebarColumnClicked: (columnName) => {
+      dispatch(AddColumnCreator(columnName))
+    },
+    onSidebarDragStarted: (isStarted, columnName, oldX, newX, offset) => {
+      dispatch(DragSidebarColumnStartedCreator(isStarted, columnName, oldX, newX, offset))
+    },
+    onSidebarDragEnded: (isStarted) => {
+      dispatch(DragSidebarColumnEndedCreator(isStarted))
+    },
+    onSidebarDrag: (newX) => {
+      dispatch(DragSidebarColumnCreator(newX))
+    },
+    onSidebarColumnSnap: (columnName, oldX, newX, viewport) => {
+      dispatch(AddColumnAtPositionCreator(columnName, oldX, newX, viewport))
     }
   }
 }
