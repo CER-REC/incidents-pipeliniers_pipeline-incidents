@@ -190,6 +190,7 @@ class Column extends React.Component {
       categoryY += emptyCategoryHeight
 
       return <Category
+        columnName={this.props.columnName}
         categoryName={categoryName}
         key={categoryName}
         colour={categoryColours.get(categoryName)} 
@@ -273,6 +274,7 @@ class Column extends React.Component {
           width={ this.props.columnWidth }
           x={ this.props.columnX }
           y={currentY}
+          columnType={this.props.columnType}
         />
       }).toArray()
   }

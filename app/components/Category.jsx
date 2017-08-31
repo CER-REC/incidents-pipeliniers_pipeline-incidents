@@ -23,7 +23,7 @@ class Category extends React.Component {
 
   // Do not render category labels for sidebar columns.
   label() {
-    if(this.props.columnType === Constants.getIn('columnTypes', 'SIDEBAR')) {
+    if(this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
       return null
     }
 
