@@ -3,6 +3,9 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
+const Category = require('./Category')
+const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
+const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
 const Constants = require('../Constants.js')
 
 require('./ColumnPaths.scss')
@@ -180,6 +183,28 @@ class ColumnPaths extends React.Component {
     return pathArray
   }
 
+  //hoverLogic() {
+    //let opacity
+    //let fillPath
+
+    //connect the hover from category to here
+    // Three cases:
+    //    1. it is the thing hovered
+    //    2. it is not the thing hovered
+    //    3. nothing is hovered
+    //return the opacity and fillPath for the cases
+
+// if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
+//       this.props.columnName === this.props.categoryHoverState.get('columnName')) {
+//       strokeWidth = '1px'
+//       fill = 'black'
+//       console.log(this.props.categoryName)
+//     }
+//     else {
+//       strokeWidth = '0px'
+//       fill = '#666666'
+//     }
+
   buildPathsForCategory(sourceColumn, sourceCategory, destinationColumn) {
     
     let pathsForCategory = []
@@ -219,6 +244,7 @@ class ColumnPaths extends React.Component {
     return <g>
       {this.paths()}
     </g>
+    console.log('hi')
   }
 }
 
@@ -230,6 +256,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     filters: state.filters,
+    categoryHoverState: state.categoryHoverState,
   }
 }
 

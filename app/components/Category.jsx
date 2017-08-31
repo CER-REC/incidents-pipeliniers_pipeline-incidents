@@ -2,7 +2,6 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
-const ColumnPaths = require('./ColumnPaths.jsx')
 const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
 const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
 
@@ -79,57 +78,37 @@ class Category extends React.Component {
 
   handleMouseEnter() {
     this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
-    //console.log('handler works')
+    console.log('handler works')
   }
   handleMouseLeave() {
     this.props.onMouseLeave()
   }
 
-  render() {
-    const transformString = `translate(${this.props.x}, ${this.props.y})`
-
+  categoryHover() {
     let strokeWidth
-    let fill 
-    let opacity
-    let fillPath
+    let fill
 
     if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
       this.props.columnName === this.props.categoryHoverState.get('columnName')) {
+      console.log(this.props.categoryName)
       strokeWidth = '1px'
       fill = 'black'
-      
-      if (this.props.categoryName === ColumnPaths.getIn(['buildPathsForCategory', this.props.sourceCategory]) && 
-      this.props.columnName === ColumnPaths.buildPathsForCategory.get(this.props.sourceColumnY)) {
-        opacity = '0.6'
-        fillPath = '#666666'
-        console.log('path connected to the source category')
-      }
-      else if (this.props.categoryName === ColumnPaths.buildPathsForCategory.get(this.props.destinationCategory) &&
-        this.props.columnName === ColumnPaths.buildPathsForCategory.get(this.props.destinationColumnY)) {
-        opacity = '0.6'
-        fillPath = '#666666'
-        console.log('path connected to the destination category')
-      }
-      else {
-        opacity = '0.6'
-        fillPath = '#e6e6e6'
-        console.log('not connected to the hovered category')
-      }
-      
-      console.log(this.props.categoryName)
-    }
+      return strokeWidth, fill
+    } 
     else {
       strokeWidth = '0px'
       fill = '#666666'
-      opacity ='0.6'
-      fillPath='#cccccc'
+      return strokeWidth, fill
     }
+  }
+
+  render() {
+    const transformString = `translate(${this.props.x}, ${this.props.y})`
 
     return <g transform={transformString}>
-      {this.opacity} 
-      {this.fillPath}
+
       <rect 
-        strokeWidth={strokeWidth}
+        strokeWidth={this.props.strokeWidth}
         width={this.props.width}
         height={this.props.height}
         fill={this.props.colour}
@@ -137,7 +116,7 @@ class Category extends React.Component {
         onMouseEnter={this.handleMouseEnter.bind(this)}
         onMouseLeave={this.handleMouseLeave.bind(this)}
       />
-      <text fill={fill}>
+      <text fill={this.props.fill}>
         {this.label()}
       </text>
     </g> 
