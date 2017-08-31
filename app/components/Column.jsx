@@ -8,6 +8,7 @@ const ColumnPaths = require('./ColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
+const SelectedIncidentPaths = require('./SelectedIncidentPaths.jsx')
 
 const COLUMN_TYPE = {
   SIDEBAR: 'SIDEBAR',
@@ -33,6 +34,7 @@ class Column extends React.Component {
       this.props.columnName) 
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
+    // TODO: use the new WorkspaceComputations.categoryVerticalPositions
     let categoryY = WorkspaceComputations.columnY()
 
     const displayedCategories = CategoryComputations.displayedCategories(
@@ -212,6 +214,9 @@ class Column extends React.Component {
     }
   }
 
+
+
+
   handleMouseEnter() {
     this.props.onMouseEnter(this.props.columnName)
   }
@@ -242,6 +247,10 @@ class Column extends React.Component {
           {this.barSubHeading()}
         </text>
         { this.columnPaths() }
+        <SelectedIncidentPaths 
+          columnName = { this.props.columnName }
+          categoryName = { this.props.categoryName }
+        />
         { this.nonEmptyCategories() }
         { this.emptyCategories() }
         { this.dragArrow() }
@@ -336,7 +345,7 @@ const mapStateToProps = state => {
     categories: state.categories,
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
-    language: state.language
+    language: state.language,
   }
 }
 

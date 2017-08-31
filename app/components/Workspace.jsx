@@ -61,7 +61,8 @@ class Workspace extends React.Component {
         <svg 
           className = 'workspaceSvg'
           width = { horizontalPositions.getIn(['workspace', 'width']) }
-          height = { horizontalPositions.getIn(['workspace', 'height']) }>
+          height = { horizontalPositions.getIn(['workspace', 'height']) }
+        >
           <Header />
           <EmptyCategories />
           <IncidentBar/>

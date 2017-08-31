@@ -161,6 +161,27 @@ WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport,
 
 }
 
+WorkspaceComputations.categoryVerticalPositions = function (showEmptyCategories, viewport, data, columns, categories, columnName) {
+
+  const categoryHeights = WorkspaceComputations.categoryHeights(showEmptyCategories, viewport, data, columns, categories, columnName) 
+
+  const displayedCategories = CategoryComputations.displayedCategories(data, columns,categories, columnName)
+
+  let categoryY = WorkspaceComputations.columnY()
+
+  return displayedCategories.map( (visible, categoryName) => {
+    const currentY = categoryY
+    categoryY += categoryHeights.get(categoryName)
+
+    return Immutable.Map({
+      height: categoryHeights.get(categoryName),
+      y: currentY
+    })
+
+  })
+
+}
+
 // Returns an immutable map of category names to category heights, for the given
 // column name in the sidebar.
 WorkspaceComputations.sideBarCategoryHeights = function (columnHeight, showEmptyCategories, viewport, data, columns, categories, columnName) {
