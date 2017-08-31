@@ -263,7 +263,7 @@ class Column extends React.Component {
     this.props.onColumnDragEnded(false)
     const newX = this.props.columnDragStatus.get('newX') - 
                  this.props.columnDragStatus.get('offset')
-    this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX)
+    this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
 
     // Remove the window event handlers previously attached.
     window.removeEventListener('mouseup', this.handleDragEnd.bind(this))
@@ -429,8 +429,8 @@ const mapDispatchToProps = dispatch => {
     onColumnDragEnded: (isStarted) => {
       dispatch(DragColumnEndedCreator(isStarted))
     },
-    onColumnSnap: (columnName, oldX, newX) => {
-      dispatch(SnapColumnCreator(columnName, oldX, newX))
+    onColumnSnap: (columnName, oldX, newX, viewport) => {
+      dispatch(SnapColumnCreator(columnName, oldX, newX, viewport))
     }
   }
 }

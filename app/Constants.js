@@ -227,16 +227,6 @@ const Constants = Immutable.fromJS({
   },
 
 
-  columnDragOffsets: {
-    1:738,
-    2:360,
-    3:234,
-    4:199,
-    5:161.2,
-    6:104,
-  },
-
-
   categoryLabelOffset: 4,
   singleLineCategoryLabelHeight: 15,
   doubleLineCategoryLabelHeight: 30,
