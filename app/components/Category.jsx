@@ -131,7 +131,6 @@ class Category extends React.Component {
 
   handleMouseEnter() {
     this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
-    //console.log('handler works')
   }
   handleMouseLeave() {
     this.props.onMouseLeave()
