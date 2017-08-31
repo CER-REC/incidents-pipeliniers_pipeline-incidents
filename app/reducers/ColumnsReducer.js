@@ -37,9 +37,35 @@ const ColumnsReducer = (state = defaults, action) => {
       // Return if this column already exists in the set
       return state
     }
-    else {
+    else { 
       // Add the column to end of the list
       return state.push(action.columnName)
+    }
+
+  case 'AddColumnAtPosition':
+    // Only real column names allowed
+    if(!Constants.get('columnNames').contains(action.columnName)) {
+      return state
+    }
+
+    if (state.contains(action.columnName)) {
+      // Return if this column already exists in the set
+      return state
+    }
+
+    // Dragging a sidebar column to the right should
+    // do nothing.
+    else if(action.oldX < action.newX) {
+      return state
+    }
+
+    else {
+      const stepWidth = WorkspaceComputations.stepWidth(state, action.viewport)
+      const displacement = Math.abs(action.newX - action.oldX)
+      const jump = Math.floor(displacement/stepWidth)
+
+      const newIndex = (state.count() - jump < 0)? 0: state.count() - jump
+      return state.insert(newIndex, action.columnName)      
     }
 
   case 'RemoveColumn':
