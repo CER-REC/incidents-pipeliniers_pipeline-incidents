@@ -65,8 +65,8 @@ class Workspace extends React.Component {
           <Header />
           <EmptyCategories />
           <IncidentBar/>
-          {this.columns()}
           <SideBar/>
+          {this.columns()}
           <SocialBar/>
         </svg>
       </div>
