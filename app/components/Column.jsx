@@ -247,13 +247,13 @@ class Column extends React.Component {
           {this.barSubHeading()}
         </text>
         { this.columnPaths() }
+        { this.nonEmptyCategories() }
+        { this.emptyCategories() }
+        { this.dragArrow() }
         <SelectedIncidentPaths 
           columnName = { this.props.columnName }
           categoryName = { this.props.categoryName }
         />
-        { this.nonEmptyCategories() }
-        { this.emptyCategories() }
-        { this.dragArrow() }
       </g>
     }
     }

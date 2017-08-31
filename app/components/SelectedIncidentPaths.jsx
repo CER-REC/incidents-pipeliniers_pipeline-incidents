@@ -1,6 +1,7 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 const Immutable = require('immutable')
+const D3 = require('d3')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
@@ -43,6 +44,21 @@ class SelectedIncidentPaths extends React.Component {
     else {
       // We are adjacent to an ordinary column
       return this.columnDestinationHeights(columnIndex)
+    }
+  }
+
+  destinationPositions(horizontalPositions) {
+
+    const columnIndex = this.props.columns.indexOf(this.props.columnName)
+
+    if (columnIndex === this.props.columns.count() - 1) {
+      // We are at the end of the list of displayed columns
+      return horizontalPositions.get('sideBar')
+    }
+    else {
+      // We are adjacent to an ordinary column
+      const nextColumnName = this.props.columns.get(columnIndex + 1)
+      return horizontalPositions.getIn(['columns', nextColumnName])
     }
   }
 
@@ -124,20 +140,53 @@ class SelectedIncidentPaths extends React.Component {
     const departureHeights = this.departureHeights()
     const destinationHeights = this.destinationHeights()
 
-    // const paths = []
-    // for (const departurePoint of departureHeights) {
-    //   for (const destinationPoint of destinationHeights) {
-    //     console.log('draw path like',
-    //       departurePoint,
-    //       destinationPoint)
-    //   }
-    // }
+    const horizontalPositions = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    const departurePositions = horizontalPositions.getIn(['columns', this.props.columnName])
+    const destinationPositions = this.destinationPositions(horizontalPositions)
+
+    const paths = []
+
+    departureHeights.forEach( departureHeight => {
+      destinationHeights.forEach( destinationHeight => {
+
+        const d3path = D3.path()
+        d3path.moveTo(
+          departurePositions.get('x') + departurePositions.get('width'),
+          departureHeight
+        )
+
+        const controlPointX = (
+          departurePositions.get('x') + departurePositions.get('width') + 
+          destinationPositions.get('x')
+        ) / 2
+        
+        // control x, control y, x, y
+        d3path.quadraticCurveTo(
+          controlPointX,
+          (departureHeight + destinationHeight) / 2,
+          destinationPositions.get('x'),
+          destinationHeight)
+
+        paths.push(
+          <path
+            d = { d3path.toString() }
+            strokeWidth = '2px'
+            stroke = '#000'
+            fill = 'none'
+          /> 
+        )
 
 
-    console.log(this.props.columnName, departureHeights.toJS())
-    console.log(this.props.columnName, destinationHeights.toJS())
-    return null
-    return paths
+      })
+    })
+
+    return <g> { paths } </g>
 
   }
 

@@ -2,9 +2,6 @@ const MemoizeImmutable = require('memoize-immutable')
 const Immutable = require('immutable')
 
 const IncidentComputations = require('./IncidentComputations.js')
-const WorkspaceComputations = require('./WorkspaceComputations.js')
-
-// const Constants = require('./Constants.js')
 
 const IncidentPathComputations = {}
 
