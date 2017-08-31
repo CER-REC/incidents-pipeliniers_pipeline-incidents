@@ -161,11 +161,14 @@ WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport,
 
 }
 
+
+// Returns a map of category names to an object with y coordinate and height,
+// for laying out categories vertically
 WorkspaceComputations.categoryVerticalPositions = function (showEmptyCategories, viewport, data, columns, categories, columnName) {
 
   const categoryHeights = WorkspaceComputations.categoryHeights(showEmptyCategories, viewport, data, columns, categories, columnName) 
 
-  const displayedCategories = CategoryComputations.displayedCategories(data, columns,categories, columnName)
+  const displayedCategories = CategoryComputations.displayedCategories(data, columns, categories, columnName)
 
   let categoryY = WorkspaceComputations.columnY()
 
@@ -181,6 +184,52 @@ WorkspaceComputations.categoryVerticalPositions = function (showEmptyCategories,
   })
 
 }
+
+
+
+// Returns a map of category names to an object with y coordinate and height,
+// for laying out the categories of the leftmost sidebar column only
+WorkspaceComputations.sidebarCategoryVerticalPositions = function (showEmptyCategories, viewport, data, columns, categories, columnName) {
+
+  const sidebarMeasurements = WorkspaceComputations.horizontalPositions(
+    showEmptyCategories,
+    viewport,
+    data,
+    columns,
+    categories)
+    .get('sideBar')
+
+  const columnHeight = WorkspaceComputations.rightSidebarColumnHeight(sidebarMeasurements.get('height'), columns)
+
+  const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
+    columnHeight,
+    showEmptyCategories,
+    viewport,
+    data, 
+    columns,
+    categories, 
+    columnName
+  )
+
+  let categoryY = sidebarMeasurements.get('y')
+
+  // TODO: use this in column paths maybe, and both should use 
+  // displayedCategories instead of filtering it themselves
+  return categories.get(columnName)
+    .filter( (visible) => visible === true)
+    .filter( (visible, categoryName) => categoryHeights.get(categoryName) !== undefined)
+    .map( (visible, categoryName) => {
+      const currentY = categoryY
+      categoryY += categoryHeights.get(categoryName)
+
+      return Immutable.Map({
+        height: categoryHeights.get(categoryName),
+        y: currentY,
+      })
+    })
+
+}
+
 
 // Returns an immutable map of category names to category heights, for the given
 // column name in the sidebar.
@@ -566,6 +615,18 @@ WorkspaceComputations.sidebarColumns = function(columns) {
 WorkspaceComputations.numberOfColumnsInSidebar = function(columns) {
   return Constants.get('columnNames').count() - columns.count()
 }
+
+
+// Height of the rightmost sidebar column
+WorkspaceComputations.rightSidebarColumnHeight = function (sidebarHeight, columns) {
+    
+  // Sidebar Column Height = Height of Sidebar - 
+  //                         ((Columns in Sidebar - 1) * Sidebar Stacking Offset)
+
+  return sidebarHeight - ((WorkspaceComputations.numberOfColumnsInSidebar(columns) - 1) * Constants.getIn(['sidebar', 'verticalStackingOffset']))
+
+}
+
 
 
 const MemoizedComputations = {}

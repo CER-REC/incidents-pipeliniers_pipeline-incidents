@@ -16,9 +16,7 @@ const IncidentPathComputations = {}
 // incident: an immutable incident record
 // columnName: string name of the column in question
 // data, columns, categories: the respective objects from the store
-IncidentPathComputations.incidentHeightsInColumn = function (incident, columnName, data, columns, categories, showEmptyCategories, viewport) {
-
-  const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(showEmptyCategories, viewport, data, columns, categories, columnName)
+IncidentPathComputations.incidentHeightsInColumn = function (incident, columnName, data, columns, categories, showEmptyCategories, viewport, categoryVerticalPositions) {
 
   const filteredIncidents = IncidentComputations.filteredIncidents(data, columns, categories)
 

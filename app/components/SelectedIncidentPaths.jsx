@@ -2,7 +2,7 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 const Immutable = require('immutable')
 
-const ColumnComputations = require('../ColumnComputations.js')
+const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 
 
@@ -10,6 +10,16 @@ const IncidentPathComputations = require('../IncidentPathComputations.js')
 class SelectedIncidentPaths extends React.Component {
 
   departureHeights() {
+
+    const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.columnName
+    )
+
     return IncidentPathComputations.incidentHeightsInColumn(
       this.props.selectedIncident,
       this.props.columnName,
@@ -17,7 +27,8 @@ class SelectedIncidentPaths extends React.Component {
       this.props.columns,
       this.props.categories,
       this.props.showEmptyCategories,
-      this.props.viewport
+      this.props.viewport,
+      categoryVerticalPositions
     )
   }
 
@@ -46,6 +57,15 @@ class SelectedIncidentPaths extends React.Component {
       return Immutable.List()
     }
 
+    const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      nextColumnName
+    )
+
     return IncidentPathComputations.incidentHeightsInColumn(
       this.props.selectedIncident,
       nextColumnName,
@@ -53,26 +73,42 @@ class SelectedIncidentPaths extends React.Component {
       this.props.columns,
       this.props.categories,
       this.props.showEmptyCategories,
-      this.props.viewport
+      this.props.viewport,
+      categoryVerticalPositions
     )
   }
 
   sidebarDestinationHeights() {
 
     // Is there a sidebar column to draw to?
-    const sidebarColumns = ColumnComputations.sidebarColumns(this.props.columns)
+    const sidebarColumns = WorkspaceComputations.sidebarColumns(this.props.columns)
     const sidebarColumnRight = sidebarColumns.count() > 0 && sidebarColumns.get(0) !== 'map'
 
     if (!sidebarColumnRight) {
       return Immutable.List()
     }
 
-    const destinationHeights = []
-    // get all the categories this incident belongs to
-    // get its vertical position in all of those categories
-    // add a point per category
+    const sidebarCategoryVerticalPositions = WorkspaceComputations.sidebarCategoryVerticalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      sidebarColumns.get(0)
+    )
 
-    return destinationHeights
+    return IncidentPathComputations.incidentHeightsInColumn(
+      this.props.selectedIncident,
+      sidebarColumns.get(0),
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      sidebarCategoryVerticalPositions
+    )
+
+
   }
 
 
@@ -98,8 +134,8 @@ class SelectedIncidentPaths extends React.Component {
     // }
 
 
-    // console.log(this.props.columnName, departureHeights.toJS())
-    // console.log(this.props.columnName, destinationHeights.toJS())
+    console.log(this.props.columnName, departureHeights.toJS())
+    console.log(this.props.columnName, destinationHeights.toJS())
     return null
     return paths
 
