@@ -3,7 +3,6 @@ const ReactRedux = require('react-redux')
 
 const Filterbox = require('./Filterbox.jsx')
 const Constants = require('../Constants.js')
-const ColumnPaths = require('./ColumnPaths.jsx')
 const Tr = require('../TranslationTable.js')
 const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
 const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
@@ -132,7 +131,7 @@ class Category extends React.Component {
 
   handleMouseEnter() {
     this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
-    console.log('handler works')
+    //console.log('handler works')
   }
   handleMouseLeave() {
     this.props.onMouseLeave()
@@ -143,11 +142,10 @@ class Category extends React.Component {
 
     if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
       this.props.columnName === this.props.categoryHoverState.get('columnName')) {
-      console.log(this.props.categoryName)
-      strokeWidth = '1px'
+      strokeWidth = Constants.getIn('categoryStrokeWidth')
     } 
     else {
-      strokeWidth = '0px'
+      strokeWidth = '0'
     }
 
     const transformString = `translate(${this.props.x}, ${this.props.y})`

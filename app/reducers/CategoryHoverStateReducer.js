@@ -5,7 +5,6 @@ const CategoryHoverStateReducer = (state = Immutable.Map({columnName: null, cate
   switch(action.type) {
 
   case 'CategoryHoverState':
-    console.log('reducer works')
     return Immutable.Map({columnName: action.columnName, categoryName: action.categoryName}) 
     
 

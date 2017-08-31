@@ -131,6 +131,13 @@ const Constants = Immutable.fromJS({
     columnHoverOffset: -3,
   },
 
+  columnPaths: {
+    defaultColumn: '#ccc',
+    columnHovered: '#666666',
+    notColumnHovered: '#e6e6e6',
+
+  },
+
   filterbox: {
     labelOffset: 3,
 
@@ -277,6 +284,7 @@ const Constants = Immutable.fromJS({
   maxCategoryLabelLines: 3,
   categoryLabelTerminatingDots: 3,
   categoryLabelLineLength: 14,
+  categoryStrokeWidth: 1,
 
 })
 

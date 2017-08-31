@@ -180,27 +180,30 @@ class ColumnPaths extends React.Component {
     return pathArray
   }
 
-  //hoverLogic() {
-    //let opacity
-    //let fillPath
+  hoverLogic (sourceCategory, destinationCategory, destinationColumnName) {
 
-    //connect the hover from category to here
-    // Three cases:
-    //    1. it is the thing hovered
-    //    2. it is not the thing hovered
-    //    3. nothing is hovered
-    //return the opacity and fillPath for the cases
+    const isDestinationCategoryHovered = (this.props.categoryHoverState.get('categoryName') === destinationCategory.categoryName) &&
+      this.props.categoryHoverState.get('columnName') === destinationColumnName
+    
+    const isCategoryHovered = (this.props.categoryHoverState.get('categoryName') === sourceCategory.categoryName) &&
+      this.props.categoryHoverState.get('columnName') === this.props.columnName
+    const isAnythingHovered = this.props.categoryHoverState.get('columnName') !== null
+      
+    if (!isAnythingHovered) {
+      return Constants.getIn(['columnPaths', 'defaultColumn'])
+    }
+    else if (isCategoryHovered === true && isAnythingHovered === true) {
+      return Constants.getIn(['columnPaths', 'columnHovered'])
+    }
+    else if (isDestinationCategoryHovered === true) {
+      return Constants.getIn(['columnPaths', 'columnHovered'])
+    }
+    else if (isCategoryHovered === false && isAnythingHovered === true) {
+      return Constants.getIn(['columnPaths', 'notColumnHovered'])
+    }
+  } 
 
-// if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
-//       this.props.columnName === this.props.categoryHoverState.get('columnName')) {
-//       strokeWidth = '1px'
-//       fill = 'black'
-//       console.log(this.props.categoryName)
-//     }
-//     else {
-//       strokeWidth = '0px'
-//       fill = '#666666'
-//     }
+
 
   buildPathsForCategory(sourceColumn, sourceCategory, destinationColumn) {
     
@@ -224,7 +227,10 @@ class ColumnPaths extends React.Component {
       d += `${sourceColumn.x + curveControlThreshold} ${sourceColumnY + sourceCurveHeight} `
       d += `${sourceColumn.x} ${sourceColumnY + sourceCurveHeight}`
 
-      const currentPath = <path d={d} className='ColumnPaths' key={sourceCategory.categoryName + destinationCategory.categoryName}/>
+      const currentPath = <path d={d} 
+        fill={this.hoverLogic(sourceCategory, destinationCategory, destinationColumn.name)} 
+        className='ColumnPaths' 
+        key={sourceCategory.categoryName + destinationCategory.categoryName}/>
       pathsForCategory.push(currentPath)
 
       sourceCategory.y += sourceCurveHeight
@@ -240,8 +246,8 @@ class ColumnPaths extends React.Component {
   render() {
     return <g>
       {this.paths()}
+      }
     </g>
-    console.log('hi')
   }
 }
 
