@@ -1,10 +1,11 @@
 
-function SnapColumnCreator (columnName, oldX, newX) {
+function SnapColumnCreator (columnName, oldX, newX, viewport) {
   return {
     type: 'SnapColumn',
     columnName: columnName,
     oldX: oldX,
-    newX: newX
+    newX: newX,
+    viewport: viewport
   }
 }
 

@@ -1,12 +1,12 @@
 const Webpack = require('webpack')
 const Path = require('path')
 
-const BUILD_DIR = Path.resolve(__dirname, 'dist')
+const BUILD_DIR = Path.resolve(__dirname, 'public/script')
 
 
 module.exports = {
   entry: {
-    bundle: ['./app/App.jsx']
+    bundle: ['./app/app.jsx']
     // bundle: ['webpack-hot-middleware/client', './app/app.jsx'] // , 'webpack/hot/dev-server'
     // html: './app/app.html'
   },

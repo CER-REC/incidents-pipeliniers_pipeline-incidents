@@ -1,10 +1,11 @@
 
-function AddColumnAtPositionCreator (columnName, oldX, newX) {
+function AddColumnAtPositionCreator (columnName, oldX, newX, viewport) {
   return {
     type: 'AddColumnAtPosition',
     columnName: columnName,
     oldX: oldX, 
-    newX: newX
+    newX: newX,
+    viewport: viewport,
   }
 }
 

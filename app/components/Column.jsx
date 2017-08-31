@@ -276,7 +276,7 @@ class Column extends React.Component {
     this.props.onColumnDragEnded(false)
     const newX = this.props.columnDragStatus.get('newX') - 
                  this.props.columnDragStatus.get('offset')
-    this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX)
+    this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
 
     // Remove the window event handlers previously attached.
     window.removeEventListener('mouseup', columnWindowEndHandler)
@@ -313,7 +313,7 @@ class Column extends React.Component {
     this.props.onSidebarDragEnded(false)
     const newX = this.props.sidebarDragStatus.get('newX') - 
                  this.props.sidebarDragStatus.get('offset')
-    this.props.onSidebarColumnSnap(this.props.sidebarDragStatus.get('columnName'), this.props.sidebarDragStatus.get('oldX'), newX)
+    this.props.onSidebarColumnSnap(this.props.sidebarDragStatus.get('columnName'), this.props.sidebarDragStatus.get('oldX'), newX, this.props.viewport)
 
     // Remove the window event handlers previously attached.
     window.removeEventListener('mouseup', sidebarWindowEndHandler)
@@ -510,8 +510,8 @@ const mapDispatchToProps = dispatch => {
     onColumnDragEnded: (isStarted) => {
       dispatch(DragColumnEndedCreator(isStarted))
     },
-    onColumnSnap: (columnName, oldX, newX) => {
-      dispatch(SnapColumnCreator(columnName, oldX, newX))
+    onColumnSnap: (columnName, oldX, newX, viewport) => {
+      dispatch(SnapColumnCreator(columnName, oldX, newX, viewport))
     },
     onSidebarColumnClicked: (columnName) => {
       dispatch(AddColumnCreator(columnName))
@@ -525,8 +525,8 @@ const mapDispatchToProps = dispatch => {
     onSidebarDrag: (newX) => {
       dispatch(DragSidebarColumnCreator(newX))
     },
-    onSidebarColumnSnap: (columnName, oldX, newX) => {
-      dispatch(AddColumnAtPositionCreator(columnName, oldX, newX))
+    onSidebarColumnSnap: (columnName, oldX, newX, viewport) => {
+      dispatch(AddColumnAtPositionCreator(columnName, oldX, newX, viewport))
     }
   }
 }
