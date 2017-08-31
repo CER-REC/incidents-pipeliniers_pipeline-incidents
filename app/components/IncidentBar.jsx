@@ -22,6 +22,12 @@ class IncidentBar extends React.Component {
     }
   }
 
+  pinnedIncidents() {
+    return this.props.pinnedIncidents.map(incident => {
+      return <IncidentPopover key={incident.get('incidentNumber')} incident={incident}/>
+    })
+  }
+
   render() {
     //TODO: put as many of the popovers as needed (max 5)
     //if empty, produce an empty array
@@ -31,7 +37,7 @@ class IncidentBar extends React.Component {
      
 
       {this.selectedIncident()}
-
+      {this.pinnedIncidents()}
     </g>
   }
 }
@@ -39,7 +45,8 @@ class IncidentBar extends React.Component {
 const mapStateToProps = state => {
   return {
     viewport: state.viewport,
-    selectedIncident: state.selectedIncident
+    selectedIncident: state.selectedIncident,
+    pinnedIncidents: state.pinnedIncidents
   }
 }
 

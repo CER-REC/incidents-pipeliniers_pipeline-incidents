@@ -6,6 +6,8 @@ const Constants = require('../Constants.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
+const AddPinnedIncidentCreator = require('../actionCreators/AddPinnedIncidentCreator.js')
+const RemovePinnedIncidentCreator = require('../actionCreators/RemovePinnedIncidentCreator.js')
 
 require('./IncidentPopover.scss')
 
@@ -31,21 +33,36 @@ class IncidentPopover extends React.Component {
     const transformPopoverBody = `translate(${popoverX},${showPopoverBodyY})`
     const lineHeight = Constants.getIn(['incidentPopover', 'lineHeight'])
 
+    let imagePath = 'images/unpinned.svg'
+    if(this.props.pinnedIncidents.contains(this.props.incident)) {
+      imagePath = 'images/pinned.svg'
+    }
+
     return <g transform = {transformPopoverBody}>
-      
       <text className="subpop">
-        <tspan x={0} dy=".6em">{this.props.selectedIncident.get('incidentNumber')}</tspan>
-        <tspan x={0} dy={lineHeight}>Near {this.props.selectedIncident.get('nearestPopulatedCentre')}</tspan>
+        <tspan x={0} dy=".6em">{this.props.incident.get('incidentNumber')}</tspan>
+        <tspan x={0} dy={lineHeight}>Near {this.props.incident.get('nearestPopulatedCentre')}</tspan>
         <tspan x={0} dy={lineHeight}>Date reported:</tspan>
-        <tspan x={0} dy={lineHeight}>{(this.props.selectedIncident.get('reportedDate').format('DD/MM/YYYY'))}</tspan>
+        <tspan x={0} dy={lineHeight}>{(this.props.incident.get('reportedDate').format('DD/MM/YYYY'))}</tspan>
       </text>
       <image 
+        className = 'pinIcon'
         height = {pinHeight} 
         width = {pinWidth} 
         x={Constants.getIn(['incidentPopover', 'pinIconXY'])}
         y={Constants.getIn(['incidentPopover', 'pinIconXY'])}
-        xlinkHref='images/unpinned.svg'></image>
+        xlinkHref={imagePath}
+        onClick={this.handlePinClick.bind(this)}></image>
     </g>
+  }
+
+  handlePinClick() {
+    if(this.props.pinnedIncidents.contains(this.props.incident)) {
+      this.props.unpinIncident(this.props.incident)
+    }
+    else {
+      this.props.pinIncident(this.props.incident)
+    }
   }
 
   //TODO: handle the case where no columns are displayed
@@ -78,7 +95,7 @@ class IncidentPopover extends React.Component {
 
     // TODO: This crashes when the selected incident belongs to multiple 
     // categories.
-    const categoryName = this.props.selectedIncident.get(this.props.columns.get(0))
+    const categoryName = this.props.incident.get(this.props.columns.get(0))
 
     const incidents = IncidentComputations.filteredIncidents(this.props.data, this.props.columns, this.props.categories)
     const incidentsSubset = IncidentComputations.categorySubset(
@@ -86,7 +103,7 @@ class IncidentPopover extends React.Component {
       this.props.columns.get(0), 
       categoryName)
 
-    const incidentIndex = incidentsSubset.indexOf(this.props.selectedIncident)
+    const incidentIndex = incidentsSubset.indexOf(this.props.incident)
     const y = categoryYCoordinates.get(categoryName) + categoryHeights.get(categoryName) * (incidentIndex/incidentsSubset.count())
     const transformLine = `translate(0,${y})`
 
@@ -129,7 +146,19 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    pinnedIncidents: state.pinnedIncidents
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(IncidentPopover)
+const mapDispatchToProps = dispatch => {
+  return {
+    pinIncident: (incident) => {
+      dispatch(AddPinnedIncidentCreator(incident))
+    },
+    unpinIncident: (incident) => {
+      dispatch(RemovePinnedIncidentCreator(incident))
+    }
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentPopover)
