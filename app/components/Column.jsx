@@ -17,6 +17,8 @@ const ColumnPaths = require('./ColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
+const SelectedIncidentPaths = require('./SelectedIncidentPaths.jsx')
+const IncidentPathComputations = require('../IncidentPathComputations.js')
 
 const COLUMN_TYPE = {
   SIDEBAR: 'SIDEBAR',
@@ -46,6 +48,7 @@ class Column extends React.Component {
       this.props.columnName) 
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
+    // TODO: use the new WorkspaceComputations.categoryVerticalPositions
     let categoryY = WorkspaceComputations.columnY()
 
     const displayedCategories = CategoryComputations.displayedCategories(
@@ -76,6 +79,7 @@ class Column extends React.Component {
           width={ columnMeasurements.get('width') }
           x={ columnMeasurements.get('x') }
           y={currentY}
+          columnType={this.props.columnType}
         />
       }).toArray()
   }
@@ -210,6 +214,7 @@ class Column extends React.Component {
         width={ columnMeasurements.get('width') }
         x={ columnMeasurements.get('x') }
         y={currentY}
+        columnType={this.props.columnType}
       />
 
     }).toArray()
@@ -342,41 +347,6 @@ class Column extends React.Component {
     this.props.onSidebarColumnClicked(this.props.columnName)
   }
 
-  render() {
-    switch(this.props.columnType) {
-    case COLUMN_TYPE.SIDEBAR: {
-      return <g 
-        transform={this.sidebarColumnTransform()}
-        className='Column' 
-        id={this.props.columnName}
-        onMouseDown={this.handleSidebarDragStart.bind(this)}
-        onMouseMove={this.handleSidebarDragMove.bind(this)}
-        onMouseUp={this.handleSidebarDragEnd.bind(this)}
-        onMouseEnter={this.handleMouseEnter.bind(this)}
-        onMouseLeave={this.handleMouseLeave.bind(this)}>
-        {this.sideBarColumn()}
-        <text>
-          {this.sidebarHeading()}
-        </text>
-      </g>
-    }
-    case COLUMN_TYPE.WORKSPACE:
-    default: {
-      return <g 
-        transform={this.columnTransform()}>
-        <text>
-          {this.barHeading()}
-          {this.barSubHeading()}
-        </text>
-        { this.columnPaths() }
-        { this.nonEmptyCategories() }
-        { this.emptyCategories() }
-        { this.dragArrow() }
-      </g>
-    }
-    }
-  }
-
   splitHeading() {
     const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language])
     const splitIndex = columnHeading.lastIndexOf(' ')
@@ -449,6 +419,7 @@ class Column extends React.Component {
           width={ this.props.columnWidth }
           x={ this.props.columnX }
           y={currentY}
+          columnType={this.props.columnType}
         />
       }).toArray()
   }
@@ -478,6 +449,49 @@ class Column extends React.Component {
       </tspan>
     })
   }
+
+
+  render() {
+    switch(this.props.columnType) {
+    case Constants.getIn(['columnTypes', 'SIDEBAR']): {
+      return <g 
+        transform={this.sidebarColumnTransform()}
+        className='Column' 
+        id={this.props.columnName}
+        onMouseDown={this.handleSidebarDragStart.bind(this)}
+        onMouseMove={this.handleSidebarDragMove.bind(this)}
+        onMouseUp={this.handleSidebarDragEnd.bind(this)}
+        onMouseEnter={this.handleMouseEnter.bind(this)}
+        onMouseLeave={this.handleMouseLeave.bind(this)}>
+        {this.sideBarColumn()}
+        <text>
+          {this.sidebarHeading()}
+        </text>
+
+      </g>
+    }
+    case Constants.getIn(['columnTypes', 'WORKSPACE']):
+    default: {
+      return <g
+        transform={this.columnTransform()}
+      >
+        <text>
+          {this.barHeading()}
+          {this.barSubHeading()}
+        </text>
+        { this.columnPaths() }
+        <SelectedIncidentPaths 
+          columnName = { this.props.columnName }
+          categoryName = { this.props.categoryName }
+        />
+        { this.nonEmptyCategories() }
+        { this.emptyCategories() }
+        { this.dragArrow() }
+      </g>
+    }
+    }
+  }
+
 }
 
 const mapStateToProps = state => {
@@ -487,9 +501,10 @@ const mapStateToProps = state => {
     categories: state.categories,
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
+    language: state.language,
+    selectedIncident: state.selectedIncident,
     columnDragStatus: state.columnDragStatus,
     sidebarDragStatus: state.sidebarDragStatus,
-    language: state.language
   }
 }
 

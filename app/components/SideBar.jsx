@@ -7,11 +7,6 @@ const Constants = require('../Constants.js')
 
 require('./Sidebar.scss')
 
-const COLUMN_TYPE = {
-  SIDEBAR: 'SIDEBAR',
-  WORKSPACE: 'WORKSPACE'
-}
-
 class Sidebar extends React.Component {
 
   // TODO: we should think about sidebar rendering in two special cases:
@@ -60,7 +55,7 @@ class Sidebar extends React.Component {
         return <Column 
           columnName={columnName} 
           key={columnName} 
-          columnType={COLUMN_TYPE.SIDEBAR}
+          columnType = { Constants.getIn(['columnTypes', 'SIDEBAR']) }
           columnWidth={columnWidth}
           columnHeight={columnHeight}
           columnX={columnX}
