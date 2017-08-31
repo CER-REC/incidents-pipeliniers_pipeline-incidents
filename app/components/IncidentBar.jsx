@@ -41,17 +41,39 @@ class IncidentBar extends React.Component {
       this.props.showEmptyCategories,
       this.props.viewport,
       categoryVerticalPositions
-    )
+    ).get(0)
+  }
+
+  boxSize(incidentCount) {
+    const availableHeight = WorkspaceComputations.baselineHeight(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data, 
+      this.props.columns,
+      this.props.categories) - 
+    Constants.getIn(['showHideEmptyCategories', 'fontSize']) - 
+    WorkspaceComputations.columnY()
+
+    if(availableHeight/incidentCount < Constants.getIn(['incidentPopover', 'popupHeight'])) {
+      return availableHeight / incidentCount
+    }
+
+    return Constants.getIn(['incidentPopover', 'popupHeight'])
   }
 
   pinnedIncidents() {
-    let index = 0
+    let pinnedIncidents = this.props.pinnedIncidents
+    if(this.props.pinnedIncidents.count() === 0) {
+      return this.selectedIncident()
+    }
+    else if(this.props.selectedIncident !== null) {
+      pinnedIncidents = this.props.pinnedIncidents.push(this.props.selectedIncident)
+    }
 
-    return this.props.pinnedIncidents.sort((a,b) => this.incidentHeight(a) > this.incidentHeight(b)).map(incident => {
-      let y = (Constants.getIn(['incidentPopover', 'popupHeight']) * index) + WorkspaceComputations.columnY()
-      if(this.props.selectedIncident !== null) {
-        y += Constants.getIn(['incidentPopover', 'popupHeight'])
-      }
+    let index = 0
+    const boxSize = this.boxSize(pinnedIncidents.count())
+    return pinnedIncidents.sort((a,b) => this.incidentHeight(a) > this.incidentHeight(b)).map(incident => {
+      const y = (boxSize * index) + WorkspaceComputations.columnY()
       index += 1
 
       return <IncidentPopover key={incident.get('incidentNumber')} incident={incident} y={y}/>
@@ -63,10 +85,6 @@ class IncidentBar extends React.Component {
     //if empty, produce an empty array
     //show only the selected and pinned incidents
     return <g>
-
-     
-
-      {this.selectedIncident()}
       {this.pinnedIncidents()}
     </g>
   }
