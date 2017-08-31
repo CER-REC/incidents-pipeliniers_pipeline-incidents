@@ -106,11 +106,15 @@ class IncidentPopover extends React.Component {
     const incidentIndex = incidentsSubset.indexOf(this.props.incident)
     let y = categoryYCoordinates.get(categoryName) + categoryHeights.get(categoryName) * (incidentIndex/incidentsSubset.count())
 
-    // Handle the case when the map is the first column. Ideally, one 
+    // 1) Handle the case when the map is the first column. Ideally, one 
     // would want the line to connect to the incident point on the map,
     // but this is up to the design team to decide. For now, all incidents
     // will be stacked starting at the top left corner of the map.
-    if(this.props.columns.get(0) === 'map') {
+    // 2) Handle the case when the incident does not belong to the first
+    // column. In this case, the incident will be hooked to the top left
+    // corner of the map
+    if(this.props.columns.get(0) === 'map' ||
+       categoryName === undefined) {
       y = WorkspaceComputations.columnY()
     }
 
