@@ -277,7 +277,10 @@ const Constants = Immutable.fromJS({
   tripleLineCategoryLabelHeight: 45,
   maxCategoryLabelLines: 3,
   categoryLabelTerminatingDots: 3,
-  categoryLabelLineLength: 14
+  categoryLabelLineLength: 14,
+
+  selectedIncidentPathControlPointOffset: 30,
+  selectedIncidentPathColour: '#1A1A1A',
 
 })
 

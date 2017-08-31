@@ -5,7 +5,7 @@ const D3 = require('d3')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
-
+const Constants = require('../Constants.js')
 
 
 class SelectedIncidentPaths extends React.Component {
@@ -152,41 +152,57 @@ class SelectedIncidentPaths extends React.Component {
 
     const paths = []
 
-    departureHeights.forEach( departureHeight => {
-      destinationHeights.forEach( destinationHeight => {
+    departureHeights.forEach( (departureHeight, i) => {
+      destinationHeights.forEach( (destinationHeight, j) => {
+
+        const departurePoint = {
+          x: departurePositions.get('x') + departurePositions.get('width'),
+          y: departureHeight
+        }
+
+        const destinationPoint = {
+          x: destinationPositions.get('x'),
+          y: destinationHeight
+        }
 
         const d3path = D3.path()
         d3path.moveTo(
-          departurePositions.get('x') + departurePositions.get('width'),
-          departureHeight
+          departurePoint.x,
+          departurePoint.y
         )
 
-        const controlPointX = (
-          departurePositions.get('x') + departurePositions.get('width') + 
-          destinationPositions.get('x')
-        ) / 2
-        
-        // control x, control y, x, y
-        d3path.quadraticCurveTo(
-          controlPointX,
-          (departureHeight + destinationHeight) / 2,
-          destinationPositions.get('x'),
-          destinationHeight)
+        const offset = Constants.get('selectedIncidentPathControlPointOffset')
+
+        d3path.bezierCurveTo(
+          // control point 1
+          departurePoint.x + offset,
+          departurePoint.y,
+
+          // control point 2
+          destinationPoint.x - offset,
+          destinationPoint.y,
+
+          // destination
+          destinationPoint.x,
+          destinationPoint.y
+        )
 
         paths.push(
           <path
             d = { d3path.toString() }
             strokeWidth = '2px'
-            stroke = '#000'
+            stroke = { Constants.get('selectedIncidentPathColour') }
             fill = 'none'
+            key = { `incidentPath-${i}-${j}` }
           /> 
         )
+
 
 
       })
     })
 
-    return <g> { paths } </g>
+    return <g>{ paths }</g>
 
   }
 
@@ -202,7 +218,7 @@ const mapStateToProps = state => {
     categories: state.categories,
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
-    selectedIncident: state.selectedIncident
+    selectedIncident: state.selectedIncident,
   }
 }
 

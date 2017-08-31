@@ -9,6 +9,7 @@ const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
 const SelectedIncidentPaths = require('./SelectedIncidentPaths.jsx')
+const IncidentPathComputations = require('../IncidentPathComputations.js')
 
 const COLUMN_TYPE = {
   SIDEBAR: 'SIDEBAR',
@@ -214,7 +215,56 @@ class Column extends React.Component {
     }
   }
 
+  // These are the faint bars which appear on the columns themselves, indicating
+  // the selected incident's position(s) in the column.
+  selectedIncidentBars() {
 
+    if (this.props.selectedIncident === null) {
+      return null
+    }
+
+    const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.columnName
+    )
+
+    const incidentHeightsInColumn = IncidentPathComputations.incidentHeightsInColumn(
+      this.props.selectedIncident,
+      this.props.columnName,
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      categoryVerticalPositions
+    )
+
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columns', this.props.columnName])
+
+    return incidentHeightsInColumn.map( (height, i) => {
+      return <line 
+        stroke = '#FFF'
+        strokeWidth = '2px'
+        strokeOpacity = '0.5'
+        x1 = { columnMeasurements.get('x') }
+        y1 = { height }
+        x2 = { columnMeasurements.get('x') + columnMeasurements.get('width') }
+        y2 = { height }
+        key = { i }
+      />
+    }).toArray()
+
+  }
 
 
   handleMouseEnter() {
@@ -222,41 +272,6 @@ class Column extends React.Component {
   }
   handleMouseLeave() {
     this.props.onMouseLeave()
-  }
-
-  render() {
-    switch(this.props.columnType) {
-    case COLUMN_TYPE.SIDEBAR: {
-      return <g 
-        className='Column' 
-        id={this.props.columnName}
-        onMouseEnter={this.handleMouseEnter.bind(this)}
-        onMouseLeave={this.handleMouseLeave.bind(this)}>
-        {this.sideBarColumn()}
-        <text>
-          {this.sidebarHeading()}
-        </text>
-
-      </g>
-    }
-    case COLUMN_TYPE.WORKSPACE:
-    default: {
-      return <g>
-        <text>
-          {this.barHeading()}
-          {this.barSubHeading()}
-        </text>
-        { this.columnPaths() }
-        { this.nonEmptyCategories() }
-        { this.emptyCategories() }
-        { this.dragArrow() }
-        <SelectedIncidentPaths 
-          columnName = { this.props.columnName }
-          categoryName = { this.props.categoryName }
-        />
-      </g>
-    }
-    }
   }
 
   splitHeading() {
@@ -336,6 +351,44 @@ class Column extends React.Component {
       </tspan>
     })
   }
+
+
+  render() {
+    switch(this.props.columnType) {
+    case COLUMN_TYPE.SIDEBAR: {
+      return <g 
+        className='Column' 
+        id={this.props.columnName}
+        onMouseEnter={this.handleMouseEnter.bind(this)}
+        onMouseLeave={this.handleMouseLeave.bind(this)}>
+        {this.sideBarColumn()}
+        <text>
+          {this.sidebarHeading()}
+        </text>
+
+      </g>
+    }
+    case COLUMN_TYPE.WORKSPACE:
+    default: {
+      return <g>
+        <text>
+          {this.barHeading()}
+          {this.barSubHeading()}
+        </text>
+        { this.columnPaths() }
+        <SelectedIncidentPaths 
+          columnName = { this.props.columnName }
+          categoryName = { this.props.categoryName }
+        />
+        { this.nonEmptyCategories() }
+        { this.selectedIncidentBars() }
+        { this.emptyCategories() }
+        { this.dragArrow() }
+      </g>
+    }
+    }
+  }
+
 }
 
 const mapStateToProps = state => {
@@ -346,6 +399,7 @@ const mapStateToProps = state => {
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
     language: state.language,
+    selectedIncident: state.selectedIncident,
   }
 }
 

@@ -3,7 +3,6 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
-const Constants = require('../Constants.js')
 
 require('./ColumnPaths.scss')
 
