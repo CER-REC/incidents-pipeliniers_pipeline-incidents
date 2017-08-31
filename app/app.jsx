@@ -1,3 +1,5 @@
+require('babel-polyfill')
+
 const ReactDOM = require('react-dom')
 const DomReady = require('domready')
 const ReactRedux = require('react-redux')
@@ -6,6 +8,8 @@ const React = require('react')
 const Constants = require('./Constants.js')
 const Root = require('./components/Root.jsx')
 const Resized = require('./actionCreators/ResizeScreenCreator.js')
+const DragColumn = require('./actionCreators/DragColumnCreator.js')
+const DragColumnEnded = require('./actionCreators/DragColumnEndedCreator.js')
 const store = require('./Store.js')()
 const DataLoader = require('./DataLoader.js')
 

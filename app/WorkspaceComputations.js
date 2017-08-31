@@ -164,7 +164,7 @@ WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport,
 // Returns an immutable map of category names to category heights, for the given
 // column name in the sidebar.
 WorkspaceComputations.sideBarCategoryHeights = function (columnHeight, showEmptyCategories, viewport, data, columns, categories, columnName) {
-  let relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
+  const relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
 
   // TODO: currently, we place no limits on the space the related hidden
   // categories can take up. I suspect this number will always be small, but if
@@ -322,10 +322,49 @@ WorkspaceComputations.horizontalPositions = function(showEmptyCategories, viewpo
   }
 }
 
+WorkspaceComputations.mapDragWidth = function(viewport) {
+  const height = viewport.get('y') - 
+                 WorkspaceComputations.topBarHeight() - 
+                 Constants.get('bottomOuterMargin') -
+                 Constants.get('columnHeadingHeight')
+  return height * Constants.getIn(['map', 'widthHeightRatio'])
+}
 
+WorkspaceComputations.stepWidth = function(columns, viewport) {
+  if (WorkspaceComputations.useScrollingWorkspace(columns)) {
+    return WorkspaceComputations.stepWidthWithScroll()
+  }
+  else {
+    return WorkspaceComputations.stepWidthFixedWidth(columns, viewport)
+  }
+}
 
+WorkspaceComputations.stepWidthFixedWidth = function(columns, viewport) {
+  const workspaceWidth = viewport.get('x')
 
+  // Sum up how much space is available for the columns and paths.
+  let remainingSpace = workspaceWidth
+  remainingSpace -= Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins']) * 2
+  remainingSpace -= Constants.getIn(['socialBar', 'width']) + Constants.getIn(['socialBar', 'leftMargin'])
+  remainingSpace -= WorkspaceComputations.sidebarWidth(columns)
 
+  // TODO: at this time, the map column never appears in fixed display mode
+  // This math will need to be tweaked if we do permit it in.
+  const ordinaryColumnsCount = WorkspaceComputations.ordinaryColumnsCount(columns)
+  const widthPerOrdinaryColumnAndPath = remainingSpace / ordinaryColumnsCount
+  const widthPerColumn = Constants.get('columnWideWidth')
+  const widthPerColumnPath = widthPerOrdinaryColumnAndPath - widthPerColumn
+
+  return widthPerColumn + widthPerColumnPath
+}
+
+WorkspaceComputations.stepWidthWithScroll = function() {
+  // Columns + Column Paths
+  const widthPerColumn = Constants.get('columnNarrowWidth')
+  const minimumColumnPathWidth = Constants.get('minimumColumnPathWidth')
+
+  return widthPerColumn + minimumColumnPathWidth
+}
 
 
 WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategories, viewport, data, columns, categories) {

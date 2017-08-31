@@ -108,7 +108,6 @@ IncidentComputations.filteredIncidents = function (data, columns, categories) {
 
     })
 
-
   }, data)
 
 

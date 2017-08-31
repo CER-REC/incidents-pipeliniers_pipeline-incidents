@@ -11,11 +11,11 @@ const compiler = Webpack(Config)
 
 module.exports = function () {
   const app = Express()
-  app.use(WebpackDevMiddleware(compiler, {
+  app.use('/script', WebpackDevMiddleware(compiler, {
     // options
   }))
 
-  app.use(WebpackHotMiddleware(compiler))
+  app.use('/script', WebpackHotMiddleware(compiler))
   
   return app
 }

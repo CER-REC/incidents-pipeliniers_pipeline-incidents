@@ -24,7 +24,7 @@ const mapPromise = new Promise ( (resolve, reject) => {
 
   image.onload = () => resolve(image)
 
-  image.setAttribute('src', 'canada.svg')
+  image.setAttribute('src', 'images/canada.svg')
 
 })
 

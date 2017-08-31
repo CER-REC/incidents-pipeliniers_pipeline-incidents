@@ -1,6 +1,8 @@
 node_modules/
-dist/
+public/script/bundle.js
 npm-debug.log
 .DS_Store
 incident-visualization.sublime-workspace
 *.~lock*
+LAST_MODIFIED
+VERSION
