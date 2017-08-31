@@ -3,9 +3,6 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
-const Category = require('./Category')
-const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
-const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
 const Constants = require('../Constants.js')
 
 require('./ColumnPaths.scss')

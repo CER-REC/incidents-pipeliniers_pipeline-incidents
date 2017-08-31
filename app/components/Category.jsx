@@ -3,6 +3,7 @@ const ReactRedux = require('react-redux')
 
 const Filterbox = require('./Filterbox.jsx')
 const Constants = require('../Constants.js')
+const ColumnPaths = require('./ColumnPaths.jsx')
 const Tr = require('../TranslationTable.js')
 const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
 const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
@@ -35,6 +36,7 @@ class Category extends React.Component {
     // with the proper class name. For now, I am assigning a filter box
     // randomly to 20% of the categories for test purposes only. 
     // This will change once the the category hover/selection reducer is inplace.
+
     const isSelected = Math.random() < 0.2
     if(isSelected) {
       labelClassName = 'activeCategoryLabels'
@@ -54,7 +56,7 @@ class Category extends React.Component {
         {labelLines.map((line) => {
           currentY += Constants.get('singleLineCategoryLabelHeight')
           lineCount += 1
-          return <tspan className={labelClassName}
+          return <tspan fill={this.fill} className={labelClassName}             
             key={this.props.categoryName + 'CategoryLabelLine' + lineCount}
             y={currentY}
             x={this.props.width + Constants.get('categoryLabelOffset')}>
@@ -138,27 +140,24 @@ class Category extends React.Component {
 
   render() {
     let strokeWidth
-    let fill
 
     if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
       this.props.columnName === this.props.categoryHoverState.get('columnName')) {
       console.log(this.props.categoryName)
       strokeWidth = '1px'
-      fill = 'black'
     } 
     else {
       strokeWidth = '0px'
-      fill = '#666666'
     }
 
     const transformString = `translate(${this.props.x}, ${this.props.y})`
     return <g 
       transform={transformString}>
       <rect
-        strokeWidth={strokeWidth}
         width={this.props.width}
         height={this.props.height}
         fill={this.props.colour}
+        strokeWidth={strokeWidth}
         className='Category'
         onMouseEnter={this.handleMouseEnter.bind(this)}
         onMouseLeave={this.handleMouseLeave.bind(this)}
