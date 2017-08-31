@@ -13,28 +13,29 @@ const FILTER_TYPE = {
 class Filterbox extends React.Component {
   
   filterButton(filterType) {
-    return <g className='filterBoxButton'>
+    return <g className = 'filterBoxButton'>
       <rect
-        className='filterBoxRect'
-        y={CategoryComputations.filterboxFilterButtonY(this.props.y, filterType)}
-        x={CategoryComputations.filterboxFilterButtonX(this.props.width)}
-        width={Constants.getIn(['filterbox', 'filterButtonWidth'])}
-        height={Constants.getIn(['filterbox', 'filterButtonHeight'])}>
+        className = 'filterBoxRect'
+        y = {CategoryComputations.filterboxFilterButtonY(this.props.y, filterType) }
+        x = { CategoryComputations.filterboxFilterButtonX(this.props.width) }
+        width = { Constants.getIn(['filterbox', 'filterButtonWidth']) }
+        height = { Constants.getIn(['filterbox', 'filterButtonHeight']) } >
       </rect>
       <image 
-        xlinkHref={Constants.getIn(['filterbox', filterType, 'imagePath'])}
-        height = {Constants.getIn(['filterbox', 'iconSize'])}
-        width = {Constants.getIn(['filterbox', 'iconSize'])}
-        x= {CategoryComputations.filterboxFilterButtonImageX(this.props.width)}
-        y= {CategoryComputations.filterboxFilterButtonImageY(this.props.y, filterType)}>
-      </image>
+        xlinkHref = { Constants.getIn(['filterbox', filterType, 'imagePath']) }
+        height = { Constants.getIn(['filterbox', 'iconSize']) }
+        width = { Constants.getIn(['filterbox', 'iconSize']) }
+        x = { CategoryComputations.filterboxFilterButtonImageX(this.props.width) }
+        y = { CategoryComputations.filterboxFilterButtonImageY(this.props.y, filterType) } 
+      />
       <text
         className = 'filterBox'
-        height = {Constants.getIn(['filterbox', 'textHeight'])}
-        width =  {Constants.getIn(['filterbox', 'textWidth'])}
-        x = {CategoryComputations.filterboxFilterButtonTextX(this.props.width)}
-        y = {CategoryComputations.filterboxFilterButtonTextY(this.props.y, filterType)}>
-        {Constants.getIn(['filterbox', filterType, 'text'])}
+        height = { Constants.getIn(['filterbox', 'textHeight']) }
+        width = { Constants.getIn(['filterbox', 'textWidth']) }
+        x = {CategoryComputations.filterboxFilterButtonTextX(this.props.width) }
+        y = {CategoryComputations.filterboxFilterButtonTextY(this.props.y, filterType) }
+      >
+        { Constants.getIn(['filterbox', filterType, 'text']) }
       </text>
     </g>
   }
@@ -69,8 +70,6 @@ class Filterbox extends React.Component {
   }
 
   render() {
-    if(!this.props.isSelected) return null
-
     return <g>
       {this.filterButton(FILTER_TYPE.SHOW_ONLY)}
       {this.filterButton(FILTER_TYPE.HIDE)}

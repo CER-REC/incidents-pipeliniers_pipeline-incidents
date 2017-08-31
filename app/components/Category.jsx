@@ -9,6 +9,7 @@ const BeginIncidentDragCreator = require('../actionCreators/BeginIncidentDragCre
 const UpdateIncidentDragCreator = require('../actionCreators/UpdateIncidentDragCreator.js')
 const EndIncidentDragCreator = require('../actionCreators/EndIncidentDragCreator.js')
 const IncidentSelectionStateCreator = require('../actionCreators/IncidentSelectionStateCreator.js')
+const ActivateFilterboxCreator = require('../actionCreators/ActivateFilterboxCreator.js')
 
 const IncidentComputations = require('../IncidentComputations.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
@@ -70,7 +71,9 @@ class Category extends React.Component {
     currentY -= Constants.get('singleLineCategoryLabelHeight')
 
     return <g>
-      <text>
+      <text
+        onClick = { this.categoryLabelClick.bind(this) }
+      >
         {labelLines.map((line) => {
           currentY += Constants.get('singleLineCategoryLabelHeight')
           lineCount += 1
@@ -84,6 +87,10 @@ class Category extends React.Component {
       </text>
       { this.filterbox(currentY) }
     </g>
+  }
+
+  categoryLabelClick() {
+    this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
   }
 
 
@@ -325,6 +332,9 @@ const mapDispatchToProps = dispatch => {
     },
     selectIncident: (incident) => {
       dispatch(IncidentSelectionStateCreator(incident))
+    },
+    activateFilterbox(columnName, categoryName) {
+      dispatch(ActivateFilterboxCreator(columnName, categoryName))
     }
   }
 }
