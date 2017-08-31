@@ -3,16 +3,11 @@ const ReactRedux = require('react-redux')
 
 const Filterbox = require('./Filterbox.jsx')
 const Constants = require('../Constants.js')
+const Tr = require('../TranslationTable.js')
 const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
 const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
 
 require('./Category.scss')
-require('../styles/Fonts.scss')
-
-const Tr = require('../TranslationTable.js')
-
-require('./Category.scss')
-
 
 const COLUMN_TYPE = {
   SIDEBAR: 'SIDEBAR',
@@ -98,7 +93,7 @@ class Category extends React.Component {
     case 'year':
       // These columns use the category name directly
       // Years are numbers, and we need a string here
-      return this.splitHeading(this.props.categoryName.toString())
+      return this.splitHeading(this.props.categoryName.toString().toUpperCase())
 
     // No categories for map column
     }
@@ -110,8 +105,6 @@ class Category extends React.Component {
     if(label.length <= Constants.get('categoryLabelLineLength')) {
       return [label]
     }
-
-    //const label = fullLabel.toString().toUpperCase()
 
     // Split (' ' or '-') right at the maxmium allows characters per line.
     // Case 1: split right at the line length limit.
@@ -143,7 +136,7 @@ class Category extends React.Component {
     this.props.onMouseLeave()
   }
 
-  categoryHover() {
+  render() {
     let strokeWidth
     let fill
 
@@ -152,22 +145,17 @@ class Category extends React.Component {
       console.log(this.props.categoryName)
       strokeWidth = '1px'
       fill = 'black'
-      return strokeWidth, fill
     } 
     else {
       strokeWidth = '0px'
       fill = '#666666'
-      return strokeWidth, fill
     }
-  }
 
-  render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
-
-    return <g transform={transformString}>
-
-      <rect 
-        strokeWidth={this.props.strokeWidth}
+    return <g 
+      transform={transformString}>
+      <rect
+        strokeWidth={strokeWidth}
         width={this.props.width}
         height={this.props.height}
         fill={this.props.colour}
@@ -175,13 +163,10 @@ class Category extends React.Component {
         onMouseEnter={this.handleMouseEnter.bind(this)}
         onMouseLeave={this.handleMouseLeave.bind(this)}
       />
-      <text fill={this.props.fill}>
-        {this.label()}
-      </text>
-    </g> 
+      {this.label()}
+    </g>
   }
 }
-
 
 const mapStateToProps = state => {
   return {
@@ -189,7 +174,6 @@ const mapStateToProps = state => {
     categoryHoverState: state.categoryHoverState,
   }
 }
-
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -204,5 +188,3 @@ const mapDispatchToProps = dispatch => {
 
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Category)
-
-
