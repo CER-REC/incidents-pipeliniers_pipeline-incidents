@@ -236,9 +236,9 @@ class Category extends React.Component {
 
     return incidentHeightsInColumn.map( (height, i) => {
       return <line 
-        stroke = "#FFF"
-        strokeOpacity = '0.75'
-        strokeWidth = '2px'
+        stroke = { Constants.getIn(['selectedIncidentPath', 'columnBarColour']) }
+        strokeOpacity = { Constants.getIn(['selectedIncidentPath', 'columnBarOpacity']) }
+        strokeWidth = { Constants.getIn(['selectedIncidentPath', 'strokeWidth']) }
         x1 = { columnMeasurements.get('x') }
         y1 = { height }
         x2 = { columnMeasurements.get('x') + columnMeasurements.get('width') }

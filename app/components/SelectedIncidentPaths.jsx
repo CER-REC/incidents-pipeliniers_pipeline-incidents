@@ -171,7 +171,7 @@ class SelectedIncidentPaths extends React.Component {
           departurePoint.y
         )
 
-        const offset = Constants.get('selectedIncidentPathControlPointOffset')
+        const offset = Constants.getIn(['selectedIncidentPath', controlPointOffset])
 
         d3path.bezierCurveTo(
           // control point 1
@@ -190,8 +190,8 @@ class SelectedIncidentPaths extends React.Component {
         paths.push(
           <path
             d = { d3path.toString() }
-            strokeWidth = '2px'
-            stroke = { Constants.get('selectedIncidentPathColour') }
+            strokeWidth = { Constants.getIn(['selectedIncidentPath', 'strokeWidth']) }
+            stroke = { Constants.getIn(['selectedIncidentPath', 'colourBetweenColumns']) }
             fill = 'none'
             key = { `incidentPath-${i}-${j}` }
           /> 
