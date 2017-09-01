@@ -60,7 +60,10 @@ const TranslationTable = Immutable.fromJS({
     }
   },
 
-
+  shown: {
+    en: 'shown',
+    fr: 'TODO',
+  },
 
 
 
