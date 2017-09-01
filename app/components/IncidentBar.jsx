@@ -23,13 +23,41 @@ class IncidentBar extends React.Component {
     }
   }
 
+  pinnedIncidents() {
+    let pinnedIncidents = this.props.pinnedIncidents
+    if(this.props.pinnedIncidents.count() === 0) {
+      return this.selectedIncident()
+    }
+    else if(this.props.selectedIncident !== null) {
+      pinnedIncidents = this.props.pinnedIncidents
+        .push(this.props.selectedIncident)
+    }
+
+    let index = 0
+    const boxSize = this.pinnedIncidentBoxSize(pinnedIncidents.count())
+    return pinnedIncidents.sort((a,b) => 
+      this.incidentHeight(a) > this.incidentHeight(b))
+      .map(incident => {
+        const y = (boxSize * index) + WorkspaceComputations.columnY()
+        index += 1
+        return <IncidentPopover 
+          key={incident.get('incidentNumber')} 
+          incident={incident} 
+          y={y}>
+        </IncidentPopover>
+      })
+  }
+
   incidentHeight(incident) {
-    // Handle the case when the map is the first column. Ideally, one 
+    // 1) Handle the case when the map is the first column. Ideally, one 
     // would want to assign the incident height based on the order of clicks
     // (or geographic distance if feeling too fancy), but this is up to the 
     // design team to decide. For now, all incidents will be assigned an 
     // equal height of zero.
-    if(this.props.columns.get(0) === 'map') return 0
+    // 2) Handle the case when there are no columns in the workspace. In this 
+    // casae, all incidents will be assigned an equal height of zero.
+    if(this.props.columns.count() ===0 ||
+       this.props.columns.get(0) === 'map') return 0
 
     const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
       this.props.showEmptyCategories,
@@ -52,7 +80,7 @@ class IncidentBar extends React.Component {
     ).get(0)
   }
 
-  boxSize(incidentCount) {
+  pinnedIncidentBoxSize(incidentCount) {
     const availableHeight = WorkspaceComputations.baselineHeight(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -69,29 +97,7 @@ class IncidentBar extends React.Component {
     return Constants.getIn(['incidentPopover', 'popupHeight'])
   }
 
-  pinnedIncidents() {
-    let pinnedIncidents = this.props.pinnedIncidents
-    if(this.props.pinnedIncidents.count() === 0) {
-      return this.selectedIncident()
-    }
-    else if(this.props.selectedIncident !== null) {
-      pinnedIncidents = this.props.pinnedIncidents.push(this.props.selectedIncident)
-    }
-
-    let index = 0
-    const boxSize = this.boxSize(pinnedIncidents.count())
-    return pinnedIncidents.sort((a,b) => this.incidentHeight(a) > this.incidentHeight(b)).map(incident => {
-      const y = (boxSize * index) + WorkspaceComputations.columnY()
-      index += 1
-
-      return <IncidentPopover key={incident.get('incidentNumber')} incident={incident} y={y}/>
-    })
-  }
-
   render() {
-    //TODO: put as many of the popovers as needed (max 5)
-    //if empty, produce an empty array
-    //show only the selected and pinned incidents
     return <g>
       {this.pinnedIncidents()}
     </g>

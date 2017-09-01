@@ -1,7 +1,6 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
-const IncidentBar = require('./IncidentBar.jsx')
 const Constants = require('../Constants.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
@@ -65,9 +64,24 @@ class IncidentPopover extends React.Component {
     }
   }
 
-  //TODO: handle the case where no columns are displayed
-  //TODO: what happens if the leftmost column is the map? 
   showYLine() {
+    // Returning the name of the [first] category that the
+    // incident belongs to in the first column.
+    const categoryName = IncidentComputations.firstCategoryName(this.props.columns, this.props.incident)
+
+    // 1) Handle the case when the map is the first column. Ideally, one 
+    // would want the line to connect to the incident point on the map,
+    // but this is up to the design team to decide.
+    // 2) Handle the case when the incident does not belong to the first
+    // column.
+    // 3) Handle the case when there are no columns present in the 
+    // workspace. 
+    // In these cases, the line will not be rendered.
+    if(this.props.columns.count() === 0 ||
+       categoryName === null) {
+      return null
+    }
+
     const categoryHeights = WorkspaceComputations.categoryHeights(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -93,10 +107,6 @@ class IncidentPopover extends React.Component {
         return currentY
       })
 
-    // Returning the name of the [first] category that the
-    // incident belongs to in the first column.
-    const categoryName = this.firstCategoryName()
-
     const incidents = IncidentComputations.filteredIncidents(this.props.data, this.props.columns, this.props.categories)
     const incidentsSubset = IncidentComputations.categorySubset(
       incidents, 
@@ -104,20 +114,7 @@ class IncidentPopover extends React.Component {
       categoryName)
 
     const incidentIndex = incidentsSubset.indexOf(this.props.incident)
-    let y = categoryYCoordinates.get(categoryName) + categoryHeights.get(categoryName) * (incidentIndex/incidentsSubset.count())
-
-    // 1) Handle the case when the map is the first column. Ideally, one 
-    // would want the line to connect to the incident point on the map,
-    // but this is up to the design team to decide. For now, all incidents
-    // will be stacked starting at the top left corner of the map.
-    // 2) Handle the case when the incident does not belong to the first
-    // column. In this case, the incident will be hooked to the top left
-    // corner of the map
-    if(this.props.columns.get(0) === 'map' ||
-       categoryName === undefined) {
-      y = WorkspaceComputations.columnY()
-    }
-
+    const y = categoryYCoordinates.get(categoryName) + categoryHeights.get(categoryName) * (incidentIndex/incidentsSubset.count())
     const transformLine = `translate(0,${y})`
 
     const lineHeightX = Constants.getIn(['incidentPopover', 'lineHeightX'])
@@ -135,22 +132,6 @@ class IncidentPopover extends React.Component {
     </svg>
   }
 
-  firstCategoryName() {
-    switch (this.props.columns.get(0)) {
-
-    // Four of the columns have 'multiple selections', where an item can belong
-    // to more than one category at once. These need different handling ... 
-    case 'incidentTypes':
-    case 'pipelineSystemComponentsInvolved':
-    case 'whatHappened':
-    case 'whyItHappened':
-      return this.props.incident.get(this.props.columns.get(0)).get(0)
-
-    default: 
-      return this.props.incident.get(this.props.columns.get(0))
-    }
-  }
-
   render() {
     return <g transform='translate(0,0)'>
       {this.showPopoverBody()}
@@ -158,13 +139,6 @@ class IncidentPopover extends React.Component {
       {this.showYLine()}
     </g>
   }
-  /**
-    TODO: Should show popover when selected
-    cursor should change to pointer
-    pinned and unpinned image needs to update depending on selection
-    popover should disappear when user clicks away
-  **/
-
 }
 
 const mapStateToProps = state => {
