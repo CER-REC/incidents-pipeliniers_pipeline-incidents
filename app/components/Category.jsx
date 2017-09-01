@@ -92,6 +92,9 @@ class Category extends React.Component {
   }
 
   categoryLabelClick() {
+    if (!this.props.enableCategoryHeadingClick) {
+      return
+    }
     this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
   }
 

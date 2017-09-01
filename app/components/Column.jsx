@@ -77,6 +77,7 @@ class Column extends React.Component {
           x={ columnMeasurements.get('x') }
           y={currentY}
           columnType={this.props.columnType}
+          enableCategoryHeadingClick = { true }
         />
       }).toArray()
   }
@@ -221,6 +222,7 @@ class Column extends React.Component {
         x={ columnMeasurements.get('x') }
         y={currentY}
         columnType={this.props.columnType}
+        enableCategoryHeadingClick = { false }
       />
 
     }).toArray()
@@ -426,6 +428,7 @@ class Column extends React.Component {
           x={ this.props.columnX }
           y={currentY}
           columnType={this.props.columnType}
+          enableCategoryHeadingClick = { false }
         />
       }).toArray()
   }
