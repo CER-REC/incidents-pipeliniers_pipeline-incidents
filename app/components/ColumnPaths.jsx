@@ -4,6 +4,7 @@ const ReactRedux = require('react-redux')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
+const Constants = require('../Constants.js')
 
 require('./ColumnPaths.scss')
 
@@ -181,6 +182,31 @@ class ColumnPaths extends React.Component {
     return pathArray
   }
 
+  hoverLogic (sourceCategory, destinationCategory, destinationColumnName) {
+
+    const isDestinationCategoryHovered = (this.props.categoryHoverState.get('categoryName') === destinationCategory.categoryName) &&
+      this.props.categoryHoverState.get('columnName') === destinationColumnName
+    
+    const isCategoryHovered = (this.props.categoryHoverState.get('categoryName') === sourceCategory.categoryName) &&
+      this.props.categoryHoverState.get('columnName') === this.props.columnName
+    const isAnythingHovered = this.props.categoryHoverState.get('columnName') !== null
+      
+    if (!isAnythingHovered) {
+      return Constants.getIn(['columnPaths', 'defaultColumn'])
+    }
+    else if (isCategoryHovered === true && isAnythingHovered === true) {
+      return Constants.getIn(['columnPaths', 'columnHovered'])
+    }
+    else if (isDestinationCategoryHovered === true) {
+      return Constants.getIn(['columnPaths', 'columnHovered'])
+    }
+    else if (isCategoryHovered === false && isAnythingHovered === true) {
+      return Constants.getIn(['columnPaths', 'notColumnHovered'])
+    }
+  } 
+
+
+
   buildPathsForCategory(sourceColumn, sourceCategory, destinationColumn) {
     
     let pathsForCategory = []
@@ -203,7 +229,10 @@ class ColumnPaths extends React.Component {
       d += `${sourceColumn.x + curveControlThreshold} ${sourceColumnY + sourceCurveHeight} `
       d += `${sourceColumn.x} ${sourceColumnY + sourceCurveHeight}`
 
-      const currentPath = <path d={d} className='ColumnPaths' key={sourceCategory.categoryName + destinationCategory.categoryName}/>
+      const currentPath = <path d={d} 
+        fill={this.hoverLogic(sourceCategory, destinationCategory, destinationColumn.name)} 
+        className='ColumnPaths' 
+        key={sourceCategory.categoryName + destinationCategory.categoryName}/>
       pathsForCategory.push(currentPath)
 
       sourceCategory.y += sourceCurveHeight
@@ -219,6 +248,7 @@ class ColumnPaths extends React.Component {
   render() {
     return <g>
       {this.paths()}
+      }
     </g>
   }
 }
@@ -231,6 +261,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     filters: state.filters,
+    categoryHoverState: state.categoryHoverState,
   }
 }
 

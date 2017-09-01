@@ -151,7 +151,30 @@ IncidentComputations.categorySubset = function(data, columnName, categoryName) {
 }
 
 
+// Returns the name of the [first] category the incident belongs to in the 
+// first column in the workspace.
+IncidentComputations.firstCategoryName = function(columns, incident) {
+  // Handle the case when there are no columns on display in
+  // the workspace.
+  if(columns.count() === 0) return null
+  let categoryName = ''
+  switch (columns.get(0)) {
+  // Four of the columns have 'multiple selections', where an item can belong
+  // to more than one category at once. These need different handling ... 
+  case 'incidentTypes':
+  case 'pipelineSystemComponentsInvolved':
+  case 'whatHappened':
+  case 'whyItHappened':
+    categoryName = incident.get(columns.get(0)).get(0)
+    if(categoryName === undefined) return null
+    return categoryName
 
+  default: 
+    categoryName = incident.get(columns.get(0))
+    if(categoryName === undefined) return null
+    return categoryName
+  }
+}
 
 
 const MemoizedComputations = {}

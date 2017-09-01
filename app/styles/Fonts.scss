@@ -17,9 +17,8 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   position: fixed;
   padding-top: 13px;
   font-family: $fira-sans-light;
-  //font-style: light;
   font-size: 22px;
-  color: black;
+  color: $black;
   text-align: left;
 }
 
@@ -27,44 +26,43 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 .subpop {
   position: fixed;
   font-family: $fira-sans-extra-condensed;
-  font-size: 14px;
+  font-size: 12px;
   color: black;
   text-align: left;
 }
 
 .activeCategoryLabels {
   font-family: $fira-sans-extra-condensed-medium;
-  font-style: medium;
-  font-size: 11.5px;
-  color: black;
+  font-size: 13px;
+  color: $black;
   text-align: left;
 }
 
 .inactiveCategoryLabels {
   font-family: $fira-sans-extra-condensed-medium;
+  fill: $label-grey;
+  font-size: 13px;
   font-style: medium;
-  font-size: 11.5px;
-  color: $dark-grey;
   text-align: left;
 }
 
 .barsHeading {
   font-family: $fira-sans-extra-condensed-semibold;
   font-size: 15px;
-  color: black;
+  color: $black;
   text-align: left;
 }
 
 .barsSubHeading {
 	font-family: $fira-sans-extra-condensed-semibold;
 	font-size: 10px;
-	color: black;
+	color: $black;
 	text-align: left;
 }
 
 .sidebars {
   font-family: $fira-sans-extra-condensed-semibold;
-  font-size: 13px;
+  font-size: 14px;
   color: $white;
   text-align: left;
   fill: $white;
@@ -72,10 +70,9 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
 .emptyCategories {
   font-family: $fira-sans-light;
-  //font-style: light;
   font-size: 12px;
   text-align: center;
-  color: black;
+  color: $black;
 }
 
 .filterBox {

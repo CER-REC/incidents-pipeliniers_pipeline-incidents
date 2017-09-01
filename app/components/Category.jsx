@@ -4,6 +4,8 @@ const ReactRedux = require('react-redux')
 const Filterbox = require('./Filterbox.jsx')
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
+const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
+const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
 
 const BeginIncidentDragCreator = require('../actionCreators/BeginIncidentDragCreator.js')
 const UpdateIncidentDragCreator = require('../actionCreators/UpdateIncidentDragCreator.js')
@@ -80,7 +82,7 @@ class Category extends React.Component {
         {labelLines.map((line) => {
           currentY += Constants.get('singleLineCategoryLabelHeight')
           lineCount += 1
-          return <tspan className={labelClassName}
+          return <tspan fill={this.fill} className={labelClassName}             
             key={this.props.categoryName + 'CategoryLabelLine' + lineCount}
             y={currentY}
             x={this.props.width + Constants.get('categoryLabelOffset')}>
@@ -203,7 +205,7 @@ class Category extends React.Component {
     case 'year':
       // These columns use the category name directly
       // Years are numbers, and we need a string here
-      return this.splitHeading(this.props.categoryName.toString())
+      return this.splitHeading(this.props.categoryName.toString().toUpperCase())
 
     // No categories for map column
     }
@@ -237,6 +239,15 @@ class Category extends React.Component {
     return [this.splitHeading(label.substring(0, firstLineSplitPoint))].concat( 
       this.splitHeading(label.substring(firstLineSplitPoint + 1)))
   }
+
+
+  handleMouseEnter() {
+    this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
+  }
+  handleMouseLeave() {
+    this.props.onMouseLeave()
+  }
+
 
   // These are the faint bars which appear on the columns themselves, indicating
   // the selected incident's position(s) in the column.
@@ -303,6 +314,16 @@ class Category extends React.Component {
   render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
 
+    // TODO: put strokewidth in a method
+    let strokeWidth
+    if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
+      this.props.columnName === this.props.categoryHoverState.get('columnName')) {
+      strokeWidth = Constants.getIn('categoryStrokeWidth')
+    } 
+    else {
+      strokeWidth = '0'
+    }
+
     // We need the mouseUp handler on the group, rather than the rect itself,
     // because the selected incident bar will always be underneath the mouse
     // when we stop dragging.
@@ -318,10 +339,12 @@ class Category extends React.Component {
           width={this.props.width}
           height={this.props.height}
           fill={this.props.colour}
-
+          strokeWidth={strokeWidth}
+          className = 'categoryRect'
           onMouseDown={this.handleOnMouseDown.bind(this)}
           onMouseMove={this.handleOnMouseMove.bind(this)}
-
+          onMouseEnter={this.handleMouseEnter.bind(this)}
+          onMouseLeave={this.handleMouseLeave.bind(this)}
           ref={ (element) => this.rect = element }
         />
         { this.label() }
@@ -335,6 +358,7 @@ class Category extends React.Component {
 const mapStateToProps = state => {
   return {
     language: state.language,
+    categoryHoverState: state.categoryHoverState,
     incidentDragState: state.incidentDragState,
     data: state.data,
     columns: state.columns, 
@@ -348,6 +372,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onMouseEnter: (columnName, categoryName) => {
+      dispatch(CategoryHoverStateCreator(columnName, categoryName))
+    },
+    onMouseLeave: () => {
+      dispatch(CategoryUnhoverStateCreator())
+    },
     onBeginDrag: (columnName, categoryName) => {
       dispatch(BeginIncidentDragCreator(columnName, categoryName))
     },

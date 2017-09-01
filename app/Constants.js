@@ -1,3 +1,4 @@
+//CONSTANTS
 const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
@@ -62,11 +63,13 @@ const Constants = Immutable.fromJS({
     horizontalLineXStart: 151,
     dotRadius: 3,
     lineHeight: 16.2,
+    popupHeight: 81,
+    textOffset: 15,
   },
 
   columnWideWidth: 62,
   columnNarrowWidth: 24,
-  minimumColumnPathWidth: 80,
+  minimumColumnPathWidth: 90,
 
   columnHeadingHeight: 42,
   columnHeadingLineOffset: 15,
@@ -81,7 +84,7 @@ const Constants = Immutable.fromJS({
 
   socialBar: {
     width: 23, 
-    height: 137,
+    height: 148,
     iconSize: 16,
     leftMargin: 5,
     iconSideMargin: 3.5,
@@ -89,8 +92,9 @@ const Constants = Immutable.fromJS({
     facebookIconPadding: 26,
     linkedinIconPadding: 49,
     twitterIconPadding: 72,
-    downloadIconPadding: 95,
-    downloadImageIconPadding: 118,
+    dividerLine: 95,
+    downloadImageIconPadding: 105,
+    downloadIconPadding: 128,
   },
 
 
@@ -127,6 +131,13 @@ const Constants = Immutable.fromJS({
     labelHeight: 35,
 
     columnHoverOffset: -3,
+  },
+
+  columnPaths: {
+    defaultColumn: '#ccc',
+    columnHovered: '#666666',
+    notColumnHovered: '#e6e6e6',
+
   },
 
   filterbox: {
@@ -208,7 +219,7 @@ const Constants = Immutable.fromJS({
       middle: '#7CE6DF',
       end: '#C7E9FF',
     },
-    'volumeCategory': {
+    'volumeCategory': { 
       start: '#64347F',
       middle: '#E6A1C9',
       end: '#FFF9E6',
@@ -260,6 +271,7 @@ const Constants = Immutable.fromJS({
   maxCategoryLabelLines: 3,
   categoryLabelTerminatingDots: 3,
   categoryLabelLineLength: 14,
+  categoryStrokeWidth: 1,
 
 
   selectedIncidentPath: {
