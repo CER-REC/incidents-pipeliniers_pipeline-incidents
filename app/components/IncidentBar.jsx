@@ -23,7 +23,7 @@ class IncidentBar extends React.Component {
     }
   }
 
-  pinnedIncidents() {
+  pinnedAndSelectedIncidents() {
     let pinnedIncidents = this.props.pinnedIncidents
     if(this.props.pinnedIncidents.count() === 0) {
       return this.selectedIncident()
@@ -55,7 +55,7 @@ class IncidentBar extends React.Component {
     // design team to decide. For now, all incidents will be assigned an 
     // equal height of zero.
     // 2) Handle the case when there are no columns in the workspace. In this 
-    // casae, all incidents will be assigned an equal height of zero.
+    // case, all incidents will be assigned an equal height of zero.
     if(this.props.columns.count() ===0 ||
        this.props.columns.get(0) === 'map') return 0
 
@@ -99,7 +99,7 @@ class IncidentBar extends React.Component {
 
   render() {
     return <g>
-      {this.pinnedIncidents()}
+      {this.pinnedAndSelectedIncidents()}
     </g>
   }
 }
