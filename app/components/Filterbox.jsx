@@ -2,7 +2,6 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
-const CategoryComputations = require('../CategoryComputations.js')
 
 const DeactivateAllCategoriesExceptOneCreator = require('../actionCreators/DeactivateAllCategoriesExceptOneCreator.js')
 const DeactivateCategoryCreator = require('../actionCreators/DeactivateCategoryCreator.js')
@@ -12,79 +11,17 @@ const ActivateAllCategoriesForColumnCreator = require('../actionCreators/Activat
 const FilterboxButton = require('./FilterBoxButton.jsx')
 const Tr = require('../TranslationTable.js')
 
+const FilterboxComputations = require('../FilterboxComputations.js')
+
 require('./Filterbox.scss')
 
 
 class Filterbox extends React.Component {
 
-  showShowOnlyButton() {
-    // If there is more than one visible category, we should show the 
-    // 'show only' button. It's meaningless to have this button if there is 
-    // already only one category ... 
 
-    // categories: a map of {categoryName (string): visible (boolean)}
-    const categories = CategoryComputations.displayedCategories(
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      this.props.columnName
-    )
-
-    const visibleCategoriesCount = categories.reduce( (count, visible) => {
-      if (visible === true) {
-        return count + 1
-      }
-      else {
-        return count
-      }
-    }, 0)
-
-    return visibleCategoriesCount > 1
-  }
-
-  showHideButton() {
-    // If there is more than one visible category, we should show the hide
-    // button. We prevent the user from hiding the last shown category.
-
-    // For now, since this is precisely the same logic as for the showOnly
-    // button, we'll call that method here.
-    return this.showShowOnlyButton()
-  }
-
-  showResetButton() {
-    // If any of the categories are hidden, we should show the reset button
-
-    // categories: a map of {categoryName (string): visible (boolean)}
-    const categories = this.props.categories.get(this.props.columnName)
-
-    const hiddenCategory = categories.find( visible => {
-      return visible === false
-    })
-
-    // NB: when all categories are visible, the find call returns 'undefined'.
-    // When we find a category that is not visible, the result of the find is
-    // the value in the map, i.e.: false
-    // So, when we have a category which is not on display (when hiddenCategory)
-    // is false, we wish to return true.
-    return hiddenCategory === false
-  }
-
-  buttonCount() {
-    let count = 0
-    if (this.showShowOnlyButton()) {
-      count += 1
-    }
-    if (this.showHideButton()) {
-      count += 1
-    }
-    if (this.showResetButton()) {
-      count += 1
-    }
-    return count
-  }
 
   buttonHeight() {
-    return this.buttonCount() * Constants.getIn(['filterbox', 'rectVerticalOffset'])
+    return FilterboxComputations.buttonCount(this.props.data, this.props.columns, this.props.categories, this.props.columnName) * Constants.getIn(['filterbox', 'rectVerticalOffset'])
   }
 
 
@@ -93,7 +30,7 @@ class Filterbox extends React.Component {
     const buttons = []
     let currentY = 0
 
-    if (this.showShowOnlyButton()) {
+    if (FilterboxComputations.showShowOnlyButton(this.props.data, this.props.columns, this.props.categories, this.props.columnName)) {
       buttons.push(<FilterboxButton 
         x = '0'
         y = { currentY }
@@ -105,7 +42,7 @@ class Filterbox extends React.Component {
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
     }
 
-    if (this.showHideButton()) {
+    if (FilterboxComputations.showHideButton(this.props.data, this.props.columns, this.props.categories, this.props.columnName)) {
       buttons.push(<FilterboxButton 
         x = '0'
         y = { currentY }
@@ -117,7 +54,7 @@ class Filterbox extends React.Component {
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
     }
 
-    if (this.showResetButton()) {
+    if (FilterboxComputations.showResetButton(this.props.categories, this.props.columnName)) {
       buttons.push(<FilterboxButton 
         x = '0'
         y = { currentY }
@@ -177,7 +114,6 @@ class Filterbox extends React.Component {
   }
 
   render() {
-
     const transform = `translate(${this.props.width + Constants.get('categoryLabelOffset')}, ${this.props.y})`
 
     return <g transform = { transform }>

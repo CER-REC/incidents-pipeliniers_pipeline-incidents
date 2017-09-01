@@ -15,6 +15,7 @@ const IncidentComputations = require('../IncidentComputations.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
+const FilterboxComputations = require('../FilterboxComputations.js')
 
 require('./Category.scss')
 
@@ -95,6 +96,18 @@ class Category extends React.Component {
     if (!this.props.enableCategoryHeadingClick) {
       return
     }
+
+    // It's possible to get into a configuration where we should not show the
+    // filterbox at all. Ex: if there are no filters set on the current column,
+    // we do not show the reset button. If filters are set on the other columns
+    // such that only one category is visible in our column, we can't show only
+    // or hide any categories in this column either. 
+
+    // In that case, no box!
+    if (FilterboxComputations.buttonCount(this.props.data, this.props.columns, this.props.categories, this.props.columnName) === 0) {
+      return
+    }
+
     this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
   }
 
