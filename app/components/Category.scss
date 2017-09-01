@@ -1,4 +1,10 @@
+@import "../styles/Colours.scss";
 
 .category {
   cursor: pointer;
+
+  .categoryRect {
+    stroke: $black;
+  }
+
 }

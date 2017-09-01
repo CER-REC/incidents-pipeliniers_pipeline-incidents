@@ -3,16 +3,18 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
+const IncidentComputations = require('../IncidentComputations.js')
+const Constants = require('../Constants.js')
 
 require('./ColumnPaths.scss')
 
 class ColumnPaths extends React.Component {
-  categoriesForColumn(columnIndex) {
+  categoriesForColumn(columnIndex, filteredData) {
     const columnName = this.props.columns.get(columnIndex)
     const categoryHeights = WorkspaceComputations.categoryHeights(
       this.props.showEmptyCategories,
       this.props.viewport,
-      this.props.data, 
+      filteredData, 
       this.props.columns,
       this.props.categories, 
       columnName) 
@@ -25,14 +27,14 @@ class ColumnPaths extends React.Component {
       .map( (visible, categoryName) => {
         const currentY = categoryY
         categoryY += categoryHeights.get(categoryName)
-        const count = CategoryComputations.itemsInCategory(this.props.data, columnName, categoryName)
+        const count = CategoryComputations.itemsInCategory(filteredData, columnName, categoryName)
         return {
           categoryName:categoryName,
           key:categoryName, 
           height:categoryHeights.get(categoryName),
           width:WorkspaceComputations.columnWidth(this.props.columns),
           x:WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
-            this.props.viewport, this.props.data,
+            this.props.viewport, filteredData,
             this.props.columns, this.props.categories)
             .getIn(['columns', columnName]).get('x'),
           y:currentY,
@@ -46,11 +48,11 @@ class ColumnPaths extends React.Component {
       })
   }
 
-  categoriesForSidebarColumn(sidebarColumnName) {
+  categoriesForSidebarColumn(sidebarColumnName, filteredData) {
     const measurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
-      this.props.data,
+      filteredData,
       this.props.columns,
       this.props.categories)
       .get('sideBar')
@@ -61,7 +63,7 @@ class ColumnPaths extends React.Component {
       columnHeight,
       this.props.showEmptyCategories,
       this.props.viewport,
-      this.props.data, 
+      filteredData, 
       this.props.columns,
       this.props.categories, 
       sidebarColumnName) 
@@ -74,7 +76,7 @@ class ColumnPaths extends React.Component {
       .map( (visible, categoryName) => {
         const currentY = categoryY
         categoryY += categoryHeights.get(categoryName)
-        const count = CategoryComputations.itemsInCategory(this.props.data, sidebarColumnName, categoryName)
+        const count = CategoryComputations.itemsInCategory(filteredData, sidebarColumnName, categoryName)
         return {
           categoryName:categoryName,
           key:categoryName, 
@@ -92,6 +94,11 @@ class ColumnPaths extends React.Component {
   }
 
   paths() {
+    const filteredData = IncidentComputations.filteredIncidents(
+      this.props.data, 
+      this.props.columns, 
+      this.props.categories)
+
     let pathArray = []
 
     const currentColumnIndex = this.props.columns.indexOf(this.props.columnName)
@@ -99,15 +106,15 @@ class ColumnPaths extends React.Component {
 
     // Compute the paths to the left most sidebar column.
     if (currentColumnIndex >= this.props.columns.count() - 1) {
-      return pathArray.concat(this.pathsToSideBar())
+      return pathArray.concat(this.pathsToSideBar(filteredData))
     }
 
     let sourceColumn = {
       index: this.props.index,
       name: this.props.columnName,
-      categories: this.categoriesForColumn(currentColumnIndex),
+      categories: this.categoriesForColumn(currentColumnIndex, filteredData),
       x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
-        this.props.viewport, this.props.data,
+        this.props.viewport, filteredData,
         this.props.columns, this.props.categories)
         .getIn(['columns', this.props.columnName]).get('x') + 
         WorkspaceComputations.columnWidth(this.props.columns)
@@ -116,14 +123,14 @@ class ColumnPaths extends React.Component {
     let destinationColumn = {
       index: this.props.index + 1,
       name: this.props.columns.get(nextColumnIndex),
-      categories: this.categoriesForColumn(nextColumnIndex),
+      categories: this.categoriesForColumn(nextColumnIndex, filteredData),
       x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
-        this.props.viewport, this.props.data,
+        this.props.viewport, filteredData,
         this.props.columns, this.props.categories)
         .getIn(['columns', this.props.columns.get(nextColumnIndex)]).get('x')
     }
 
-    CategoryComputations.ComputeSourceAndDestinationColumnPaths(sourceColumn, destinationColumn, this.props.data)
+    CategoryComputations.ComputeSourceAndDestinationColumnPaths(sourceColumn, destinationColumn, filteredData)
 
     sourceColumn.categories.forEach((sourceCategory) => {
       const pathsForSourceCategory = this.buildPathsForCategory(sourceColumn, 
@@ -134,7 +141,7 @@ class ColumnPaths extends React.Component {
     return pathArray
   }
 
-  pathsToSideBar() {
+  pathsToSideBar(filteredData) {
     let pathArray = []
 
     const currentColumnIndex = this.props.columns.indexOf(this.props.columnName)
@@ -147,9 +154,9 @@ class ColumnPaths extends React.Component {
     let sourceColumn = {
       index: currentColumnIndex,
       name: this.props.columnName,
-      categories: this.categoriesForColumn(currentColumnIndex),
+      categories: this.categoriesForColumn(currentColumnIndex, filteredData),
       x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
-        this.props.viewport, this.props.data,
+        this.props.viewport, filteredData,
         this.props.columns, this.props.categories)
         .getIn(['columns', this.props.columnName]).get('x') + 
         WorkspaceComputations.columnWidth(this.props.columns)
@@ -157,14 +164,14 @@ class ColumnPaths extends React.Component {
 
     let destinationColumn = {
       name: firstSideBarColumn,
-      categories: this.categoriesForSidebarColumn(firstSideBarColumn),
+      categories: this.categoriesForSidebarColumn(firstSideBarColumn, filteredData),
       x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
-        this.props.viewport, this.props.data,
+        this.props.viewport, filteredData,
         this.props.columns, this.props.categories)
         .getIn(['sideBar', 'x'])
     }
 
-    CategoryComputations.ComputeSourceAndDestinationColumnPaths(sourceColumn, destinationColumn, this.props.data)
+    CategoryComputations.ComputeSourceAndDestinationColumnPaths(sourceColumn, destinationColumn, filteredData)
 
     sourceColumn.categories.forEach((sourceCategory) => {
       const pathsForSourceCategory = this.buildPathsForCategory(sourceColumn, 
@@ -174,6 +181,31 @@ class ColumnPaths extends React.Component {
 
     return pathArray
   }
+
+  hoverLogic (sourceCategory, destinationCategory, destinationColumnName) {
+
+    const isDestinationCategoryHovered = (this.props.categoryHoverState.get('categoryName') === destinationCategory.categoryName) &&
+      this.props.categoryHoverState.get('columnName') === destinationColumnName
+    
+    const isCategoryHovered = (this.props.categoryHoverState.get('categoryName') === sourceCategory.categoryName) &&
+      this.props.categoryHoverState.get('columnName') === this.props.columnName
+    const isAnythingHovered = this.props.categoryHoverState.get('columnName') !== null
+      
+    if (!isAnythingHovered) {
+      return Constants.getIn(['columnPaths', 'defaultColumn'])
+    }
+    else if (isCategoryHovered === true && isAnythingHovered === true) {
+      return Constants.getIn(['columnPaths', 'columnHovered'])
+    }
+    else if (isDestinationCategoryHovered === true) {
+      return Constants.getIn(['columnPaths', 'columnHovered'])
+    }
+    else if (isCategoryHovered === false && isAnythingHovered === true) {
+      return Constants.getIn(['columnPaths', 'notColumnHovered'])
+    }
+  } 
+
+
 
   buildPathsForCategory(sourceColumn, sourceCategory, destinationColumn) {
     
@@ -197,7 +229,10 @@ class ColumnPaths extends React.Component {
       d += `${sourceColumn.x + curveControlThreshold} ${sourceColumnY + sourceCurveHeight} `
       d += `${sourceColumn.x} ${sourceColumnY + sourceCurveHeight}`
 
-      const currentPath = <path d={d} className='ColumnPaths' key={sourceCategory.categoryName + destinationCategory.categoryName}/>
+      const currentPath = <path d={d} 
+        fill={this.hoverLogic(sourceCategory, destinationCategory, destinationColumn.name)} 
+        className='ColumnPaths' 
+        key={sourceCategory.categoryName + destinationCategory.categoryName}/>
       pathsForCategory.push(currentPath)
 
       sourceCategory.y += sourceCurveHeight
@@ -213,6 +248,7 @@ class ColumnPaths extends React.Component {
   render() {
     return <g>
       {this.paths()}
+      }
     </g>
   }
 }
@@ -225,6 +261,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     filters: state.filters,
+    categoryHoverState: state.categoryHoverState,
   }
 }
 

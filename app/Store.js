@@ -8,11 +8,14 @@ const CategoriesReducer = require('./reducers/CategoriesReducer.js')
 const EmptyCategoriesReducer = require('./reducers/EmptyCategoriesReducer.js')
 const IncidentSelectionStateReducer = require('./reducers/IncidentSelectionStateReducer.js')
 const PinnedIncidentReducer = require('./reducers/PinnedIncidentReducer.js')
+const CategoryHoverStateReducer = require('./reducers/CategoryHoverStateReducer.js')
 const SidebarColumnHoverReducer = require('./reducers/SidebarColumnHoverReducer.js')
 const ColumnDragReducer = require('./reducers/ColumnDragReducer.js')
 const SidebarColumnDragReducer = require('./reducers/SidebarColumnDragReducer.js')
 const LanguageReducer = require('./reducers/LanguageReducer.js')
 const IncidentDragStateReducer = require('./reducers/IncidentDragStateReducer.js')
+const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationStateReducer.js')
+
 
 const reducers = Redux.combineReducers({
   viewport: ViewportReducer,
@@ -22,11 +25,13 @@ const reducers = Redux.combineReducers({
   showEmptyCategories: EmptyCategoriesReducer,
   selectedIncident: IncidentSelectionStateReducer,
   pinnedIncidents: PinnedIncidentReducer,
+  categoryHoverState: CategoryHoverStateReducer,
   sidebarColumnHover: SidebarColumnHoverReducer,
   columnDragStatus: ColumnDragReducer,
   sidebarDragStatus: SidebarColumnDragReducer,
   language: LanguageReducer,
   incidentDragState: IncidentDragStateReducer,
+  filterboxActivationState: FilterboxActivationStateReducer,
 })
 
 module.exports = function () {

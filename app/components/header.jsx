@@ -22,7 +22,14 @@ class Header extends React.Component {
     const methodologyIconY = Constants.getIn(['topBar', 'methodologyIconY'])
     let transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
     return (<g transform = {transformString}>
-      {homeButton()}
+
+
+      //TODO: create a link for the default state (two bars at the beginning)
+      // home button currently refreshes the page
+      <a href='http://localhost:3001/incident-visualization/' > 
+        {homeButton()}
+      </a>
+
       //TODO: change link once we get PDF
       <a href='https://google.ca' target="_blank">
         <image 
@@ -33,9 +40,9 @@ class Header extends React.Component {
         ></image>
       </a>
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
-			
-        <text x={xHeading} y={yHeading} className="heading">Heading</text>
-        <text x={xSubpop} y={ySubpop} className="subpop">subheading</text>				
+      
+        <text x={xHeading} y={yHeading} className="heading"></text>
+        <text x={xSubpop} y={ySubpop} className="subpop"></text>
 
       </svg>
     </g>

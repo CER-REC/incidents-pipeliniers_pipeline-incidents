@@ -4,6 +4,7 @@ const Immutable = require('immutable')
 const D3 = require('d3')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const IncidentComputations = require('../IncidentComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 const Constants = require('../Constants.js')
 
@@ -137,6 +138,13 @@ class SelectedIncidentPaths extends React.Component {
       return null
     }
 
+    // Verify that the selected incident is not filtered out.
+    const filteredData = IncidentComputations.filteredIncidents(
+      this.props.data, 
+      this.props.columns, 
+      this.props.categories)
+    if(!filteredData.contains(this.props.selectedIncident)) return null
+
     const departureHeights = this.departureHeights()
     const destinationHeights = this.destinationHeights()
 
@@ -171,7 +179,7 @@ class SelectedIncidentPaths extends React.Component {
           departurePoint.y
         )
 
-        const offset = Constants.getIn(['selectedIncidentPath', controlPointOffset])
+        const offset = Constants.getIn(['selectedIncidentPath', 'controlPointOffset'])
 
         d3path.bezierCurveTo(
           // control point 1

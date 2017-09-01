@@ -401,50 +401,6 @@ CategoryComputations.ComputeSourceAndDestinationColumnPaths = function(sourceCol
   })
 }
 
-CategoryComputations.filterboxFilterButtonX = function(width) {
-  return width + Constants.get('categoryLabelOffset')
-}
-
-CategoryComputations.filterboxFilterButtonY = function(startingY, filterType) {
-  return startingY + Constants.getIn(['filterbox', filterType, 'rectVerticalOffset'])
-}
-
-CategoryComputations.filterboxFilterButtonImageX = function(width) {
-  return CategoryComputations.filterboxFilterButtonX(width) + 
-         Constants.getIn(['filterbox', 'iconHorizontalOffset'])
-}
-
-CategoryComputations.filterboxFilterButtonImageY = function(startingY, filterType) {
-  return CategoryComputations.filterboxFilterButtonY(startingY, filterType) + 
-         Constants.getIn(['filterbox', 'filterIconVerticalOffset'])
-}
-
-CategoryComputations.filterboxFilterButtonTextX = function(width) {
-  return CategoryComputations.filterboxFilterButtonImageX(width) + 
-         Constants.getIn(['filterbox', 'iconSize']) + 
-         Constants.getIn(['filterbox', 'iconTextOffset'])
-}
-
-CategoryComputations.filterboxFilterButtonTextY = function(startingY, filterType) {
-  return CategoryComputations.filterboxFilterButtonY(startingY, filterType) + 
-         Constants.getIn(['filterbox', 'textVerticalOffset'])
-}
-
-CategoryComputations.filterboxDragButtonX = function(width) {
-  return width + Constants.get('categoryLabelOffset') + 
-         Constants.getIn(['filterbox', 'filterButtonWidth'])
-}
-
-CategoryComputations.filterboxDragImageX = function(width) {
-  return CategoryComputations.filterboxDragButtonX(width) + 
-         Constants.getIn(['filterbox', 'dragIconHorizontalOffset'])
-}
-
-CategoryComputations.filterboxDragImageY = function(startingY) {
-  return startingY + 
-         Constants.getIn(['filterbox', 'dragIconVerticalOffset'])
-}
-
 const MemoizedComputations = {}
 
 for (const name of Object.keys(CategoryComputations)) {

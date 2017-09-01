@@ -1,83 +1,154 @@
 const React = require('react')
+const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
-const CategoryComputations = require('../CategoryComputations.js')
+
+const DeactivateAllCategoriesExceptOneCreator = require('../actionCreators/DeactivateAllCategoriesExceptOneCreator.js')
+const DeactivateCategoryCreator = require('../actionCreators/DeactivateCategoryCreator.js')
+const HideFilterboxCreator = require('../actionCreators/HideFilterboxCreator.js')
+const ActivateAllCategoriesForColumnCreator = require('../actionCreators/ActivateAllCategoriesForColumnCreator.js')
+
+const FilterboxButton = require('./FilterBoxButton.jsx')
+const Tr = require('../TranslationTable.js')
+
+const FilterboxComputations = require('../FilterboxComputations.js')
 
 require('./Filterbox.scss')
 
-const FILTER_TYPE = {
-  SHOW_ONLY: 'SHOW_ONLY',
-  HIDE: 'HIDE'
-}
 
 class Filterbox extends React.Component {
-  
-  filterButton(filterType) {
-    return <g className='filterBoxButton'>
-      <rect
-        className='filterBoxRect'
-        y={CategoryComputations.filterboxFilterButtonY(this.props.y, filterType)}
-        x={CategoryComputations.filterboxFilterButtonX(this.props.width)}
-        width={Constants.getIn(['filterbox', 'filterButtonWidth'])}
-        height={Constants.getIn(['filterbox', 'filterButtonHeight'])}>
-      </rect>
-      <image 
-        xlinkHref={Constants.getIn(['filterbox', filterType, 'imagePath'])}
-        height = {Constants.getIn(['filterbox', 'iconSize'])}
-        width = {Constants.getIn(['filterbox', 'iconSize'])}
-        x= {CategoryComputations.filterboxFilterButtonImageX(this.props.width)}
-        y= {CategoryComputations.filterboxFilterButtonImageY(this.props.y, filterType)}>
-      </image>
-      <text
-        className = 'filterBox'
-        height = {Constants.getIn(['filterbox', 'textHeight'])}
-        width =  {Constants.getIn(['filterbox', 'textWidth'])}
-        x = {CategoryComputations.filterboxFilterButtonTextX(this.props.width)}
-        y = {CategoryComputations.filterboxFilterButtonTextY(this.props.y, filterType)}>
-        {Constants.getIn(['filterbox', filterType, 'text'])}
-      </text>
-    </g>
+
+
+
+  buttonHeight() {
+    return FilterboxComputations.buttonCount(this.props.data, this.props.columns, this.props.categories, this.props.columnName) * Constants.getIn(['filterbox', 'rectVerticalOffset'])
   }
+
+
+  buttons() {
+
+    const buttons = []
+    let currentY = 0
+
+    if (FilterboxComputations.showShowOnlyButton(this.props.data, this.props.columns, this.props.categories, this.props.columnName)) {
+      buttons.push(<FilterboxButton 
+        x = '0'
+        y = { currentY }
+        clickCallback = {this.onShowOnlyClick.bind(this)}
+        imageUrl = 'images/filter.svg'
+        text = {Tr.getIn(['showOnly', this.props.language])}
+        key = 'showOnly'
+      />)
+      currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
+    }
+
+    if (FilterboxComputations.showHideButton(this.props.data, this.props.columns, this.props.categories, this.props.columnName)) {
+      buttons.push(<FilterboxButton 
+        x = '0'
+        y = { currentY }
+        clickCallback = {this.onHideClick.bind(this)}
+        imageUrl = 'images/hide_(close).svg'
+        text = {Tr.getIn(['hide', this.props.language])}
+        key = 'hide'
+      />)
+      currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
+    }
+
+    if (FilterboxComputations.showResetButton(this.props.categories, this.props.columnName)) {
+      buttons.push(<FilterboxButton 
+        x = '0'
+        y = { currentY }
+        clickCallback = {this.onResetClick.bind(this)}
+        imageUrl = 'images/reset_arrow.svg'
+        text = {Tr.getIn(['reset', this.props.language])}
+        key = 'reset'
+      />)
+      currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
+    }
+
+    return buttons
+  }
+
+
 
   dragButton() {
     return <g className='filterBoxButton'>
       <rect
         className='filterBoxRect'
-        y={this.props.y}
-        x={CategoryComputations.filterboxDragButtonX(this.props.width)}
-        width={Constants.getIn(['filterbox', 'dragButtonWidth'])}
-        height={Constants.getIn(['filterbox', 'dragButtonHeight'])}>
-      </rect>
+        x = { Constants.getIn(['filterbox', 'filterButtonWidth']) }
+        y = '0'
+        width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
+        height = { this.buttonHeight() }
+      />
       <image 
         xlinkHref='images/vertical_drag.svg' 
         className = 'verticalDrag'
-        height = {Constants.getIn(['filterbox', 'dragIconHeight'])}
-        width = {Constants.getIn(['filterbox', 'dragIconWidth'])}
-        x= {CategoryComputations.filterboxDragImageX(this.props.width)}
-        y= {CategoryComputations.filterboxDragImageY(this.props.y)}>
-      </image>
+        x = { Constants.getIn(['filterbox', 'filterButtonWidth']) + Constants.getIn(['filterbox', 'dragIconHorizontalOffset']) }
+        y = '0'
+        width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
+        height = { this.buttonHeight() }
+      />
     </g> 
   }
 
+
   lineToCategory() {
     return <line className='filterBoxLine'
-      x1={this.props.width}
-      y1={this.props.y + Constants.getIn(['filterbox', 'lineVerticalOffset'])}
-      x2={this.props.width + Constants.get('categoryLabelOffset')}
-      y2={this.props.y + Constants.getIn(['filterbox', 'lineVerticalOffset'])}>
-    </line>
+      x1 = { -Constants.get('categoryLabelOffset') }
+      y1 = { this.buttonHeight() / 2 }
+      x2 = '0'
+      y2 = { this.buttonHeight() / 2 }
+    />
+  }
+
+  onShowOnlyClick() {
+    this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
+  }
+
+  onHideClick() {
+    this.props.onHideClick(this.props.columnName, this.props.categoryName)
+  }
+
+  onResetClick() {
+    this.props.onResetClick(this.props.columnName)
   }
 
   render() {
-    if(!this.props.isSelected) return null
+    const transform = `translate(${this.props.width + Constants.get('categoryLabelOffset')}, ${this.props.y})`
 
-    return <g>
-      {this.filterButton(FILTER_TYPE.SHOW_ONLY)}
-      {this.filterButton(FILTER_TYPE.HIDE)}
-      {this.dragButton()}
-      {this.lineToCategory()}
+    return <g transform = { transform }>
+      { this.buttons() }
+      { this.dragButton() }
+      { this.lineToCategory() }
     </g>
   }
 }
 
-module.exports = Filterbox
+const mapStateToProps = state => {
+  return {
+    language: state.language,
+    categories: state.categories,
+    data: state.data, 
+    columns: state.columns
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onShowOnlyClick: (columnName, categoryName) => {
+      dispatch(HideFilterboxCreator())
+      dispatch(DeactivateAllCategoriesExceptOneCreator(columnName, categoryName))
+    },
+    onHideClick: (columnName, categoryName) => {
+      dispatch(HideFilterboxCreator())
+      dispatch(DeactivateCategoryCreator(columnName, categoryName))
+    },
+    onResetClick: columnName => {
+      dispatch(ActivateAllCategoriesForColumnCreator(columnName))
+    }
+  }
+}
+
+
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Filterbox)

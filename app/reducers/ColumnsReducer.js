@@ -4,20 +4,21 @@ const Constants = require('../Constants.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 const defaults = Immutable.fromJS([
-  'year',
+  'province',
   'incidentTypes',
-  // 'company',
+
+  // 'year',
   // 'status',
   // 'pipelineSystemComponentsInvolved',
   // 'substance',
   // 'volumeCategory',
   // 'releaseType',
   // 'whatHappened',
-  'whyItHappened',
-  'pipelinePhase',
-  'substanceCategory',
+  // 'whyItHappened',
+  // 'pipelinePhase',
+  // 'substanceCategory',
+  // 'company',
   // 'map',
-  'province',
 ])
 
 
@@ -62,9 +63,31 @@ const ColumnsReducer = (state = defaults, action) => {
     else {
       const stepWidth = WorkspaceComputations.stepWidth(state, action.viewport)
       const displacement = Math.abs(action.newX - action.oldX)
-      const jump = Math.floor(displacement/stepWidth)
+      let jump = Math.floor(displacement/stepWidth)
 
-      const newIndex = (state.count() - jump < 0)? 0: state.count() - jump
+      // Compute the map width (if visible).
+      const mapWidth = WorkspaceComputations.mapDragWidth(action.viewport)
+      const mapIndex = state.indexOf('map')
+
+      const currentIndex = state.count()
+      let newIndex = (state.count() - jump < 0)? 0: state.count() - jump
+
+      // Handle jumping over the map.
+      if(mapIndex < currentIndex &&
+        currentIndex - mapIndex <= jump) {
+        const mapStepSize = Math.floor(mapWidth/stepWidth)
+        const stepRemainder = (jump - ((currentIndex - 1) - mapIndex)) - (mapStepSize)
+
+        if(stepRemainder >= 0) {
+          jump = ((currentIndex - 1) - mapIndex) + stepRemainder + 1
+        }
+        else {
+          jump = (currentIndex - 1) - mapIndex
+        }
+
+        newIndex = (currentIndex - jump < 0)? 0 : currentIndex - jump
+      }
+
       return state.insert(newIndex, action.columnName)      
     }
 
