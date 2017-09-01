@@ -20,6 +20,9 @@ const TranslationTable = require('../TranslationTable.js')
 const SelectedIncidentPaths = require('./SelectedIncidentPaths.jsx')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 
+
+require('./Category.scss')
+
 const COLUMN_TYPE = {
   SIDEBAR: 'SIDEBAR',
   WORKSPACE: 'WORKSPACE'
@@ -225,9 +228,11 @@ class Column extends React.Component {
     if (WorkspaceComputations.shouldRenderColumnPath(
       this.props.columns,
       this.props.columnName)) {
+
       return <ColumnPaths 
         index={this.props.index} 
-        columnName={this.props.columnName}/>
+        columnName={this.props.columnName}
+        className='ColumnPaths'/>
     }
     else {
       return null
@@ -346,6 +351,7 @@ class Column extends React.Component {
     e.preventDefault()
     this.props.onSidebarColumnClicked(this.props.columnName)
   }
+
 
   splitHeading() {
     const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language])
@@ -467,7 +473,6 @@ class Column extends React.Component {
         <text>
           {this.sidebarHeading()}
         </text>
-
       </g>
     }
     case Constants.getIn(['columnTypes', 'WORKSPACE']):

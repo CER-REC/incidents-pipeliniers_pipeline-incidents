@@ -22,7 +22,14 @@ class Header extends React.Component {
     const methodologyIconY = Constants.getIn(['topBar', 'methodologyIconY'])
     let transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
     return (<g transform = {transformString}>
-      {homeButton()}
+
+
+      //TODO: create a link for the default state (two bars at the beginning)
+      // home button currently refreshes the page
+      <a href='http://localhost:3001/incident-visualization/' > 
+        {homeButton()}
+      </a>
+
       //TODO: change link once we get PDF
       <a href='https://google.ca' target="_blank">
         <image 

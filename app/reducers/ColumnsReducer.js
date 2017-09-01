@@ -4,20 +4,22 @@ const Constants = require('../Constants.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 const defaults = Immutable.fromJS([
-  'year',
-  // 'incidentTypes',
-  // 'company',
+  'province',
+  'incidentTypes',
+
+
+  // 'year',
   // 'status',
   // 'pipelineSystemComponentsInvolved',
   // 'substance',
   // 'volumeCategory',
   // 'releaseType',
   // 'whatHappened',
-  'whyItHappened',
-  'pipelinePhase',
-  'substanceCategory',
+  // 'whyItHappened',
+  // 'pipelinePhase',
+  // 'substanceCategory',
+  // 'company',
   // 'map',
-  'province',
 ])
 
 
