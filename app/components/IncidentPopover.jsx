@@ -20,7 +20,6 @@ class IncidentPopover extends React.Component {
     const horizontalLineEnd = Constants.getIn(['incidentPopover', 'horizontalLineEnd'])
     return <g className="horizontalLine" transform = {transformHorizontal} >
       <line x1={0} y1={0} x2={horizontalLineEnd} y2={0} strokeWidth="1" />
-      }
     </g>
   }
 
