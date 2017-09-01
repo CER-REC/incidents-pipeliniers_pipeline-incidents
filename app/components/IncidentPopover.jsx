@@ -133,7 +133,7 @@ class IncidentPopover extends React.Component {
   }
 
   render() {
-    return <g transform='translate(0,0)'>
+    return <g>
       {this.showPopoverBody()}
       {this.horizontalLine()}
       {this.showYLine()}
