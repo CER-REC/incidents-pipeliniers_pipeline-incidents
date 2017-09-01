@@ -3,6 +3,7 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
+const IncidentComputations = require('../IncidentComputations.js')
 const SidebarColumnHoverCreator = require('../actionCreators/SidebarColumnHoverCreator.js')
 const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCreator.js')
 const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
@@ -18,15 +19,8 @@ const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
 const SelectedIncidentPaths = require('./SelectedIncidentPaths.jsx')
-const IncidentPathComputations = require('../IncidentPathComputations.js')
 
-
-require('./Category.scss')
-
-const COLUMN_TYPE = {
-  SIDEBAR: 'SIDEBAR',
-  WORKSPACE: 'WORKSPACE'
-}
+const Tr = require('../TranslationTable.js')
 
 let columnWindowMoveHandler = null
 let columnWindowEndHandler = null
@@ -83,6 +77,7 @@ class Column extends React.Component {
           x={ columnMeasurements.get('x') }
           y={currentY}
           columnType={this.props.columnType}
+          enableCategoryHeadingClick = { true }
         />
       }).toArray()
   }
@@ -92,7 +87,7 @@ class Column extends React.Component {
 
     // Check if the subheading is visible. If it is not, 
     // add Constants.get('columnSubheadingHeight') to currentY.
-    if(CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
+    if(!CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
       currentY += Constants.get('columnSubheadingHeight')
     }
 
@@ -117,7 +112,7 @@ class Column extends React.Component {
 
   barSubHeading() {
     // Only render the sub-heading if filters are on.
-    if(CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
+    if(!CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
       return
     }
 
@@ -130,12 +125,21 @@ class Column extends React.Component {
       .getIn(['columns', this.props.columnName])
 
     const currentY = WorkspaceComputations.topBarHeight() + 
-                     Constants.get('columnSubheadingOffset')
+      Constants.get('columnSubheadingOffset')
+
+    const filteredData = IncidentComputations.filteredIncidents(
+      this.props.data,
+      this.props.columns,
+      this.props.categories
+    )
+
+    const subheadingString = `${filteredData.count()} / ${this.props.data.count()} ${Tr.getIn(['shown', this.props.language])}`
+
     return <tspan className='barsSubHeading' 
       key='barSubHeading'
       x={columnMeasurements.get('x')} 
       y={currentY}>
-      578/1017 shown
+      { subheadingString }
     </tspan>
   }
 
@@ -218,6 +222,7 @@ class Column extends React.Component {
         x={ columnMeasurements.get('x') }
         y={currentY}
         columnType={this.props.columnType}
+        enableCategoryHeadingClick = { false }
       />
 
     }).toArray()
@@ -426,6 +431,7 @@ class Column extends React.Component {
           x={ this.props.columnX }
           y={currentY}
           columnType={this.props.columnType}
+          enableCategoryHeadingClick = { false }
         />
       }).toArray()
   }

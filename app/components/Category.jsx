@@ -11,17 +11,42 @@ const BeginIncidentDragCreator = require('../actionCreators/BeginIncidentDragCre
 const UpdateIncidentDragCreator = require('../actionCreators/UpdateIncidentDragCreator.js')
 const EndIncidentDragCreator = require('../actionCreators/EndIncidentDragCreator.js')
 const IncidentSelectionStateCreator = require('../actionCreators/IncidentSelectionStateCreator.js')
+const ActivateFilterboxCreator = require('../actionCreators/ActivateFilterboxCreator.js')
 
 const IncidentComputations = require('../IncidentComputations.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
+const FilterboxComputations = require('../FilterboxComputations.js')
 
 require('./Category.scss')
 
 
 
 class Category extends React.Component {
+
+  filterboxActive() {
+
+    const filterboxState = this.props.filterboxActivationState
+    return filterboxState.get('columnName') === this.props.columnName &&
+      filterboxState.get('categoryName') === this.props.categoryName
+
+  }
+
+  filterbox(currentY) {
+    if (this.filterboxActive()) {
+      return <Filterbox
+        width = { this.props.width }
+        y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
+        columnName = { this.props.columnName }
+        categoryName = { this.props.categoryName }
+      />
+    }
+    else {
+      return null
+    }
+
+  }
 
   // Do not render category labels for sidebar columns.
   label() {
@@ -34,17 +59,10 @@ class Category extends React.Component {
       return null
     }
 
-
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
-    // TODO: Check if the category is hovered-on/selected to assign it
-    // with the proper class name. For now, I am assigning a filter box
-    // randomly to 20% of the categories for test purposes only. 
-    // This will change once the the category hover/selection reducer is inplace.
-
-    const isSelected = Math.random() < 0.2
-    if(isSelected) {
+    if(this.filterboxActive()) {
       labelClassName = 'activeCategoryLabels'
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
@@ -58,7 +76,9 @@ class Category extends React.Component {
     currentY -= Constants.get('singleLineCategoryLabelHeight')
 
     return <g>
-      <text>
+      <text
+        onClick = { this.categoryLabelClick.bind(this) }
+      >
         {labelLines.map((line) => {
           currentY += Constants.get('singleLineCategoryLabelHeight')
           lineCount += 1
@@ -70,8 +90,27 @@ class Category extends React.Component {
           </tspan>
         })}
       </text>
-      {<Filterbox isSelected={isSelected} width={this.props.width} y={currentY + Constants.getIn(['filterbox', 'labelOffset'])}/>}
+      { this.filterbox(currentY) }
     </g>
+  }
+
+  categoryLabelClick() {
+    if (!this.props.enableCategoryHeadingClick) {
+      return
+    }
+
+    // It's possible to get into a configuration where we should not show the
+    // filterbox at all. Ex: if there are no filters set on the current column,
+    // we do not show the reset button. If filters are set on the other columns
+    // such that only one category is visible in our column, we can't show only
+    // or hide any categories in this column either. 
+
+    // In that case, no box!
+    if (FilterboxComputations.buttonCount(this.props.data, this.props.columns, this.props.categories, this.props.columnName) === 0) {
+      return
+    }
+
+    this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
   }
 
 
@@ -79,14 +118,23 @@ class Category extends React.Component {
   // drag functionality
 
   handleOnMouseDown(event) {
+    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      return
+    }
     event.preventDefault()
     this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
   }
   handleOnMouseMove(event) {
+    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      return
+    }
     event.preventDefault()
     this.selectIncidentAtMousePosition(event)
   }
   handleOnMouseUp(event) {
+    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      return
+    }
     event.preventDefault()
     this.selectIncidentAtMousePosition(event)
     this.props.onEndDrag()
@@ -317,7 +365,8 @@ const mapStateToProps = state => {
     categories: state.categories,
     selectedIncident: state.selectedIncident,
     showEmptyCategories: state.showEmptyCategories,
-    viewport: state.viewport
+    viewport: state.viewport,
+    filterboxActivationState: state.filterboxActivationState,
   }
 }
 
@@ -340,6 +389,9 @@ const mapDispatchToProps = dispatch => {
     },
     selectIncident: (incident) => {
       dispatch(IncidentSelectionStateCreator(incident))
+    },
+    activateFilterbox(columnName, categoryName) {
+      dispatch(ActivateFilterboxCreator(columnName, categoryName))
     }
   }
 }

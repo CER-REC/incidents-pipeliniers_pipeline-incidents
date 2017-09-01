@@ -40,9 +40,9 @@ class Header extends React.Component {
         ></image>
       </a>
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
-			
-        <text x={xHeading} y={yHeading} className="heading">Heading</text>
-        <text x={xSubpop} y={ySubpop} className="subpop">subheading</text>				
+      
+        <text x={xHeading} y={yHeading} className="heading"></text>
+        <text x={xSubpop} y={ySubpop} className="subpop"></text>
 
       </svg>
     </g>

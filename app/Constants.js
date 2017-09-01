@@ -144,9 +144,7 @@ const Constants = Immutable.fromJS({
     labelOffset: 3,
 
     filterButtonWidth: 56,
-    filterButtonHeight: 13,
-
-    lineVerticalOffset: 13.5,
+    filterButtonHeight: 13.5,
 
     iconSize: 7,
 
@@ -158,28 +156,15 @@ const Constants = Immutable.fromJS({
     filterIconVerticalOffset: 3,
 
     dragButtonWidth: 10,
-    dragButtonHeight: 26.5,
 
     dragIconWidth: 6.5,
-    dragIconHeight: 15.3,
     dragIconHorizontalOffset: 1.75,
-    dragIconVerticalOffset: 6,
 
     textHeight: 7,
     textWidth: 40,
     textVerticalOffset: 9.5,
 
-    SHOW_ONLY: {
-      rectVerticalOffset: 0,
-      imagePath: 'images/filter.svg',
-      text: 'SHOW ONLY',
-    },
-
-    HIDE: {
-      rectVerticalOffset: 13.5,
-      imagePath: 'images/hide_(close).svg',
-      text: 'HIDE',
-    },
+    rectVerticalOffset: 13.5,
 
   },
 

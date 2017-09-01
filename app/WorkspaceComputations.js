@@ -3,6 +3,7 @@ const Immutable = require('immutable')
 
 const Constants = require('./Constants.js')
 const CategoryComputations = require('./CategoryComputations.js')
+const IncidentComputations = require('./IncidentComputations.js')
 
 const WorkspaceComputations = {}
 
@@ -138,10 +139,12 @@ WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport,
 
   const availableColumnHeight = columnHeight - relatedHiddenCategoryHeight
 
+  const filteredData = IncidentComputations.filteredIncidents(data, columns, categories)
+
   // Due to multiple selection categories (where an incident can appear in
   // multiple categories) the number of items we have to display can be larger
   // (or even smaller) than the number of incidents.
-  const itemsInColumn = CategoryComputations.itemsInColumn(data, categories, columnName)
+  const itemsInColumn = CategoryComputations.itemsInColumn(filteredData, categories, columnName)
 
   const heightPerItem = availableColumnHeight / itemsInColumn
 
@@ -153,7 +156,7 @@ WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport,
       return Constants.get('emptyCategoryHeight')
     }
     else {
-      const items = CategoryComputations.itemsInCategory(data, columnName, categoryName)
+      const items = CategoryComputations.itemsInCategory(filteredData, columnName, categoryName)
       return items * heightPerItem
     }
   })
@@ -243,10 +246,12 @@ WorkspaceComputations.sideBarCategoryHeights = function (columnHeight, showEmpty
 
   const availableColumnHeight = columnHeight - relatedHiddenCategoryHeight
 
+  const filteredData = IncidentComputations.filteredIncidents(data, columns, categories)
+
   // Due to multiple selection categories (where an incident can appear in
   // multiple categories) the number of items we have to display can be larger
   // (or even smaller) than the number of incidents.
-  const itemsInColumn = CategoryComputations.itemsInColumn(data, categories, columnName)
+  const itemsInColumn = CategoryComputations.itemsInColumn(filteredData, categories, columnName)
 
   const heightPerItem = availableColumnHeight / itemsInColumn
 
@@ -258,7 +263,7 @@ WorkspaceComputations.sideBarCategoryHeights = function (columnHeight, showEmpty
       return Constants.get('emptyCategoryHeight')
     }
     else {
-      const items = CategoryComputations.itemsInCategory(data, columnName, categoryName)
+      const items = CategoryComputations.itemsInCategory(filteredData, columnName, categoryName)
       return items * heightPerItem
     }
   })
@@ -610,7 +615,7 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   measurements = measurements.set('columns', Immutable.Map())
   measurements = measurements.set('columnPaths', Immutable.Map())
 
-  let cumulativeX = measurements.getIn(['pinColumn', 'width']) + measurements.getIn(['socialBar', 'width'])
+  let cumulativeX = measurements.getIn(['pinColumn', 'width'])
 
   // Columns + Column paths
   columns.forEach( columnName => {

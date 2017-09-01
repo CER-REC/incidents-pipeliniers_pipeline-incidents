@@ -132,6 +132,13 @@ class IncidentPopover extends React.Component {
   }
 
   render() {
+    // Verify that the incident is not filtered out.
+    const filteredData = IncidentComputations.filteredIncidents(
+      this.props.data, 
+      this.props.columns, 
+      this.props.categories)
+    if(!filteredData.contains(this.props.incident)) return null
+
     return <g>
       {this.showPopoverBody()}
       {this.horizontalLine()}
