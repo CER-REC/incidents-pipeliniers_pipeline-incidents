@@ -8,73 +8,119 @@ const DeactivateAllCategoriesExceptOneCreator = require('../actionCreators/Deact
 const DeactivateCategoryCreator = require('../actionCreators/DeactivateCategoryCreator.js')
 const HideFilterboxCreator = require('../actionCreators/HideFilterboxCreator.js')
 
+const FilterboxButton = require('./FilterBoxButton.jsx')
+const Tr = require('../TranslationTable.js')
+
 require('./Filterbox.scss')
 
-const FILTER_TYPE = {
-  SHOW_ONLY: 'SHOW_ONLY',
-  HIDE: 'HIDE'
-}
 
 class Filterbox extends React.Component {
-  
-  filterButton(filterType, clickCallback) {
-    return <g
-      className = 'filterBoxButton'
-      onClick = { clickCallback }
-    >
-      <rect
-        className = 'filterBoxRect'
-        y = {CategoryComputations.filterboxFilterButtonY(this.props.y, filterType) }
-        x = { CategoryComputations.filterboxFilterButtonX(this.props.width) }
-        width = { Constants.getIn(['filterbox', 'filterButtonWidth']) }
-        height = { Constants.getIn(['filterbox', 'filterButtonHeight']) } >
-      </rect>
-      <image 
-        xlinkHref = { Constants.getIn(['filterbox', filterType, 'imagePath']) }
-        height = { Constants.getIn(['filterbox', 'iconSize']) }
-        width = { Constants.getIn(['filterbox', 'iconSize']) }
-        x = { CategoryComputations.filterboxFilterButtonImageX(this.props.width) }
-        y = { CategoryComputations.filterboxFilterButtonImageY(this.props.y, filterType) } 
-      />
-      <text
-        className = 'filterBox'
-        height = { Constants.getIn(['filterbox', 'textHeight']) }
-        width = { Constants.getIn(['filterbox', 'textWidth']) }
-        x = {CategoryComputations.filterboxFilterButtonTextX(this.props.width) }
-        y = {CategoryComputations.filterboxFilterButtonTextY(this.props.y, filterType) }
-      >
-        { Constants.getIn(['filterbox', filterType, 'text']) }
-      </text>
-    </g>
+
+  showShowOnlyButton() {
+    return true
   }
+
+  showHideButton() {
+    return true
+  }
+
+  showResetButton() {
+    return true
+  }
+
+  buttonCount() {
+    let count = 0
+    if (this.showShowOnlyButton()) {
+      count += 1
+    }
+    if (this.showHideButton()) {
+      count += 1
+    }
+    if (this.showResetButton()) {
+      count += 1
+    }
+    return count
+  }
+
+  buttonHeight() {
+    return this.buttonCount() * Constants.getIn(['filterbox', 'rectVerticalOffset'])
+  }
+
+
+  buttons() {
+
+    const buttons = []
+    let currentY = 0
+
+    if (this.showShowOnlyButton()) {
+      buttons.push(<FilterboxButton 
+        x = '0'
+        y = { currentY }
+        clickCallback = {this.onShowOnlyClick.bind(this)}
+        imageUrl = 'images/filter.svg'
+        text = {Tr.getIn(['showOnly', this.props.language])}
+        key = 'showOnly'
+      />)
+      currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
+    }
+
+    if (this.showHideButton()) {
+      buttons.push(<FilterboxButton 
+        x = '0'
+        y = { currentY }
+        clickCallback = {this.onHideClick.bind(this)}
+        imageUrl = 'images/hide_(close).svg'
+        text = {Tr.getIn(['hide', this.props.language])}
+        key = 'hide'
+      />)
+      currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
+    }
+
+    if (this.showResetButton()) {
+      buttons.push(<FilterboxButton 
+        x = '0'
+        y = { currentY }
+        clickCallback = {this.onResetClick.bind(this)}
+        imageUrl = 'images/reset_arrow.svg'
+        text = {Tr.getIn(['reset', this.props.language])}
+        key = 'reset'
+      />)
+      currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
+    }
+
+    return buttons
+  }
+
+
 
   dragButton() {
     return <g className='filterBoxButton'>
       <rect
         className='filterBoxRect'
-        y={this.props.y}
-        x={CategoryComputations.filterboxDragButtonX(this.props.width)}
-        width={Constants.getIn(['filterbox', 'dragButtonWidth'])}
-        height={Constants.getIn(['filterbox', 'dragButtonHeight'])}>
-      </rect>
+        x = { Constants.getIn(['filterbox', 'filterButtonWidth']) }
+        y = '0'
+        width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
+        height = { this.buttonHeight() }
+      />
       <image 
         xlinkHref='images/vertical_drag.svg' 
         className = 'verticalDrag'
-        height = {Constants.getIn(['filterbox', 'dragIconHeight'])}
-        width = {Constants.getIn(['filterbox', 'dragIconWidth'])}
-        x= {CategoryComputations.filterboxDragImageX(this.props.width)}
-        y= {CategoryComputations.filterboxDragImageY(this.props.y)}>
-      </image>
+        x = { CategoryComputations.filterboxDragImageX(0) }
+        y = '0'
+        width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
+        height = { this.buttonHeight() }
+      />
     </g> 
   }
+        // y = { Constants.getIn(['filterbox', 'dragIconVerticalOffset']) }
 
   lineToCategory() {
     return <line className='filterBoxLine'
-      x1={this.props.width}
-      y1={this.props.y + Constants.getIn(['filterbox', 'lineVerticalOffset'])}
-      x2={this.props.width + Constants.get('categoryLabelOffset')}
-      y2={this.props.y + Constants.getIn(['filterbox', 'lineVerticalOffset'])}>
-    </line>
+      x1 = { -Constants.get('categoryLabelOffset') }
+      y1 = { this.buttonHeight() / 2 }
+      x2 = '0'
+      y2 = { this.buttonHeight() / 2 }
+    />
   }
 
   onShowOnlyClick() {
@@ -85,18 +131,26 @@ class Filterbox extends React.Component {
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
 
+  onResetClick() {
+    console.error("TODO")
+  }
+
   render() {
-    return <g>
-      {this.filterButton(FILTER_TYPE.SHOW_ONLY, this.onShowOnlyClick.bind(this))}
-      {this.filterButton(FILTER_TYPE.HIDE, this.onHideClick.bind(this))}
-      {this.dragButton()}
-      {this.lineToCategory()}
+
+    const transform = `translate(${this.props.width + Constants.get('categoryLabelOffset')}, ${this.props.y})`
+
+    return <g transform = { transform }>
+      { this.buttons() }
+      { this.dragButton() }
+      { this.lineToCategory() }
     </g>
   }
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    language: state.language,
+  }
 }
 
 const mapDispatchToProps = dispatch => {

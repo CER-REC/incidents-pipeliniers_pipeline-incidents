@@ -431,8 +431,7 @@ CategoryComputations.filterboxFilterButtonTextY = function(startingY, filterType
 }
 
 CategoryComputations.filterboxDragButtonX = function(width) {
-  return width + Constants.get('categoryLabelOffset') + 
-         Constants.getIn(['filterbox', 'filterButtonWidth'])
+  return width + Constants.getIn(['filterbox', 'filterButtonWidth'])
 }
 
 CategoryComputations.filterboxDragImageX = function(width) {
