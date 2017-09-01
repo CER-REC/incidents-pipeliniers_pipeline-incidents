@@ -171,7 +171,7 @@ class SelectedIncidentPaths extends React.Component {
           departurePoint.y
         )
 
-        const offset = Constants.getIn(['selectedIncidentPath', controlPointOffset])
+        const offset = Constants.getIn(['selectedIncidentPath', 'controlPointOffset'])
 
         d3path.bezierCurveTo(
           // control point 1

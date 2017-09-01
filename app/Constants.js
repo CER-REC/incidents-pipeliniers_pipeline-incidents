@@ -62,6 +62,8 @@ const Constants = Immutable.fromJS({
     horizontalLineXStart: 151,
     dotRadius: 3,
     lineHeight: 16.2,
+    popupHeight: 81,
+    textOffset: 15,
   },
 
   columnWideWidth: 62,
