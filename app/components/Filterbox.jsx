@@ -7,6 +7,10 @@ const DeactivateAllCategoriesExceptOneCreator = require('../actionCreators/Deact
 const DeactivateCategoryCreator = require('../actionCreators/DeactivateCategoryCreator.js')
 const HideFilterboxCreator = require('../actionCreators/HideFilterboxCreator.js')
 const ActivateAllCategoriesForColumnCreator = require('../actionCreators/ActivateAllCategoriesForColumnCreator.js')
+const DragCategoryStartedCreator = require('../actionCreators/DragCategoryStartedCreator.js')
+const DragCategoryCreator = require('../actionCreators/DragCategoryCreator.js')
+const DragCategoryEndedCreator = require('../actionCreators/DragCategoryEndedCreator.js')
+const SnapCategoryCreator = require('../actionCreators/SnapCategoryCreator.js')
 
 const FilterboxButton = require('./FilterBoxButton.jsx')
 const Tr = require('../TranslationTable.js')
@@ -87,10 +91,30 @@ class Filterbox extends React.Component {
         y = '0'
         width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
         height = { this.buttonHeight() }
+        onMouseDown={this.handleDragStart.bind(this)}
+        onMouseMove={this.handleDragMove.bind(this)}
+        onMouseUp={this.handleDragEnd.bind(this)}
       />
     </g> 
   }
 
+  handleDragStart(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    console.log('DRAG STARTED')
+  }
+
+  handleDragMove(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    console.log('DRAG MOVE')
+  }
+
+  handleDragEnd(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    console.log('DRAG ENDED')
+  }
 
   lineToCategory() {
     return <line className='filterBoxLine'
@@ -145,6 +169,18 @@ const mapDispatchToProps = dispatch => {
     },
     onResetClick: columnName => {
       dispatch(ActivateAllCategoriesForColumnCreator(columnName))
+    },
+    onCategoryDragStarted: (isStarted, columnName, categoryName, oldY, newY, offset) => {
+      dispatch(DragCategoryStartedCreator(isStarted, columnName, categoryName, oldY, newY, offset))
+    },
+    onCategoryDrag: (newX) => {
+      dispatch(DragCategoryCreator(newX))
+    },
+    onCategoryDragEnded: (isStarted) => {
+      dispatch(DragCategoryEndedCreator(isStarted))
+    },
+    onCategorySnap: (columnName, categoryName, oldY, newY, viewport) => {
+      dispatch(SnapCategoryCreator(columnName, categoryName, oldY, newY, viewport))
     }
   }
 }
