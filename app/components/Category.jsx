@@ -35,6 +35,8 @@ class Category extends React.Component {
       return <Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
+        columnName = { this.props.columnName }
+        categoryName = { this.props.categoryName }
       />
     }
     else {

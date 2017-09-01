@@ -1,7 +1,12 @@
 const React = require('react')
+const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
 const CategoryComputations = require('../CategoryComputations.js')
+
+const DeactivateAllCategoriesExceptOneCreator = require('../actionCreators/DeactivateAllCategoriesExceptOneCreator.js')
+const DeactivateCategoryCreator = require('../actionCreators/DeactivateCategoryCreator.js')
+const HideFilterboxCreator = require('../actionCreators/HideFilterboxCreator.js')
 
 require('./Filterbox.scss')
 
@@ -12,8 +17,11 @@ const FILTER_TYPE = {
 
 class Filterbox extends React.Component {
   
-  filterButton(filterType) {
-    return <g className = 'filterBoxButton'>
+  filterButton(filterType, clickCallback) {
+    return <g
+      className = 'filterBoxButton'
+      onClick = { clickCallback }
+    >
       <rect
         className = 'filterBoxRect'
         y = {CategoryComputations.filterboxFilterButtonY(this.props.y, filterType) }
@@ -69,14 +77,41 @@ class Filterbox extends React.Component {
     </line>
   }
 
+  onShowOnlyClick() {
+    this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
+  }
+
+  onHideClick() {
+    this.props.onHideClick(this.props.columnName, this.props.categoryName)
+  }
+
   render() {
     return <g>
-      {this.filterButton(FILTER_TYPE.SHOW_ONLY)}
-      {this.filterButton(FILTER_TYPE.HIDE)}
+      {this.filterButton(FILTER_TYPE.SHOW_ONLY, this.onShowOnlyClick.bind(this))}
+      {this.filterButton(FILTER_TYPE.HIDE, this.onHideClick.bind(this))}
       {this.dragButton()}
       {this.lineToCategory()}
     </g>
   }
 }
 
-module.exports = Filterbox
+const mapStateToProps = state => {
+  return {}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onShowOnlyClick: (columnName, categoryName) => {
+      dispatch(HideFilterboxCreator())
+      dispatch(DeactivateAllCategoriesExceptOneCreator(columnName, categoryName))
+    },
+    onHideClick: (columnName, categoryName) => {
+      dispatch(HideFilterboxCreator())
+      dispatch(DeactivateCategoryCreator(columnName, categoryName))
+    },
+  }
+}
+
+
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Filterbox)
