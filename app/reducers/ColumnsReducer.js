@@ -5,7 +5,7 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 
 const defaults = Immutable.fromJS([
   'year',
-  // 'incidentTypes',
+  'incidentTypes',
   // 'company',
   // 'status',
   // 'pipelineSystemComponentsInvolved',
