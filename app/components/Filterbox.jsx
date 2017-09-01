@@ -23,7 +23,12 @@ class Filterbox extends React.Component {
     // already only one category ... 
 
     // categories: a map of {categoryName (string): visible (boolean)}
-    const categories = this.props.categories.get(this.props.columnName)
+    const categories = CategoryComputations.displayedCategories(
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.columnName
+    )
 
     const visibleCategoriesCount = categories.reduce( (count, visible) => {
       if (visible === true) {
@@ -187,6 +192,8 @@ const mapStateToProps = state => {
   return {
     language: state.language,
     categories: state.categories,
+    data: state.data, 
+    columns: state.columns
   }
 }
 
