@@ -7,6 +7,7 @@ const CategoryComputations = require('../CategoryComputations.js')
 const DeactivateAllCategoriesExceptOneCreator = require('../actionCreators/DeactivateAllCategoriesExceptOneCreator.js')
 const DeactivateCategoryCreator = require('../actionCreators/DeactivateCategoryCreator.js')
 const HideFilterboxCreator = require('../actionCreators/HideFilterboxCreator.js')
+const ActivateAllCategoriesForColumnCreator = require('../actionCreators/ActivateAllCategoriesForColumnCreator.js')
 
 const FilterboxButton = require('./FilterBoxButton.jsx')
 const Tr = require('../TranslationTable.js')
@@ -17,15 +18,50 @@ require('./Filterbox.scss')
 class Filterbox extends React.Component {
 
   showShowOnlyButton() {
-    return true
+    // If there is more than one visible category, we should show the 
+    // 'show only' button. It's meaningless to have this button if there is 
+    // already only one category ... 
+
+    // categories: a map of {categoryName (string): visible (boolean)}
+    const categories = this.props.categories.get(this.props.columnName)
+
+    const visibleCategoriesCount = categories.reduce( (count, visible) => {
+      if (visible === true) {
+        return count + 1
+      }
+      else {
+        return count
+      }
+    }, 0)
+
+    return visibleCategoriesCount > 1
   }
 
   showHideButton() {
-    return true
+    // If there is more than one visible category, we should show the hide
+    // button. We prevent the user from hiding the last shown category.
+
+    // For now, since this is precisely the same logic as for the showOnly
+    // button, we'll call that method here.
+    return this.showShowOnlyButton()
   }
 
   showResetButton() {
-    return true
+    // If any of the categories are hidden, we should show the reset button
+
+    // categories: a map of {categoryName (string): visible (boolean)}
+    const categories = this.props.categories.get(this.props.columnName)
+
+    const hiddenCategory = categories.find( visible => {
+      return visible === false
+    })
+
+    // NB: when all categories are visible, the find call returns 'undefined'.
+    // When we find a category that is not visible, the result of the find is
+    // the value in the map, i.e.: false
+    // So, when we have a category which is not on display (when hiddenCategory)
+    // is false, we wish to return true.
+    return hiddenCategory === false
   }
 
   buttonCount() {
@@ -105,14 +141,14 @@ class Filterbox extends React.Component {
       <image 
         xlinkHref='images/vertical_drag.svg' 
         className = 'verticalDrag'
-        x = { CategoryComputations.filterboxDragImageX(0) }
+        x = { Constants.getIn(['filterbox', 'filterButtonWidth']) + Constants.getIn(['filterbox', 'dragIconHorizontalOffset']) }
         y = '0'
         width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
         height = { this.buttonHeight() }
       />
     </g> 
   }
-        // y = { Constants.getIn(['filterbox', 'dragIconVerticalOffset']) }
+
 
   lineToCategory() {
     return <line className='filterBoxLine'
@@ -132,7 +168,7 @@ class Filterbox extends React.Component {
   }
 
   onResetClick() {
-    console.error("TODO")
+    this.props.onResetClick(this.props.columnName)
   }
 
   render() {
@@ -150,6 +186,7 @@ class Filterbox extends React.Component {
 const mapStateToProps = state => {
   return {
     language: state.language,
+    categories: state.categories,
   }
 }
 
@@ -163,6 +200,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(HideFilterboxCreator())
       dispatch(DeactivateCategoryCreator(columnName, categoryName))
     },
+    onResetClick: columnName => {
+      dispatch(ActivateAllCategoriesForColumnCreator(columnName))
+    }
   }
 }
 
