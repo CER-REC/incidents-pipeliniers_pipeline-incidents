@@ -63,6 +63,8 @@ const Constants = Immutable.fromJS({
     horizontalLineXStart: 151,
     dotRadius: 3,
     lineHeight: 16.2,
+    popupHeight: 81,
+    textOffset: 15,
   },
 
   columnWideWidth: 62,
@@ -285,6 +287,22 @@ const Constants = Immutable.fromJS({
   categoryLabelTerminatingDots: 3,
   categoryLabelLineLength: 14,
   categoryStrokeWidth: 1,
+
+
+  selectedIncidentPath: {
+    controlPointOffset: 30,
+    colourBetweenColumns: '#1A1A1A',
+    columnBarColour: '#FFF',
+    columnBarOpacity: 0.75,
+    strokeWidth: '2px'
+  },
+
+  columnTypes: {
+    SIDEBAR: 'SIDEBAR',
+    WORKSPACE: 'WORKSPACE'
+  },
+
+
 
 })
 

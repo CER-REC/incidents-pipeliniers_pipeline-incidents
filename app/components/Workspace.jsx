@@ -14,6 +14,7 @@ const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const MapContainer = require('./MapContainer.jsx')
+const Constants = require('../Constants.js')
 
 
 class Workspace extends React.Component {
@@ -25,7 +26,11 @@ class Workspace extends React.Component {
         return <MapColumn key={columnName}/>
       }
       else {
-        return <Column columnName={columnName} key={columnName}/>
+        return <Column
+          columnName={columnName}
+          key={columnName}
+          columnType = { Constants.getIn(['columnTypes', 'WORKSPACE']) }
+        />
       }
     }).toArray()
   }
@@ -62,7 +67,8 @@ class Workspace extends React.Component {
         <svg 
           className = 'workspaceSvg'
           width = { horizontalPositions.getIn(['workspace', 'width']) }
-          height = { horizontalPositions.getIn(['workspace', 'height']) }>
+          height = { horizontalPositions.getIn(['workspace', 'height']) }
+        >
           <Header />
           <EmptyCategories />
           <IncidentBar/>

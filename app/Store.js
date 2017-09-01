@@ -13,6 +13,7 @@ const SidebarColumnHoverReducer = require('./reducers/SidebarColumnHoverReducer.
 const ColumnDragReducer = require('./reducers/ColumnDragReducer.js')
 const SidebarColumnDragReducer = require('./reducers/SidebarColumnDragReducer.js')
 const LanguageReducer = require('./reducers/LanguageReducer.js')
+const IncidentDragStateReducer = require('./reducers/IncidentDragStateReducer.js')
 
 
 const reducers = Redux.combineReducers({
@@ -28,6 +29,7 @@ const reducers = Redux.combineReducers({
   columnDragStatus: ColumnDragReducer,
   sidebarDragStatus: SidebarColumnDragReducer,
   language: LanguageReducer,
+  incidentDragState: IncidentDragStateReducer,
 })
 
 module.exports = function () {

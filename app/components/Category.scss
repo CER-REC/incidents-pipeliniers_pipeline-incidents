@@ -1,10 +1,10 @@
 @import "../styles/Colours.scss";
-@import "../styles/Fonts.scss";
 
+.category {
+  cursor: pointer;
 
-.Category {
-  cursor:pointer;
-  stroke:$black;
+  .categoryRect {
+    stroke: $black;
+  }
+
 }
-
-
