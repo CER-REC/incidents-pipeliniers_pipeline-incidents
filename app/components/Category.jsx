@@ -116,14 +116,23 @@ class Category extends React.Component {
   // drag functionality
 
   handleOnMouseDown(event) {
+    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      return
+    }
     event.preventDefault()
     this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
   }
   handleOnMouseMove(event) {
+    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      return
+    }
     event.preventDefault()
     this.selectIncidentAtMousePosition(event)
   }
   handleOnMouseUp(event) {
+    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      return
+    }
     event.preventDefault()
     this.selectIncidentAtMousePosition(event)
     this.props.onEndDrag()
