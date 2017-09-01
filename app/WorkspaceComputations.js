@@ -615,7 +615,7 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   measurements = measurements.set('columns', Immutable.Map())
   measurements = measurements.set('columnPaths', Immutable.Map())
 
-  let cumulativeX = measurements.getIn(['pinColumn', 'width']) + measurements.getIn(['socialBar', 'width'])
+  let cumulativeX = measurements.getIn(['pinColumn', 'width'])
 
   // Columns + Column paths
   columns.forEach( columnName => {
