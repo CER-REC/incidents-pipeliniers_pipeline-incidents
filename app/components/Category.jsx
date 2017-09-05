@@ -308,8 +308,8 @@ class Category extends React.Component {
   }
 
   categoryFade() {
-    const isAnyIncidentSelected = (this.props.selectedIncident !== null) && 
-      (this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE']))
+    const isIncidentInWorkspace = this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE'])
+    const isAnyIncidentSelected = (this.props.selectedIncident !== null) && isIncidentInWorkspace
 
     if (!isAnyIncidentSelected) {
       return Constants.get('categoryDefaultOpacity')
