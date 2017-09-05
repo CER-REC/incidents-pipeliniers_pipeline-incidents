@@ -307,20 +307,24 @@ class Category extends React.Component {
     }).toArray()
   }
 
-  categoryFade(incident) {
-    const isIncidentSelected = this.props.selectedIncident === this.props.selectIncident(incident) &&
-      this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE'])
-
-    const isAnyIncidentSelected = this.props.selectedIncident.get('data') !== null
+  categoryFade() {
+    const isAnyIncidentSelected = (this.props.selectedIncident !== null) && 
+      (this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE']))
 
     if (!isAnyIncidentSelected) {
-      return '1' // default -> no incident is selected, opacity set at 1
+      return Constants.get('categoryDefaultOpacity')
     }
-    else if (isAnyIncidentSelected === true && isIncidentSelected === true) {
-      return '1' // an incident is selected and in the category, opacity set at 1
+
+    const isSelectedIncidentInCategory = CategoryComputations.itemInCategory(
+      this.props.selectedIncident,
+      this.props.columnName,
+      this.props.categoryName)
+
+    if (isAnyIncidentSelected === true && isSelectedIncidentInCategory === true) {
+      return Constants.get('categoryDefaultOpacity') 
     }
-    else if (isAnyIncidentSelected === true && isIncidentSelected === false) {
-      return '0.2' // an incident is selected but not in the category, opacity set at 0.2
+    if (isAnyIncidentSelected === true && isSelectedIncidentInCategory === false) {
+      return Constants.get('categoryFadeOpacity') 
     }
   }
 
