@@ -328,19 +328,19 @@ class Category extends React.Component {
     }
   }
 
-  render() {
-    const transformString = `translate(${this.props.x}, ${this.props.y})`
-
-    // TODO: put strokewidth in a method
-    let strokeWidth
+  strokeWidth() {
     if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
       this.props.columnName === this.props.categoryHoverState.get('columnName')) {
-      strokeWidth = Constants.getIn('categoryStrokeWidth')
+      return Constants.getIn('categoryStrokeWidth')
     } 
     else {
-      strokeWidth = '0'
+      return '0'
     }
+  }
 
+  render() {
+    const transformString = `translate(${this.props.x}, ${this.props.y})`
+    
     // We need the mouseUp handler on the group, rather than the rect itself,
     // because the selected incident bar will always be underneath the mouse
     // when we stop dragging.
@@ -359,7 +359,7 @@ class Category extends React.Component {
 
           opacity={this.categoryFade()}
 
-          strokeWidth={strokeWidth}
+          strokeWidth={this.strokeWidth()}
           className = 'categoryRect'
 
           onMouseDown={this.handleOnMouseDown.bind(this)}
