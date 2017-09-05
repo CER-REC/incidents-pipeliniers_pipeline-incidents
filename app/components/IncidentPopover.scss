@@ -1,0 +1,18 @@
+@import "../styles/Colours.scss";
+
+.horizontalLine {
+  stroke: $popoverStroke;
+}
+
+.verticalLine {
+  fill: $popoverStroke;
+  stroke: $popoverStroke;
+}
+
+.pinIcon {
+  cursor: pointer;
+}
+
+g {
+	transition: transform 50ms;
+}

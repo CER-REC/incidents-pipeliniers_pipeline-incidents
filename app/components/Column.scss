@@ -1,0 +1,15 @@
+@import "../styles/Colours.scss";
+@import "../styles/Fonts.scss";
+
+.dragArrow {
+  cursor: move;
+}
+
+.Column {
+  cursor: pointer;
+}
+
+g {
+	transition: transform 50ms;
+}
+
