@@ -1,12 +1,12 @@
 
-function SnapCategoryCreator (columnName, categoryName, oldY, newY, viewport) {
+function SnapCategoryCreator (columnName, categoryName, oldY, newY, categoryHeights) {
   return {
     type: 'SnapCategory',
     columnName: columnName,
     categoryName: categoryName,
     oldY: oldY,
     newY: newY,
-    viewport: viewport
+    categoryHeights: categoryHeights
   }
 }
 

@@ -16,6 +16,8 @@ const FilterboxButton = require('./FilterBoxButton.jsx')
 const Tr = require('../TranslationTable.js')
 
 const FilterboxComputations = require('../FilterboxComputations.js')
+const WorkspaceComputations = require('../WorkspaceComputations.js')
+const IncidentComputations = require('../IncidentComputations.js')
 
 let categoryWindowMoveHandler = null
 let categoryWindowEndHandler = null
@@ -125,8 +127,6 @@ class Filterbox extends React.Component {
     categoryWindowEndHandler = this.handleDragEnd.bind(this)
     window.addEventListener('mouseup', categoryWindowEndHandler)
     window.addEventListener('mousemove', categoryWindowMoveHandler)
-
-    console.log('DRAG STARTED')
   }
 
   handleDragMove(e) {
@@ -137,8 +137,6 @@ class Filterbox extends React.Component {
     if(!this.props.categoryDragStatus.get('isStarted')) return 
 
     this.props.onCategoryDrag(e.clientY)
-
-    console.log('DRAG MOVE')
   }
 
   handleDragEnd(e) {
@@ -149,6 +147,21 @@ class Filterbox extends React.Component {
     if(!this.props.categoryDragStatus.get('isStarted')) return
 
     this.props.onCategoryDragEnded(false)
+
+    const filteredData = IncidentComputations.filteredIncidents(
+      this.props.data,
+      this.props.columns,
+      this.props.categories
+    )
+
+    const categoryHeights = WorkspaceComputations.categoryHeights(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      filteredData,
+      this.props.columns,
+      this.props.categories, 
+      this.props.categoryDragStatus.get('columnName')) 
+
     const newY = this.props.categoryDragStatus.get('newY') - 
                  this.props.categoryDragStatus.get('offset')
 
@@ -157,13 +170,11 @@ class Filterbox extends React.Component {
       this.props.categoryDragStatus.get('categoryName'), 
       this.props.categoryDragStatus.get('oldY'), 
       newY, 
-      this.props.viewport)
+      categoryHeights)
 
     // Remove the window event handlers previously attached.
     window.removeEventListener('mouseup', categoryWindowEndHandler)
     window.removeEventListener('mousemove', categoryWindowMoveHandler)
-
-    console.log('DRAG ENDED')
   }
 
   lineToCategory() {
@@ -204,7 +215,9 @@ const mapStateToProps = state => {
     categories: state.categories,
     data: state.data, 
     columns: state.columns,
-    categoryDragStatus: state.categoryDragStatus
+    categoryDragStatus: state.categoryDragStatus,
+    showEmptyCategories: state.showEmptyCategories,
+    viewport: state.viewport,
   }
 }
 
@@ -230,8 +243,8 @@ const mapDispatchToProps = dispatch => {
     onCategoryDragEnded: (isStarted) => {
       dispatch(DragCategoryEndedCreator(isStarted))
     },
-    onCategorySnap: (columnName, categoryName, oldY, newY, viewport) => {
-      dispatch(SnapCategoryCreator(columnName, categoryName, oldY, newY, viewport))
+    onCategorySnap: (columnName, categoryName, oldY, newY, categoryHeights) => {
+      dispatch(SnapCategoryCreator(columnName, categoryName, oldY, newY, categoryHeights))
     }
   }
 }
