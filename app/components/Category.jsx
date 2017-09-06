@@ -242,10 +242,16 @@ class Category extends React.Component {
 
 
   handleMouseEnter() {
-    this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
+    // Do not highlight categories in the sidebar.
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
+    }
   }
   handleMouseLeave() {
-    this.props.onMouseLeave()
+    // Do not highlight categories in the sidebar.
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      this.props.onMouseLeave()
+    }
   }
 
 
