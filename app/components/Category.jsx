@@ -68,9 +68,9 @@ class Category extends React.Component {
       } 
       else if (isCategoryHovered === true || isCategorySelected === true) {
         console.log(this.props.categoryName)
-        return this.props.categoryName// show label
+        return this.props.categoryName // how to show label?
       }
-      return null
+      return labelLengthExceed === false
     }
 
     let labelClassName = 'inactiveCategoryLabels'
