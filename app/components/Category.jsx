@@ -191,7 +191,6 @@ class Category extends React.Component {
 
 
 
-
   labelLines() {
 
     switch(this.props.columnName) {
@@ -320,22 +319,42 @@ class Category extends React.Component {
         key = { i }
       />
     }).toArray()
+  }
 
+  categoryFade() {
+    const isIncidentInWorkspace = this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE'])
+    const isAnyIncidentSelected = (this.props.selectedIncident !== null) && isIncidentInWorkspace
+
+    if (!isAnyIncidentSelected) {
+      return Constants.get('categoryDefaultOpacity')
+    }
+
+    const isSelectedIncidentInCategory = CategoryComputations.itemInCategory(
+      this.props.selectedIncident,
+      this.props.columnName,
+      this.props.categoryName)
+
+    if (isAnyIncidentSelected === true && isSelectedIncidentInCategory === true) {
+      return Constants.get('categoryDefaultOpacity') 
+    }
+    if (isAnyIncidentSelected === true && isSelectedIncidentInCategory === false) {
+      return Constants.get('categoryFadeOpacity') 
+    }
+  }
+
+  strokeWidth() {
+    if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
+      this.props.columnName === this.props.categoryHoverState.get('columnName')) {
+      return Constants.getIn('categoryStrokeWidth')
+    } 
+    else {
+      return '0'
+    }
   }
 
   render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
-
-    // TODO: put strokewidth in a method
-    let strokeWidth
-    if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
-      this.props.columnName === this.props.categoryHoverState.get('columnName')) {
-      strokeWidth = Constants.getIn('categoryStrokeWidth')
-    } 
-    else {
-      strokeWidth = '0'
-    }
-
+    
     // We need the mouseUp handler on the group, rather than the rect itself,
     // because the selected incident bar will always be underneath the mouse
     // when we stop dragging.
@@ -355,7 +374,10 @@ class Category extends React.Component {
           width={this.props.width}
           height={this.props.height}
           fill={this.props.colour}
-          strokeWidth={strokeWidth}
+
+          opacity={this.categoryFade()}
+
+          strokeWidth={this.strokeWidth()}
           className = 'categoryRect'
           ref={ (element) => this.rect = element }
         />
