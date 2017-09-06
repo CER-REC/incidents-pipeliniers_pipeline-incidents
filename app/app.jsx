@@ -8,14 +8,15 @@ const React = require('react')
 const Constants = require('./Constants.js')
 const Root = require('./components/Root.jsx')
 const Resized = require('./actionCreators/ResizeScreenCreator.js')
-const DragColumn = require('./actionCreators/DragColumnCreator.js')
-const DragColumnEnded = require('./actionCreators/DragColumnEndedCreator.js')
 const store = require('./Store.js')()
 const DataLoader = require('./DataLoader.js')
 
 // Uncomment for debugging only.
 window.store = store
 window._ = require('lodash')
+
+window.History = require('history')
+window.rc = require('./RouteComputations.js')
 
 // TODO: is this the best place for this?
 DataLoader.loadDataCsv(store)
