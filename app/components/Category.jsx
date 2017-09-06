@@ -55,7 +55,21 @@ class Category extends React.Component {
     }
 
     const labelLines = this.labelLines()
-    if(labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height) {
+    const labelLengthExceed = labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height
+
+    // TODO: consider cases when filter box covers label
+    const isCategoryHovered = this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
+      this.props.columnName === this.props.categoryHoverState.get('columnName')
+    const isCategorySelected = (this.props.selectedIncident !== null)
+
+    while (labelLengthExceed === true) {
+      if (isCategoryHovered === false || isCategorySelected === false) {
+        return null
+      } 
+      else if (isCategoryHovered === true || isCategorySelected === true) {
+        console.log(this.props.categoryName)
+        return this.props.categoryName// show label
+      }
       return null
     }
 
@@ -308,8 +322,6 @@ class Category extends React.Component {
     }).toArray()
 
   }
-
-
 
   render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`

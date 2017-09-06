@@ -17,7 +17,7 @@ const defaults = Immutable.fromJS([
   // 'whyItHappened',
   // 'pipelinePhase',
   // 'substanceCategory',
-  // 'company',
+   'company',
   // 'map',
 ])
 
