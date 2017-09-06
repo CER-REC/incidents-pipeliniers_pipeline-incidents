@@ -431,7 +431,6 @@ class Column extends React.Component {
           width={ this.props.columnWidth }
           x={ this.props.columnX }
           y={currentY}
-          columnType={this.props.columnType}
           enableCategoryHeadingClick = { false }
         />
       }).toArray()
