@@ -345,6 +345,10 @@ class Category extends React.Component {
     return <g
       onMouseUp = { this.handleOnMouseUp.bind(this) }
       className = 'category'
+      onMouseDown={this.handleOnMouseDown.bind(this)}
+      onMouseMove={this.handleOnMouseMove.bind(this)}
+      onMouseEnter={this.handleMouseEnter.bind(this)}
+      onMouseLeave={this.handleMouseLeave.bind(this)}
     >
       <g transform={transformString}>
         <rect
@@ -353,10 +357,6 @@ class Category extends React.Component {
           fill={this.props.colour}
           strokeWidth={strokeWidth}
           className = 'categoryRect'
-          onMouseDown={this.handleOnMouseDown.bind(this)}
-          onMouseMove={this.handleOnMouseMove.bind(this)}
-          onMouseEnter={this.handleMouseEnter.bind(this)}
-          onMouseLeave={this.handleMouseLeave.bind(this)}
           ref={ (element) => this.rect = element }
         />
         { this.label() }
