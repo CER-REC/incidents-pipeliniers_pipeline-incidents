@@ -72,15 +72,6 @@ class Category extends React.Component {
       return null
     }
 
-    // while(isCategoryHovered === false && isCategorySelected === false) {
-    //   if(labelLengthExceed === true) {
-    //     return null
-    //   }
-    //   else if (labelLengthExceed === false) {
-    //     return labelClassName
-    //   }
-    // }
-
     if(this.filterboxActive()) {
       labelClassName = 'activeCategoryLabels'
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
