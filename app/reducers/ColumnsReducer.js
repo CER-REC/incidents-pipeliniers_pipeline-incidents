@@ -13,11 +13,11 @@ const defaults = Immutable.fromJS([
   // 'substance',
   // 'volumeCategory',
   // 'releaseType',
-  // 'whatHappened',
-  // 'whyItHappened',
+  'whatHappened',
+  'whyItHappened',
   // 'pipelinePhase',
   // 'substanceCategory',
-   'company',
+  'company',
   // 'map',
 ])
 

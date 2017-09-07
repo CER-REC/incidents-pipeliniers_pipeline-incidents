@@ -60,21 +60,26 @@ class Category extends React.Component {
     // TODO: consider cases when filter box covers label
     const isCategoryHovered = this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
       this.props.columnName === this.props.categoryHoverState.get('columnName')
-    const isCategorySelected = (this.props.selectedIncident !== null)
-
-    while (labelLengthExceed === true) {
-      if (isCategoryHovered === false || isCategorySelected === false) {
-        return null
-      } 
-      else if (isCategoryHovered === true || isCategorySelected === true) {
-        console.log(this.props.categoryName)
-        return this.props.categoryName // how to show label?
-      }
-      return labelLengthExceed === false
-    }
+    const isCategorySelected = (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
+      this.props.selectedIncident,
+      this.props.columnName,
+      this.props.categoryName))
 
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
+
+    if(labelLengthExceed === true && isCategorySelected === false && isCategoryHovered === false) {
+      return null
+    }
+
+    // while(isCategoryHovered === false && isCategorySelected === false) {
+    //   if(labelLengthExceed === true) {
+    //     return null
+    //   }
+    //   else if (labelLengthExceed === false) {
+    //     return labelClassName
+    //   }
+    // }
 
     if(this.filterboxActive()) {
       labelClassName = 'activeCategoryLabels'
