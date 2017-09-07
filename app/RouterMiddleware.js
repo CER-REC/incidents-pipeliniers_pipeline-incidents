@@ -33,8 +33,6 @@ const RouterMiddleware = store => next => action => {
 
   const result = next(action)
 
-  // TODO: A better approach than this: save the relevant state, test if it has
-  // changed ..
   if (routableStateActions.includes(action.type)) {
     
     const state = store.getState()
