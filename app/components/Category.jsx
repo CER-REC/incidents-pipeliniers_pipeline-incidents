@@ -81,6 +81,10 @@ class Category extends React.Component {
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
+    if(isCategoryHovered === true) {
+      labelClassName = 'activeCategoryLabels'
+    }
+
     let currentY = (this.props.height/2) - filterBoxOffset
     let lineCount = 0
     currentY += (1 - (labelLines.length/2)) * 
