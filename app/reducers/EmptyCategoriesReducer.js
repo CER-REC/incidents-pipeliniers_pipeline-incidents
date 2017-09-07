@@ -4,6 +4,10 @@ const EmptyCategoriesReducer = (state = false, action) => {
   case 'ShowHideEmptyCategories': 
     return !state
 
+  case 'InitializeRouterState':
+    return action.showEmptyCategories
+
+
   default:
     return state
   }

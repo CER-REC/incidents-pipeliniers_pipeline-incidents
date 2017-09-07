@@ -33,8 +33,6 @@ DomReady( () => {
 function resizeScreenHandler()  
 {
   // Ensures the width and height of the workspace keep the ratio 900:600
-  // TODO: Increase the height of the workspace by emptyCategoryOffsetRatio if
-  // the empty categories are visible (i.e. empty categories state is visible).
   const w = document.getElementById('reactRoot').clientWidth
   const h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])
   store.dispatch(Resized(w,h))

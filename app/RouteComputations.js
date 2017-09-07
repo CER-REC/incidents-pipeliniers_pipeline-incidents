@@ -1,5 +1,6 @@
 const Immutable = require('immutable')
 const QueryString = require('query-string')
+const BrowserCookies = require('browser-cookies')
 
 const Constants = require('./Constants.js')
 
@@ -35,7 +36,7 @@ const RouteComputations = {
 
   // Returns a string to form the query params of the current URL, i.e.
   // everything from the ? on
-  stateToUrlParams: function (columns, categories, showEmptycategories, pinnedIncidents, selectedIncident, language) {
+  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents, selectedIncident, language) {
 
     const params = {}
 
@@ -75,8 +76,8 @@ const RouteComputations = {
     // When empty categories are hidden, absent from the URL.
     // TODO: we should probably also parse 'false' for this attribute as
     // equivalent... 
-    if (showEmptycategories === true) {
-      params.showEmptycategories = true
+    if (showEmptyCategories === true) {
+      params.showEmptyCategories = true
     }
 
     // pinnedIncidents: represented as a comma separated list of incident 
@@ -114,14 +115,15 @@ const RouteComputations = {
   urlParamsToState: function (paramsString, data, categories) {
 
     const rawParams = QueryString.parse(paramsString)
+    console.log('uhhuh', paramsString, rawParams)
 
     const routerState = {
-      columns: RouteComputations.parseColumns(rawParams.columns),
-      categories: RouteComputations.parseCategories(rawParams),
-      showEmptyCategories: RouteComputations.parseShowEmptyCategories(rawParams.showEmptyCategories, categories),
-      pinnedIncidents: RouteComputations.parsePinnedIncidents(rawParams.pinnedIncidents, data),
-      selectedIncident: RouteComputations.parseSelectedIncident(rawParams.selectedIncident, data),
-      language: RouteComputations.parseLanguage(rawParams.language),
+      columns: RouteComputations.parseUrlColumns(rawParams.columns),
+      categories: RouteComputations.parseUrlCategories(rawParams, categories),
+      showEmptyCategories: RouteComputations.parseUrlShowEmptyCategories(rawParams.showEmptyCategories),
+      pinnedIncidents: RouteComputations.parseUrlPinnedIncidents(rawParams.pinnedIncidents, data),
+      selectedIncident: RouteComputations.parseUrlSelectedIncident(rawParams.selectedIncident, data),
+      language: RouteComputations.parseUrlLanguage(rawParams.language),
     }
 
     return routerState
@@ -235,9 +237,18 @@ const RouteComputations = {
     if (languageString === 'en' || languageString === 'fr') {
       return languageString
     }
-    else {
-      throw new Error('TODO: read cookies here')
+
+    const gc_lang_cookie = BrowserCookies.get('_gc_lang')
+
+    switch (gc_lang_cookie) {
+    case 'E':
+      return 'en'
+    case 'F':
+      return 'fr'
     }
+
+    // Default to english
+    return 'en'
 
   },
 
