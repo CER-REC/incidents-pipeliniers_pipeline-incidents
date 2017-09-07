@@ -34,7 +34,7 @@ class Column extends React.Component {
   // Specifically: non-empty AND visible categories
   nonEmptyCategories() {
     const categoryColours = CategoryComputations.coloursForColumn(
-      this.props.categories,
+      this.props.data,
       this.props.columnName)
     const categoryHeights = WorkspaceComputations.categoryHeights(
       this.props.showEmptyCategories,
@@ -173,7 +173,7 @@ class Column extends React.Component {
 
 
     const categoryColours = CategoryComputations.coloursForColumn(
-      this.props.categories,
+      this.props.data,
       this.props.columnName)
 
     const baselineHeight = WorkspaceComputations.baselineHeight(
@@ -397,7 +397,7 @@ class Column extends React.Component {
     }
 
     const categoryColours = CategoryComputations.coloursForColumn(
-      this.props.categories,
+      this.props.data,
       this.props.columnName)
 
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
