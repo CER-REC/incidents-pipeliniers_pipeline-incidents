@@ -313,6 +313,19 @@ class Category extends React.Component {
     }).toArray()
   }
 
+  categoryTransform() {
+    let transformString = 'translate(0,0)'
+    if(this.props.categoryDragStatus.get('isStarted') &&
+       this.props.categoryDragStatus.get('columnName') === this.props.columnName &&
+       this.props.categoryDragStatus.get('categoryName') === this.props.categoryName) {
+      const yTransform = this.props.categoryDragStatus.get('newY') - 
+                         this.props.categoryDragStatus.get('offset') - 
+                         this.props.categoryDragStatus.get('oldY')
+      transformString = `translate(0,${yTransform})`
+    }
+    return transformString
+  }
+
   categoryFade() {
     const isIncidentInWorkspace = this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE'])
     const isAnyIncidentSelected = (this.props.selectedIncident !== null) && isIncidentInWorkspace
@@ -354,6 +367,7 @@ class Category extends React.Component {
     // triggered by the filter box, we'll have to make sure.
 
     return <g
+      transform={this.categoryTransform()}
       onMouseUp = { this.handleOnMouseUp.bind(this) }
       className = 'category'
     >
@@ -394,6 +408,7 @@ const mapStateToProps = state => {
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
     filterboxActivationState: state.filterboxActivationState,
+    categoryDragStatus: state.categoryDragStatus
   }
 }
 
