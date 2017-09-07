@@ -33,6 +33,8 @@ const RouteComputations = {
 
 
 
+  // Returns a string to form the query params of the current URL, i.e.
+  // everything from the ? on
   stateToUrlParams: function (columns, categories, showEmptycategories, pinnedIncidents, selectedIncident, language) {
 
     const params = {}
@@ -99,8 +101,6 @@ const RouteComputations = {
     // Also, unlike the other parameters, we always specify the language.
     params.language = language
 
-    console.log(params)
-    // return QueryString.stringify(params)
     return RouteComputations.paramsToUrlString(params)
   },
 

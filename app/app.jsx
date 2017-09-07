@@ -12,11 +12,8 @@ const store = require('./Store.js')()
 const DataLoader = require('./DataLoader.js')
 
 // Uncomment for debugging only.
-window.store = store
-window._ = require('lodash')
+// window.store = store
 
-window.History = require('history')
-window.rc = require('./RouteComputations.js')
 
 // TODO: is this the best place for this?
 DataLoader.loadDataCsv(store)
