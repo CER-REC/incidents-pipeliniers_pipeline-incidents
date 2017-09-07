@@ -255,10 +255,16 @@ class Category extends React.Component {
 
 
   handleMouseEnter() {
-    this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
+    // Do not highlight categories in the sidebar.
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
+    }
   }
   handleMouseLeave() {
-    this.props.onMouseLeave()
+    // Do not highlight categories in the sidebar.
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      this.props.onMouseLeave()
+    }
   }
 
 
@@ -321,6 +327,19 @@ class Category extends React.Component {
     }).toArray()
   }
 
+  categoryTransform() {
+    let transformString = 'translate(0,0)'
+    if(this.props.categoryDragStatus.get('isStarted') &&
+       this.props.categoryDragStatus.get('columnName') === this.props.columnName &&
+       this.props.categoryDragStatus.get('categoryName') === this.props.categoryName) {
+      const yTransform = this.props.categoryDragStatus.get('newY') - 
+                         this.props.categoryDragStatus.get('offset') - 
+                         this.props.categoryDragStatus.get('oldY')
+      transformString = `translate(0,${yTransform})`
+    }
+    return transformString
+  }
+
   categoryFade() {
     const isIncidentInWorkspace = this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE'])
     const isAnyIncidentSelected = (this.props.selectedIncident !== null) && isIncidentInWorkspace
@@ -362,6 +381,7 @@ class Category extends React.Component {
     // triggered by the filter box, we'll have to make sure.
 
     return <g
+      transform={this.categoryTransform()}
       onMouseUp = { this.handleOnMouseUp.bind(this) }
       className = 'category'
       onMouseDown={this.handleOnMouseDown.bind(this)}
@@ -401,6 +421,7 @@ const mapStateToProps = state => {
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
     filterboxActivationState: state.filterboxActivationState,
+    categoryDragStatus: state.categoryDragStatus
   }
 }
 
