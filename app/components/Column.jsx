@@ -346,10 +346,14 @@ class Column extends React.Component {
   }
 
   handleMouseEnter() {
-    this.props.onMouseEnter(this.props.columnName)
+    if(!this.props.columnDragStatus.get('isStarted')) {
+      this.props.onMouseEnter(this.props.columnName)
+    }
   }
   handleMouseLeave() {
-    this.props.onMouseLeave()
+    if(!this.props.columnDragStatus.get('isStarted')) {
+      this.props.onMouseLeave()
+    }
   }
   handleMouseClick(e) {
     e.stopPropagation()
