@@ -40,8 +40,14 @@ const RouteComputations = {
 
     const params = {}
 
-    // columns and categories: visibility settings are represented as a top 
-    // level attribute for each column.
+    // columns: represented as a comma separated list of column names.
+    // When no columns are shown, the columns URL parameter is absent.
+    if (columns.count() > 0) {
+      params.columns = columns.join(',')
+    }
+
+    // categories: visibility settings are represented as a top level attribute 
+    // for each column.
     // We store an ordered list of categories, for each column.
     // Only visible columns and their visible categories are represented.
     const categoriesForVisibleColumns = categories.filter( (categoryVisibility, columnName) => {
@@ -96,7 +102,7 @@ const RouteComputations = {
     const rawParams = QueryString.parse(paramsString)
 
     return {
-      columns: RouteComputations.parseUrlColumns(rawParams),
+      columns: RouteComputations.parseUrlColumns(rawParams.columns),
       categories: RouteComputations.parseUrlCategories(rawParams, categories),
       showEmptyCategories: RouteComputations.parseUrlShowEmptyCategories(rawParams.showEmptyCategories),
       pinnedIncidents: RouteComputations.parseUrlPinnedIncidents(rawParams.pinnedIncidents, data),
@@ -112,19 +118,18 @@ const RouteComputations = {
   // returning something appropriate for use as app state.
 
 
-  parseUrlColumns: function (rawParams) {
+  parseUrlColumns: function (columnsString) {
 
-    // For each column name, check if it exists as an attribute in the URL
-    // If it does, that column is present in the workspace.
-    const columns = Constants.get('columnNames').filter( columnName => {
-      return typeof rawParams[columnName] !== 'undefined'
-    })
+    if (typeof columnsString !== 'undefined') {
+      const potentialColumnNames = columnsString.split(',')
 
-    if (columns.count() > 0) {
-      return columns
+      const columnNames = potentialColumnNames.filter( columnName => {
+        return Constants.get('columnNames').contains(columnName)
+      })
+      return Immutable.List(columnNames)
     }
     else {
-      // An absence of column parameters signifies that no columns are on 
+      // An absent column parameter signifies that no columns are on 
       // display. In this case, we revert to the default columns.
       return Constants.get('defaultColumns')
     }

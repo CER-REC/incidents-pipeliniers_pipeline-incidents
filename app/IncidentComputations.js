@@ -18,6 +18,7 @@ IncidentComputations.filteredIncidents = function (data, columns, categories) {
   return columns.reduce( (filteredData, columnName) => {
 
     const categoryInfo = categories.get(columnName)
+
     return filteredData.filter( item => {
 
       switch(columnName) {

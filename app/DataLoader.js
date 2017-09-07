@@ -143,7 +143,7 @@ function csvColumnMapping (d) {
     substance: readConstrainedVocabularyString(d, 'Substance', 'substance'),
     substanceCategory: readConstrainedVocabularyString(d, 'SubstanceCategory', 'substanceCategory'),
     releaseType: readConstrainedVocabularyString(d, 'Release Type', 'releaseType'),
-    year: readFloat(d, 'Year'), 
+    year: d['Year'],
     whatHappened: parseList(d, 'whatHappened', d['What Happened?']),
     whyItHappened: parseList(d, 'whyItHappened', d['Why it Happened?']),
     pipelinePhase: readConstrainedVocabularyString(d, 'Pipeline Phase', 'pipelinePhase'),

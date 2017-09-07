@@ -17,7 +17,7 @@ const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCr
 const store = Store()
 
 // Uncomment for debugging only.
-// window.store = store
+window.store = store
 
 
 // TODO: is this the best place for this?
