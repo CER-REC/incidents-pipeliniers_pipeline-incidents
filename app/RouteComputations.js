@@ -115,7 +115,6 @@ const RouteComputations = {
   urlParamsToState: function (paramsString, data, categories) {
 
     const rawParams = QueryString.parse(paramsString)
-    console.log('uhhuh', paramsString, rawParams)
 
     const routerState = {
       columns: RouteComputations.parseUrlColumns(rawParams.columns),
