@@ -7,6 +7,8 @@ const EmptyCategoriesReducer = (state = false, action) => {
   case 'SetFromRouterState':
     return action.showEmptyCategories
 
+  case 'ResetVisualization':
+    return false
 
   default:
     return state

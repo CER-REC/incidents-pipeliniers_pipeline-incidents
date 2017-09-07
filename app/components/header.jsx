@@ -1,17 +1,31 @@
 const React = require('react')
+const ReactRedux = require('react-redux')
+
 const Constants = require('../Constants.js')
+const ResetVisualizationCreator = require('../actionCreators/ResetVisualizationCreator.js')
+const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
 
-//home button
-function homeButton() {
-  const image = <image xlinkHref='images/home.svg' 
-    height = {Constants.getIn(['topBar', 'headerIconHeight'])}
-    width = {Constants.getIn(['topBar', 'headerIconWidth'])}
-  ></image>
-  return image
-}
 
-//top bar header
+require('./Header.scss')
+
+
 class Header extends React.Component {
+
+  homeButtonClick() {
+    const categories = DefaultCategoryComputations.initialState(this.props.data)
+    this.props.resetVisualization(categories)
+  }
+
+  homeButton() {
+    return <image 
+      xlinkHref = 'images/home.svg' 
+      height = { Constants.getIn(['topBar', 'headerIconHeight']) }
+      width = { Constants.getIn(['topBar', 'headerIconWidth']) }
+      onClick = { this.homeButtonClick.bind(this) }
+      className = 'homeButton'
+    ></image>
+  }
+
   render() {
     const headerWidth = Constants.getIn(['topBar', 'width'])
     const headerHeight = Constants.getIn(['topBar', 'height'])
@@ -20,15 +34,11 @@ class Header extends React.Component {
     const xSubpop = Constants.getIn(['topBar', 'xSubpop'])
     const ySubpop = Constants.getIn(['topBar', 'ySubpop'])
     const methodologyIconY = Constants.getIn(['topBar', 'methodologyIconY'])
-    let transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
-    return (<g transform = {transformString}>
+    const transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
 
+    return <g transform = { transformString } className = 'header'>
 
-      //TODO: create a link for the default state (two bars at the beginning)
-      // home button currently refreshes the page
-      <a href='http://localhost:3001/incident-visualization/' > 
-        {homeButton()}
-      </a>
+      { this.homeButton() }
 
       //TODO: change link once we get PDF
       <a href='https://google.ca' target="_blank">
@@ -46,11 +56,23 @@ class Header extends React.Component {
 
       </svg>
     </g>
-    )
+  
   }
 }
 
 
+const mapStateToProps = (state) => { 
+  return {
+    data: state.data
+  } 
+}
 
+const mapDispatchToProps = dispatch => {
+  return {
+    resetVisualization: (categories) => {
+      dispatch(ResetVisualizationCreator(categories))
+    }
+  }
+}
 
-module.exports = Header
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Header)

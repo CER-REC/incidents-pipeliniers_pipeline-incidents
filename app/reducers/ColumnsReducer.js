@@ -182,6 +182,10 @@ const ColumnsReducer = (state = defaults, action) => {
   case 'SetFromRouterState':
     return action.columns
 
+  case 'ResetVisualization':
+    return defaults
+
+
   default:
     return state
   }

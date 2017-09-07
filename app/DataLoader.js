@@ -7,6 +7,7 @@ const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCateg
 const CategoryConstants = require('./CategoryConstants.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
+const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 
 
 
@@ -169,7 +170,8 @@ const DataLoader = {
         store.dispatch(DataLoadedCreator(data))
 
         let state = store.getState()
-        store.dispatch(SetInitialCategoryStateCreator(state.data))
+        const categories = DefaultCategoryComputations.initialState(state.data)
+        store.dispatch(SetInitialCategoryStateCreator(categories))
 
         state = store.getState()
         const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)

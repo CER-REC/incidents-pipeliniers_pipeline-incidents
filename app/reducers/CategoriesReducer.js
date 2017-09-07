@@ -14,7 +14,8 @@ const CategoriesReducer = (state = defaultState, action) => {
   switch(action.type) {
 
   case 'SetInitialCategoryState':
-    return action.state
+  case 'ResetVisualization':
+    return action.categories
 
   case 'ActivateAllCategoriesForColumn': {
     const activatedCategories = state.get(action.columnName).map( () => {
@@ -103,6 +104,9 @@ const CategoriesReducer = (state = defaultState, action) => {
 
     return state.set(action.columnName, modifiedCategories)
   }
+
+
+
 
   default:
     return state

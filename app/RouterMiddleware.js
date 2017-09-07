@@ -23,6 +23,7 @@ const routableStateActions = [
   'DeactivateCategory',
   'DeactivateAllCategoriesExceptOne',
   'SnapCategory',
+  'ResetVisualization',
 ]
 
 
