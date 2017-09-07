@@ -4,9 +4,9 @@ const Moment = require('moment')
 
 const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
 const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
-const IncidentSelectionStateCreator = require('./actionCreators/IncidentSelectionStateCreator.js')
 const CategoryConstants = require('./CategoryConstants.js')
-
+const RouteComputations = require('./RouteComputations.js')
+const InitializeRouterStateCreator = require('./actionCreators/InitializeRouterStateCreator.js')
 
 
 
@@ -168,10 +168,25 @@ const DataLoader = {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
         store.dispatch(DataLoadedCreator(data))
 
-        const state = store.getState()
+        let state = store.getState()
         store.dispatch(SetInitialCategoryStateCreator(state.data))
 
-        // store.dispatch(IncidentSelectionStateCreator(state.data.get(1)))
+        state = store.getState()
+        const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
+
+
+        store.dispatch(InitializeRouterStateCreator({
+          columns: routerState.columns,
+          categories: routerState.categories,
+          showEmptyCategories: routerState.showEmptyCategories,
+          pinnedIncidents: routerState.pinnedIncidents,
+          selectedIncident: routerState.selectedIncident,
+          language: routerState.language,
+        }))
+
+
+
+
       })
       .catch(function (error) {
         throw error

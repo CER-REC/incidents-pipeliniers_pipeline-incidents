@@ -96,6 +96,9 @@ const CategoriesReducer = (state = defaultState, action) => {
     return state.set(action.columnName, modifiedCategories)
   }
 
+  case 'InitializeRouterState':
+    return action.categories
+
   default:
     return state
   }
