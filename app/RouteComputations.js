@@ -148,7 +148,8 @@ const RouteComputations = {
     }
     else {
       // An absent columns parameter signifies no columns on display
-      return Immutable.List()
+      // In this case, we revert to the default columns
+      return Constants.get('defaultColumns')
     }
 
   },
