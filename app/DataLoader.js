@@ -6,7 +6,7 @@ const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
 const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
 const CategoryConstants = require('./CategoryConstants.js')
 const RouteComputations = require('./RouteComputations.js')
-const InitializeRouterStateCreator = require('./actionCreators/InitializeRouterStateCreator.js')
+const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 
 
 
@@ -175,7 +175,7 @@ const DataLoader = {
         const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
 
 
-        store.dispatch(InitializeRouterStateCreator({
+        store.dispatch(SetFromRouterStateCreator({
           columns: routerState.columns,
           categories: routerState.categories,
           showEmptyCategories: routerState.showEmptyCategories,

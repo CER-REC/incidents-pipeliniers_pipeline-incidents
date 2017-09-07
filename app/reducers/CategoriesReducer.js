@@ -36,7 +36,7 @@ const CategoriesReducer = (state = defaultState, action) => {
     return state.set(action.columnName, modifiedCategories)
   }
 
-  case 'InitializeRouterState':
+  case 'SetFromRouterState':
     return action.categories
 
   case 'SnapCategory': {

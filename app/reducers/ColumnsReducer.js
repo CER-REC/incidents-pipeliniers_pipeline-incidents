@@ -179,7 +179,7 @@ const ColumnsReducer = (state = defaults, action) => {
     return state
   }
 
-  case 'InitializeRouterState':
+  case 'SetFromRouterState':
     return action.columns
 
   default:

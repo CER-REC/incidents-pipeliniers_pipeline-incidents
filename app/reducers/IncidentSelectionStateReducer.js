@@ -15,7 +15,7 @@ const IncidentSelectionStateReducer = (state = null, action) => {
     // So, when we pin an incident we should clear the selection.
     return null
 
-  case 'InitializeRouterState':
+  case 'SetFromRouterState':
     return action.selectedIncident
 
   default:

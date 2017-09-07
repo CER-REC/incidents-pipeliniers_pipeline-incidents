@@ -6,7 +6,7 @@ const LanguageReducer = (state = 'en', action) => {
   case 'SetLanguage': 
     return action.language
 
-  case 'InitializeRouterState':
+  case 'SetFromRouterState':
     return action.language
 
   default:

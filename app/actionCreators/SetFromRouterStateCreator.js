@@ -1,8 +1,8 @@
 
-function InitializeRouterStateCreator (options) {
+function SetFromRouterStateCreator (options) {
 
   return {
-    type: 'InitializeRouterState',
+    type: 'SetFromRouterState',
     columns: options.columns,
     categories: options.categories,
     showEmptyCategories: options.showEmptyCategories,
@@ -13,4 +13,4 @@ function InitializeRouterStateCreator (options) {
 
 }
 
-module.exports = InitializeRouterStateCreator
+module.exports = SetFromRouterStateCreator

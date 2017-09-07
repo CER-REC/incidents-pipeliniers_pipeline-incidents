@@ -18,7 +18,7 @@ const PinnedIncidentReducer = (state = Immutable.List(), action) => {
   case 'RemovePinnedIncident':
     return state.filter( incident => incident !== action.incident)
 
-  case 'InitializeRouterState':
+  case 'SetFromRouterState':
     return action.pinnedIncidents
 
   default:
