@@ -22,6 +22,7 @@ const routableStateActions = [
   'ActivateAllCategoriesForColumn',
   'DeactivateCategory',
   'DeactivateAllCategoriesExceptOne',
+  'SnapCategory',
 ]
 
 

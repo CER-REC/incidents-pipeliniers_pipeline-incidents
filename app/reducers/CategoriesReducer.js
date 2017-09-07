@@ -3,6 +3,11 @@ const Immutable = require('immutable')
 const defaultState = Immutable.Map()
 
 // Manages the sets of active categories
+// The state is a Map of OrderedMaps. The outer Map has column names for keys.
+// The OrderedMaps have category names for keys, and boolean values indicating
+// visibility of the category.
+// The order of categories in the OrderedMaps reflects the display order of
+// those categories in the workspace.
 
 const CategoriesReducer = (state = defaultState, action) => {
 
