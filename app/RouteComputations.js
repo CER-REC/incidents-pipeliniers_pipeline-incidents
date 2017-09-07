@@ -1,6 +1,8 @@
 const Immutable = require('immutable')
 const QueryString = require('query-string')
 
+const Constants = require('./Constants.js')
+
 /*
 The following members of the app's state are routable: they are represented in
 the URL bar. When the app loads, its state is initialized from the URL bar, and
@@ -23,6 +25,14 @@ meaning associated with absence.
 const RouteComputations = {
 
 
+
+  paramsToUrlString: function (params) {
+    const urlParts = Object.keys(params).map(key => `${key}=${params[key]}`)
+    return `?${urlParts.join('&')}`
+  },
+
+
+
   stateToUrlParams: function (columns, categories, showEmptycategories, pinnedIncidents, selectedIncident, language) {
 
     const params = {}
@@ -33,32 +43,33 @@ const RouteComputations = {
       params.columns = columns.join(',')
     }
 
-    // categories: represented as a JSON object.
-    // The keys are column names, the values are lists of category names for
-    // the categories which are visible.
+    // categories: visibility settings are represented as a top level attribute
+    // for each column.
     // Only categories for visible columns are represented.
-    // When all categories are visible, the categories URL parameter is absent.
+    // When all categories are visible, that category's URL parameter is absent.
     // TODO: We might want to represent categories which have been hidden
     // instead?
     const categoriesForVisibleColumns = categories.filter( (categoryVisibility, columnName) => {
       return columns.contains(columnName)
     })
 
-    if (categoriesForVisibleColumns.count() > 0) {
+    // This is the set of category visibility data for visible columns where at 
+    // least one category is hidden.
+    const partiallyVisibleColumnCategories = categoriesForVisibleColumns.filter( categoryVisibility => {
 
-      const categoryParams = categoriesForVisibleColumns.map( (categoryVisibility) => {
-        return categoryVisibility.filter(visible => visible === true).keySeq()
-      })
+      const allCategoriesVisible = categoryVisibility.reduce( (reduction, visible) => {
+        return reduction && visible
+      }, true)
 
-      // TODO: currently, we always write our huge object to the URL bar, even
-      // when everything is on display... blargh.
+      return !allCategoriesVisible
+    }) 
 
-      params.categories = JSON.stringify(categoryParams.toJS())
-
-    }
+    partiallyVisibleColumnCategories.forEach( (categoryVisibility, columnName) => {
+      params[columnName] = categoryVisibility.filter( visible => visible === true).keySeq().join(',')
+    })
 
     // showEmptyCategories
-    // When empty categories are show, represented as 'true'.
+    // When empty categories are shown, represented as 'true'.
     // When empty categories are hidden, absent from the URL.
     // TODO: we should probably also parse 'false' for this attribute as
     // equivalent... 
@@ -71,7 +82,9 @@ const RouteComputations = {
     // When there are no pinned incidents, the pinnedIncidents URL parameter is
     // absent.
     if (pinnedIncidents.count() > 0) {
-      params.pinnedIncidents = pinnedIncidents.map( incident => incident.get('incidentNumber')).join(',')
+      params.pinnedIncidents = pinnedIncidents.map( incident => {
+        return incident.get('incidentNumber')
+      }).join(',')
     }
 
     // selectedIncident: represented as an incident number
@@ -87,7 +100,8 @@ const RouteComputations = {
     params.language = language
 
     console.log(params)
-    return QueryString.stringify(params)
+    // return QueryString.stringify(params)
+    return RouteComputations.paramsToUrlString(params)
   },
 
 
@@ -95,15 +109,137 @@ const RouteComputations = {
   // Given the URL parameters from the current location, emits an object with
   // immutable members for each chunk of the state which is routable
   // paramsString: the 'search' portion of the current location.
-  urlParamsToState: function (paramsString) {
+  // data: the incidents state
+  // categories: the ccategory display state
+  urlParamsToState: function (paramsString, data, categories) {
 
-    const params = QueryString.parse(paramsString)
+    const rawParams = QueryString.parse(paramsString)
 
-  }
+    const routerState = {
+      columns: RouteComputations.parseColumns(rawParams.columns),
+      categories: RouteComputations.parseCategories(rawParams),
+      showEmptyCategories: RouteComputations.parseShowEmptyCategories(rawParams.showEmptyCategories, categories),
+      pinnedIncidents: RouteComputations.parsePinnedIncidents(rawParams.pinnedIncidents, data),
+      selectedIncident: RouteComputations.parseSelectedIncident(rawParams.selectedIncident, data),
+      language: RouteComputations.parseLanguage(rawParams.language),
+    }
+
+    return routerState
+
+  },
 
 
 
+  // Each individual parsing method is repsonsible for validating inputs and
+  // returning something appropriate for use as app state.
 
+
+  parseUrlColumns: function (columnsString) {
+
+    if (typeof columnsString !== 'undefined') {
+      const potentialColumnNames = columnsString.split(',')
+
+      const columnNames = potentialColumnNames.filter( columnName => {
+        return Constants.get('columnNames').contains(columnName)
+      })
+
+      return Immutable.List(columnNames)
+    }
+    else {
+      // An absent columns parameter signifies no columns on display
+      return Immutable.List()
+    }
+
+  },
+
+  parseUrlCategories: function (rawParams, categories) {
+
+    return categories.map( (categoryVisibility, columnName) => {
+
+      const urlCategoryVisibility = rawParams[columnName]
+      // If category information is not specified in the url, we return the
+      // default (fully visible) configuration
+      if (typeof urlCategoryVisibility === 'undefined') {
+        return categoryVisibility
+      }
+
+      // First, mark all categories as being not visible.
+      let workingCategoryVisibility = categoryVisibility.map( () => {
+        return false
+      })
+
+      // Second, for each category appearing in the URL, mark it as visible
+      const candidateCategoryNames = urlCategoryVisibility.split(',')
+      candidateCategoryNames.forEach( candidateCategoryName => {
+        if (workingCategoryVisibility.get(candidateCategoryName) === false) {
+          workingCategoryVisibility = workingCategoryVisibility.set(candidateCategoryName, true)
+        }
+      })
+
+      return workingCategoryVisibility
+    })
+
+  },
+
+  parseUrlShowEmptyCategories: function (showEmptyCategoriesString) {
+    return !!showEmptyCategoriesString
+  },
+
+  parseUrlPinnedIncidents: function (pinnedIncidentsString, data) {
+
+    if (typeof pinnedIncidentsString !== 'undefined') {
+
+      const incidentNumbers = pinnedIncidentsString.split(',')
+
+      // For each candidate incident number, find the corresponding incident
+      // and filter out any find attempts that fail. 
+      const incidents = incidentNumbers.map( incidentNumber => {
+        return data.find( incident => {
+          return incident.get('incidentNumber') === incidentNumber
+        })
+      }).filter( incident => {
+        return typeof incident !== 'undefined'
+      })
+
+      return Immutable.List(incidents)
+
+    }
+    else {
+      // An absent pinnedIncidents parameter signifies no pinnedIncidents on 
+      // display
+      return Immutable.List()
+    }
+
+  },
+
+  parseUrlSelectedIncident: function (selectedIncidentString, data) {
+
+    if (typeof selectedIncidentString === 'undefined') {
+      return null
+    }
+
+    const selectedIncident = data.find( incident => {
+      return incident.get('incidentNumber') === selectedIncidentString
+    })
+
+    if (typeof selectedIncident === 'undefined') {
+      return null
+    }
+
+    return selectedIncident
+
+  },
+
+  parseUrlLanguage: function (languageString) {
+
+    if (languageString === 'en' || languageString === 'fr') {
+      return languageString
+    }
+    else {
+      throw new Error('TODO: read cookies here')
+    }
+
+  },
 
 
 
