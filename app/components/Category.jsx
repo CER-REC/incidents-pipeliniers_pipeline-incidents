@@ -77,7 +77,7 @@ class Category extends React.Component {
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
-    if(isCategoryHovered === true) {
+    if(isCategoryHovered === true || isCategorySelected === true) {
       labelClassName = 'activeCategoryLabels'
     }
 
@@ -371,6 +371,23 @@ class Category extends React.Component {
     }
   }
 
+  hoverFilter() {
+    const categoryHovered = this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
+      this.props.columnName === this.props.categoryHoverState.get('columnName')
+
+    if(categoryHovered) {
+      return <Filterbox
+        width = { this.props.width }
+        y = {(this.props.height/2) + Constants.get('singleLineCategoryLabelHeight')}
+        columnName = { this.props.columnName }
+        categoryName = { this.props.categoryName }
+      />
+    } 
+    else {
+      return null
+    }
+  }
+
   render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
     
@@ -401,6 +418,7 @@ class Category extends React.Component {
           className = 'categoryRect'
           ref={ (element) => this.rect = element }
         />
+        { this.hoverFilter() }
         { this.label() }
       </g>
       { this.selectedIncidentBars() }
