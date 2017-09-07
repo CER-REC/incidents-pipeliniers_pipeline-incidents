@@ -33,11 +33,13 @@ class Category extends React.Component {
 
   }
 
-  filterbox(currentY) {
-    const hoverfilter = this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
+  checkHoverState() {
+    return this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
       this.props.columnName === this.props.categoryHoverState.get('columnName')
+  }
 
-    if (this.filterboxActive() || hoverfilter === true) {
+  filterbox(currentY) {
+    if (this.filterboxActive()) {
       return <Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
@@ -60,9 +62,6 @@ class Category extends React.Component {
     const labelLines = this.labelLines()
     const labelLengthExceed = labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height
 
-    // TODO: consider cases when filter box covers label
-    const isCategoryHovered = this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
-      this.props.columnName === this.props.categoryHoverState.get('columnName')
     const isCategorySelected = (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
       this.props.selectedIncident,
       this.props.columnName,
@@ -71,7 +70,7 @@ class Category extends React.Component {
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
-    if(labelLengthExceed === true && isCategorySelected === false && isCategoryHovered === false) {
+    if(labelLengthExceed === true && isCategorySelected === false && this.checkHoverState() === false) {
       return null
     }
 
@@ -80,7 +79,7 @@ class Category extends React.Component {
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
-    if(isCategoryHovered === true || isCategorySelected === true) {
+    if(this.checkHoverState() === true || isCategorySelected === true) {
       labelClassName = 'activeCategoryLabels'
     }
 
@@ -365,8 +364,7 @@ class Category extends React.Component {
   }
 
   strokeWidth() {
-    if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
-      this.props.columnName === this.props.categoryHoverState.get('columnName')) {
+    if (this.checkHoverState()) {
       return Constants.getIn('categoryStrokeWidth')
     } 
     else {
