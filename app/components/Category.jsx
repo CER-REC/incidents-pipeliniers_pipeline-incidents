@@ -210,33 +210,78 @@ class Category extends React.Component {
     }
   }
 
+
+  // A function to split a string on ' ' and '-', but unlike string.split, it
+  // retains the separators. E.g.:
+  // 'foo' -> ['foo']
+  // 'foo bar-baz' -> ['foo ', 'bar-', 'baz']
+  splitWithSeparators(inputString) {
+    const pieces = []
+    while (true) {
+
+      const spaceIndex = inputString.indexOf(' ')
+      const dashIndex = inputString.indexOf('-')
+      let splitIndex
+      if (spaceIndex >= 0 && dashIndex >= 0) {
+        // If we found both separators, use the one closest to the start of the
+        // string
+        splitIndex = Math.min(spaceIndex, dashIndex)
+      }
+      else {
+        // If we found one separator, we want the index that is not -1
+        // If we found neither separator, both indexes are -1
+        splitIndex = Math.max(spaceIndex, dashIndex)
+      }
+
+
+      if (splitIndex >= 0) {
+        // We found a piece. Add it to the pieces and loop again to check for
+        // more.
+        pieces.push(inputString.substring(0, splitIndex + 1))
+        inputString = inputString.substring(splitIndex + 1)
+      }
+      else {
+        // No more separated pieces, add what's left and return.
+        pieces.push(inputString)
+        return pieces
+      }
+
+    }
+
+  }
+
   splitHeading(label) {
+    // Split the label at every space and dash
+    const splitPieces = this.splitWithSeparators(label)
 
-    // No need to split into multiple lines.
-    if(label.length <= Constants.get('categoryLabelLineLength')) {
-      return [label]
+    // Iteratively build up label fragments, up to the label line limit
+    const labelFragments = []
+    let currentFragment = ''
+
+    for (const piece of splitPieces) {
+
+      if (currentFragment.length + piece.length <= Constants.get('categoryLabelLineLength')) {
+        // There's enough space in the current fragment for this piece.
+        currentFragment += piece
+      }
+      else {
+        // Not enough space, finish this fragment and start another.
+        if (currentFragment.length > 0) {
+          labelFragments.push(currentFragment)
+        }
+        currentFragment = piece
+      }
+
     }
 
-    // Split (' ' or '-') right at the maxmium allows characters per line.
-    // Case 1: split right at the line length limit.
-    if(label[Constants.get('categoryLabelLineLength')] === ' ' || 
-       label[Constants.get('categoryLabelLineLength')] === '-') {
-      return [this.splitHeading(label
-        .substring(0,Constants.get('categoryLabelLineLength')))]
-        .concat(this.splitHeading(label
-          .substring(Constants.get('categoryLabelLineLength') + 1)))
+    // If there's anything leftover once we're done, add that to the label
+    // fragments.
+    if (currentFragment.length > 0) {
+      labelFragments.push(currentFragment)
     }
 
-    // Case 2: split at the closest space or dash.
-    let firstLineSplitPoint = label
-      .substring(0, Constants.get('categoryLabelLineLength')).lastIndexOf(' ')
-    if(firstLineSplitPoint < 0) {
-      firstLineSplitPoint = label
-        .substring(0, Constants.get('categoryLabelLineLength')).lastIndexOf('-')
-    }
+    return labelFragments
 
-    return [this.splitHeading(label.substring(0, firstLineSplitPoint))].concat( 
-      this.splitHeading(label.substring(firstLineSplitPoint + 1)))
   }
 
 

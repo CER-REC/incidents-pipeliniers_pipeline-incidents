@@ -4,6 +4,7 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const ShowHideEmptyCategoriesCreator = require('../actionCreators/ShowHideEmptyCategoriesCreator.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const Tr = require('../TranslationTable.js')
 
 require('../styles/Common.scss')
 
@@ -35,14 +36,14 @@ class EmptyCategories extends React.Component {
     const xShowText = Constants.getIn(['showHideEmptyCategories', 'xShowText'])
     if (this.props.showEmptyCategories) {
       return <text x={xShowText} y={0} className="emptyCategories">
-        <tspan>hide empty categories</tspan>
+        <tspan>{ Tr.getIn(['hideEmptyCategories', this.props.language]) }</tspan>
       </text>
 
     }
     else {
 
       return <text x={xShowText} y={0} className="emptyCategories">
-        <tspan>see empty categories</tspan>
+        <tspan>{ Tr.getIn(['seeEmptyCategories', this.props.language]) }</tspan>
       </text>
     }
   }
@@ -77,6 +78,7 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    language: state.language,
   }
 }
 
