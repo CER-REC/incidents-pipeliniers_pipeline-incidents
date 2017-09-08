@@ -3,23 +3,22 @@ const Immutable = require('immutable')
 const Constants = require('../Constants.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 
-const defaults = Immutable.fromJS([
-  'province',
-  'incidentTypes',
+const defaults = Constants.get('defaultColumns')
 
-  // 'year',
-  // 'status',
-  // 'pipelineSystemComponentsInvolved',
-  // 'substance',
-  // 'volumeCategory',
-  // 'releaseType',
-  // 'whatHappened',
-  // 'whyItHappened',
-  // 'pipelinePhase',
-  // 'substanceCategory',
-  // 'company',
-  // 'map',
-])
+// const defaults = Immutable.fromJS([
+//   'year',
+//   'status',
+//   'pipelineSystemComponentsInvolved',
+//   'substance',
+//   'volumeCategory',
+//   'releaseType',
+//   'whatHappened',
+//   'whyItHappened',
+//   'pipelinePhase',
+//   'substanceCategory',
+//   'company',
+//   'map',
+// ])
 
 
 
@@ -179,6 +178,13 @@ const ColumnsReducer = (state = defaults, action) => {
 
     return state
   }
+
+  case 'SetFromRouterState':
+    return action.columns
+
+  case 'ResetVisualization':
+    return defaults
+
 
   default:
     return state

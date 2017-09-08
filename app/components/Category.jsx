@@ -21,8 +21,6 @@ const FilterboxComputations = require('../FilterboxComputations.js')
 
 require('./Category.scss')
 
-
-
 class Category extends React.Component {
 
   filterboxActive() {
@@ -31,6 +29,11 @@ class Category extends React.Component {
     return filterboxState.get('columnName') === this.props.columnName &&
       filterboxState.get('categoryName') === this.props.categoryName
 
+  }
+
+  checkHoverState() {
+    return this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
+      this.props.columnName === this.props.categoryHoverState.get('columnName')
   }
 
   filterbox(currentY) {
@@ -55,16 +58,27 @@ class Category extends React.Component {
     }
 
     const labelLines = this.labelLines()
-    if(labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height) {
-      return null
-    }
+    const labelLengthExceed = labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height
+
+    const isCategorySelected = (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
+      this.props.selectedIncident,
+      this.props.columnName,
+      this.props.categoryName))
 
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
+    if(labelLengthExceed === true && isCategorySelected === false && this.checkHoverState() === false) {
+      return null
+    }
+
     if(this.filterboxActive()) {
       labelClassName = 'activeCategoryLabels'
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
+    }
+
+    if(this.checkHoverState() === true || isCategorySelected === true) {
+      labelClassName = 'activeCategoryLabels'
     }
 
     let currentY = (this.props.height/2) - filterBoxOffset
@@ -241,10 +255,18 @@ class Category extends React.Component {
 
 
   handleMouseEnter() {
+    let categoryWindowHoverHandler = null
+    let categoryWindowUnhoverHandler = null
+    
     // Do not highlight categories in the sidebar.
     if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR']) &&
        !this.props.columnDragStatus.get('isStarted')) {
       this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
+
+      categoryWindowHoverHandler = this.handleMouseEnter.bind(this)
+      categoryWindowUnhoverHandler = this.handleMouseLeave.bind(this)
+      window.addEventListener('mouseenter', categoryWindowHoverHandler)
+      window.addEventListener('mouseleave', categoryWindowUnhoverHandler)
     }
   }
   handleMouseLeave() {
@@ -350,8 +372,7 @@ class Category extends React.Component {
   }
 
   strokeWidth() {
-    if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
-      this.props.columnName === this.props.categoryHoverState.get('columnName')) {
+    if (this.checkHoverState()) {
       return Constants.getIn('categoryStrokeWidth')
     } 
     else {
@@ -372,6 +393,10 @@ class Category extends React.Component {
       transform={this.categoryTransform()}
       onMouseUp = { this.handleOnMouseUp.bind(this) }
       className = 'category'
+      onMouseDown={this.handleOnMouseDown.bind(this)}
+      onMouseMove={this.handleOnMouseMove.bind(this)}
+      onMouseEnter={this.handleMouseEnter.bind(this)}
+      onMouseLeave={this.handleMouseLeave.bind(this)}
     >
       <g transform={transformString}>
         <rect
@@ -383,11 +408,6 @@ class Category extends React.Component {
 
           strokeWidth={this.strokeWidth()}
           className = 'categoryRect'
-
-          onMouseDown={this.handleOnMouseDown.bind(this)}
-          onMouseMove={this.handleOnMouseMove.bind(this)}
-          onMouseEnter={this.handleMouseEnter.bind(this)}
-          onMouseLeave={this.handleMouseLeave.bind(this)}
           ref={ (element) => this.rect = element }
         />
         { this.label() }

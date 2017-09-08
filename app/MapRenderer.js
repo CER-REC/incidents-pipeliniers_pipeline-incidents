@@ -261,8 +261,8 @@ const RenderRoutines = {
       // then are allowed to fan out onto the map itself.
       // We define the top and bottom coordinates for the region
       // TODO: These parameters may need tweaking
-      const bundleRegionTopY = currentY + categoryHeight / 4
-      const bundleRegionBottomY = currentY + categoryHeight * 3 / 4
+      const bundleRegionTopY = currentY + categoryHeight /2
+      const bundleRegionBottomY = currentY + categoryHeight /2
 
       const subsetData = IncidentComputations.categorySubset(
         filteredData,
@@ -320,7 +320,7 @@ const RenderRoutines = {
         )
 
         const destinationControlPoint = RenderRoutines.radialControlPoint(props, incidentPosition)
-
+        const curveControlThreshold = Math.abs(bundleOffsetDistance - incidentPosition.x) / 2.5
 
         // Draw paths from left column to bundle region
         RenderRoutines.drawBezier(
@@ -339,11 +339,11 @@ const RenderRoutines = {
           bundleY,
 
           // Control point 1, right of the bundle
-          bundleOffsetDistance + 10,
+          bundleOffsetDistance + curveControlThreshold,
           bundleY,
 
           // Control point 2, placed away from the destination point
-          destinationControlPoint.x,
+          destinationControlPoint.x - curveControlThreshold,
           destinationControlPoint.y,
 
           incidentPosition.x,
