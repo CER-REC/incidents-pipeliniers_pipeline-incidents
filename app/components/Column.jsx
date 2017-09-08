@@ -70,6 +70,7 @@ class Column extends React.Component {
         return <Category
           columnName={this.props.columnName}
           categoryName={categoryName}
+          className="Column"
           key={categoryName}
           colour={categoryColours.get(categoryName)} 
           height={categoryHeights.get(categoryName)}
@@ -434,7 +435,6 @@ class Column extends React.Component {
           width={ this.props.columnWidth }
           x={ this.props.columnX }
           y={currentY}
-          columnType={this.props.columnType}
           enableCategoryHeadingClick = { false }
         />
       }).toArray()
@@ -444,6 +444,7 @@ class Column extends React.Component {
     return <image 
       xlinkHref='images/sidebar_map.svg' 
       height={ this.props.columnHeight }
+      className='Column'
       width={ this.props.columnWidth }
       x={ this.props.columnX }
       y={ this.props.columnY }>
@@ -472,7 +473,6 @@ class Column extends React.Component {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
       return <g 
         transform={this.sidebarColumnTransform()}
-        className='Column' 
         id={this.props.columnName}
         onMouseDown={this.handleSidebarDragStart.bind(this)}
         onMouseMove={this.handleSidebarDragMove.bind(this)}
