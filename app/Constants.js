@@ -120,6 +120,11 @@ const Constants = Immutable.fromJS({
     'map',
   ],
 
+  defaultColumns: [
+    'province',
+    'incidentTypes',
+  ],
+
   sidebar: {
     columWidth: 70,
     columnOffset: 10,
