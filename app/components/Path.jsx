@@ -1,12 +1,7 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const CategoryComputations = require('../CategoryComputations.js')
-const IncidentComputations = require('../IncidentComputations.js')
 const Constants = require('../Constants.js')
-
-require('./ColumnPaths.scss')
 
 class Path extends React.Component {
   hoverLogic () {
@@ -29,8 +24,6 @@ class Path extends React.Component {
     else if (isCategoryHovered === false && isAnythingHovered === true) {
       return Constants.getIn(['columnPaths', 'notColumnHovered'])
     }
-
-    console.log('there')
   }
 
   render() {
