@@ -35,8 +35,8 @@ const reducers = Redux.combineReducers({
   language: LanguageReducer,
   incidentDragState: IncidentDragStateReducer,
   filterboxActivationState: FilterboxActivationStateReducer,
-  history: HistoryReducer,
   categoryDragStatus: CategoryDragReducer,
+  history: HistoryReducer,
 })
 
 module.exports = function () {
