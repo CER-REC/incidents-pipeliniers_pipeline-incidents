@@ -21,7 +21,8 @@ const FilterboxComputations = require('../FilterboxComputations.js')
 
 require('./Category.scss')
 
-
+let categoryWindowHoverHandler = null
+let categoryWindowUnhoverHandler = null
 
 class Category extends React.Component {
 
@@ -260,6 +261,11 @@ class Category extends React.Component {
     // Do not highlight categories in the sidebar.
     if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR'])) {
       this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
+
+      categoryWindowHoverHandler = this.handleMouseEnter.bind(this)
+      categoryWindowUnhoverHandler = this.handleMouseLeave.bind(this)
+      window.addEventListener('mouseenter', categoryWindowHoverHandler)
+      window.addEventListener('mouseleave', categoryWindowUnhoverHandler)
     }
   }
   handleMouseLeave() {
