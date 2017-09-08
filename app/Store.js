@@ -15,7 +15,10 @@ const SidebarColumnDragReducer = require('./reducers/SidebarColumnDragReducer.js
 const LanguageReducer = require('./reducers/LanguageReducer.js')
 const IncidentDragStateReducer = require('./reducers/IncidentDragStateReducer.js')
 const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationStateReducer.js')
+const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
+const HistoryReducer = require('./reducers/HistoryReducer.js')
 
+const RouterMiddleware = require('./RouterMiddleware.js')
 
 const reducers = Redux.combineReducers({
   viewport: ViewportReducer,
@@ -32,10 +35,12 @@ const reducers = Redux.combineReducers({
   language: LanguageReducer,
   incidentDragState: IncidentDragStateReducer,
   filterboxActivationState: FilterboxActivationStateReducer,
+  categoryDragStatus: CategoryDragReducer,
+  history: HistoryReducer,
 })
 
 module.exports = function () {
-  return Redux.createStore(reducers)
+  return Redux.createStore(reducers, Redux.applyMiddleware(RouterMiddleware))
 }
 
 
