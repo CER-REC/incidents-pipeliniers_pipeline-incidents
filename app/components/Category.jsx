@@ -242,13 +242,15 @@ class Category extends React.Component {
 
   handleMouseEnter() {
     // Do not highlight categories in the sidebar.
-    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR']) &&
+       !this.props.columnDragStatus.get('isStarted')) {
       this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
     }
   }
   handleMouseLeave() {
     // Do not highlight categories in the sidebar.
-    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR']) &&
+       !this.props.columnDragStatus.get('isStarted')) {
       this.props.onMouseLeave()
     }
   }
@@ -408,7 +410,8 @@ const mapStateToProps = state => {
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
     filterboxActivationState: state.filterboxActivationState,
-    categoryDragStatus: state.categoryDragStatus
+    categoryDragStatus: state.categoryDragStatus,
+    columnDragStatus: state.columnDragStatus,
   }
 }
 

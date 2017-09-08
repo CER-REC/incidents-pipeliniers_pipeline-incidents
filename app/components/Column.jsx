@@ -34,7 +34,7 @@ class Column extends React.Component {
   // Specifically: non-empty AND visible categories
   nonEmptyCategories() {
     const categoryColours = CategoryComputations.coloursForColumn(
-      this.props.categories,
+      this.props.data,
       this.props.columnName)
     const categoryHeights = WorkspaceComputations.categoryHeights(
       this.props.showEmptyCategories,
@@ -173,7 +173,7 @@ class Column extends React.Component {
 
 
     const categoryColours = CategoryComputations.coloursForColumn(
-      this.props.categories,
+      this.props.data,
       this.props.columnName)
 
     const baselineHeight = WorkspaceComputations.baselineHeight(
@@ -346,10 +346,14 @@ class Column extends React.Component {
   }
 
   handleMouseEnter() {
-    this.props.onMouseEnter(this.props.columnName)
+    if(!this.props.columnDragStatus.get('isStarted')) {
+      this.props.onMouseEnter(this.props.columnName)
+    }
   }
   handleMouseLeave() {
-    this.props.onMouseLeave()
+    if(!this.props.columnDragStatus.get('isStarted')) {
+      this.props.onMouseLeave()
+    }
   }
   handleMouseClick(e) {
     e.stopPropagation()
@@ -397,7 +401,7 @@ class Column extends React.Component {
     }
 
     const categoryColours = CategoryComputations.coloursForColumn(
-      this.props.categories,
+      this.props.data,
       this.props.columnName)
 
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(

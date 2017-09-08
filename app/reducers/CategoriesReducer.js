@@ -93,6 +93,13 @@ const CategoriesReducer = (state = defaultState, action) => {
       return state
     }
 
+    // Add any empty categories to the modified categories map.
+    state.get(action.columnName).forEach((displayed, categoryName) => {
+      if(!modifiedCategories.contains(categoryName)) {
+        modifiedCategories = modifiedCategories.set(categoryName, displayed)
+      }
+    })
+
     return state.set(action.columnName, modifiedCategories)
   }
 
