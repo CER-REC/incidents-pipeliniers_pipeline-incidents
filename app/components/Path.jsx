@@ -37,12 +37,7 @@ class Path extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    showEmptyCategories: state.showEmptyCategories,
-    viewport: state.viewport,
-    data: state.data,
     categoryHoverState: state.categoryHoverState,
-    columns: state.columns,
-    categories: state.categories,
   }
 }
 
