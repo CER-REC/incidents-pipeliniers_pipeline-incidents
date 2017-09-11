@@ -474,6 +474,8 @@ class Column extends React.Component {
       return <g 
         transform={this.sidebarColumnTransform()}
         id={this.props.columnName}
+        className="dropShadow"
+        //filter id="sidebar"
         onMouseDown={this.handleSidebarDragStart.bind(this)}
         onMouseMove={this.handleSidebarDragMove.bind(this)}
         onMouseUp={this.handleSidebarDragEnd.bind(this)}

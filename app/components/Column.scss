@@ -12,3 +12,11 @@
 g {
 	transition: transform 50ms;
 }
+
+.dropShadow {
+  &:hover {
+    opacity: 0.2;
+    //filter: drop-shadow(12px 12px #d1d1d1); 
+    //url("#sidebar");
+  }
+}
