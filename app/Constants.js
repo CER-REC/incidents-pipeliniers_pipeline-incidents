@@ -278,7 +278,7 @@ const Constants = Immutable.fromJS({
   categoryLabelLineLength: 14,
   categoryStrokeWidth: 1,
   categoryDefaultOpacity: 1,
-  categoryFadeOpacity: 0.2,
+  categoryFadeOpacity: 0.4,
 
 
   selectedIncidentPath: {

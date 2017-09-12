@@ -66,8 +66,10 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    return <g>
+    return <g> <filter></filter>
       {this.columns()}
+    }
+    }
     </g>
   }
 }

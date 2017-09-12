@@ -15,8 +15,11 @@ g {
 
 .dropShadow {
   &:hover {
-    opacity: 0.2;
-    //filter: drop-shadow(12px 12px #d1d1d1); 
+    opacity: 0.8;
+    transition: transform 50ms;
+    // webkit-filter: drop-shadow(12px 12px #d1d1d1); 
     //url("#sidebar");
+    -webkit-filter: drop-shadow( -5px -5px #D1D1D1 );
+            filter: drop-shadow( -5px -5px #D1D1D1 );
   }
 }

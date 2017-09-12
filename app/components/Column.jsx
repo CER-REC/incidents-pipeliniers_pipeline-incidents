@@ -467,6 +467,18 @@ class Column extends React.Component {
     })
   }
 
+  dropShadow() {
+    return  <g>
+      <filter id="dropshadow" height="130%">
+          <feOffset dx="2" dy="2" result="offsetblur"/> 
+          <feMerge> 
+            <feMergeNode/> 
+            <feMergeNode in="SourceGraphic"/> 
+          </feMerge>
+        </filter>
+      </g>
+  }
+
 
   render() {
     switch(this.props.columnType) {
