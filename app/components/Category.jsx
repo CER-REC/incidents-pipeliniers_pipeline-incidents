@@ -32,9 +32,8 @@ class Category extends React.Component {
 
   filterboxActive() {
     const filterboxState = this.props.filterboxActivationState
-    if(this.checkSelectionState())
-    {return filterboxState.get('columnName') === this.props.columnName &&
-              filterboxState.get('categoryName') === this.props.categoryName}
+    return filterboxState.get('columnName') === this.props.columnName &&
+              filterboxState.get('categoryName') === this.props.categoryName
   }
 
   checkHoverState() {
