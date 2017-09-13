@@ -46,36 +46,21 @@ const RouteComputations = {
       params.columns = columns.join(',')
     }
 
-    // categories: visibility settings are represented as a top level attribute
+    // categories: visibility settings are represented as a top level attribute 
     // for each column.
-    // Only categories for visible columns are represented.
-    // When all categories are visible, that category's URL parameter is absent.
-    // TODO: We might want to represent categories which have been hidden
-    // instead?
+    // We store an ordered list of categories, for each column.
+    // Only visible columns and their visible categories are represented.
     const categoriesForVisibleColumns = categories.filter( (categoryVisibility, columnName) => {
       return columns.contains(columnName)
     })
 
-    // This is the set of category visibility data for visible columns where at 
-    // least one category is hidden.
-    const partiallyVisibleColumnCategories = categoriesForVisibleColumns.filter( categoryVisibility => {
-
-      const allCategoriesVisible = categoryVisibility.reduce( (reduction, visible) => {
-        return reduction && visible
-      }, true)
-
-      return !allCategoriesVisible
-    }) 
-
-    partiallyVisibleColumnCategories.forEach( (categoryVisibility, columnName) => {
+    categoriesForVisibleColumns.forEach( (categoryVisibility, columnName) => {
       params[columnName] = categoryVisibility.filter( visible => visible === true).keySeq().join(',')
     })
 
     // showEmptyCategories
     // When empty categories are shown, represented as 'true'.
     // When empty categories are hidden, absent from the URL.
-    // TODO: we should probably also parse 'false' for this attribute as
-    // equivalent... 
     if (showEmptyCategories === true) {
       params.showEmptyCategories = true
     }
@@ -111,12 +96,12 @@ const RouteComputations = {
   // immutable members for each chunk of the state which is routable
   // paramsString: the 'search' portion of the current location.
   // data: the incidents state
-  // categories: the ccategory display state
+  // categories: the category display state
   urlParamsToState: function (paramsString, data, categories) {
 
     const rawParams = QueryString.parse(paramsString)
 
-    const routerState = {
+    return {
       columns: RouteComputations.parseUrlColumns(rawParams.columns),
       categories: RouteComputations.parseUrlCategories(rawParams, categories),
       showEmptyCategories: RouteComputations.parseUrlShowEmptyCategories(rawParams.showEmptyCategories),
@@ -124,8 +109,6 @@ const RouteComputations = {
       selectedIncident: RouteComputations.parseUrlSelectedIncident(rawParams.selectedIncident, data),
       language: RouteComputations.parseUrlLanguage(rawParams.language),
     }
-
-    return routerState
 
   },
 
@@ -143,12 +126,12 @@ const RouteComputations = {
       const columnNames = potentialColumnNames.filter( columnName => {
         return Constants.get('columnNames').contains(columnName)
       })
-
       return Immutable.List(columnNames)
     }
     else {
-      // An absent columns parameter signifies no columns on display
-      return Immutable.List()
+      // An absent column parameter signifies that no columns are on 
+      // display. In this case, we revert to the default columns.
+      return Constants.get('defaultColumns')
     }
 
   },
@@ -160,24 +143,34 @@ const RouteComputations = {
       const urlCategoryVisibility = rawParams[columnName]
       // If category information is not specified in the url, we return the
       // default (fully visible) configuration
+      // This will happen for each column in the sidebar at init time.
       if (typeof urlCategoryVisibility === 'undefined') {
         return categoryVisibility
       }
 
-      // First, mark all categories as being not visible.
-      let workingCategoryVisibility = categoryVisibility.map( () => {
-        return false
-      })
-
-      // Second, for each category appearing in the URL, mark it as visible
+      // First, for each category appearing in the URL:
+      //   - mark it as visible
+      //   - place it in order
       const candidateCategoryNames = urlCategoryVisibility.split(',')
+      let workingCategories = Immutable.OrderedMap()
+      let remainingCategories = categoryVisibility
+
       candidateCategoryNames.forEach( candidateCategoryName => {
-        if (workingCategoryVisibility.get(candidateCategoryName) === false) {
-          workingCategoryVisibility = workingCategoryVisibility.set(candidateCategoryName, true)
+        if (typeof categoryVisibility.get(candidateCategoryName) !== 'undefined') {
+
+          workingCategories = workingCategories.set(candidateCategoryName, true)
+
+          remainingCategories = remainingCategories.delete(candidateCategoryName)
         }
       })
 
-      return workingCategoryVisibility
+      // Second, for the remaining category names which were not seen in the
+      // URL, add them to the end of the state with visibility disabled.
+      remainingCategories.forEach ( (visible, categoryName) => {
+        workingCategories = workingCategories.set(categoryName, false)
+      })
+
+      return workingCategories
     })
 
   },
@@ -246,7 +239,7 @@ const RouteComputations = {
       return 'fr'
     }
 
-    // Default to english
+    // Default to English
     return 'en'
 
   },

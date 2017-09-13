@@ -15,8 +15,8 @@ const SidebarColumnDragReducer = require('./reducers/SidebarColumnDragReducer.js
 const LanguageReducer = require('./reducers/LanguageReducer.js')
 const IncidentDragStateReducer = require('./reducers/IncidentDragStateReducer.js')
 const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationStateReducer.js')
-const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
 const HistoryReducer = require('./reducers/HistoryReducer.js')
+const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
 
 const RouterMiddleware = require('./RouterMiddleware.js')
 

@@ -4,7 +4,7 @@ const RouteComputations = require('./RouteComputations.js')
 // routable state
 
 // NB: These actions should NOT trigger the router and should not be in the set:
-//   InitializeRouterState 
+//   SetFromRouterState 
 //   SetInitialCategoryState
 
 const routableStateActions = [
@@ -23,12 +23,12 @@ const routableStateActions = [
   'DeactivateCategory',
   'DeactivateAllCategoriesExceptOne',
   'SnapCategory',
+  'ResetVisualization',
 ]
 
 
-
-
-// Redux middleware to update the URL location 
+// Redux middleware to update the URL location, after actions have lead to state
+// changes.
 
 const RouterMiddleware = store => next => action => {
 
@@ -46,15 +46,8 @@ const RouterMiddleware = store => next => action => {
       state.language
     )
 
-    // TODO: verify that storing only part of the location like this is OK.
-    state.history.push(`${location.pathname}${paramString}`, {
-      // columns: state.columns,
-      // categories: state.categories,
-      // showEmptyCategories: state.showEmptyCategories,
-      // pinnedIncidents: state.pinnedIncidents,
-      // selectedIncident: state.selectedIncident,
-      // language: state.language,
-    })
+
+    state.history.push(`${location.pathname}${paramString}`)
 
   }
 

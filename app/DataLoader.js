@@ -6,7 +6,8 @@ const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
 const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
 const CategoryConstants = require('./CategoryConstants.js')
 const RouteComputations = require('./RouteComputations.js')
-const InitializeRouterStateCreator = require('./actionCreators/InitializeRouterStateCreator.js')
+const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
+const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 
 
 
@@ -143,7 +144,7 @@ function csvColumnMapping (d) {
     substance: readConstrainedVocabularyString(d, 'Substance', 'substance'),
     substanceCategory: readConstrainedVocabularyString(d, 'SubstanceCategory', 'substanceCategory'),
     releaseType: readConstrainedVocabularyString(d, 'Release Type', 'releaseType'),
-    year: readFloat(d, 'Year'), 
+    year: d['Year'],
     whatHappened: parseList(d, 'whatHappened', d['What Happened?']),
     whyItHappened: parseList(d, 'whyItHappened', d['Why it Happened?']),
     pipelinePhase: readConstrainedVocabularyString(d, 'Pipeline Phase', 'pipelinePhase'),
@@ -169,13 +170,14 @@ const DataLoader = {
         store.dispatch(DataLoadedCreator(data))
 
         let state = store.getState()
-        store.dispatch(SetInitialCategoryStateCreator(state.data))
+        const categories = DefaultCategoryComputations.initialState(state.data)
+        store.dispatch(SetInitialCategoryStateCreator(categories))
 
         state = store.getState()
         const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
 
 
-        store.dispatch(InitializeRouterStateCreator({
+        store.dispatch(SetFromRouterStateCreator({
           columns: routerState.columns,
           categories: routerState.categories,
           showEmptyCategories: routerState.showEmptyCategories,

@@ -1,9 +1,12 @@
 const Chroma = require('chroma-js')
 const Immutable = require('immutable')
+const _ = require('lodash')
 const MemoizeImmutable = require('memoize-immutable')
 
 const Constants = require('./Constants.js')
+const CategoryConstants = require('./CategoryConstants.js')
 const IncidentComputations = require('./IncidentComputations.js')
+const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 
 const CategoryComputations = {}
 
@@ -84,10 +87,10 @@ CategoryComputations.itemsInMultipleCategory = function (data, columnName, categ
 
 // Returns a map of category names to Chroma colours
 // categories: the category display data from the store
-CategoryComputations.coloursForColumn = function (categories, columnName) {
-  const categoryInfo = categories.get(columnName)
+CategoryComputations.coloursForColumn = function (data, columnName) {
+  const categoryInfo = DefaultCategoryComputations.initialState(data).get(columnName)
   const colourInfo = Constants.getIn(['columnBaseColors', columnName])
-  
+
   const chromaColours = Chroma.scale([
     colourInfo.get('start'),
     colourInfo.get('middle'),
@@ -97,6 +100,7 @@ CategoryComputations.coloursForColumn = function (categories, columnName) {
   return Immutable.Map(categoryInfo.keySeq().zip(chromaColours))
 
 }
+
 
 // Computes the amount of height desired for empty categories, across the entire
 // visualization
