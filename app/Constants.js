@@ -122,6 +122,7 @@ const Constants = Immutable.fromJS({
   ],
 
   defaultColumns: [
+    'incidentNumber',
     'province',
     'incidentTypes',
   ],
@@ -241,9 +242,9 @@ const Constants = Immutable.fromJS({
       end: '#E6E0FF',
     },
     'incidentNumber': {
-      start: '#dddddd',
-      middle: '#787878',
-      end: '#222222',
+      start: '#64DCE2',
+      middle: '#64DCE2',
+      end: '#64DCE2',
     }
   },
 

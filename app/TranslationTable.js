@@ -55,7 +55,7 @@ const TranslationTable = Immutable.fromJS({
       fr:'TODO',
     },
     incidentNumber: {
-      en:'INCIDENT NUMBER',
+      en:'INCIDENTS',
       fr:'TODO',
     },
     map: {
