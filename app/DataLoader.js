@@ -4,17 +4,16 @@ const Moment = require('moment')
 
 const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
 const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
-const IncidentSelectionStateCreator = require('./actionCreators/IncidentSelectionStateCreator.js')
 const CategoryConstants = require('./CategoryConstants.js')
 
 
 
 
 function parseYesNo (value, record) {
-  if (value === 'Yes' || value === 'yes') {
+  if (value === 'Yes' || value === 'yes' || value === '1') {
     return true
   } 
-  else if (value === 'No' || (value === '')) {
+  else if (value === 'No' || (value === '' || value === '0')) {
     // For older incidents, the 'is pipeline system component involved' field is
     // empty. We're interpret this to mean 'no'.
     return false
@@ -24,7 +23,7 @@ function parseYesNo (value, record) {
   }
 }
 
-// TODO: This function requires that there be no space after the comma sparating
+// TODO: This function requires that there be no space after the comma separating
 // values in a list of items. The export tool was including commas at last run,
 // ensure that the production export tool is altered to not do this.
 // At last writing, this affected the incident types, why it happened, and what 
@@ -144,8 +143,8 @@ function csvColumnMapping (d) {
     substanceCategory: readConstrainedVocabularyString(d, 'SubstanceCategory', 'substanceCategory'),
     releaseType: readConstrainedVocabularyString(d, 'Release Type', 'releaseType'),
     year: readFloat(d, 'Year'), 
-    whatHappened: parseList(d, 'whatHappened', d['What Happened?']),
-    whyItHappened: parseList(d, 'whyItHappened', d['Why it Happened?']),
+    whatHappened: parseList(d, 'whatHappened', d['WhatHappened']),
+    whyItHappened: parseList(d, 'whyItHappened', d['WhyItHappened']),
     pipelinePhase: readConstrainedVocabularyString(d, 'Pipeline Phase', 'pipelinePhase'),
     werePipelineSystemComponentsInvolved: parseYesNo(d['Were Pipeline System Components Involved?'], d),
     pipelineSystemComponentsInvolved: parseList(d, 'pipelineSystemComponentsInvolved', d['Pipeline System Components Involved']),
@@ -160,7 +159,7 @@ const DataLoader = {
   loadDataCsv: function (store) {
 
     const options = {
-      uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-08-03 2008 - 2017 Incidents data sheet for UofC.csv`,
+      uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-09-13 ERS TEST-joined.csv`,
     }
 
     Request(options)

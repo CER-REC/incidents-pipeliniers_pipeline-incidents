@@ -4,88 +4,96 @@ const TranslationTable = Immutable.fromJS({
   columnHeadings: {
     incidentTypes: {
       en: 'INCIDENT TYPE',
-      fr: 'TODO',
+      fr: 'TYPE D’INCIDENT',
     },
     year: {
       en: 'REPORTED DATE/YEAR',
-      fr: 'TODO',
+      fr: 'DATE/ANNÉE DU SIGNALEMENT',
     },
     company: {
       en: 'COMPANY',
-      fr: 'TODO',
+      fr: 'SOCIÉTÉ',
     },
     status: {
       en: 'STATUS',
-      fr: 'TODO',
+      fr: 'ÉTAT',
     },
     province: {
       en: 'PROVINCES',
-      fr: 'TODO',
+      fr: 'PROVINCES',
     },
     substance: {
       en: 'SUBSTANCE',
-      fr: 'TODO',
+      fr: 'SUBSTANCE',
     },
     releaseType: {
       en: 'RELEASE TYPE',
-      fr: 'TODO',
+      fr: 'TYPE DE REJET/DÉVERSEMENT',
     },
     whatHappened: {
       en: 'WHAT HAPPENED',
-      fr: 'TODO',
+      fr: 'CE QUI S’EST PASSÉ',
     },
     whyItHappened: {
       en: 'WHY IT HAPPENED',
-      fr: 'TODO',
+      fr: 'CAUSES',
     },
     pipelinePhase: {
       en: 'PIPELINE PHASE',
-      fr: 'TODO',
+      fr: 'ÉTAPE DU CYCLE DE VIE',
     },
     volumeCategory: {
       en: 'APPROX VOL RELEASED',
-      fr: 'TODO',
+      fr: 'VOLUME APPROX. REJETÉ/DÉVERSÉ',
     },
     substanceCategory: {
       en: 'SUBSTANCE CATEGORY',
-      fr: 'TODO',
+      fr: 'CATÉGORIE DE SUBSTANCE',
     },
     pipelineSystemComponentsInvolved: {
       en: 'SYS. COMP. INVOLVED',
-      fr: 'TODO',
+      fr: 'COMPOSANTES EN CAUSE',
     },
     map: {
       en: 'MAP OVERVIEW',
-      fr: 'TODO',
+      fr: 'APERÇU DE LA CARTE',
     }
   },
 
+
+
+
   shown: {
     en: 'shown',
-    fr: 'TODO',
+    fr: 'affiché(s)',
   },
 
   showOnly: {
     en: 'SHOW ONLY',
-    fr: 'TODO',
+    fr: 'AFFICHER SEULEMENT',
   },
   hide: {
     en: 'HIDE ',
-    fr: 'TODO',
+    fr: 'CACHER ',
   },
   reset: {
     en: 'RESET',
-    fr: 'TODO',
+    fr: 'RÉINITIALISER',
   },
 
+
+  near: {
+    en: 'Near',
+    fr: 'Près de'
+  },
 
   seeEmptyCategories: {
-    en: 'see empty categories',
-    fr: 'TODO'
+    en: 'See empty categories',
+    fr: 'Voir les catégories vides',
   },
   hideEmptyCategories: {
-    en: 'hide empty categories',
-    fr: 'TODO'
+    en: 'Hide empty categories',
+    fr: 'Cacher les catégories vides',
   },
 
 
@@ -390,91 +398,79 @@ const TranslationTable = Immutable.fromJS({
       },
     },
     whatHappened: {
-      internalCorrosion: {
-        en: 'Internal Corrosion',
-        fr: 'TODO'
+      defectDeterioration: {
+        en: 'Defect & Deterioration',
+        fr: 'Défectuosité et détérioration ',
+      },
+      corrosionCracking: {
+        en: 'Corrosion & Cracking',
+        fr: 'Corrosion et fissuration',
       },
       equipmentFailure: {
         en: 'Equipment Failure',
-        fr: 'TODO'
+        fr: ' Défaillance d’équipement'
       },
-      materialDefect: {
-        en: 'Material Defect',
-        fr: 'TODO'
-      },
-      incorrectOperation: {
+      incorrectOperation: { 
         en: 'Incorrect Operation',
-        fr: 'TODO'
-      },
-      cracking: {
-        en: 'Cracking ',
-        fr: 'TODO'
-      },
-      operatingConditions: {
-        en: 'Operating Conditions',
-        fr: 'TODO'
+        fr: 'Erreur d’exploitation',
       },
       externalInterference: {
-        en: 'External Interference',
-        fr: 'TODO'
+        en: 'External interference',
+        fr: 'Interférences extérieures ',
       },
       naturalForceDamage: {
         en: 'Natural Force Damage',
-        fr: 'TODO'
+        fr: 'Forces de la nature',
       },
-      materialDegradation :{
-        en:  'Material Degradation ',
-        fr: 'TODO'
-      },
-      externalCorrosion :{
-        en:  'External Corrosion ',
-        fr: 'TODO'
+      otherCauses: {
+        en: 'Other Causes',
+        fr: 'Autres causes',
       },
       tbd: {
         en: 'To be determined',
         fr: 'À déterminer'
       },
-      otherCauses: {
-        en: 'Other Causes',
-        fr: 'TODO'
-      },
     },
     whyItHappened: {
-      maintenance: {
-        en: 'Maintenance',
-        fr: 'TODO'
-      },
-      standardsAndProcedures: {
-        en: 'Standards and Procedures',
-        fr: 'TODO'
-      },
       engineeringAndPlanning: {
         en: 'Engineering and Planning',
-        fr: 'TODO'
+        fr: 'Ingénierie et planification',
       },
-      individualFactors: {
-        en: 'Individual Factors',
-        fr: 'TODO'
+      maintenance: {
+        en: 'Maintenance',
+        fr: 'Entretien',
       },
-      leadershipAndCommunication: {
-        en: 'Leadership and Communication',
-        fr: 'TODO'
+      inadequateProcurement: {
+        en: 'Inadequate Procurement',
+        fr: 'Approvisionnement inadéquat',
       },
       toolsAndEquipment: {
         en: 'Tools and Equipment',
-        fr: 'TODO'
+        fr: 'Outils et équipement',
+      },
+      standardsAndProcedures: {
+        en: 'Standards and Procedures',
+        fr: 'Normes et procédures',
+      },
+      failureInCommunication: {
+        en: 'Failure in communication',
+        fr: 'Problème de communication',
+      },
+      inadequateSupervision: {
+        en: 'Inadequate Supervision',
+        fr: 'Supervision insuffisante',
+      },
+      humanFactors: {
+        en: 'Human Factors',
+        fr: 'Facteurs humains',
+      },
+      naturalOrEnvironmentalForces: {
+        en: 'Natural or Environmental Forces',
+        fr: 'Forces de la nature ou environnement',
       },
       tbd: {
         en: 'To be determined',
-        fr: 'TODO'
-      },
-      naturalForces: {
-        en: 'Natural or Environmental Forces',
-        fr: 'TODO'
-      },
-      purchasing: {
-        en: 'Purchasing',
-        fr: 'TODO'
+        fr: 'À déterminer'
       },
     },
     pipelinePhase: {
@@ -526,44 +522,45 @@ const TranslationTable = Immutable.fromJS({
     pipelineSystemComponentsInvolved: {
       pipeline: {
         en: 'Pipeline',
-        fr: 'TODO'
+        fr: 'Pipeline',
       },
       processingPlant: {
         en: 'Processing Plant',
-        fr: 'TODO'
+        fr: 'Usine de traitement',
       },
       compressionStation: {
         en: 'Compression Station',
-        fr: 'TODO'
+        fr: 'Station de compression',
       },
       meteringStation: {
         en: 'Metering Station',
-        fr: 'TODO'
+        fr: 'Station de comptage',
       },
       pigging: {
         en: 'Pigging',
-        fr: 'TODO'
+        fr: 'Installation de raclage',
       },
       pumpingStation: {
         en: 'Pumping Station',
-        fr: 'TODO'
+        fr: 'Station de pompage',
       },
       powerGeneration: {
         en: 'Power Generation',
-        fr: 'TODO'
+        fr: 'Installation de production d’énergie',
       },
       regulatingFacility: {
         en: 'Regulating Facility',
-        fr: 'TODO'
+        fr: 'Installation de régulation',
       },
       storageFacility: {
         en: 'Storage Facility',
-        fr: 'TODO'
+        fr: 'Installation de stockage',
       },
       vehicleMobileEquipment: {
         en: 'Vehicle/Mobile Equipment',
-        fr: 'TODO'
+        fr: 'Véhicule ou équipement mobile',
       },
+
     },
     'volumeCategory': {
       notApplicable: {
@@ -576,19 +573,19 @@ const TranslationTable = Immutable.fromJS({
       },
       lessThanOne: {
         en: 'Less Than 1 m³',
-        fr: 'TODO'
+        fr: 'Moins de 1 m3',
       },
       lessThanOneThousand: {
         en: '1 m³ to 1,000 m³',
-        fr: 'TODO'
+        fr: '1 m³ à 1 000 m³',
       },
       lessThanOneMillion: {
         en: '1,000 m³ to 1,000,000 m³',
-        fr: 'TODO'
+        fr: '1 000 m³ à 1 000 000 m³',
       },
       moreThanOneMillion: {
         en: 'More than 1,000,000 m³',
-        fr: 'TODO'
+        fr: 'Plus de 1 000 000 m³',
       },
     },
   },
