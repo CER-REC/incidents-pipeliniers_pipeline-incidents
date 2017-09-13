@@ -7,7 +7,7 @@ const CategoryConstants = Immutable.fromJS({
   // column heading: internal identifier
 
   // Some columns do not have fixed categories, so they don't appear here
-  // including: year, company
+  // including: year, company, incident number
   // NB also: map has no categories at all
 
 
