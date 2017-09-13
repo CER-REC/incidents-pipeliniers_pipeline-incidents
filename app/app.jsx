@@ -8,19 +8,24 @@ const React = require('react')
 const Constants = require('./Constants.js')
 const Root = require('./components/Root.jsx')
 const Resized = require('./actionCreators/ResizeScreenCreator.js')
-const DragColumn = require('./actionCreators/DragColumnCreator.js')
-const DragColumnEnded = require('./actionCreators/DragColumnEndedCreator.js')
-const store = require('./Store.js')()
+const Store = require('./Store.js')
 const DataLoader = require('./DataLoader.js')
+const RouteComputations = require('./RouteComputations.js')
+const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
+
+
+const store = Store()
 
 // Uncomment for debugging only.
 window.store = store
-window._ = require('lodash')
+
 
 // TODO: is this the best place for this?
 DataLoader.loadDataCsv(store)
 
 DomReady( () => {
+
+  store.getState().history.listen(locationChangeHandler)
 
   resizeScreenHandler()
   window.addEventListener('resize', resizeScreenHandler)
@@ -32,12 +37,35 @@ DomReady( () => {
   ReactDOM.render(app, document.getElementById('reactRoot'))
 })
 
-function resizeScreenHandler()  
-{
+function resizeScreenHandler () {
   // Ensures the width and height of the workspace keep the ratio 900:600
-  // TODO: Increase the height of the workspace by emptyCategoryOffsetRatio if
-  // the empty categories are visible (i.e. empty categories state is visible).
   const w = document.getElementById('reactRoot').clientWidth
   const h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])
   store.dispatch(Resized(w,h))
 }
+
+
+function locationChangeHandler (location, action) {
+
+  // We are only interested in browser backward/forward button clicks, and not
+  // state changes we create ourselves (i.e. only popstate events)
+  if (action !== 'POP') {
+    return
+  }
+
+  const state = store.getState()
+
+  const routerState = RouteComputations.urlParamsToState(location.search, state.data, state.categories)
+
+  store.dispatch(SetFromRouterStateCreator({
+    columns: routerState.columns,
+    categories: routerState.categories,
+    showEmptyCategories: routerState.showEmptyCategories,
+    pinnedIncidents: routerState.pinnedIncidents,
+    selectedIncident: routerState.selectedIncident,
+    language: routerState.language,
+  }))
+
+
+}
+

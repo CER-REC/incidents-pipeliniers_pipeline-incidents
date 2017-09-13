@@ -1,6 +1,7 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
+const Path = require('./Path.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
@@ -229,10 +230,14 @@ class ColumnPaths extends React.Component {
       d += `${sourceColumn.x + curveControlThreshold} ${sourceColumnY + sourceCurveHeight} `
       d += `${sourceColumn.x} ${sourceColumnY + sourceCurveHeight}`
 
-      const currentPath = <path d={d} 
-        fill={this.hoverLogic(sourceCategory, destinationCategory, destinationColumn.name)} 
-        className='ColumnPaths' 
-        key={sourceCategory.categoryName + destinationCategory.categoryName}/>
+      const currentPath = <Path
+        d={d}
+        key={sourceCategory.categoryName + destinationCategory.categoryName} 
+        sourceCategory={sourceCategory}
+        destinationCategory={destinationCategory}
+        columnName={this.props.columnName}
+        destinationColumnName={destinationColumn.name}/>
+
       pathsForCategory.push(currentPath)
 
       sourceCategory.y += sourceCurveHeight
@@ -261,7 +266,6 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     filters: state.filters,
-    categoryHoverState: state.categoryHoverState,
   }
 }
 
