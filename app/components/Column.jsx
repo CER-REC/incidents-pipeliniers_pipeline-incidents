@@ -4,6 +4,9 @@ const ReactRedux = require('react-redux')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
+const StringComputations = require('../StringComputations.js')
+
+
 const SidebarColumnHoverCreator = require('../actionCreators/SidebarColumnHoverCreator.js')
 const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCreator.js')
 const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
@@ -100,7 +103,7 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    return  this.splitHeading().map((word) => {
+    return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
       currentY += Constants.get('columnHeadingLineOffset')
       return <tspan className='barsHeading' 
         key={word}
@@ -362,15 +365,6 @@ class Column extends React.Component {
     this.props.onSidebarColumnClicked(this.props.columnName)
   }
 
-
-  splitHeading() {
-    const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language])
-    const splitIndex = columnHeading.lastIndexOf(' ')
-    const topLine = columnHeading.substring(0, splitIndex)
-    const bottomLine = columnHeading.substring(splitIndex+1)
-    return [topLine, bottomLine]
-  }
-
   sidebarColumnTransform() {
     let transformString = 'translate(0,0)'
     if(this.props.sidebarDragStatus.get('isStarted') &&
@@ -453,7 +447,7 @@ class Column extends React.Component {
 
   sidebarHeading() {
     let currentY = this.props.columnY
-    return  this.splitHeading().map((word) => {
+    return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
       // Terminating space.
       if(word === '') return null
       currentY += Constants.get('columnHeadingLineOffset')

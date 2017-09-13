@@ -128,7 +128,7 @@ function csvColumnMapping (d) {
   return {
     incidentNumber: d['Incident Number'],
     incidentTypes: parseList(d, 'incidentTypes', d['Incident Types']),
-    reportedDate: Moment(d['Reported Date'], 'DD-MM-YYYY'),
+    reportedDate: Moment(d['Reported Date'], 'MM-DD-YYYY'),
     nearestPopulatedCentre: d['Nearest Populated Centre'],
     province: readConstrainedVocabularyString(d, 'Province', 'province'),
     company: d['Company'],

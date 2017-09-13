@@ -8,7 +8,7 @@ const TranslationTable = Immutable.fromJS({
     },
     year: {
       en: 'REPORTED DATE/YEAR',
-      fr: 'DATE/ANNÉE DU SIGNALEMENT',
+      fr: 'ANNÉE DU SIGNALEMENT',
     },
     company: {
       en: 'COMPANY',
@@ -28,7 +28,7 @@ const TranslationTable = Immutable.fromJS({
     },
     releaseType: {
       en: 'RELEASE TYPE',
-      fr: 'TYPE DE REJET/DÉVERSEMENT',
+      fr: 'TYPE DE REJET / DÉVERSEMENT',
     },
     whatHappened: {
       en: 'WHAT HAPPENED',
@@ -85,6 +85,10 @@ const TranslationTable = Immutable.fromJS({
   near: {
     en: 'Near',
     fr: 'Près de'
+  },
+  reportedDate: {
+    en: 'Reported Date:',
+    fr: 'Date du signalement : '
   },
 
   seeEmptyCategories: {
