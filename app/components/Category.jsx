@@ -23,12 +23,18 @@ require('./Category.scss')
 
 class Category extends React.Component {
 
+  checkSelectionState() {
+    return (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
+      this.props.selectedIncident,
+      this.props.columnName,
+      this.props.categoryName))
+  }
+
   filterboxActive() {
-
     const filterboxState = this.props.filterboxActivationState
-    return filterboxState.get('columnName') === this.props.columnName &&
-      filterboxState.get('categoryName') === this.props.categoryName
-
+    if(this.checkSelectionState())
+    {return filterboxState.get('columnName') === this.props.columnName &&
+              filterboxState.get('categoryName') === this.props.categoryName}
   }
 
   checkHoverState() {
@@ -60,15 +66,10 @@ class Category extends React.Component {
     const labelLines = this.labelLines()
     const labelLengthExceed = labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height
 
-    const isCategorySelected = (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
-      this.props.selectedIncident,
-      this.props.columnName,
-      this.props.categoryName))
-
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
-    if(labelLengthExceed === true && isCategorySelected === false && this.checkHoverState() === false) {
+    if(labelLengthExceed === true && this.checkSelectionState() === false && this.checkHoverState() === false) {
       return null
     }
 
@@ -77,7 +78,7 @@ class Category extends React.Component {
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
-    if(this.checkHoverState() === true || isCategorySelected === true) {
+    if(this.checkHoverState() === true || this.checkSelectionState() === true) {
       labelClassName = 'activeCategoryLabels'
     }
 
@@ -358,15 +359,10 @@ class Category extends React.Component {
       return Constants.get('categoryDefaultOpacity')
     }
 
-    const isSelectedIncidentInCategory = CategoryComputations.itemInCategory(
-      this.props.selectedIncident,
-      this.props.columnName,
-      this.props.categoryName)
-
-    if (isAnyIncidentSelected === true && isSelectedIncidentInCategory === true) {
+    if (isAnyIncidentSelected === true && this.checkSelectionState() === true) {
       return Constants.get('categoryDefaultOpacity') 
     }
-    if (isAnyIncidentSelected === true && isSelectedIncidentInCategory === false) {
+    if (isAnyIncidentSelected === true && this.checkSelectionState() === false) {
       return Constants.get('categoryFadeOpacity') 
     }
   }
