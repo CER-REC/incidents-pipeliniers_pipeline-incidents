@@ -366,12 +366,15 @@ class Category extends React.Component {
     }
   }
 
-  strokeWidth() {
+  strokeColour() {
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'WORKSPACE'])) {
+      return null
+    }
     if (this.checkHoverState()) {
-      return Constants.getIn('categoryStrokeWidth')
+      return Constants.get('categoryHoverStrokeColour') 
     } 
     else {
-      return '0'
+      return Constants.get('categoryDefaultStrokeColour') 
     }
   }
 
@@ -398,10 +401,9 @@ class Category extends React.Component {
           width={this.props.width}
           height={this.props.height}
           fill={this.props.colour}
-
           opacity={this.categoryFade()}
-
-          strokeWidth={this.strokeWidth()}
+          stroke={this.strokeColour()}
+          strokeWidth='1'
           className = 'categoryRect'
           ref={ (element) => this.rect = element }
         />
