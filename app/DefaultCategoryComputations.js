@@ -69,7 +69,8 @@ const DefaultCategoryComputations = {
           return incident.get('year')
         }).toArray()
 
-        const uniqueReportedYears = _.uniq(reportedYears).sort().reverse()
+        const uniqueReportedYears = _.uniq(reportedYears)
+        //.sort().reverse()
 
         let activeCategories = Immutable.OrderedMap()
 

@@ -278,6 +278,7 @@ const Constants = Immutable.fromJS({
   categoryLabelLineLength: 14,
   categoryDefaultOpacity: 1,
   categoryFadeOpacity: 0.4,
+  categoryStrokeWidth: 1,
   categoryDefaultStrokeColour: '#ffffff',
   categoryHoverStrokeColour: '#000000',
 

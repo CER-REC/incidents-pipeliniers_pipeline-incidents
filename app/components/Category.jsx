@@ -91,7 +91,6 @@ class Category extends React.Component {
 
     return <g>
       <text
-        onClick = { this.categoryLabelClick.bind(this) }
       >
         {labelLines.map((line) => {
           currentY += Constants.get('singleLineCategoryLabelHeight')
@@ -132,26 +131,26 @@ class Category extends React.Component {
   // drag functionality
 
   handleOnMouseDown(event) {
-    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
-      return
-    }
-    event.preventDefault()
-    this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
+    // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+    //   return
+    // }
+    // event.preventDefault()
+    // this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
   }
   handleOnMouseMove(event) {
-    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
-      return
-    }
-    event.preventDefault()
-    this.selectIncidentAtMousePosition(event)
+    // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+    //   return
+    // }
+    // event.preventDefault()
+    // this.selectIncidentAtMousePosition(event)
   }
   handleOnMouseUp(event) {
-    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
-      return
-    }
-    event.preventDefault()
-    this.selectIncidentAtMousePosition(event)
-    this.props.onEndDrag()
+    // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+    //   return
+    // }
+    // event.preventDefault()
+    // this.selectIncidentAtMousePosition(event)
+    // this.props.onEndDrag()
   }
 
   selectIncidentAtMousePosition(event) {
@@ -395,6 +394,7 @@ class Category extends React.Component {
       onMouseMove={this.handleOnMouseMove.bind(this)}
       onMouseEnter={this.handleMouseEnter.bind(this)}
       onMouseLeave={this.handleMouseLeave.bind(this)}
+      onClick = { this.categoryLabelClick.bind(this) }
     >
       <g transform={transformString}>
         <rect
@@ -403,7 +403,7 @@ class Category extends React.Component {
           fill={this.props.colour}
           opacity={this.categoryFade()}
           stroke={this.strokeColour()}
-          strokeWidth='1'
+          strokeWidth={Constants.get('categoryStrokeWidth')}
           className = 'categoryRect'
           ref={ (element) => this.rect = element }
         />
