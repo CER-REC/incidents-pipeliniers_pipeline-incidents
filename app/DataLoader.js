@@ -25,7 +25,7 @@ function parseYesNo (value, record) {
   }
 }
 
-// TODO: This function requires that there be no space after the comma sparating
+// TODO: This function requires that there be no space after the comma separating
 // values in a list of items. The export tool was including commas at last run,
 // ensure that the production export tool is altered to not do this.
 // At last writing, this affected the incident types, why it happened, and what 
