@@ -24,7 +24,10 @@ class ColumnPaths extends React.Component {
 
     return this.props.categories.get(columnName)
       .filter( (visible) => visible === true)
-      .filter( (visible, categoryName) => categoryHeights.get(categoryName) !== undefined)
+
+      // how could the heights be undefined ... ? when the category is empty
+      // .filter( (visible, categoryName) => categoryHeights.get(categoryName) !== undefined)
+
       .map( (visible, categoryName) => {
         const currentY = categoryY
         categoryY += categoryHeights.get(categoryName)
@@ -34,7 +37,8 @@ class ColumnPaths extends React.Component {
           key:categoryName, 
           height:categoryHeights.get(categoryName),
           width:WorkspaceComputations.columnWidth(this.props.columns),
-          x:WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+          x:WorkspaceComputations.horizontalPositions(
+            this.props.showEmptyCategories,
             this.props.viewport, filteredData,
             this.props.columns, this.props.categories)
             .getIn(['columns', columnName]).get('x'),
@@ -72,6 +76,8 @@ class ColumnPaths extends React.Component {
     let categoryY = measurements.get('y')
 
     return this.props.categories.get(sidebarColumnName)
+      // TODO: sidebars should show all their categories all the time
+      // so there should never be 'invisible' categories there
       .filter( (visible) => visible === true)
       .filter( (visible, categoryName) => categoryHeights.get(categoryName) !== undefined)
       .map( (visible, categoryName) => {
@@ -95,37 +101,47 @@ class ColumnPaths extends React.Component {
   }
 
   paths() {
+    const currentColumnIndex = this.props.columns.indexOf(this.props.columnName)
+
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data, 
       this.props.columns, 
       this.props.categories)
+
+    if (currentColumnIndex >= this.props.columns.count() - 1) {
+      return this.pathsToSideBar(filteredData)
+    }
+    else {
+      return this.pathsToColumn(filteredData)
+    }
+
+  }
+
+  pathsToColumn(filteredData) {
 
     let pathArray = []
 
     const currentColumnIndex = this.props.columns.indexOf(this.props.columnName)
     const nextColumnIndex = currentColumnIndex + 1
 
-    // Compute the paths to the left most sidebar column.
-    if (currentColumnIndex >= this.props.columns.count() - 1) {
-      return pathArray.concat(this.pathsToSideBar(filteredData))
-    }
-
-    let sourceColumn = {
+    const sourceColumn = {
       index: this.props.index,
       name: this.props.columnName,
       categories: this.categoriesForColumn(currentColumnIndex, filteredData),
-      x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+      x: WorkspaceComputations.horizontalPositions(
+        this.props.showEmptyCategories,
         this.props.viewport, filteredData,
         this.props.columns, this.props.categories)
         .getIn(['columns', this.props.columnName]).get('x') + 
         WorkspaceComputations.columnWidth(this.props.columns)
     }
 
-    let destinationColumn = {
+    const destinationColumn = {
       index: this.props.index + 1,
       name: this.props.columns.get(nextColumnIndex),
       categories: this.categoriesForColumn(nextColumnIndex, filteredData),
-      x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+      x: WorkspaceComputations.horizontalPositions(
+        this.props.showEmptyCategories,
         this.props.viewport, filteredData,
         this.props.columns, this.props.categories)
         .getIn(['columns', this.props.columns.get(nextColumnIndex)]).get('x')
@@ -152,21 +168,23 @@ class ColumnPaths extends React.Component {
     // Don't render paths to sidebar if sidebar is empty.
     if(firstSideBarColumn === undefined) return pathArray
 
-    let sourceColumn = {
+    const sourceColumn = {
       index: currentColumnIndex,
       name: this.props.columnName,
       categories: this.categoriesForColumn(currentColumnIndex, filteredData),
-      x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+      x: WorkspaceComputations.horizontalPositions(
+        this.props.showEmptyCategories,
         this.props.viewport, filteredData,
         this.props.columns, this.props.categories)
         .getIn(['columns', this.props.columnName]).get('x') + 
         WorkspaceComputations.columnWidth(this.props.columns)
     }
 
-    let destinationColumn = {
+    const destinationColumn = {
       name: firstSideBarColumn,
       categories: this.categoriesForSidebarColumn(firstSideBarColumn, filteredData),
-      x: WorkspaceComputations.horizontalPositions(this.props.showEmptyCategories,
+      x: WorkspaceComputations.horizontalPositions(
+        this.props.showEmptyCategories,
         this.props.viewport, filteredData,
         this.props.columns, this.props.categories)
         .getIn(['sideBar', 'x'])
@@ -210,11 +228,11 @@ class ColumnPaths extends React.Component {
 
   buildPathsForCategory(sourceColumn, sourceCategory, destinationColumn) {
     
-    let pathsForCategory = []
+    const pathsForCategory = []
     const curveControlThreshold = Math.abs(sourceColumn.x - destinationColumn.x) / 2.5
 
     sourceCategory.outgoingCategories.forEach((destinationCategoryKeyAndCount) => {
-      let destinationCategory = destinationColumn.categories.get(destinationCategoryKeyAndCount.key)
+      const destinationCategory = destinationColumn.categories.get(destinationCategoryKeyAndCount.key)
 
       const sourceColumnY = sourceCategory.y
       const destinationColumnY = destinationCategory.y
