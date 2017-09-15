@@ -72,7 +72,6 @@ CategoryComputations.itemsInSimpleCategory = function (data, columnName, categor
   return data.filter( item => {
     return item.get(columnName) === categoryName
   }).count()
-  
 }
 
 // data: the incident data from the store
