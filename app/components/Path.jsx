@@ -30,8 +30,8 @@ class Path extends React.Component {
     return <path 
       d={this.props.d} 
       fill={this.hoverLogic()} 
-      className='ColumnPaths'>
-    </path>
+      className='ColumnPaths'
+    />
   }
 }
 

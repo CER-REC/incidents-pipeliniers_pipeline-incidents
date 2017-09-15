@@ -117,6 +117,8 @@ IncidentComputations.filteredIncidents = function (data, columns, categories) {
 
 // Returns a subset of the given list of data, containing only elements in the
 // given category.
+// NB: Most of the time, 'data' should not be the full set of data in the 
+// visualization but the results of a call to filteredIncidents.
 IncidentComputations.categorySubset = function(data, columnName, categoryName) {
 
   switch (columnName) {

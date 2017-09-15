@@ -236,7 +236,6 @@ class Column extends React.Component {
       this.props.columnName)) {
 
       return <ColumnPaths 
-        index={this.props.index} 
         columnName={this.props.columnName}
         className='ColumnPaths'/>
     }
