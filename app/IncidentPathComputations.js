@@ -340,7 +340,7 @@ IncidentPathComputations.computeHeightsForColumnPair = function(filteredData, co
 
     const destinationCategoryIncidents = mutualIncidentCounts.reduce( (sum, count) => { return sum + count }, 0)
 
-    let spacingModifier
+    let heightFactor
     if (sourceCategoryIncidents >= destinationCategoryIncidents) {
       // When there is the same number of incidents in the source category and
       // all of its destination categories, the height for all of the outgoing
@@ -348,8 +348,8 @@ IncidentPathComputations.computeHeightsForColumnPair = function(filteredData, co
       // When there are more incidents in the source category than its
       // destinations, we are next to the system components column. We don't
       // use the full height of the category.
-      // In either case, we apply no modifier to the spacing
-      spacingModifier = 0
+      // In either case, we apply no modifier to the heights
+      heightFactor = 1
     }
     else {
       // When there are fewer incidents in the source category than in all of
@@ -357,23 +357,18 @@ IncidentPathComputations.computeHeightsForColumnPair = function(filteredData, co
       // column and at least one incident is in more than one destination
       // category. The vertical height of all the paths added together will be
       // higher than the height of the outgoing category, so we apply a
-      // modifier to ensure that all of the outgoing paths fit within the
-      // category's height.
-      const totalOutgoingPathHeight = sourceCategoryHeight / sourceCategoryIncidents * (destinationCategoryIncidents)
-      const extraHeight = totalOutgoingPathHeight - sourceCategoryHeight
+      // modifier to scale the outgoing paths fit to within the category's 
+      // height.
 
-      spacingModifier = extraHeight / (mutualIncidentCounts.count() - 1)
+      heightFactor = sourceCategoryIncidents / destinationCategoryIncidents
     }
 
-    // We don't want to apply the spacing modifier to the first column, but
-    // we subtract it from currentY to get y1 for every category. So, we
-    // offset the offset for the first category by adding spacingModifier here
-    let currentY = sourceVerticalPositions.getIn([sourceCategory, 'y']) + spacingModifier
+    let currentY = sourceVerticalPositions.getIn([sourceCategory, 'y'])
 
     mutualIncidentCounts.forEach( (count, destinationCategory) => {
 
-      const y1 = currentY - spacingModifier
-      const y2 = y1 + (count / sourceCategoryIncidents) * sourceCategoryHeight
+      const y1 = currentY
+      const y2 = y1 + (count / sourceCategoryIncidents) * sourceCategoryHeight * heightFactor
 
       const measurements = Immutable.fromJS({
         incidentCount: count,
@@ -420,27 +415,20 @@ IncidentPathComputations.computeHeightsForColumnPair = function(filteredData, co
     const sourceCategoryIncidents = mutualIncidentCounts.reduce( (sum, count) => { return sum + count }, 0)
 
 
-    let spacingModifier
+    let heightFactor
     if (destinationCategoryIncidents >= sourceCategoryIncidents) {
-      spacingModifier = 0
+      heightFactor = 1
     }
     else {
-      const totalIncomingPathHeight = destinationCategoryHeight / destinationCategoryIncidents * (sourceCategoryIncidents)
-      const extraHeight = totalIncomingPathHeight - destinationCategoryHeight
-
-      spacingModifier = extraHeight / (mutualIncidentCounts.count() - 1)
+      heightFactor = destinationCategoryIncidents / sourceCategoryIncidents 
     }
 
-
-    // We don't want to apply the spacing modifier to the first column, but
-    // we subtract it from currentY to get y1 for every category. So, we
-    // offset the offset for the first category by adding spacingModifier here
-    let currentY = destinationVerticalPositions.getIn([destinationCategory, 'y']) + spacingModifier
+    let currentY = destinationVerticalPositions.getIn([destinationCategory, 'y'])
 
     mutualIncidentCounts.forEach( (count, sourceCategory) => {
 
-      const y1 = currentY - spacingModifier
-      const y2 = y1 + (count / destinationCategoryIncidents) * destinationCategoryHeight
+      const y1 = currentY
+      const y2 = y1 + (count / destinationCategoryIncidents) * destinationCategoryHeight * heightFactor
 
       const measurements = Immutable.fromJS({
         incidentCount: count,
