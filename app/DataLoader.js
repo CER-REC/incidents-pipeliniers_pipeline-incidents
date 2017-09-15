@@ -171,6 +171,7 @@ const DataLoader = {
 
         let state = store.getState()
         const categories = DefaultCategoryComputations.initialState(state.data)
+
         store.dispatch(SetInitialCategoryStateCreator(categories))
 
         state = store.getState()
