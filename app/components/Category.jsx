@@ -50,13 +50,14 @@ class Category extends React.Component {
         categoryName = { this.props.categoryName }
       />
     }
-    else if(this.checkHoverState()){
+    else if(this.checkHoverState()) {
       return <Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
         columnName = { this.props.columnName }
         categoryName = { this.props.categoryName }
       />
+    
     }
     else {
       return null
@@ -402,11 +403,11 @@ class Category extends React.Component {
       onMouseMove={this.handleOnMouseMove.bind(this)}
       onMouseEnter={this.handleMouseEnter.bind(this)}
       onMouseLeave={this.handleMouseLeave.bind(this)}
-      onClick = { this.categoryLabelClick.bind(this) }
     >
       <g transform={transformString}>
         <rect
           width={this.props.width}
+          onClick = { this.categoryLabelClick.bind(this) }
           height={this.props.height}
           fill={this.props.colour}
           opacity={this.categoryFade()}
