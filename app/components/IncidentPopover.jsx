@@ -7,6 +7,7 @@ const CategoryComputations = require('../CategoryComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
 const AddPinnedIncidentCreator = require('../actionCreators/AddPinnedIncidentCreator.js')
 const RemovePinnedIncidentCreator = require('../actionCreators/RemovePinnedIncidentCreator.js')
+const Tr = require('../TranslationTable.js')
 
 require('./IncidentPopover.scss')
 
@@ -39,8 +40,8 @@ class IncidentPopover extends React.Component {
     return <g transform = {transformPopoverBody}>
       <text className="subpop">
         <tspan x={0} dy=".6em">{this.props.incident.get('incidentNumber')}</tspan>
-        <tspan x={0} dy={lineHeight}>Near {this.props.incident.get('nearestPopulatedCentre')}</tspan>
-        <tspan x={0} dy={lineHeight}>Date reported:</tspan>
+        <tspan x={0} dy={lineHeight}>{Tr.getIn(['near', this.props.language])} {this.props.incident.get('nearestPopulatedCentre')}</tspan>
+        <tspan x={0} dy={lineHeight}>{Tr.getIn(['reportedDate', this.props.language])}</tspan>
         <tspan x={0} dy={lineHeight}>{(this.props.incident.get('reportedDate').format('DD/MM/YYYY'))}</tspan>
       </text>
       <image 
@@ -155,7 +156,8 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
-    pinnedIncidents: state.pinnedIncidents
+    pinnedIncidents: state.pinnedIncidents,
+    language: state.language,
   }
 }
 
