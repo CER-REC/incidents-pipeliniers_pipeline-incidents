@@ -223,6 +223,7 @@ class Category extends React.Component {
       ])
       return StringComputations.splitHeading(label.toUpperCase())
     }
+    case 'incidentNumber':
     case 'company':
     case 'year':
       // These columns use the category name directly

@@ -118,9 +118,11 @@ const Constants = Immutable.fromJS({
     'substanceCategory',
     'pipelineSystemComponentsInvolved',
     'map',
+    'incidentNumber',
   ],
 
   defaultColumns: [
+    'incidentNumber',
     'province',
     'incidentTypes',
   ],
@@ -239,6 +241,11 @@ const Constants = Immutable.fromJS({
       middle: '#73ADE6',
       end: '#E6E0FF',
     },
+    'incidentNumber': {
+      start: '#64DCE2',
+      middle: '#64DCE2',
+      end: '#64DCE2',
+    }
   },
 
   emptyCategoryHeight: 20, // px

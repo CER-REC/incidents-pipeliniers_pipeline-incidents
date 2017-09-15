@@ -64,6 +64,25 @@ const DefaultCategoryComputations = {
 
         break
       }
+      case 'incidentNumber': {
+        // Each unique incident number constitutes its own category
+
+        const incidentNumbers = data.map( incident => {
+          return incident.get('incidentNumber')
+        }).toArray()
+
+        const uniqueIncidentNumbers = _.uniq(incidentNumbers).sort().reverse()
+
+        let activeCategories = Immutable.OrderedMap()
+
+        for(const incidentNumber of uniqueIncidentNumbers) {
+          activeCategories = activeCategories.set(incidentNumber, true)
+        }
+
+        categories = categories.set('incidentNumber', activeCategories)
+
+        break
+      }
       case 'year': {
         // Each year appearing in the dataset will be a category
 
