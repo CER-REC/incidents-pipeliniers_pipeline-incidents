@@ -11,32 +11,23 @@ class Path extends React.Component {
       return this.props.fillColour
     }
 
-    const isDestinationCategoryHovered = (this.props.categoryHoverState.get('categoryName') === this.props.destinationCategory.categoryName) &&
-      this.props.categoryHoverState.get('columnName') === this.props.destinationColumnName
-    
-    const isCategoryHovered = (this.props.categoryHoverState.get('categoryName') === this.props.sourceCategory.categoryName) &&
-      this.props.categoryHoverState.get('columnName') === this.props.columnName
     const isAnythingHovered = this.props.categoryHoverState.get('columnName') !== null
       
-    if (!isAnythingHovered) {
-      return Constants.getIn(['columnPaths', 'defaultColumn'])
-    }
-    else if (isCategoryHovered === true && isAnythingHovered === true) {
-      return Constants.getIn(['columnPaths', 'columnHovered'])
-    }
-    else if (isDestinationCategoryHovered === true) {
-      return Constants.getIn(['columnPaths', 'columnHovered'])
-    }
-    else if (isCategoryHovered === false && isAnythingHovered === true) {
+    if (isAnythingHovered) {
       return Constants.getIn(['columnPaths', 'notColumnHovered'])
     }
+    else {
+      return Constants.getIn(['columnPaths', 'defaultColumn'])
+    }
+
   }
 
   render() {
     return <path 
-      d={this.props.d} 
-      fill={this.fillColour()} 
-      className='ColumnPaths'
+      d = { this.props.d }
+      fill = { this.fillColour() }
+      className = 'ColumnPaths'
+      fillOpacity = '0.6'
     />
   }
 }

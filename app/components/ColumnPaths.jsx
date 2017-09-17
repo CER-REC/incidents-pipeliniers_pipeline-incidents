@@ -7,8 +7,6 @@ const IncidentComputations = require('../IncidentComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 const Constants = require('../Constants.js')
 
-require('./ColumnPaths.scss')
-
 class ColumnPaths extends React.Component {
 
   paths() {

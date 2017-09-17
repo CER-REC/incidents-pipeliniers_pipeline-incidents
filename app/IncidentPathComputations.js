@@ -541,6 +541,10 @@ IncidentPathComputations.selectedCategoryColumnPair = function (columnPair, data
     filterboxActivationState
   )
 
+  const sourceColumnName = columnPair.getIn(['source', 'columnName'])
+  const destinationColumnName = columnPair.getIn(['destination', 'columnName'])
+
+
   if (incidentsInCategorySelection === null || incidentsInCategorySelection.count() === 0) {
 
     // There are no paths to draw here
@@ -548,18 +552,20 @@ IncidentPathComputations.selectedCategoryColumnPair = function (columnPair, data
 
   }
 
-
   const newPathMeasurements = columnPair.get('pathMeasurements').map( (sourceMeasurements, sourceCategory) => {
     return sourceMeasurements.map( (measurements, destinationCategory) => {
 
-      // The incidents in both the selected category, and the source category
-      const emphasizedSourceIncidents = IncidentComputations.categorySubset(
+      // The count of incidents from the selected category in both the source 
+      // and destination categories
+      const emphasizedIncidents = CategoryComputations.itemsInBothCategories(
         incidentsInCategorySelection,
-        columnPair.getIn(['source', 'columnName']),
-        sourceCategory
-      )
+        sourceColumnName,
+        sourceCategory,
+        destinationColumnName,
+        destinationCategory)
 
-      const emphasizedSourceIncidentFraction = emphasizedSourceIncidents.count() / incidentsInCategorySelection.count()
+
+      const emphasizedSourceIncidentFraction = emphasizedIncidents / measurements.getIn(['sourceMeasurement', 'incidentCount'])
 
       const sourceY1 = measurements.getIn(['sourceMeasurement', 'y1'])
       const sourceY2 = measurements.getIn(['sourceMeasurement', 'y2'])
@@ -570,14 +576,8 @@ IncidentPathComputations.selectedCategoryColumnPair = function (columnPair, data
       // the top of the path for ordinary incidents.
       const emphasizedSourceY2 = sourceY1 + emphasizedSourceHeight
 
-      // The incidents in both the selected category, and the destination 
-      // category
-      const emphasizedDestinationIncidents = IncidentComputations.categorySubset(
-        incidentsInCategorySelection,
-        columnPair.getIn(['destination', 'columnName']),
-        destinationCategory
-      )
-      const emphasizedDestinationIncidentFraction = emphasizedDestinationIncidents.count() / incidentsInCategorySelection.count()
+
+      const emphasizedDestinationIncidentFraction = emphasizedIncidents / measurements.getIn(['destinationMeasurement', 'incidentCount'])
 
       const destinationY1 = measurements.getIn(['destinationMeasurement', 'y1'])
       const destinationY2 = measurements.getIn(['destinationMeasurement', 'y2'])
@@ -586,8 +586,8 @@ IncidentPathComputations.selectedCategoryColumnPair = function (columnPair, data
 
       const emphasizedDestinationY2 = destinationY1 + emphasizedDestinationHeight
 
-      return measurements.setIn(['sourceMeasurement', 'y2'], emphasizedSourceY2).setIn(['destinationMeasurement', 'y2'], emphasizedDestinationY2)
 
+      return measurements.setIn(['sourceMeasurement', 'y2'], emphasizedSourceY2).setIn(['destinationMeasurement', 'y2'], emphasizedDestinationY2)
     })
   })
 

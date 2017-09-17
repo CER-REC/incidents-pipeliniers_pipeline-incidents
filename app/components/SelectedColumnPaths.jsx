@@ -114,7 +114,6 @@ class ColumnPaths extends React.Component {
 
 
   render() {
-
     return <g className='SelectedColumnPaths'>{ this.paths() }</g>
   }
 
