@@ -120,8 +120,13 @@ const Constants = Immutable.fromJS({
     'map',
   ],
 
+  defaultColumns: [
+    'province',
+    'incidentTypes',
+  ],
+
   sidebar: {
-    columWidth: 70,
+    columWidth: 75,
     columnOffset: 10,
 
     verticalStackingOffset: 2,
@@ -141,9 +146,9 @@ const Constants = Immutable.fromJS({
   },
 
   filterbox: {
-    labelOffset: 3,
+    labelOffset: 4,
 
-    filterButtonWidth: 56,
+    filterButtonWidth: 66,
     filterButtonHeight: 13.5,
 
     iconSize: 7,

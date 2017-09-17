@@ -18,10 +18,9 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const FilterboxComputations = require('../FilterboxComputations.js')
+const StringComputations = require('../StringComputations.js')
 
 require('./Category.scss')
-
-
 
 class Category extends React.Component {
 
@@ -31,6 +30,11 @@ class Category extends React.Component {
     return filterboxState.get('columnName') === this.props.columnName &&
       filterboxState.get('categoryName') === this.props.categoryName
 
+  }
+
+  checkHoverState() {
+    return this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
+      this.props.columnName === this.props.categoryHoverState.get('columnName')
   }
 
   filterbox(currentY) {
@@ -55,16 +59,27 @@ class Category extends React.Component {
     }
 
     const labelLines = this.labelLines()
-    if(labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height) {
-      return null
-    }
+    const labelLengthExceed = labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height
+
+    const isCategorySelected = (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
+      this.props.selectedIncident,
+      this.props.columnName,
+      this.props.categoryName))
 
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
+    if(labelLengthExceed === true && isCategorySelected === false && this.checkHoverState() === false) {
+      return null
+    }
+
     if(this.filterboxActive()) {
       labelClassName = 'activeCategoryLabels'
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
+    }
+
+    if(this.checkHoverState() === true || isCategorySelected === true) {
+      labelClassName = 'activeCategoryLabels'
     }
 
     let currentY = (this.props.height/2) - filterBoxOffset
@@ -198,53 +213,33 @@ class Category extends React.Component {
         this.props.categoryName, 
         this.props.language
       ])
-      return this.splitHeading(label.toUpperCase())
+      return StringComputations.splitHeading(label.toUpperCase())
     }
     case 'company':
     case 'year':
       // These columns use the category name directly
       // Years are numbers, and we need a string here
-      return this.splitHeading(this.props.categoryName.toString().toUpperCase())
+      return StringComputations.splitHeading(this.props.categoryName.toString().toUpperCase())
 
     // No categories for map column
     }
   }
 
-  splitHeading(label) {
-
-    // No need to split into multiple lines.
-    if(label.length <= Constants.get('categoryLabelLineLength')) {
-      return [label]
-    }
-
-    // Split (' ' or '-') right at the maxmium allows characters per line.
-    // Case 1: split right at the line length limit.
-    if(label[Constants.get('categoryLabelLineLength')] === ' ' || 
-       label[Constants.get('categoryLabelLineLength')] === '-') {
-      return [this.splitHeading(label
-        .substring(0,Constants.get('categoryLabelLineLength')))]
-        .concat(this.splitHeading(label
-          .substring(Constants.get('categoryLabelLineLength') + 1)))
-    }
-
-    // Case 2: split at the closest space or dash.
-    let firstLineSplitPoint = label
-      .substring(0, Constants.get('categoryLabelLineLength')).lastIndexOf(' ')
-    if(firstLineSplitPoint < 0) {
-      firstLineSplitPoint = label
-        .substring(0, Constants.get('categoryLabelLineLength')).lastIndexOf('-')
-    }
-
-    return [this.splitHeading(label.substring(0, firstLineSplitPoint))].concat( 
-      this.splitHeading(label.substring(firstLineSplitPoint + 1)))
-  }
 
 
   handleMouseEnter() {
+    let categoryWindowHoverHandler = null
+    let categoryWindowUnhoverHandler = null
+    
     // Do not highlight categories in the sidebar.
     if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR']) &&
        !this.props.columnDragStatus.get('isStarted')) {
       this.props.onMouseEnter(this.props.columnName, this.props.categoryName)
+
+      categoryWindowHoverHandler = this.handleMouseEnter.bind(this)
+      categoryWindowUnhoverHandler = this.handleMouseLeave.bind(this)
+      window.addEventListener('mouseenter', categoryWindowHoverHandler)
+      window.addEventListener('mouseleave', categoryWindowUnhoverHandler)
     }
   }
   handleMouseLeave() {
@@ -350,8 +345,7 @@ class Category extends React.Component {
   }
 
   strokeWidth() {
-    if (this.props.categoryName === this.props.categoryHoverState.get('categoryName') &&
-      this.props.columnName === this.props.categoryHoverState.get('columnName')) {
+    if (this.checkHoverState()) {
       return Constants.getIn('categoryStrokeWidth')
     } 
     else {
@@ -372,6 +366,10 @@ class Category extends React.Component {
       transform={this.categoryTransform()}
       onMouseUp = { this.handleOnMouseUp.bind(this) }
       className = 'category'
+      onMouseDown={this.handleOnMouseDown.bind(this)}
+      onMouseMove={this.handleOnMouseMove.bind(this)}
+      onMouseEnter={this.handleMouseEnter.bind(this)}
+      onMouseLeave={this.handleMouseLeave.bind(this)}
     >
       <g transform={transformString}>
         <rect
@@ -383,11 +381,6 @@ class Category extends React.Component {
 
           strokeWidth={this.strokeWidth()}
           className = 'categoryRect'
-
-          onMouseDown={this.handleOnMouseDown.bind(this)}
-          onMouseMove={this.handleOnMouseMove.bind(this)}
-          onMouseEnter={this.handleMouseEnter.bind(this)}
-          onMouseLeave={this.handleMouseLeave.bind(this)}
           ref={ (element) => this.rect = element }
         />
         { this.label() }

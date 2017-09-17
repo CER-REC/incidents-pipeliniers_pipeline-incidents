@@ -4,17 +4,18 @@ const Moment = require('moment')
 
 const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
 const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
-const IncidentSelectionStateCreator = require('./actionCreators/IncidentSelectionStateCreator.js')
 const CategoryConstants = require('./CategoryConstants.js')
-
+const RouteComputations = require('./RouteComputations.js')
+const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
+const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 
 
 
 function parseYesNo (value, record) {
-  if (value === 'Yes' || value === 'yes') {
+  if (value === 'Yes' || value === 'yes' || value === '1') {
     return true
   } 
-  else if (value === 'No' || (value === '')) {
+  else if (value === 'No' || (value === '' || value === '0')) {
     // For older incidents, the 'is pipeline system component involved' field is
     // empty. We're interpret this to mean 'no'.
     return false
@@ -24,7 +25,7 @@ function parseYesNo (value, record) {
   }
 }
 
-// TODO: This function requires that there be no space after the comma sparating
+// TODO: This function requires that there be no space after the comma separating
 // values in a list of items. The export tool was including commas at last run,
 // ensure that the production export tool is altered to not do this.
 // At last writing, this affected the incident types, why it happened, and what 
@@ -127,7 +128,7 @@ function csvColumnMapping (d) {
   return {
     incidentNumber: d['Incident Number'],
     incidentTypes: parseList(d, 'incidentTypes', d['Incident Types']),
-    reportedDate: Moment(d['Reported Date'], 'DD-MM-YYYY'),
+    reportedDate: Moment(d['Reported Date'], 'MM-DD-YYYY'),
     nearestPopulatedCentre: d['Nearest Populated Centre'],
     province: readConstrainedVocabularyString(d, 'Province', 'province'),
     company: d['Company'],
@@ -138,14 +139,14 @@ function csvColumnMapping (d) {
     offCompanyProperty: parseYesNo(d['Off Company Property'], d),
     affectsPipelineRightOfWay: parseYesNo(d['Affects Pipeline right-of-way'], d),
     affectsOffPipelineRightOfWay: parseYesNo(d['Affects off Pipeline right-of-way'], d),
-    approximateVolumeReleased: d['Approximate Volume Released (m3)'],
-    volumeCategory: volumeCategory(d, d['Approximate Volume Released (m3)']),
+    approximateVolumeReleased: d['Approximate Volume Released (m³)'],
+    volumeCategory: volumeCategory(d, d['Approximate Volume Released (m³)']),
     substance: readConstrainedVocabularyString(d, 'Substance', 'substance'),
     substanceCategory: readConstrainedVocabularyString(d, 'SubstanceCategory', 'substanceCategory'),
     releaseType: readConstrainedVocabularyString(d, 'Release Type', 'releaseType'),
-    year: readFloat(d, 'Year'), 
-    whatHappened: parseList(d, 'whatHappened', d['What Happened?']),
-    whyItHappened: parseList(d, 'whyItHappened', d['Why it Happened?']),
+    year: d['Year'],
+    whatHappened: parseList(d, 'whatHappened', d['WhatHappened']),
+    whyItHappened: parseList(d, 'whyItHappened', d['WhyItHappened']),
     pipelinePhase: readConstrainedVocabularyString(d, 'Pipeline Phase', 'pipelinePhase'),
     werePipelineSystemComponentsInvolved: parseYesNo(d['Were Pipeline System Components Involved?'], d),
     pipelineSystemComponentsInvolved: parseList(d, 'pipelineSystemComponentsInvolved', d['Pipeline System Components Involved']),
@@ -160,7 +161,7 @@ const DataLoader = {
   loadDataCsv: function (store) {
 
     const options = {
-      uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-08-03 2008 - 2017 Incidents data sheet for UofC.csv`,
+      uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-09-13 ERS TEST-joined.csv`,
     }
 
     Request(options)
@@ -168,10 +169,26 @@ const DataLoader = {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
         store.dispatch(DataLoadedCreator(data))
 
-        const state = store.getState()
-        store.dispatch(SetInitialCategoryStateCreator(state.data))
+        let state = store.getState()
+        const categories = DefaultCategoryComputations.initialState(state.data)
+        store.dispatch(SetInitialCategoryStateCreator(categories))
 
-        // store.dispatch(IncidentSelectionStateCreator(state.data.get(1)))
+        state = store.getState()
+        const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
+
+
+        store.dispatch(SetFromRouterStateCreator({
+          columns: routerState.columns,
+          categories: routerState.categories,
+          showEmptyCategories: routerState.showEmptyCategories,
+          pinnedIncidents: routerState.pinnedIncidents,
+          selectedIncident: routerState.selectedIncident,
+          language: routerState.language,
+        }))
+
+
+
+
       })
       .catch(function (error) {
         throw error
