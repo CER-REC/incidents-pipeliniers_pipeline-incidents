@@ -261,8 +261,8 @@ const RenderRoutines = {
       // then are allowed to fan out onto the map itself.
       // We define the top and bottom coordinates for the region
       // TODO: These parameters may need tweaking
-      const bundleRegionTopY = currentY + categoryHeight /2
-      const bundleRegionBottomY = currentY + categoryHeight /2
+      const bundleRegionTopY = currentY + categoryHeight / 2
+      const bundleRegionBottomY = currentY + categoryHeight / 2
 
       const subsetData = IncidentComputations.categorySubset(
         filteredData,
@@ -426,8 +426,8 @@ const RenderRoutines = {
       // then are allowed to fan out onto the map itself.
       // We define the top and bottom coordinates for the region
       // TODO: These parameters may need tweaking
-      const bundleRegionTopY = currentY + categoryHeight / 4
-      const bundleRegionBottomY = currentY + categoryHeight * 3 / 4
+      const bundleRegionTopY = currentY + categoryHeight / 2
+      const bundleRegionBottomY = currentY + categoryHeight / 2
 
       const subsetData = IncidentComputations.categorySubset(
         filteredData,
@@ -590,6 +590,10 @@ const RenderRoutines = {
           fillStyle: incidentColour,
         },
         {
+          // TODO: known issue with the input map: canvas draw methods have
+          // built in aliasing that corrupts the colour at the circle's edge.
+          // Need to use lower level functions that draw hard edged pixels to
+          // avoid this. 
           context: inputContext,
           fillStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
         }],
@@ -616,13 +620,15 @@ const RenderRoutines = {
 
 
 
-// canvas: the canvas DOM element we are rendering to
+// renderCanvas: the canvas DOM element we are drawing visible pixels to
+// renderCanvas: the canvas DOM element where we draw a unique colour for each
+// inident, to use as lookup for click events on the canvas.
 // props: the props object from Map, which should include the main 5 state 
 //   items; showEmptyCategories, viewport, data, columns, categories
 module.exports = function MapRenderer (renderCanvas, inputCanvas, props) {
 
   // TODO: I hope that making this draw asynchronously isn't a problem... 
-  mapPromise.then( (basemapImage) => {    
+  mapPromise.then( (basemapImage) => {
 
     const renderContext = renderCanvas.getContext('2d')
     const inputContext = inputCanvas.getContext('2d')
