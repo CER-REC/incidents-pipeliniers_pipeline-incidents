@@ -244,7 +244,9 @@ const Constants = Immutable.fromJS({
   emptyCategoryHeight: 20, // px
   
   map: {
-    widthHeightRatio: 510 / 375,
+    widthHeightRatio: 500 / 450,
+    // widthHeightRatio: 510 / 375,
+    // widthHeightRatio: 410 / 375,
     
     // NB: Must match dimensions of canada.svg
     coordinateSpace: {
@@ -262,7 +264,7 @@ const Constants = Immutable.fromJS({
     selectedLightGrey: 'rgb(48, 48, 48)',
 
     incidentRadius: 5,
-    padding: 100,
+    padding: 0,
     bundleOffsetDistance: 25,
     radialControlPointDistance: 150,
 
@@ -294,7 +296,7 @@ const Constants = Immutable.fromJS({
     WORKSPACE: 'WORKSPACE'
   },
 
-
+  pathCurveControlFactor: 2.5,
 
 })
 

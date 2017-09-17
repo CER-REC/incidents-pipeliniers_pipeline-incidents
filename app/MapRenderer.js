@@ -261,8 +261,8 @@ const RenderRoutines = {
       // then are allowed to fan out onto the map itself.
       // We define the top and bottom coordinates for the region
       // TODO: These parameters may need tweaking
-      const bundleRegionTopY = currentY + categoryHeight / 2
-      const bundleRegionBottomY = currentY + categoryHeight / 2
+      const bundleRegionTopY = currentY + categoryHeight / 3
+      const bundleRegionBottomY = currentY + categoryHeight * 2 / 3
 
       const subsetData = IncidentComputations.categorySubset(
         filteredData,
@@ -299,7 +299,7 @@ const RenderRoutines = {
 
           // The first control point is to the right of the incident's 
           // slot on the column
-          bundleOffsetDistance,
+          10,
           currentY + categoryHeight * (index / categoryCount),
 
           // The second control point is to the left of the bundle point
@@ -320,7 +320,7 @@ const RenderRoutines = {
         )
 
         const destinationControlPoint = RenderRoutines.radialControlPoint(props, incidentPosition)
-        const curveControlThreshold = Math.abs(bundleOffsetDistance - incidentPosition.x) / 2.5
+        const curveControlThreshold = Math.abs(bundleOffsetDistance - incidentPosition.x) / Constants.get('pathCurveControlFactor')
 
         // Draw paths from left column to bundle region
         RenderRoutines.drawBezier(
@@ -426,8 +426,8 @@ const RenderRoutines = {
       // then are allowed to fan out onto the map itself.
       // We define the top and bottom coordinates for the region
       // TODO: These parameters may need tweaking
-      const bundleRegionTopY = currentY + categoryHeight / 2
-      const bundleRegionBottomY = currentY + categoryHeight / 2
+      const bundleRegionTopY = currentY + categoryHeight / 3
+      const bundleRegionBottomY = currentY + categoryHeight * 2 / 3
 
       const subsetData = IncidentComputations.categorySubset(
         filteredData,
@@ -456,6 +456,7 @@ const RenderRoutines = {
         )
 
         const departureControlPoint = RenderRoutines.radialControlPoint(props, incidentPosition)
+        const curveControlThreshold = Math.abs(bundleOffsetDistance - incidentPosition.x) / Constants.get('pathCurveControlFactor')
 
         RenderRoutines.drawBezier(
           [{
@@ -476,7 +477,7 @@ const RenderRoutines = {
           departureControlPoint.y,
 
           // Control point 2, placed away from the bundle point
-          bundleOffsetDistance - 10,
+          bundleOffsetDistance - curveControlThreshold,
           bundleY,
 
           // Destination, point in the bundle group
@@ -643,7 +644,7 @@ module.exports = function MapRenderer (renderCanvas, inputCanvas, props) {
     RenderRoutines.drawMap(renderContext, props, basemapImage)
 
     // Draw lines, then points, to both displayed canvas and input buffer
-    RenderRoutines.drawLines(renderContext, inputContext, props)
+    // RenderRoutines.drawLines(renderContext, inputContext, props)
     RenderRoutines.drawPoints(renderContext, inputContext, props)
   })
 
