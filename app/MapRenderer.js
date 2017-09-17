@@ -278,6 +278,10 @@ const RenderRoutines = {
           return
         }
 
+        if (!RenderRoutines.shouldRenderIncidentLines(incident, props)) {
+          return
+        }
+
         const strokeColour = RenderRoutines.strokeColour(incident, props)
 
         const bundleY = bundleRegionTopY + (bundleRegionBottomY - bundleRegionTopY) * (index / categoryCount)
@@ -440,6 +444,10 @@ const RenderRoutines = {
         // Don't try to draw lines for incidents without location data
         if (incident.get('longitude') === 'Not Provided' || 
           incident.get('latitude') === 'Not Provided') {
+          return
+        }
+
+        if (!RenderRoutines.shouldRenderIncidentLines(incident, props)) {
           return
         }
 
@@ -610,6 +618,40 @@ const RenderRoutines = {
   },
 
 
+  shouldRenderIncidentLines(incident, props) {
+
+    // If we are hovering a category
+    if (props.categoryHoverState.get('columnName') !== null) {
+      if (CategoryComputations.itemInCategory(
+        incident, 
+        props.categoryHoverState.get('columnName'), 
+        props.categoryHoverState.get('categoryName'))) {
+        return true
+      }
+    }
+
+    // If the filterbox is activated, and we are not hovering a category
+    if (props.categoryHoverState.get('columnName') === null && 
+      props.filterboxActivationState.get('columnName') !== null) {
+      if (CategoryComputations.itemInCategory(
+        incident, 
+        props.filterboxActivationState.get('columnName'), 
+        props.filterboxActivationState.get('categoryName'))) {
+        return true
+      }
+    }
+
+    if (incident === props.selectedIncident) {
+      return true
+    }
+    
+    if (props.pinnedIncidents.contains(incident)) {
+      return true
+    }
+
+    return false
+  }
+
 }
 
 
@@ -626,6 +668,7 @@ const RenderRoutines = {
 // inident, to use as lookup for click events on the canvas.
 // props: the props object from Map, which should include the main 5 state 
 //   items; showEmptyCategories, viewport, data, columns, categories
+//   and also: pinnedIncidents, filterboxActivationState, categoryHoverState
 module.exports = function MapRenderer (renderCanvas, inputCanvas, props) {
 
   // TODO: I hope that making this draw asynchronously isn't a problem... 
@@ -644,7 +687,7 @@ module.exports = function MapRenderer (renderCanvas, inputCanvas, props) {
     RenderRoutines.drawMap(renderContext, props, basemapImage)
 
     // Draw lines, then points, to both displayed canvas and input buffer
-    // RenderRoutines.drawLines(renderContext, inputContext, props)
+    RenderRoutines.drawLines(renderContext, inputContext, props)
     RenderRoutines.drawPoints(renderContext, inputContext, props)
   })
 
