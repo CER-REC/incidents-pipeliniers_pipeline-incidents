@@ -12,8 +12,10 @@ class Path extends React.Component {
     }
 
     const isAnythingHovered = this.props.categoryHoverState.get('columnName') !== null
+    const isFilterboxActivated = this.props.filterboxActivationState.get('columnName') !== null
+
       
-    if (isAnythingHovered) {
+    if (isAnythingHovered || isFilterboxActivated) {
       return Constants.getIn(['columnPaths', 'notColumnHovered'])
     }
     else {
@@ -35,6 +37,7 @@ class Path extends React.Component {
 const mapStateToProps = state => {
   return {
     categoryHoverState: state.categoryHoverState,
+    filterboxActivationState: state.filterboxActivationState, 
   }
 }
 
