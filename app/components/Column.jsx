@@ -15,6 +15,7 @@ const DragSidebarColumnEndedCreator = require('../actionCreators/DragSidebarColu
 const DragSidebarColumnCreator = require('../actionCreators/DragSidebarColumnCreator.js')
 const AddColumnAtPositionCreator = require('../actionCreators/AddColumnAtPositionCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
+const SelectedColumnPaths = require('./SelectedColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
@@ -237,7 +238,22 @@ class Column extends React.Component {
 
       return <ColumnPaths 
         columnName={this.props.columnName}
-        className='ColumnPaths'/>
+      />
+    }
+    else {
+      return null
+    }
+  }
+
+  // These are the emphasized column paths for the current category selection
+  selectedColumnPaths() {
+    if (WorkspaceComputations.shouldRenderColumnPath(
+      this.props.columns,
+      this.props.columnName)) {
+
+      return <SelectedColumnPaths 
+        columnName={this.props.columnName}
+      />
     }
     else {
       return null
@@ -494,6 +510,7 @@ class Column extends React.Component {
           {this.barSubHeading()}
         </text>
         { this.columnPaths() }
+        { this.selectedColumnPaths() }
         <SelectedIncidentPaths 
           columnName = { this.props.columnName }
           categoryName = { this.props.categoryName }

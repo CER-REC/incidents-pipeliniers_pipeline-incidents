@@ -7,9 +7,11 @@ const IncidentComputations = require('../IncidentComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 const Constants = require('../Constants.js')
 
-require('./ColumnPaths.scss')
+
 
 class ColumnPaths extends React.Component {
+
+
 
   paths() {
 
@@ -25,12 +27,15 @@ class ColumnPaths extends React.Component {
       this.props.columns,
       this.props.categories)
 
-    const pathMeasurements = IncidentPathComputations.pathMeasurements(
-      this.props.data,
+
+    const selectedCategoryPathMeasurements = IncidentPathComputations.selectedCategoryPathMeasurements(
+      filteredData,
       this.props.columns,
       this.props.categories,
       this.props.showEmptyCategories,
-      this.props.viewport
+      this.props.viewport,
+      this.props.categoryHoverState,
+      this.props.filterboxActivationState
     )
 
     const nextToSidebarColumn = this.props.columnName === this.props.columns.last()
@@ -38,11 +43,11 @@ class ColumnPaths extends React.Component {
     let columnPair
     if (nextToSidebarColumn) {
       // Rendering paths to the sidebar
-      columnPair = pathMeasurements.get('sidebarColumnPair')
+      columnPair = selectedCategoryPathMeasurements.get('sidebarColumnPair')
     }
     else {
       // Rendering paths to another column
-      columnPair = pathMeasurements.get('columnPairs').find( columnPairSearch => {
+      columnPair = selectedCategoryPathMeasurements.get('columnPairs').find( columnPairSearch => {
         return columnPairSearch.getIn(['source', 'columnName']) === this.props.columnName
       })
     }
@@ -50,7 +55,6 @@ class ColumnPaths extends React.Component {
     if (columnPair === undefined) {
       return []
     }
-
 
     const sourceX = horizontalPositions.getIn(['columns', this.props.columnName]).get('x') + WorkspaceComputations.columnWidth(this.props.columns)
     
@@ -97,32 +101,41 @@ class ColumnPaths extends React.Component {
           destinationCategory={destinationCategory}
           columnName={this.props.columnName}
           destinationColumnName={columnPair.getIn(['destination', 'columnName'])}
+          fillColour = "#666666"
         />
 
         paths.push(currentPath)
       })
 
     })
- 
-
 
     return paths
   }
 
 
-
   render() {
-    return <g className='ColumnPaths'>{ this.paths() }</g>
+
+    return <g className='SelectedColumnPaths'>{ this.paths() }</g>
   }
+
 }
+
+
+
+
 
 const mapStateToProps = state => {
   return {
-    showEmptyCategories: state.showEmptyCategories,
-    viewport: state.viewport,
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    showEmptyCategories: state.showEmptyCategories,
+    viewport: state.viewport,
+
+    // Are these two going to be a performance problem? 
+    categoryHoverState: state.categoryHoverState,
+    filterboxActivationState: state.filterboxActivationState, 
+
   }
 }
 

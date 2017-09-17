@@ -76,6 +76,42 @@ IncidentPathComputations.incidentHeightInCategory = function(incident, subsetInc
 // configuration.
 // Also computes the number of incidents in each category.
 
+// Returns an immutable object with a shape like:
+// {
+//   columnPairs: [ <columnPair> ],
+//   sidebarColumnPair: <columnPair>,
+// }
+
+// Where each columnPair looks like:
+// {
+//   source: {
+//     columnName: string,
+//   },
+//   destination: {
+//     columnName: string,
+//   },
+//   pathMeasurements: {
+//     sourceCategoryName: {
+//       destinationCategoryName: {
+//         sourceMeasurement: <measurement>
+//         destinationMeasurement: <measurement>
+//       }
+//     }
+//   }
+// }
+
+// Where each measurement looks like:
+// {
+//   incidentCount: number,
+//   sourceCategory: string,
+//   destinationCategory: string,
+//   y1: number,
+//   y2: number,
+// }
+
+// The source and destination measurements contain y coordinates defining each
+// side of the path (with the x coordinates for each path to be derived from
+// the column positions)
 IncidentPathComputations.pathMeasurements = function (data, columns, categories, showEmptyCategories, viewport) {
 
   // Do some necessary computations up front:
@@ -462,17 +498,102 @@ IncidentPathComputations.computeHeightsForColumnPair = function(filteredData, co
 
 
 
-// Computes the height, width, x, and y for each of the selected paths in the
-// current configuration.
-// Also computes the number of incidents within the current selection, in each
-// category
+// Computes y1 and y2 values for each side of the emphasized paths, which 
+// appear when a category is selected
 
-IncidentPathComputations.selectedCategoryPathMeasurements = function () {
+// The object returned is identical in structure to that from 
+// IncidentPathComputations.pathMeasurements
+// NB: Pass filtered data for data
+
+IncidentPathComputations.selectedCategoryPathMeasurements = function (data, columns, categories, showEmptyCategories, viewport, categoryHoverState, filterboxActivationState) {
+
+  const pathMeasurements = IncidentPathComputations.pathMeasurements(data, columns, categories, showEmptyCategories, viewport)
+
+
+  return Immutable.Map({
+    columnPairs: pathMeasurements.get('columnPairs').map( columnPair => {
+      return IncidentPathComputations.selectedCategoryColumnPair(
+        columnPair,
+        data,
+        categoryHoverState,
+        filterboxActivationState
+      )
+    }),
+    sidebarColumnPair: IncidentPathComputations.selectedCategoryColumnPair(
+      pathMeasurements.get('sidebarColumnPair'),
+      data,
+      categoryHoverState,
+      filterboxActivationState
+    ),
+  })
+
 
 }
 
 
 
+
+IncidentPathComputations.selectedCategoryColumnPair = function (columnPair, data, categoryHoverState, filterboxActivationState) {
+
+  const incidentsInCategorySelection = IncidentComputations.incidentsInCategorySelection(
+    data,
+    categoryHoverState,
+    filterboxActivationState
+  )
+
+  if (incidentsInCategorySelection === null || incidentsInCategorySelection.count() === 0) {
+
+    // There are no paths to draw here
+    return columnPair.set('pathMeasurements', Immutable.Map())
+
+  }
+
+
+  const newPathMeasurements = columnPair.get('pathMeasurements').map( (sourceMeasurements, sourceCategory) => {
+    return sourceMeasurements.map( (measurements, destinationCategory) => {
+
+      // The incidents in both the selected category, and the source category
+      const emphasizedSourceIncidents = IncidentComputations.categorySubset(
+        incidentsInCategorySelection,
+        columnPair.getIn(['source', 'columnName']),
+        sourceCategory
+      )
+
+      const emphasizedSourceIncidentFraction = emphasizedSourceIncidents.count() / incidentsInCategorySelection.count()
+
+      const sourceY1 = measurements.getIn(['sourceMeasurement', 'y1'])
+      const sourceY2 = measurements.getIn(['sourceMeasurement', 'y2'])
+      const sourceHeight = sourceY2 - sourceY1
+      const emphasizedSourceHeight = sourceHeight * emphasizedSourceIncidentFraction
+
+      // For now, we have been asked to anchor the emphasized incident path at
+      // the top of the path for ordinary incidents.
+      const emphasizedSourceY2 = sourceY1 + emphasizedSourceHeight
+
+      // The incidents in both the selected category, and the destination 
+      // category
+      const emphasizedDestinationIncidents = IncidentComputations.categorySubset(
+        incidentsInCategorySelection,
+        columnPair.getIn(['destination', 'columnName']),
+        destinationCategory
+      )
+      const emphasizedDestinationIncidentFraction = emphasizedDestinationIncidents.count() / incidentsInCategorySelection.count()
+
+      const destinationY1 = measurements.getIn(['destinationMeasurement', 'y1'])
+      const destinationY2 = measurements.getIn(['destinationMeasurement', 'y2'])
+      const destinationHeight = destinationY2 - destinationY1
+      const emphasizedDestinationHeight = destinationHeight * emphasizedDestinationIncidentFraction
+
+      const emphasizedDestinationY2 = destinationY1 + emphasizedDestinationHeight
+
+      return measurements.setIn(['sourceMeasurement', 'y2'], emphasizedSourceY2).setIn(['destinationMeasurement', 'y2'], emphasizedDestinationY2)
+
+    })
+  })
+
+
+  return columnPair.set('pathMeasurements', newPathMeasurements)
+}
 
 
 

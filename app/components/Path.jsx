@@ -4,7 +4,13 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 
 class Path extends React.Component {
-  hoverLogic () {
+  
+  fillColour () {
+
+    if (this.props.fillColour) {
+      return this.props.fillColour
+    }
+
     const isDestinationCategoryHovered = (this.props.categoryHoverState.get('categoryName') === this.props.destinationCategory.categoryName) &&
       this.props.categoryHoverState.get('columnName') === this.props.destinationColumnName
     
@@ -29,7 +35,7 @@ class Path extends React.Component {
   render() {
     return <path 
       d={this.props.d} 
-      fill={this.hoverLogic()} 
+      fill={this.fillColour()} 
       className='ColumnPaths'
     />
   }
