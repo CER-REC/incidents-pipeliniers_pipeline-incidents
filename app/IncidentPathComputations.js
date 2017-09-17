@@ -4,6 +4,7 @@ const Immutable = require('immutable')
 const IncidentComputations = require('./IncidentComputations.js')
 const WorkspaceComputations = require('./WorkspaceComputations.js')
 const CategoryComputations = require('./CategoryComputations.js')
+const Constants = require('./Constants.js')
 
 const IncidentPathComputations = {}
 
@@ -503,16 +504,21 @@ IncidentPathComputations.computeHeightsForColumnPair = function(filteredData, co
 
 // The object returned is identical in structure to that from 
 // IncidentPathComputations.pathMeasurements
-// NB: Pass filtered data for data
 
 IncidentPathComputations.selectedCategoryPathMeasurements = function (data, columns, categories, showEmptyCategories, viewport, categoryHoverState, filterboxActivationState) {
 
   const pathMeasurements = IncidentPathComputations.pathMeasurements(data, columns, categories, showEmptyCategories, viewport)
 
+
+  const filteredData = IncidentComputations.filteredIncidents(
+    data, 
+    columns, 
+    categories)
+
   const columnPairs = pathMeasurements.get('columnPairs').map( columnPair => {
     return IncidentPathComputations.selectedCategoryColumnPair(
       columnPair,
-      data,
+      filteredData,
       categoryHoverState,
       filterboxActivationState
     )
@@ -522,7 +528,7 @@ IncidentPathComputations.selectedCategoryPathMeasurements = function (data, colu
   if (pathMeasurements.get('sidebarColumnPair') !== undefined) {
     sidebarColumnPair = IncidentPathComputations.selectedCategoryColumnPair(
       pathMeasurements.get('sidebarColumnPair'),
-      data,
+      filteredData,
       categoryHoverState,
       filterboxActivationState
     )
@@ -603,6 +609,94 @@ IncidentPathComputations.selectedCategoryColumnPair = function (columnPair, data
 
 
 
+
+IncidentPathComputations.pathCurves = function (data, columns, categories, showEmptyCategories, viewport, pathMeasurements, columnName) {
+
+
+  const filteredData = IncidentComputations.filteredIncidents(
+    data, 
+    columns, 
+    categories
+  )
+
+  const horizontalPositions = WorkspaceComputations.horizontalPositions(
+    showEmptyCategories,
+    viewport,
+    filteredData,
+    columns,
+    categories
+  )
+
+
+  const nextToSidebarColumn = columnName === columns.last()
+
+  let columnPair
+  if (nextToSidebarColumn) {
+    // Rendering paths to the sidebar
+    columnPair = pathMeasurements.get('sidebarColumnPair')
+  }
+  else {
+    // Rendering paths to another column
+    columnPair = pathMeasurements.get('columnPairs').find( columnPairSearch => {
+      return columnPairSearch.getIn(['source', 'columnName']) === columnName
+    })
+  }
+
+  if (columnPair === undefined) {
+    return []
+  }
+
+
+  const sourceX = horizontalPositions.getIn(['columns', columnName]).get('x') + WorkspaceComputations.columnWidth(columns)
+  
+  let destinationX
+  if (nextToSidebarColumn) {
+    destinationX = horizontalPositions.getIn(['sideBar', 'x'])
+  }
+  else {
+    destinationX = horizontalPositions.getIn([
+      'columns', 
+      columnPair.getIn(['destination', 'columnName'])
+    ]).get('x')
+  }
+
+
+  let paths = Immutable.List()
+
+  const curveControlThreshold = Math.abs(sourceX - destinationX) / Constants.get('pathCurveControlFactor')
+
+  columnPair.get('pathMeasurements').forEach( (sourceMeasurements, sourceCategory) => {
+    sourceMeasurements.forEach( (measurements, destinationCategory) => {
+
+      const sourceMeasurement = measurements.get('sourceMeasurement')
+      const destinationMeasurement = measurements.get('destinationMeasurement')
+
+      const sourceY1 = sourceMeasurement.get('y1')
+      const sourceY2 = sourceMeasurement.get('y2')
+      const destinationY1 = destinationMeasurement.get('y1')
+      const destinationY2 = destinationMeasurement.get('y2')
+
+      let d = `M ${sourceX} ${sourceY1} `
+      d += `C ${sourceX + curveControlThreshold} ${sourceY1} `
+      d += `${destinationX - curveControlThreshold} ${destinationY1} `
+      d += `${destinationX} ${destinationY1} `
+      d += `L ${destinationX} ${destinationY2} `
+      d += `C ${destinationX - curveControlThreshold} ${destinationY2} `
+      d += `${sourceX + curveControlThreshold} ${sourceY2} `
+      d += `${sourceX} ${sourceY2}`
+
+      paths = paths.push(Immutable.Map({
+        d: d, 
+        sourceCategory: sourceCategory, 
+        destinationCategory: destinationCategory,
+      }))
+    })
+
+  })
+
+  return paths
+
+}
 
 
 
