@@ -509,22 +509,28 @@ IncidentPathComputations.selectedCategoryPathMeasurements = function (data, colu
 
   const pathMeasurements = IncidentPathComputations.pathMeasurements(data, columns, categories, showEmptyCategories, viewport)
 
+  const columnPairs = pathMeasurements.get('columnPairs').map( columnPair => {
+    return IncidentPathComputations.selectedCategoryColumnPair(
+      columnPair,
+      data,
+      categoryHoverState,
+      filterboxActivationState
+    )
+  })
 
-  return Immutable.Map({
-    columnPairs: pathMeasurements.get('columnPairs').map( columnPair => {
-      return IncidentPathComputations.selectedCategoryColumnPair(
-        columnPair,
-        data,
-        categoryHoverState,
-        filterboxActivationState
-      )
-    }),
-    sidebarColumnPair: IncidentPathComputations.selectedCategoryColumnPair(
+  let sidebarColumnPair
+  if (pathMeasurements.get('sidebarColumnPair') !== undefined) {
+    sidebarColumnPair = IncidentPathComputations.selectedCategoryColumnPair(
       pathMeasurements.get('sidebarColumnPair'),
       data,
       categoryHoverState,
       filterboxActivationState
-    ),
+    )
+  }
+
+  return Immutable.Map({
+    columnPairs: columnPairs,
+    sidebarColumnPair: sidebarColumnPair,
   })
 
 
