@@ -302,7 +302,7 @@ const Constants = Immutable.fromJS({
     WORKSPACE: 'WORKSPACE'
   },
 
-
+  pathCurveControlFactor: 2.5,
 
 })
 
