@@ -23,7 +23,7 @@ require('./Category.scss')
 
 class Category extends React.Component {
 
-  checkSelectionState() {
+  checkSelectionInCategory() {
     return (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
       this.props.selectedIncident,
       this.props.columnName,
@@ -42,27 +42,17 @@ class Category extends React.Component {
   }
 
   filterbox(currentY) {
-    if (this.filterboxActive()) {
+    if (this.filterboxActive() || this.checkHoverState() === true) {
       return <Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
         columnName = { this.props.columnName }
         categoryName = { this.props.categoryName }
       />
-    }
-    else if(this.checkHoverState()) {
-      return <Filterbox
-        width = { this.props.width }
-        y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
-        columnName = { this.props.columnName }
-        categoryName = { this.props.categoryName }
-      />
-    
     }
     else {
       return null
     }
-
   }
 
   // Do not render category labels for sidebar columns.
@@ -77,8 +67,13 @@ class Category extends React.Component {
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
-    if(labelLengthExceed === true && this.checkSelectionState() === false && this.checkHoverState() === false) {
+    if(labelLengthExceed === true && this.checkHoverState() === false) {
       return null
+    }
+
+    if(labelLengthExceed === true && this.checkSelectionInCategory() === true) {
+      labelClassName = 'activeCategoryLabels'
+      return 
     }
 
     if(this.filterboxActive()) {
@@ -86,8 +81,9 @@ class Category extends React.Component {
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
-    if(this.checkHoverState() === true || this.checkSelectionState() === true) {
+    if(this.checkHoverState() === true || this.checkSelectionInCategory() === true) {
       labelClassName = 'activeCategoryLabels'
+      filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
     let currentY = (this.props.height/2) - filterBoxOffset
@@ -133,6 +129,10 @@ class Category extends React.Component {
     }
 
     this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
+
+    if(this.filterboxActive() === true) {
+      return null
+    }
   }
 
 
@@ -366,10 +366,10 @@ class Category extends React.Component {
       return Constants.get('categoryDefaultOpacity')
     }
 
-    if (isAnyIncidentSelected === true && this.checkSelectionState() === true) {
+    if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === true) {
       return Constants.get('categoryDefaultOpacity') 
     }
-    if (isAnyIncidentSelected === true && this.checkSelectionState() === false) {
+    if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === false) {
       return Constants.get('categoryFadeOpacity') 
     }
   }
@@ -403,11 +403,11 @@ class Category extends React.Component {
       onMouseMove={this.handleOnMouseMove.bind(this)}
       onMouseEnter={this.handleMouseEnter.bind(this)}
       onMouseLeave={this.handleMouseLeave.bind(this)}
+      onClick = { this.categoryLabelClick.bind(this) }
     >
       <g transform={transformString}>
         <rect
           width={this.props.width}
-          onClick = { this.categoryLabelClick.bind(this) }
           height={this.props.height}
           fill={this.props.colour}
           opacity={this.categoryFade()}
