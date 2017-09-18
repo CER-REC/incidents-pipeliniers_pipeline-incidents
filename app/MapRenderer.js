@@ -17,8 +17,8 @@ const CategoryComputations = require('./CategoryComputations.js')
 const projection = D3geo.geoConicEqualArea()
   .parallels([50, 70])
   .rotate([105, 0])
-  .translate([279.8074028618924, 764.3666957846632])
-  .scale(874.913034725085)
+  .translate([ 170.02947192819542, 533.967862955717 ])
+  .scale(582.1261797303048)
 
 
 const mapPromise = new Promise ( (resolve, reject) => {
@@ -27,7 +27,7 @@ const mapPromise = new Promise ( (resolve, reject) => {
 
   image.onload = () => resolve(image)
 
-  image.setAttribute('src', 'images/canada.svg')
+  image.setAttribute('src', 'images/canada.450.svg')
 
 })
 
@@ -648,7 +648,7 @@ const RenderRoutines = {
     const fadedShadowColour = Chroma(shadowColour).alpha(0.1).css()
 
     let incidentRadius
-    if (filteredData.count() > 100) {
+    if (filteredData.count() > Constants.getIn(['map', 'incidentDotCountSizeCutoff'])) {
       incidentRadius = Constants.getIn(['map', 'smallIncidentRadius'])
     }
     else {
