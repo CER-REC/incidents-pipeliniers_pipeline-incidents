@@ -29,6 +29,7 @@ const mapPromise = new Promise ( (resolve, reject) => {
 })
 
 
+
 const RenderRoutines = {
 
 
@@ -187,17 +188,55 @@ const RenderRoutines = {
   },
 
 
-  strokeColour(incident, props) {
-    if (props.selectedIncident === null) {
-      return Constants.getIn(['map', 'lightGrey'])
+  connectorStrokeColour(incident, props, context, x1, y1, x2, y2) {
+
+    if (props.selectedIncident === incident){
+      return Constants.getIn(['map', 'selectedLightGrey'])
     }
-    else if (props.selectedIncident === incident){
+    else if (props.pinnedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
       return Constants.getIn(['map', 'deselectedLightGrey'])
     }
+    
+  },
 
+  toIncidentStrokeColour(incident, props, context, x1, y1, x2, y2) {
+
+    if (props.selectedIncident === incident){
+      return Constants.getIn(['map', 'selectedLightGrey'])
+    }
+    else if (props.pinnedIncidents.contains(incident)) {
+      return Constants.getIn(['map', 'selectedLightGrey'])
+    }
+    else {
+      const gradient = context.createLinearGradient(x1, y1, x2, y2)
+      // gradient.addColorStop(0, Constants.getIn(['map', 'lightGrey']))
+      // gradient.addColorStop(1, Constants.getIn(['map', 'lightGreyBlank']))
+      gradient.addColorStop(0, Constants.getIn(['map', 'deselectedLightGrey']))
+      gradient.addColorStop(1, Constants.getIn(['map', 'deselectedLightGreyBlank']))
+      return gradient
+    }
+    
+  },
+
+  fromIncidentStrokeColour(incident, props, context, x1, y1, x2, y2) {
+
+    if (props.selectedIncident === incident){
+      return Constants.getIn(['map', 'selectedLightGrey'])
+    }
+    else if (props.pinnedIncidents.contains(incident)) {
+      return Constants.getIn(['map', 'selectedLightGrey'])
+    }
+    else {
+      const gradient = context.createLinearGradient(x1, y1, x2, y2)
+      // gradient.addColorStop(0, Constants.getIn(['map', 'lightGreyBlank']))
+      // gradient.addColorStop(1, Constants.getIn(['map', 'lightGrey']))
+      gradient.addColorStop(0, Constants.getIn(['map', 'deselectedLightGreyBlank']))
+      gradient.addColorStop(1, Constants.getIn(['map', 'deselectedLightGrey']))
+      return gradient
+    }
 
   },
 
@@ -282,9 +321,15 @@ const RenderRoutines = {
           return
         }
 
-        const strokeColour = RenderRoutines.strokeColour(incident, props)
-
         const bundleY = bundleRegionTopY + (bundleRegionBottomY - bundleRegionTopY) * (index / categoryCount)
+
+        let x1 = 0
+        let y1 = currentY + categoryHeight * (index / categoryCount)
+        let x2 = bundleOffsetDistance
+        let y2 = bundleY
+
+        let strokeColour = RenderRoutines.connectorStrokeColour(incident, props, renderContext, x1, y1, x2, y2)
+
 
         // Draw paths from left column to bundle region
         RenderRoutines.drawBezier(
@@ -298,8 +343,8 @@ const RenderRoutines = {
           // }
           ],
           // Starting point, on the left column
-          0,
-          currentY + categoryHeight * (index / categoryCount),
+          x1,
+          y1,
 
           // The first control point is to the right of the incident's 
           // slot on the column
@@ -312,8 +357,8 @@ const RenderRoutines = {
           bundleY,
 
           // The bundle point for this incident
-          bundleOffsetDistance, 
-          bundleY
+          x2, 
+          y2
         )
 
         // Draw paths from bundle region to incidents on map
@@ -326,7 +371,14 @@ const RenderRoutines = {
         const destinationControlPoint = RenderRoutines.radialControlPoint(props, incidentPosition)
         const curveControlThreshold = Math.abs(bundleOffsetDistance - incidentPosition.x) / Constants.get('pathCurveControlFactor')
 
-        // Draw paths from left column to bundle region
+        x1 = bundleOffsetDistance
+        y1 = bundleY
+        x2 = incidentPosition.x
+        y2 = incidentPosition.y
+
+        strokeColour = RenderRoutines.toIncidentStrokeColour(incident, props, renderContext, x1, y1, x2, y2)
+
+        // Draw paths from bundle region to incidents
         RenderRoutines.drawBezier(
           [{
             context: renderContext,
@@ -339,8 +391,8 @@ const RenderRoutines = {
           ],
 
           // The incident's point in the bundle region
-          bundleOffsetDistance,
-          bundleY,
+          x1,
+          y1,
 
           // Control point 1, right of the bundle
           bundleOffsetDistance + curveControlThreshold,
@@ -350,8 +402,8 @@ const RenderRoutines = {
           destinationControlPoint.x - curveControlThreshold,
           destinationControlPoint.y,
 
-          incidentPosition.x,
-          incidentPosition.y
+          x2,
+          y2
         )
 
       })
@@ -451,7 +503,6 @@ const RenderRoutines = {
           return
         }
 
-        const strokeColour = RenderRoutines.strokeColour(incident, props)
 
         const bundleY = bundleRegionTopY + (bundleRegionBottomY - bundleRegionTopY) * (index / categoryCount)
 
@@ -466,6 +517,14 @@ const RenderRoutines = {
         const departureControlPoint = RenderRoutines.radialControlPoint(props, incidentPosition)
         const curveControlThreshold = Math.abs(bundleOffsetDistance - incidentPosition.x) / Constants.get('pathCurveControlFactor')
 
+        let x1 = incidentPosition.x
+        let y1 = incidentPosition.y
+        let x2 = bundleOffsetDistance
+        let y2 = bundleY
+
+        let strokeColour = RenderRoutines.fromIncidentStrokeColour(incident, props, renderContext, x1, y1, x2, y2)
+
+        // Draw lines from incident to right bundle region
         RenderRoutines.drawBezier(
           [{
             context: renderContext,
@@ -477,8 +536,8 @@ const RenderRoutines = {
           // }
           ],
 
-          incidentPosition.x,
-          incidentPosition.y,
+          x1,
+          y1,
           
           // Control point 1, towards the edge of the map from the point
           departureControlPoint.x,
@@ -489,12 +548,19 @@ const RenderRoutines = {
           bundleY,
 
           // Destination, point in the bundle group
-          bundleOffsetDistance,
-          bundleY
+          x2,
+          y2
         )
 
 
-        // Draw paths from bundle region to right column
+        x1 = bundleOffsetDistance
+        y1 = bundleY
+        x2 = rightCanvasEdge, 
+        y2 = currentY + categoryHeight * (index / categoryCount)
+
+        strokeColour = RenderRoutines.connectorStrokeColour(incident, props, renderContext, x1, y1, x2, y2)
+
+        // paths from bundle region to column
 
         RenderRoutines.drawBezier(
           [{
@@ -507,8 +573,8 @@ const RenderRoutines = {
           // }
           ],
 
-          bundleOffsetDistance,
-          bundleY,
+          x1,
+          y1,
 
           // The first control point is to the right of the incident's 
           // bundle point
@@ -521,8 +587,8 @@ const RenderRoutines = {
           currentY + categoryHeight * (index / categoryCount),
 
           // The bundle point for this incident
-          rightCanvasEdge, 
-          currentY + categoryHeight * (index / categoryCount)
+          x2,
+          y2
         )
 
       })
@@ -650,7 +716,10 @@ const RenderRoutines = {
     }
 
     return false
-  }
+  },
+
+
+
 
 }
 

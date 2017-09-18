@@ -260,11 +260,13 @@ const Constants = Immutable.fromJS({
     selectedIncidentCircleColour: 'rgb(149, 183, 181)',
     shadowColour: '#333',
     lightGrey: 'rgba(102, 102, 102, 0.4)',
-    deselectedLightGrey: 'rgba(207, 207, 207, 0.2)',
+    lightGreyBlank: 'rgba(102, 102, 102, 0.0)',
+    deselectedLightGrey: 'rgba(207, 207, 207, 0.4)',
+    deselectedLightGreyBlank: 'rgba(207, 207, 207, 0.0)',
     selectedLightGrey: 'rgb(48, 48, 48)',
 
     incidentRadius: 5,
-    padding: 0,
+    padding: 20,
     bundleOffsetDistance: 25,
     radialControlPointDistance: 150,
 
