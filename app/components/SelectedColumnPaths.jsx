@@ -4,16 +4,20 @@ const ReactRedux = require('react-redux')
 const Path = require('./Path.jsx')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 
+
+
 class ColumnPaths extends React.Component {
 
   paths() {
 
-    const pathMeasurements = IncidentPathComputations.pathMeasurements(
+    const selectedCategoryPathMeasurements = IncidentPathComputations.selectedCategoryPathMeasurements(
       this.props.data,
       this.props.columns,
       this.props.categories,
       this.props.showEmptyCategories,
-      this.props.viewport
+      this.props.viewport,
+      this.props.categoryHoverState,
+      this.props.filterboxActivationState
     )
 
     const paths = []
@@ -24,7 +28,7 @@ class ColumnPaths extends React.Component {
       this.props.categories,
       this.props.showEmptyCategories,
       this.props.viewport, 
-      pathMeasurements,
+      selectedCategoryPathMeasurements, 
       this.props.columnName
     )
 
@@ -32,6 +36,7 @@ class ColumnPaths extends React.Component {
       paths.push(<Path
         d = { pathCurve.get('d') }
         key = { pathCurve.get('sourceCategory') + pathCurve.get('destinationCategory') }
+        fillColour = "#666666"
       />)
     })
 
@@ -40,19 +45,28 @@ class ColumnPaths extends React.Component {
   }
 
 
-
   render() {
-    return <g className='ColumnPaths'>{ this.paths() }</g>
+    return <g className='SelectedColumnPaths'>{ this.paths() }</g>
   }
+
 }
+
+
+
+
 
 const mapStateToProps = state => {
   return {
-    showEmptyCategories: state.showEmptyCategories,
-    viewport: state.viewport,
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    showEmptyCategories: state.showEmptyCategories,
+    viewport: state.viewport,
+
+    // Are these two going to be a performance problem? 
+    categoryHoverState: state.categoryHoverState,
+    filterboxActivationState: state.filterboxActivationState, 
+
   }
 }
 
