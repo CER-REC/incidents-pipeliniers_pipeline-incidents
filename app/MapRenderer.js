@@ -1,6 +1,7 @@
 const D3geo = require('d3-geo')
 const Promise = require('bluebird')
 const Immutable = require('immutable')
+const Chroma = require('chroma-js')
 
 const Constants = require('./Constants.js')
 const MapComputations = require('./MapComputations.js')
@@ -334,7 +335,7 @@ const RenderRoutines = {
           return
         }
 
-        if (!RenderRoutines.shouldRenderIncidentLines(incident, props)) {
+        if (!RenderRoutines.incidentHasFocus(incident, props)) {
           return
         }
 
@@ -516,7 +517,7 @@ const RenderRoutines = {
           return
         }
 
-        if (!RenderRoutines.shouldRenderIncidentLines(incident, props)) {
+        if (!RenderRoutines.incidentHasFocus(incident, props)) {
           return
         }
 
@@ -644,6 +645,7 @@ const RenderRoutines = {
       .get('incidentNumberToColourMap')
 
     const shadowColour = Constants.getIn(['map', 'shadowColour'])
+    const fadedShadowColour = Chroma(shadowColour).alpha(0.1).css()
 
     let incidentRadius
     if (filteredData.count() > 100) {
@@ -664,10 +666,11 @@ const RenderRoutines = {
       )
 
       // Drop shadow behind each incident
+
       RenderRoutines.drawCircle(
         [{
           context: renderContext, 
-          fillStyle: shadowColour,
+          fillStyle: RenderRoutines.incidentHasFocus(incident, props) ? shadowColour : fadedShadowColour,
         }],
         incidentPosition.x + 1,
         incidentPosition.y + 1,
@@ -702,7 +705,7 @@ const RenderRoutines = {
   },
 
 
-  shouldRenderIncidentLines(incident, props) {
+  incidentHasFocus(incident, props) {
 
     // If we are hovering a category
     if (props.categoryHoverState.get('columnName') !== null) {
@@ -755,13 +758,16 @@ const RenderRoutines = {
       return Constants.getIn(['map', 'deselectedLightGrey'])
     }
 
-
     const category = IncidentComputations.firstCategoryName(Immutable.List([columnName]), incident)
 
     const colour = CategoryComputations.coloursForColumn(props.data, columnName).get(category)
 
-    return colour
-
+    if (RenderRoutines.incidentHasFocus(incident, props)) {
+      return colour
+    }
+    else {
+      return Chroma(colour).alpha('0.1').css()
+    }
 
   }
 
