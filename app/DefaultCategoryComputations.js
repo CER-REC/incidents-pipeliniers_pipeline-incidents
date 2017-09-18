@@ -36,8 +36,6 @@ const DefaultCategoryComputations = {
         CategoryConstants.getIn(['dataLoaderCategoryNames', columnName]).forEach( (categoryName, csvHeading) => {
           activeCategories = activeCategories.set(categoryName, true)
 
-          //console.log(activeCategories.count())
-
         })
 
         categories = categories.set(columnName, activeCategories)
