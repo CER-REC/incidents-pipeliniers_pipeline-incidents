@@ -66,10 +66,15 @@ const RenderRoutines = {
   //   prepared by longLatToMapCoordinates
   radialControlPoint(props, incidentPoint) {
 
+    const filteredData = IncidentComputations.filteredIncidents(
+      props.data,
+      props.columns,
+      props.categories)
+
     const basemapCentre = MapComputations.basemapCentre(
       props.showEmptyCategories,
       props.viewport,
-      props.data,
+      filteredData,
       props.columns,
       props.categories)
 
@@ -133,10 +138,15 @@ const RenderRoutines = {
 
   clear(context, fillStyle, props) {
 
+    const filteredData = IncidentComputations.filteredIncidents(
+      props.data,
+      props.columns,
+      props.categories)
+
     const mapDimensions = WorkspaceComputations.mapDimensions(
       props.showEmptyCategories,
       props.viewport,
-      props.data,
+      filteredData,
       props.columns,
       props.categories)
 
@@ -155,11 +165,16 @@ const RenderRoutines = {
 
   drawMap(renderContext, props, basemapImage) {
     const padding = Constants.getIn(['map', 'padding'])
+    
+    const filteredData = IncidentComputations.filteredIncidents(
+      props.data,
+      props.columns,
+      props.categories)
 
     const basemapPosition = MapComputations.basemapPosition(
       props.showEmptyCategories,
       props.viewport,
-      props.data,
+      filteredData,
       props.columns,
       props.categories)
 
@@ -188,7 +203,7 @@ const RenderRoutines = {
   },
 
 
-  connectorStrokeColour(incident, props, context, x1, y1, x2, y2) {
+  connectorStrokeColour(incident, props) {
 
     if (props.selectedIncident === incident){
       return Constants.getIn(['map', 'selectedLightGrey'])
@@ -249,7 +264,7 @@ const RenderRoutines = {
       props.categories)
 
     const displayedCategories = CategoryComputations.displayedCategories(
-      props.data,
+      filteredData,
       props.columns,
       props.categories,
       columnName)
@@ -258,7 +273,7 @@ const RenderRoutines = {
     const itemsInCategories = displayedCategories.map( (displayed, categoryName) => {
   
       return CategoryComputations.itemsInCategory(
-        props.data,
+        filteredData,
         columnName,
         categoryName
       )
@@ -267,15 +282,15 @@ const RenderRoutines = {
     const categoryHeights = WorkspaceComputations.categoryHeights(
       props.showEmptyCategories,
       props.viewport,
-      props.data,
+      filteredData,
       props.columns,
       props.categories, 
-      columnName) 
+      columnName)
 
     const basemapPosition = MapComputations.basemapPosition(
       props.showEmptyCategories,
       props.viewport,
-      props.data,
+      filteredData,
       props.columns,
       props.categories)
 
@@ -328,7 +343,7 @@ const RenderRoutines = {
         let x2 = bundleOffsetDistance
         let y2 = bundleY
 
-        let strokeColour = RenderRoutines.connectorStrokeColour(incident, props, renderContext, x1, y1, x2, y2)
+        let strokeColour = RenderRoutines.connectorStrokeColour(incident, props)
 
 
         // Draw paths from left column to bundle region
@@ -423,7 +438,7 @@ const RenderRoutines = {
       props.categories)
 
     const displayedCategories = CategoryComputations.displayedCategories(
-      props.data,
+      filteredData,
       props.columns,
       props.categories,
       columnName)
@@ -432,7 +447,7 @@ const RenderRoutines = {
     const itemsInCategories = displayedCategories.map( (displayed, categoryName) => {
   
       return CategoryComputations.itemsInCategory(
-        props.data,
+        filteredData,
         columnName,
         categoryName
       )
@@ -441,22 +456,22 @@ const RenderRoutines = {
     const categoryHeights = WorkspaceComputations.categoryHeights(
       props.showEmptyCategories,
       props.viewport,
-      props.data,
+      filteredData,
       props.columns,
       props.categories, 
-      columnName) 
+      columnName)
 
     const basemapPosition = MapComputations.basemapPosition(
       props.showEmptyCategories,
       props.viewport,
-      props.data,
+      filteredData,
       props.columns,
       props.categories)
 
     const mapDimensions = WorkspaceComputations.mapDimensions(
       props.showEmptyCategories,
       props.viewport,
-      props.data,
+      filteredData,
       props.columns,
       props.categories)
 
@@ -558,7 +573,7 @@ const RenderRoutines = {
         x2 = rightCanvasEdge, 
         y2 = currentY + categoryHeight * (index / categoryCount)
 
-        strokeColour = RenderRoutines.connectorStrokeColour(incident, props, renderContext, x1, y1, x2, y2)
+        strokeColour = RenderRoutines.connectorStrokeColour(incident, props)
 
         // paths from bundle region to column
 
@@ -610,20 +625,20 @@ const RenderRoutines = {
 
   drawPoints(renderContext, inputContext, props) {
 
-    const basemapPosition = MapComputations.basemapPosition(
-      props.showEmptyCategories,
-      props.viewport,
-      props.data,
-      props.columns,
-      props.categories)
-
     const filteredData = IncidentComputations.filteredIncidents(
       props.data,
       props.columns,
       props.categories)
 
+    const basemapPosition = MapComputations.basemapPosition(
+      props.showEmptyCategories,
+      props.viewport,
+      filteredData,
+      props.columns,
+      props.categories)
+
     const incidentNumberToColourMap = MapComputations.canvasInputColourMap(
-      props.data)
+      filteredData)
       .get('incidentNumberToColourMap')
 
     const shadowColour = Constants.getIn(['map', 'shadowColour'])

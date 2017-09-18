@@ -244,7 +244,7 @@ const Constants = Immutable.fromJS({
   emptyCategoryHeight: 20, // px
   
   map: {
-    widthHeightRatio: 500 / 450,
+    widthHeightRatio: 600 / 450,
     // widthHeightRatio: 510 / 375,
     // widthHeightRatio: 410 / 375,
     
@@ -266,7 +266,7 @@ const Constants = Immutable.fromJS({
     selectedLightGrey: 'rgb(48, 48, 48)',
 
     incidentRadius: 5,
-    padding: 20,
+    padding: 10,
     bundleOffsetDistance: 25,
     radialControlPointDistance: 150,
 
