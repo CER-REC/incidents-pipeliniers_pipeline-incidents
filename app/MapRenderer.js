@@ -1,11 +1,13 @@
 const D3geo = require('d3-geo')
 const Promise = require('bluebird')
+const Immutable = require('immutable')
 
 const Constants = require('./Constants.js')
 const MapComputations = require('./MapComputations.js')
 const IncidentComputations = require('./IncidentComputations.js')
 const WorkspaceComputations = require('./WorkspaceComputations.js')
 const CategoryComputations = require('./CategoryComputations.js')
+
 
 // NB: The configuration of the projection here *must* match the settings used
 // to produce the canada.svg, or the incidents will not be positioned
@@ -294,9 +296,9 @@ const RenderRoutines = {
       props.columns,
       props.categories)
 
-    const incidentNumberToColourMap = MapComputations.canvasInputColourMap(
-      props.data)
-      .get('incidentNumberToColourMap')
+    // const incidentNumberToColourMap = MapComputations.canvasInputColourMap(
+    //   props.data)
+    //   .get('incidentNumberToColourMap')
 
 
     // TODO: Once again, not that happy accumulating height like this
@@ -475,9 +477,9 @@ const RenderRoutines = {
       props.columns,
       props.categories)
 
-    const incidentNumberToColourMap = MapComputations.canvasInputColourMap(
-      props.data)
-      .get('incidentNumberToColourMap')
+    // const incidentNumberToColourMap = MapComputations.canvasInputColourMap(
+    //   props.data)
+    //   .get('incidentNumberToColourMap')
 
 
     // TODO: Once again, not that happy accumulating height like this
@@ -642,17 +644,18 @@ const RenderRoutines = {
       .get('incidentNumberToColourMap')
 
     const shadowColour = Constants.getIn(['map', 'shadowColour'])
-    const incidentRadius = Constants.getIn(['map', 'incidentRadius'])
+
+    let incidentRadius
+    if (filteredData.count() > 100) {
+      incidentRadius = Constants.getIn(['map', 'smallIncidentRadius'])
+    }
+    else {
+      incidentRadius = Constants.getIn(['map', 'largeIncidentRadius'])
+    }
 
     filteredData.forEach( incident => {
       
-      let incidentColour
-      if (props.selectedIncident === incident) {
-        incidentColour = Constants.getIn(['map', 'selectedIncidentCircleColour'])
-      }
-      else {
-        incidentColour = Constants.getIn(['map', 'incidentCircleColour'])
-      }
+      const incidentColour = RenderRoutines.incidentColour(incident, props)
 
       const incidentPosition = RenderRoutines.longLatToMapCoordinates(
         incident.get('longitude'),
@@ -733,6 +736,34 @@ const RenderRoutines = {
     return false
   },
 
+
+  incidentColour(incident, props) {
+
+    const mapAdjacentColumns = CategoryComputations.mapAdjacentColumns(
+      props.columns)
+
+    let columnName
+    if (mapAdjacentColumns.get('left') !== null) {
+      columnName = mapAdjacentColumns.get('left')
+    }
+    else if (mapAdjacentColumns.get('right') !== null) {
+      columnName = mapAdjacentColumns.get('right')
+    }
+    else {
+      // The map is displayed with no adjacent column, so we have no way to pick
+      // any colours for incidents ... 
+      return Constants.getIn(['map', 'deselectedLightGrey'])
+    }
+
+
+    const category = IncidentComputations.firstCategoryName(Immutable.List([columnName]), incident)
+
+    const colour = CategoryComputations.coloursForColumn(props.data, columnName).get(category)
+
+    return colour
+
+
+  }
 
 
 
