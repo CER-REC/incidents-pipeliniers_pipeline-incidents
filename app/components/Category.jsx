@@ -24,12 +24,17 @@ require('./Category.scss')
 
 class Category extends React.Component {
 
-  filterboxActive() {
+  checkSelectionInCategory() {
+    return (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
+      this.props.selectedIncident,
+      this.props.columnName,
+      this.props.categoryName))
+  }
 
+  filterboxActive() {
     const filterboxState = this.props.filterboxActivationState
     return filterboxState.get('columnName') === this.props.columnName &&
-      filterboxState.get('categoryName') === this.props.categoryName
-
+              filterboxState.get('categoryName') === this.props.categoryName
   }
 
   checkHoverState() {
@@ -38,7 +43,7 @@ class Category extends React.Component {
   }
 
   filterbox(currentY) {
-    if (this.filterboxActive()) {
+    if (this.filterboxActive() || this.checkHoverState() === true) {
       return <Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
@@ -49,7 +54,6 @@ class Category extends React.Component {
     else {
       return null
     }
-
   }
 
   // Do not render category labels for sidebar columns.
@@ -61,16 +65,16 @@ class Category extends React.Component {
     const labelLines = this.labelLines()
     const labelLengthExceed = labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height
 
-    const isCategorySelected = (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
-      this.props.selectedIncident,
-      this.props.columnName,
-      this.props.categoryName))
-
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
-    if(labelLengthExceed === true && isCategorySelected === false && this.checkHoverState() === false) {
+    if(labelLengthExceed === true && this.checkHoverState() === false) {
       return null
+    }
+
+    if(labelLengthExceed === true && this.checkSelectionInCategory() === true) {
+      labelClassName = 'activeCategoryLabels'
+      return 
     }
 
     if(this.filterboxActive()) {
@@ -78,8 +82,9 @@ class Category extends React.Component {
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
-    if(this.checkHoverState() === true || isCategorySelected === true) {
+    if(this.checkHoverState() === true || this.checkSelectionInCategory() === true) {
       labelClassName = 'activeCategoryLabels'
+      filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
     let currentY = (this.props.height/2) - filterBoxOffset
@@ -92,7 +97,6 @@ class Category extends React.Component {
 
     return <g>
       <text
-        onClick = { this.categoryLabelClick.bind(this) }
       >
         {labelLines.map((line) => {
           currentY += Constants.get('singleLineCategoryLabelHeight')
@@ -126,6 +130,10 @@ class Category extends React.Component {
     }
 
     this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
+
+    if(this.filterboxActive() === true) {
+      return null
+    }
   }
 
 
@@ -133,26 +141,26 @@ class Category extends React.Component {
   // drag functionality
 
   handleOnMouseDown(event) {
-    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
-      return
-    }
-    event.preventDefault()
-    this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
+    // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+    //   return
+    // }
+    // event.preventDefault()
+    // this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
   }
   handleOnMouseMove(event) {
-    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
-      return
-    }
-    event.preventDefault()
-    this.selectIncidentAtMousePosition(event)
+    // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+    //   return
+    // }
+    // event.preventDefault()
+    // this.selectIncidentAtMousePosition(event)
   }
   handleOnMouseUp(event) {
-    if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
-      return
-    }
-    event.preventDefault()
-    this.selectIncidentAtMousePosition(event)
-    this.props.onEndDrag()
+    // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+    //   return
+    // }
+    // event.preventDefault()
+    // this.selectIncidentAtMousePosition(event)
+    // this.props.onEndDrag()
   }
 
   selectIncidentAtMousePosition(event) {
@@ -331,25 +339,23 @@ class Category extends React.Component {
       return Constants.get('categoryDefaultOpacity')
     }
 
-    const isSelectedIncidentInCategory = CategoryComputations.itemInCategory(
-      this.props.selectedIncident,
-      this.props.columnName,
-      this.props.categoryName)
-
-    if (isAnyIncidentSelected === true && isSelectedIncidentInCategory === true) {
+    if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === true) {
       return Constants.get('categoryDefaultOpacity') 
     }
-    if (isAnyIncidentSelected === true && isSelectedIncidentInCategory === false) {
+    if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === false) {
       return Constants.get('categoryFadeOpacity') 
     }
   }
 
-  strokeWidth() {
+  strokeColour() {
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'WORKSPACE'])) {
+      return null
+    }
     if (this.checkHoverState()) {
-      return Constants.getIn('categoryStrokeWidth')
+      return Constants.get('categoryHoverStrokeColour') 
     } 
     else {
-      return '0'
+      return Constants.get('categoryDefaultStrokeColour') 
     }
   }
 
@@ -370,16 +376,16 @@ class Category extends React.Component {
       onMouseMove={this.handleOnMouseMove.bind(this)}
       onMouseEnter={this.handleMouseEnter.bind(this)}
       onMouseLeave={this.handleMouseLeave.bind(this)}
+      onClick = { this.categoryLabelClick.bind(this) }
     >
       <g transform={transformString}>
         <rect
           width={this.props.width}
           height={this.props.height}
           fill={this.props.colour}
-
           opacity={this.categoryFade()}
-
-          strokeWidth={this.strokeWidth()}
+          stroke={this.strokeColour()}
+          strokeWidth={Constants.get('categoryStrokeWidth')}
           className = 'categoryRect'
           ref={ (element) => this.rect = element }
         />
