@@ -6,7 +6,7 @@ const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 const IncidentComputations = require('../IncidentComputations.js')
 
-class ScrollingIncidentList extends React.Component {
+class IncidentListHeadings extends React.Component {
 
 
   incidentHeadingLabel() {
@@ -82,31 +82,11 @@ class ScrollingIncidentList extends React.Component {
 
   render() {
 
-    // TODO: if the scrolling list replaces the pin column permanently, we
-    // should rename this chunk of the horizontal positions ... 
-    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories, 
-      this.props.viewport, 
-      this.props.data, 
-      this.props.columns, 
-      this.props.categories
-    ).get('pinColumn')
-
-    const transformString = `translate(${pinColumnPositions.get('x')}, ${pinColumnPositions.get('y')})`
-
-
     return <g>
       <text>
         { this.incidentHeadingLabel() }
         { this.incidentCountLabel() }
       </text>
-      <g transform = { transformString } >
-        <rect
-          width = { Constants.getIn(['pinColumn', 'width']) }
-          height = { pinColumnPositions.get('height') }
-          fill = '#ff9'
-        />
-      </g>
     </g>
     
   }
@@ -126,4 +106,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(ScrollingIncidentList)
+module.exports = ReactRedux.connect(mapStateToProps)(IncidentListHeadings)
