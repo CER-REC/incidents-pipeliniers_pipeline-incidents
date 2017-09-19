@@ -22,7 +22,7 @@ class IncidentList extends React.Component {
     ).get('pinColumn')
 
     return {
-      width: `${Constants.getIn(['pinColumn', 'width'])}px`,
+      width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
       height: `${pinColumnPositions.get('height')}px`,
       left: `${pinColumnPositions.get('x')}px`,
       top: `${pinColumnPositions.get('y')}px`,
@@ -75,6 +75,36 @@ class IncidentList extends React.Component {
     }).toArray()
   }
 
+  incidentList() {
+    if (this.props.filterboxActivationState.get('columnName') === null) {
+      return null
+    }
+    else {
+      return <div 
+        className = 'incidentListScrollPane'
+        style = { this.scrollPaneStyle() }
+      >
+        <ul>{ this.incidents() }</ul>
+      </div>
+    }
+
+  }
+
+
+  noIncidentsText() {
+
+    if (this.props.filterboxActivationState.get('columnName') === null) {
+
+      // TODO: if this design sticks, translate me
+      return <p className = 'noIncidentsText'>No category selected. Select a category from a column to see related incidents.</p>
+
+    }
+    else {
+      return null
+    }
+
+
+  }
 
   render() {
 
@@ -86,17 +116,8 @@ class IncidentList extends React.Component {
         className = 'incidentListInnerContainer' 
         style = { this.innerContainerStyle() }
       >
-
-        <div 
-          className = 'incidentListScrollPane'
-          style = { this.scrollPaneStyle() }
-        >
-          <ul>
-            { this.incidents() }
-          </ul>
-        </div>
-       
-
+        { this.noIncidentsText() }
+        { this.incidentList() }
       </div>
 
     </div>

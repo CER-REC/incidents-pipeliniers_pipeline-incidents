@@ -2,12 +2,21 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const Tr = require('../TranslationTable.js')
+const AddPinnedIncidentCreator = require('../actionCreators/AddPinnedIncidentCreator')
+const RemovePinnedIncidentCreator = require('../actionCreators/RemovePinnedIncidentCreator')
 
 require('./IncidentListItem.scss')
 
 class IncidentListItem extends React.Component {
 
 
+  incidentListItemClass() {
+    let classString = 'incidentListItem'
+    if (this.props.pinned === true) {
+      classString += ' pinned'
+    }
+    return classString
+  }
 
   incidentDetailClass() {
     if (this.props.pinned === true) {
@@ -18,11 +27,21 @@ class IncidentListItem extends React.Component {
     }
   }
 
+  incidentItemClick() {
+    if (this.props.pinned === true) {
+      this.props.removeFromPinnedIncidents(this.props.incident)
+    }
+    else {
+      this.props.addToPinnedIncidents(this.props.incident)
+    }
+  }
+
 
   render() {
 
     return <li 
-      className = 'incidentListItem'
+      className = { this.incidentListItemClass() }
+      onClick = { this.incidentItemClick.bind(this) }
     >
 
       <p className = { this.incidentDetailClass() }> { this.props.incident.get('incidentNumber') }</p>
@@ -52,4 +71,15 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(IncidentListItem)
+const mapDispatchToProps = dispatch => {
+  return {
+    addToPinnedIncidents: incident => {
+      dispatch(AddPinnedIncidentCreator(incident))
+    },
+    removeFromPinnedIncidents: incident => {
+      dispatch(RemovePinnedIncidentCreator(incident))
+    }
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentListItem)

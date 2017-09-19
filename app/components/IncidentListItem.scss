@@ -5,7 +5,9 @@
 
   font-family: $fira-sans-extra-condensed-medium;
   font-size: 13px;
-  margin-bottom: 13px;
+  margin: 0px 5px 13px 5px;
+  padding: 3px;
+  box-sizing: border-box;
 
   p {
     margin: 0;
@@ -24,5 +26,24 @@
     color: $near-black;
   }
 
+  border: solid 2px white;
+
+}
+
+
+.incidentListItem:hover {
+  border: solid 2px $dark-grey;
+
+  .mediumEmphasis {
+    color: $dark-grey;
+  }
+}
+
+.incidentListItem.pinned {
+  border: solid 2px $near-black;
+
+  .mediumEmphasis {
+    color: $near-black;
+  }
 
 }
