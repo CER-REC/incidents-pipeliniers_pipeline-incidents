@@ -7,13 +7,14 @@ const SocialBar = require('./SocialBar.jsx')
 
 require('./Workspace.scss')
 
-const IncidentBar = require('./IncidentBar.jsx')
+// const IncidentBar = require('./IncidentBar.jsx')
 const Column = require('./Column.jsx')
 const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const MapContainer = require('./MapContainer.jsx')
 const Constants = require('../Constants.js')
+const ScrollingIncidentList = require('./ScrollingIncidentList.jsx')
 
 
 class Workspace extends React.Component {
@@ -70,7 +71,7 @@ class Workspace extends React.Component {
         >
           <Header />
           <EmptyCategories />
-          <IncidentBar/>
+          <ScrollingIncidentList />
           <SideBar/>
           {this.columns()}
           <SocialBar/>
