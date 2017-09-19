@@ -3,8 +3,8 @@ const ReactRedux = require('react-redux')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const Constants = require('../Constants.js')
-const Tr = require('../TranslationTable.js')
 const IncidentComputations = require('../IncidentComputations.js')
+const IncidentListItem = require('./IncidentListItem.jsx')
 
 require('./IncidentList.scss')
 
@@ -47,6 +47,34 @@ class IncidentList extends React.Component {
 
   }
 
+  incidents() {
+    if (this.props.filterboxActivationState.get('columnName') === null) {
+      return []
+    }
+
+    const filteredData = IncidentComputations.filteredIncidents(
+      this.props.data,
+      this.props.columns,
+      this.props.categories
+    )
+
+    const categoryData = IncidentComputations.categorySubset(
+      filteredData,
+      this.props.filterboxActivationState.get('columnName'),
+      this.props.filterboxActivationState.get('categoryName')
+    )
+
+
+    return categoryData.map( incident => {
+      return <IncidentListItem
+        incident = { incident }
+        key = { incident.get('incidentNumber') }
+        pinned = { this.props.pinnedIncidents.contains(incident) }
+        selected = { this.props.selectedIncident === incident }
+      />
+    }).toArray()
+  }
+
 
   render() {
 
@@ -63,7 +91,9 @@ class IncidentList extends React.Component {
           className = 'incidentListScrollPane'
           style = { this.scrollPaneStyle() }
         >
-          
+          <ul>
+            { this.incidents() }
+          </ul>
         </div>
        
 
@@ -84,6 +114,8 @@ const mapStateToProps = state => {
     categories: state.categories,
     filterboxActivationState: state.filterboxActivationState,
     language: state.language,
+    pinnedIncidents: state.pinnedIncidents,
+    selectedIncident: state.selectedIncident,
   }
 }
 

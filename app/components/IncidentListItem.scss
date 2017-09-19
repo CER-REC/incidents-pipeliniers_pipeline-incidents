@@ -1,0 +1,28 @@
+@import "../styles/Fonts.scss";
+@import "../styles/Colours.scss";
+
+.incidentListItem {
+
+  font-family: $fira-sans-extra-condensed-medium;
+  font-size: 13px;
+  margin-bottom: 13px;
+
+  p {
+    margin: 0;
+    line-height: 1.25em;
+  }
+
+  .lowEmphasis {
+    color: $light-grey;
+  }
+
+  .mediumEmphasis {
+    color: $dark-grey;
+  }
+
+  .highEmphasis {
+    color: $near-black;
+  }
+
+
+}
