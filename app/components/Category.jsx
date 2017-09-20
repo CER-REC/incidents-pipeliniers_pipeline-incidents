@@ -43,7 +43,7 @@ class Category extends React.Component {
   }
 
   filterbox(currentY) {
-    if (this.filterboxActive() || this.checkHoverState() === true || this.checkSelectionInCategory() === true) {
+    if (this.filterboxActive() || this.checkHoverState() === true) {
       return <g><Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
@@ -71,10 +71,6 @@ class Category extends React.Component {
 
     if(labelLengthExceed === true && this.checkSelectionInCategory() === false && this.checkHoverState() === false) {
       return null
-    }
-
-    if(labelLengthExceed === true && this.checkSelectionInCategory() === true) {
-      return this.filterBoxActive()
     }
 
     if(this.filterboxActive()) {
@@ -141,7 +137,7 @@ class Category extends React.Component {
     //   return
     // }
     // event.preventDefault()
-    //this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
+    this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
   }
   handleOnMouseMove(event) {
     // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
@@ -155,8 +151,8 @@ class Category extends React.Component {
     //   return
     // }
     // event.preventDefault()
-    //this.selectIncidentAtMousePosition(event)
-    //this.props.onEndDrag()
+    this.selectIncidentAtMousePosition(event)
+    this.props.onEndDrag()
   }
 
   selectIncidentAtMousePosition(event) {
@@ -259,59 +255,59 @@ class Category extends React.Component {
   // the selected incident's position(s) in the column.
   selectedIncidentBars() {
 
-    if (this.props.selectedIncident === null || 
-        this.props.columnType !== Constants.getIn(['columnTypes', 'WORKSPACE'])) {
-      return null
-    }
+    // if (this.props.selectedIncident === null || 
+    //     this.props.columnType !== Constants.getIn(['columnTypes', 'WORKSPACE'])) {
+    //   return null
+    // }
 
-    if (!CategoryComputations.itemInCategory(
-      this.props.selectedIncident,
-      this.props.columnName,
-      this.props.categoryName
-    )) {
-      return
-    }
+    // if (!CategoryComputations.itemInCategory(
+    //   this.props.selectedIncident,
+    //   this.props.columnName,
+    //   this.props.categoryName
+    // )) {
+    //   return
+    // }
 
-    const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      this.props.columnName
-    )
+    // const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
+    //   this.props.showEmptyCategories,
+    //   this.props.viewport,
+    //   this.props.data,
+    //   this.props.columns,
+    //   this.props.categories,
+    //   this.props.columnName
+    // )
 
-    const incidentHeightsInColumn = IncidentPathComputations.incidentHeightsInColumn(
-      this.props.selectedIncident,
-      this.props.columnName,
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      categoryVerticalPositions
-    )
+    // const incidentHeightsInColumn = IncidentPathComputations.incidentHeightsInColumn(
+    //   this.props.selectedIncident,
+    //   this.props.columnName,
+    //   this.props.data,
+    //   this.props.columns,
+    //   this.props.categories,
+    //   this.props.showEmptyCategories,
+    //   this.props.viewport,
+    //   categoryVerticalPositions
+    // )
 
-    const columnMeasurements = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-      .getIn(['columns', this.props.columnName])
+    // const columnMeasurements = WorkspaceComputations.horizontalPositions(
+    //   this.props.showEmptyCategories,
+    //   this.props.viewport,
+    //   this.props.data,
+    //   this.props.columns,
+    //   this.props.categories)
+    //   .getIn(['columns', this.props.columnName])
 
-    return incidentHeightsInColumn.map( (height, i) => {
-      return <line 
-        stroke = { Constants.getIn(['selectedIncidentPath', 'columnBarColour']) }
-        strokeOpacity = { Constants.getIn(['selectedIncidentPath', 'columnBarOpacity']) }
-        strokeWidth = { Constants.getIn(['selectedIncidentPath', 'strokeWidth']) }
-        x1 = { columnMeasurements.get('x') }
-        y1 = { height }
-        x2 = { columnMeasurements.get('x') + columnMeasurements.get('width') }
-        y2 = { height }
-        key = { i }
-      />
-    }).toArray()
+    // return incidentHeightsInColumn.map( (height, i) => {
+    //   return <line 
+    //     stroke = { Constants.getIn(['selectedIncidentPath', 'columnBarColour']) }
+    //     strokeOpacity = { Constants.getIn(['selectedIncidentPath', 'columnBarOpacity']) }
+    //     strokeWidth = { Constants.getIn(['selectedIncidentPath', 'strokeWidth']) }
+    //     x1 = { columnMeasurements.get('x') }
+    //     y1 = { height }
+    //     x2 = { columnMeasurements.get('x') + columnMeasurements.get('width') }
+    //     y2 = { height }
+    //     key = { i }
+    //   />
+    // }).toArray()
   }
 
   categoryTransform() {
@@ -328,19 +324,19 @@ class Category extends React.Component {
   }
 
   categoryFade() {
-    const isIncidentInWorkspace = this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE'])
-    const isAnyIncidentSelected = (this.props.selectedIncident !== null) && isIncidentInWorkspace
+    // const isIncidentInWorkspace = this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE'])
+    // const isAnyIncidentSelected = (this.props.selectedIncident !== null) && isIncidentInWorkspace
 
-    if (!isAnyIncidentSelected) {
-      return Constants.get('categoryDefaultOpacity')
-    }
+    // if (!isAnyIncidentSelected) {
+    //   return Constants.get('categoryDefaultOpacity')
+    // }
 
-    if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === true) {
-      return Constants.get('categoryDefaultOpacity') 
-    }
-    if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === false) {
-      return Constants.get('categoryFadeOpacity') 
-    }
+    // if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === true) {
+    //   return Constants.get('categoryDefaultOpacity') 
+    // }
+    // if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === false) {
+    //   return Constants.get('categoryFadeOpacity') 
+    // }
   }
 
   strokeColour() {
