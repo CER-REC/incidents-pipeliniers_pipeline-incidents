@@ -1,14 +1,28 @@
 @import "../styles/Fonts.scss";
 @import "../styles/Colours.scss";
 
+// NB: horizontalMargins must match Constants > pinColumn > horizontalMargins
+$horizontalMargins: 11px;
+$padding: 3px;
+$borderWidth: 2px;
+
+// This math lets us accomplish two things: it keeps the text aligned with the
+// pinColumn / scrolling list column border $horizontalMargins px away from the
+// left border, and it lets us draw the border around each list item such that
+// it intrudes into the space left of the item.
+$leftMargin: $horizontalMargins - $padding - $borderWidth;
+
 .incidentListItem {
+
+  margin-bottom: 13px;
+  margin-left: $leftMargin; 
+  padding: $padding;
+  border: solid $borderWidth white;
 
   font-family: $fira-sans-extra-condensed-medium;
   font-size: 13px;
-  margin: 0px 5px 13px 5px;
-  padding: 3px;
-  box-sizing: border-box;
   cursor: pointer;
+  box-sizing: border-box;
 
   p {
     margin: 0;
@@ -27,13 +41,12 @@
     color: $near-black;
   }
 
-  border: solid 2px white;
 
 }
 
 
 .incidentListItem:hover {
-  border: solid 2px $dark-grey;
+  border: solid $borderWidth $dark-grey;
 
   .mediumEmphasis {
     color: $dark-grey;
@@ -41,7 +54,7 @@
 }
 
 .incidentListItem.pinned {
-  border: solid 2px $near-black;
+  border: solid $borderWidth $near-black;
 
   .mediumEmphasis {
     color: $near-black;

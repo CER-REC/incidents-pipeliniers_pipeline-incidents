@@ -95,7 +95,6 @@ class IncidentList extends React.Component {
     return {
       width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
       height: `${pinColumnPositions.get('height')}px`,
-      left: `${pinColumnPositions.get('x')}px`,
       top: `${pinColumnPositions.get('y')}px`,
     }
   }
