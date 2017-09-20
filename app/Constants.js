@@ -115,7 +115,7 @@ const Constants = Immutable.fromJS({
     'whyItHappened',
     'pipelinePhase',
     'volumeCategory',
-    'substanceCategory',
+    //'substanceCategory',
     'pipelineSystemComponentsInvolved',
     'map',
   ],
@@ -126,7 +126,7 @@ const Constants = Immutable.fromJS({
   ],
 
   sidebar: {
-    columWidth: 75,
+    columWidth: 87,
     columnOffset: 10,
 
     verticalStackingOffset: 2,
@@ -229,11 +229,11 @@ const Constants = Immutable.fromJS({
       middle: '#E6A1C9',
       end: '#FFF9E6',
     },
-    'substanceCategory': {
-      start: '#F8B51C',
-      middle: '#78E690',
-      end: '#A8EAFF',
-    },
+    // 'substanceCategory': {
+    //   start: '#F8B51C',
+    //   middle: '#78E690',
+    //   end: '#A8EAFF',
+    // },
     'pipelineSystemComponentsInvolved': {
       start: '#29836F',
       middle: '#73ADE6',
