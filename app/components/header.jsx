@@ -37,8 +37,8 @@ class Header extends React.Component {
     const transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
 
     return <g transform = { transformString } className = 'header'>
-      <rect width={23}
-        height={ 47 }
+      <rect width={Constants.getIn(['socialBar', 'width'])}        
+        height={Constants.getIn(['headerBar', 'height'])}
         x = {Constants.getIn(['workspace', 'maxWidth']) - 27}
         fill='#555556'
       />
