@@ -73,15 +73,17 @@ class Header extends React.Component {
 
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
       
-        <text x={0} y={yHeading} className="heading">NEB-REGULATED PIPELINES: INCIDENTS</text>
+        <text x={0} y={yHeading} className="heading">Incidents at NEB-regulated pipelines and facilities</text>
         <text x={0} y={ySubpop} className="subpop">
-          Two lines to tell a story and other relevant information, or to leave
-          blank perhaps. the incidents shown here represent a subset of all incidents
-          that have</text>
+          The information presented here is based on NEB data from 2008 to current for
+          incidents reported under the Onshore Pipeline Regulations.
+          New data is added on a quaterly basis.</text>
         <text x={0} y={ySubpop + 15} className="subpop">
-          occured on NEB-Regulated Pipelines. An incident is represented
-          by a line that goes through the categories relevant to it.
-          Play around and see what you find!</text>
+          * The incident data shown represents a single point in 
+          time and is subject to change. As investigations are 
+          completed or as new information becomes available, 
+          the incident record is updated.  This may result in changes to the incident record including 
+          whether the incident remains reportable under the applicable regulations.</text>
       </svg>
     </g>
   

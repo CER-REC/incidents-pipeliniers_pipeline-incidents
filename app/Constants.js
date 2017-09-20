@@ -19,7 +19,7 @@ const Constants = Immutable.fromJS({
   topBar: {
     headerIconWidth: 18,
     headerIconHeight: 20,
-    width: 850,
+    width: 860,
     height: 100,
     xHeading: 35,
     yHeading: 18,
