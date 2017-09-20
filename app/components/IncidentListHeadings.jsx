@@ -54,8 +54,6 @@ class IncidentListHeadings extends React.Component {
     // TODO: This is replicating math found in Column.jsx for laying out 
     // text headings. We need to pull this into a computation file.
     const y = WorkspaceComputations.topBarHeight() +
-      // Constants.get('columnHeadingLineOffset') +
-      // Constants.get('columnSubheadingHeight') + 
       Constants.get('columnSubheadingOffset')
 
     const filteredData = IncidentComputations.filteredIncidents(
