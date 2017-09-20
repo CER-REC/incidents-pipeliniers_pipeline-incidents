@@ -538,8 +538,6 @@ WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategori
   }))
   cumulativeX += measurements.getIn(['socialBar', 'width'])
 
-
-
   // Workspace
   measurements = measurements.set('workspace', Immutable.fromJS({
     width: cumulativeX,

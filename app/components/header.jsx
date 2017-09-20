@@ -7,7 +7,6 @@ const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
 
 
 require('./Header.scss')
-require('../Styles/Fonts.scss')
 
 
 class Header extends React.Component {
@@ -38,10 +37,9 @@ class Header extends React.Component {
     const transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
 
     return <g transform = { transformString } className = 'header'>
-      <rect
-        width={23}
-        height={67}
-        x = {800}
+      <rect width={ 23 }
+        height={ 50 }
+        x = {Constants.getIn(['workspace', 'maxWidth']) - 23}
         fill='#555556'
       />
       // TODO: add methodology PDF
@@ -49,14 +47,26 @@ class Header extends React.Component {
         <image 
           height = {Constants.getIn(['topBar', 'headerIconHeight'])}
           width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
-          y = {methodologyIconY}
-          x ={813}
-          xlinkHref='images/methodology-icon-black.svg'
+          y = {5}
+          x ={Constants.getIn(['workspace', 'maxWidth']) - 23}
+          xlinkHref='images/methodology-icon-white.svg'
         ></image>
       </a>
-      <text x={750} y={30}
+
+      <a href='https://google.ca' target="_blank">
+        <image 
+          height = {Constants.getIn(['topBar', 'headerIconHeight'])}
+          width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
+          y = {27}
+          x ={Constants.getIn(['workspace', 'maxWidth']) - 23}
+          xlinkHref='images/reset_arrow.svg'
+        ></image>
+      </a>
+      <text x={Constants.getIn(['workspace', 'maxWidth']) - 113} 
+        y={21}
         className="barsHeading">METHODOLOGY</text>
-      <text x={750} y={50}>RESET ALL</text>
+      <text x={Constants.getIn(['workspace', 'maxWidth']) - 83} 
+        y={40} className="barsHeading">RESET ALL</text>
       { this.homeButton() }
 
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
