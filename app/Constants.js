@@ -304,6 +304,8 @@ const Constants = Immutable.fromJS({
 
   nearBlack: '#333333',
 
+  emptyCategoryLabelFudgeFactor: 8,
+
 })
 
 
