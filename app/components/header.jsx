@@ -7,6 +7,7 @@ const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
 
 
 require('./Header.scss')
+require('../Styles/Fonts.scss')
 
 
 class Header extends React.Component {
@@ -17,13 +18,13 @@ class Header extends React.Component {
   }
 
   homeButton() {
-    return <image 
-      xlinkHref = 'images/home.svg' 
-      height = { Constants.getIn(['topBar', 'headerIconHeight']) }
-      width = { Constants.getIn(['topBar', 'headerIconWidth']) }
-      onClick = { this.homeButtonClick.bind(this) }
-      className = 'homeButton'
-    ></image>
+    // return <image 
+    //   xlinkHref = 'images/home.svg' 
+    //   height = { Constants.getIn(['topBar', 'headerIconHeight']) }
+    //   width = { Constants.getIn(['topBar', 'headerIconWidth']) }
+    //   onClick = { this.homeButtonClick.bind(this) }
+    //   className = 'homeButton'
+    // ></image>
   }
 
   render() {
@@ -37,29 +38,37 @@ class Header extends React.Component {
     const transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
 
     return <g transform = { transformString } className = 'header'>
-
-      { this.homeButton() }
-
-      //TODO: change link once we get PDF
+      <rect
+        width={23}
+        height={67}
+        x = {800}
+        fill='#555556'
+      />
+      // TODO: add methodology PDF
       <a href='https://google.ca' target="_blank">
         <image 
           height = {Constants.getIn(['topBar', 'headerIconHeight'])}
           width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
           y = {methodologyIconY}
+          x ={813}
           xlinkHref='images/methodology-icon-black.svg'
         ></image>
       </a>
+      <text x={750} y={30}
+        className="barsHeading">METHODOLOGY</text>
+      <text x={750} y={50}>RESET ALL</text>
+      { this.homeButton() }
+
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
       
-        <text x={xHeading} y={yHeading} className="heading"></text>
-        <text x={xSubpop} y={ySubpop} className="subpop"></text>
+        <text x={xHeading} y={yHeading} className="heading">Heading</text>
+        <text x={xSubpop} y={ySubpop} className="subpop">subheading</text>
 
       </svg>
     </g>
   
   }
 }
-
 
 const mapStateToProps = (state) => { 
   return {
