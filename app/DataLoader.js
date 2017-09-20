@@ -142,7 +142,6 @@ function csvColumnMapping (d) {
     approximateVolumeReleased: d['Approximate Volume Released (m³)'],
     volumeCategory: volumeCategory(d, d['Approximate Volume Released (m³)']),
     substance: readConstrainedVocabularyString(d, 'Substance', 'substance'),
-    substanceCategory: readConstrainedVocabularyString(d, 'SubstanceCategory', 'substanceCategory'),
     releaseType: readConstrainedVocabularyString(d, 'Release Type', 'releaseType'),
     year: d['Year'],
     whatHappened: parseList(d, 'whatHappened', d['WhatHappened']),
