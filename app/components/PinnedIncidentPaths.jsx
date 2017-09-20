@@ -3,21 +3,20 @@ const ReactRedux = require('react-redux')
 
 const Path = require('./Path.jsx')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
+const Constants = require('../Constants.js')
 
 
-
-class ColumnPaths extends React.Component {
+class PinnedIncidentPaths extends React.Component {
 
   paths() {
 
-    const selectedCategoryPathMeasurements = IncidentPathComputations.selectedCategoryPathMeasurements(
+    const pinnedIncidentPathMeasurements = IncidentPathComputations.pinnedIncidentPathMeasurements(
       this.props.data,
       this.props.columns,
       this.props.categories,
       this.props.showEmptyCategories,
       this.props.viewport,
-      this.props.categoryHoverState,
-      this.props.filterboxActivationState
+      this.props.pinnedIncidents
     )
 
     const paths = []
@@ -28,7 +27,7 @@ class ColumnPaths extends React.Component {
       this.props.categories,
       this.props.showEmptyCategories,
       this.props.viewport, 
-      selectedCategoryPathMeasurements, 
+      pinnedIncidentPathMeasurements, 
       this.props.columnName
     )
 
@@ -36,7 +35,7 @@ class ColumnPaths extends React.Component {
       paths.push(<Path
         d = { pathCurve.get('d') }
         key = { pathCurve.get('sourceCategory') + pathCurve.get('destinationCategory') }
-        fillColour = "#999"
+        fillColour = { Constants.get('nearBlack') }
       />)
     })
 
@@ -62,12 +61,8 @@ const mapStateToProps = state => {
     categories: state.categories,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-
-    // Are these two going to be a performance problem? 
-    categoryHoverState: state.categoryHoverState,
-    filterboxActivationState: state.filterboxActivationState, 
-
+    pinnedIncidents: state.pinnedIncidents, 
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(ColumnPaths)
+module.exports = ReactRedux.connect(mapStateToProps)(PinnedIncidentPaths)

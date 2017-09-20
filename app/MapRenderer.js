@@ -230,8 +230,6 @@ const RenderRoutines = {
     }
     else {
       const gradient = context.createLinearGradient(x1, y1, x2, y2)
-      // gradient.addColorStop(0, Constants.getIn(['map', 'lightGrey']))
-      // gradient.addColorStop(1, Constants.getIn(['map', 'lightGreyBlank']))
       gradient.addColorStop(0, Constants.getIn(['map', 'deselectedLightGrey']))
       gradient.addColorStop(1, Constants.getIn(['map', 'deselectedLightGreyBlank']))
       return gradient
@@ -249,8 +247,6 @@ const RenderRoutines = {
     }
     else {
       const gradient = context.createLinearGradient(x1, y1, x2, y2)
-      // gradient.addColorStop(0, Constants.getIn(['map', 'lightGreyBlank']))
-      // gradient.addColorStop(1, Constants.getIn(['map', 'lightGrey']))
       gradient.addColorStop(0, Constants.getIn(['map', 'deselectedLightGreyBlank']))
       gradient.addColorStop(1, Constants.getIn(['map', 'deselectedLightGrey']))
       return gradient
@@ -312,12 +308,11 @@ const RenderRoutines = {
       const categoryHeight = categoryHeights.get(categoryName)
       const categoryCount = itemsInCategories.get(categoryName)
 
-      // The bundle region is a line 1/2 the height of the column itself,
+      // The bundle region is a line 1/3 the height of the column itself,
       // parallel to it, bundleOffsetDistance away.
       // The incident paths are pulled together into the bundle region, and
       // then are allowed to fan out onto the map itself.
       // We define the top and bottom coordinates for the region
-      // TODO: These parameters may need tweaking
       const bundleRegionTopY = currentY + categoryHeight / 3
       const bundleRegionBottomY = currentY + categoryHeight * 2 / 3
 
@@ -494,12 +489,11 @@ const RenderRoutines = {
       const categoryHeight = categoryHeights.get(categoryName)
       const categoryCount = itemsInCategories.get(categoryName)
 
-      // The bundle region is a line 1/2 the height of the column itself,
+      // The bundle region is a line 1/3 the height of the column itself,
       // parallel to it, bundleOffsetDistance away.
       // The incident paths are pulled together into the bundle region, and
       // then are allowed to fan out onto the map itself.
       // We define the top and bottom coordinates for the region
-      // TODO: These parameters may need tweaking
       const bundleRegionTopY = currentY + categoryHeight / 3
       const bundleRegionBottomY = currentY + categoryHeight * 2 / 3
 
@@ -604,7 +598,7 @@ const RenderRoutines = {
           rightCanvasEdge - 10,
           currentY + categoryHeight * (index / categoryCount),
 
-          // The bundle point for this incident
+          // The point in the column for this incident
           x2,
           y2
         )
