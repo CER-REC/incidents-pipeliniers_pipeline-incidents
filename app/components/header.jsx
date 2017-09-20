@@ -79,11 +79,7 @@ class Header extends React.Component {
           incidents reported under the Onshore Pipeline Regulations.
           New data is added on a quaterly basis.</text>
         <text x={0} y={ySubpop + 15} className="subpop">
-          * The incident data shown represents a single point in 
-          time and is subject to change. As investigations are 
-          completed or as new information becomes available, 
-          the incident record is updated.  This may result in changes to the incident record including 
-          whether the incident remains reportable under the applicable regulations.</text>
+         </text>
       </svg>
     </g>
   
