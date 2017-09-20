@@ -14,7 +14,7 @@ class IncidentList extends React.Component {
   // Callbacks
 
   onListScroll() {
-    if (this.scrollPane !== undefined) {
+    if (this.scrollPane) {
       this.props.setListScroll(this.scrollPane.scrollTop)
     }
   }
@@ -120,7 +120,7 @@ class IncidentList extends React.Component {
   // React Lifecycle Hooks
 
   componentDidUpdate() {
-    if (this.scrollPane !== undefined) {
+    if (this.scrollPane) {
       this.scrollPane.scrollTop = this.props.incidentListScrollPosition
     }
   }
