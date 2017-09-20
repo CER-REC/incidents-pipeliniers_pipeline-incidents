@@ -300,6 +300,8 @@ const Constants = Immutable.fromJS({
 
   pathCurveControlFactor: 2.5,
 
+  nearBlack: '#333333',
+
 })
 
 

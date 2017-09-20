@@ -24,6 +24,10 @@ const routableStateActions = [
   'DeactivateAllCategoriesExceptOne',
   'SnapCategory',
   'ResetVisualization',
+
+  // These now impact the pinned incident selection
+  'ActivateFilterbox',
+  'HideFilterbox',
 ]
 
 
