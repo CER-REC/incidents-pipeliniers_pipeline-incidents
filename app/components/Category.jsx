@@ -9,9 +9,7 @@ const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverSt
 
 const ActivateFilterboxCreator = require('../actionCreators/ActivateFilterboxCreator.js')
 
-const IncidentComputations = require('../IncidentComputations.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
-const IncidentPathComputations = require('../IncidentPathComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const FilterboxComputations = require('../FilterboxComputations.js')
 const StringComputations = require('../StringComputations.js')
@@ -40,8 +38,15 @@ class Category extends React.Component {
         categoryName = { this.props.categoryName }
       />
       </g>
-    }
-    else {
+    } else if (this.checkHoverState()) {
+      return <g><Filterbox
+        width = { this.props.width }
+        y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
+        columnName = { this.props.columnName }
+        categoryName = { this.props.categoryName }
+      />
+      </g>
+    } else {
       return null
     }
   }
@@ -62,7 +67,7 @@ class Category extends React.Component {
       return null
     }
 
-    if(this.checkHoverState() === true || this.filterboxActive()) {
+    if(this.checkHoverState() === true) {
       labelClassName = 'activeCategoryLabels'
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
@@ -70,6 +75,12 @@ class Category extends React.Component {
     if(this.filterboxActive()) {
       labelClassName = 'activeCategoryLabels'
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
+    }
+
+    if(this.filterboxActive() === true) {
+      if() {
+        labelClassName = 'inactiveCategoryLabels'
+      }
     }
 
     let currentY = (this.props.height/2) - filterBoxOffset
@@ -115,6 +126,7 @@ class Category extends React.Component {
     }
 
     this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
+    
   }
 
   labelLines() {
@@ -190,7 +202,7 @@ class Category extends React.Component {
     if(this.props.columnType !== Constants.getIn(['columnTypes', 'WORKSPACE'])) {
       return null
     }
-    if (this.checkHoverState()) {
+    if (this.checkHoverState() || this.filterboxActive()) {
       return Constants.get('categoryHoverStrokeColour') 
     } 
     else {
