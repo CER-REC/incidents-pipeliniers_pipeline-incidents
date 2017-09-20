@@ -17,13 +17,13 @@ class Header extends React.Component {
   }
 
   homeButton() {
-    return <image 
-      xlinkHref = 'images/home.svg' 
-      height = { Constants.getIn(['topBar', 'headerIconHeight']) }
-      width = { Constants.getIn(['topBar', 'headerIconWidth']) }
-      onClick = { this.homeButtonClick.bind(this) }
-      className = 'homeButton'
-    ></image>
+    // return <image 
+    //   xlinkHref = 'images/home.svg' 
+    //   height = { Constants.getIn(['topBar', 'headerIconHeight']) }
+    //   width = { Constants.getIn(['topBar', 'headerIconWidth']) }
+    //   onClick = { this.homeButtonClick.bind(this) }
+    //   className = 'homeButton'
+    // ></image>
   }
 
   render() {
@@ -37,29 +37,54 @@ class Header extends React.Component {
     const transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
 
     return <g transform = { transformString } className = 'header'>
+      <rect width={Constants.getIn(['socialBar', 'width'])}        
+        height={Constants.getIn(['headerBar', 'height'])}
+        x = {Constants.getIn(['workspace', 'maxWidth']) - 27}
+        fill='#555556'
+      />
+      // TODO: add methodology PDF
+      <a href='https://google.ca' target="_blank">
+        <image 
+          height = {Constants.getIn(['socialBar', 'iconSize'])}
+          width = {Constants.getIn(['socialBar', 'iconSize'])}      
+          y = {5}
+          x ={Constants.getIn(['workspace', 'maxWidth']) - 24}
+          xlinkHref='images/methodology-icon-white.svg'
+        ></image>
+      </a>
+
+      // TODO: add reset all functionality
+      <image 
+        height = {Constants.getIn(['socialBar', 'iconSize'])}
+        width = {Constants.getIn(['socialBar', 'iconSize'])}       
+        y = {27}
+        x ={Constants.getIn(['workspace', 'maxWidth']) - 24}
+        xlinkHref='images/reset_button.svg'
+      ></image>
+
+      <text x={Constants.getIn(['workspace', 'maxWidth']) - 105} 
+        y={21}
+        className="headerButtons">METHODOLOGY</text>
+
+      <text x={Constants.getIn(['workspace', 'maxWidth']) - 80} 
+        y={40} className="headerButtons">RESET ALL</text>
 
       { this.homeButton() }
 
-      //TODO: change link once we get PDF
-      <a href='https://google.ca' target="_blank">
-        <image 
-          height = {Constants.getIn(['topBar', 'headerIconHeight'])}
-          width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
-          y = {methodologyIconY}
-          xlinkHref='images/methodology-icon-black.svg'
-        ></image>
-      </a>
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
       
-        <text x={xHeading} y={yHeading} className="heading"></text>
-        <text x={xSubpop} y={ySubpop} className="subpop"></text>
-
+        <text x={0} y={yHeading} className="heading">Incidents at NEB-regulated pipelines and facilities</text>
+        <text x={0} y={ySubpop} className="subpop">
+          The information presented here is based on NEB data from 2008 to current for
+          incidents reported under the Onshore Pipeline Regulations.
+          New data is added on a quaterly basis.</text>
+        <text x={0} y={ySubpop + 15} className="subpop">
+         </text>
       </svg>
     </g>
   
   }
 }
-
 
 const mapStateToProps = (state) => { 
   return {
