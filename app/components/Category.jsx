@@ -18,6 +18,7 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const FilterboxComputations = require('../FilterboxComputations.js')
+const StringComputations = require('../StringComputations.js')
 
 require('./Category.scss')
 
@@ -212,46 +213,18 @@ class Category extends React.Component {
         this.props.categoryName, 
         this.props.language
       ])
-      return this.splitHeading(label.toUpperCase())
+      return StringComputations.splitHeading(label.toUpperCase())
     }
     case 'company':
     case 'year':
       // These columns use the category name directly
       // Years are numbers, and we need a string here
-      return this.splitHeading(this.props.categoryName.toString().toUpperCase())
+      return StringComputations.splitHeading(this.props.categoryName.toString().toUpperCase())
 
     // No categories for map column
     }
   }
 
-  splitHeading(label) {
-
-    // No need to split into multiple lines.
-    if(label.length <= Constants.get('categoryLabelLineLength')) {
-      return [label]
-    }
-
-    // Split (' ' or '-') right at the maxmium allows characters per line.
-    // Case 1: split right at the line length limit.
-    if(label[Constants.get('categoryLabelLineLength')] === ' ' || 
-       label[Constants.get('categoryLabelLineLength')] === '-') {
-      return [this.splitHeading(label
-        .substring(0,Constants.get('categoryLabelLineLength')))]
-        .concat(this.splitHeading(label
-          .substring(Constants.get('categoryLabelLineLength') + 1)))
-    }
-
-    // Case 2: split at the closest space or dash.
-    let firstLineSplitPoint = label
-      .substring(0, Constants.get('categoryLabelLineLength')).lastIndexOf(' ')
-    if(firstLineSplitPoint < 0) {
-      firstLineSplitPoint = label
-        .substring(0, Constants.get('categoryLabelLineLength')).lastIndexOf('-')
-    }
-
-    return [this.splitHeading(label.substring(0, firstLineSplitPoint))].concat( 
-      this.splitHeading(label.substring(firstLineSplitPoint + 1)))
-  }
 
 
   handleMouseEnter() {

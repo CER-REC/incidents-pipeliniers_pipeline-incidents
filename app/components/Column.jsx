@@ -4,6 +4,9 @@ const ReactRedux = require('react-redux')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
+const StringComputations = require('../StringComputations.js')
+
+
 const SidebarColumnHoverCreator = require('../actionCreators/SidebarColumnHoverCreator.js')
 const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCreator.js')
 const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
@@ -15,6 +18,7 @@ const DragSidebarColumnEndedCreator = require('../actionCreators/DragSidebarColu
 const DragSidebarColumnCreator = require('../actionCreators/DragSidebarColumnCreator.js')
 const AddColumnAtPositionCreator = require('../actionCreators/AddColumnAtPositionCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
+const SelectedColumnPaths = require('./SelectedColumnPaths.jsx')
 const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
@@ -100,7 +104,7 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    return  this.splitHeading().map((word) => {
+    return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
       currentY += Constants.get('columnHeadingLineOffset')
       return <tspan className='barsHeading' 
         key={word}
@@ -236,9 +240,23 @@ class Column extends React.Component {
       this.props.columnName)) {
 
       return <ColumnPaths 
-        index={this.props.index} 
         columnName={this.props.columnName}
-        className='ColumnPaths'/>
+      />
+    }
+    else {
+      return null
+    }
+  }
+
+  // These are the emphasized column paths for the current category selection
+  selectedColumnPaths() {
+    if (WorkspaceComputations.shouldRenderColumnPath(
+      this.props.columns,
+      this.props.columnName)) {
+
+      return <SelectedColumnPaths 
+        columnName={this.props.columnName}
+      />
     }
     else {
       return null
@@ -362,15 +380,6 @@ class Column extends React.Component {
     this.props.onSidebarColumnClicked(this.props.columnName)
   }
 
-
-  splitHeading() {
-    const columnHeading = TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language])
-    const splitIndex = columnHeading.lastIndexOf(' ')
-    const topLine = columnHeading.substring(0, splitIndex)
-    const bottomLine = columnHeading.substring(splitIndex+1)
-    return [topLine, bottomLine]
-  }
-
   sidebarColumnTransform() {
     let transformString = 'translate(0,0)'
     if(this.props.sidebarDragStatus.get('isStarted') &&
@@ -453,7 +462,7 @@ class Column extends React.Component {
 
   sidebarHeading() {
     let currentY = this.props.columnY
-    return  this.splitHeading().map((word) => {
+    return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
       // Terminating space.
       if(word === '') return null
       currentY += Constants.get('columnHeadingLineOffset')
@@ -509,6 +518,7 @@ class Column extends React.Component {
           {this.barSubHeading()}
         </text>
         { this.columnPaths() }
+        { this.selectedColumnPaths() }
         <SelectedIncidentPaths 
           columnName = { this.props.columnName }
           categoryName = { this.props.categoryName }

@@ -1,10 +1,8 @@
 const Chroma = require('chroma-js')
 const Immutable = require('immutable')
-const _ = require('lodash')
 const MemoizeImmutable = require('memoize-immutable')
 
 const Constants = require('./Constants.js')
-const CategoryConstants = require('./CategoryConstants.js')
 const IncidentComputations = require('./IncidentComputations.js')
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 
@@ -323,6 +321,35 @@ CategoryComputations.displayedCategories = function (data, columns, categories, 
     .filter( visible => visible === true )
 
 }
+
+
+// Returns a map of categories which should have paths drawn for them, for the
+// named column.
+// Specifically, these are the categories which:
+// - are visible
+// - are not empty
+// - are not related hidden categories
+CategoryComputations.pathCategories = function (data, columns, categories, columnName) {
+
+  const emptyCategoriesForColumn = CategoryComputations.emptyCategoriesForColumn(data, columns, categories, columnName)
+
+  return categories.get(columnName)
+    .map( (visible, categoryName) => {
+      const isEmpty = typeof emptyCategoriesForColumn.get(categoryName) !== 'undefined'
+
+      if (isEmpty) {
+        return false
+      }
+
+      return visible
+
+    })
+    .filter( visible => visible === true )
+    // Related hidden categories, by definition, have visible === false
+    // This filter excludes them.
+
+}
+
 
 
 // Returns true or false: are any categories filtered on this column?

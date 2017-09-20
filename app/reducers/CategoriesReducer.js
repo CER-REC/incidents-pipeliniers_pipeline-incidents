@@ -112,9 +112,6 @@ const CategoriesReducer = (state = defaultState, action) => {
     return state.set(action.columnName, modifiedCategories)
   }
 
-
-
-
   default:
     return state
   }
