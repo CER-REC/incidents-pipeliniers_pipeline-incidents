@@ -35,7 +35,8 @@ WorkspaceComputations.columnHeight = function (viewport) {
   return viewport.get('y') - 
          WorkspaceComputations.topBarHeight() - 
          Constants.get('bottomOuterMargin') -
-         Constants.get('columnHeadingHeight')
+         Constants.get('columnHeadingHeight') - 
+         Constants.get('columnHeadingSpacing')
 }
 
 
@@ -53,7 +54,8 @@ WorkspaceComputations.columnWidth = function (columns) {
 
 WorkspaceComputations.columnY = function() {
   return WorkspaceComputations.topBarHeight() + 
-         Constants.get('columnHeadingHeight')
+         Constants.get('columnHeadingHeight') + 
+         Constants.get('columnHeadingSpacing')
 }
 
 
@@ -102,9 +104,9 @@ WorkspaceComputations.dragArrowX = function (columns, xCoordinate) {
 }
 
 WorkspaceComputations.dragArrowY = function (viewport) {
-  return WorkspaceComputations.topBarHeight() + 
-         Constants.get('columnSubheadingOffset') + 
-         WorkspaceComputations.columnHeight(viewport) + 7
+  return WorkspaceComputations.columnY() + 
+         WorkspaceComputations.columnHeight(viewport) +
+         Constants.getIn(['dragArrow', 'topMargin'])
 }
 
 // Should we use math that can produce a horizontally scrolling workspace, or 
