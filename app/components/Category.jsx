@@ -7,10 +7,6 @@ const Tr = require('../TranslationTable.js')
 const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
 const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
 
-const BeginIncidentDragCreator = require('../actionCreators/BeginIncidentDragCreator.js')
-const UpdateIncidentDragCreator = require('../actionCreators/UpdateIncidentDragCreator.js')
-const EndIncidentDragCreator = require('../actionCreators/EndIncidentDragCreator.js')
-const IncidentSelectionStateCreator = require('../actionCreators/IncidentSelectionStateCreator.js')
 const ActivateFilterboxCreator = require('../actionCreators/ActivateFilterboxCreator.js')
 
 const IncidentComputations = require('../IncidentComputations.js')
@@ -24,13 +20,6 @@ require('./Category.scss')
 
 class Category extends React.Component {
 
-  checkSelectionInCategory() {
-    return (this.props.selectedIncident !== null) && (CategoryComputations.itemInCategory(
-      this.props.selectedIncident,
-      this.props.columnName,
-      this.props.categoryName))
-  }
-
   filterboxActive() {
     const filterboxState = this.props.filterboxActivationState
     return filterboxState.get('columnName') === this.props.columnName &&
@@ -43,7 +32,7 @@ class Category extends React.Component {
   }
 
   filterbox(currentY) {
-    if (this.filterboxActive() || this.checkHoverState() === true) {
+    if (this.filterboxActive()) {
       return <g><Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
@@ -69,16 +58,16 @@ class Category extends React.Component {
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
-    if(labelLengthExceed === true && this.checkSelectionInCategory() === false && this.checkHoverState() === false) {
+    if(labelLengthExceed === true && this.checkHoverState() === false && this.filterboxActive() === false) {
       return null
     }
 
-    if(this.filterboxActive()) {
+    if(this.checkHoverState() === true || this.filterboxActive()) {
       labelClassName = 'activeCategoryLabels'
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
-    if(this.checkHoverState() === true || this.checkSelectionInCategory() === true) {
+    if(this.filterboxActive()) {
       labelClassName = 'activeCategoryLabels'
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
@@ -128,70 +117,6 @@ class Category extends React.Component {
     this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
   }
 
-
-  // preventDefault is added to these event handlers to disable browser image
-  // drag functionality
-
-  handleOnMouseDown(event) {
-    // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
-    //   return
-    // }
-    // event.preventDefault()
-    this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
-  }
-  handleOnMouseMove(event) {
-    // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
-    //   return
-    // }
-    // event.preventDefault()
-    //this.selectIncidentAtMousePosition(event)
-  }
-  handleOnMouseUp(event) {
-    // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
-    //   return
-    // }
-    // event.preventDefault()
-    this.selectIncidentAtMousePosition(event)
-    this.props.onEndDrag()
-  }
-
-  selectIncidentAtMousePosition(event) {
-
-    if (!this.props.incidentDragState.get('currentlyDragging')) {
-      return
-    }
-
-    this.props.onUpdateDrag(this.props.columnName, this.props.categoryName)
-
-    const bounds = this.rect.getBoundingClientRect()
-    const localY = event.clientY - bounds.top
-
-    const filteredIncidents = IncidentComputations.filteredIncidents(
-      this.props.data,
-      this.props.columns,
-      this.props.categories
-    )
-
-    const categoryIncidents = IncidentComputations.categorySubset(
-      filteredIncidents,
-      this.props.columnName,
-      this.props.categoryName
-    )
-
-    const categoryHeightFraction = localY / bounds.height
-    const incidentIndex = Math.round(categoryHeightFraction * categoryIncidents.count())
-
-    const incident = categoryIncidents.get(incidentIndex)
-
-    if (typeof incident !== 'undefined') {
-      this.props.selectIncident(incident)
-    }
-
-
-  }
-
-
-
   labelLines() {
 
     switch(this.props.columnName) {
@@ -225,8 +150,6 @@ class Category extends React.Component {
     }
   }
 
-
-
   handleMouseEnter() {
     let categoryWindowHoverHandler = null
     let categoryWindowUnhoverHandler = null
@@ -250,66 +173,6 @@ class Category extends React.Component {
     }
   }
 
-
-  // These are the faint bars which appear on the columns themselves, indicating
-  // the selected incident's position(s) in the column.
-  selectedIncidentBars() {
-
-    // if (this.props.selectedIncident === null || 
-    //     this.props.columnType !== Constants.getIn(['columnTypes', 'WORKSPACE'])) {
-    //   return null
-    // }
-
-    // if (!CategoryComputations.itemInCategory(
-    //   this.props.selectedIncident,
-    //   this.props.columnName,
-    //   this.props.categoryName
-    // )) {
-    //   return
-    // }
-
-    // const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
-    //   this.props.showEmptyCategories,
-    //   this.props.viewport,
-    //   this.props.data,
-    //   this.props.columns,
-    //   this.props.categories,
-    //   this.props.columnName
-    // )
-
-    // const incidentHeightsInColumn = IncidentPathComputations.incidentHeightsInColumn(
-    //   this.props.selectedIncident,
-    //   this.props.columnName,
-    //   this.props.data,
-    //   this.props.columns,
-    //   this.props.categories,
-    //   this.props.showEmptyCategories,
-    //   this.props.viewport,
-    //   categoryVerticalPositions
-    // )
-
-    // const columnMeasurements = WorkspaceComputations.horizontalPositions(
-    //   this.props.showEmptyCategories,
-    //   this.props.viewport,
-    //   this.props.data,
-    //   this.props.columns,
-    //   this.props.categories)
-    //   .getIn(['columns', this.props.columnName])
-
-    // return incidentHeightsInColumn.map( (height, i) => {
-    //   return <line 
-    //     stroke = { Constants.getIn(['selectedIncidentPath', 'columnBarColour']) }
-    //     strokeOpacity = { Constants.getIn(['selectedIncidentPath', 'columnBarOpacity']) }
-    //     strokeWidth = { Constants.getIn(['selectedIncidentPath', 'strokeWidth']) }
-    //     x1 = { columnMeasurements.get('x') }
-    //     y1 = { height }
-    //     x2 = { columnMeasurements.get('x') + columnMeasurements.get('width') }
-    //     y2 = { height }
-    //     key = { i }
-    //   />
-    // }).toArray()
-  }
-
   categoryTransform() {
     let transformString = 'translate(0,0)'
     if(this.props.categoryDragStatus.get('isStarted') &&
@@ -321,22 +184,6 @@ class Category extends React.Component {
       transformString = `translate(0,${yTransform})`
     }
     return transformString
-  }
-
-  categoryFade() {
-    // const isIncidentInWorkspace = this.props.columnType === Constants.getIn(['columnTypes', 'WORKSPACE'])
-    // const isAnyIncidentSelected = (this.props.selectedIncident !== null) && isIncidentInWorkspace
-
-    // if (!isAnyIncidentSelected) {
-    //   return Constants.get('categoryDefaultOpacity')
-    // }
-
-    // if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === true) {
-    //   return Constants.get('categoryDefaultOpacity') 
-    // }
-    // if (isAnyIncidentSelected === true && this.checkSelectionInCategory() === false) {
-    //   return Constants.get('categoryFadeOpacity') 
-    // }
   }
 
   strokeColour() {
@@ -362,10 +209,9 @@ class Category extends React.Component {
 
     return <g
       transform={this.categoryTransform()}
-      onMouseUp = { this.handleOnMouseUp.bind(this) }
+      
       className = 'category'
-      onMouseDown={this.handleOnMouseDown.bind(this)}
-      onMouseMove={this.handleOnMouseMove.bind(this)}
+     
       onMouseEnter={this.handleMouseEnter.bind(this)}
       onMouseLeave={this.handleMouseLeave.bind(this)}
     >
@@ -375,7 +221,6 @@ class Category extends React.Component {
           height={this.props.height}
           fill={this.props.colour}
           onClick = { this.categoryLabelClick.bind(this) }
-          opacity={this.categoryFade()}
           stroke={this.strokeColour()}
           strokeWidth={Constants.get('categoryStrokeWidth')}
           className = 'categoryRect'
@@ -383,7 +228,6 @@ class Category extends React.Component {
         />
         { this.label() }
       </g>
-      { this.selectedIncidentBars() }
     </g>
   }
 
@@ -414,21 +258,9 @@ const mapDispatchToProps = dispatch => {
     onMouseLeave: () => {
       dispatch(CategoryUnhoverStateCreator())
     },
-    onBeginDrag: (columnName, categoryName) => {
-      dispatch(BeginIncidentDragCreator(columnName, categoryName))
-    },
-    onUpdateDrag: (columnName, categoryName) => {
-      dispatch(UpdateIncidentDragCreator(columnName, categoryName))
-    },
-    onEndDrag: () => {
-      dispatch(EndIncidentDragCreator())
-    },
-    selectIncident: (incident) => {
-      dispatch(IncidentSelectionStateCreator(incident))
-    },
     activateFilterbox(columnName, categoryName) {
       dispatch(ActivateFilterboxCreator(columnName, categoryName))
-    }
+    },
   }
 }
 
