@@ -5,44 +5,49 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const Constants = require('../Constants.js')
 const IncidentComputations = require('../IncidentComputations.js')
 const IncidentListItem = require('./IncidentListItem.jsx')
+const SetIncidentListScrollCreator = require('../actionCreators/SetIncidentListScrollCreator.js')
 
 require('./IncidentList.scss')
 
 class IncidentList extends React.Component {
 
-  innerContainerStyle() {
-    // TODO: if the scrolling list replaces the pin column permanently, we
-    // should rename this chunk of the horizontal positions ... 
-    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories, 
-      this.props.viewport, 
-      this.props.data, 
-      this.props.columns, 
-      this.props.categories
-    ).get('pinColumn')
+  // Callbacks
 
-    return {
-      width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
-      height: `${pinColumnPositions.get('height')}px`,
-      left: `${pinColumnPositions.get('x')}px`,
-      top: `${pinColumnPositions.get('y')}px`,
+  onListScroll() {
+    if (this.scrollPane !== undefined) {
+      this.props.setListScroll(this.scrollPane.scrollTop)
     }
   }
 
-  scrollPaneStyle() {
 
-    // TODO: if the scrolling list replaces the pin column permanently, we
-    // should rename this chunk of the horizontal positions ... 
-    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories, 
-      this.props.viewport, 
-      this.props.data, 
-      this.props.columns, 
-      this.props.categories
-    ).get('pinColumn')
 
-    return {
-      maxHeight: `${pinColumnPositions.get('height')}px`,
+  // Render Helpers
+
+  noIncidentsText() {
+    if (this.props.filterboxActivationState.get('columnName') === null) {
+
+      // TODO: if this design sticks, translate me
+      return <p className = 'noIncidentsText'>No category selected. Select a category from a column to see related incidents.</p>
+
+    }
+    else {
+      return null
+    }
+  }
+
+  incidentList() {
+    if (this.props.filterboxActivationState.get('columnName') === null) {
+      return null
+    }
+    else {
+      return <div 
+        className = 'incidentListScrollPane'
+        style = { this.scrollPaneStyle() }
+        ref = { element => this.scrollPane = element }
+        onScroll = { this.onListScroll.bind(this) }
+      >
+        <ul>{ this.incidents() }</ul>
+      </div>
     }
 
   }
@@ -75,42 +80,53 @@ class IncidentList extends React.Component {
     }).toArray()
   }
 
-  incidentList() {
-    if (this.props.filterboxActivationState.get('columnName') === null) {
-      return null
-    }
-    else {
-      return <div 
-        className = 'incidentListScrollPane'
-        style = { this.scrollPaneStyle() }
-      >
-        <ul>{ this.incidents() }</ul>
-      </div>
-    }
 
+  innerContainerStyle() {
+    // TODO: if the scrolling list replaces the pin column permanently, we
+    // should rename this chunk of the horizontal positions ... 
+    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories, 
+      this.props.viewport, 
+      this.props.data, 
+      this.props.columns, 
+      this.props.categories
+    ).get('pinColumn')
+
+    return {
+      width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
+      height: `${pinColumnPositions.get('height')}px`,
+      left: `${pinColumnPositions.get('x')}px`,
+      top: `${pinColumnPositions.get('y')}px`,
+    }
+  }
+
+  scrollPaneStyle() {
+    // TODO: if the scrolling list replaces the pin column permanently, we
+    // should rename this chunk of the horizontal positions ... 
+    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories, 
+      this.props.viewport, 
+      this.props.data, 
+      this.props.columns, 
+      this.props.categories
+    ).get('pinColumn')
+
+    return {
+      maxHeight: `${pinColumnPositions.get('height')}px`,
+    }
   }
 
 
-  noIncidentsText() {
 
-    if (this.props.filterboxActivationState.get('columnName') === null) {
+  // React Lifecycle Hooks
 
-      // TODO: if this design sticks, translate me
-      return <p className = 'noIncidentsText'>No category selected. Select a category from a column to see related incidents.</p>
-
+  componentDidUpdate() {
+    if (this.scrollPane !== undefined) {
+      this.scrollPane.scrollTop = this.props.incidentListScrollPosition
     }
-    else {
-      return null
-    }
-
-
   }
 
   render() {
-
-
-
-
     return <div className = 'incidentListOuterContainer'>
       <div 
         className = 'incidentListInnerContainer' 
@@ -137,7 +153,16 @@ const mapStateToProps = state => {
     language: state.language,
     pinnedIncidents: state.pinnedIncidents,
     selectedIncident: state.selectedIncident,
+    incidentListScrollPosition: state.incidentListScrollPosition,
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(IncidentList)
+const mapDispatchToProps = dispatch => {
+  return {
+    setListScroll: (scrollTop) => {
+      dispatch(SetIncidentListScrollCreator(scrollTop))
+    }
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentList)
