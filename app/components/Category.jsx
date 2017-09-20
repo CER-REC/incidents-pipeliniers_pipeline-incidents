@@ -42,13 +42,14 @@ class Category extends React.Component {
   }
 
   filterbox(currentY) {
-    if (this.filterboxActive() || this.checkHoverState() === true) {
-      return <Filterbox
+    if (this.filterboxActive() || this.checkHoverState() === true || this.checkSelectionInCategory() === true) {
+      return <g><Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
         columnName = { this.props.columnName }
         categoryName = { this.props.categoryName }
       />
+      </g>
     }
     else {
       return null
@@ -67,13 +68,12 @@ class Category extends React.Component {
     let labelClassName = 'inactiveCategoryLabels'
     let filterBoxOffset = 0
 
-    if(labelLengthExceed === true && this.checkHoverState() === false) {
+    if(labelLengthExceed === true && this.checkSelectionInCategory() === false && this.checkHoverState() === false) {
       return null
     }
 
     if(labelLengthExceed === true && this.checkSelectionInCategory() === true) {
-      labelClassName = 'activeCategoryLabels'
-      return 
+      return this.filterBoxActive()
     }
 
     if(this.filterboxActive()) {
@@ -129,10 +129,6 @@ class Category extends React.Component {
     }
 
     this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
-
-    if(this.filterboxActive() === true) {
-      return null
-    }
   }
 
 
@@ -144,22 +140,22 @@ class Category extends React.Component {
     //   return
     // }
     // event.preventDefault()
-    // this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
+    //this.props.onBeginDrag(this.props.columnName, this.props.categoryName)
   }
   handleOnMouseMove(event) {
     // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
     //   return
     // }
     // event.preventDefault()
-    // this.selectIncidentAtMousePosition(event)
+    //this.selectIncidentAtMousePosition(event)
   }
   handleOnMouseUp(event) {
     // if (this.props.columnType === Constants.getIn(['columnTypes', 'SIDEBAR'])) {
     //   return
     // }
     // event.preventDefault()
-    // this.selectIncidentAtMousePosition(event)
-    // this.props.onEndDrag()
+    //this.selectIncidentAtMousePosition(event)
+    //this.props.onEndDrag()
   }
 
   selectIncidentAtMousePosition(event) {
@@ -403,13 +399,13 @@ class Category extends React.Component {
       onMouseMove={this.handleOnMouseMove.bind(this)}
       onMouseEnter={this.handleMouseEnter.bind(this)}
       onMouseLeave={this.handleMouseLeave.bind(this)}
-      onClick = { this.categoryLabelClick.bind(this) }
     >
       <g transform={transformString}>
         <rect
           width={this.props.width}
           height={this.props.height}
           fill={this.props.colour}
+          onClick = { this.categoryLabelClick.bind(this) }
           opacity={this.categoryFade()}
           stroke={this.strokeColour()}
           strokeWidth={Constants.get('categoryStrokeWidth')}
