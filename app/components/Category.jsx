@@ -8,6 +8,7 @@ const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateC
 const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
 
 const ActivateFilterboxCreator = require('../actionCreators/ActivateFilterboxCreator.js')
+const HideFilterboxCreator = require('../actionCreators/HideFilterboxCreator.js')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const CategoryComputations = require('../CategoryComputations.js')
@@ -77,12 +78,6 @@ class Category extends React.Component {
       filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
-    if(this.filterboxActive() === true) {
-      if() {
-        labelClassName = 'inactiveCategoryLabels'
-      }
-    }
-
     let currentY = (this.props.height/2) - filterBoxOffset
     let lineCount = 0
     currentY += (1 - (labelLines.length/2)) * 
@@ -127,6 +122,13 @@ class Category extends React.Component {
 
     this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
     
+
+    if(this.filterboxActive() === true) {
+      this.props.deactivateFilterbox()
+    }
+    else {
+      this.props.activateFilterbox(this.props.columnName, this.props.categoryName)
+    }
   }
 
   labelLines() {
@@ -272,6 +274,9 @@ const mapDispatchToProps = dispatch => {
     },
     activateFilterbox(columnName, categoryName) {
       dispatch(ActivateFilterboxCreator(columnName, categoryName))
+    },
+    deactivateFilterbox() {
+      dispatch(HideFilterboxCreator())
     },
   }
 }
