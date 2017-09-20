@@ -37,43 +37,51 @@ class Header extends React.Component {
     const transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
 
     return <g transform = { transformString } className = 'header'>
-      <rect width={ 23 }
-        height={ 50 }
-        x = {Constants.getIn(['workspace', 'maxWidth']) - 23}
+      <rect width={23}
+        height={ 47 }
+        x = {Constants.getIn(['workspace', 'maxWidth']) - 27}
         fill='#555556'
       />
       // TODO: add methodology PDF
       <a href='https://google.ca' target="_blank">
         <image 
-          height = {Constants.getIn(['topBar', 'headerIconHeight'])}
-          width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
+          height = {Constants.getIn(['socialBar', 'iconSize'])}
+          width = {Constants.getIn(['socialBar', 'iconSize'])}      
           y = {5}
-          x ={Constants.getIn(['workspace', 'maxWidth']) - 23}
+          x ={Constants.getIn(['workspace', 'maxWidth']) - 24}
           xlinkHref='images/methodology-icon-white.svg'
         ></image>
       </a>
 
-      <a href='https://google.ca' target="_blank">
-        <image 
-          height = {Constants.getIn(['topBar', 'headerIconHeight'])}
-          width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
-          y = {27}
-          x ={Constants.getIn(['workspace', 'maxWidth']) - 23}
-          xlinkHref='images/reset_arrow.svg'
-        ></image>
-      </a>
-      <text x={Constants.getIn(['workspace', 'maxWidth']) - 113} 
+      // TODO: add reset all functionality
+      <image 
+        height = {Constants.getIn(['socialBar', 'iconSize'])}
+        width = {Constants.getIn(['socialBar', 'iconSize'])}       
+        y = {27}
+        x ={Constants.getIn(['workspace', 'maxWidth']) - 24}
+        xlinkHref='images/reset_button.svg'
+      ></image>
+
+      <text x={Constants.getIn(['workspace', 'maxWidth']) - 105} 
         y={21}
-        className="barsHeading">METHODOLOGY</text>
-      <text x={Constants.getIn(['workspace', 'maxWidth']) - 83} 
-        y={40} className="barsHeading">RESET ALL</text>
+        className="headerButtons">METHODOLOGY</text>
+
+      <text x={Constants.getIn(['workspace', 'maxWidth']) - 80} 
+        y={40} className="headerButtons">RESET ALL</text>
+
       { this.homeButton() }
 
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
       
-        <text x={0} y={yHeading} className="heading">Heading</text>
-        <text x={0} y={ySubpop} className="subpop">subheading</text>
-
+        <text x={0} y={yHeading} className="heading">NEB-REGULATED PIPELINES: INCIDENTS</text>
+        <text x={0} y={ySubpop} className="subpop">
+          Two lines to tell a story and other relevant information, or to leave
+          blank perhaps. the incidents shown here represent a subset of all incidents
+          that have</text>
+        <text x={0} y={ySubpop + 15} className="subpop">
+          occured on NEB-Regulated Pipelines. An incident is represented
+          by a line that goes through the categories relevant to it.
+          Play around and see what you find!</text>
       </svg>
     </g>
   
