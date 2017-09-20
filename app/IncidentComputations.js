@@ -39,8 +39,6 @@ IncidentComputations.filteredIncidents = function (data, columns, categories) {
         return categoryInfo.get(item.get('pipelinePhase')) === true
       case 'volumeCategory':
         return categoryInfo.get(item.get('volumeCategory')) === true
-      // case 'substanceCategory':
-      //   return categoryInfo.get(item.get('substanceCategory')) === true
       case 'year':
         return categoryInfo.get(item.get('year')) === true
 
@@ -131,7 +129,6 @@ IncidentComputations.categorySubset = function(data, columnName, categoryName) {
   case 'releaseType':
   case 'pipelinePhase':
   case 'volumeCategory':
-  //case 'substanceCategory':
     // For the single selection columns
     return data.filter( item => {
       return item.get(columnName) === categoryName

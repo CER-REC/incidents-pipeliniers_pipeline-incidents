@@ -161,7 +161,6 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
   case 'pipelinePhase':
   case 'volumeCategory':
   case 'year': {
-  // case 'substanceCategory': 
     return visibleCategoryInfo.filter( (visible, categoryName) => {
       const result = filteredData.find( item => {
         return item.get(columnName) === categoryName
@@ -224,7 +223,6 @@ CategoryComputations.relatedHiddenCategories = function (data, columns, categori
   case 'pipelinePhase':
   case 'volumeCategory':
   case 'map':
-  //case 'substanceCategory':
   
     // These columns will never have related hidden categories, each incident is
     // only in one category at a time

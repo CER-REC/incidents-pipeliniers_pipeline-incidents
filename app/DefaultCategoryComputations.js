@@ -18,7 +18,6 @@ const DefaultCategoryComputations = {
 
       switch(columnName){
 
-      // case 'substanceCategory':
       case 'incidentTypes':
       case 'status':
       case 'province':

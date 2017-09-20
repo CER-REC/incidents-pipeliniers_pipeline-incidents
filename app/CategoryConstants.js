@@ -122,13 +122,6 @@ const CategoryConstants = Immutable.fromJS({
       'Maintenance': 'maintenance',
       'Abandonment': 'abandonment',
     },
-    // substanceCategory: {
-    //   'Low Vapour Pressure Product': 'lowVapourPressureProduct',
-    //   'High Vapour Pressure Product': 'highVapourPressureProduct',
-    //   'Miscellaneous': 'miscellaneous',
-    //   'Not Applicable': 'notApplicable',
-    //   'Commodity': 'commodity',
-    // },
     pipelineSystemComponentsInvolved: {
       'Pipeline': 'pipeline',
       'Processing Plant': 'processingPlant',

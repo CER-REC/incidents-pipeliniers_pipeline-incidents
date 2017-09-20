@@ -205,7 +205,6 @@ class Category extends React.Component {
     case 'pipelinePhase':
     case 'volumeCategory':
     case 'pipelineSystemComponentsInvolved': { 
-    //case 'substanceCategory':
     
       // These columns draw category names from a defined vocabulary
       const label = Tr.getIn([

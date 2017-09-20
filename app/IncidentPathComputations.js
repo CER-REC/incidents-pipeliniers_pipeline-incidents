@@ -29,7 +29,6 @@ IncidentPathComputations.incidentHeightsInColumn = function (incident, columnNam
   case 'releaseType':
   case 'pipelinePhase':
   case 'volumeCategory': {
-  //case 'substanceCategory': 
 
     // For single selection columns, there will be one height
 

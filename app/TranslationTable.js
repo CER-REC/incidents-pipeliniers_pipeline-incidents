@@ -46,10 +46,6 @@ const TranslationTable = Immutable.fromJS({
       en: 'APPROX VOL RELEASED',
       fr: 'VOLUME APPROX. REJETÉ/DÉVERSÉ',
     },
-    // substanceCategory: {
-    //   en: 'SUBSTANCE CATEGORY',
-    //   fr: 'CATÉGORIE DE SUBSTANCE',
-    // },
     pipelineSystemComponentsInvolved: {
       en: 'SYS. COMP. INVOLVED',
       fr: 'COMPOSANTES EN CAUSE',
@@ -495,34 +491,6 @@ const TranslationTable = Immutable.fromJS({
         fr: "Cessation d'exploitation"
       },
     },
-    // substanceCategory: {
-    //   lowVapourPressureProduct: {
-    //     en: 'Low Vapour Pressure Product',
-    //     fr: 'Produit à faible pression de vapeur'
-    //   },
-    //   highVapourPressureProduct: {
-    //     en: 'High Vapour Pressure Product',
-    //     fr: 'Produit à haute pression de vapeur'
-    //   },
-    //   miscellaneous: {
-    //     en: 'Miscellaneous',
-    //     fr: 'Diverses substances'
-    //   },
-    //   notApplicable: {
-    //     en: 'Not Applicable',
-    //     fr: 'Sans objet'
-    //   },
-    //   commodity: {
-    //     en: 'Commodity',
-    //     fr: 'Produit'
-    //   },
-
-    //   // NB: Unclear if used/needed
-    //   naturalGas: {
-    //     en: 'Natural Gas',
-    //     fr: 'Gaz naturel',
-    //   },
-    // },
     pipelineSystemComponentsInvolved: {
       pipeline: {
         en: 'Pipeline',
