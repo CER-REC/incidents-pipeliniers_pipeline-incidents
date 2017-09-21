@@ -3,9 +3,8 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const Request = require('client-request/promise')
 
-require('../styles/Common.scss')
-require('../styles/Colours.scss')
 require('./SocialBar.scss')
+const RouteComputations = require('../RouteComputations.js')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 
@@ -57,7 +56,10 @@ function downloadFileClick() {
 }
 
 function downloadImageClick() {
-  console.log('download image clicked')
+
+  const screenshotUrl = `${Constants.get('screenshotServiceUrl')}?pageUrl=${RouteComputations.screenshotParameter(document.location)}`
+
+  window.open(screenshotUrl) 
 }
 
 class SocialBar extends React.Component {

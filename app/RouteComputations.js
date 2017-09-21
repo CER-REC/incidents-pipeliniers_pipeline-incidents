@@ -247,9 +247,17 @@ const RouteComputations = {
 
   screenshotMode: function(location) {
     return !!location.pathname.match(`/${Constants.get('screenshotPath')}$`)
-  }
+  },
 
 
+
+  // Based on the current URL, construct a URL to the screenshottable version
+  // of the visualization, and also encode it for use as a URL parameter itself.
+  // The server will make the request of localhost, we only need to construct
+  // the remainder of the path
+  screenshotParameter: function(location) {
+    return encodeURIComponent(`${location.pathname}/screenshot${location.search}`)
+  },
 
 
 
