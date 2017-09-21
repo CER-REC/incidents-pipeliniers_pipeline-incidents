@@ -300,6 +300,9 @@ const Constants = Immutable.fromJS({
 
   pathCurveControlFactor: 2.5,
 
+  appPath: 'incident-visualization',
+  screenshotPath: 'screenshot',
+
 })
 
 

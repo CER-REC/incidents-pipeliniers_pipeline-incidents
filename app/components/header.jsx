@@ -26,6 +26,29 @@ class Header extends React.Component {
     ></image>
   }
 
+  headerButtons() {
+    if (!this.props.screenshotMode) {
+      const methodologyIconY = Constants.getIn(['topBar', 'methodologyIconY'])
+      return <g>
+        { this.homeButton() }
+
+        //TODO: change link once we get PDF
+        <a href='https://google.ca' target="_blank">
+          <image 
+            height = {Constants.getIn(['topBar', 'headerIconHeight'])}
+            width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
+            y = {methodologyIconY}
+            xlinkHref='images/methodology-icon-black.svg'
+          ></image>
+        </a>
+      </g>
+    }
+    else {
+      return null
+    }
+  }
+
+
   render() {
     const headerWidth = Constants.getIn(['topBar', 'width'])
     const headerHeight = Constants.getIn(['topBar', 'height'])
@@ -33,22 +56,10 @@ class Header extends React.Component {
     const yHeading = Constants.getIn(['topBar', 'yHeading'])
     const xSubpop = Constants.getIn(['topBar', 'xSubpop'])
     const ySubpop = Constants.getIn(['topBar', 'ySubpop'])
-    const methodologyIconY = Constants.getIn(['topBar', 'methodologyIconY'])
     const transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
 
     return <g transform = { transformString } className = 'header'>
-
-      { this.homeButton() }
-
-      //TODO: change link once we get PDF
-      <a href='https://google.ca' target="_blank">
-        <image 
-          height = {Constants.getIn(['topBar', 'headerIconHeight'])}
-          width = {Constants.getIn(['topBar', 'headerIconWidth'])}       
-          y = {methodologyIconY}
-          xlinkHref='images/methodology-icon-black.svg'
-        ></image>
-      </a>
+      { this.headerButtons() }
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
       
         <text x={xHeading} y={yHeading} className="heading"></text>
@@ -63,7 +74,8 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => { 
   return {
-    data: state.data
+    data: state.data,
+    screenshotMode: state.screenshotMode,
   } 
 }
 

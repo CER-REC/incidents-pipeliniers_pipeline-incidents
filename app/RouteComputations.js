@@ -245,7 +245,9 @@ const RouteComputations = {
   },
 
 
-
+  screenshotMode: function(location) {
+    return !!location.pathname.match(`/${Constants.get('screenshotPath')}$`)
+  }
 
 
 

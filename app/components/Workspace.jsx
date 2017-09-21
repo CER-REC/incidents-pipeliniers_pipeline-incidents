@@ -43,6 +43,33 @@ class Workspace extends React.Component {
     }
   }
 
+  emptyCategories() {
+    if (!this.props.screenshotMode) {
+      return <EmptyCategories />
+    }
+    else {
+      return null
+    }
+  }
+
+  socialbar() {
+    if (!this.props.screenshotMode) {
+      return <SocialBar/>
+    }
+    else {
+      return null
+    }
+  }
+
+  workspaceClass() {
+    if (!this.props.screenshotMode) {
+      return 'workspace'
+    }
+    else {
+      return 'screenshotWorkspace'
+    }
+  }
+
   render() {
 
     // Many of the downstream computations require that the data be loaded
@@ -61,7 +88,7 @@ class Workspace extends React.Component {
 
 
     return <div>
-      <div className='workspace'>
+      <div className = { this.workspaceClass() } >
         { this.mapContainer() }
         <svg 
           className = 'workspaceSvg'
@@ -69,11 +96,11 @@ class Workspace extends React.Component {
           height = { horizontalPositions.getIn(['workspace', 'height']) }
         >
           <Header />
-          <EmptyCategories />
+          { this.emptyCategories() }
           <IncidentBar/>
           <SideBar/>
-          {this.columns()}
-          <SocialBar/>
+          { this.columns() }
+          { this.socialbar() }
         </svg>
       </div>
     </div>
@@ -87,6 +114,7 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    screenshotMode: state.screenshotMode,
   }
 }
 

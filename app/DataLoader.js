@@ -8,7 +8,7 @@ const CategoryConstants = require('./CategoryConstants.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
-
+const Constants = require('./Constants.js')
 
 
 function parseYesNo (value, record) {
@@ -161,7 +161,7 @@ const DataLoader = {
   loadDataCsv: function (store) {
 
     const options = {
-      uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-09-13 ERS TEST-joined.csv`,
+      uri: `${document.location.origin}/${Constants.get('appPath')}/data/2017-09-13 ERS TEST-joined.csv`,
     }
 
     Request(options)
@@ -184,6 +184,7 @@ const DataLoader = {
           pinnedIncidents: routerState.pinnedIncidents,
           selectedIncident: routerState.selectedIncident,
           language: routerState.language,
+          screenshotMode: RouteComputations.screenshotMode(document.location),
         }))
 
 
