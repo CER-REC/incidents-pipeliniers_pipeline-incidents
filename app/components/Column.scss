@@ -12,14 +12,8 @@
 g {
 	transition: transform 50ms;
 }
-
-.dropShadow {
-  &:hover {
-    opacity: 0.8;
-    transition: transform 50ms;
-    // webkit-filter: drop-shadow(12px 12px #d1d1d1); 
-    //url("#sidebar");
-    -webkit-filter: drop-shadow( -5px -5px #D1D1D1 );
-            filter: drop-shadow( -5px -5px #D1D1D1 );
-  }
+.sidebar:hover {
+    -webkit-filter: drop-shadow(-10px 2px #D1D1D1);      
+    filter: drop-shadow(-10px 2px #D1D1D1);  
 }
+#blur-effect-2:hover { filter:url(#blur-effect-2); }

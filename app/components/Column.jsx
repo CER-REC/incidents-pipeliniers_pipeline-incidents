@@ -33,7 +33,6 @@ let sidebarWindowEndHandler = null
 
 require('./Column.scss')
 
-
 class Column extends React.Component {
   // Specifically: non-empty AND visible categories
   nonEmptyCategories() {
@@ -476,37 +475,29 @@ class Column extends React.Component {
     })
   }
 
-  dropShadow() {
-    return  <g>
-      <filter id="dropshadow" height="130%">
-          <feOffset dx="2" dy="2" result="offsetblur"/> 
-          <feMerge> 
-            <feMergeNode/> 
-            <feMergeNode in="SourceGraphic"/> 
-          </feMerge>
-        </filter>
-      </g>
-  }
-
-
   render() {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
-      return <g 
+      return <svg id='blur-effect-2'><g 
         transform={this.sidebarColumnTransform()}
         id={this.props.columnName}
-        className="dropShadow"
-        //filter id="sidebar"
         onMouseDown={this.handleSidebarDragStart.bind(this)}
         onMouseMove={this.handleSidebarDragMove.bind(this)}
         onMouseUp={this.handleSidebarDragEnd.bind(this)}
         onMouseEnter={this.handleMouseEnter.bind(this)}
         onMouseLeave={this.handleMouseLeave.bind(this)}>
+        <defs>
+        <filter id="blur-effect-2">
+          <feOffset result="offOut" in="SourceAlpha" dx="20" dy="20" />
+          <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+        </filter>
+        </defs>
         {this.sideBarColumn()}
         <text>
           {this.sidebarHeading()}
         </text>
       </g>
+      </svg>
     }
     case Constants.getIn(['columnTypes', 'WORKSPACE']):
     default: {

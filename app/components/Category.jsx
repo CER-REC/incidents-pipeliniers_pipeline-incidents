@@ -22,6 +22,7 @@ const StringComputations = require('../StringComputations.js')
 
 require('./Category.scss')
 
+
 class Category extends React.Component {
 
   filterboxActive() {
@@ -362,7 +363,7 @@ class Category extends React.Component {
     // TODO: Placing the mouseup handler so high up could cause it to be 
     // triggered by the filter box, we'll have to make sure.
 
-    return <g
+    return <g 
       transform={this.categoryTransform()}
       onMouseUp = { this.handleOnMouseUp.bind(this) }
       className = 'category'
