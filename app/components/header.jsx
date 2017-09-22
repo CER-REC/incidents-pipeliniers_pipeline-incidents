@@ -5,15 +5,29 @@ const Constants = require('../Constants.js')
 const ResetVisualizationCreator = require('../actionCreators/ResetVisualizationCreator.js')
 const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
 
+const WorkspaceComputations = require('../WorkspaceComputations.js')
+
 
 require('./Header.scss')
 
 
 class Header extends React.Component {
 
-  homeButtonClick() {
+  resetAllClick() {
     const categories = DefaultCategoryComputations.initialState(this.props.data)
     this.props.resetVisualization(categories)
+  }
+
+  resetAllButton() {
+    return <image 
+      className = "resetAllButton"
+      height = {Constants.getIn(['socialBar', 'iconSize'])}
+      width = {Constants.getIn(['socialBar', 'iconSize'])}       
+      y = {27}
+      x ={Constants.getIn(['workspace', 'maxWidth']) - 24}
+      onClick = { this.resetAllClick.bind(this) }
+      xlinkHref='images/reset_button.svg'
+    ></image>
   }
 
   homeButton() {
@@ -29,11 +43,8 @@ class Header extends React.Component {
   render() {
     const headerWidth = Constants.getIn(['topBar', 'width'])
     const headerHeight = Constants.getIn(['topBar', 'height'])
-    const xHeading = Constants.getIn(['topBar', 'xHeading'])
     const yHeading = Constants.getIn(['topBar', 'yHeading'])
-    const xSubpop = Constants.getIn(['topBar', 'xSubpop'])
     const ySubpop = Constants.getIn(['topBar', 'ySubpop'])
-    const methodologyIconY = Constants.getIn(['topBar', 'methodologyIconY'])
     const transformString = `translate(${Constants.get('leftOuterMargin')},${Constants.get('topOuterMargin')})`
 
     return <g transform = { transformString } className = 'header'>
@@ -53,15 +64,6 @@ class Header extends React.Component {
         ></image>
       </a>
 
-      // TODO: add reset all functionality
-      <image 
-        height = {Constants.getIn(['socialBar', 'iconSize'])}
-        width = {Constants.getIn(['socialBar', 'iconSize'])}       
-        y = {27}
-        x ={Constants.getIn(['workspace', 'maxWidth']) - 24}
-        xlinkHref='images/reset_button.svg'
-      ></image>
-
       <text x={Constants.getIn(['workspace', 'maxWidth']) - 105} 
         y={21}
         className="headerButtons">METHODOLOGY</text>
@@ -69,7 +71,7 @@ class Header extends React.Component {
       <text x={Constants.getIn(['workspace', 'maxWidth']) - 80} 
         y={40} className="headerButtons">RESET ALL</text>
 
-      { this.homeButton() }
+      { this.resetAllButton() }
 
       <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
       
@@ -78,8 +80,6 @@ class Header extends React.Component {
           The information presented here is based on NEB data from 2008 to current for
           incidents reported under the Onshore Pipeline Regulations.
           New data is added on a quaterly basis.</text>
-        <text x={0} y={ySubpop + 15} className="subpop">
-         </text>
       </svg>
     </g>
   
