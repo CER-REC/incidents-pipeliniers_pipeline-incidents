@@ -26,7 +26,6 @@ const DefaultCategoryComputations = {
       case 'whatHappened':
       case 'whyItHappened':
       case 'pipelinePhase':
-      case 'substanceCategory':
       case 'pipelineSystemComponentsInvolved':
       case 'volumeCategory': {
         // Eleven of the columns have a fixed set of categories:
