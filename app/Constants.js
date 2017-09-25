@@ -76,6 +76,8 @@ const Constants = Immutable.fromJS({
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 40,
 
+  columnHeadingSpacing: 10,
+
   dragArrow: {
     width: 24,
     height: 10,
@@ -296,6 +298,10 @@ const Constants = Immutable.fromJS({
   },
 
   pathCurveControlFactor: 2.5,
+
+  nearBlack: '#333333',
+
+  emptyCategoryLabelFudgeFactor: 8,
 
 })
 

@@ -23,6 +23,7 @@ const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
 const SelectedIncidentPaths = require('./SelectedIncidentPaths.jsx')
+const PinnedIncidentPaths = require('./PinnedIncidentPaths.jsx')
 
 const Tr = require('../TranslationTable.js')
 
@@ -508,6 +509,7 @@ class Column extends React.Component {
           columnName = { this.props.columnName }
           categoryName = { this.props.categoryName }
         />
+        <PinnedIncidentPaths columnName={this.props.columnName} />
         { this.nonEmptyCategories() }
         { this.emptyCategories() }
         { this.dragArrow() }
