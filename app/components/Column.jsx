@@ -54,7 +54,7 @@ class Column extends React.Component {
     const displayedCategories = CategoryComputations.displayedCategories(
       this.props.data,
       this.props.columns,
-      this.props.categories, 
+      this.props.categories,
       this.props.columnName)
 
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
