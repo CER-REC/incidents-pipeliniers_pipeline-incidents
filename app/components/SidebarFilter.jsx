@@ -11,8 +11,18 @@ require('./Sidebar.scss')
 class SidebarFilter extends React.Component {
 
   render() {
+    const { app, idx } = this.props 
+    const shadow = {
+      filter: `url(#${app || 'default'})`
+    }
 
-  }
+    return <g>
+      <filter id={app || 'default'} 
+        <feOffset result="offOut" in="SourceAlpha" dx="20" dy="20" />
+      </filter>
+    </g>
+
+  } 
 }
 
 const mapStateToProps = state => {
