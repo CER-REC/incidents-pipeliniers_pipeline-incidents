@@ -478,7 +478,7 @@ class Column extends React.Component {
   render() {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
-      return <svg id='blur-effect-2'><g 
+      return <g 
         transform={this.sidebarColumnTransform()}
         id={this.props.columnName}
         onMouseDown={this.handleSidebarDragStart.bind(this)}
@@ -486,18 +486,12 @@ class Column extends React.Component {
         onMouseUp={this.handleSidebarDragEnd.bind(this)}
         onMouseEnter={this.handleMouseEnter.bind(this)}
         onMouseLeave={this.handleMouseLeave.bind(this)}>
-        <defs>
-        <filter id="blur-effect-2">
-          <feOffset result="offOut" in="SourceAlpha" dx="20" dy="20" />
-          <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-        </filter>
-        </defs>
         {this.sideBarColumn()}
         <text>
           {this.sidebarHeading()}
         </text>
       </g>
-      </svg>
+     
     }
     case Constants.getIn(['columnTypes', 'WORKSPACE']):
     default: {
