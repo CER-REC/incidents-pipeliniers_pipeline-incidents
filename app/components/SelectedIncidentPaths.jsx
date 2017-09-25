@@ -210,8 +210,7 @@ class SelectedIncidentPaths extends React.Component {
       })
     })
 
-    //{ paths }
-    return <g></g>
+    return <g>{ paths }</g>
 
   }
 

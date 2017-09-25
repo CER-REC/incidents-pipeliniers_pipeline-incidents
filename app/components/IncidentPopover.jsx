@@ -140,9 +140,6 @@ class IncidentPopover extends React.Component {
       this.props.categories)
     if(!filteredData.contains(this.props.incident)) return null
 
-    // {this.showPopoverBody()}
-    // {this.horizontalLine()}
-    // {this.showYLine()}
     return <g>
       
     </g>
