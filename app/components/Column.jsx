@@ -479,20 +479,37 @@ class Column extends React.Component {
   render() {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
-      return <g 
-        transform={this.sidebarColumnTransform()}
-        id={this.props.columnName}
-        onMouseDown={this.handleSidebarDragStart.bind(this)}
-        onMouseMove={this.handleSidebarDragMove.bind(this)}
-        onMouseUp={this.handleSidebarDragEnd.bind(this)}
-        onMouseEnter={this.handleMouseEnter.bind(this)}
-        onMouseLeave={this.handleMouseLeave.bind(this)}>
-        {this.sideBarColumn()}
-        <text>
-          {this.sidebarHeading()}
-        </text>
-      </g>
-     
+      return <svg> 
+        <style type="text/css" dangerouslySetInnerHTML={{__html: `
+          <![CDATA[
+            .sidebah:hover {
+              filter: url(#filtah);
+            }
+          ]]>
+          `}}/>
+        <defs>
+          <filter id='filtah'>
+            <feDropShadow dx="-1" dy="2" stdDeviation="4"/>
+          </filter>
+        </defs>
+
+        <g
+          className="sidebah"
+          transform={this.sidebarColumnTransform()}
+          id={this.props.columnName}
+          onMouseDown={this.handleSidebarDragStart.bind(this)}
+          onMouseMove={this.handleSidebarDragMove.bind(this)}
+          onMouseUp={this.handleSidebarDragEnd.bind(this)}
+          onMouseEnter={this.handleMouseEnter.bind(this)}
+          onMouseLeave={this.handleMouseLeave.bind(this)}>
+          {this.sideBarColumn()}
+        </g>
+        <g>
+          <text>
+            { this.sidebarHeading() }
+          </text>
+        </g>
+      </svg>
     }
     case Constants.getIn(['columnTypes', 'WORKSPACE']):
     default: {
