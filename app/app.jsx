@@ -40,7 +40,15 @@ DomReady( () => {
 function resizeScreenHandler () {
   // Ensures the width and height of the workspace keep the ratio 900:600
   const w = document.getElementById('reactRoot').clientWidth
-  const h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])
+  let h
+
+  if (store.getState().screenshotMode) {
+    h = Constants.get('screenshotHeight')
+  }
+  else {
+    h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])
+  }
+
   store.dispatch(Resized(w,h))
 }
 

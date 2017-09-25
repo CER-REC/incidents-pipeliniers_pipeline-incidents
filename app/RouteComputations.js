@@ -256,7 +256,7 @@ const RouteComputations = {
   // The server will make the request of localhost, we only need to construct
   // the remainder of the path
   screenshotParameter: function(location) {
-    return encodeURIComponent(`${location.pathname}/screenshot${location.search}`)
+    return encodeURIComponent(`${location.pathname}screenshot${location.search}`)
   },
 
 
