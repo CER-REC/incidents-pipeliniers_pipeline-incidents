@@ -28,7 +28,7 @@ const DefaultCategoryComputations = {
       case 'pipelinePhase': 
       case 'substanceCategory': 
       case 'pipelineSystemComponentsInvolved': 
-      case 'volumeCategory': { //10
+      case 'volumeCategory': { 
         // Eleven of the columns have a fixed set of categories:
 
         let activeCategories = Immutable.OrderedMap()
