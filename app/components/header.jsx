@@ -30,16 +30,6 @@ class Header extends React.Component {
     ></image>
   }
 
-  homeButton() {
-    // return <image 
-    //   xlinkHref = 'images/home.svg' 
-    //   height = { Constants.getIn(['topBar', 'headerIconHeight']) }
-    //   width = { Constants.getIn(['topBar', 'headerIconWidth']) }
-    //   onClick = { this.homeButtonClick.bind(this) }
-    //   className = 'homeButton'
-    // ></image>
-  }
-
   render() {
     const headerWidth = Constants.getIn(['topBar', 'width'])
     const headerHeight = Constants.getIn(['topBar', 'height'])
