@@ -71,7 +71,7 @@ const Constants = Immutable.fromJS({
   columnNarrowWidth: 24,
   minimumColumnPathWidth: 90,
 
-  columnHeadingHeight: 42,
+  columnHeadingHeight: 47,
   columnHeadingLineOffset: 15,
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 40,
