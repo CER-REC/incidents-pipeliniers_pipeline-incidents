@@ -76,6 +76,8 @@ const Constants = Immutable.fromJS({
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 40,
 
+  columnHeadingSpacing: 10,
+
   dragArrow: {
     width: 24,
     height: 10,
@@ -119,7 +121,6 @@ const Constants = Immutable.fromJS({
     'whyItHappened',
     'pipelinePhase',
     'volumeCategory',
-    'substanceCategory',
     'pipelineSystemComponentsInvolved',
     'map',
   ],
@@ -130,7 +131,7 @@ const Constants = Immutable.fromJS({
   ],
 
   sidebar: {
-    columWidth: 75,
+    columWidth: 87,
     columnOffset: 10,
 
     verticalStackingOffset: 2,
@@ -233,11 +234,6 @@ const Constants = Immutable.fromJS({
       middle: '#E6A1C9',
       end: '#FFF9E6',
     },
-    'substanceCategory': {
-      start: '#F8B51C',
-      middle: '#78E690',
-      end: '#A8EAFF',
-    },
     'pipelineSystemComponentsInvolved': {
       start: '#29836F',
       middle: '#73ADE6',
@@ -284,9 +280,11 @@ const Constants = Immutable.fromJS({
   maxCategoryLabelLines: 3,
   categoryLabelTerminatingDots: 3,
   categoryLabelLineLength: 14,
-  categoryStrokeWidth: 1,
   categoryDefaultOpacity: 1,
-  categoryFadeOpacity: 0.2,
+  categoryFadeOpacity: 0.4,
+  categoryStrokeWidth: 1,
+  categoryDefaultStrokeColour: '#ffffff',
+  categoryHoverStrokeColour: '#000000',
 
 
   selectedIncidentPath: {
@@ -303,6 +301,10 @@ const Constants = Immutable.fromJS({
   },
 
   pathCurveControlFactor: 2.5,
+
+  nearBlack: '#333333',
+
+  emptyCategoryLabelFudgeFactor: 8,
 
 })
 

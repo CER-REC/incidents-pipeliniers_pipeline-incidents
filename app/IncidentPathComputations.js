@@ -28,8 +28,7 @@ IncidentPathComputations.incidentHeightsInColumn = function (incident, columnNam
   case 'substance':
   case 'releaseType':
   case 'pipelinePhase':
-  case 'volumeCategory':
-  case 'substanceCategory': {
+  case 'volumeCategory': {
 
     // For single selection columns, there will be one height
 
@@ -699,6 +698,108 @@ IncidentPathComputations.pathCurves = function (data, columns, categories, showE
 }
 
 
+
+
+
+
+// Computes y1 and y2 values for each side of the extra-emphasized paths, which 
+// highlight pinned incidents.
+
+// The object returned is identical in structure to that from 
+// IncidentPathComputations.pathMeasurements
+
+IncidentPathComputations.pinnedIncidentPathMeasurements = function (data, columns, categories, showEmptyCategories, viewport, pinnedIncidents) {
+
+  const pathMeasurements = IncidentPathComputations.pathMeasurements(data, columns, categories, showEmptyCategories, viewport)
+
+  const filteredData = IncidentComputations.filteredIncidents(
+    data, 
+    columns, 
+    categories)
+
+  const columnPairs = pathMeasurements.get('columnPairs').map( columnPair => {
+    return IncidentPathComputations.pinnedIncidentColumnPair(
+      columnPair,
+      filteredData,
+      pinnedIncidents
+    )
+  })
+
+  let sidebarColumnPair
+  if (pathMeasurements.get('sidebarColumnPair') !== undefined) {
+    sidebarColumnPair = IncidentPathComputations.pinnedIncidentColumnPair(
+      pathMeasurements.get('sidebarColumnPair'),
+      filteredData,
+      pinnedIncidents
+    )
+  }
+
+  return Immutable.Map({
+    columnPairs: columnPairs,
+    sidebarColumnPair: sidebarColumnPair,
+  })
+
+
+}
+
+
+// TODO: pinnedIncidentColumnPair and selectedCategoryColumnPair have a ton
+// of shared code, refactor! 
+
+IncidentPathComputations.pinnedIncidentColumnPair = function (columnPair, data, pinnedIncidents) {
+
+  const sourceColumnName = columnPair.getIn(['source', 'columnName'])
+  const destinationColumnName = columnPair.getIn(['destination', 'columnName'])
+
+  if (pinnedIncidents.count() === 0) {
+
+    // There are no paths to draw here
+    return columnPair.set('pathMeasurements', Immutable.Map())
+
+  }
+
+  const newPathMeasurements = columnPair.get('pathMeasurements').map( (sourceMeasurements, sourceCategory) => {
+    return sourceMeasurements.map( (measurements, destinationCategory) => {
+
+      // The count of incidents from the selected category in both the source 
+      // and destination categories
+      const emphasizedIncidents = CategoryComputations.itemsInBothCategories(
+        pinnedIncidents,
+        sourceColumnName,
+        sourceCategory,
+        destinationColumnName,
+        destinationCategory)
+
+
+      const emphasizedSourceIncidentFraction = emphasizedIncidents / measurements.getIn(['sourceMeasurement', 'incidentCount'])
+
+      const sourceY1 = measurements.getIn(['sourceMeasurement', 'y1'])
+      const sourceY2 = measurements.getIn(['sourceMeasurement', 'y2'])
+      const sourceHeight = sourceY2 - sourceY1
+      const emphasizedSourceHeight = sourceHeight * emphasizedSourceIncidentFraction
+
+      // For now, we have been asked to anchor the emphasized incident path at
+      // the top of the path for ordinary incidents.
+      const emphasizedSourceY2 = sourceY1 + emphasizedSourceHeight
+
+
+      const emphasizedDestinationIncidentFraction = emphasizedIncidents / measurements.getIn(['destinationMeasurement', 'incidentCount'])
+
+      const destinationY1 = measurements.getIn(['destinationMeasurement', 'y1'])
+      const destinationY2 = measurements.getIn(['destinationMeasurement', 'y2'])
+      const destinationHeight = destinationY2 - destinationY1
+      const emphasizedDestinationHeight = destinationHeight * emphasizedDestinationIncidentFraction
+
+      const emphasizedDestinationY2 = destinationY1 + emphasizedDestinationHeight
+
+
+      return measurements.setIn(['sourceMeasurement', 'y2'], emphasizedSourceY2).setIn(['destinationMeasurement', 'y2'], emphasizedDestinationY2)
+    })
+  })
+
+
+  return columnPair.set('pathMeasurements', newPathMeasurements)
+}
 
 
 

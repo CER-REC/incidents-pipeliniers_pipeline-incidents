@@ -7,13 +7,15 @@ const SocialBar = require('./SocialBar.jsx')
 
 require('./Workspace.scss')
 
-const IncidentBar = require('./IncidentBar.jsx')
+// const IncidentBar = require('./IncidentBar.jsx')
 const Column = require('./Column.jsx')
 const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const MapContainer = require('./MapContainer.jsx')
 const Constants = require('../Constants.js')
+const IncidentListHeadings = require('./IncidentListHeadings.jsx')
+const IncidentList = require('./IncidentList.jsx')
 
 
 class Workspace extends React.Component {
@@ -43,6 +45,7 @@ class Workspace extends React.Component {
     }
   }
 
+
   render() {
 
     // Many of the downstream computations require that the data be loaded
@@ -63,6 +66,7 @@ class Workspace extends React.Component {
     return <div>
       <div className='workspace'>
         { this.mapContainer() }
+        <IncidentList />
         <svg 
           className = 'workspaceSvg'
           width = { horizontalPositions.getIn(['workspace', 'width']) }
@@ -70,7 +74,7 @@ class Workspace extends React.Component {
         >
           <Header />
           <EmptyCategories />
-          <IncidentBar/>
+          <IncidentListHeadings />
           <SideBar/>
           {this.columns()}
           <SocialBar/>

@@ -19,14 +19,13 @@ const DefaultCategoryComputations = {
       switch(columnName){
 
       case 'incidentTypes':
-      case 'status':
-      case 'province':
+      case 'status': 
+      case 'province': 
       case 'substance':
       case 'releaseType':
       case 'whatHappened':
       case 'whyItHappened':
       case 'pipelinePhase':
-      case 'substanceCategory':
       case 'pipelineSystemComponentsInvolved':
       case 'volumeCategory': {
         // Eleven of the columns have a fixed set of categories:
