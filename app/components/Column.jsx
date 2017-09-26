@@ -483,12 +483,12 @@ class Column extends React.Component {
         <style type="text/css" dangerouslySetInnerHTML={{__html: `
           <![CDATA[
             .sidebar:hover {
-              filter: url(#filter);
+              filter: url(#dropshadow);
             }
           ]]>
           `}}/>
         <defs>
-          <filter id='filter'>
+          <filter id='dropshadow'>
             <feOffset result="offOut" in="SourceGraphic" dx="-1" dy="2"></feOffset>
             <feColorMatrix result="matrixOut" in="offOut" type="matrix"
               values="0 0 0 0 0 
