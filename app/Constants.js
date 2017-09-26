@@ -150,6 +150,7 @@ const Constants = Immutable.fromJS({
     labelOffset: 4,
 
     filterButtonWidth: 66,
+    filterButtonWidthFr: 100,
     filterButtonHeight: 13.5,
 
     iconSize: 7,
