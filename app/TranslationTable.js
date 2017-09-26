@@ -263,7 +263,7 @@ const TranslationTable = Immutable.fromJS({
       },
       morphysorb: {
         en: 'Morphysorb',
-        fr: 'MorphysorbR',
+        fr: 'Morphysorb',
       },
       oilWellEffluent: {
         en: 'Oil Well Effluent',

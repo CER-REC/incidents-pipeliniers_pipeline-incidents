@@ -1,0 +1,32 @@
+[{
+  "reportedDate": "2008-01-02T07:00:00.000Z",
+  "releaseType": "liquid",
+  "offCompanyProperty": false,
+  "whatHappened": [
+    "corrosionCracking"
+  ],
+  "incidentTypes": [
+    "release"
+  ],
+  "approximateVolumeReleased": "8",
+  "latitude": 49.73135,
+  "pipelineSystemComponentsInvolved": [],
+  "substanceCategory": "lowVapourPressureProduct",
+  "longitude": -101.23557,
+  "werePipelineSystemComponentsInvolved": true,
+  "affectsOffPipelineRightOfWay": false,
+  "substance": "crudeOilSweet",
+  "province": "MB",
+  "status": "closed",
+  "affectsCompanyProperty": true,
+  "whyItHappened": [
+    "maintenance"
+  ],
+  "nearestPopulatedCentre": "Cromer",
+  "volumeCategory": "lessThanOneThousand",
+  "pipelinePhase": "operation",
+  "incidentNumber": "INC2008-001",
+  "affectsPipelineRightOfWay": false,
+  "year": "2008",
+  "company": "Enbridge Pipelines Inc."
+}]

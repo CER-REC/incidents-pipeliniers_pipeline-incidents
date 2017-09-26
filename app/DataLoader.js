@@ -106,7 +106,6 @@ function readFloat(record, accessor) {
 // province
 // status
 // substance
-// substanceCategory
 // releaseType
 // pipelinePhase
 function readConstrainedVocabularyString(record, heading, categoryName) {
@@ -153,11 +152,55 @@ function csvColumnMapping (d) {
 }
 
 
+function afterLoad (store, data) {
+
+  store.dispatch(DataLoadedCreator(data))
+
+  let state = store.getState()
+  const categories = DefaultCategoryComputations.initialState(state.data)
+  store.dispatch(SetInitialCategoryStateCreator(categories))
+
+  state = store.getState()
+  const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
+
+  store.dispatch(SetFromRouterStateCreator({
+    columns: routerState.columns,
+    categories: routerState.categories,
+    showEmptyCategories: routerState.showEmptyCategories,
+    pinnedIncidents: routerState.pinnedIncidents,
+    selectedIncident: routerState.selectedIncident,
+    language: routerState.language,
+  }))
+
+}
+
+
+function validatePresence (value, errors) {
+
+}
+
+function validateIdInSet (value, set, errors) {
+
+}
+
+function validateListIdsInSet (value, set, error) {
+
+}
+
+function validateBoolean (value, error) {
+
+}
+
+function validateDate (value, error) {
+
+}
+
+
 
 const DataLoader = {
 
   // Load the application data from a single remote CSV file
-  loadDataCsv: function (store) {
+  loadDataCsv (store) {
 
     const options = {
       uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-09-13 ERS TEST-joined.csv`,
@@ -166,37 +209,83 @@ const DataLoader = {
     Request(options)
       .then(function (response) {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
-        store.dispatch(DataLoadedCreator(data))
 
-        let state = store.getState()
-        const categories = DefaultCategoryComputations.initialState(state.data)
-        store.dispatch(SetInitialCategoryStateCreator(categories))
-
-        state = store.getState()
-        const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
-
-
-        store.dispatch(SetFromRouterStateCreator({
-          columns: routerState.columns,
-          categories: routerState.categories,
-          showEmptyCategories: routerState.showEmptyCategories,
-          pinnedIncidents: routerState.pinnedIncidents,
-          selectedIncident: routerState.selectedIncident,
-          language: routerState.language,
-        }))
-
-
-
+        afterLoad(store, data)
 
       })
       .catch(function (error) {
         throw error
       })
 
+  },
+
+
+  // Load the application data from the data service.
+  loadFromDataService (store) {
+
+    const options = {
+      uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/data-dummy.json`,
+      json: true
+    }
+
+    Request(options)
+      .then(function (response) {
+
+        const data = [] 
+
+        for (const incident of response.body) {
+
+          const errors = []
+
+          const incidentRecord = {
+            incidentNumber: incident.incidentNumber,
+            incidentTypes: // TODO: parse + validate list
+            reportedDate: Moment(incident.reportedDate), // TODO: validate date format
+            nearestPopulatedCentre: incident.nearestPopulatedCentre
+            province: incident.province, // TODO: validate ID
+            company: incident.company, // TODO: validate ID ... special!
+            // companyName: incident.companyName
+            status: incident.status, // TODO: validate ID
+            latitude: incident.latitude,
+            longitude: incident.longitude,
+            affectsCompanyProperty: incident.affectsCompanyProperty
+            offCompanyProperty: incident.offCompanyProperty
+            affectsPipelineRightOfWay: incident.affectsPipelineRightOfWay
+            affectsOffPipelineRightOfWay: incident.affectsOffPipelineRightOfWay
+            approximateVolumeReleased: 
+            // volumeCategory: incident.volumeCategory // TODO: validate ID
+            substance: incident.substance // TODO: validate ID
+            releaseType: incident.releaseType // TODO: validate ID
+            year: // TODO: is this in the provided data or what?
+            whatHappened: // TODO: parse + validate list
+            whyItHappened: // TODO: parse + validate list
+            pipelinePhase: incident.pipelinePhase // TODO: validate ID
+            werePipelineSystemComponentsInvolved: // TODO: will it be yes/no, t/f, 0,1, what? 
+            pipelineSystemComponentsInvolved: // TODO: parse + validate list
+          }
+
+          if(errors.length > 0) {
+            console.warn('Incident record with errors:', incident, errors)
+          }
+          else {
+            data.push(incidentRecord)
+          }
+
+        })
+
+        return data
+
+        // afterLoad(store, Immutable.fromJS(data))
+
+      })
+      .catch(function (error) {
+        throw error
+      })
+
+
+    
   }
 
-  // TODO: in the future, other loader functions will be present for the NEB
-  // data service.
 
 }
 
@@ -211,7 +300,7 @@ const DataLoader = {
 
 
 
-
+window.dl = DataLoader
 
 
 module.exports = DataLoader
