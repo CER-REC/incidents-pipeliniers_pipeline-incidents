@@ -129,7 +129,7 @@ class SocialBar extends React.Component {
           xlinkHref='images/download_image.svg'
           className="socialBar"
           onClick = {downloadImageClick}></image>
-        <a href='https://google.ca' target="_blank">
+        <a href='google.html' download>
           <image 
             height = {iconSize} 
             width = {iconSize} 
