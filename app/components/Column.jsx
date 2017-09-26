@@ -482,19 +482,24 @@ class Column extends React.Component {
       return <svg> 
         <style type="text/css" dangerouslySetInnerHTML={{__html: `
           <![CDATA[
-            .sidebah:hover {
-              filter: url(#filtah);
+            .sidebar:hover {
+              filter: url(#filter);
             }
           ]]>
           `}}/>
         <defs>
-          <filter id='filtah'>
-            <feDropShadow dx="-1" dy="2" stdDeviation="4"/>
+          <filter id='filter'>
+            <feOffset result="offOut" in="SourceGraphic" dx="-1" dy="2"></feOffset>
+            <feColorMatrix result="matrixOut" in="offOut" type="matrix"
+              values="0 0 0 0 0 
+                      0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 0.2 0" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal"></feBlend>
           </filter>
         </defs>
-
         <g
-          className="sidebah"
+          className="sidebar"
           transform={this.sidebarColumnTransform()}
           id={this.props.columnName}
           onMouseDown={this.handleSidebarDragStart.bind(this)}
