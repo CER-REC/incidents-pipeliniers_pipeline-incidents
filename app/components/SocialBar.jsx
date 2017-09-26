@@ -52,12 +52,12 @@ function twitterClick() {
   })
 }
 
-function downloadFileClick() {
-  console.log('download file clicked')
-}
-
 function downloadImageClick() {
   console.log('download image clicked')
+}
+
+function downloadFileClick() {
+  console.log('download file clicked')
 }
 
 class SocialBar extends React.Component {
@@ -129,13 +129,15 @@ class SocialBar extends React.Component {
           xlinkHref='images/download_image.svg'
           className="socialBar"
           onClick = {downloadImageClick}></image>
-        <image 
-          height = {iconSize} 
-          width = {iconSize} 
-          y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
-          xlinkHref='images/download_file.svg'
-          className="socialBar"
-          onClick = {downloadFileClick}></image>
+        <a href='https://google.ca' target="_blank">
+          <image 
+            height = {iconSize} 
+            width = {iconSize} 
+            y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
+            xlinkHref='images/download_file.svg'
+            className="socialBar"
+            onClick = {downloadFileClick}></image>
+        </a>
       </g>
     </g>
   }
