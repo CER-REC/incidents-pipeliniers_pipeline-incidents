@@ -26,7 +26,7 @@ class Header extends React.Component {
       y = {27}
       x ={Constants.getIn(['workspace', 'maxWidth']) - 24}
       onClick = { this.resetAllClick.bind(this) }
-      xlinkHref='images/reset_button.svg'
+      xlinkHref='images/reset_button-white.svg'
     ></image>
   }
 
