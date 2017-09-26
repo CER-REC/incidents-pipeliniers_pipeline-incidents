@@ -81,26 +81,49 @@ class Filterbox extends React.Component {
 
 
   dragButton() {
-    return <g className='filterBoxButton'>
-      <rect
-        className='filterBoxRect'
-        x = { Constants.getIn(['filterbox', 'filterButtonWidth']) }
-        y = '0'
-        width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
-        height = { this.buttonHeight() }
-      />
-      <image 
-        xlinkHref='images/vertical_drag.svg' 
-        className = 'verticalDrag'
-        x = { Constants.getIn(['filterbox', 'filterButtonWidth']) + Constants.getIn(['filterbox', 'dragIconHorizontalOffset']) }
-        y = '0'
-        width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
-        height = { this.buttonHeight() }
-        onMouseDown={this.handleDragStart.bind(this)}
-        onMouseMove={this.handleDragMove.bind(this)}
-        onMouseUp={this.handleDragEnd.bind(this)}
-      />
-    </g> 
+    if(this.props.language === 'en') {
+      return <g className='filterBoxButton'>
+        <rect
+          className='filterBoxRect'
+          x = { Constants.getIn(['filterbox', 'filterButtonWidth']) }
+          y = '0'
+          width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
+          height = { this.buttonHeight() }
+        />
+        <image 
+          xlinkHref='images/vertical_drag.svg' 
+          className = 'verticalDrag'
+          x = { Constants.getIn(['filterbox', 'filterButtonWidth']) + Constants.getIn(['filterbox', 'dragIconHorizontalOffset']) }
+          y = '0'
+          width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
+          height = { this.buttonHeight() }
+          onMouseDown={this.handleDragStart.bind(this)}
+          onMouseMove={this.handleDragMove.bind(this)}
+          onMouseUp={this.handleDragEnd.bind(this)}
+        />
+      </g> 
+    } else if(this.props.language === 'fr') {
+      return <g className='filterBoxButton'>
+        <rect
+          className='filterBoxRect'
+          x = {100}
+          y = '0'
+          width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
+          height = { this.buttonHeight() }
+        />
+        <image 
+          xlinkHref='images/vertical_drag.svg' 
+          className = 'verticalDrag'
+          x = { 100 + Constants.getIn(['filterbox', 'dragIconHorizontalOffset']) }
+          y = '0'
+          width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
+          height = { this.buttonHeight() }
+          onMouseDown={this.handleDragStart.bind(this)}
+          onMouseMove={this.handleDragMove.bind(this)}
+          onMouseUp={this.handleDragEnd.bind(this)}
+        />
+      </g> 
+    }
   }
 
   handleDragStart(e) {
