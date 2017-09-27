@@ -470,118 +470,156 @@
 
   "company": {
     "3005": { 
-      "name": "Cochin Pipe Lines Ltd."
+      "en": "Cochin Pipe Lines Ltd.",
+      "fr": "Cochin Pipe Lines Ltd."
     },
     "3044": { 
-      "name": "Foothills Pipe Lines Ltd."
+      "en": "Foothills Pipe Lines Ltd.",
+      "fr": "Foothills Pipe Lines Ltd."
     },
     "3050": { 
-      "name": "Foothills Pipe Lines (Saskatchewan) Ltd."
+      "en": "Foothills Pipe Lines (Saskatchewan) Ltd.",
+      "fr": "Foothills Pipe Lines (Saskatchewan) Ltd."
     },
     "3079": { 
-      "name": "Many Islands Pipe Lines (Canada) Limited"
+      "en": "Many Islands Pipe Lines (Canada) Limited",
+      "fr": "Many Islands Pipe Lines (Canada) Limited"
     },
     "3089": { 
-      "name": "Niagara Gas Transmission Limited"
+      "en": "Niagara Gas Transmission Limited",
+      "fr": "Niagara Gas Transmission Limited"
     },
     "3137": { 
-      "name": "TransCanada PipeLines Limited"
+      "en": "TransCanada PipeLines Limited",
+      "fr": "TransCanada PipeLines Limited"
     },
     "3138": { 
-      "name": "Trans-Northern Pipelines Inc."
+      "en": "Trans-Northern Pipelines Inc.",
+      "fr": "Trans-Northern Pipelines Inc."
     },
     "3162": { 
-      "name": "Westcoast Energy Inc., carrying on business as Spectra Energy Transmission"
+      "en": "Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",
+      "fr": "Westcoast Energy Inc., carrying on business as Spectra Energy Transmission"
     },
     "3177": { 
-      "name": "Ethane Shippers Joint Venture"
+      "en": "Ethane Shippers Joint Venture",
+      "fr": "Ethane Shippers Joint Venture"
     },
     "3250": { 
-      "name": "Centra Transmission Holdings Inc."
+      "en": "Centra Transmission Holdings Inc.",
+      "fr": "Centra Transmission Holdings Inc."
     },
     "3276": { 
-      "name": "Express Pipeline Ltd."
+      "en": "Express Pipeline Ltd.",
+      "fr": "Express Pipeline Ltd."
     },
     "3289": { 
-      "name": "NOVA Chemicals (Canada) Ltd."
+      "en": "NOVA Chemicals (Canada) Ltd.",
+      "fr": "NOVA Chemicals (Canada) Ltd."
     },
     "3351": { 
-      "name": "Maritimes & Northeast Pipeline Management Ltd."
+      "en": "Maritimes & Northeast Pipeline Management Ltd.",
+      "fr": "Maritimes & Northeast Pipeline Management Ltd."
     },
     "3366": { 
-      "name": "Alliance Pipeline Ltd."
+      "en": "Alliance Pipeline Ltd.",
+      "fr": "Alliance Pipeline Ltd."
     },
     "3415": { 
-      "name": "Enbridge Pipelines Inc."
+      "en": "Enbridge Pipelines Inc.",
+      "fr": "Enbridge Pipelines Inc."
     },
     "3416": { 
-      "name": "Enbridge Pipelines (NW) Inc."
+      "en": "Enbridge Pipelines (NW) Inc.",
+      "fr": "Enbridge Pipelines (NW) Inc."
     },
     "3417": { 
-      "name": "Enbridge Pipelines (Westspur) Inc."
+      "en": "Enbridge Pipelines (Westspur) Inc.",
+      "fr": "Enbridge Pipelines (Westspur) Inc."
     },
     "3464": { 
-      "name": "TransCanada PipeLines Limited B.C. System"
+      "en": "TransCanada PipeLines Limited B.C. System",
+      "fr": "TransCanada PipeLines Limited B.C. System"
     },
     "3505": { 
-      "name": "Plains Marketing Canada, L.P."
+      "en": "Plains Marketing Canada, L.P.",
+      "fr": "Plains Marketing Canada, L.P."
     },
     "4405": { 
-      "name": "ExxonMobil Canada Properties"
+      "en": "ExxonMobil Canada Properties",
+      "fr": "ExxonMobil Canada Properties"
     },
     "4909": { 
-      "name": "NOVA Gas Transmission Ltd."
+      "en": "NOVA Gas Transmission Ltd.",
+      "fr": "NOVA Gas Transmission Ltd."
     },
     "5129": { 
-      "name": "Husky Oil Limited"
+      "en": "Husky Oil Limited",
+      "fr": "Husky Oil Limited"
     },
     "5137": { 
-      "name": "EnCana Corporation"
+      "en": "EnCana Corporation",
+      "fr": "EnCana Corporation"
     },
     "5142": { 
-      "name": "Provident Energy Pipeline Inc."
+      "en": "Provident Energy Pipeline Inc.",
+      "fr": "Provident Energy Pipeline Inc."
     },
     "5192": { 
-      "name": "Burlington Resources Canada (Hunter) Ltd."
+      "en": "Burlington Resources Canada (Hunter) Ltd.",
+      "fr": "Burlington Resources Canada (Hunter) Ltd."
     },
     "5201": { 
-      "name": "Emera Brunswick Pipeline Company Ltd."
+      "en": "Emera Brunswick Pipeline Company Ltd.",
+      "fr": "Emera Brunswick Pipeline Company Ltd."
     },
     "5203": { 
-      "name": "TransCanada Keystone Pipeline GP Ltd."
+      "en": "TransCanada Keystone Pipeline GP Ltd.",
+      "fr": "TransCanada Keystone Pipeline GP Ltd."
     },
     "5222": { 
-      "name": "Spectra Energy Empress Management Inc. as General Partner and agent for Spectra Energy Empress L.P."
+      "en": "Spectra Energy Empress Management Inc. as General Partner and agent for Spectra Energy Empress L.P.",
+      "fr": "Spectra Energy Empress Management Inc. as General Partner and agent for Spectra Energy Empress L.P."
     },
     "5228": { 
-      "name": "Trans Mountain Pipeline Inc."
+      "en": "Trans Mountain Pipeline Inc.",
+      "fr": "Trans Mountain Pipeline Inc."
     },
     "5235": { 
-      "name": "Kinder Morgan Cochin ULC"
+      "en": "Kinder Morgan Cochin ULC",
+      "fr": "Kinder Morgan Cochin ULC"
     },
     "5844": { 
-      "name": "2193914 Canada Limited"
+      "en": "2193914 Canada Limited",
+      "fr": "2193914 Canada Limited"
     },
     "5874": { 
-      "name": "Trans Mountain Pipeline ULC"
+      "en": "Trans Mountain Pipeline ULC",
+      "fr": "Trans Mountain Pipeline ULC"
     },
     "5946": { 
-      "name": "Twin Rivers Paper Company Inc."
+      "en": "Twin Rivers Paper Company Inc.",
+      "fr": "Twin Rivers Paper Company Inc."
     },
     "5967": { 
-      "name": "Plains Midstream Canada ULC"
+      "en": "Plains Midstream Canada ULC",
+      "fr": "Plains Midstream Canada ULC"
     },
     "6123": { 
-      "name": "Tundra Energy Marketing Limited"
+      "en": "Tundra Energy Marketing Limited",
+      "fr": "Tundra Energy Marketing Limited"
     },
     "6192": { 
-      "name": "Pembina Energy Services Inc."
+      "en": "Pembina Energy Services Inc.",
+      "fr": "Pembina Energy Services Inc."
     },
     "6353": { 
-      "name": "Pembina Prairie Facilities Ltd."
+      "en": "Pembina Prairie Facilities Ltd.",
+      "fr": "Pembina Prairie Facilities Ltd."
     },
     "6468": { 
-      "name": "Enbridge G and P Canada Pipelines Inc."
+      "en": "Enbridge G and P Canada Pipelines Inc.",
+      "fr": "Enbridge G and P Canada Pipelines Inc."
     }
   }
 

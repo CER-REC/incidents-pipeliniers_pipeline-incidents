@@ -108,7 +108,8 @@ const mapStateToProps = state => {
     selectedIncident: state.selectedIncident,
     pinnedIncidents: state.pinnedIncidents, 
     filterboxActivationState: state.filterboxActivationState,
-    categoryHoverState: state.categoryHoverState
+    categoryHoverState: state.categoryHoverState,
+    schema: state.schema,
   }
 }
 

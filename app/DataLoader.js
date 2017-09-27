@@ -12,7 +12,6 @@ const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCr
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
 
-
 function parseYesNo (value, record) {
   if (value === 'Yes' || value === 'yes' || value === '1') {
     return true
@@ -159,7 +158,7 @@ function afterLoad (store, data) {
   store.dispatch(DataLoadedCreator(data))
 
   let state = store.getState()
-  const categories = DefaultCategoryComputations.initialState(state.data)
+  const categories = DefaultCategoryComputations.initialState(state.data, state.schema)
   store.dispatch(SetInitialCategoryStateCreator(categories))
 
   state = store.getState()
@@ -401,9 +400,7 @@ const DataLoader = {
 
         }
 
-        return incidents
-
-        // afterLoad(store, Immutable.fromJS(data))
+        afterLoad(store, Immutable.fromJS(incidents))
 
       })
       .catch(function (error) {
