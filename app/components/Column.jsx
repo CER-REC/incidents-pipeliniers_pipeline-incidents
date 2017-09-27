@@ -480,16 +480,9 @@ class Column extends React.Component {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
       return <svg> 
-        <style type="text/css" dangerouslySetInnerHTML={{__html: `
-          <![CDATA[
-            .sidebar:hover {
-              filter: url(#dropshadow);
-            }
-          ]]>
-          `}}/>
         <defs>
           <filter id='dropshadow'>
-            <feOffset result="offOut" in="SourceGraphic" dx="-1" dy="2"></feOffset>
+            <feOffset result="offOut" in="SourceGraphic" dx={Constants.getIn(['sidebar','dropShadowX'])} dy={Constants.getIn(['sidebar','dropShadowY'])}></feOffset>
             <feColorMatrix result="matrixOut" in="offOut" type="matrix"
               values="0 0 0 0 0 
                       0 0 0 0 0

@@ -137,6 +137,9 @@ const Constants = Immutable.fromJS({
     labelHeight: 35,
 
     columnHoverOffset: -3,
+
+    dropShadowX: -1,
+    dropShadowY: 2,
   },
 
   columnPaths: {
