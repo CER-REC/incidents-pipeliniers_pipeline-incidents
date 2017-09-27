@@ -56,12 +56,6 @@ class FilterboxButton extends React.Component {
 const mapStateToProps = state => {
   return {
     language: state.language,
-    categories: state.categories,
-    data: state.data, 
-    columns: state.columns,
-    categoryDragStatus: state.categoryDragStatus,
-    showEmptyCategories: state.showEmptyCategories,
-    viewport: state.viewport,
   }
 }
 

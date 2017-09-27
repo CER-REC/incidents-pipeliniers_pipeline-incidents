@@ -78,20 +78,11 @@ class Filterbox extends React.Component {
     return buttons
   }
 
-  filterBoxWidthX() {
-    if(this.props.language === 'en') {
-      return Constants.getIn(['filterbox', 'filterButtonWidth']) 
-    }
-    if(this.props.language === 'fr') {
-      return Constants.getIn(['filterbox', 'filterButtonWidthFr'])
-    }
-  }
-
   dragButton() {
     return <g className='filterBoxButton'>
       <rect
         className='filterBoxRect'
-        x = { this.filterBoxWidthX()}
+        x = { this.FilterboxButton(this.filterBoxWidth()) }
         y = '0'
         width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
         height = { this.buttonHeight() }
