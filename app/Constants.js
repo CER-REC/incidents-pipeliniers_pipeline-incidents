@@ -41,6 +41,8 @@ const Constants = Immutable.fromJS({
     fontSize: 12,
     checkboxPadding: 2,
     checkboxWidth: 1,
+    dividerLineLength: 124,
+    dividerLinePadding: -17,
   },
 
   pinColumn: {

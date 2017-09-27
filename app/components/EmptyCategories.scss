@@ -1,0 +1,8 @@
+@import "../styles/Colours.scss";
+
+.dividerLine {
+  stroke: $near-black;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+
