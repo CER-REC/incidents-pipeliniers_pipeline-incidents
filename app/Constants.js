@@ -45,6 +45,7 @@ const Constants = Immutable.fromJS({
     dividerLinePadding: -17,
   },
 
+  //incident list
   pinColumn: {
     horizontalMargins: 11, // both left and right
     width: 132,
@@ -52,6 +53,7 @@ const Constants = Immutable.fromJS({
     textWidth: 79,
     connectorDotSize: 6,
     connectorLength: 5,
+    labelIconSize: 15,
   },
 
   incidentPopover: {

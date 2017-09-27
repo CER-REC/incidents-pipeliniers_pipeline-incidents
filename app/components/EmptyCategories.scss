@@ -1,7 +1,7 @@
 @import "../styles/Colours.scss";
 
 .dividerLine {
-  stroke: $near-black;
+  stroke: $popoverStroke;
   stroke-width: 1px;
   shape-rendering: crispEdges;
 }

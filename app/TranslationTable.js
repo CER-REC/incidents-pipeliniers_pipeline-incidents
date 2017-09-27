@@ -88,13 +88,23 @@ const TranslationTable = Immutable.fromJS({
   },
 
   seeEmptyCategories: {
-    en: 'See empty categories',
+    en: 'see empty categories',
     fr: 'Voir les catégories vides',
   },
   hideEmptyCategories: {
-    en: 'Hide empty categories',
+    en: 'hide empty categories',
     fr: 'Cacher les catégories vides',
   },
+
+  showIncidentList: {
+    en: 'show incident list',
+    fr: 'TODO',
+  },
+  hideIncidentList: {
+    en: 'hide incident list',
+    fr: 'TODO',
+  },
+
 
 
   categories: {
