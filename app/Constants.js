@@ -34,11 +34,13 @@ const Constants = Immutable.fromJS({
 
   showHideEmptyCategories: {
     xShowImage: 10,
-    yShowImage: 10,
+    yShowImage: 8,
     xShowText: 20,
-    showHideIconHeight: 15,
-    showHideIconWidth: 15,
+    showHideIconHeight: 11,
+    showHideIconWidth: 11,
     fontSize: 12,
+    checkboxPadding: 2,
+    checkboxWidth: 1,
   },
 
   pinColumn: {
