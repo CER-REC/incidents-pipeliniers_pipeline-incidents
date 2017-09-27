@@ -2,6 +2,7 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
+const FilterboxComputations = require('../FilterboxComputations.js')
 
 class FilterboxButton extends React.Component {
 
@@ -16,7 +17,7 @@ class FilterboxButton extends React.Component {
         className = 'filterBoxRect'
         x = '0'
         y = '0'
-        width = { this.filterBoxWidth() }
+        width = { FilterboxComputations.boxWidth(this.props.language) }
         height = { Constants.getIn(['filterbox', 'filterButtonHeight']) }
       />
       <image 

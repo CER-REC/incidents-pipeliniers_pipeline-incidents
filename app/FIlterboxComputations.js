@@ -67,11 +67,11 @@ const FilterboxComputations = {
     return count
   },
 
-  filterBoxWidth() {
-    if(this.props.language === 'en') {
+  boxWidth(language) {
+    if(language === 'en') {
       return Constants.getIn(['filterbox', 'filterButtonWidth']) 
     }
-    if(this.props.language === 'fr') {
+    if(language === 'fr') {
       return Constants.getIn(['filterbox', 'filterButtonWidthFr'])
     }
   },
