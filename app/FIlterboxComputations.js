@@ -2,6 +2,8 @@ const MemoizeImmutable = require('memoize-immutable')
 
 const CategoryComputations = require('./CategoryComputations.js')
 
+const Constants = require('./Constants.js')
+
 const FilterboxComputations = {
 
   showShowOnlyButton(data, columns, categories, columnName) {
@@ -65,6 +67,14 @@ const FilterboxComputations = {
     return count
   },
 
+  filterBoxWidth() {
+    if(this.props.language === 'en') {
+      return Constants.getIn(['filterbox', 'filterButtonWidth']) 
+    }
+    if(this.props.language === 'fr') {
+      return Constants.getIn(['filterbox', 'filterButtonWidthFr'])
+    }
+  },
 
 }
 

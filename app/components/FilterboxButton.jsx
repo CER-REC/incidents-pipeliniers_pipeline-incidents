@@ -5,15 +5,6 @@ const Constants = require('../Constants.js')
 
 class FilterboxButton extends React.Component {
 
-  filterBoxWidth() {
-    if(this.props.language === 'en') {
-      return Constants.getIn(['filterbox', 'filterButtonWidth']) 
-    }
-    if(this.props.language === 'fr') {
-      return Constants.getIn(['filterbox', 'filterButtonWidthFr'])
-    }
-  }
-
   render() {
     const transform = `translate(${this.props.x}, ${this.props.y})`
     return <g

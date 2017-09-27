@@ -82,7 +82,7 @@ class Filterbox extends React.Component {
     return <g className='filterBoxButton'>
       <rect
         className='filterBoxRect'
-        x = { this.FilterboxButton(this.filterBoxWidth()) }
+        x = { FilterboxButton(this.filterBoxWidth()) }
         y = '0'
         width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
         height = { this.buttonHeight() }
