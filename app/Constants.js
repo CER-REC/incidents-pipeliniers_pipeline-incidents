@@ -27,7 +27,7 @@ const Constants = Immutable.fromJS({
   topBar: {
     headerIconWidth: 18,
     headerIconHeight: 20,
-    width: 550,
+    width: 860,
     height: 100,
     xHeading: 35,
     yHeading: 18,
@@ -84,10 +84,16 @@ const Constants = Immutable.fromJS({
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 40,
 
+  columnHeadingSpacing: 10,
+
   dragArrow: {
     width: 24,
     height: 10,
     topMargin: 7,
+  },
+
+  headerBar: {
+    height: 47,
   },
 
   socialBar: {
@@ -282,9 +288,11 @@ const Constants = Immutable.fromJS({
   maxCategoryLabelLines: 3,
   categoryLabelTerminatingDots: 3,
   categoryLabelLineLength: 14,
-  categoryStrokeWidth: 1,
   categoryDefaultOpacity: 1,
-  categoryFadeOpacity: 0.2,
+  categoryFadeOpacity: 0.4,
+  categoryStrokeWidth: 1,
+  categoryDefaultStrokeColour: '#ffffff',
+  categoryHoverStrokeColour: '#000000',
 
 
   selectedIncidentPath: {
@@ -301,6 +309,10 @@ const Constants = Immutable.fromJS({
   },
 
   pathCurveControlFactor: 2.5,
+
+  nearBlack: '#333333',
+
+  emptyCategoryLabelFudgeFactor: 8,
 
 })
 

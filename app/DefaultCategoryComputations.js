@@ -99,8 +99,8 @@ const DefaultCategoryComputations = {
       switch(columnName){
 
       case 'incidentTypes':
-      case 'status':
-      case 'province':
+      case 'status': 
+      case 'province': 
       case 'substance':
       case 'releaseType':
       case 'whatHappened':

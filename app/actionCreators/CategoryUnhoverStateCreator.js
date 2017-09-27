@@ -1,7 +1,7 @@
-function CategorUnhoverStateCreator () {
+function CategoryUnhoverStateCreator () {
   return {
     type: 'CategoryUnhoverState',
   }
 }
 
-module.exports = CategorUnhoverStateCreator
+module.exports = CategoryUnhoverStateCreator

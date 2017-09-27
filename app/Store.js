@@ -18,6 +18,7 @@ const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationS
 const HistoryReducer = require('./reducers/HistoryReducer.js')
 const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
 const SchemaReducer = require('./reducers/SchemaReducer.js')
+const IncidentListScrollPositionReducer = require('./reducers/IncidentListScrollPositionReducer.js')
 
 const RouterMiddleware = require('./RouterMiddleware.js')
 
@@ -39,6 +40,7 @@ const reducers = Redux.combineReducers({
   categoryDragStatus: CategoryDragReducer,
   history: HistoryReducer,
   schema: SchemaReducer,
+  incidentListScrollPosition: IncidentListScrollPositionReducer,
 })
 
 module.exports = function () {
