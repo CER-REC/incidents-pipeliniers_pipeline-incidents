@@ -34,7 +34,6 @@ let sidebarWindowEndHandler = null
 
 require('./Column.scss')
 
-
 class Column extends React.Component {
   // Specifically: non-empty AND visible categories
   nonEmptyCategories() {
@@ -477,23 +476,38 @@ class Column extends React.Component {
     })
   }
 
-
   render() {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
-      return <g 
-        transform={this.sidebarColumnTransform()}
-        id={this.props.columnName}
-        onMouseDown={this.handleSidebarDragStart.bind(this)}
-        onMouseMove={this.handleSidebarDragMove.bind(this)}
-        onMouseUp={this.handleSidebarDragEnd.bind(this)}
-        onMouseEnter={this.handleMouseEnter.bind(this)}
-        onMouseLeave={this.handleMouseLeave.bind(this)}>
-        {this.sideBarColumn()}
-        <text>
-          {this.sidebarHeading()}
-        </text>
-      </g>
+      return <svg> 
+        <defs>
+          <filter id='dropshadow'>
+            <feOffset result="offOut" in="SourceGraphic" dx={Constants.getIn(['sidebar','dropShadowX'])} dy={Constants.getIn(['sidebar','dropShadowY'])}></feOffset>
+            <feColorMatrix result="matrixOut" in="offOut" type="matrix"
+              values="0 0 0 0 0 
+                      0 0 0 0 0
+                      0 0 0 0 0
+                      0 0 0 0.2 0" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal"></feBlend>
+          </filter>
+        </defs>
+        <g
+          className="sidebar"
+          transform={this.sidebarColumnTransform()}
+          id={this.props.columnName}
+          onMouseDown={this.handleSidebarDragStart.bind(this)}
+          onMouseMove={this.handleSidebarDragMove.bind(this)}
+          onMouseUp={this.handleSidebarDragEnd.bind(this)}
+          onMouseEnter={this.handleMouseEnter.bind(this)}
+          onMouseLeave={this.handleMouseLeave.bind(this)}>
+          {this.sideBarColumn()}
+        </g>
+        <g>
+          <text>
+            { this.sidebarHeading() }
+          </text>
+        </g>
+      </svg>
     }
     case Constants.getIn(['columnTypes', 'WORKSPACE']):
     default: {

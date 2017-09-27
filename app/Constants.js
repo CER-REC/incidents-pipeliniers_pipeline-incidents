@@ -141,6 +141,9 @@ const Constants = Immutable.fromJS({
     labelHeight: 35,
 
     columnHoverOffset: -3,
+
+    dropShadowX: -1,
+    dropShadowY: 2,
   },
 
   columnPaths: {
@@ -285,6 +288,7 @@ const Constants = Immutable.fromJS({
   categoryStrokeWidth: 1,
   categoryDefaultStrokeColour: '#ffffff',
   categoryHoverStrokeColour: '#000000',
+
 
 
   selectedIncidentPath: {
