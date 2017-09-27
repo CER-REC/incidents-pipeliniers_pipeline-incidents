@@ -19,7 +19,7 @@ class IncidentListShowHide extends React.Component {
 
     if (this.props.showEmptyCategories) {
       return <image 
-        x = '-7'
+        x = { Constants.getIn(['pinColumn', 'labelIconPadding']) }
         height = {height} 
         width = {width} 
         transform = {transformShowImage} 
@@ -27,7 +27,7 @@ class IncidentListShowHide extends React.Component {
         transform='rotate(90 10,5)'></image>
     } else {
       return <image 
-        x = '-7'
+        x = { Constants.getIn(['pinColumn', 'labelIconPadding']) }
         height = {height} 
         width = {width} 
         transform = {transformShowImage} 
@@ -53,7 +53,7 @@ class IncidentListShowHide extends React.Component {
 
   render() {
     // this with the drag arrows. 
-    const yTransform = WorkspaceComputations.dragArrowY(this.props.viewport) - 15
+    const yTransform = WorkspaceComputations.dragArrowY(this.props.viewport) - Constants.getIn(['pinColumn', 'labelPadding'])
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
     return ( 
