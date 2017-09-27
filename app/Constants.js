@@ -19,7 +19,7 @@ const Constants = Immutable.fromJS({
   topBar: {
     headerIconWidth: 18,
     headerIconHeight: 20,
-    width: 550,
+    width: 860,
     height: 100,
     xHeading: 35,
     yHeading: 18,
@@ -84,6 +84,10 @@ const Constants = Immutable.fromJS({
     topMargin: 7,
   },
 
+  headerBar: {
+    height: 47,
+  },
+
   socialBar: {
     width: 23, 
     height: 148,
@@ -139,6 +143,10 @@ const Constants = Immutable.fromJS({
     columnHoverOffset: -3,
 
     maxLineLength: 15,
+
+    dropShadowX: -1,
+    dropShadowY: 2,
+
   },
 
   columnPaths: {
@@ -284,6 +292,7 @@ const Constants = Immutable.fromJS({
   categoryStrokeWidth: 1,
   categoryDefaultStrokeColour: '#ffffff',
   categoryHoverStrokeColour: '#000000',
+
 
 
   selectedIncidentPath: {
