@@ -17,6 +17,7 @@ const IncidentDragStateReducer = require('./reducers/IncidentDragStateReducer.js
 const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationStateReducer.js')
 const HistoryReducer = require('./reducers/HistoryReducer.js')
 const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
+const SchemaReducer = require('./reducers/SchemaReducer.js')
 
 const RouterMiddleware = require('./RouterMiddleware.js')
 
@@ -37,6 +38,7 @@ const reducers = Redux.combineReducers({
   filterboxActivationState: FilterboxActivationStateReducer,
   categoryDragStatus: CategoryDragReducer,
   history: HistoryReducer,
+  schema: SchemaReducer,
 })
 
 module.exports = function () {

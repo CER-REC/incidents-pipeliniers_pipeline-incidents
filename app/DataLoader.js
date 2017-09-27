@@ -1,6 +1,8 @@
 const Request = require('client-request/promise')
 const D3 = require('d3')
 const Moment = require('moment')
+const Immutable = require('immutable')
+const Promise = require('bluebird')
 
 const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
 const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
@@ -8,7 +10,7 @@ const CategoryConstants = require('./CategoryConstants.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
-
+const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
 
 
 function parseYesNo (value, record) {
@@ -175,37 +177,112 @@ function afterLoad (store, data) {
 }
 
 
-function validatePresence (name, record, errors) {
 
-  if (record[name] === undefined || record[name] === null) {
-    errors.push({message: `Absent value for ${name}.`, record: record})
+
+
+function validatePresence (name, incident, errors) {
+  if (incident[name] === undefined || incident[name] === null) {
+    errors.push({message: `Absent value for ${name}.`, incident: incident})
   }
   else {
-    return record[name]
+    return incident[name]
   }
-
 }
 
-function validateIdInSet (name, record, set, errors) {
-
-}
-
-function validateListIdsInSet (name, record, set, error) {
-
-}
-
-function validateBoolean (name, record, error) {
-
-  if (record[name] === true || record[name] === false) {
-    return record[name]
+function validateNumeric (name, incident, errors) {
+  const numericData = parseFloat(incident[name])
+  
+  if (isNaN(numericData)) {
+    errors.push({message: `Bad numeric value for ${name}.`, incident: incident})
   }
   else {
-    errors.push({message: `Non-boolean value for ${name}`, record: record})
+    return numericData
   }
-
 }
 
-function validateDate (name, record, error) {
+function validateIdInSet (name, incident, set, errors) {
+  if (set.get(incident[name]) === undefined) {
+    errors.push({message: `Value for ${name} not in schema.`, incident: incident})
+  }
+  else {
+    return incident[name]
+  }
+}
+
+function validateListIdsInSet (name, incident, set, errors) {
+  let items
+  try {
+    items = incident[name].split(',')
+  }
+  catch (e) {
+    errors.push({message: `Absent value for ${name}`, incident: incident})
+    return
+  }
+
+  for (const item of items) {
+    if (set.get(item) === undefined) {
+      errors.push({message: `List value ${item} for ${name} not in schema.`, incident: incident})
+      return
+    }
+  }
+
+  return items
+}
+
+function validateBoolean (name, incident, errors) {
+  if (incident[name] === true || incident[name] === false) {
+    return incident[name]
+  }
+  else {
+    errors.push({message: `Non-boolean value for ${name}`, incident: incident})
+  }
+}
+
+function validateDate (name, incident, errors) {
+  const date = Moment(incident[name])
+
+  if (date.isValid()) {
+    return date
+  } 
+  else {
+    errors.push({message: `Bad date value for ${name}`, incident: incident})
+  }
+}
+
+function validateVolumeCategory(incident, errors) {
+
+  const volumeString = incident.ApproximateVolumeM3
+
+  if (volumeString === 'Not Applicable') {
+    return '1'
+  }
+  else if (volumeString === 'Not Provided') {
+    return '2'
+  }
+
+  const volume = parseFloat(volumeString)
+  
+  if (isNaN(volume) || volume < 0) {
+    errors.push({message: 'Bad numeric volume', incident: incident})
+    return
+  }
+
+  if (volume < 1) {
+    // 'Less Than 1 m³'
+    return '3'
+  }
+  else if (volume < 1000) {
+    // '1 m³ to 1,000 m³'
+    return '4'
+  } 
+  else if (volume < 1000000) {
+    // '1,000 m³ to 1,000,000 m³'
+    return '5'
+  }
+  else {
+    // 'More than 1,000,000 m³'
+    return '6'
+  }
 
 }
 
@@ -216,8 +293,10 @@ const DataLoader = {
   // Load the application data from a single remote CSV file
   loadDataCsv (store) {
 
+    const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
+
     const options = {
-      uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-09-13 ERS TEST-joined.csv`,
+      uri: `${appRoot}data/2017-09-13 ERS TEST-joined.csv`,
     }
 
     Request(options)
@@ -237,69 +316,98 @@ const DataLoader = {
   // Load the application data from the data service.
   loadFromDataService (store) {
 
-    const options = {
-      uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}data/data-dummy.json`,
+    const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
+
+    const schemaOptions = {
+      uri: `${appRoot}data/CategorySchema.json`,
       json: true
     }
 
-    Request(options)
-      .then(function (response) {
+    const schemaPromise = Request(schemaOptions)
+      .then( response => {
+        const schema = Immutable.fromJS(response.body)
+        store.dispatch(SetSchemaCreator(schema))
+        return schema
+      })
 
-        const data = [] 
+    const dataOptions = {
+      // TODO: This should be replaced with the location of the NEB's data
+      // service
+      uri: `${appRoot}data/data-dummy.json`,
+      json: true
+    }
 
-        for (const incident of response.body) {
+    const dataRequest = Request(dataOptions)
+
+    Promise.join(schemaPromise, dataRequest)
+      .then(function ([schema, dataResponse]) {
+
+        const incidents = [] 
+
+        for (const incident of dataResponse.body) {
 
           const errors = []
 
           const incidentRecord = {
-            incidentNumber: incident['Incident Number'],
-            latitude: incident.Latitude,
-            longitude: incident.Longitude,
+            incidentNumber: validatePresence('IncidentNumber', incident, errors),
+            nearestPopulatedCentre: validatePresence('NearestPopulationCenter_EN', incident, errors),
 
-            // TODO: validate numeric ...  
-            approximateVolumeReleased: incident['Approximate Volume Released (m³)']
+            latitude: validateNumeric('Latitude', incident, errors),
+            longitude: validateNumeric('Longitude', incident, errors),
+            approximateVolumeReleased: validateNumeric('ApproximateVolumeM3', incident, errors),
 
-            // TODO: validate yes/no
-            affectsCompanyProperty: incident['Affects Company Property']
-            offCompanyProperty: incident.['Off Company Property']
-            affectsPipelineRightOfWay: incident.['Affects Pipeline right-of-way']
-            affectsOffPipelineRightOfWay: incident.['Affects off Pipeline right-of-way']
-            
-            reportedDate: Moment(incident.ReportedDate), // TODO: validate date format
-            year: incident.ReportedYear
-            incidentTypes: incident.IncidentType_IDs// TODO: parse + validate list
-            status: incident.Status_ID, // TODO: validate ID
-            company: incident.Company_ID, // TODO: validate ID ... special!
-            nearestPopulatedCentre: incident.PopulationCenter_EN
-            province: incident.Province_ID, // TODO: validate ID
-            substance: incident.Substance_ID // TODO: validate ID
-            pipelinePhase: incident.PipelinePhase_ID // TODO: validate ID
-            pipelineSystemComponentsInvolved: incident.PipelineComponent_IDs// TODO: parse + validate list
+            affectsCompanyProperty: validateBoolean('AffectsCompanyProperty', incident, errors),
+            offCompanyProperty: validateBoolean('OffCompanyProperty', incident, errors),
+            affectsPipelineRightOfWay: validateBoolean('AffectsPipelineRightOfWay', incident, errors),
+            affectsOffPipelineRightOfWay: validateBoolean('AffectsOffPipelineRightOfWay', incident, errors),
+
+            reportedDate: validateDate('ReportedDate', incident, errors),
+            year: validatePresence('ReportedYear', incident, errors),
+
+            status: validateIdInSet('Status_ID', incident, schema.get('status'), errors),
+            company: validateIdInSet('Company_ID', incident, schema.get('company'), errors),
+            province: validateIdInSet('Province_ID', incident, schema.get('province'), errors),
+            substance: validateIdInSet('Substance_ID', incident, schema.get('substance'), errors),
+            pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
+
+            incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
+            whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
+            whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
+            pipelineSystemComponentsInvolved: validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
 
 
-            whatHappened: incident.WhatHappened_IDs// TODO: parse + validate list
-            whyItHappened: incident.WhyItHappened_IDs// TODO: parse + validate list
+            // TODO: change this depending how volume category works out from
+            // our endpoint
+            volumeCategory: validateVolumeCategory(incident, errors),
 
-            // werePipelineSystemComponentsInvolved: // TODO: will it be yes/no, t/f, 0,1, what? 
-            // releaseType: incident.releaseType // TODO: validate ID
-            // volumeCategory: incident.volumeCategory // TODO: validate ID
+            // TODO: change this depending how release type works out
+            releaseType: validateIdInSet('ReleaseType', incident, schema.get('releaseType'), errors),
+
+
+
+            // TODO: will it be yes/no, t/f, 0,1, what? 
+            // TODO: unused, and unclear if needed... 
+            // werePipelineSystemComponentsInvolved: 
+            // substanceCategory
+
           }
 
           if(errors.length > 0) {
             console.warn('Incident record with errors:', incident, errors)
           }
           else {
-            data.push(incidentRecord)
+            incidents.push(incidentRecord)
           }
 
-        })
+        }
 
-        return data
+        return incidents
 
         // afterLoad(store, Immutable.fromJS(data))
 
       })
       .catch(function (error) {
+        // TODO: something nicer than this ...
         throw error
       })
 

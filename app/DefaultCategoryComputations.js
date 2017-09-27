@@ -9,7 +9,24 @@ const CategoryConstants = require('./CategoryConstants.js')
 
 const DefaultCategoryComputations = {
 
-  initialState: function (data) {
+  initialState: function (data, schema) {
+
+    switch (Constants.get('dataMode')) {
+    case 'dataService': 
+      return DefaultCategoryComputations.initialStateFromCategorySchema(data, schema)
+    case 'csvFile': 
+      return DefaultCategoryComputations.initialStateFromCsv(data)
+    }
+
+  },
+
+
+  initialStateFromCategorySchema: function (data, schema) {
+
+  },
+
+
+  initialStateFromCsv: function (data) {
 
     let categories = Immutable.Map()
 

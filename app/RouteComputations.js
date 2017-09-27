@@ -3,6 +3,7 @@ const QueryString = require('query-string')
 const BrowserCookies = require('browser-cookies')
 
 const Constants = require('./Constants.js')
+const Tr = require('./TranslationTable.js')
 
 /*
 The following members of the app's state are routable: they are represented in
@@ -245,7 +246,13 @@ const RouteComputations = {
   },
 
 
-
+  // A string for the root of the application, a suitable place for making rest
+  // requests or building other URLs. E.g.:
+  // http://localhost:3001/incident-visualization/
+  // https://apps2.neb-one.gc.ca/incident-visualization/
+  appRoot: function (location, language) {
+    return `${location.origin}${Tr.getIn(['applicationPath', language])}`
+  }
 
 
 

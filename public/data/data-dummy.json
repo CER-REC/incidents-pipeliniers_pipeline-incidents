@@ -1,32 +1,29 @@
 [{
-  "reportedDate": "2008-01-02T07:00:00.000Z",
-  "releaseType": "liquid",
-  "offCompanyProperty": false,
-  "whatHappened": [
-    "corrosionCracking"
-  ],
-  "incidentTypes": [
-    "release"
-  ],
-  "approximateVolumeReleased": "8",
-  "latitude": 49.73135,
-  "pipelineSystemComponentsInvolved": [],
+  "IncidentNumber": "INC2008-001",
+  "NearestPopulationCenter_EN": "Cromer",
+  "Latitude": 49.73135,
+  "Longitude": -101.23557,
+  "ApproximateVolumeM3": "8",
+
+  "AffectsCompanyProperty": true,
+  "OffCompanyProperty": false,
+  "AffectsPipelineRightOfWay": false,
+  "AffectsOffPipelineRightOfWay": false,
+  "ReportedDate": "2008-01-02T07:00:00.000Z",
+  "ReportedYear": "2008",
+  
+  "Status_ID": "5",
+  "Company_ID": "3415",
+  "Province_ID": "3",
+  "Substance_ID": "34",
+  "PipelinePhase_ID": "2",
+  "IncidentType_ID_LIST": "8",
+  "WhatHappened_ID_LIST": "corrosionCracking",
+  "WhyItHappened_ID_LIST": "maintenance",
+  "PipelineComponent_ID_LIST": "43,45",
+
+  "ReleaseType": "2",
+
   "substanceCategory": "lowVapourPressureProduct",
-  "longitude": -101.23557,
-  "werePipelineSystemComponentsInvolved": true,
-  "affectsOffPipelineRightOfWay": false,
-  "substance": "crudeOilSweet",
-  "province": "MB",
-  "status": "closed",
-  "affectsCompanyProperty": true,
-  "whyItHappened": [
-    "maintenance"
-  ],
-  "nearestPopulatedCentre": "Cromer",
-  "volumeCategory": "lessThanOneThousand",
-  "pipelinePhase": "operation",
-  "incidentNumber": "INC2008-001",
-  "affectsPipelineRightOfWay": false,
-  "year": "2008",
-  "company": "Enbridge Pipelines Inc."
+  "werePipelineSystemComponentsInvolved": true
 }]

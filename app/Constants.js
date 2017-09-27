@@ -3,6 +3,14 @@ const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
 
+  // Data mode controls how the application loads up its data. Values are:
+  //   'dataService': initialize the data and schema from REST requests
+  //   'csvFile': initialize the data and schema from a flat CSV file
+  // See: DataLoader.js, data/CategorySchema.json
+  // TODO: might be good to make this a .env file option, or a URL param,
+  // rather than hard coding it
+  dataMode: 'dataService',
+
   workspace: {
     maxWidth: 1138,
     heightToWidthRatio: 0.66,
