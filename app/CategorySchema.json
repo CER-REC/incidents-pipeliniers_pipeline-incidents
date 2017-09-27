@@ -130,7 +130,7 @@
 
 
   "substance": {
-    "notApplicable": {
+    "-1": {
       "en": "Not Applicable",
       "fr": "Sans objet"
     },
@@ -289,10 +289,6 @@
     "42": {
       "en": "Sulphur",
       "fr": "Soufre"
-    },
-    "fuelGas": {
-      "en": "Fuel Gas",
-      "fr": "Gaz combustible"
     },
     "48": {
       "en": "Natural Gas - Sweet",
@@ -470,5 +466,123 @@
       "en": "Vehicle/Mobile Equipment",
       "fr": "Véhicule ou équipement mobile"
     }
+  },
+
+  "company": {
+    "3005": { 
+      "name": "Cochin Pipe Lines Ltd."
+    },
+    "3044": { 
+      "name": "Foothills Pipe Lines Ltd."
+    },
+    "3050": { 
+      "name": "Foothills Pipe Lines (Saskatchewan) Ltd."
+    },
+    "3079": { 
+      "name": "Many Islands Pipe Lines (Canada) Limited"
+    },
+    "3089": { 
+      "name": "Niagara Gas Transmission Limited"
+    },
+    "3137": { 
+      "name": "TransCanada PipeLines Limited"
+    },
+    "3138": { 
+      "name": "Trans-Northern Pipelines Inc."
+    },
+    "3162": { 
+      "name": "Westcoast Energy Inc., carrying on business as Spectra Energy Transmission"
+    },
+    "3177": { 
+      "name": "Ethane Shippers Joint Venture"
+    },
+    "3250": { 
+      "name": "Centra Transmission Holdings Inc."
+    },
+    "3276": { 
+      "name": "Express Pipeline Ltd."
+    },
+    "3289": { 
+      "name": "NOVA Chemicals (Canada) Ltd."
+    },
+    "3351": { 
+      "name": "Maritimes & Northeast Pipeline Management Ltd."
+    },
+    "3366": { 
+      "name": "Alliance Pipeline Ltd."
+    },
+    "3415": { 
+      "name": "Enbridge Pipelines Inc."
+    },
+    "3416": { 
+      "name": "Enbridge Pipelines (NW) Inc."
+    },
+    "3417": { 
+      "name": "Enbridge Pipelines (Westspur) Inc."
+    },
+    "3464": { 
+      "name": "TransCanada PipeLines Limited B.C. System"
+    },
+    "3505": { 
+      "name": "Plains Marketing Canada, L.P."
+    },
+    "4405": { 
+      "name": "ExxonMobil Canada Properties"
+    },
+    "4909": { 
+      "name": "NOVA Gas Transmission Ltd."
+    },
+    "5129": { 
+      "name": "Husky Oil Limited"
+    },
+    "5137": { 
+      "name": "EnCana Corporation"
+    },
+    "5142": { 
+      "name": "Provident Energy Pipeline Inc."
+    },
+    "5192": { 
+      "name": "Burlington Resources Canada (Hunter) Ltd."
+    },
+    "5201": { 
+      "name": "Emera Brunswick Pipeline Company Ltd."
+    },
+    "5203": { 
+      "name": "TransCanada Keystone Pipeline GP Ltd."
+    },
+    "5222": { 
+      "name": "Spectra Energy Empress Management Inc. as General Partner and agent for Spectra Energy Empress L.P."
+    },
+    "5228": { 
+      "name": "Trans Mountain Pipeline Inc."
+    },
+    "5235": { 
+      "name": "Kinder Morgan Cochin ULC"
+    },
+    "5844": { 
+      "name": "2193914 Canada Limited"
+    },
+    "5874": { 
+      "name": "Trans Mountain Pipeline ULC"
+    },
+    "5946": { 
+      "name": "Twin Rivers Paper Company Inc."
+    },
+    "5967": { 
+      "name": "Plains Midstream Canada ULC"
+    },
+    "6123": { 
+      "name": "Tundra Energy Marketing Limited"
+    },
+    "6192": { 
+      "name": "Pembina Energy Services Inc."
+    },
+    "6353": { 
+      "name": "Pembina Prairie Facilities Ltd."
+    },
+    "6468": { 
+      "name": "Enbridge G and P Canada Pipelines Inc."
+    }
   }
+
 }

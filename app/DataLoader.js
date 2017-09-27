@@ -175,23 +175,37 @@ function afterLoad (store, data) {
 }
 
 
-function validatePresence (value, errors) {
+function validatePresence (name, record, errors) {
+
+  if (record[name] === undefined || record[name] === null) {
+    errors.push({message: `Absent value for ${name}.`, record: record})
+  }
+  else {
+    return record[name]
+  }
 
 }
 
-function validateIdInSet (value, set, errors) {
+function validateIdInSet (name, record, set, errors) {
 
 }
 
-function validateListIdsInSet (value, set, error) {
+function validateListIdsInSet (name, record, set, error) {
 
 }
 
-function validateBoolean (value, error) {
+function validateBoolean (name, record, error) {
+
+  if (record[name] === true || record[name] === false) {
+    return record[name]
+  }
+  else {
+    errors.push({message: `Non-boolean value for ${name}`, record: record})
+  }
 
 }
 
-function validateDate (value, error) {
+function validateDate (name, record, error) {
 
 }
 
@@ -238,30 +252,37 @@ const DataLoader = {
           const errors = []
 
           const incidentRecord = {
-            incidentNumber: incident.incidentNumber,
-            incidentTypes: // TODO: parse + validate list
-            reportedDate: Moment(incident.reportedDate), // TODO: validate date format
-            nearestPopulatedCentre: incident.nearestPopulatedCentre
-            province: incident.province, // TODO: validate ID
-            company: incident.company, // TODO: validate ID ... special!
-            // companyName: incident.companyName
-            status: incident.status, // TODO: validate ID
-            latitude: incident.latitude,
-            longitude: incident.longitude,
-            affectsCompanyProperty: incident.affectsCompanyProperty
-            offCompanyProperty: incident.offCompanyProperty
-            affectsPipelineRightOfWay: incident.affectsPipelineRightOfWay
-            affectsOffPipelineRightOfWay: incident.affectsOffPipelineRightOfWay
-            approximateVolumeReleased: 
+            incidentNumber: incident['Incident Number'],
+            latitude: incident.Latitude,
+            longitude: incident.Longitude,
+
+            // TODO: validate numeric ...  
+            approximateVolumeReleased: incident['Approximate Volume Released (m³)']
+
+            // TODO: validate yes/no
+            affectsCompanyProperty: incident['Affects Company Property']
+            offCompanyProperty: incident.['Off Company Property']
+            affectsPipelineRightOfWay: incident.['Affects Pipeline right-of-way']
+            affectsOffPipelineRightOfWay: incident.['Affects off Pipeline right-of-way']
+            
+            reportedDate: Moment(incident.ReportedDate), // TODO: validate date format
+            year: incident.ReportedYear
+            incidentTypes: incident.IncidentType_IDs// TODO: parse + validate list
+            status: incident.Status_ID, // TODO: validate ID
+            company: incident.Company_ID, // TODO: validate ID ... special!
+            nearestPopulatedCentre: incident.PopulationCenter_EN
+            province: incident.Province_ID, // TODO: validate ID
+            substance: incident.Substance_ID // TODO: validate ID
+            pipelinePhase: incident.PipelinePhase_ID // TODO: validate ID
+            pipelineSystemComponentsInvolved: incident.PipelineComponent_IDs// TODO: parse + validate list
+
+
+            whatHappened: incident.WhatHappened_IDs// TODO: parse + validate list
+            whyItHappened: incident.WhyItHappened_IDs// TODO: parse + validate list
+
+            // werePipelineSystemComponentsInvolved: // TODO: will it be yes/no, t/f, 0,1, what? 
+            // releaseType: incident.releaseType // TODO: validate ID
             // volumeCategory: incident.volumeCategory // TODO: validate ID
-            substance: incident.substance // TODO: validate ID
-            releaseType: incident.releaseType // TODO: validate ID
-            year: // TODO: is this in the provided data or what?
-            whatHappened: // TODO: parse + validate list
-            whyItHappened: // TODO: parse + validate list
-            pipelinePhase: incident.pipelinePhase // TODO: validate ID
-            werePipelineSystemComponentsInvolved: // TODO: will it be yes/no, t/f, 0,1, what? 
-            pipelineSystemComponentsInvolved: // TODO: parse + validate list
           }
 
           if(errors.length > 0) {
