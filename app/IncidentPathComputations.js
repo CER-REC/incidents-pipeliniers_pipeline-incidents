@@ -539,7 +539,7 @@ IncidentPathComputations.pathCurves = function (data, columns, categories, showE
 
   let paths = Immutable.List()
 
-  const curveControlThreshold = Math.abs(sourceX - destinationX) / Constants.get('pathCurveControlFactor')
+  const curveControlThreshold = IncidentPathComputations.curveControlThreshold(sourceX, destinationX)
 
   columnPair.get('pathMeasurements').forEach( (sourceMeasurements, sourceCategory) => {
     sourceMeasurements.forEach( (measurements, destinationCategory) => {
@@ -576,7 +576,9 @@ IncidentPathComputations.pathCurves = function (data, columns, categories, showE
 
 
 
-
+IncidentPathComputations.curveControlThreshold = function(x1, x2) {
+  return Math.abs(x1 - x2) / Constants.get('pathCurveControlFactor')
+}
 
 
 
@@ -993,6 +995,11 @@ IncidentPathComputations.selectedIncidentPaths = function (data, columns, catego
     categories
   )
 
+  const filteredSelectedIncidents = IncidentComputations.filteredIncidents(
+    selectedIncidents, 
+    columns, 
+    categories
+  )
 
   // Find how many selected incidents are in each category
 
@@ -1008,7 +1015,7 @@ IncidentPathComputations.selectedIncidentPaths = function (data, columns, catego
     const categoryIncidents = displayedCategories.map( (visible, categoryName) => {
 
       return IncidentComputations.categorySubset(
-        selectedIncidents,
+        filteredSelectedIncidents,
         columnName,
         categoryName
       )

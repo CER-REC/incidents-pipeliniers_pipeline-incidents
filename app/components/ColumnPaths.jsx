@@ -32,6 +32,8 @@ class ColumnPaths extends React.Component {
       paths.push(<Path
         d = { pathCurve.get('d') }
         key = { pathCurve.get('sourceCategory') + pathCurve.get('destinationCategory') }
+        fillColour = '#f0f0f0'
+        fillOpacity = '0.4'
       />)
     })
 

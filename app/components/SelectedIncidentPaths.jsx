@@ -86,16 +86,15 @@ class SelectedIncidentPaths extends React.Component {
             sourcePoint.y
           )
 
-          // TODO: not like this
-          const offset = Constants.getIn(['selectedIncidentPath', 'controlPointOffset'])
+          const curveControlThreshold = IncidentPathComputations.curveControlThreshold(sourcePoint.x, destinationPoint.x)
 
           d3path.bezierCurveTo(
             // control point 1
-            sourcePoint.x + offset,
+            sourcePoint.x + curveControlThreshold,
             sourcePoint.y,
 
             // control point 2
-            destinationPoint.x - offset,
+            destinationPoint.x - curveControlThreshold,
             destinationPoint.y,
 
             // destination
@@ -142,7 +141,8 @@ const mapStateToProps = state => {
     categories: state.categories,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-    selectedIncidents: state.selectedIncidents,
+    // TODO: dev mode only!!!!!!!!!
+    selectedIncidents: state.pinnedIncidents,
   }
 }
 
