@@ -754,7 +754,12 @@ const RenderRoutines = {
 
     const category = IncidentComputations.firstCategoryName(Immutable.List([columnName]), incident)
 
-    const colour = CategoryComputations.coloursForColumn(props.data, columnName).get(category)
+    // NB: coloursForColumn returns undefined for incidents that don't have
+    // a category in the system components involved column, if that column
+    // happens to be next to the map
+    // TODO: Convince the team that we should have a 'not applicable' category
+    // for system components so that this is not necessary!
+    const colour = CategoryComputations.coloursForColumn(props.data, columnName).get(category) || '#444'
 
     if (RenderRoutines.incidentHasFocus(incident, props)) {
       return colour

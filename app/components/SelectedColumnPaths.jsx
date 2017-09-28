@@ -10,7 +10,7 @@ class ColumnPaths extends React.Component {
 
   paths() {
 
-    const selectedCategoryPathMeasurements = IncidentPathComputations.selectedCategoryPathMeasurements(
+    const selectedCategoryPathMeasurements = IncidentPathComputations.flowPathMeasurements(
       this.props.data,
       this.props.columns,
       this.props.categories,

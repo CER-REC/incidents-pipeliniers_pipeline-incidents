@@ -45,7 +45,8 @@ class PinnedIncidentPaths extends React.Component {
 
 
   render() {
-    return <g>{ this.paths() }</g>
+    return <g></g>
+    // return <g>{ this.paths() }</g>
   }
 
 }
