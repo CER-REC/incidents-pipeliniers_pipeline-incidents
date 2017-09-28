@@ -43,7 +43,11 @@ class IncidentListItem extends React.Component {
       className = { this.incidentListItemClass() }
       onClick = { this.incidentItemClick.bind(this) }
     >
+      <p className = "starContainer"> 
+        <img src='images/star-not_selected.svg'></img>
+      </p>
 
+      <p className = "incidentContainer">
       <p className = { this.incidentDetailClass() }> { this.props.incident.get('incidentNumber') }</p>
 
       <p>
@@ -55,7 +59,7 @@ class IncidentListItem extends React.Component {
         <span className = 'lowEmphasis'>{ Tr.getIn(['reportedDate', this.props.language]) } </span>
         <span className = { this.incidentDetailClass() }>{ this.props.incident.get('reportedDate').format('MM/DD/YYYY') }</span>
       </p>
-
+      </p>
     </li>
 
   }
