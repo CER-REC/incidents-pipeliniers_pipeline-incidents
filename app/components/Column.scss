@@ -20,11 +20,8 @@ g {
 .mapImage {
   cursor: pointer;
   z-index:1;
-  width: 50%;
-  height: 100%;
-  max-height: 150px;
-  max-width: 10px;
-  overflow:hidden;
+
+  //overflow:hidden;
   -webkit-filter: drop-shadow(1px 1px 0 teal) drop-shadow((-1px) -1px 0 teal);
   filter: drop-shadow(1px 1px 0 red) drop-shadow((-1px) -1px 0 teal);
   }

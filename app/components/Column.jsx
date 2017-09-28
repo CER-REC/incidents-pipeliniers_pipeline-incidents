@@ -451,13 +451,21 @@ class Column extends React.Component {
 
   sidebarMapColumn() {
     return <g>
+    <rect
+      height={ this.props.columnHeight }
+      className='Column'
+      width={ this.props.columnWidth }
+      x={ this.props.columnX }
+      y={ this.props.columnY }
+      fill='#1CD1C8'
+      stroke='#1CD1C8'></rect>
     <image 
       xlinkHref='images/2017-09-27_MapBar_TealBackground.png' 
       height={ this.props.columnHeight }
       className='mapImage'
       width={ this.props.columnWidth }
-      x={ this.props.columnX - 200}
-      y={ this.props.columnY - 200 }>
+      x={ this.props.columnX}
+      y={ this.props.columnY}>
     </image> 
     </g>
   }
