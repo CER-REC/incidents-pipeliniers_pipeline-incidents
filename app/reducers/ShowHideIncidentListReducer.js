@@ -16,7 +16,7 @@ const ShowHideIncidentListReducer = (state = true, action) => {
   default:
     return state
 
+  }
 }
-
 
 module.exports = ShowHideIncidentListReducer
