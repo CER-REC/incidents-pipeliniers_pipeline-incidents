@@ -23,12 +23,18 @@
     list-style: none;
   }
 
+  .noIncidentsTextBlock {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+  }
+
   .noIncidentsText {
-    font-family: $fira-sans-extra-condensed-medium;
-    font-size: 13px;
+    font-family: $fira-sans-light;
+    font-size: 12px;
     line-height: 1.25em;
     margin: 0;
-    color: $dark-grey;
+    color: $light-grey;
     text-align: center;
   }
 
