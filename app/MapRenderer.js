@@ -190,17 +190,17 @@ const RenderRoutines = {
     
   },
 
-  drawLines(renderContext, inputContext, props) {
+  drawLines(renderContext, props) {
     
     const mapAdjacentColumns = CategoryComputations.mapAdjacentColumns(
       props.columns)
 
     if (mapAdjacentColumns.get('left') !== null) {
-      RenderRoutines.drawLeftLines(renderContext, inputContext, props, mapAdjacentColumns.get('left'))
+      RenderRoutines.drawLeftLines(renderContext, props, mapAdjacentColumns.get('left'))
     }
 
     if (mapAdjacentColumns.get('right') !== null) {
-      RenderRoutines.drawRightLines(renderContext, inputContext, props, mapAdjacentColumns.get('right'))
+      RenderRoutines.drawRightLines(renderContext, props, mapAdjacentColumns.get('right'))
     }
 
   },
@@ -208,7 +208,10 @@ const RenderRoutines = {
 
   connectorStrokeColour(incident, props) {
 
-  if (props.pinnedIncidents.contains(incident)) {
+    if (props.hoveredIncident === incident){
+      return Constants.getIn(['map', 'selectedLightGrey'])
+    }
+    else if (props.pinnedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -219,7 +222,10 @@ const RenderRoutines = {
 
   toIncidentStrokeColour(incident, props, context, x1, y1, x2, y2) {
 
-    if (props.pinnedIncidents.contains(incident)) {
+    if (props.hoveredIncident === incident){
+      return Constants.getIn(['map', 'selectedLightGrey'])
+    }
+    else if (props.pinnedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -233,7 +239,10 @@ const RenderRoutines = {
 
   fromIncidentStrokeColour(incident, props, context, x1, y1, x2, y2) {
 
-    if (props.pinnedIncidents.contains(incident)) {
+    if (props.hoveredIncident === incident){
+      return Constants.getIn(['map', 'selectedLightGrey'])
+    }
+    else if (props.pinnedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -246,7 +255,7 @@ const RenderRoutines = {
   },
 
 
-  drawLeftLines(renderContext, inputContext, props, columnName) {
+  drawLeftLines(renderContext, props, columnName) {
 
     const filteredData = IncidentComputations.filteredIncidents(
       props.data,
@@ -283,10 +292,6 @@ const RenderRoutines = {
       filteredData,
       props.columns,
       props.categories)
-
-    // const incidentNumberToColourMap = MapComputations.canvasInputColourMap(
-    //   props.data)
-    //   .get('incidentNumberToColourMap')
 
 
     // TODO: Once again, not that happy accumulating height like this
@@ -340,12 +345,7 @@ const RenderRoutines = {
           [{
             context: renderContext,
             strokeStyle: strokeColour,
-          },
-          // {
-          //   context: inputContext,
-          //   strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
-          // }
-          ],
+          }],
           // Starting point, on the left column
           x1,
           y1,
@@ -387,12 +387,7 @@ const RenderRoutines = {
           [{
             context: renderContext,
             strokeStyle: strokeColour,
-          },
-          // {
-          //   context: inputContext,
-          //   strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
-          // }
-          ],
+          }],
 
           // The incident's point in the bundle region
           x1,
@@ -419,7 +414,7 @@ const RenderRoutines = {
 
 
 
-  drawRightLines(renderContext, inputContext, props, columnName) {
+  drawRightLines(renderContext, props, columnName) {
 
     const filteredData = IncidentComputations.filteredIncidents(
       props.data,
@@ -463,10 +458,6 @@ const RenderRoutines = {
       filteredData,
       props.columns,
       props.categories)
-
-    // const incidentNumberToColourMap = MapComputations.canvasInputColourMap(
-    //   props.data)
-    //   .get('incidentNumberToColourMap')
 
 
     // TODO: Once again, not that happy accumulating height like this
@@ -532,12 +523,7 @@ const RenderRoutines = {
           [{
             context: renderContext,
             strokeStyle: strokeColour,
-          },
-          // {
-          //   context: inputContext,
-          //   strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
-          // }
-          ],
+          }],
 
           x1,
           y1,
@@ -569,12 +555,7 @@ const RenderRoutines = {
           [{
             context: renderContext,
             strokeStyle: strokeColour,
-          },
-          // {
-          //   context: inputContext,
-          //   strokeStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
-          // }
-          ],
+          }],
 
           x1,
           y1,
@@ -611,7 +592,7 @@ const RenderRoutines = {
 
 
 
-  drawPoints(renderContext, inputContext, props) {
+  drawPoints(renderContext, props) {
 
     const filteredData = IncidentComputations.filteredIncidents(
       props.data,
@@ -624,10 +605,6 @@ const RenderRoutines = {
       filteredData,
       props.columns,
       props.categories)
-
-    const incidentNumberToColourMap = MapComputations.canvasInputColourMap(
-      filteredData)
-      .get('incidentNumberToColourMap')
 
     const shadowColour = Constants.getIn(['map', 'shadowColour'])
     const fadedShadowColour = Chroma(shadowColour).alpha(0.1).css()
@@ -669,14 +646,6 @@ const RenderRoutines = {
         [{
           context: renderContext, 
           fillStyle: incidentColour,
-        },
-        {
-          // TODO: known issue with the input map: canvas draw methods have
-          // built in aliasing that corrupts the colour at the circle's edge.
-          // Need to use lower level functions that draw hard edged pixels to
-          // avoid this. 
-          context: inputContext,
-          fillStyle: incidentNumberToColourMap.get(incident.get('incidentNumber'))
         }],
         incidentPosition.x,
         incidentPosition.y,
@@ -711,6 +680,10 @@ const RenderRoutines = {
         props.filterboxActivationState.get('categoryName'))) {
         return true
       }
+    }
+
+    if (props.hoveredIncident === incident){
+      return true
     }
 
     if (props.pinnedIncidents.contains(incident)) {
@@ -771,31 +744,27 @@ const RenderRoutines = {
 
 
 // renderCanvas: the canvas DOM element we are drawing visible pixels to
-// renderCanvas: the canvas DOM element where we draw a unique colour for each
-// inident, to use as lookup for click events on the canvas.
 // props: the props object from Map, which should include the main 5 state 
 //   items; showEmptyCategories, viewport, data, columns, categories
 //   and also: pinnedIncidents, filterboxActivationState, categoryHoverState
-module.exports = function MapRenderer (renderCanvas, inputCanvas, props) {
+module.exports = function MapRenderer (renderCanvas, props) {
 
   // TODO: I hope that making this draw asynchronously isn't a problem... 
   mapPromise.then( (basemapImage) => {
 
     const renderContext = renderCanvas.getContext('2d')
-    const inputContext = inputCanvas.getContext('2d')
 
     // Clear both the displayed canvas and the input buffer
     RenderRoutines.clear(renderContext, 
       Constants.getIn(['map', 'backgroundColour']), 
       props
     )
-    RenderRoutines.clear(inputContext, 'rgb(0, 0, 0)', props)
 
     RenderRoutines.drawMap(renderContext, props, basemapImage)
 
     // Draw lines, then points, to both displayed canvas and input buffer
-    RenderRoutines.drawLines(renderContext, inputContext, props)
-    RenderRoutines.drawPoints(renderContext, inputContext, props)
+    RenderRoutines.drawLines(renderContext, props)
+    RenderRoutines.drawPoints(renderContext, props)
   })
 
 }

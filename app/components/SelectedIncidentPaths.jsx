@@ -141,8 +141,7 @@ const mapStateToProps = state => {
     categories: state.categories,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-    // TODO: dev mode only!!!!!!!!!
-    selectedIncidents: state.pinnedIncidents,
+    selectedIncidents: state.selectedIncidents,
     hoveredIncident: state.hoveredIncident,
   }
 }

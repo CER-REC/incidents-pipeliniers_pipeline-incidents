@@ -62,11 +62,8 @@ const mapStateToProps = state => {
     categories: state.categories,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-
-    // Are these two going to be a performance problem? 
     categoryHoverState: state.categoryHoverState,
     filterboxActivationState: state.filterboxActivationState, 
-
   }
 }
 

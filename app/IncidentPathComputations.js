@@ -1036,7 +1036,6 @@ IncidentPathComputations.selectedIncidentPaths = function (data, columns, catego
 
   const selectedIncidentHeights = selectedIncidentsInCategories.map( (innerCategories, columnName) => {
 
-    // y and width
     const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
       showEmptyCategories,
       viewport,
@@ -1062,8 +1061,8 @@ IncidentPathComputations.selectedIncidentPaths = function (data, columns, catego
         // Height, keyed by incident object
         // To ensure that incident lines land well within their categories, we
         // allow for some space above and below. The vertical height of the
-        // category is divided into n + 2 pieces, and only the heights from 1
-        // to n - 1 are used as path heights.
+        // category is divided into 0..n+1 heights, and only the heights from
+        // 1..n are used as path heights.
 
         heightList = heightList.push(categoryPosition.get('y') + categoryPosition.get('height') * (i + 1) / (incidents.count() + 1))
 
