@@ -43,19 +43,22 @@ class IncidentListItem extends React.Component {
       className = { this.incidentListItemClass() }
       onClick = { this.incidentItemClick.bind(this) }
     >
-
-      <p className = { this.incidentDetailClass() }> { this.props.incident.get('incidentNumber') }</p>
-
-      <p>
-        <span className = 'lowEmphasis'>{ Tr.getIn(['near', this.props.language])} </span>
-        <span className = { this.incidentDetailClass() } >{ this.props.incident.get('nearestPopulatedCentre') }</span>
+      <p className = "starContainer"> 
+        <img src='images/star-not_selected.svg'></img>
       </p>
 
-      <p>
-        <span className = 'lowEmphasis'>{ Tr.getIn(['reportedDate', this.props.language]) } </span>
-        <span className = { this.incidentDetailClass() }>{ this.props.incident.get('reportedDate').format('MM/DD/YYYY') }</span>
-      </p>
+      <p className = "incidentContainer">
+        <p className = { this.incidentDetailClass() }> { this.props.incident.get('incidentNumber') }</p>
+        <p>
+          <span className = 'lowEmphasis'>{ Tr.getIn(['near', this.props.language])} </span>
+          <span className = { this.incidentDetailClass() } >{ this.props.incident.get('nearestPopulatedCentre') }</span>
+        </p>
 
+        <p>
+          <span className = 'lowEmphasis'>{ Tr.getIn(['reportedDate', this.props.language]) } </span>
+          <span className = { this.incidentDetailClass() }>{ this.props.incident.get('reportedDate').format('MM/DD/YYYY') }</span>
+        </p>
+      </p>
     </li>
 
   }
