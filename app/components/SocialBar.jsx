@@ -59,10 +59,11 @@ function downloadImageClick() {
 function downloadFileClick() {
   console.log('download file clicked')
 
-  window.open('https://www.allkpop.com/upload/2015/10/af_org/got7-jb_1445968185_af_org.jpg')
+  window.open('data:text/csv;charset=utf-8,' + escape())
 
 //"${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-09-13 ERS TEST-joined.csv`
 //"
+// ${appRoot}data/2017-09-13 ERS TEST-joined.csv`
 }
 
 class SocialBar extends React.Component {
