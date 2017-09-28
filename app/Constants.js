@@ -71,7 +71,7 @@ const Constants = Immutable.fromJS({
   columnNarrowWidth: 24,
   minimumColumnPathWidth: 90,
 
-  columnHeadingHeight: 42,
+  columnHeadingHeight: 47,
   columnHeadingLineOffset: 15,
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 40,
@@ -131,7 +131,7 @@ const Constants = Immutable.fromJS({
   ],
 
   sidebar: {
-    columWidth: 87,
+    columWidth: 105,
     columnOffset: 10,
 
     verticalStackingOffset: 2,
@@ -141,6 +141,12 @@ const Constants = Immutable.fromJS({
     labelHeight: 35,
 
     columnHoverOffset: -3,
+
+    maxLineLength: 15,
+
+    dropShadowX: -1,
+    dropShadowY: 2,
+
   },
 
   columnPaths: {
@@ -154,6 +160,7 @@ const Constants = Immutable.fromJS({
     labelOffset: 4,
 
     filterButtonWidth: 66,
+    filterButtonWidthFr: 100,
     filterButtonHeight: 13.5,
 
     iconSize: 7,
@@ -285,6 +292,7 @@ const Constants = Immutable.fromJS({
   categoryStrokeWidth: 1,
   categoryDefaultStrokeColour: '#ffffff',
   categoryHoverStrokeColour: '#000000',
+
 
 
   selectedIncidentPath: {
