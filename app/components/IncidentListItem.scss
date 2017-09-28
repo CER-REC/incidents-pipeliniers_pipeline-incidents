@@ -44,11 +44,11 @@ $leftMargin: $horizontalMargins - $padding - $borderWidth;
   }
   .starContainer {
     cursor: pointer;
-    position:absolute;
-    z-index:1;
-    height: 55px;
+    position:relative;
+    margin-top: 18px;
+    float: left;
+    height: 35px;
     width: 30px;
-    fill: red;
   }
 
   .incidentContainer {
@@ -58,8 +58,6 @@ $leftMargin: $horizontalMargins - $padding - $borderWidth;
 
   .starImage {
     cursor:pointer;
-    position:absolute;
-    z-index:1;
   }
 
 }
