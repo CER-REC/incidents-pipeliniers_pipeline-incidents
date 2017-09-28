@@ -44,6 +44,13 @@ class IncidentListItem extends React.Component {
       onClick = { this.incidentItemClick.bind(this) }
     >
 
+      <image 
+        className = 'pinIcon'
+        height = {15} 
+        width = {15} 
+        xlinkHref='images/star-not_selected.svg'>
+      </image>
+
       <p className = { this.incidentDetailClass() }> { this.props.incident.get('incidentNumber') }</p>
 
       <p>
