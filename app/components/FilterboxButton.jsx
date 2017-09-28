@@ -1,11 +1,12 @@
 const React = require('react')
+const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
+const FilterboxComputations = require('../FilterboxComputations.js')
 
 class FilterboxButton extends React.Component {
 
   render() {
-
     const transform = `translate(${this.props.x}, ${this.props.y})`
     return <g
       className = 'filterBoxButton'
@@ -16,7 +17,7 @@ class FilterboxButton extends React.Component {
         className = 'filterBoxRect'
         x = '0'
         y = '0'
-        width = { Constants.getIn(['filterbox', 'filterButtonWidth']) }
+        width = { FilterboxComputations.boxWidth(this.props.language) }
         height = { Constants.getIn(['filterbox', 'filterButtonHeight']) }
       />
       <image 
@@ -38,10 +39,16 @@ class FilterboxButton extends React.Component {
         { this.props.text }
       </text>
     </g>
-
+    
   }
 
 
 }
 
-module.exports = FilterboxButton
+const mapStateToProps = state => {
+  return {
+    language: state.language,
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps)(FilterboxButton)
