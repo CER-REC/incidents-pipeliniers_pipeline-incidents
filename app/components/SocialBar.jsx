@@ -58,6 +58,9 @@ function downloadImageClick() {
 
 function downloadFileClick() {
   console.log('download file clicked')
+
+  window.open('data:text/csv;charset=utf-8,' + escape(csv))
+
 }
 
 class SocialBar extends React.Component {
@@ -129,15 +132,14 @@ class SocialBar extends React.Component {
           xlinkHref='images/download_image.svg'
           className="socialBar"
           onClick = {downloadImageClick}></image>
-        <a href="https://0.soompi.io/wp-content/uploads/2016/04/27194734/JB.png" download>
-          <image 
-            height = {iconSize} 
-            width = {iconSize} 
-            y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
-            xlinkHref='images/download_file.svg'
-            className="socialBar">
-          </image>
-        </a>
+        <image 
+          height = {iconSize} 
+          width = {iconSize} 
+          y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
+          xlinkHref='images/download_file.svg'
+          className="socialBar"
+          onClick = {downloadFileClick}>
+        </image>
       </g>
     </g>
   }
