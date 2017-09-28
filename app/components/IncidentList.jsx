@@ -111,7 +111,7 @@ class IncidentList extends React.Component {
     ).get('pinColumn')
 
     return {
-      maxHeight: `${pinColumnPositions.get('height')}px`,
+      maxHeight: `${pinColumnPositions.get('height') - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
     }
   }
 

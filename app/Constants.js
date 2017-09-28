@@ -56,6 +56,7 @@ const Constants = Immutable.fromJS({
     labelIconSize: 15,
     labelPadding: 15,
     labelIconPadding: -7,
+    columnHeightPadding: 25,
   },
 
   incidentPopover: {
