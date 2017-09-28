@@ -5,7 +5,7 @@ const D3 = require('d3')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 const Constants = require('../Constants.js')
-
+const SelectedIncidentPath = require('./SelectedIncidentPath.jsx')
 
 class SelectedIncidentPaths extends React.Component {
 
@@ -39,7 +39,8 @@ class SelectedIncidentPaths extends React.Component {
       this.props.categories,
       this.props.showEmptyCategories,
       this.props.viewport,
-      this.props.selectedIncidents
+      this.props.selectedIncidents,
+      this.props.hoveredIncident
     )
 
     const sourceIncidentHeights = selectedIncidentPaths.get(this.props.columnName)
@@ -103,12 +104,11 @@ class SelectedIncidentPaths extends React.Component {
           )
 
           paths.push(
-            <path
+            <SelectedIncidentPath
               d = { d3path.toString() }
-              strokeWidth = { Constants.getIn(['selectedIncidentPath', 'strokeWidth']) }
               stroke = { Constants.getIn(['selectedIncidentPath', 'colourBetweenColumns']) }
-              fill = 'none'
               key = { `incidentPath-${incident.get('incidentNumber')}-${i}-${j}` }
+              incident = { incident }
             /> 
           )
 
@@ -143,6 +143,7 @@ const mapStateToProps = state => {
     viewport: state.viewport,
     // TODO: dev mode only!!!!!!!!!
     selectedIncidents: state.pinnedIncidents,
+    hoveredIncident: state.hoveredIncident,
   }
 }
 

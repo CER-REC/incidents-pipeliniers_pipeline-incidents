@@ -987,7 +987,8 @@ IncidentPathComputations.computeFlowHeightsForColumnPair = function(filteredData
 // Since an incident may appear more than once (or even zero times) in a 
 // column, each incident will have a list of zero or more heights.
 
-IncidentPathComputations.selectedIncidentPaths = function (data, columns, categories, showEmptyCategories, viewport, selectedIncidents) {
+IncidentPathComputations.selectedIncidentPaths = function (data, columns, categories, showEmptyCategories, viewport, selectedIncidents, hoveredIncident) {
+
 
   const filteredData = IncidentComputations.filteredIncidents(
     data, 
@@ -995,8 +996,13 @@ IncidentPathComputations.selectedIncidentPaths = function (data, columns, catego
     categories
   )
 
-  const filteredSelectedIncidents = IncidentComputations.filteredIncidents(
-    selectedIncidents, 
+  let filteredSelectedIncidents = selectedIncidents
+  if (hoveredIncident !== null) {
+    filteredSelectedIncidents = selectedIncidents.push(hoveredIncident)
+  }
+
+  filteredSelectedIncidents = IncidentComputations.filteredIncidents(
+    filteredSelectedIncidents,
     columns, 
     categories
   )

@@ -300,7 +300,8 @@ const Constants = Immutable.fromJS({
     colourBetweenColumns: '#1A1A1A',
     columnBarColour: '#FFF',
     columnBarOpacity: 0.75,
-    strokeWidth: '2px'
+    strokeWidth: '2px',
+    hoveredStrokeWidth: '3px',
   },
 
   columnTypes: {

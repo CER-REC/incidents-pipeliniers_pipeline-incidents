@@ -14,7 +14,6 @@ state.
   categories
   showEmptyCategories
   pinnedIncidents
-  selectedIncident
   language
 
 In each case, the meaning of an element's absence from the URL is specified, and
@@ -36,7 +35,7 @@ const RouteComputations = {
 
   // Returns a string to form the query params of the current URL, i.e.
   // everything from the ? on
-  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents, selectedIncident, language) {
+  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents, language) {
 
     const params = {}
 
@@ -75,12 +74,6 @@ const RouteComputations = {
       }).join(',')
     }
 
-    // selectedIncident: represented as an incident number
-    // When there is no selected incident, the parameter is absent.
-    if (selectedIncident !== null) {
-      params.selectedIncident = selectedIncident.get('incidentNumber')
-    }
-
     // language: represented as a string, 'en' or 'fr'
     // NB: Absence of the language parameter at page load has special meaning:
     // before assuming a default, we should check cookies.
@@ -106,7 +99,6 @@ const RouteComputations = {
       categories: RouteComputations.parseUrlCategories(rawParams, categories),
       showEmptyCategories: RouteComputations.parseUrlShowEmptyCategories(rawParams.showEmptyCategories),
       pinnedIncidents: RouteComputations.parseUrlPinnedIncidents(rawParams.pinnedIncidents, data),
-      selectedIncident: RouteComputations.parseUrlSelectedIncident(rawParams.selectedIncident, data),
       language: RouteComputations.parseUrlLanguage(rawParams.language),
     }
 
@@ -203,24 +195,6 @@ const RouteComputations = {
       // display
       return Immutable.List()
     }
-
-  },
-
-  parseUrlSelectedIncident: function (selectedIncidentString, data) {
-
-    if (typeof selectedIncidentString === 'undefined') {
-      return null
-    }
-
-    const selectedIncident = data.find( incident => {
-      return incident.get('incidentNumber') === selectedIncidentString
-    })
-
-    if (typeof selectedIncident === 'undefined') {
-      return null
-    }
-
-    return selectedIncident
 
   },
 

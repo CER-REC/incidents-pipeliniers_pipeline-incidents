@@ -208,10 +208,7 @@ const RenderRoutines = {
 
   connectorStrokeColour(incident, props) {
 
-    if (props.selectedIncident === incident){
-      return Constants.getIn(['map', 'selectedLightGrey'])
-    }
-    else if (props.pinnedIncidents.contains(incident)) {
+  if (props.pinnedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -222,10 +219,7 @@ const RenderRoutines = {
 
   toIncidentStrokeColour(incident, props, context, x1, y1, x2, y2) {
 
-    if (props.selectedIncident === incident){
-      return Constants.getIn(['map', 'selectedLightGrey'])
-    }
-    else if (props.pinnedIncidents.contains(incident)) {
+    if (props.pinnedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -239,10 +233,7 @@ const RenderRoutines = {
 
   fromIncidentStrokeColour(incident, props, context, x1, y1, x2, y2) {
 
-    if (props.selectedIncident === incident){
-      return Constants.getIn(['map', 'selectedLightGrey'])
-    }
-    else if (props.pinnedIncidents.contains(incident)) {
+    if (props.pinnedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -722,10 +713,6 @@ const RenderRoutines = {
       }
     }
 
-    if (incident === props.selectedIncident) {
-      return true
-    }
-    
     if (props.pinnedIncidents.contains(incident)) {
       return true
     }

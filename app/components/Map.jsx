@@ -4,8 +4,6 @@ const ReactRedux = require('react-redux')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const MapComputations = require('../MapComputations.js')
 const MapRenderer = require('../MapRenderer.js')
-const IncidentSelectionStateCreator = require('../actionCreators/IncidentSelectionStateCreator.js')
-const IncidentDeselectionStateCreator = require('../actionCreators/IncidentDeselectionStateCreator.js')
 
 class Map extends React.Component {
 
@@ -30,12 +28,13 @@ class Map extends React.Component {
 
     const incident = colourToIncidentMap.get(colourString)
 
-    if (typeof incident !== 'undefined') {
-      this.props.dispatch(IncidentSelectionStateCreator(incident))
-    }
-    else {
-      this.props.dispatch(IncidentDeselectionStateCreator())
-    }
+    // TODO: reimplement me ... 
+    // if (typeof incident !== 'undefined') {
+    //   this.props.dispatch(IncidentSelectionStateCreator(incident))
+    // }
+    // else {
+    //   this.props.dispatch(IncidentDeselectionStateCreator())
+    // }
 
   }
 
@@ -105,7 +104,6 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
-    selectedIncident: state.selectedIncident,
     pinnedIncidents: state.pinnedIncidents, 
     filterboxActivationState: state.filterboxActivationState,
     categoryHoverState: state.categoryHoverState

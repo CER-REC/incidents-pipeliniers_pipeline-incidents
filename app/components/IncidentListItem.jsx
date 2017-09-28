@@ -5,6 +5,9 @@ const Tr = require('../TranslationTable.js')
 const AddPinnedIncidentCreator = require('../actionCreators/AddPinnedIncidentCreator')
 const RemovePinnedIncidentCreator = require('../actionCreators/RemovePinnedIncidentCreator')
 
+const HoverIncidentCreator = require('../actionCreators/HoverIncidentCreator.js')
+const UnhoverIncidentCreator = require('../actionCreators/UnhoverIncidentCreator.js')
+
 require('./IncidentListItem.scss')
 
 class IncidentListItem extends React.Component {
@@ -36,12 +39,23 @@ class IncidentListItem extends React.Component {
     }
   }
 
+  mouseEnter() {
+    this.props.hoverIncident(this.props.incident)
+  }
+
+  mouseLeave() {
+    if (this.props.hoveredIncident === this.props.incident) {
+      this.props.unhoverIncident()
+    }
+  }
 
   render() {
 
     return <li 
       className = { this.incidentListItemClass() }
       onClick = { this.incidentItemClick.bind(this) }
+      onMouseEnter = { this.mouseEnter.bind(this) }
+      onMouseLeave = { this.mouseLeave.bind(this) }
     >
 
       <p className = { this.incidentDetailClass() }> { this.props.incident.get('incidentNumber') }</p>
@@ -68,6 +82,7 @@ class IncidentListItem extends React.Component {
 const mapStateToProps = state => {
   return {
     language: state.language,
+    hoveredIncident: state.hoveredIncident,
   }
 }
 
@@ -78,6 +93,12 @@ const mapDispatchToProps = dispatch => {
     },
     removeFromPinnedIncidents: incident => {
       dispatch(RemovePinnedIncidentCreator(incident))
+    },
+    hoverIncident: incident => {
+      dispatch(HoverIncidentCreator(incident))
+    },
+    unhoverIncident: () => {
+      dispatch(UnhoverIncidentCreator())
     }
   }
 }

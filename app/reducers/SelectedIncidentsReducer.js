@@ -1,6 +1,6 @@
 const Immutable = require('immutable')
 
-const SelectedIncidentReducer = (state = Immutable.List(), action) => {
+const SelectedIncidentsReducer = (state = Immutable.List(), action) => {
 
   switch(action.type) {
 
@@ -28,4 +28,4 @@ const SelectedIncidentReducer = (state = Immutable.List(), action) => {
 }
 
 
-module.exports = SelectedIncidentReducer
+module.exports = SelectedIncidentsReducer
