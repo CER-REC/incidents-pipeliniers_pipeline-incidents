@@ -18,7 +18,7 @@ const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationS
 const HistoryReducer = require('./reducers/HistoryReducer.js')
 const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
 const IncidentListScrollPositionReducer = require('./reducers/IncidentListScrollPositionReducer.js')
-const SelectedIncidentReducer = require('SelectedIncidentReducer.js')
+const SelectedIncidentReducer = require('./reducers/SelectedIncidentReducer.js')
 
 const RouterMiddleware = require('./RouterMiddleware.js')
 

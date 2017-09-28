@@ -128,9 +128,7 @@ WorkspaceComputations.useScrollingWorkspace = function (columns) {
 // data: the data state
 // categories: the category display state
 WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport, data, columns, categories, columnName) {
-  // TODO: for now, we use the entire column height.
-  // Other column elements (and empty categories) will eventually need to cut
-  // into this height
+
   const columnHeight = WorkspaceComputations.columnNormalCategoryHeight(showEmptyCategories, viewport, data, columns, categories)
 
   const relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)

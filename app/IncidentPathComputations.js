@@ -481,7 +481,10 @@ IncidentPathComputations.computeHeightsForColumnPair = function(filteredData, co
 
 
 
-
+// Given a pathMeasurements object as produced by pathMeasurements or
+// flowPathMeasurements (along with the usual assortment of state elements), 
+// produces an immutable list of objects with a d path attribute, plus source 
+// and destination category names.
 
 IncidentPathComputations.pathCurves = function (data, columns, categories, showEmptyCategories, viewport, pathMeasurements, columnName) {
 
@@ -970,6 +973,97 @@ IncidentPathComputations.computeFlowHeightsForColumnPair = function(filteredData
 
   return columnPair
 }
+
+
+
+
+// Produces height information for drawing lines to represent the currently
+// selected incidents.
+
+// The returned object is a set of Immutable maps nested three deep, keyed by:
+// columnName => categoryName => incident object => height
+
+IncidentPathComputations.selectedIncidentPaths = function (data, columns, categories, showEmptyCategories, viewport, selectedIncidents) {
+
+  const filteredData = IncidentComputations.filteredIncidents(
+    data, 
+    columns, 
+    categories
+  )
+
+
+  // Find how many selected incidents are in each category
+
+  const selectedIncidentsInCategories = Immutable.Map(columns.map( columnName => {
+
+    const displayedCategories = CategoryComputations.displayedCategories(
+      filteredData,
+      columns,
+      categories,
+      columnName
+    )
+
+    const categoryIncidents = displayedCategories.map( (visible, categoryName) => {
+
+      return IncidentComputations.categorySubset(
+        selectedIncidents,
+        columnName,
+        categoryName
+      )
+
+    })
+
+    return [columnName, categoryIncidents]
+  }))
+
+  
+  // Compute heights for the selected incidents in each category
+
+  const selectedIncidentHeights = selectedIncidentsInCategories.map( (innerCategories, columnName) => {
+
+    // y and width
+    const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
+      showEmptyCategories,
+      viewport,
+      filteredData,
+      columns,
+      categories,
+      columnName
+    )
+
+    return innerCategories.map( (incidents, categoryName) => {
+
+      return Immutable.Map( incidents.map( (incident, i) => {
+
+        const categoryPosition = categoryVerticalPositions.get(categoryName)
+
+        // Height, keyed by incident object
+        // To ensure that incident lines land well within their categories, we
+        // allow for some space above and below. The vertical height of the
+        // category is divided into n + 2 pieces, and only the inner n heights
+        // are used to lay out incidents.
+        return [
+          incident,
+          categoryPosition.get('y') + categoryPosition.get('height') * (i + 1) / (incidents.count() + 2)
+        ]
+
+      }))
+
+    })
+
+  })
+
+  return selectedIncidentHeights
+
+}
+
+
+
+
+
+
+
+
 
 
 

@@ -258,7 +258,10 @@ CategoryComputations.relatedHiddenCategories = function (data, columns, categori
 
   }
 
+  default: 
+    throw new Error(`Bad columnName passed to CategoryComputations.relatedHiddenCategories: "${columnName}"`)
   }
+
 
 }
 
