@@ -980,8 +980,10 @@ IncidentPathComputations.computeFlowHeightsForColumnPair = function(filteredData
 // Produces height information for drawing lines to represent the currently
 // selected incidents.
 
-// The returned object is a set of Immutable maps nested three deep, keyed by:
-// columnName => categoryName => incident object => height
+// The returned object is a set of Immutable maps nested two deep, keyed by:
+// columnName => incident object => list of heights
+// Since an incident may appear more than once (or even zero times) in a 
+// column, each incident will have a list of zero or more heights.
 
 IncidentPathComputations.selectedIncidentPaths = function (data, columns, categories, showEmptyCategories, viewport, selectedIncidents) {
 
@@ -1031,25 +1033,34 @@ IncidentPathComputations.selectedIncidentPaths = function (data, columns, catego
       columnName
     )
 
-    return innerCategories.map( (incidents, categoryName) => {
+    let incidentHeights = Immutable.Map()
 
-      return Immutable.Map( incidents.map( (incident, i) => {
+    innerCategories.forEach( (incidents, categoryName) => {
+
+      incidents.forEach( (incident, i) => {
+
+        let heightList = incidentHeights.get(incident)
+        if (heightList === undefined) {
+          heightList = Immutable.List()
+        }
 
         const categoryPosition = categoryVerticalPositions.get(categoryName)
 
         // Height, keyed by incident object
         // To ensure that incident lines land well within their categories, we
         // allow for some space above and below. The vertical height of the
-        // category is divided into n + 2 pieces, and only the inner n heights
-        // are used to lay out incidents.
-        return [
-          incident,
-          categoryPosition.get('y') + categoryPosition.get('height') * (i + 1) / (incidents.count() + 2)
-        ]
+        // category is divided into n + 2 pieces, and only the heights from 1
+        // to n - 1 are used as path heights.
 
-      }))
+        heightList = heightList.push(categoryPosition.get('y') + categoryPosition.get('height') * (i + 1) / (incidents.count() + 1))
+
+        incidentHeights = incidentHeights.set(incident, heightList)
+
+      })
 
     })
+
+    return incidentHeights
 
   })
 
