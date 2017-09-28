@@ -6,6 +6,7 @@ const Constants = require('../Constants.js')
 const IncidentComputations = require('../IncidentComputations.js')
 const IncidentListItem = require('./IncidentListItem.jsx')
 const SetIncidentListScrollCreator = require('../actionCreators/SetIncidentListScrollCreator.js')
+const Tr = require('../TranslationTable.js')
 
 require('./IncidentList.scss')
 
@@ -26,11 +27,9 @@ class IncidentList extends React.Component {
   noIncidentsText() {
     if (this.props.filterboxActivationState.get('columnName') === null) {
 
-      // TODO: if this design sticks, translate me
-      return <g className='noIncidentsTextBlock'><p className = 'noIncidentsText'>No category selected.</p> 
-        <p className = 'noIncidentsText'>Select a category to</p>
-        <p className = 'noIncidentsText'>see list of incidents.</p>
-      </g>
+      return <div className='noIncidentsTextBlock'>
+        <p className = 'noIncidentsText'>{ Tr.getIn(['noCategorySelection', this.props.language])}</p>
+      </div>
     }
     else {
       return null
