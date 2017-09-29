@@ -89,12 +89,6 @@ class Column extends React.Component {
   barHeading() {
     let currentY = WorkspaceComputations.topBarHeight()
 
-    // Check if the subheading is visible. If it is not, 
-    // add Constants.get('columnSubheadingHeight') to currentY.
-    if(!CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
-      currentY += Constants.get('columnSubheadingHeight')
-    }
-
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,

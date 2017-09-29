@@ -35,8 +35,7 @@ WorkspaceComputations.columnHeight = function (viewport) {
   return viewport.get('y') - 
          WorkspaceComputations.topBarHeight() - 
          Constants.get('bottomOuterMargin') -
-         Constants.get('columnHeadingHeight') - 
-         Constants.get('columnHeadingSpacing')
+         Constants.get('columnHeadingHeight')
 }
 
 
@@ -54,8 +53,7 @@ WorkspaceComputations.columnWidth = function (columns) {
 
 WorkspaceComputations.columnY = function() {
   return WorkspaceComputations.topBarHeight() + 
-         Constants.get('columnHeadingHeight') + 
-         Constants.get('columnHeadingSpacing')
+         Constants.get('columnHeadingHeight')
 }
 
 
