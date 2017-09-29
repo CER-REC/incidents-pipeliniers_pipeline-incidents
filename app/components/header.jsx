@@ -63,14 +63,14 @@ class Header extends React.Component {
 
       { this.resetAllButton() }
 
-      <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
+      <g width={headerWidth} height={headerHeight}>
       
         <text x={0} y={yHeading} className="heading">Incidents at NEB-regulated pipelines and facilities</text>
         <text x={0} y={ySubpop} className="subpop">
           The information presented here is based on NEB data from 2008 to current for
           incidents reported under the Onshore Pipeline Regulations.
           New data is added on a quaterly basis.</text>
-      </svg>
+      </g>
     </g>
   
   }

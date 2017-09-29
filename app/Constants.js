@@ -126,7 +126,7 @@ const Constants = Immutable.fromJS({
 
     maxLineLength: 15,
 
-    dropShadowX: -1,
+    dropShadowX: 1,
     dropShadowY: 2,
 
   },
