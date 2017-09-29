@@ -51,8 +51,8 @@ const TranslationTable = Immutable.fromJS({
       fr: 'COMPOSANTES EN CAUSE',
     },
     map: {
-      en: 'MAP OVERVIEW',
-      fr: 'APERÇU DE LA CARTE',
+      en: 'MAP',
+      fr: 'CARTE',
     }
   },
 
