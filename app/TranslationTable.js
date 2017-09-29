@@ -128,12 +128,12 @@ const TranslationTable = Immutable.fromJS({
   },
 
   hideIncidentList: {
-    en: 'Hide incident list',
+    en: 'hide incident list',
     fr: 'Cacher la liste des incidents',
   },
 
   showIncidentList: {
-    en: 'Show incident list',
+    en: 'show incident list',
     fr: 'Voir la list des incidents'
   },
 
