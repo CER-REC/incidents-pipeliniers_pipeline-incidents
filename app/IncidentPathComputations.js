@@ -997,7 +997,7 @@ IncidentPathComputations.selectedIncidentPaths = function (data, columns, catego
   )
 
   let filteredSelectedIncidents = selectedIncidents
-  if (hoveredIncident !== null) {
+  if (hoveredIncident !== null && !selectedIncidents.contains(hoveredIncident)) {
     filteredSelectedIncidents = selectedIncidents.push(hoveredIncident)
   }
 
