@@ -62,8 +62,8 @@ class Header extends React.Component {
       { this.resetAllButton() }
 
       <g width={headerWidth} height={headerHeight}>
-        <text x={0} y={yHeading} className="heading">{ Tr.getIn(['mainHeading', this.props.language]) }</text>
-        <text x={0} y={ySubpop} className="subpop">{ Tr.getIn(['mainSubheading', this.props.language]) }</text>
+        <text x={0} y={yHeading} className="heading">{ Tr.getIn(['mainHeading', this.props.language]).toUpperCase() }</text>
+        <text x={0} y={ySubpop + 15} className="subpop">{ Tr.getIn(['mainSubheading', this.props.language]) }</text>
       </g>
     </g>
   
