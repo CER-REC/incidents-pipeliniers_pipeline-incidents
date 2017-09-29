@@ -1,10 +1,10 @@
 const Immutable = require('immutable')
 
-const ShowHideIncidentListReducer = (state = true, action) => {
+const ShowIncidentListReducer = (state = true, action) => {
 
   switch(action.type) {
 
-   case 'ShowHideIncidentList': 
+  case 'ShowIncidentList': 
     return !state
 
   case 'SetFromRouterState':
@@ -19,4 +19,4 @@ const ShowHideIncidentListReducer = (state = true, action) => {
   }
 }
 
-module.exports = ShowHideIncidentListReducer
+module.exports = ShowIncidentListReducer
