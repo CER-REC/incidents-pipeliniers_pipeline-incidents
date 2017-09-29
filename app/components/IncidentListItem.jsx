@@ -8,6 +8,9 @@ const RemovePinnedIncidentCreator = require('../actionCreators/RemovePinnedIncid
 const HoverIncidentCreator = require('../actionCreators/HoverIncidentCreator.js')
 const UnhoverIncidentCreator = require('../actionCreators/UnhoverIncidentCreator.js')
 
+const AddSelectedIncidentCreator = require('../actionCreators/AddSelectedIncidentCreator.js')
+const RemoveSelectedIncidentCreator = require('../actionCreators/RemoveSelectedIncidentCreator.js')
+
 require('./IncidentListItem.scss')
 
 class IncidentListItem extends React.Component {
@@ -15,14 +18,14 @@ class IncidentListItem extends React.Component {
 
   incidentListItemClass() {
     let classString = 'incidentListItem'
-    if (this.props.pinned === true) {
-      classString += ' pinned'
+    if (this.props.selected === true) {
+      classString += ' selected'
     }
     return classString
   }
 
   incidentDetailClass() {
-    if (this.props.pinned === true) {
+    if (this.props.selected === true) {
       return 'highEmphasis'
     }
     else {
@@ -31,6 +34,18 @@ class IncidentListItem extends React.Component {
   }
 
   incidentItemClick() {
+    if (this.props.selected === true) {
+      this.props.removeFromSelectedIncidents(this.props.incident)
+    }
+    else {
+      this.props.addToSelectedIncidents(this.props.incident)
+    }
+  }
+
+  incidentStarClick(event) {
+    // Don't propagate this click event to the parent list item.
+    event.stopPropagation()
+
     if (this.props.pinned === true) {
       this.props.removeFromPinnedIncidents(this.props.incident)
     }
@@ -49,6 +64,18 @@ class IncidentListItem extends React.Component {
     }
   }
 
+
+  starImage() {
+    if (this.props.pinned === true) {
+      return 'images/star-selected.svg'
+    }
+    else {
+      return 'images/star-not_selected.svg'
+    }
+  }
+
+
+
   render() {
 
     return <li 
@@ -57,12 +84,15 @@ class IncidentListItem extends React.Component {
       onMouseEnter = { this.mouseEnter.bind(this) }
       onMouseLeave = { this.mouseLeave.bind(this) }
     >
-      <p className = "starContainer"> 
-        <img src='images/star-not_selected.svg'></img>
-      </p>
+      <div 
+        className = "starContainer"
+        onClick = { this.incidentStarClick.bind(this) }
+      >
+        <img src = { this.starImage() } ></img>
+      </div>
 
-      <p className = "incidentContainer">
-        <p className = { this.incidentDetailClass() }> { this.props.incident.get('incidentNumber') }</p>
+      <div className = "incidentContainer">
+        <p className = { this.incidentDetailClass() }>{ this.props.incident.get('incidentNumber') }</p>
         <p>
           <span className = 'lowEmphasis'>{ Tr.getIn(['near', this.props.language])} </span>
           <span className = { this.incidentDetailClass() } >{ this.props.incident.get('nearestPopulatedCentre') }</span>
@@ -72,7 +102,7 @@ class IncidentListItem extends React.Component {
           <span className = 'lowEmphasis'>{ Tr.getIn(['reportedDate', this.props.language]) } </span>
           <span className = { this.incidentDetailClass() }>{ this.props.incident.get('reportedDate').format('MM/DD/YYYY') }</span>
         </p>
-      </p>
+      </div>
     </li>
 
   }
@@ -102,7 +132,13 @@ const mapDispatchToProps = dispatch => {
     },
     unhoverIncident: () => {
       dispatch(UnhoverIncidentCreator())
-    }
+    },
+    addToSelectedIncidents: incident => {
+      dispatch(AddSelectedIncidentCreator(incident))
+    },
+    removeFromSelectedIncidents: incident => {
+      dispatch(RemoveSelectedIncidentCreator(incident))
+    },
   }
 }
 
