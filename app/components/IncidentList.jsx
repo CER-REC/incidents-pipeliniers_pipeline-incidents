@@ -27,8 +27,10 @@ class IncidentList extends React.Component {
     if (this.props.filterboxActivationState.get('columnName') === null) {
 
       // TODO: if this design sticks, translate me
-      return <p className = 'noIncidentsText'>No category selected. Select a category from a column to see related incidents.</p>
-
+      return <g className='noIncidentsTextBlock'><p className = 'noIncidentsText'>No category selected.</p> 
+        <p className = 'noIncidentsText'>Select a category to</p>
+        <p className = 'noIncidentsText'>see list of incidents.</p>
+      </g>
     }
     else {
       return null
