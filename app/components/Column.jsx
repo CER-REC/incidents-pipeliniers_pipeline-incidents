@@ -90,12 +90,6 @@ class Column extends React.Component {
   barHeading() {
     let currentY = WorkspaceComputations.topBarHeight()
 
-    // Check if the subheading is visible. If it is not, 
-    // add Constants.get('columnSubheadingHeight') to currentY.
-    if(!CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
-      currentY += Constants.get('columnSubheadingHeight')
-    }
-
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -488,38 +482,51 @@ class Column extends React.Component {
     })
   }
 
+  sidebarShadow() {
+
+    if (this.props.sidebarColumnHover === this.props.columnName) {
+
+      const transform = `translate(${Constants.getIn(['sidebar', 'dropShadowX'])},${Constants.getIn(['sidebar', 'dropShadowY'])})`
+      
+      return <g transform = { transform } >
+        <rect
+          fill = '#999'
+          width = { this.props.columnWidth }
+          height = { this.props.columnHeight }
+          x = { this.props.columnX }
+          y = { this.props.columnY }
+        />
+      </g>
+    }
+    else {
+      return null
+    }
+
+  }
+
   render() {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
-      return <svg> 
-        <defs>
-          <filter id='dropshadow'>
-            <feOffset result="offOut" in="SourceGraphic" dx={Constants.getIn(['sidebar','dropShadowX'])} dy={Constants.getIn(['sidebar','dropShadowY'])}></feOffset>
-            <feColorMatrix result="matrixOut" in="offOut" type="matrix"
-              values="0 0 0 0 0 
-                      0 0 0 0 0
-                      0 0 0 0 0
-                      0 0 0 0.2 0" />
-            <feBlend in="SourceGraphic" in2="blurOut" mode="normal"></feBlend>
-          </filter>
-        </defs>
-        <g
-          className="sidebar"
-          transform={this.sidebarColumnTransform()}
-          id={this.props.columnName}
-          onMouseDown={this.handleSidebarDragStart.bind(this)}
-          onMouseMove={this.handleSidebarDragMove.bind(this)}
-          onMouseUp={this.handleSidebarDragEnd.bind(this)}
-          onMouseEnter={this.handleMouseEnter.bind(this)}
-          onMouseLeave={this.handleMouseLeave.bind(this)}>
-          {this.sideBarColumn()}
+      return <g>
+        <g transform={this.sidebarColumnTransform()}>
+          { this.sidebarShadow() }
+          <g
+            className="sidebar"
+            id={this.props.columnName}
+            onMouseDown={this.handleSidebarDragStart.bind(this)}
+            onMouseMove={this.handleSidebarDragMove.bind(this)}
+            onMouseUp={this.handleSidebarDragEnd.bind(this)}
+            onMouseEnter={this.handleMouseEnter.bind(this)}
+            onMouseLeave={this.handleMouseLeave.bind(this)}>
+            {this.sideBarColumn()}
+          </g>
         </g>
         <g>
           <text>
             { this.sidebarHeading() }
           </text>
         </g>
-      </svg>
+      </g>
     }
     case Constants.getIn(['columnTypes', 'WORKSPACE']):
     default: {
@@ -556,6 +563,7 @@ const mapStateToProps = state => {
     language: state.language,
     columnDragStatus: state.columnDragStatus,
     sidebarDragStatus: state.sidebarDragStatus,
+    sidebarColumnHover: state.sidebarColumnHover,
     schema: state.schema,
   }
 }

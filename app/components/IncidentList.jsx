@@ -77,9 +77,8 @@ class IncidentList extends React.Component {
         incident = { incident }
         key = { incident.get('incidentNumber') }
         pinned = { this.props.pinnedIncidents.contains(incident) }
+        selected = { this.props.selectedIncidents.contains(incident) }
       />
-      // TODO: redevelop
-      // selected = { this.props.selectedIncident === incident }
     }).toArray()
   }
 
@@ -152,6 +151,7 @@ const mapStateToProps = state => {
     language: state.language,
     pinnedIncidents: state.pinnedIncidents,
     incidentListScrollPosition: state.incidentListScrollPosition,
+    selectedIncidents: state.selectedIncidents,
   }
 }
 
