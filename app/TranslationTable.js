@@ -99,7 +99,7 @@ const TranslationTable = Immutable.fromJS({
 
   mainHeading: {
     en: 'Incidents at NEB-regulated pipelines and facilities',
-    fr: 'TODO'
+    fr: 'Incidents impliquant des installations et des pipelines réglementés par l’Office'
   },
 
   mainSubheading: {
