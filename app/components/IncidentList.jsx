@@ -127,16 +127,14 @@ class IncidentList extends React.Component {
   }
 
   render() {
-    return <div className = 'incidentListOuterContainer'>
-      <div 
-        className = 'incidentListInnerContainer' 
-        style = { this.innerContainerStyle() }
-      >
-        { this.noIncidentsText() }
-        { this.incidentList() }
-      </div>
-
+    return <div 
+      className = 'incidentList' 
+      style = { this.innerContainerStyle() }
+    >
+      { this.noIncidentsText() }
+      { this.incidentList() }
     </div>
+
   }
 
 }

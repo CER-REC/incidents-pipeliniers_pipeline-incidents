@@ -85,14 +85,11 @@ class StarredIncidentList extends React.Component {
     }
 
 
-    return <div className = 'starredIncidentListOuterContainer'>
-      <div 
-        className = 'starredIncidentListInnerContainer'
-        style = { this.innerContainerStyle() }
-      >
-        { this.incidentList() }
-      </div>
-
+    return <div 
+      className = 'starredIncidentList'
+      style = { this.innerContainerStyle() }
+    >
+      { this.incidentList() }
     </div>
   }
 

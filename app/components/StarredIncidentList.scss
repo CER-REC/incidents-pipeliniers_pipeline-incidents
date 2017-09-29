@@ -1,17 +1,6 @@
-@import "../styles/Fonts.scss";
-@import "../styles/Colours.scss";
 
-
-.starredIncidentListOuterContainer {
-
-  // NB: necessary to establish stacking context for z-index
-  position: relative;
-
-  z-index: 2;
-
-  .starredIncidentListInnerContainer {
-    position: absolute;
-  }
+.starredIncidentList {
+  position: absolute;
 
   .starredIncidentListScrollPane {
     display: block;
@@ -22,7 +11,6 @@
     padding: 0px;
     list-style: none;
   }
-
 
 }
 

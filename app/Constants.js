@@ -311,6 +311,7 @@ const Constants = Immutable.fromJS({
   pathCurveControlFactor: 2.5,
 
   nearBlack: '#333333',
+  darkGrey: '#666',
 
   emptyCategoryLabelFudgeFactor: 8,
 

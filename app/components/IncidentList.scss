@@ -2,16 +2,8 @@
 @import "../styles/Colours.scss";
 
 
-.incidentListOuterContainer {
-
-  // NB: necessary to establish stacking context for z-index
-  position: relative;
-
-  z-index: 2;
-
-  .incidentListInnerContainer {
-    position: absolute;
-  }
+.incidentList {
+  position: absolute;
 
   .incidentListScrollPane {
     display: block;

@@ -2,29 +2,59 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
+const WorkspaceComputations = require('../WorkspaceComputations.js')
+const IncidentListComputations = require('../IncidentListComputations.js')
 
 class IncidentListDivider extends React.Component {
 
-  render() {
+  containerStyle() {
 
+    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories, 
+      this.props.viewport, 
+      this.props.data, 
+      this.props.columns, 
+      this.props.categories
+    ).get('pinColumn')
+
+    const incidentListHeight = IncidentListComputations.incidentListHeight(
+      this.props.showEmptyCategories, 
+      this.props.viewport, 
+      this.props.data, 
+      this.props.columns, 
+      this.props.categories,
+      this.props.pinnedIncidents
+    )
+
+    const topOffset = pinColumnPositions.get('y') + incidentListHeight
+
+    return {
+      position: 'absolute',
+      top: topOffset, 
+      width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
+    }
+  }
+
+  lineStyle() {
+    return {
+      marginTop: Constants.getIn(['incidentList', 'dividerLineVerticalMargin']),
+      marginBottom: Constants.getIn(['incidentList', 'dividerLineVerticalMargin']),
+      height: Constants.getIn(['incidentList', 'dividerLineWidth']),
+      width: '100%',
+      backgroundColor: Constants.get('darkGrey'),
+    }
+  }
+
+
+  render() {
     // We only need the divider if both lists are on display
     if (this.props.pinnedIncidents.count() > 0 && 
       this.props.filterboxActivationState.get('columnName') !== null) {
-
-      const style = {
-        marginTop: Constants.getIn(['incidentList', 'dividerLineVerticalMargin']),
-        marginBottom: Constants.getIn(['incidentList', 'dividerLineVerticalMargin']),
-        height: Constants.getIn(['incidentList', 'dividerLineWidth']),
-        width: '100%',
-        backgroundColor: Constants.get('nearBlack'),
-      }
-
-      return <div> 
-        <div style = { style } />
+      return <div style = { this.containerStyle() }>
+        <div style = { this.lineStyle() } />
       </div>
     }
     else {
-      console.log('srsly')
       return null
     }
   }
@@ -35,6 +65,11 @@ class IncidentListDivider extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    showEmptyCategories: state.showEmptyCategories,
+    viewport: state.viewport,
+    data: state.data,
+    columns: state.columns,
+    categories: state.categories,
     filterboxActivationState: state.filterboxActivationState,
     pinnedIncidents: state.pinnedIncidents,
   }

@@ -15,10 +15,7 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const MapContainer = require('./MapContainer.jsx')
 const Constants = require('../Constants.js')
 const IncidentListHeadings = require('./IncidentListHeadings.jsx')
-const IncidentList = require('./IncidentList.jsx')
-const StarredIncidentList = require('./StarredIncidentList.jsx')
-const IncidentListDivider = require('./IncidentListDivider.jsx')
-
+const IncidentContainer = require('./IncidentContainer.jsx')
 
 class Workspace extends React.Component {
 
@@ -67,11 +64,7 @@ class Workspace extends React.Component {
     return <div>
       <div className='workspace'>
         { this.mapContainer() }
-        <div>
-          <IncidentList />
-          <IncidentListDivider />
-          <StarredIncidentList />
-        </div>
+        <IncidentContainer />
         <svg 
           className = 'workspaceSvg'
           width = { horizontalPositions.getIn(['workspace', 'width']) }
