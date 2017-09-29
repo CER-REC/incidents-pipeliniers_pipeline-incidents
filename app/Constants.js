@@ -317,7 +317,7 @@ const Constants = Immutable.fromJS({
 
   incidentList: {
     // Begin scrolling the list when we have 4 or more incidents
-    maxIndidentsWithoutScroll: 3,
+    maxIncidentsWithoutScroll: 3,
     
     // NB: this is an approximate height based on manually measuring the DOM
     // element. Since we're using HTML, we can't compute the height in advance,

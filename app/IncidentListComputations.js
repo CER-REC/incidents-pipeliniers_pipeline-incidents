@@ -18,13 +18,13 @@ const IncidentListComputations = {
 
   // NB: in the UI, we now call pinned incidents 'starred incidents'
   starredIncidentListHeight(pinnedIncidents) {
-    if (pinnedIncidents.count() <= Constants.getIn(['incidentList', 'maxIndidentsWithoutScroll'])) {
+    if (pinnedIncidents.count() <= Constants.getIn(['incidentList', 'maxIncidentsWithoutScroll'])) {
       return Constants.getIn(['incidentList', 'listItemHeight']) *
         pinnedIncidents.count()
     }
     else {
       return Constants.getIn(['incidentList', 'listItemHeight']) *
-        Constants.getIn(['incidentList', 'maxIndidentsWithoutScroll'])
+        Constants.getIn(['incidentList', 'maxIncidentsWithoutScroll'])
     }
   },
 
