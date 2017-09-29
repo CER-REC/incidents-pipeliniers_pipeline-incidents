@@ -90,3 +90,11 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   text-align:left;
   color: $near-black;
 }
+
+.storiesHeading {
+  font-family: $fira-sans-extra-condensed;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  color: $black;
+}

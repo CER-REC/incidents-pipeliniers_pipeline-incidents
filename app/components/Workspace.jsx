@@ -16,6 +16,7 @@ const MapContainer = require('./MapContainer.jsx')
 const Constants = require('../Constants.js')
 const IncidentListHeadings = require('./IncidentListHeadings.jsx')
 const IncidentList = require('./IncidentList.jsx')
+const StoryBar = require('./StoryBar.jsx')
 
 
 class Workspace extends React.Component {
@@ -80,6 +81,7 @@ class Workspace extends React.Component {
           <SocialBar/>
         </svg>
       </div>
+      <StoryBar/>
     </div>
   }
 }
