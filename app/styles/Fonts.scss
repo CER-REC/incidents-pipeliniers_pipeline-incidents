@@ -16,7 +16,7 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 .heading {
   position: fixed;
   padding-top: 13px;
-  font-family: $fira-sans-light;
+  font-family: $fira-sans-extra-condensed-semibold;
   font-size: 22px;
   fill: $black;
   text-align: left;
@@ -54,10 +54,17 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 }
 
 .barsSubHeading {
-	font-family: $fira-sans-extra-condensed-semibold;
-	font-size: 10px;
-	fill: $black;
-	text-align: left;
+  font-family: $fira-sans-extra-condensed-semibold;
+  font-size: 10px;
+  fill: $black;
+  text-align: left;
+}
+
+.headerButtons {
+  font-family: $fira-sans-extra-condensed-semibold;
+  font-size: 13px;
+  text-align: left;
+  fill: #555556;
 }
 
 .sidebars {

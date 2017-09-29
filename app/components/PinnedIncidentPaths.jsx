@@ -3,17 +3,20 @@ const ReactRedux = require('react-redux')
 
 const Path = require('./Path.jsx')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
+const Constants = require('../Constants.js')
 
-class ColumnPaths extends React.Component {
+
+class PinnedIncidentPaths extends React.Component {
 
   paths() {
 
-    const pathMeasurements = IncidentPathComputations.pathMeasurements(
+    const pinnedIncidentPathMeasurements = IncidentPathComputations.pinnedIncidentPathMeasurements(
       this.props.data,
       this.props.columns,
       this.props.categories,
       this.props.showEmptyCategories,
-      this.props.viewport
+      this.props.viewport,
+      this.props.pinnedIncidents
     )
 
     const paths = []
@@ -24,7 +27,7 @@ class ColumnPaths extends React.Component {
       this.props.categories,
       this.props.showEmptyCategories,
       this.props.viewport, 
-      pathMeasurements,
+      pinnedIncidentPathMeasurements, 
       this.props.columnName
     )
 
@@ -32,6 +35,7 @@ class ColumnPaths extends React.Component {
       paths.push(<Path
         d = { pathCurve.get('d') }
         key = { pathCurve.get('sourceCategory') + pathCurve.get('destinationCategory') }
+        fillColour = { Constants.get('nearBlack') }
       />)
     })
 
@@ -40,20 +44,25 @@ class ColumnPaths extends React.Component {
   }
 
 
-
   render() {
-    return <g className='ColumnPaths'>{ this.paths() }</g>
+    return <g>{ this.paths() }</g>
   }
+
 }
+
+
+
+
 
 const mapStateToProps = state => {
   return {
-    showEmptyCategories: state.showEmptyCategories,
-    viewport: state.viewport,
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    showEmptyCategories: state.showEmptyCategories,
+    viewport: state.viewport,
+    pinnedIncidents: state.pinnedIncidents, 
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(ColumnPaths)
+module.exports = ReactRedux.connect(mapStateToProps)(PinnedIncidentPaths)

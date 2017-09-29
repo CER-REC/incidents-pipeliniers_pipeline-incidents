@@ -18,17 +18,16 @@ const DefaultCategoryComputations = {
 
       switch(columnName){
 
-      case 'incidentTypes':
-      case 'status':
-      case 'province':
-      case 'substance':
-      case 'releaseType':
-      case 'whatHappened':
-      case 'whyItHappened':
-      case 'pipelinePhase':
-      case 'substanceCategory':
-      case 'pipelineSystemComponentsInvolved':
-      case 'volumeCategory': {
+      case 'incidentTypes': //7
+      case 'status': //3
+      case 'province': //13
+      case 'substance': //30
+      case 'releaseType': //4
+      case 'whatHappened': //12
+      case 'whyItHappened': //9
+      case 'pipelinePhase': //4
+      case 'pipelineSystemComponentsInvolved': //5
+      case 'volumeCategory': { //10
         // Eleven of the columns have a fixed set of categories:
 
         let activeCategories = Immutable.OrderedMap()

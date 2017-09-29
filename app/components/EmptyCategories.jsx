@@ -4,6 +4,7 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const ShowHideEmptyCategoriesCreator = require('../actionCreators/ShowHideEmptyCategoriesCreator.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const Tr = require('../TranslationTable.js')
 
 require('../styles/Common.scss')
 
@@ -35,14 +36,14 @@ class EmptyCategories extends React.Component {
     const xShowText = Constants.getIn(['showHideEmptyCategories', 'xShowText'])
     if (this.props.showEmptyCategories) {
       return <text x={xShowText} y={0} className="emptyCategories">
-        <tspan>hide empty categories</tspan>
+        <tspan>{ Tr.getIn(['hideEmptyCategories', this.props.language]) }</tspan>
       </text>
 
     }
     else {
 
       return <text x={xShowText} y={0} className="emptyCategories">
-        <tspan>see empty categories</tspan>
+        <tspan>{ Tr.getIn(['seeEmptyCategories', this.props.language]) }</tspan>
       </text>
     }
   }
@@ -50,13 +51,20 @@ class EmptyCategories extends React.Component {
 
   render() {
 
-    const yTransform = WorkspaceComputations.baselineHeight(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data, 
-      this.props.columns,
-      this.props.categories
-    ) - Constants.getIn(['showHideEmptyCategories', 'fontSize'])
+    // TODO: previously, used baseline height. Unclear if we will permanently
+    // move away from this logic. 
+    // const yTransform = WorkspaceComputations.baselineHeight(
+    //   this.props.showEmptyCategories,
+    //   this.props.viewport,
+    //   this.props.data, 
+    //   this.props.columns,
+    //   this.props.categories
+    // ) - Constants.getIn(['showHideEmptyCategories', 'fontSize'])
+
+    // TODO: it is a mystery to me why this fudge factor is needed to align
+    // this with the drag arrows. 
+    const yTransform = WorkspaceComputations.dragArrowY(this.props.viewport) + 
+      Constants.get('emptyCategoryLabelFudgeFactor')
 
     // TODO: adapt empty categories to use horizontalComputations
 
@@ -77,6 +85,7 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    language: state.language,
   }
 }
 

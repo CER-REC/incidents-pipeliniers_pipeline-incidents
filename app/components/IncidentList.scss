@@ -1,0 +1,39 @@
+@import "../styles/Fonts.scss";
+@import "../styles/Colours.scss";
+
+
+.incidentListOuterContainer {
+
+  // NB: necessary to establish stacking context for z-index
+  position: relative;
+
+  z-index: 2;
+
+  .incidentListInnerContainer {
+    position: absolute;
+  }
+
+  .incidentListScrollPane {
+    display: block;
+    overflow-y: scroll;
+  }
+
+  ul {
+    padding: 0px;
+    list-style: none;
+
+    // WET CSS override:
+    margin: 0;
+  }
+
+  .noIncidentsText {
+    font-family: $fira-sans-extra-condensed-medium;
+    font-size: 13px;
+    line-height: 1.25em;
+    margin: 0;
+    color: $dark-grey;
+    text-align: center;
+  }
+
+}
+

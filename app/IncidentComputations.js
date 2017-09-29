@@ -39,8 +39,6 @@ IncidentComputations.filteredIncidents = function (data, columns, categories) {
         return categoryInfo.get(item.get('pipelinePhase')) === true
       case 'volumeCategory':
         return categoryInfo.get(item.get('volumeCategory')) === true
-      case 'substanceCategory':
-        return categoryInfo.get(item.get('substanceCategory')) === true
       case 'year':
         return categoryInfo.get(item.get('year')) === true
 
@@ -117,6 +115,8 @@ IncidentComputations.filteredIncidents = function (data, columns, categories) {
 
 // Returns a subset of the given list of data, containing only elements in the
 // given category.
+// NB: Most of the time, 'data' should not be the full set of data in the 
+// visualization but the results of a call to filteredIncidents.
 IncidentComputations.categorySubset = function(data, columnName, categoryName) {
 
   switch (columnName) {
@@ -129,7 +129,6 @@ IncidentComputations.categorySubset = function(data, columnName, categoryName) {
   case 'releaseType':
   case 'pipelinePhase':
   case 'volumeCategory':
-  case 'substanceCategory':
     // For the single selection columns
     return data.filter( item => {
       return item.get(columnName) === categoryName
@@ -178,10 +177,53 @@ IncidentComputations.firstCategoryName = function(columns, incident) {
 }
 
 
+
+// Returns a list of incidents which are included in the current category
+// selection.
+// When the user is hovering a category, that is considered to be the current
+// selection. When the user is not hovering anything, if a filterbox has been
+// activated, then this is considered to be the current selection
+
+// data: the filtered incidents
+// categoryHoverState: from the store
+// filterboxActivationState: from the store
+
+IncidentComputations.incidentsInCategorySelection = function (data, categoryHoverState, filterboxActivationState) {
+
+  if (categoryHoverState.get('columnName') !== null && 
+    categoryHoverState.get('categoryName') !== null) {
+
+    return IncidentComputations.categorySubset(
+      data,
+      categoryHoverState.get('columnName'),
+      categoryHoverState.get('categoryName')
+    )
+
+  }
+  else if (filterboxActivationState.get('columnName') !== null && 
+    filterboxActivationState.get('categoryName') !== null){
+
+    return IncidentComputations.categorySubset(
+      data,
+      filterboxActivationState.get('columnName'),
+      filterboxActivationState.get('categoryName')
+    )
+
+  }
+  else {
+    return null
+  }
+
+
+}
+
+
+
 const MemoizedComputations = {}
 
 for (const name of Object.keys(IncidentComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(IncidentComputations[name])
 }
 
+window.ic = MemoizedComputations
 module.exports = MemoizedComputations

@@ -19,7 +19,7 @@ const Constants = Immutable.fromJS({
   topBar: {
     headerIconWidth: 18,
     headerIconHeight: 20,
-    width: 550,
+    width: 860,
     height: 100,
     xHeading: 35,
     yHeading: 18,
@@ -76,10 +76,16 @@ const Constants = Immutable.fromJS({
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 40,
 
+  columnHeadingSpacing: 10,
+
   dragArrow: {
     width: 24,
     height: 10,
     topMargin: 7,
+  },
+
+  headerBar: {
+    height: 47,
   },
 
   socialBar: {
@@ -115,7 +121,6 @@ const Constants = Immutable.fromJS({
     'whyItHappened',
     'pipelinePhase',
     'volumeCategory',
-    'substanceCategory',
     'pipelineSystemComponentsInvolved',
     'map',
   ],
@@ -126,7 +131,7 @@ const Constants = Immutable.fromJS({
   ],
 
   sidebar: {
-    columWidth: 75,
+    columWidth: 87,
     columnOffset: 10,
 
     verticalStackingOffset: 2,
@@ -229,11 +234,6 @@ const Constants = Immutable.fromJS({
       middle: '#E6A1C9',
       end: '#FFF9E6',
     },
-    'substanceCategory': {
-      start: '#F8B51C',
-      middle: '#78E690',
-      end: '#A8EAFF',
-    },
     'pipelineSystemComponentsInvolved': {
       start: '#29836F',
       middle: '#73ADE6',
@@ -244,25 +244,29 @@ const Constants = Immutable.fromJS({
   emptyCategoryHeight: 20, // px
   
   map: {
-    widthHeightRatio: 510 / 375,
+    widthHeightRatio: 500 / 450,
+    // widthHeightRatio: 510 / 375,
+    // widthHeightRatio: 410 / 375,
     
     // NB: Must match dimensions of canada.svg
     coordinateSpace: {
-      width: 800,
-      height: 600,
+      width: 500,
+      height: 450,
     },
 
     // TODO: colours should maybe be their own segment of constants?
     backgroundColour: 'rgb(255, 255, 255)',
-    incidentCircleColour: 'rgb(80, 113, 82)',
-    selectedIncidentCircleColour: 'rgb(149, 183, 181)',
     shadowColour: '#333',
     lightGrey: 'rgba(102, 102, 102, 0.4)',
-    deselectedLightGrey: 'rgba(207, 207, 207, 0.2)',
+    lightGreyBlank: 'rgba(102, 102, 102, 0.0)',
+    deselectedLightGrey: 'rgba(207, 207, 207, 0.4)',
+    deselectedLightGreyBlank: 'rgba(207, 207, 207, 0.0)',
     selectedLightGrey: 'rgb(48, 48, 48)',
 
-    incidentRadius: 5,
-    padding: 100,
+    smallIncidentRadius: 3,
+    largeIncidentRadius: 5,
+    incidentDotCountSizeCutoff: 100,
+    padding: 10,
     bundleOffsetDistance: 25,
     radialControlPointDistance: 150,
 
@@ -276,9 +280,11 @@ const Constants = Immutable.fromJS({
   maxCategoryLabelLines: 3,
   categoryLabelTerminatingDots: 3,
   categoryLabelLineLength: 14,
-  categoryStrokeWidth: 1,
   categoryDefaultOpacity: 1,
-  categoryFadeOpacity: 0.2,
+  categoryFadeOpacity: 0.4,
+  categoryStrokeWidth: 1,
+  categoryDefaultStrokeColour: '#ffffff',
+  categoryHoverStrokeColour: '#000000',
 
 
   selectedIncidentPath: {
@@ -294,7 +300,11 @@ const Constants = Immutable.fromJS({
     WORKSPACE: 'WORKSPACE'
   },
 
+  pathCurveControlFactor: 2.5,
 
+  nearBlack: '#333333',
+
+  emptyCategoryLabelFudgeFactor: 8,
 
 })
 

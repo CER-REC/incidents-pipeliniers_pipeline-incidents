@@ -4,40 +4,40 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 
 class Path extends React.Component {
-  hoverLogic () {
-    const isDestinationCategoryHovered = (this.props.categoryHoverState.get('categoryName') === this.props.destinationCategory.categoryName) &&
-      this.props.categoryHoverState.get('columnName') === this.props.destinationColumnName
-    
-    const isCategoryHovered = (this.props.categoryHoverState.get('categoryName') === this.props.sourceCategory.categoryName) &&
-      this.props.categoryHoverState.get('columnName') === this.props.columnName
+  
+  fillColour () {
+
+    if (this.props.fillColour) {
+      return this.props.fillColour
+    }
+
     const isAnythingHovered = this.props.categoryHoverState.get('columnName') !== null
+    const isFilterboxActivated = this.props.filterboxActivationState.get('columnName') !== null
+
       
-    if (!isAnythingHovered) {
-      return Constants.getIn(['columnPaths', 'defaultColumn'])
-    }
-    else if (isCategoryHovered === true && isAnythingHovered === true) {
-      return Constants.getIn(['columnPaths', 'columnHovered'])
-    }
-    else if (isDestinationCategoryHovered === true) {
-      return Constants.getIn(['columnPaths', 'columnHovered'])
-    }
-    else if (isCategoryHovered === false && isAnythingHovered === true) {
+    if (isAnythingHovered || isFilterboxActivated) {
       return Constants.getIn(['columnPaths', 'notColumnHovered'])
     }
+    else {
+      return Constants.getIn(['columnPaths', 'defaultColumn'])
+    }
+
   }
 
   render() {
     return <path 
-      d={this.props.d} 
-      fill={this.hoverLogic()} 
-      className='ColumnPaths'>
-    </path>
+      d = { this.props.d }
+      fill = { this.fillColour() }
+      className = 'ColumnPaths'
+      fillOpacity = '0.6'
+    />
   }
 }
 
 const mapStateToProps = state => {
   return {
     categoryHoverState: state.categoryHoverState,
+    filterboxActivationState: state.filterboxActivationState, 
   }
 }
 
