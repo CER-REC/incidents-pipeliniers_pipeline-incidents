@@ -7,7 +7,6 @@ function SetFromRouterStateCreator (options) {
     categories: options.categories,
     showEmptyCategories: options.showEmptyCategories,
     pinnedIncidents: options.pinnedIncidents,
-    selectedIncident: options.selectedIncident,
     language: options.language,
   }
 
