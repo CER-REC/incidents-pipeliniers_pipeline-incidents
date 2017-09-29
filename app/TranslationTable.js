@@ -96,6 +96,15 @@ const TranslationTable = Immutable.fromJS({
     fr: 'Cacher les catégories vides',
   },
 
+  applicationPath: {
+    en: '/incident-visualization/',
+    fr: '/incident-visualization/',
+    // TODO: for now, use the same path, as the IIS app has not been prepared
+    // with this alternate path. eventually, we should use something
+    // properly localized for this path fragment.
+    // fr: '/visualisation-des-incidents/',
+  },
+
 
   mainHeading: {
     en: 'Incidents at NEB-regulated pipelines and facilities',
@@ -313,7 +322,7 @@ const TranslationTable = Immutable.fromJS({
       },
       morphysorb: {
         en: 'Morphysorb',
-        fr: 'MorphysorbR',
+        fr: 'Morphysorb',
       },
       oilWellEffluent: {
         en: 'Oil Well Effluent',
