@@ -719,7 +719,7 @@ const RenderRoutines = {
     // happens to be next to the map
     // TODO: Convince the team that we should have a 'not applicable' category
     // for system components so that this is not necessary!
-    const colour = CategoryComputations.coloursForColumn(props.data, columnName).get(category) || '#444'
+    const colour = CategoryComputations.coloursForColumn(props.data, columnName, props.schema).get(category) || '#444'
 
     if (RenderRoutines.incidentHasFocus(incident, props)) {
       return colour

@@ -84,8 +84,8 @@ CategoryComputations.itemsInMultipleCategory = function (data, columnName, categ
 
 // Returns a map of category names to Chroma colours
 // categories: the category display data from the store
-CategoryComputations.coloursForColumn = function (data, columnName) {
-  const categoryInfo = DefaultCategoryComputations.initialState(data).get(columnName)
+CategoryComputations.coloursForColumn = function (data, columnName, schema) {
+  const categoryInfo = DefaultCategoryComputations.initialState(data, schema).get(columnName)
   const colourInfo = Constants.getIn(['columnBaseColors', columnName])
 
   const chromaColours = Chroma.scale([
