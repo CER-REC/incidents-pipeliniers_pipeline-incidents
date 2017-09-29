@@ -1,0 +1,16 @@
+
+.starredIncidentList {
+  position: absolute;
+
+  .starredIncidentListScrollPane {
+    display: block;
+    overflow-y: scroll;
+  }
+
+  ul {
+    padding: 0px;
+    list-style: none;
+  }
+
+}
+

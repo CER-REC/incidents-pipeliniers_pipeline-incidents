@@ -97,6 +97,56 @@ const TranslationTable = Immutable.fromJS({
   },
 
 
+  mainHeading: {
+    en: 'Incidents at NEB-regulated pipelines and facilities',
+    fr: 'Incidents impliquant des installations et des pipelines réglementés par l’Office'
+  },
+
+  mainSubheading: {
+    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations  and the Processing Plant Regulations. New data is added on a quaterly basis.',
+    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du  Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données sont ajoutées tous les trois mois.',
+  },
+
+  noCategorySelection: {
+    en: 'No category selected. Select a category from a column to see related incidents.',
+    fr: 'Vous n’avez pas choisi de catégorie. Choisissez une catégorie dans une colonne pour voir les incidents reliés. ',
+  },
+
+  resetAll: {
+    en: 'Reset All',
+    fr: 'Réinitialiser',
+  },
+
+  hideIncidentList: {
+    en: 'Hide incident list',
+    fr: 'Cacher la liste des incidents',
+  },
+
+  showIncidentList: {
+    en: 'Show incident list',
+    fr: 'Voir la list des incidents'
+  },
+
+  storiesAboutIncidents: {
+    en: 'Stories About Pipeline Incidents',
+    fr: 'Description des incidents pipeliniers',
+  },
+
+  incidentsRelatedTo: {
+    en: 'incidents related to',
+    fr: 'incidents liés a la catégorie',
+  },
+
+  methodology: { 
+    en: 'METHODOLOGY',
+    fr: 'MÉTHODOLOGIE',
+  },
+
+
+
+
+
+
   categories: {
     incidentTypes: {
       release: {

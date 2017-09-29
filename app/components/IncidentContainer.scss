@@ -1,0 +1,8 @@
+.incidentContainer {
+
+  // NB: necessary to establish stacking context for z-index
+  position: relative;
+
+  z-index: 2;
+
+}
