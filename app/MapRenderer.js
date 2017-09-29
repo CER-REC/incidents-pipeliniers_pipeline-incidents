@@ -754,7 +754,7 @@ const RenderRoutines = {
 
     const category = IncidentComputations.firstCategoryName(Immutable.List([columnName]), incident)
 
-    const colour = CategoryComputations.coloursForColumn(props.data, columnName).get(category)
+    const colour = CategoryComputations.coloursForColumn(props.data, columnName, props.schema).get(category)
 
     if (RenderRoutines.incidentHasFocus(incident, props)) {
       return colour

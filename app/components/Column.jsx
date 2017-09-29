@@ -39,7 +39,8 @@ class Column extends React.Component {
   nonEmptyCategories() {
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
-      this.props.columnName)
+      this.props.columnName,
+      this.props.schema)
     const categoryHeights = WorkspaceComputations.categoryHeights(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -179,7 +180,8 @@ class Column extends React.Component {
 
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
-      this.props.columnName)
+      this.props.columnName,
+      this.props.schema)
 
     const baselineHeight = WorkspaceComputations.baselineHeight(
       this.props.showEmptyCategories,
@@ -412,7 +414,8 @@ class Column extends React.Component {
 
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
-      this.props.columnName)
+      this.props.columnName,
+      this.props.schema)
 
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
       this.props.columnHeight,
@@ -450,14 +453,24 @@ class Column extends React.Component {
   }
 
   sidebarMapColumn() {
-    return <image 
-      xlinkHref='images/sidebar_map.svg' 
-      height={ this.props.columnHeight }
-      className='Column'
-      width={ this.props.columnWidth }
-      x={ this.props.columnX }
-      y={ this.props.columnY }>
-    </image> 
+    return <g>
+      <rect
+        height={ this.props.columnHeight }
+        className='Column'
+        width={ this.props.columnWidth }
+        x={ this.props.columnX }
+        y={ this.props.columnY }
+        fill='#1CD1C8'
+        stroke='#1CD1C8'></rect>
+      <image
+        xlinkHref='images/mapColumn.png' 
+        height={ this.props.columnHeight - Constants.getIn(['sidebarMapColumn','heightPadding']) }
+        className='Column'
+        width={ this.props.columnWidth - Constants.getIn(['sidebarMapColumn','widthPadding'])}
+        x={ this.props.columnX + Constants.getIn(['sidebarMapColumn','xPadding'])}
+        y={ this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding'])}>
+      </image>
+    </g>
   }
 
   sidebarHeading() {
@@ -546,6 +559,7 @@ const mapStateToProps = state => {
     selectedIncident: state.selectedIncident,
     columnDragStatus: state.columnDragStatus,
     sidebarDragStatus: state.sidebarDragStatus,
+    schema: state.schema,
   }
 }
 

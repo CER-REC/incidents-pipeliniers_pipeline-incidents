@@ -60,7 +60,7 @@ class IncidentListItem extends React.Component {
           <span className = 'lowEmphasis'>{ Tr.getIn(['reportedDate', this.props.language]) } </span>
           <span className = { this.incidentDetailClass() }>{ this.props.incident.get('reportedDate').format('MM/DD/YYYY') }</span>
         </p>
-        
+
       </div>
     </li>
 

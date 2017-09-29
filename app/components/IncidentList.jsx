@@ -8,6 +8,9 @@ const IncidentListItem = require('./IncidentListItem.jsx')
 const SetIncidentListScrollCreator = require('../actionCreators/SetIncidentListScrollCreator.js')
 const ShowIncidentListCreator = require('../actionCreators/ShowIncidentListCreator.js')
 
+const Tr = require('../TranslationTable.js')
+const IncidentListComputations = require('../IncidentListComputations.js')
+
 
 require('./IncidentList.scss')
 
@@ -28,11 +31,9 @@ class IncidentList extends React.Component {
   noIncidentsText() {
     if (this.props.filterboxActivationState.get('columnName') === null) {
 
-      // TODO: if this design sticks, translate me
-      return <g className='noIncidentsTextBlock'><p className = 'noIncidentsText'>No category selected.</p> 
-        <p className = 'noIncidentsText'>Select a category to</p>
-        <p className = 'noIncidentsText'>see list of incidents.</p>
-      </g>
+      return <div className='noIncidentsTextBlock'>
+        <p className = 'noIncidentsText'>{ Tr.getIn(['noCategorySelection', this.props.language])}</p>
+      </div>
     }
     else {
       return null
@@ -102,24 +103,25 @@ class IncidentList extends React.Component {
 
     return {
       width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
-      height: `${pinColumnPositions.get('height')}px`,
       top: `${pinColumnPositions.get('y')}px`,
     }
   }
 
   scrollPaneStyle() {
-    // TODO: if the scrolling list replaces the pin column permanently, we
-    // should rename this chunk of the horizontal positions ... 
-    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
+
+    const incidentListHeight = IncidentListComputations.incidentListHeight(
       this.props.showEmptyCategories, 
       this.props.viewport, 
       this.props.data, 
       this.props.columns, 
-      this.props.categories
-    ).get('pinColumn')
+      this.props.categories,
+      this.props.pinnedIncidents
+    )
 
     return {
-      maxHeight: `${pinColumnPositions.get('height') - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
+
+      maxHeight: `${incidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
+
     }
   }
 
@@ -136,16 +138,14 @@ class IncidentList extends React.Component {
   }
 
   render() {
-    return <div className = 'incidentListOuterContainer'>
-      <div 
-        className = 'incidentListInnerContainer' 
-        style = { this.innerContainerStyle() }
-      >
-        { this.noIncidentsText() }
-        { this.incidentList() }
-      </div>
-
+    return <div 
+      className = 'incidentList' 
+      style = { this.innerContainerStyle() }
+    >
+      { this.noIncidentsText() }
+      { this.incidentList() }
     </div>
+
   }
 
 }
