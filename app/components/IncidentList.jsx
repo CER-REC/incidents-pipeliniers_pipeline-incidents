@@ -6,6 +6,8 @@ const Constants = require('../Constants.js')
 const IncidentComputations = require('../IncidentComputations.js')
 const IncidentListItem = require('./IncidentListItem.jsx')
 const SetIncidentListScrollCreator = require('../actionCreators/SetIncidentListScrollCreator.js')
+const ShowIncidentListCreator = require('../actionCreators/ShowIncidentListCreator.js')
+
 
 require('./IncidentList.scss')
 
@@ -38,6 +40,10 @@ class IncidentList extends React.Component {
   }
 
   incidentList() {
+    if (!this.props.showIncidentList) {
+      return null
+    }
+
     if (this.props.filterboxActivationState.get('columnName') === null) {
       return null
     }
@@ -122,9 +128,11 @@ class IncidentList extends React.Component {
   // React Lifecycle Hooks
 
   componentDidUpdate() {
+
     if (this.scrollPane !== undefined) {
+
       this.scrollPane.scrollTop = this.props.incidentListScrollPosition
-    }
+    } 
   }
 
   render() {
@@ -155,6 +163,7 @@ const mapStateToProps = state => {
     pinnedIncidents: state.pinnedIncidents,
     selectedIncident: state.selectedIncident,
     incidentListScrollPosition: state.incidentListScrollPosition,
+    showIncidentList: state.showIncidentList,
   }
 }
 
@@ -162,6 +171,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setListScroll: (scrollTop) => {
       dispatch(SetIncidentListScrollCreator(scrollTop))
+    },
+    onClick: () => {
+      dispatch(ShowIncidentListCreator())
     }
   }
 }

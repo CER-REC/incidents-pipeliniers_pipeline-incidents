@@ -30,8 +30,8 @@ class EmptyCategories extends React.Component {
       return <rect 
         y = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
         x = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
-        height = {height} 
-        width = {width} 
+        height = {height - Constants.getIn(['showHideEmptyCategories','checkboxStrokePadding'])} 
+        width = {width - Constants.getIn(['showHideEmptyCategories','checkboxStrokePadding'])} 
         transform = {transformShowImage} 
         stroke = '#666' 
         strokeWidth = { Constants.getIn(['showHideEmptyCategories','checkboxWidth']) }

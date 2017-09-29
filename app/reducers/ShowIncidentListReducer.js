@@ -1,6 +1,6 @@
 const Immutable = require('immutable')
 
-const ShowIncidentListReducer = (state = false, action) => {
+const ShowIncidentListReducer = (state = true, action) => {
 
   switch(action.type) {
 
@@ -8,7 +8,7 @@ const ShowIncidentListReducer = (state = false, action) => {
     return !state
 
   case 'ResetVisualization':
-    return false
+    return true
 
   default:
     return state

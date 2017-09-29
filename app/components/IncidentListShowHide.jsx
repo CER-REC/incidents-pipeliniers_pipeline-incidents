@@ -11,33 +11,33 @@ require('../styles/Common.scss')
 
 class IncidentListShowHide extends React.Component {
 
+  rotateImage() {
+    if(this.props.showIncidentList) {
+      return 'rotate(90 10,5)'
+    } else {
+      return 'rotate(270 -2,-2)'
+    }
+  }
+
   showImage() {
     const height = Constants.getIn(['pinColumn', 'labelIconSize'])
     const width = Constants.getIn(['pinColumn', 'labelIconSize'])
 
     const transformShowImage = `translate(0, ${-Constants.getIn(['showHideEmptyCategories','fontSize'])})`
 
-    if (this.props.showIncidentList) {
-      return <image 
-        x = { Constants.getIn(['pinColumn', 'labelIconPadding']) }
-        height = {height} 
-        width = {width} 
-        transform = {transformShowImage} 
-        xlinkHref='images/button-down.svg'
-        transform='rotate(90 10,5)'></image>
-    } else {
-      return <image 
-        x = { Constants.getIn(['pinColumn', 'labelIconPadding']) }
-        height = {height} 
-        width = {width} 
-        transform = {transformShowImage} 
-        xlinkHref='images/button-up.svg'
-        transform='rotate(90 10,5)'></image>
-    }
+    return <image 
+      x = { Constants.getIn(['pinColumn', 'labelIconPadding']) }
+      height = {height} 
+      width = {width} 
+      transform = {transformShowImage} 
+      xlinkHref='images/button-down.svg'
+      transform={ this.rotateImage() }>
+    </image>
   }
+  
   showText() {
     const xShowText = Constants.getIn(['showHideEmptyCategories', 'xShowText'])
-    if (this.props.showIncidentList) {
+    if(this.props.showIncidentList) {
       return <text x={xShowText} y={0} className="emptyCategories">
         <tspan>{ Tr.getIn(['hideIncidentList', this.props.language]) }</tspan>
       </text>
@@ -67,7 +67,6 @@ class IncidentListShowHide extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
     data: state.data,
     columns: state.columns,

@@ -43,6 +43,7 @@ const Constants = Immutable.fromJS({
     checkboxWidth: 1,
     dividerLineLength: 124,
     dividerLinePadding: -17,
+    checkboxStrokePadding: 1, 
   },
 
   //incident list
