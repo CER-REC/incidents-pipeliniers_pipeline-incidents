@@ -7,6 +7,7 @@ const IncidentComputations = require('../IncidentComputations.js')
 const IncidentListItem = require('./IncidentListItem.jsx')
 const SetIncidentListScrollCreator = require('../actionCreators/SetIncidentListScrollCreator.js')
 const Tr = require('../TranslationTable.js')
+const IncidentListComputations = require('../IncidentListComputations.js')
 
 require('./IncidentList.scss')
 
@@ -95,24 +96,23 @@ class IncidentList extends React.Component {
 
     return {
       width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
-      height: `${pinColumnPositions.get('height')}px`,
       top: `${pinColumnPositions.get('y')}px`,
     }
   }
 
   scrollPaneStyle() {
-    // TODO: if the scrolling list replaces the pin column permanently, we
-    // should rename this chunk of the horizontal positions ... 
-    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
+
+    const incidentListHeight = IncidentListComputations.incidentListHeight(
       this.props.showEmptyCategories, 
       this.props.viewport, 
       this.props.data, 
       this.props.columns, 
-      this.props.categories
-    ).get('pinColumn')
+      this.props.categories,
+      this.props.pinnedIncidents
+    )
 
     return {
-      maxHeight: `${pinColumnPositions.get('height')}px`,
+      maxHeight: `${incidentListHeight}px`,
     }
   }
 

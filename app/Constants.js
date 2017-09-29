@@ -314,6 +314,21 @@ const Constants = Immutable.fromJS({
 
   emptyCategoryLabelFudgeFactor: 8,
 
+  incidentList: {
+    // Begin scrolling the list when we have 4 or more incidents
+    maxIndidentsWithoutScroll: 3,
+    
+    // NB: this is an approximate height based on manually measuring the DOM
+    // element. Since we're using HTML, we can't compute the height in advance,
+    // but we could possibly measure the elements instead of assuming the
+    // height.
+    listItemHeight: 90,
+
+    dividerLineWidth: 1,
+    dividerLineVerticalMargin: 10, // top and bottom each
+
+  },
+
 })
 
 
