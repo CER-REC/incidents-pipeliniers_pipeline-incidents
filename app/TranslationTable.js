@@ -96,6 +96,10 @@ const TranslationTable = Immutable.fromJS({
     fr: 'Cacher les catégories vides',
   },
 
+  storiesBarHeading: {
+    en: 'STORIES ABOUT PIPELINE INCIDENTS',
+    fr: '<TODO>',
+  },
 
   categories: {
     incidentTypes: {

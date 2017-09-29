@@ -5,6 +5,7 @@ const ReactRedux = require('react-redux')
 require('./StoryBar.scss')
 
 const Constants = require('../Constants.js')
+const Tr = require('../TranslationTable.js')
 const StoryRow = require('./StoryRow.jsx')
 
 class StoryBar extends React.Component {
@@ -14,7 +15,7 @@ class StoryBar extends React.Component {
       <div id='heading'>
         <span 
           className='storiesHeading'>
-          STORIES ABOUT PIPELINE INCIDENTS
+          {Tr.getIn(['storiesBarHeading', this.props.language])}
         </span>
       </div>
       <StoryRow/>
@@ -24,6 +25,7 @@ class StoryBar extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    language: state.language,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
   }
