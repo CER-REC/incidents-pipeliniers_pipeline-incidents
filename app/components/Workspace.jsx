@@ -14,13 +14,9 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const MapContainer = require('./MapContainer.jsx')
 const Constants = require('../Constants.js')
 const IncidentListHeadings = require('./IncidentListHeadings.jsx')
-<<<<<<< HEAD
+const IncidentContainer = require('./IncidentContainer.jsx')
 const IncidentList = require('./IncidentList.jsx')
 const StoryBar = require('./StoryBar.jsx')
-
-=======
-const IncidentContainer = require('./IncidentContainer.jsx')
->>>>>>> develop
 
 class Workspace extends React.Component {
 
