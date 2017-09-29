@@ -38,7 +38,8 @@ class Column extends React.Component {
   nonEmptyCategories() {
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
-      this.props.columnName)
+      this.props.columnName,
+      this.props.schema)
     const categoryHeights = WorkspaceComputations.categoryHeights(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -178,7 +179,8 @@ class Column extends React.Component {
 
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
-      this.props.columnName)
+      this.props.columnName,
+      this.props.schema)
 
     const baselineHeight = WorkspaceComputations.baselineHeight(
       this.props.showEmptyCategories,
@@ -411,7 +413,8 @@ class Column extends React.Component {
 
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
-      this.props.columnName)
+      this.props.columnName,
+      this.props.schema)
 
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
       this.props.columnHeight,
@@ -543,6 +546,7 @@ const mapStateToProps = state => {
     language: state.language,
     columnDragStatus: state.columnDragStatus,
     sidebarDragStatus: state.sidebarDragStatus,
+    schema: state.schema,
   }
 }
 

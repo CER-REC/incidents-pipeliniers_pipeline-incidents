@@ -64,6 +64,7 @@ const mapStateToProps = state => {
     filterboxActivationState: state.filterboxActivationState,
     categoryHoverState: state.categoryHoverState,
     hoveredIncident: state.hoveredIncident,
+    schema: state.schema,
   }
 }
 

@@ -3,6 +3,14 @@ const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
 
+  // Data mode controls how the application loads up its data. Values are:
+  //   'dataService': initialize the data and schema from REST requests
+  //   'csvFile': initialize the data and schema from a flat CSV file
+  // See: DataLoader.js, data/CategorySchema.json
+  // TODO: might be good to make this a .env file option, or a URL param,
+  // rather than hard coding it
+  dataMode: 'csvFile',
+
   workspace: {
     maxWidth: 1138,
     heightToWidthRatio: 0.66,
@@ -43,7 +51,7 @@ const Constants = Immutable.fromJS({
 
   pinColumn: {
     horizontalMargins: 11, // both left and right
-    width: 132,
+    width: 155,
     pinIconSize: 25,
     textWidth: 79,
     connectorDotSize: 6,
@@ -312,8 +320,24 @@ const Constants = Immutable.fromJS({
   pathCurveControlFactor: 2.5,
 
   nearBlack: '#333333',
+  darkGrey: '#666',
 
   emptyCategoryLabelFudgeFactor: 8,
+
+  incidentList: {
+    // Begin scrolling the list when we have 4 or more incidents
+    maxIncidentsWithoutScroll: 3,
+    
+    // NB: this is an approximate height based on manually measuring the DOM
+    // element. Since we're using HTML, we can't compute the height in advance,
+    // but we could possibly measure the elements instead of assuming the
+    // height.
+    listItemHeight: 90,
+
+    dividerLineWidth: 1,
+    dividerLineVerticalMargin: 10, // top and bottom each
+
+  },
 
 })
 
