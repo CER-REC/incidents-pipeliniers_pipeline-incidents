@@ -2,7 +2,7 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
-const ShowHideEmptyCategoriesCreator = require('../actionCreators/ShowHideEmptyCategoriesCreator.js')
+const ShowIncidentListCreator = require('../actionCreators/ShowIncidentListCreator.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const Tr = require('../TranslationTable.js')
 
@@ -17,7 +17,7 @@ class IncidentListShowHide extends React.Component {
 
     const transformShowImage = `translate(0, ${-Constants.getIn(['showHideEmptyCategories','fontSize'])})`
 
-    if (this.props.showEmptyCategories) {
+    if (this.props.showIncidentList) {
       return <image 
         x = { Constants.getIn(['pinColumn', 'labelIconPadding']) }
         height = {height} 
@@ -37,7 +37,7 @@ class IncidentListShowHide extends React.Component {
   }
   showText() {
     const xShowText = Constants.getIn(['showHideEmptyCategories', 'xShowText'])
-    if (this.props.showEmptyCategories) {
+    if (this.props.showIncidentList) {
       return <text x={xShowText} y={0} className="emptyCategories">
         <tspan>{ Tr.getIn(['hideIncidentList', this.props.language]) }</tspan>
       </text>
@@ -73,13 +73,14 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     language: state.language,
+    showIncidentList: state.showIncidentList,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onClick: () => {
-      dispatch(ShowHideEmptyCategoriesCreator())
+      dispatch(ShowIncidentListCreator())
     }
   }
 }

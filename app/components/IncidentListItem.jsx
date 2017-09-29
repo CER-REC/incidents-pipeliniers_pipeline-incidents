@@ -48,8 +48,9 @@ class IncidentListItem extends React.Component {
 
       </p>
 
-      <p className = "incidentContainer">
+      <div className = "incidentContainer">
         <p className = { this.incidentDetailClass() }> { this.props.incident.get('incidentNumber') }</p>
+        
         <p>
           <span className = 'lowEmphasis'>{ Tr.getIn(['near', this.props.language])} </span>
           <span className = { this.incidentDetailClass() } >{ this.props.incident.get('nearestPopulatedCentre') }</span>
@@ -59,7 +60,8 @@ class IncidentListItem extends React.Component {
           <span className = 'lowEmphasis'>{ Tr.getIn(['reportedDate', this.props.language]) } </span>
           <span className = { this.incidentDetailClass() }>{ this.props.incident.get('reportedDate').format('MM/DD/YYYY') }</span>
         </p>
-      </p>
+        
+      </div>
     </li>
 
   }
