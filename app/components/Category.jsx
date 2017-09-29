@@ -287,7 +287,6 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns, 
     categories: state.categories,
-    selectedIncident: state.selectedIncident,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
     filterboxActivationState: state.filterboxActivationState,

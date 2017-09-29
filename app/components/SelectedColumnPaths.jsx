@@ -1,7 +1,6 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
-const Path = require('./Path.jsx')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 
 
@@ -10,7 +9,7 @@ class ColumnPaths extends React.Component {
 
   paths() {
 
-    const selectedCategoryPathMeasurements = IncidentPathComputations.selectedCategoryPathMeasurements(
+    const selectedCategoryPathMeasurements = IncidentPathComputations.flowPathMeasurements(
       this.props.data,
       this.props.columns,
       this.props.categories,
@@ -33,10 +32,11 @@ class ColumnPaths extends React.Component {
     )
 
     pathCurves.forEach( pathCurve => {
-      paths.push(<Path
+      paths.push(<path
         d = { pathCurve.get('d') }
         key = { pathCurve.get('sourceCategory') + pathCurve.get('destinationCategory') }
-        fillColour = "#999"
+        fill = '#bcbcbc'
+        fillOpacity = '0.6'
       />)
     })
 
@@ -62,11 +62,8 @@ const mapStateToProps = state => {
     categories: state.categories,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-
-    // Are these two going to be a performance problem? 
     categoryHoverState: state.categoryHoverState,
     filterboxActivationState: state.filterboxActivationState, 
-
   }
 }
 

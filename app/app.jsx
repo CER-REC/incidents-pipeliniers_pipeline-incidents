@@ -70,7 +70,6 @@ function locationChangeHandler (location, action) {
     categories: routerState.categories,
     showEmptyCategories: routerState.showEmptyCategories,
     pinnedIncidents: routerState.pinnedIncidents,
-    selectedIncident: routerState.selectedIncident,
     language: routerState.language,
   }))
 

@@ -258,7 +258,10 @@ CategoryComputations.relatedHiddenCategories = function (data, columns, categori
 
   }
 
+  default: 
+    throw new Error(`Bad columnName passed to CategoryComputations.relatedHiddenCategories: "${columnName}"`)
   }
+
 
 }
 
@@ -394,41 +397,7 @@ CategoryComputations.mapAdjacentColumns = function(columns) {
 
 }
 
-// Computes the source and destination category paths in place, given
-// a source and a destination column.
-CategoryComputations.ComputeSourceAndDestinationColumnPaths = function(sourceColumn, destinationColumn, data) {
-  sourceColumn.categories.forEach((sourceCategory) => {
-    destinationColumn.categories.forEach((destinationCategory) => {
-      const mutualIncidentCount = CategoryComputations.itemsInBothCategories(
-        data, 
-        sourceColumn.name, 
-        sourceCategory.categoryName, 
-        destinationColumn.name, destinationCategory.categoryName)
 
-      if(mutualIncidentCount !== 0) {
-        sourceCategory.totalOutgoingIncidents += mutualIncidentCount
-        destinationCategory.totalIncomingIncidents += mutualIncidentCount
-
-        sourceCategory.outgoingCategories.push({'key': destinationCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-        destinationCategory.incomingCategories.push({'key': sourceCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-      }
-
-      const multipleDestinationCategoryIncidents = (destinationCategory.totalIncomingIncidents > destinationCategory.count)? 
-        destinationCategory.totalIncomingIncidents - 
-        destinationCategory.count : 0
-      destinationCategory.intersectionThreshold = multipleDestinationCategoryIncidents / 
-        (destinationCategory.incomingCategories.length - 1) * 
-        destinationCategory.height / destinationCategory.count
-
-      const multipeSourceCategoryIncidents = (sourceCategory.totalOutgoingIncidents > sourceCategory.count)? 
-        sourceCategory.totalOutgoingIncidents - 
-        sourceCategory.count : 0
-      sourceCategory.intersectionThreshold = multipeSourceCategoryIncidents / 
-        (sourceCategory.outgoingCategories.length - 1) * 
-        sourceCategory.height / sourceCategory.count
-    })
-  })
-}
 
 const MemoizedComputations = {}
 

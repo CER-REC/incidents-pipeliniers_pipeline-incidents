@@ -148,7 +148,6 @@ class IncidentPopover extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    selectedIncident: state.selectedIncident,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
     data: state.data,
