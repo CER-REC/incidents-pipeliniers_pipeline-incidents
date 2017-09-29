@@ -7,9 +7,6 @@ const ShowIncidentListReducer = (state = false, action) => {
   case 'ShowIncidentList': 
     return !state
 
-  case 'SetFromRouterState':
-    return action.ShowHideIncidentList
-
   case 'ResetVisualization':
     return false
 
