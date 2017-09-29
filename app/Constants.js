@@ -149,6 +149,13 @@ const Constants = Immutable.fromJS({
 
   },
 
+  sidebarMapColumn: {
+    heightPadding: 25,
+    widthPadding: 6,
+    xPadding: 3,
+    yPadding: 25,
+  },
+
   columnPaths: {
     defaultColumn: '#ccc',
     columnHovered: '#666666',

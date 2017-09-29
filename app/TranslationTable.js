@@ -52,7 +52,7 @@ const TranslationTable = Immutable.fromJS({
     },
     map: {
       en: 'MAP',
-      fr: 'APERÇU DE LA CARTE',
+      fr: 'CARTE',
     }
   },
 

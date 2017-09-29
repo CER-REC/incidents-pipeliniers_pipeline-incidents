@@ -16,12 +16,3 @@ g {
 .sidebar:hover {
   filter: url(#dropshadow);
 }
-
-.mapImage {
-  cursor: pointer;
-  z-index:1;
-
-  //overflow:hidden;
-  -webkit-filter: drop-shadow(1px 1px 0 teal) drop-shadow((-1px) -1px 0 teal);
-  filter: drop-shadow(1px 1px 0 red) drop-shadow((-1px) -1px 0 teal);
-  }
