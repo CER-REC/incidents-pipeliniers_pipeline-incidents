@@ -472,7 +472,7 @@ class Column extends React.Component {
   render() {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
-      return <svg> 
+      return <g> 
         <defs>
           <filter id='dropshadow'>
             <feOffset result="offOut" in="SourceGraphic" dx={Constants.getIn(['sidebar','dropShadowX'])} dy={Constants.getIn(['sidebar','dropShadowY'])}></feOffset>
@@ -500,7 +500,7 @@ class Column extends React.Component {
             { this.sidebarHeading() }
           </text>
         </g>
-      </svg>
+      </g>
     }
     case Constants.getIn(['columnTypes', 'WORKSPACE']):
     default: {

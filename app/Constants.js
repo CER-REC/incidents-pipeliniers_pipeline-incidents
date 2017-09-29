@@ -50,23 +50,6 @@ const Constants = Immutable.fromJS({
     connectorLength: 5,
   },
 
-  incidentPopover: {
-    height: 65,
-    width: 95,
-    pinIconXY: -25,
-    popoverX: 25,
-    horizontalLineY: 155,
-    showPopoverBodyY: 170,
-    horizontalLineEnd: 120,
-    lineHeightX: 145,
-    showYLineY: 155,
-    horizontalLineXStart: 151,
-    dotRadius: 3,
-    lineHeight: 16.2,
-    popupHeight: 81,
-    textOffset: 15,
-  },
-
   columnWideWidth: 62,
   columnNarrowWidth: 24,
   minimumColumnPathWidth: 90,
