@@ -1,8 +1,7 @@
 
-function ShowIncidentListCreator (incidents) {
+function ShowIncidentListCreator () {
   return {
     type: 'ShowIncidentList',
-    incidents: incidents,
   }
 }
 
