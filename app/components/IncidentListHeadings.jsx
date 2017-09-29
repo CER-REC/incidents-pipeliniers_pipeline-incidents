@@ -71,7 +71,7 @@ class IncidentListHeadings extends React.Component {
     const subheadingString = `${categoryData.count()} / ${this.props.data.count()} incidents ${Tr.getIn(['shown', this.props.language])}`
 
     return <tspan className='barsSubHeading' 
-      x = { columnMeasurements.get('x') }
+      x = { columnMeasurements.get('x')}
       y = { y }>
       { subheadingString }
     </tspan>
