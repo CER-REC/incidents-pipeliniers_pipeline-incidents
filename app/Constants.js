@@ -3,6 +3,14 @@ const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
 
+  // Data mode controls how the application loads up its data. Values are:
+  //   'dataService': initialize the data and schema from REST requests
+  //   'csvFile': initialize the data and schema from a flat CSV file
+  // See: DataLoader.js, data/CategorySchema.json
+  // TODO: might be good to make this a .env file option, or a URL param,
+  // rather than hard coding it
+  dataMode: 'csvFile',
+
   workspace: {
     maxWidth: 1138,
     heightToWidthRatio: 0.66,
@@ -50,23 +58,6 @@ const Constants = Immutable.fromJS({
     connectorLength: 5,
   },
 
-  incidentPopover: {
-    height: 65,
-    width: 95,
-    pinIconXY: -25,
-    popoverX: 25,
-    horizontalLineY: 155,
-    showPopoverBodyY: 170,
-    horizontalLineEnd: 120,
-    lineHeightX: 145,
-    showYLineY: 155,
-    horizontalLineXStart: 151,
-    dotRadius: 3,
-    lineHeight: 16.2,
-    popupHeight: 81,
-    textOffset: 15,
-  },
-
   columnWideWidth: 62,
   columnNarrowWidth: 24,
   minimumColumnPathWidth: 90,
@@ -76,7 +67,6 @@ const Constants = Immutable.fromJS({
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 40,
 
-  columnHeadingSpacing: 10,
 
   dragArrow: {
     width: 24,
@@ -144,9 +134,16 @@ const Constants = Immutable.fromJS({
 
     maxLineLength: 15,
 
-    dropShadowX: -1,
+    dropShadowX: 1,
     dropShadowY: 2,
 
+  },
+
+  sidebarMapColumn: {
+    heightPadding: 25,
+    widthPadding: 6,
+    xPadding: 3,
+    yPadding: 25,
   },
 
   columnPaths: {
@@ -300,7 +297,8 @@ const Constants = Immutable.fromJS({
     colourBetweenColumns: '#1A1A1A',
     columnBarColour: '#FFF',
     columnBarOpacity: 0.75,
-    strokeWidth: '2px'
+    strokeWidth: '2px',
+    hoveredStrokeWidth: '3px',
   },
 
   columnTypes: {
@@ -311,8 +309,24 @@ const Constants = Immutable.fromJS({
   pathCurveControlFactor: 2.5,
 
   nearBlack: '#333333',
+  darkGrey: '#666',
 
   emptyCategoryLabelFudgeFactor: 8,
+
+  incidentList: {
+    // Begin scrolling the list when we have 4 or more incidents
+    maxIncidentsWithoutScroll: 3,
+    
+    // NB: this is an approximate height based on manually measuring the DOM
+    // element. Since we're using HTML, we can't compute the height in advance,
+    // but we could possibly measure the elements instead of assuming the
+    // height.
+    listItemHeight: 90,
+
+    dividerLineWidth: 1,
+    dividerLineVerticalMargin: 10, // top and bottom each
+
+  },
 
 })
 

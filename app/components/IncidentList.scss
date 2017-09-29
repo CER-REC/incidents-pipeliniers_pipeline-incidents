@@ -2,16 +2,8 @@
 @import "../styles/Colours.scss";
 
 
-.incidentListOuterContainer {
-
-  // NB: necessary to establish stacking context for z-index
-  position: relative;
-
-  z-index: 2;
-
-  .incidentListInnerContainer {
-    position: absolute;
-  }
+.incidentList {
+  position: absolute;
 
   .incidentListScrollPane {
     display: block;
@@ -21,12 +13,14 @@
   ul {
     padding: 0px;
     list-style: none;
+
+    // WET CSS override:
+    margin: 0;
   }
 
   .noIncidentsTextBlock {
     position: absolute;
     top: 50%;
-    left: 20%;
   }
 
   .noIncidentsText {

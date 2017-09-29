@@ -63,15 +63,15 @@ $leftMargin: $horizontalMargins - $padding - $borderWidth;
 }
 
 .incidentListItem:hover {
-  border: solid $borderWidth $dark-grey;
+  border: solid $borderWidth $light-grey;
 
   .mediumEmphasis {
     color: $dark-grey;
   }
 }
 
-.incidentListItem.pinned {
-  border: solid $borderWidth $near-black;
+.incidentListItem.selected {
+  border: solid $borderWidth $dark-grey;
 
   .mediumEmphasis {
     color: $near-black;

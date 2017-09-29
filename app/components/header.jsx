@@ -4,9 +4,7 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const ResetVisualizationCreator = require('../actionCreators/ResetVisualizationCreator.js')
 const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
-
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-
+const Tr = require('../TranslationTable.js')
 
 require('./Header.scss')
 
@@ -56,21 +54,17 @@ class Header extends React.Component {
 
       <text x={Constants.getIn(['workspace', 'maxWidth']) - 105} 
         y={21}
-        className="headerButtons">METHODOLOGY</text>
+        className="headerButtons">{ Tr.getIn(['methodology', this.props.language]) }</text>
 
       <text x={Constants.getIn(['workspace', 'maxWidth']) - 80} 
-        y={40} className="headerButtons">RESET ALL</text>
+        y={40} className="headerButtons">{ Tr.getIn(['resetAll', this.props.language]).toUpperCase() }</text>
 
       { this.resetAllButton() }
 
-      <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
-      
-        <text x={0} y={yHeading} className="heading">Incidents at NEB-regulated pipelines and facilities</text>
-        <text x={0} y={ySubpop} className="subpop">
-          The information presented here is based on NEB data from 2008 to current for
-          incidents reported under the Onshore Pipeline Regulations.
-          New data is added on a quaterly basis.</text>
-      </svg>
+      <g width={headerWidth} height={headerHeight}>
+        <text x={0} y={yHeading} className="heading">{ Tr.getIn(['mainHeading', this.props.language]).toUpperCase() }</text>
+        <text x={0} y={ySubpop + 15} className="subpop">{ Tr.getIn(['mainSubheading', this.props.language]) }</text>
+      </g>
     </g>
   
   }
@@ -78,7 +72,8 @@ class Header extends React.Component {
 
 const mapStateToProps = (state) => { 
   return {
-    data: state.data
+    data: state.data,
+    language: state.language,
   } 
 }
 
