@@ -23,7 +23,6 @@ const Category = require('./Category.jsx')
 const Constants = require('../Constants.js')
 const TranslationTable = require('../TranslationTable.js')
 const SelectedIncidentPaths = require('./SelectedIncidentPaths.jsx')
-const PinnedIncidentPaths = require('./PinnedIncidentPaths.jsx')
 
 const Tr = require('../TranslationTable.js')
 
@@ -34,13 +33,13 @@ let sidebarWindowEndHandler = null
 
 require('./Column.scss')
 
-
 class Column extends React.Component {
   // Specifically: non-empty AND visible categories
   nonEmptyCategories() {
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
-      this.props.columnName)
+      this.props.columnName,
+      this.props.schema)
     const categoryHeights = WorkspaceComputations.categoryHeights(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -90,12 +89,6 @@ class Column extends React.Component {
 
   barHeading() {
     let currentY = WorkspaceComputations.topBarHeight()
-
-    // Check if the subheading is visible. If it is not, 
-    // add Constants.get('columnSubheadingHeight') to currentY.
-    if(!CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
-      currentY += Constants.get('columnSubheadingHeight')
-    }
 
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
@@ -180,7 +173,8 @@ class Column extends React.Component {
 
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
-      this.props.columnName)
+      this.props.columnName,
+      this.props.schema)
 
     const baselineHeight = WorkspaceComputations.baselineHeight(
       this.props.showEmptyCategories,
@@ -413,7 +407,8 @@ class Column extends React.Component {
 
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
-      this.props.columnName)
+      this.props.columnName,
+      this.props.schema)
 
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
       this.props.columnHeight,
@@ -451,19 +446,29 @@ class Column extends React.Component {
   }
 
   sidebarMapColumn() {
-    return <image 
-      xlinkHref='images/sidebar_map.svg' 
-      height={ this.props.columnHeight }
-      className='Column'
-      width={ this.props.columnWidth }
-      x={ this.props.columnX }
-      y={ this.props.columnY }>
-    </image> 
+    return <g>
+      <rect
+        height={ this.props.columnHeight }
+        className='Column'
+        width={ this.props.columnWidth }
+        x={ this.props.columnX }
+        y={ this.props.columnY }
+        fill='#1CD1C8'
+        stroke='#1CD1C8'></rect>
+      <image
+        xlinkHref='images/mapColumn.png' 
+        height={ this.props.columnHeight - Constants.getIn(['sidebarMapColumn','heightPadding']) }
+        className='Column'
+        width={ this.props.columnWidth - Constants.getIn(['sidebarMapColumn','widthPadding'])}
+        x={ this.props.columnX + Constants.getIn(['sidebarMapColumn','xPadding'])}
+        y={ this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding'])}>
+      </image>
+    </g>
   }
 
   sidebarHeading() {
     let currentY = this.props.columnY
-    return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
+    return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength'])).map((word) => {
       // Terminating space.
       if(word === '') return null
       currentY += Constants.get('columnHeadingLineOffset')
@@ -477,22 +482,50 @@ class Column extends React.Component {
     })
   }
 
+  sidebarShadow() {
+
+    if (this.props.sidebarColumnHover === this.props.columnName) {
+
+      const transform = `translate(${Constants.getIn(['sidebar', 'dropShadowX'])},${Constants.getIn(['sidebar', 'dropShadowY'])})`
+      
+      return <g transform = { transform } >
+        <rect
+          fill = '#999'
+          width = { this.props.columnWidth }
+          height = { this.props.columnHeight }
+          x = { this.props.columnX }
+          y = { this.props.columnY }
+        />
+      </g>
+    }
+    else {
+      return null
+    }
+
+  }
 
   render() {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
-      return <g 
-        transform={this.sidebarColumnTransform()}
-        id={this.props.columnName}
-        onMouseDown={this.handleSidebarDragStart.bind(this)}
-        onMouseMove={this.handleSidebarDragMove.bind(this)}
-        onMouseUp={this.handleSidebarDragEnd.bind(this)}
-        onMouseEnter={this.handleMouseEnter.bind(this)}
-        onMouseLeave={this.handleMouseLeave.bind(this)}>
-        {this.sideBarColumn()}
-        <text>
-          {this.sidebarHeading()}
-        </text>
+      return <g>
+        <g transform={this.sidebarColumnTransform()}>
+          { this.sidebarShadow() }
+          <g
+            className="sidebar"
+            id={this.props.columnName}
+            onMouseDown={this.handleSidebarDragStart.bind(this)}
+            onMouseMove={this.handleSidebarDragMove.bind(this)}
+            onMouseUp={this.handleSidebarDragEnd.bind(this)}
+            onMouseEnter={this.handleMouseEnter.bind(this)}
+            onMouseLeave={this.handleMouseLeave.bind(this)}>
+            {this.sideBarColumn()}
+          </g>
+        </g>
+        <g>
+          <text>
+            { this.sidebarHeading() }
+          </text>
+        </g>
       </g>
     }
     case Constants.getIn(['columnTypes', 'WORKSPACE']):
@@ -510,7 +543,6 @@ class Column extends React.Component {
           columnName = { this.props.columnName }
           categoryName = { this.props.categoryName }
         />
-        <PinnedIncidentPaths columnName={this.props.columnName} />
         { this.nonEmptyCategories() }
         { this.emptyCategories() }
         { this.dragArrow() }
@@ -529,9 +561,10 @@ const mapStateToProps = state => {
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
     language: state.language,
-    selectedIncident: state.selectedIncident,
     columnDragStatus: state.columnDragStatus,
     sidebarDragStatus: state.sidebarDragStatus,
+    sidebarColumnHover: state.sidebarColumnHover,
+    schema: state.schema,
   }
 }
 

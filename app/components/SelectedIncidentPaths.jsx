@@ -1,152 +1,51 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
-const Immutable = require('immutable')
 const D3 = require('d3')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
-const IncidentComputations = require('../IncidentComputations.js')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 const Constants = require('../Constants.js')
-
+const SelectedIncidentPath = require('./SelectedIncidentPath.jsx')
 
 class SelectedIncidentPaths extends React.Component {
 
-  departureHeights() {
 
-    const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      this.props.columnName
-    )
-
-    return IncidentPathComputations.incidentHeightsInColumn(
-      this.props.selectedIncident,
-      this.props.columnName,
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      categoryVerticalPositions
-    )
-  }
-
-  destinationHeights() {
-
-    const columnIndex = this.props.columns.indexOf(this.props.columnName)
-
-    if (columnIndex === this.props.columns.count() - 1) {
-      // We are at the end of the list of displayed columns
-      return this.sidebarDestinationHeights()
-    }
-    else {
-      // We are adjacent to an ordinary column
-      return this.columnDestinationHeights(columnIndex)
-    }
-  }
-
-  destinationPositions(horizontalPositions) {
-
-    const columnIndex = this.props.columns.indexOf(this.props.columnName)
-
-    if (columnIndex === this.props.columns.count() - 1) {
-      // We are at the end of the list of displayed columns
-      return horizontalPositions.get('sideBar')
-    }
-    else {
-      // We are adjacent to an ordinary column
-      const nextColumnName = this.props.columns.get(columnIndex + 1)
-      return horizontalPositions.getIn(['columns', nextColumnName])
-    }
-  }
-
-
-  columnDestinationHeights(columnIndex) {
-
-    // Is there a column to our right that we should draw to?
-    const nextColumnName = this.props.columns.get(columnIndex + 1)
-    const displayedColumnRight = typeof nextColumnName !== 'undefined' && nextColumnName !== 'map'
-
-    if (!displayedColumnRight) {
-      return Immutable.List()
-    }
-
-    const categoryVerticalPositions = WorkspaceComputations.categoryVerticalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      nextColumnName
-    )
-
-    return IncidentPathComputations.incidentHeightsInColumn(
-      this.props.selectedIncident,
-      nextColumnName,
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      categoryVerticalPositions
-    )
-  }
-
-  sidebarDestinationHeights() {
-
-    // Is there a sidebar column to draw to?
-    const sidebarColumns = WorkspaceComputations.sidebarColumns(this.props.columns)
-    const sidebarColumnRight = sidebarColumns.count() > 0 && sidebarColumns.get(0) !== 'map'
-
-    if (!sidebarColumnRight) {
-      return Immutable.List()
-    }
-
-    const sidebarCategoryVerticalPositions = WorkspaceComputations.sidebarCategoryVerticalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      sidebarColumns.get(0)
-    )
-
-    return IncidentPathComputations.incidentHeightsInColumn(
-      this.props.selectedIncident,
-      sidebarColumns.get(0),
-      this.props.data,
-      this.props.columns,
-      this.props.categories,
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      sidebarCategoryVerticalPositions
-    )
-
-
-  }
-
-
-
-
-
-  render() {
-
-    if (this.props.selectedIncident === null) {
+  destinationColumnName() {
+    if (this.props.columnName === this.props.columns.last()) {
       return null
     }
 
-    // Verify that the selected incident is not filtered out.
-    const filteredData = IncidentComputations.filteredIncidents(
-      this.props.data, 
-      this.props.columns, 
-      this.props.categories)
-    if(!filteredData.contains(this.props.selectedIncident)) return null
+    const columnIndex = this.props.columns.indexOf(this.props.columnName)
+    const destinationColumnName = this.props.columns.get(columnIndex + 1)
 
-    const departureHeights = this.departureHeights()
-    const destinationHeights = this.destinationHeights()
+    if (destinationColumnName === undefined || destinationColumnName === 'map') {
+      return null
+    }
+
+    return destinationColumnName
+  }
+
+
+  paths() {
+
+    const destinationColumnName = this.destinationColumnName()
+    if (destinationColumnName === null) {
+      return null
+    }
+
+    const selectedIncidentPaths = IncidentPathComputations.selectedIncidentPaths(
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.selectedIncidents,
+      this.props.hoveredIncident
+    )
+
+    const sourceIncidentHeights = selectedIncidentPaths.get(this.props.columnName)
+    const destinationIncidentHeights = selectedIncidentPaths.get(destinationColumnName)
+
 
     const horizontalPositions = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
@@ -155,63 +54,78 @@ class SelectedIncidentPaths extends React.Component {
       this.props.columns,
       this.props.categories)
 
-    const departurePositions = horizontalPositions.getIn(['columns', this.props.columnName])
-    const destinationPositions = this.destinationPositions(horizontalPositions)
+    const sourcePositions = horizontalPositions.getIn(['columns', this.props.columnName])
+    const destinationPositions = horizontalPositions.getIn(['columns', destinationColumnName])
+
 
     const paths = []
 
-    departureHeights.forEach( (departureHeight, i) => {
-      destinationHeights.forEach( (destinationHeight, j) => {
+    sourceIncidentHeights.forEach( (sourceHeights, incident) => {
 
-        const departurePoint = {
-          x: departurePositions.get('x') + departurePositions.get('width'),
-          y: departureHeight
-        }
+      const destinationHeights = destinationIncidentHeights.get(incident)
 
-        const destinationPoint = {
-          x: destinationPositions.get('x'),
-          y: destinationHeight
-        }
+      if (sourceHeights === undefined || destinationHeights === undefined) {
+        return
+      }
 
-        const d3path = D3.path()
-        d3path.moveTo(
-          departurePoint.x,
-          departurePoint.y
-        )
+      sourceHeights.forEach( (sourceHeight, i) => {
+        destinationHeights.forEach( (destinationHeight, j) => {
 
-        const offset = Constants.getIn(['selectedIncidentPath', 'controlPointOffset'])
+          const sourcePoint = {
+            x: sourcePositions.get('x') + sourcePositions.get('width'),
+            y: sourceHeight
+          }
 
-        d3path.bezierCurveTo(
-          // control point 1
-          departurePoint.x + offset,
-          departurePoint.y,
+          const destinationPoint = {
+            x: destinationPositions.get('x'),
+            y: destinationHeight
+          }
 
-          // control point 2
-          destinationPoint.x - offset,
-          destinationPoint.y,
+          const d3path = D3.path()
+          d3path.moveTo(
+            sourcePoint.x,
+            sourcePoint.y
+          )
 
-          // destination
-          destinationPoint.x,
-          destinationPoint.y
-        )
+          const curveControlThreshold = IncidentPathComputations.curveControlThreshold(sourcePoint.x, destinationPoint.x)
 
-        paths.push(
-          <path
-            d = { d3path.toString() }
-            strokeWidth = { Constants.getIn(['selectedIncidentPath', 'strokeWidth']) }
-            stroke = { Constants.getIn(['selectedIncidentPath', 'colourBetweenColumns']) }
-            fill = 'none'
-            key = { `incidentPath-${i}-${j}` }
-          /> 
-        )
+          d3path.bezierCurveTo(
+            // control point 1
+            sourcePoint.x + curveControlThreshold,
+            sourcePoint.y,
 
+            // control point 2
+            destinationPoint.x - curveControlThreshold,
+            destinationPoint.y,
 
+            // destination
+            destinationPoint.x,
+            destinationPoint.y
+          )
 
+          paths.push(
+            <SelectedIncidentPath
+              d = { d3path.toString() }
+              stroke = { Constants.getIn(['selectedIncidentPath', 'colourBetweenColumns']) }
+              key = { `incidentPath-${incident.get('incidentNumber')}-${i}-${j}` }
+              incident = { incident }
+            /> 
+          )
+
+        })
       })
+
     })
 
-    //{ paths }
-    return <g></g>
+    return paths
+  }
+
+
+
+
+  render() {
+
+    return <g>{ this.paths() }</g>
 
   }
 
@@ -222,12 +136,13 @@ class SelectedIncidentPaths extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    viewport: state.viewport,
+    data: state.data,
     columns: state.columns,
     categories: state.categories,
-    data: state.data,
     showEmptyCategories: state.showEmptyCategories,
-    selectedIncident: state.selectedIncident,
+    viewport: state.viewport,
+    selectedIncidents: state.selectedIncidents,
+    hoveredIncident: state.hoveredIncident,
   }
 }
 

@@ -17,6 +17,7 @@ const StringComputations = require('../StringComputations.js')
 
 require('./Category.scss')
 
+
 class Category extends React.Component {
 
   filterboxActive() {
@@ -144,19 +145,50 @@ class Category extends React.Component {
     case 'pipelinePhase':
     case 'volumeCategory':
     case 'pipelineSystemComponentsInvolved': { 
-    
       // These columns draw category names from a defined vocabulary
-      const label = Tr.getIn([
-        'categories', 
-        this.props.columnName, 
-        this.props.categoryName, 
-        this.props.language
-      ])
+    
+      let label
+      if (Constants.get('dataMode') === 'dataService') {
+        // When using the data service, the category name is an ID, and the
+        // translation strings are loaded from the schema
+        label = this.props.schema.getIn([
+          this.props.columnName, 
+          this.props.categoryName, 
+          this.props.language
+        ])
+        return StringComputations.splitHeading(label.toUpperCase())
+      }
+      else if (Constants.get('dataMode') === 'csvFile') {
+        // When using a csv data file, we rely on the translation table
+        label = Tr.getIn([
+          'categories', 
+          this.props.columnName, 
+          this.props.categoryName, 
+          this.props.language
+        ])
+      }
       return StringComputations.splitHeading(label.toUpperCase())
     }
+
     case 'company':
+      if (Constants.get('dataMode') === 'dataService') {
+        // When using the data service, the category name is an ID, and the
+        // company name is placed in the schema
+        const label = this.props.schema.getIn([
+          this.props.columnName, 
+          this.props.categoryName, 
+          this.props.language
+        ])
+        return StringComputations.splitHeading(label.toUpperCase())
+      }
+      else if (Constants.get('dataMode') === 'csvFile') {
+        // When reading from CSV, the category name is the company name
+        return StringComputations.splitHeading(this.props.categoryName.toString().toUpperCase())
+      }
+      break
+
     case 'year':
-      // These columns use the category name directly
+      // Year uses the category name directly
       // Years are numbers, and we need a string here
       return StringComputations.splitHeading(this.props.categoryName.toString().toUpperCase())
 
@@ -221,7 +253,7 @@ class Category extends React.Component {
     // TODO: Placing the mouseup handler so high up could cause it to be 
     // triggered by the filter box, we'll have to make sure.
 
-    return <g
+    return <g 
       transform={this.categoryTransform()}
       
       className = 'category'
@@ -255,12 +287,12 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns, 
     categories: state.categories,
-    selectedIncident: state.selectedIncident,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
     filterboxActivationState: state.filterboxActivationState,
     categoryDragStatus: state.categoryDragStatus,
     columnDragStatus: state.columnDragStatus,
+    schema: state.schema,
   }
 }
 

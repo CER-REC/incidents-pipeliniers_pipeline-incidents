@@ -78,13 +78,11 @@ class Filterbox extends React.Component {
     return buttons
   }
 
-
-
   dragButton() {
     return <g className='filterBoxButton'>
       <rect
         className='filterBoxRect'
-        x = { Constants.getIn(['filterbox', 'filterButtonWidth']) }
+        x = { FilterboxComputations.boxWidth(this.props.language) }
         y = '0'
         width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
         height = { this.buttonHeight() }
@@ -92,7 +90,7 @@ class Filterbox extends React.Component {
       <image 
         xlinkHref='images/vertical_drag.svg' 
         className = 'verticalDrag'
-        x = { Constants.getIn(['filterbox', 'filterButtonWidth']) + Constants.getIn(['filterbox', 'dragIconHorizontalOffset']) }
+        x = { FilterboxComputations.boxWidth(this.props.language) + Constants.getIn(['filterbox', 'dragIconHorizontalOffset']) }
         y = '0'
         width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
         height = { this.buttonHeight() }
@@ -101,6 +99,7 @@ class Filterbox extends React.Component {
         onMouseUp={this.handleDragEnd.bind(this)}
       />
     </g> 
+     
   }
 
   handleDragStart(e) {

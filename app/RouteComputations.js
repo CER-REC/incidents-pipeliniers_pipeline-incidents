@@ -3,6 +3,7 @@ const QueryString = require('query-string')
 const BrowserCookies = require('browser-cookies')
 
 const Constants = require('./Constants.js')
+const Tr = require('./TranslationTable.js')
 
 /*
 The following members of the app's state are routable: they are represented in
@@ -14,7 +15,6 @@ state.
   categories
   showEmptyCategories
   pinnedIncidents
-  selectedIncident
   language
 
 In each case, the meaning of an element's absence from the URL is specified, and
@@ -36,7 +36,7 @@ const RouteComputations = {
 
   // Returns a string to form the query params of the current URL, i.e.
   // everything from the ? on
-  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents, selectedIncident, language) {
+  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents, language) {
 
     const params = {}
 
@@ -75,12 +75,6 @@ const RouteComputations = {
       }).join(',')
     }
 
-    // selectedIncident: represented as an incident number
-    // When there is no selected incident, the parameter is absent.
-    if (selectedIncident !== null) {
-      params.selectedIncident = selectedIncident.get('incidentNumber')
-    }
-
     // language: represented as a string, 'en' or 'fr'
     // NB: Absence of the language parameter at page load has special meaning:
     // before assuming a default, we should check cookies.
@@ -106,7 +100,6 @@ const RouteComputations = {
       categories: RouteComputations.parseUrlCategories(rawParams, categories),
       showEmptyCategories: RouteComputations.parseUrlShowEmptyCategories(rawParams.showEmptyCategories),
       pinnedIncidents: RouteComputations.parseUrlPinnedIncidents(rawParams.pinnedIncidents, data),
-      selectedIncident: RouteComputations.parseUrlSelectedIncident(rawParams.selectedIncident, data),
       language: RouteComputations.parseUrlLanguage(rawParams.language),
     }
 
@@ -206,24 +199,6 @@ const RouteComputations = {
 
   },
 
-  parseUrlSelectedIncident: function (selectedIncidentString, data) {
-
-    if (typeof selectedIncidentString === 'undefined') {
-      return null
-    }
-
-    const selectedIncident = data.find( incident => {
-      return incident.get('incidentNumber') === selectedIncidentString
-    })
-
-    if (typeof selectedIncident === 'undefined') {
-      return null
-    }
-
-    return selectedIncident
-
-  },
-
   parseUrlLanguage: function (languageString) {
 
     if (languageString === 'en' || languageString === 'fr') {
@@ -245,7 +220,13 @@ const RouteComputations = {
   },
 
 
-
+  // A string for the root of the application, a suitable place for making rest
+  // requests or building other URLs. E.g.:
+  // http://localhost:3001/incident-visualization/
+  // https://apps2.neb-one.gc.ca/incident-visualization/
+  appRoot: function (location, language) {
+    return `${location.origin}${Tr.getIn(['applicationPath', language])}`
+  }
 
 
 

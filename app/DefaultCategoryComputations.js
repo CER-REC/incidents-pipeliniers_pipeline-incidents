@@ -9,7 +9,19 @@ const CategoryConstants = require('./CategoryConstants.js')
 
 const DefaultCategoryComputations = {
 
-  initialState: function (data) {
+  initialState: function (data, schema) {
+
+    switch (Constants.get('dataMode')) {
+    case 'dataService': 
+      return DefaultCategoryComputations.initialStateFromCategorySchema(data, schema)
+    case 'csvFile': 
+      return DefaultCategoryComputations.initialStateFromCsv(data)
+    }
+
+  },
+
+
+  initialStateFromCategorySchema: function (data, schema) {
 
     let categories = Immutable.Map()
 
@@ -18,17 +30,85 @@ const DefaultCategoryComputations = {
 
       switch(columnName){
 
-      case 'incidentTypes': //7
-      case 'status': //3
-      case 'province': //13
-      case 'substance': //30
-      case 'releaseType': //4
-      case 'whatHappened': //12
-      case 'whyItHappened': //9
-      case 'pipelinePhase': //4
-      case 'pipelineSystemComponentsInvolved': //5
-      case 'volumeCategory': { //10
-        // Eleven of the columns have a fixed set of categories:
+      case 'incidentTypes':
+      case 'status':
+      case 'province':
+      case 'substance':
+      case 'releaseType':
+      case 'whatHappened':
+      case 'whyItHappened':
+      case 'pipelinePhase':
+      case 'pipelineSystemComponentsInvolved':
+      case 'company':
+      case 'volumeCategory': {
+        // Most of the columns have a fixed set of categories, including the
+        // companies:
+
+        let activeCategories = Immutable.OrderedMap()
+
+        schema.get(columnName).forEach( (value, categoryId) => {
+          activeCategories = activeCategories.set(categoryId, true)
+        })
+
+        categories = categories.set(columnName, activeCategories)
+
+        break
+      }
+
+      case 'year': {
+        // Each year appearing in the dataset will be a category
+
+        const reportedYears = data.map( incident => {
+          return incident.get('year')
+        }).toArray()
+
+        const uniqueReportedYears = _.uniq(reportedYears).sort().reverse()
+
+        let activeCategories = Immutable.OrderedMap()
+
+        for(const year of uniqueReportedYears) {
+          activeCategories = activeCategories.set(year, true)
+        }
+
+        categories = categories.set('year', activeCategories)
+
+        break
+      }
+
+      case 'map': 
+        // Uniquely, the map has no categories
+        categories = categories.set('map', Immutable.Map())
+        break
+      }
+
+    })
+
+    return categories
+
+
+  },
+
+
+  initialStateFromCsv: function (data) {
+
+    let categories = Immutable.Map()
+
+    Constants.get('columnNames').forEach( columnName => {
+      // All of the categories default to being active
+
+      switch(columnName){
+
+      case 'incidentTypes':
+      case 'status': 
+      case 'province': 
+      case 'substance':
+      case 'releaseType':
+      case 'whatHappened':
+      case 'whyItHappened':
+      case 'pipelinePhase':
+      case 'pipelineSystemComponentsInvolved':
+      case 'volumeCategory': {
+        // Most of the columns have a fixed set of categories:
 
         let activeCategories = Immutable.OrderedMap()
 

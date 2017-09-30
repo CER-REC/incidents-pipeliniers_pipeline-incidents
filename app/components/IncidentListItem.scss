@@ -5,12 +5,14 @@
 $horizontalMargins: 11px;
 $padding: 3px;
 $borderWidth: 2px;
+//$starPadding: 40px;
 
 // This math lets us accomplish two things: it keeps the text aligned with the
 // pinColumn / scrolling list column border $horizontalMargins px away from the
 // left border, and it lets us draw the border around each list item such that
-// it intrudes into the space left of the item.
+// it intrudes into the space left of the item. 
 $leftMargin: $horizontalMargins - $padding - $borderWidth;
+// + $starPadding;
 
 .incidentListItem {
 
@@ -40,21 +42,36 @@ $leftMargin: $horizontalMargins - $padding - $borderWidth;
   .highEmphasis {
     color: $near-black;
   }
+  .starContainer {
+    cursor: pointer;
+    position:relative;
+    margin-top: 18px;
+    float: left;
+    height: 35px;
+    width: 30px;
+  }
 
+  .incidentContainer {
+    cursor: pointer;
+    margin-left: 40px;
+  }
+
+  .starImage {
+    cursor:pointer;
+  }
 
 }
 
-
 .incidentListItem:hover {
-  border: solid $borderWidth $dark-grey;
+  border: solid $borderWidth $light-grey;
 
   .mediumEmphasis {
     color: $dark-grey;
   }
 }
 
-.incidentListItem.pinned {
-  border: solid $borderWidth $near-black;
+.incidentListItem.selected {
+  border: solid $borderWidth $dark-grey;
 
   .mediumEmphasis {
     color: $near-black;

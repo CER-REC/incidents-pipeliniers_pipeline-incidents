@@ -1,6 +1,6 @@
 {
   "name": "incident-visualization",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Incident Data Visualization for the National Energy Board of Canada",
   "main": "index.js",
   "scripts": {

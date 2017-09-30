@@ -35,8 +35,7 @@ WorkspaceComputations.columnHeight = function (viewport) {
   return viewport.get('y') - 
          WorkspaceComputations.topBarHeight() - 
          Constants.get('bottomOuterMargin') -
-         Constants.get('columnHeadingHeight') - 
-         Constants.get('columnHeadingSpacing')
+         Constants.get('columnHeadingHeight')
 }
 
 
@@ -54,8 +53,7 @@ WorkspaceComputations.columnWidth = function (columns) {
 
 WorkspaceComputations.columnY = function() {
   return WorkspaceComputations.topBarHeight() + 
-         Constants.get('columnHeadingHeight') + 
-         Constants.get('columnHeadingSpacing')
+         Constants.get('columnHeadingHeight')
 }
 
 
@@ -128,9 +126,7 @@ WorkspaceComputations.useScrollingWorkspace = function (columns) {
 // data: the data state
 // categories: the category display state
 WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport, data, columns, categories, columnName) {
-  // TODO: for now, we use the entire column height.
-  // Other column elements (and empty categories) will eventually need to cut
-  // into this height
+
   const columnHeight = WorkspaceComputations.columnNormalCategoryHeight(showEmptyCategories, viewport, data, columns, categories)
 
   const relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)
@@ -540,6 +536,8 @@ WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategori
     y: topBarHeight,
   }))
   cumulativeX += measurements.getIn(['socialBar', 'width'])
+
+
 
   // Workspace
   measurements = measurements.set('workspace', Immutable.fromJS({
