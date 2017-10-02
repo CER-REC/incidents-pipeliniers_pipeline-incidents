@@ -59,7 +59,7 @@ function downloadImageClick() {
 function downloadFileClick() {
   console.log('download file clicked')
 
-  window.open('data:text/csv;charset=utf-8,' + escape())
+  window.open('data:text/csv;charset=utf-8,data/2017-09-13 ERS TEST-joined.csv' + escape())
 
 //"${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-09-13 ERS TEST-joined.csv`
 //"
