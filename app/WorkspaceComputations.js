@@ -19,14 +19,7 @@ WorkspaceComputations.mapDisplayed = function(columns) {
 // The height of top bar, containing a heading, subheading, and home icon
 // NB: Thanks to memoize-immutable, this function is effectively always memoized
 WorkspaceComputations.topBarHeight = function () {
-  let height = Constants.get('topOuterMargin')
-  const lineHeight = Constants.getIn(['topBar', 'headingLineHeight'])
-
-  height += Constants.getIn(['topBar', 'headingFontSize']) * lineHeight
-  height += Constants.getIn(['topBar', 'subheadingFontSize']) * 2 * lineHeight
-  height += Constants.getIn(['topBar', 'topBarBottomMargin'])
-
-  return height
+  return Constants.getIn(['topBar', 'height'])
 }
 
 // This is the entire height of the column, including all its decorations

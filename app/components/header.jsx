@@ -30,28 +30,24 @@ class Header extends React.Component {
   }
 
 
-
   leftHeading() {
-    const leftHeadingStyle = {
-      position: 'absolute',
-      left: `${0}px`,
-      top: `${0}px`,
-    }
-    
-    return <div style = { leftHeadingStyle }>
-      
+    return <div className = 'leftHeader'>
+      <h1
+        className = 'heading'
+      >{ Tr.getIn(['mainHeading', this.props.language]).toUpperCase() }</h1>
+      <p
+        className = 'subpop'
+      >{ Tr.getIn(['mainSubheading', this.props.language]) }</p>
     </div>
   }
 
 
   rightButtons() {
-
-
     const socialBarMeasurements = WorkspaceComputations.socialBarMeasurements(this.props.viewport)
 
     let transformContainer = `translate(${socialBarMeasurements.get('x') - Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
 
-    let transformButtons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin'])}, ${Constants.getIn(['socialBar', 'iconSideMargin'])})`
+    let transformButtons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin']) * 2}, ${Constants.getIn(['socialBar', 'iconSideMargin'])})`
     
     let transformText = `translate(0, ${Constants.getIn(['socialBar', 'iconSideMargin'])})`
 
@@ -104,7 +100,6 @@ class Header extends React.Component {
             height = {Constants.getIn(['socialBar', 'iconSize']) }
             width = {Constants.getIn(['socialBar', 'iconSize']) }
             y = { Constants.getIn(['headerBar', 'tellMeAStoryHeight'])}
-            x = { Constants.getIn(['socialBar', 'iconSideMargin']) }
             onClick = { this.tellMeAStoryClick.bind(this) }
             xlinkHref = 'images/methodology-icon-white.svg'
           ></image>
@@ -114,7 +109,6 @@ class Header extends React.Component {
             height = {Constants.getIn(['socialBar', 'iconSize']) }
             width = {Constants.getIn(['socialBar', 'iconSize']) }
             y = { Constants.getIn(['headerBar', 'aboutThisProjectHeight'])}
-            x = { Constants.getIn(['socialBar', 'iconSideMargin']) }
             onClick = { this.aboutThisProjectClick.bind(this) }
             xlinkHref = 'images/methodology-icon-white.svg'
           ></image>
@@ -124,7 +118,6 @@ class Header extends React.Component {
             height = {Constants.getIn(['socialBar', 'iconSize']) }
             width = {Constants.getIn(['socialBar', 'iconSize']) }
             y = { Constants.getIn(['headerBar', 'methodologyHeight'])}
-            x = { Constants.getIn(['socialBar', 'iconSideMargin']) }
             onClick = { this.methodologyClick.bind(this) }
             xlinkHref = 'images/methodology-icon-white.svg'
           ></image>
@@ -134,7 +127,6 @@ class Header extends React.Component {
             height = {Constants.getIn(['socialBar', 'iconSize'])}
             width = {Constants.getIn(['socialBar', 'iconSize'])}
             y = { Constants.getIn(['headerBar', 'resetAllHeight'])}
-            x = { Constants.getIn(['socialBar', 'iconSideMargin']) }
             onClick = { this.resetAllClick.bind(this) }
             xlinkHref = 'images/reset_button-white.svg'
           ></image>
@@ -147,15 +139,10 @@ class Header extends React.Component {
 
 
   render() {
-
-
     return <div>
       { this.leftHeading() }
       { this.rightButtons() }
     </div>
-
-
-
   }
 }
 
