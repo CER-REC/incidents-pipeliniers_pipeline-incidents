@@ -535,7 +535,9 @@ WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategori
 // for laying out elements is different. 
 WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns) {
 
-  const workspaceWidth = viewport.get('x')
+  const socialBarMeasurements = WorkspaceComputations.socialBarMeasurements(viewport)
+
+  const workspaceWidth = viewport.get('x') - socialBarMeasurements.get('width')
   const columnHeight = WorkspaceComputations.columnHeight(viewport)
   const topBarHeight = WorkspaceComputations.columnY()
 
