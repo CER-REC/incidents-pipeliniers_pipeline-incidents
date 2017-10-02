@@ -17,6 +17,7 @@ const IncidentListHeadings = require('./IncidentListHeadings.jsx')
 const IncidentContainer = require('./IncidentContainer.jsx')
 const IncidentList = require('./IncidentList.jsx')
 const StoryBar = require('./StoryBar.jsx')
+const StoryWindow = require('./StoryWindow.jsx')
 
 class Workspace extends React.Component {
 
@@ -78,6 +79,7 @@ class Workspace extends React.Component {
           {this.columns()}
           <SocialBar/>
         </svg>
+        <StoryWindow/>
       </div>
       <StoryBar/>
     </div>
