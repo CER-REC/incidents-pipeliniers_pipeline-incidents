@@ -17,6 +17,30 @@ const Constants = Immutable.fromJS({
     emptyCategoryOffsetRatio: 0.06,
   },
 
+  storyThumbnailDimensions: {
+    widthPercentage: 0.32,
+    heightPercentage: 0.21,
+    borderStroke: 1,
+    titleBackgroundWidth: '100%',
+    titleBackgroundHeight: '43%',
+    titleBackgroundYOffset: 0.57,
+    iconOffset: 50,
+  },
+
+  stories: {
+    firstRow: {
+      leftStory: {
+        backgroundImage: 'images/stories/when-do-incidents-usually-occur.jpg',
+      },
+      middleStory: {
+        backgroundImage: 'images/stories/when-do-incidents-usually-occur.jpg',
+      },
+      rightStory: {
+        backgroundImage: 'images/stories/when-do-incidents-usually-occur.jpg',
+      },
+    },
+  },
+
   // All in px
   leftOuterMargin: 5,
   topOuterMargin: 5,

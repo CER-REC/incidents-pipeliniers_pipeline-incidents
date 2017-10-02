@@ -18,7 +18,7 @@ class StoryBar extends React.Component {
           {Tr.getIn(['storiesBarHeading', this.props.language])}
         </span>
       </div>
-      <StoryRow/>
+      <StoryRow rowName='firstRow'/>
     </div>
   }
 }

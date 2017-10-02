@@ -1,6 +1,24 @@
 const Immutable = require('immutable')
 
 const TranslationTable = Immutable.fromJS({ 
+
+  stories: {
+    firstRow: {
+      leftStory: {
+        en: 'Provinces and Pipeline Incident',
+        fr: '<TODO>',
+      },
+      middleStory: {
+        en: 'How Big Are Most Gas Releases?',
+        fr: '<TODO>',
+      },
+      rightStory: {
+        en: 'When Do Incidents Usually Occur?',
+        fr: '<TODO>',
+      },
+    },
+  },
+
   columnHeadings: {
     incidentTypes: {
       en: 'INCIDENT TYPE',
