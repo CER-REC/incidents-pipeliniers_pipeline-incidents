@@ -59,24 +59,45 @@ class Workspace extends React.Component {
       this.props.columns,
       this.props.categories)
 
+    const scrollPaneWidth = this.props.viewport.get('x') - 
+      Constants.getIn(['socialBar', 'width']) -
+      Constants.getIn(['socialBar', 'leftMargin'])
 
-    return <div>
-      <div className='workspace'>
-        { this.mapContainer() }
-        <IncidentContainer />
-        <svg 
-          className = 'workspaceSvg'
-          width = { horizontalPositions.getIn(['workspace', 'width']) }
-          height = { horizontalPositions.getIn(['workspace', 'height']) }
-        >
-          <Header />
-          <EmptyCategories />
-          <IncidentListHeadings />
-          <SideBar/>
-          {this.columns()}
-          <SocialBar/>
-        </svg>
+
+        // <Header />
+
+    const clipContainerStyle = {
+      width: `${scrollPaneWidth}px`
+    }
+
+    return <div className='workspace'>
+      <div className = 'workspaceOverlay'>
+        <SocialBar/>
       </div>
+
+      <div
+        className = 'workspaceClipContainer'
+        style = { clipContainerStyle }
+      >
+        <div
+          className = 'workspaceScrollPane'
+        >
+          { this.mapContainer() }
+          <IncidentContainer />
+          <svg 
+            className = 'workspaceSvg'
+            width = { horizontalPositions.getIn(['workspace', 'width']) }
+            height = { horizontalPositions.getIn(['workspace', 'height']) }
+          >
+            <EmptyCategories />
+            <IncidentListHeadings />
+            <SideBar/>
+            {this.columns()}
+          </svg>
+        </div>
+      </div>
+
+
     </div>
   }
 }

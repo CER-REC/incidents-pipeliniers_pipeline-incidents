@@ -66,25 +66,12 @@ class SocialBar extends React.Component {
 
     const iconSize = Constants.getIn(['socialBar', 'iconSize'])
 
-    // TODO: an issue with the social bar: it is intended to 'float along' to 
-    // the left of the SVG content.
-    // Doing this inside the SVG itself would be really, really hard. We may
-    // just end up placing a second svg adjacent to the first, in a container
-    // floated left ... 
+    const measurements = WorkspaceComputations.socialBarMeasurements(this.props.viewport)
 
-    const measurements = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-      .get('socialBar')
-
-
-    let transformContainer = `translate(${measurements.get('x') + Constants.getIn(['socialBar', 'leftMargin'])},${measurements.get('y')})`
+    let transformContainer = `translate(${measurements.get('x')},${measurements.get('y')})`
     let transformSocialIcons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
 
-    return <g transform = {transformContainer}>
+    return <svg transform = {transformContainer}>
       <rect
         width={ measurements.get('innerWidth') }
         height={ measurements.get('height') }
@@ -137,7 +124,7 @@ class SocialBar extends React.Component {
           className="socialBar"
           onClick = {downloadFileClick}></image>
       </g>
-    </g>
+    </svg>
   }
 }
 
