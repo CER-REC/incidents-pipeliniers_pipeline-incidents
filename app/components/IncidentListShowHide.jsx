@@ -68,9 +68,6 @@ class IncidentListShowHide extends React.Component {
 const mapStateToProps = state => {
   return {
     viewport: state.viewport,
-    data: state.data,
-    columns: state.columns,
-    categories: state.categories,
     language: state.language,
     showIncidentList: state.showIncidentList,
   }

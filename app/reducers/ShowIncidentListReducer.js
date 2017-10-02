@@ -1,6 +1,6 @@
 const Immutable = require('immutable')
 
-const ShowIncidentListReducer = (state = true, action) => {
+const ShowIncidentListReducer = (state = false, action) => {
 
   switch(action.type) {
 
