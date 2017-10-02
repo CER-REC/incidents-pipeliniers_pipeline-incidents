@@ -63,9 +63,7 @@ class Story extends React.Component {
 const mapStateToProps = state => {
   return {
     language: state.language,
-    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-    story: state.story,
   }
 }
 
