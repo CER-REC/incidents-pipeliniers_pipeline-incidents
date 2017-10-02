@@ -100,16 +100,16 @@ const Constants = Immutable.fromJS({
   maxColumnsWithoutScrollWithMap: -1,
 
   columnNames: [
+    'status',
+    'pipelinePhase',
     'incidentTypes',
     'year',
     'company',
-    'status',
     'province',
     'substance',
     'releaseType',
     'whatHappened',
     'whyItHappened',
-    'pipelinePhase',
     'volumeCategory',
     'pipelineSystemComponentsInvolved',
     'map',
