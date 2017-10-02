@@ -64,7 +64,6 @@ class Workspace extends React.Component {
       Constants.getIn(['socialBar', 'leftMargin'])
 
 
-        // <Header />
 
     const clipContainerStyle = {
       width: `${scrollPaneWidth}px`
@@ -72,6 +71,7 @@ class Workspace extends React.Component {
 
     return <div className='workspace'>
       <div className = 'workspaceOverlay'>
+        <Header />
         <SocialBar/>
       </div>
 

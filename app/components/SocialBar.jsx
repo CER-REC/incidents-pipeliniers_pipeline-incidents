@@ -75,7 +75,7 @@ class SocialBar extends React.Component {
       <rect
         width={ measurements.get('innerWidth') }
         height={ measurements.get('height') }
-        fill='#555556'
+        className = 'socialBarBackground'
       />
       <g transform = {transformSocialIcons}>
         <image 
@@ -83,28 +83,28 @@ class SocialBar extends React.Component {
           width = {iconSize}        
           y = {Constants.getIn(['socialBar', 'emailIconPadding'])}
           xlinkHref='images/email.svg'
-          className="socialBar"
+          className="socialBarButton"
           onClick = {emailClick}></image>
         <image 
           height = {iconSize} 
           width = {iconSize}
           y = {Constants.getIn(['socialBar', 'facebookIconPadding'])}
           xlinkHref='images/facebook.svg'
-          className="socialBar"
+          className="socialBarButton"
           onClick = {facebookClick}></image>
         <image 
           height = {iconSize} 
           width = {iconSize} 
           y = {Constants.getIn(['socialBar', 'linkedinIconPadding'])}
           xlinkHref='images/linkedin.svg'
-          className="socialBar"
+          className="socialBarButton"
           onClick = {linkedinClick}></image>
         <image 
           height = {iconSize} 
           width = {iconSize} 
           y = {Constants.getIn(['socialBar', 'twitterIconPadding'])}
           xlinkHref='images/twitter.svg'
-          className="socialBar"
+          className="socialBarButton"
           onClick = {twitterClick}></image>
         <line x1={0} y1={Constants.getIn(['socialBar', 'dividerLine'])}
           x2={iconSize} y2={Constants.getIn(['socialBar', 'dividerLine'])}
@@ -114,14 +114,14 @@ class SocialBar extends React.Component {
           width = {iconSize} 
           y = {Constants.getIn(['socialBar', 'downloadImageIconPadding'])}
           xlinkHref='images/download_image.svg'
-          className="socialBar"
+          className="socialBarButton"
           onClick = {downloadImageClick}></image>
         <image 
           height = {iconSize} 
           width = {iconSize} 
           y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
           xlinkHref='images/download_file.svg'
-          className="socialBar"
+          className="socialBarButton"
           onClick = {downloadFileClick}></image>
       </g>
     </svg>
@@ -130,11 +130,7 @@ class SocialBar extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-    data: state.data,
-    columns: state.columns,
-    categories: state.categories,
   }
 }
 

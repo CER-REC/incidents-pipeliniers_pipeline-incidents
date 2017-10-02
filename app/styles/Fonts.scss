@@ -60,11 +60,11 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   text-align: left;
 }
 
-.headerButtons {
+.headerButtonLabel {
   font-family: $fira-sans-extra-condensed-semibold;
-  font-size: 13px;
+  // NB: fontSize set via constants, to stay consistent with other measurements
   text-align: left;
-  fill: #555556;
+  fill: $socialBarBackground;
 }
 
 .sidebars {

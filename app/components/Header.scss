@@ -1,4 +1,16 @@
+@import "../styles/Colours.scss";
 
-.resetAllButton {
-    cursor: pointer;
-  }
+.headerBarBackground {
+  fill: $socialBarBackground;
+}
+
+.headerButton {
+  cursor: pointer;
+  fill: $socialBarBackground;
+}
+
+.headerButtonLabel {
+  cursor: pointer;
+  text-anchor: end;
+}
+
