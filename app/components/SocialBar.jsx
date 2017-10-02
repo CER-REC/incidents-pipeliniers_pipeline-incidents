@@ -58,12 +58,14 @@ function downloadImageClick() {
 
 function downloadFileClick() {
   console.log('download file clicked')
+  const fileName = 'incidents_data.csv'
+  //const uriContent = ${appRoot}data/2017-09-13 ERS TEST-joined.csv
 
-  window.open('data:text/csv;charset=utf-8,data/2017-09-13 ERS TEST-joined.csv' + escape())
+  window.open('data:text/csv;charset=utf-8,data/' + escape())
 
-//"${document.location.protocol}//${document.location.host}${document.location.pathname}data/2017-09-13 ERS TEST-joined.csv`
-//"
 // ${appRoot}data/2017-09-13 ERS TEST-joined.csv`
+//app/root
+//public/data/2017-09-13 ERS TEST-joined.csv
 }
 
 class SocialBar extends React.Component {
