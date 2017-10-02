@@ -73,9 +73,9 @@ class StarredIncidentList extends React.Component {
         incident = { incident }
         key = { incident.get('incidentNumber') }
         pinned = { this.props.pinnedIncidents.contains(incident) }
+        selected = { this.props.selectedIncidents.contains(incident) }
       />
     }).toArray()
-        //selected = { this.props.selectedIncidents.contains(incident) }
   }
 
   render() {

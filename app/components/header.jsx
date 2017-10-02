@@ -61,11 +61,10 @@ class Header extends React.Component {
 
       { this.resetAllButton() }
 
-      <svg width={headerWidth} height={headerHeight} xmlnsXlink='http://www.w3.org/1999/xlink'>
-      
-        <text x={0} y={yHeading} className="heading">{ Tr.getIn(['mainHeading', this.props.language]) }</text>
+      <g width={headerWidth} height={headerHeight}>
+        <text x={0} y={yHeading} className="heading">{ Tr.getIn(['mainHeading', this.props.language]).toUpperCase() }</text>
         <text x={0} y={ySubpop} className="subpop">{ Tr.getIn(['mainSubheading', this.props.language]) }</text>
-      </svg>
+      </g>
     </g>
   
   }

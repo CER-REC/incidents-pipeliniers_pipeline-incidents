@@ -1,7 +1,6 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
-const Path = require('./Path.jsx')
 const IncidentPathComputations = require('../IncidentPathComputations.js')
 
 class ColumnPaths extends React.Component {
@@ -29,9 +28,11 @@ class ColumnPaths extends React.Component {
     )
 
     pathCurves.forEach( pathCurve => {
-      paths.push(<Path
+      paths.push(<path
         d = { pathCurve.get('d') }
         key = { pathCurve.get('sourceCategory') + pathCurve.get('destinationCategory') }
+        fill = '#f0f0f0'
+        fillOpacity = '0.4'
       />)
     })
 

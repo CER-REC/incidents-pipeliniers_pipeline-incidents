@@ -68,23 +68,6 @@ const Constants = Immutable.fromJS({
     columnHeightPadding: 25,
   },
 
-  incidentPopover: {
-    height: 65,
-    width: 95,
-    pinIconXY: -25,
-    popoverX: 25,
-    horizontalLineY: 155,
-    showPopoverBodyY: 170,
-    horizontalLineEnd: 120,
-    lineHeightX: 145,
-    showYLineY: 155,
-    horizontalLineXStart: 151,
-    dotRadius: 3,
-    lineHeight: 16.2,
-    popupHeight: 81,
-    textOffset: 15,
-  },
-
   columnWideWidth: 62,
   columnNarrowWidth: 24,
   minimumColumnPathWidth: 90,
@@ -94,7 +77,6 @@ const Constants = Immutable.fromJS({
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 40,
 
-  columnHeadingSpacing: 10,
 
   dragArrow: {
     width: 24,
@@ -162,7 +144,7 @@ const Constants = Immutable.fromJS({
 
     maxLineLength: 15,
 
-    dropShadowX: -1,
+    dropShadowX: 1,
     dropShadowY: 2,
 
   },
@@ -325,7 +307,8 @@ const Constants = Immutable.fromJS({
     colourBetweenColumns: '#1A1A1A',
     columnBarColour: '#FFF',
     columnBarOpacity: 0.75,
-    strokeWidth: '2px'
+    strokeWidth: '2px',
+    hoveredStrokeWidth: '3px',
   },
 
   columnTypes: {
