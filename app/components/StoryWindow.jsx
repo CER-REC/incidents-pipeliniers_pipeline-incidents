@@ -5,6 +5,7 @@ const ReactRedux = require('react-redux')
 require('./StoryWindow.scss')
 
 const Constants = require('../Constants.js')
+const StoryDismissedCreator = require('../actionCreators/StoryDismissedCreator.js')
 
 class StoryWindow extends React.Component {
 
@@ -20,9 +21,14 @@ class StoryWindow extends React.Component {
     </defs>    
   }
 
-
+  closeButtonClick() {
+    this.props.onCloseButtonClicked()
+  }
 
   render() {
+    // Only render if a story has been selected.
+    if(!this.props.story.get('isActive')) return null
+
     return <div 
       className='storyWindow'>
       <svg 
@@ -49,7 +55,8 @@ class StoryWindow extends React.Component {
             Constants.getIn(['storyThumbnailDimensions', 'windowShadowOffset']) - 
             Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize']) - 
             Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
-          y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}/>
+          y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
+          onClick = { this.closeButtonClick.bind(this) }/>
       </svg>
     </div>
   }
@@ -59,7 +66,16 @@ const mapStateToProps = state => {
   return {
     viewport: state.viewport,
     language: state.language,
+    story: state.story,
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(StoryWindow)
+const mapDispatchToProps = dispatch => {
+  return {
+    onCloseButtonClicked: () => {
+      dispatch(StoryDismissedCreator())
+    }
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(StoryWindow)

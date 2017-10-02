@@ -6,8 +6,14 @@ require('./Story.scss')
 
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
+const StorySelectedCreator = require('../actionCreators/StorySelectedCreator.js')
 
 class Story extends React.Component {
+
+  storyClicked() {
+    this.props.onStoryClicked(this.props.rowName, this.props.position)
+  }
+
   render() {
     let storyWidth = this.props.viewport.get('x') * 
                      Constants.getIn(['storyThumbnailDimensions', 'widthPercentage'])
@@ -28,7 +34,8 @@ class Story extends React.Component {
     return <div 
       className='story'
       style={storyStyle}
-      id={this.props.position}>
+      id={this.props.position}
+      onClick = { this.storyClicked.bind(this) }>
       <svg
         style={backgroundImageStyle}>
         <image 
@@ -58,7 +65,16 @@ const mapStateToProps = state => {
     language: state.language,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
+    story: state.story,
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(Story)
+const mapDispatchToProps = dispatch => {
+  return {
+    onStoryClicked: (storyRow, storyPosition) => {
+      dispatch(StorySelectedCreator(storyRow, storyPosition))
+    }
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Story)
