@@ -70,7 +70,10 @@ class Workspace extends React.Component {
     }
 
     return <div className='workspace'>
-      <div className = 'workspaceOverlay'>
+      <div 
+        className = 'workspaceOverlay'
+        style = { {height: `${Constants.getIn(['topBar', 'height'])}px`} }
+      >
         <Header />
         <SocialBar/>
       </div>
