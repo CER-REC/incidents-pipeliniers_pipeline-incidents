@@ -225,7 +225,7 @@ const RenderRoutines = {
     if (props.hoveredIncident === incident){
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
-    else if (props.pinnedIncidents.contains(incident)) {
+    else if (props.selectedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -242,7 +242,7 @@ const RenderRoutines = {
     if (props.hoveredIncident === incident){
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
-    else if (props.pinnedIncidents.contains(incident)) {
+    else if (props.selectedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -686,7 +686,7 @@ const RenderRoutines = {
       return true
     }
 
-    if (props.pinnedIncidents.contains(incident)) {
+    if (props.selectedIncidents.contains(incident)) {
       return true
     }
 

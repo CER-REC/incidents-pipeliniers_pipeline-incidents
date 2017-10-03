@@ -65,6 +65,7 @@ const mapStateToProps = state => {
     categoryHoverState: state.categoryHoverState,
     hoveredIncident: state.hoveredIncident,
     schema: state.schema,
+    selectedIncidents: state.selectedIncidents,
   }
 }
 
