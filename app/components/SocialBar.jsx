@@ -3,8 +3,6 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const Request = require('client-request/promise')
 
-const DataLoader = require('../DataLoader.js')
-
 require('../styles/Common.scss')
 require('../styles/Colours.scss')
 require('./SocialBar.scss')
