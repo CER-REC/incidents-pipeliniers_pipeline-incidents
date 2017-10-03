@@ -12,7 +12,11 @@ require('./Header.scss')
 class Header extends React.Component {
 
   resetAllClick() {
-    const categories = DefaultCategoryComputations.initialState(this.props.data)
+    const categories = DefaultCategoryComputations.initialState(
+      this.props.data,
+      this.props.schema, 
+      this.props.language
+    )
     this.props.resetVisualization(categories)
   }
 
@@ -74,6 +78,7 @@ const mapStateToProps = (state) => {
   return {
     data: state.data,
     language: state.language,
+    schema: state.schema,
   } 
 }
 

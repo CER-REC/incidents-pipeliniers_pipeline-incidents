@@ -10,7 +10,7 @@ const IncidentComputations = require('./IncidentComputations.js')
 
 const DefaultCategoryComputations = {
 
-  initialState: function (data, schema) {
+  initialState: function (data, schema, language) {
 
     let unsortedCategories
     switch (Constants.get('dataMode')) {
@@ -22,7 +22,7 @@ const DefaultCategoryComputations = {
       break
     }
 
-    return DefaultCategoryComputations.sortCategories(data, unsortedCategories)
+    return DefaultCategoryComputations.sortCategories(data, unsortedCategories, schema, language)
   },
 
 
