@@ -20,29 +20,37 @@ const store = Store()
 window.store = store
 
 
+let dataLoadPromise
 
 switch (Constants.get('dataMode')) {
 case 'dataService': 
-  DataLoader.loadFromDataService (store)
+  dataLoadPromise = DataLoader.loadFromDataService(store)
   break
 case 'csvFile': 
-  DataLoader.loadDataCsv(store)
+  dataLoadPromise = DataLoader.loadDataCsv(store)
   break
 }
 
 
 DomReady( () => {
+  dataLoadPromise.then( () => {
 
-  store.getState().history.listen(locationChangeHandler)
+    store.getState().history.listen(locationChangeHandler)
 
-  resizeScreenHandler()
-  window.addEventListener('resize', resizeScreenHandler)
+    resizeScreenHandler()
+    window.addEventListener('resize', resizeScreenHandler)
 
-  const app = <ReactRedux.Provider store={store}>
-    <Root />
-  </ReactRedux.Provider>
+    const app = <ReactRedux.Provider store={store}>
+      <Root />
+    </ReactRedux.Provider>
 
-  ReactDOM.render(app, document.getElementById('reactRoot'))
+    ReactDOM.render(app, document.getElementById('reactRoot'))
+
+  }).catch( (error) => {
+    // TODO: Render a nicer error message when the loading procedure fails
+    console.error(error)
+    ReactDOM.render(<div> <h1>An Error has Occurred | On a rencontré une erreur</h1> <p>Please try again later | Visiter une autre temps, s'il vous plaît.</p> </div>, document.getElementById('reactRoot'))
+  })
 })
 
 function resizeScreenHandler () {

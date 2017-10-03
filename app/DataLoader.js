@@ -155,25 +155,30 @@ function csvColumnMapping (d) {
 }
 
 
+// Returns a promise
 function afterLoad (store, data) {
 
-  store.dispatch(DataLoadedCreator(data))
+  return new Promise( (resolve) => {
+    store.dispatch(DataLoadedCreator(data))
 
-  let state = store.getState()
-  const categories = DefaultCategoryComputations.initialState(state.data, state.schema)
-  store.dispatch(SetInitialCategoryStateCreator(categories))
+    let state = store.getState()
+    const categories = DefaultCategoryComputations.initialState(state.data, state.schema)
+    store.dispatch(SetInitialCategoryStateCreator(categories))
 
-  state = store.getState()
-  const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
+    state = store.getState()
+    const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
 
-  store.dispatch(SetFromRouterStateCreator({
-    columns: routerState.columns,
-    categories: routerState.categories,
-    showEmptyCategories: routerState.showEmptyCategories,
-    pinnedIncidents: routerState.pinnedIncidents,
-    language: routerState.language,
-    screenshotMode: RouteComputations.screenshotMode(document.location)
-  }))
+    store.dispatch(SetFromRouterStateCreator({
+      columns: routerState.columns,
+      categories: routerState.categories,
+      showEmptyCategories: routerState.showEmptyCategories,
+      pinnedIncidents: routerState.pinnedIncidents,
+      language: routerState.language,
+      screenshotMode: RouteComputations.screenshotMode(document.location)
+    }))
+
+    resolve()
+  })
 }
 
 
@@ -291,6 +296,7 @@ function validateVolumeCategory(incident, errors) {
 const DataLoader = {
 
   // Load the application data from a single remote CSV file
+  // Returns a promise
   loadDataCsv (store) {
 
     const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
@@ -299,11 +305,11 @@ const DataLoader = {
       uri: `${appRoot}data/2017-09-13 ERS TEST-joined.csv`,
     }
 
-    Request(options)
+    return Request(options)
       .then(function (response) {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
 
-        afterLoad(store, data)
+        return afterLoad(store, data)
 
       })
       .catch(function (error) {
@@ -314,6 +320,7 @@ const DataLoader = {
 
 
   // Load the application data from the data service.
+  // Returns a promise
   loadFromDataService (store) {
 
     const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
@@ -339,7 +346,7 @@ const DataLoader = {
 
     const dataRequest = Request(dataOptions)
 
-    Promise.join(schemaPromise, dataRequest)
+    return Promise.join(schemaPromise, dataRequest)
       .then(function ([schema, dataResponse]) {
 
         const incidents = [] 
@@ -401,7 +408,7 @@ const DataLoader = {
 
         }
 
-        afterLoad(store, Immutable.fromJS(incidents))
+        return afterLoad(store, Immutable.fromJS(incidents))
 
       })
       .catch(function (error) {

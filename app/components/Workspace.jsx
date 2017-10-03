@@ -44,16 +44,25 @@ class Workspace extends React.Component {
     }
   }
 
-  incidentList() {
-    if (!this.props.screenshotMode) {
-      return <div>
+  incidentListHtml() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+    else {
+      return <IncidentContainer />
+    }
+  }
+
+  incidentListSvg() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+    else {
+      return <g>
         <IncidentListShowHide />
         <EmptyCategories />
         <IncidentListHeadings />
-      </div>
-    }
-    else {
-      return null
+      </g>
     }
   }
 
@@ -95,14 +104,14 @@ class Workspace extends React.Component {
     return <div>
       <div className = { this.workspaceClass() } >
         { this.mapContainer() }
-        <IncidentContainer />
+        { this.incidentListHtml() }
         <svg 
           className = 'workspaceSvg'
           width = { horizontalPositions.getIn(['workspace', 'width']) }
           height = { horizontalPositions.getIn(['workspace', 'height']) }
         >
           <Header />
-          { this.incidentList() }
+          { this.incidentListSvg() }
           <SideBar/>
           { this.columns() }
           { this.socialbar() }
