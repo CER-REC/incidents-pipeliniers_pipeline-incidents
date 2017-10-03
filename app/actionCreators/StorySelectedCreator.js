@@ -1,9 +1,8 @@
 
-function StorySelectedCreator (storyRow, storyPosition) {
+function StorySelectedCreator (storyID) {
   return {
     type: 'StorySelected',
-    storyRow: storyRow,
-    storyPosition: storyPosition
+    storyID: storyID,
   }
 }
 

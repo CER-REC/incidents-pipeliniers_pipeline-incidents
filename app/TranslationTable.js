@@ -3,17 +3,33 @@ const Immutable = require('immutable')
 const TranslationTable = Immutable.fromJS({ 
 
   stories: {
-    firstRow: {
-      leftStory: {
+    'provinces-and-pipeline-incident': {
+      title: {
         en: 'Provinces and Pipeline Incident',
         fr: '<TODO>',
       },
-      middleStory: {
+      backgroundImage: {
+        en: 'images/stories/provinces-and-pipeline-incident-EN.jpg',
+        fr: '<TODO>',
+      },
+    },
+    'how-big-are-most-gas-releases': {
+      title: {
         en: 'How Big Are Most Gas Releases?',
         fr: '<TODO>',
       },
-      rightStory: {
+      backgroundImage: {
+        en: 'images/stories/how-big-are-most-gas-releases-EN.jpg',
+        fr: '<TODO>',
+      },
+    },
+    'when-do-incidents-usually-occur': {
+      title: {
         en: 'When Do Incidents Usually Occur?',
+        fr: '<TODO>',
+      },
+      backgroundImage: {
+        en: 'images/stories/when-do-incidents-usually-occur-EN.jpg',
         fr: '<TODO>',
       },
     },

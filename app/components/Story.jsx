@@ -11,21 +11,21 @@ const StorySelectedCreator = require('../actionCreators/StorySelectedCreator.js'
 class Story extends React.Component {
 
   storyClicked() {
-    this.props.onStoryClicked(this.props.rowName, this.props.position)
+    this.props.onStoryClicked(this.props.id)
   }
 
   render() {
-    let storyWidth = this.props.viewport.get('x') * 
-                     Constants.getIn(['storyThumbnailDimensions', 'widthPercentage'])
-    let storyHeight = this.props.viewport.get('x') * 
-                      Constants.getIn(['storyThumbnailDimensions', 'heightPercentage'])
+    const storyWidth = this.props.viewport.get('x') * 
+      Constants.getIn(['storyThumbnailDimensions', 'widthPercentage'])
+    const storyHeight = this.props.viewport.get('x') * 
+      Constants.getIn(['storyThumbnailDimensions', 'heightPercentage'])
 
-    let storyStyle = {
+    const storyStyle = {
       width: '32%',
       height: storyHeight,
     }
 
-    let backgroundImageStyle = {
+    const backgroundImageStyle = {
       width: '100%',
       height: storyHeight - 
               Constants.getIn(['storyThumbnailDimensions', 'borderStroke']) * 2,
@@ -39,21 +39,24 @@ class Story extends React.Component {
       <svg
         style={backgroundImageStyle}>
         <image 
-          xlinkHref={Constants.getIn(['stories', this.props.rowName, this.props.position, 'backgroundImage'])}
+          xlinkHref={Tr.getIn(['stories', this.props.id, 'backgroundImage', this.props.language])}
           style={backgroundImageStyle}/>
         <rect
           className='titleContainer'
-          y={storyHeight * Constants.getIn(['storyThumbnailDimensions', 'titleBackgroundYOffset'])}/>
+          y={storyHeight * 
+            Constants.getIn(['storyThumbnailDimensions', 'titleBackgroundYOffset'])}/>
         <image 
           className='storyIcon'
           xlinkHref='images/eye.svg'
-          x={storyWidth - Constants.getIn(['storyThumbnailDimensions', 'iconOffset'])}
-          y={storyHeight - Constants.getIn(['storyThumbnailDimensions', 'iconOffset'])}/>
+          x={storyWidth - 
+            Constants.getIn(['storyThumbnailDimensions', 'iconOffset'])}
+          y={storyHeight - 
+            Constants.getIn(['storyThumbnailDimensions', 'iconOffset'])}/>
       </svg>
       <div
         className='title'>
         <p className='storiesTitle'>
-          {Tr.getIn(['stories', this.props.rowName, this.props.position, this.props.language])}
+          {Tr.getIn(['stories', this.props.id, 'title', this.props.language])}
         </p>
       </div>
     </div>
@@ -69,8 +72,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onStoryClicked: (storyRow, storyPosition) => {
-      dispatch(StorySelectedCreator(storyRow, storyPosition))
+    onStoryClicked: (storyID) => {
+      dispatch(StorySelectedCreator(storyID))
     }
   }
 }

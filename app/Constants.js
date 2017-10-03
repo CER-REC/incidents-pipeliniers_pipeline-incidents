@@ -34,15 +34,9 @@ const Constants = Immutable.fromJS({
 
   stories: {
     firstRow: {
-      leftStory: {
-        backgroundImage: 'images/stories/provinces-and-pipeline-incident.jpg',
-      },
-      middleStory: {
-        backgroundImage: 'images/stories/how-big-are-most-gas-releases.jpg',
-      },
-      rightStory: {
-        backgroundImage: 'images/stories/when-do-incidents-usually-occur.jpg',
-      },
+      leftStory: 'provinces-and-pipeline-incident',
+      middleStory: 'how-big-are-most-gas-releases',
+      rightStory: 'when-do-incidents-usually-occur',
     },
   },
 
