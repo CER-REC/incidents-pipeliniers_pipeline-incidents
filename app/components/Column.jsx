@@ -103,7 +103,10 @@ class Column extends React.Component {
       return <tspan className='barsHeading' 
         key={word}
         x={columnMeasurements.get('x')} 
-        y={currentY}>
+        y={currentY}
+        onMouseDown={this.handleDragStart.bind(this)}
+        onMouseMove={this.handleDragMove.bind(this)}
+        onMouseUp={this.handleDragEnd.bind(this)}>
         {word}
       </tspan>
     })
