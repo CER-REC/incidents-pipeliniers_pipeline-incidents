@@ -25,26 +25,26 @@ class Story extends React.Component {
       height: storyHeight,
     }
 
-    const backgroundImageStyle = {
-      width: '100%',
-      height: storyHeight - 
-              Constants.getIn(['storyThumbnailDimensions', 'borderStroke']) * 2,
-    }
-
     return <div 
       className='story'
       style={storyStyle}
       id={this.props.position}
       onClick = { this.storyClicked.bind(this) }>
       <svg
-        style={backgroundImageStyle}>
+        width='100%'
+        height={storyHeight - 
+          Constants.getIn(['storyThumbnailDimensions', 'borderStroke']) * 2}>
         <image 
           xlinkHref={Tr.getIn(['stories', this.props.id, 'backgroundImage', this.props.language])}
-          style={backgroundImageStyle}/>
+          width='100%'
+          height={storyHeight - 
+            Constants.getIn(['storyThumbnailDimensions', 'borderStroke']) * 2}/>
         <rect
           className='titleContainer'
           y={storyHeight * 
-            Constants.getIn(['storyThumbnailDimensions', 'titleBackgroundYOffset'])}/>
+            Constants.getIn(['storyThumbnailDimensions', 'titleBackgroundYOffset'])}
+          width='100%'
+          height='43%'/>
         <image 
           className='storyIcon'
           xlinkHref='images/eye.svg'
