@@ -4,6 +4,7 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const ResetVisualizationCreator = require('../actionCreators/ResetVisualizationCreator.js')
 const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
+const IncidentComputations = require('../IncidentComputations.js')
 const Tr = require('../TranslationTable.js')
 
 require('./Header.scss')
@@ -13,6 +14,7 @@ class Header extends React.Component {
 
   resetAllClick() {
     const categories = DefaultCategoryComputations.initialState(this.props.data)
+    //const incident = IncidentComputations.initialState(this.props.data, this.props.filterboxActivationState)
     this.props.resetVisualization(categories)
   }
 
@@ -79,8 +81,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    resetVisualization: (categories) => {
-      dispatch(ResetVisualizationCreator(categories))
+    resetVisualization: (categories, incident) => {
+      dispatch(ResetVisualizationCreator(categories, incident))
     }
   }
 }
