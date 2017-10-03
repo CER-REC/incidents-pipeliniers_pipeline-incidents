@@ -7,29 +7,35 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const Tr = require('../TranslationTable.js')
 
 require('../styles/Common.scss')
+require('./EmptyCategories.scss')
 
 
 class EmptyCategories extends React.Component {
 
-  showImage() {
+  checkbox() {
     const height = Constants.getIn(['showHideEmptyCategories', 'showHideIconHeight'])
     const width = Constants.getIn(['showHideEmptyCategories', 'showHideIconWidth'])
 
     const transformShowImage = `translate(0, ${-Constants.getIn(['showHideEmptyCategories','fontSize'])})`
 
     if (this.props.showEmptyCategories) {
-      return <image 
+      return <rect 
+        y = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
+        x = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
         height = {height} 
         width = {width} 
         transform = {transformShowImage} 
-        xlinkHref='images/button-down.svg'></image>
-    }
-    else {
-      return <image 
-        height = {height} 
-        width = {width} 
+        fill = '#666'></rect>
+    } else {
+      return <rect 
+        y = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
+        x = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
+        height = {height - Constants.getIn(['showHideEmptyCategories','checkboxStrokePadding'])} 
+        width = {width - Constants.getIn(['showHideEmptyCategories','checkboxStrokePadding'])} 
         transform = {transformShowImage} 
-        xlinkHref='images/button-up.svg'></image>
+        stroke = '#666' 
+        strokeWidth = { Constants.getIn(['showHideEmptyCategories','checkboxWidth']) }
+        fill='transparent'></rect>
     }
   }
   showText() {
@@ -48,23 +54,38 @@ class EmptyCategories extends React.Component {
     }
   }
 
+  dividerLine() {
+    const transformDividerLine = `translate(${0},${Constants.getIn(['showHideEmptyCategories','dividerLinePadding'])})`
+    return <g className="dividerLine" transform={transformDividerLine} >
+      <line  x1="0" y1="0" x2={Constants.getIn(['showHideEmptyCategories','dividerLineLength'])} y2="0"/>
+    </g>
+  }
+
 
   render() {
 
-    const yTransform = WorkspaceComputations.baselineHeight(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data, 
-      this.props.columns,
-      this.props.categories
-    ) - Constants.getIn(['showHideEmptyCategories', 'fontSize'])
+    // TODO: previously, used baseline height. Unclear if we will permanently
+    // move away from this logic. 
+    // const yTransform = WorkspaceComputations.baselineHeight(
+    //   this.props.showEmptyCategories,
+    //   this.props.viewport,
+    //   this.props.data, 
+    //   this.props.columns,
+    //   this.props.categories
+    // ) - Constants.getIn(['showHideEmptyCategories', 'fontSize'])
+
+    // TODO: it is a mystery to me why this fudge factor is needed to align
+    // this with the drag arrows. 
+    const yTransform = WorkspaceComputations.dragArrowY(this.props.viewport) + 
+      Constants.get('emptyCategoryLabelFudgeFactor')
 
     // TODO: adapt empty categories to use horizontalComputations
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
     return ( 
       <g transform = {transformShowHide} onClick={this.props.onClick}> 
-        {this.showImage()}
+        {this.dividerLine()}
+        {this.checkbox()}
         {this.showText()}
       </g>
     )

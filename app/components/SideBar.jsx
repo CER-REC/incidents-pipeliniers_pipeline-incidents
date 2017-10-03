@@ -52,6 +52,7 @@ class Sidebar extends React.Component {
         const columnY = ((index-1) * 
                         Constants.getIn(['sidebar', 'labelHeight'])) + 
                         measurements.get('y')
+
         return <Column 
           columnName={columnName} 
           key={columnName} 
@@ -65,7 +66,7 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    return <g>
+    return <g> 
       {this.columns()}
     </g>
   }

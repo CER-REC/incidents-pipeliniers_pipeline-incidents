@@ -101,10 +101,11 @@ WorkspaceComputations.dragArrowX = function (columns, xCoordinate) {
   return xCoordinate + columnWidth / 2 - dragArrowWidth / 2
 }
 
+// NB: Also used to position the show empty categories label and show incidents label
 WorkspaceComputations.dragArrowY = function (viewport) {
-  return WorkspaceComputations.topBarHeight() + 
-         Constants.get('columnSubheadingOffset') + 
-         WorkspaceComputations.columnHeight(viewport) + 7
+  return WorkspaceComputations.columnY() + 
+         WorkspaceComputations.columnHeight(viewport) +
+         Constants.getIn(['dragArrow', 'topMargin'])
 }
 
 // Should we use math that can produce a horizontally scrolling workspace, or 
@@ -125,9 +126,7 @@ WorkspaceComputations.useScrollingWorkspace = function (columns) {
 // data: the data state
 // categories: the category display state
 WorkspaceComputations.categoryHeights = function (showEmptyCategories, viewport, data, columns, categories, columnName) {
-  // TODO: for now, we use the entire column height.
-  // Other column elements (and empty categories) will eventually need to cut
-  // into this height
+
   const columnHeight = WorkspaceComputations.columnNormalCategoryHeight(showEmptyCategories, viewport, data, columns, categories)
 
   const relatedHiddenCategories = CategoryComputations.relatedHiddenCategories(data, columns, categories, columnName)

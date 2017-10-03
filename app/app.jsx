@@ -20,8 +20,16 @@ const store = Store()
 window.store = store
 
 
-// TODO: is this the best place for this?
-DataLoader.loadDataCsv(store)
+
+switch (Constants.get('dataMode')) {
+case 'dataService': 
+  DataLoader.loadFromDataService (store)
+  break
+case 'csvFile': 
+  DataLoader.loadDataCsv(store)
+  break
+}
+
 
 DomReady( () => {
 
@@ -70,7 +78,6 @@ function locationChangeHandler (location, action) {
     categories: routerState.categories,
     showEmptyCategories: routerState.showEmptyCategories,
     pinnedIncidents: routerState.pinnedIncidents,
-    selectedIncident: routerState.selectedIncident,
     language: routerState.language,
   }))
 

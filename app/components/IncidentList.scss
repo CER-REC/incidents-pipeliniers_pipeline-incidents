@@ -1,0 +1,37 @@
+@import "../styles/Fonts.scss";
+@import "../styles/Colours.scss";
+
+
+.incidentList {
+  position: absolute;
+
+  .incidentListScrollPane {
+    display: block;
+    overflow-y: scroll;
+  }
+
+  ul {
+    padding: 0px;
+    list-style: none;
+
+    // WET CSS override:
+    margin: 0;
+  }
+
+  .noIncidentsTextBlock {
+    position: absolute;
+    
+  }
+
+  .noIncidentsText {
+    font-family: $fira-sans-light;
+    font-size: 12px;
+    line-height: 1.25em;
+    margin: 0;
+    margin-top: 150%;
+    color: $light-grey;
+    text-align: center;
+  }
+
+}
+

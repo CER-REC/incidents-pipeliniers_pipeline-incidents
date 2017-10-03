@@ -3,18 +3,19 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 const Header = require('./header.jsx')
 const EmptyCategories = require('./EmptyCategories.jsx')
+const IncidentListShowHide = require('./IncidentListShowHide.jsx')
 const SocialBar = require('./SocialBar.jsx')
 
 require('./Workspace.scss')
 
-const IncidentBar = require('./IncidentBar.jsx')
 const Column = require('./Column.jsx')
 const MapColumn = require('./MapColumn.jsx')
 const SideBar = require('./SideBar.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const MapContainer = require('./MapContainer.jsx')
 const Constants = require('../Constants.js')
-
+const IncidentListHeadings = require('./IncidentListHeadings.jsx')
+const IncidentContainer = require('./IncidentContainer.jsx')
 
 class Workspace extends React.Component {
 
@@ -43,9 +44,13 @@ class Workspace extends React.Component {
     }
   }
 
-  emptyCategories() {
+  incidentList() {
     if (!this.props.screenshotMode) {
-      return <EmptyCategories />
+      return <div>
+        <IncidentListShowHide />
+        <EmptyCategories />
+        <IncidentListHeadings />
+      </div>
     }
     else {
       return null
@@ -90,14 +95,14 @@ class Workspace extends React.Component {
     return <div>
       <div className = { this.workspaceClass() } >
         { this.mapContainer() }
+        <IncidentContainer />
         <svg 
           className = 'workspaceSvg'
           width = { horizontalPositions.getIn(['workspace', 'width']) }
           height = { horizontalPositions.getIn(['workspace', 'height']) }
         >
           <Header />
-          { this.emptyCategories() }
-          <IncidentBar/>
+          { this.incidentList() }
           <SideBar/>
           { this.columns() }
           { this.socialbar() }

@@ -1,6 +1,8 @@
 const Request = require('client-request/promise')
 const D3 = require('d3')
 const Moment = require('moment')
+const Immutable = require('immutable')
+const Promise = require('bluebird')
 
 const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
 const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
@@ -9,6 +11,7 @@ const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 const Constants = require('./Constants.js')
+const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
 
 
 function parseYesNo (value, record) {
@@ -106,7 +109,6 @@ function readFloat(record, accessor) {
 // province
 // status
 // substance
-// substanceCategory
 // releaseType
 // pipelinePhase
 function readConstrainedVocabularyString(record, heading, categoryName) {
@@ -142,7 +144,6 @@ function csvColumnMapping (d) {
     approximateVolumeReleased: d['Approximate Volume Released (m³)'],
     volumeCategory: volumeCategory(d, d['Approximate Volume Released (m³)']),
     substance: readConstrainedVocabularyString(d, 'Substance', 'substance'),
-    substanceCategory: readConstrainedVocabularyString(d, 'SubstanceCategory', 'substanceCategory'),
     releaseType: readConstrainedVocabularyString(d, 'Release Type', 'releaseType'),
     year: d['Year'],
     whatHappened: parseList(d, 'whatHappened', d['WhatHappened']),
@@ -154,51 +155,264 @@ function csvColumnMapping (d) {
 }
 
 
+function afterLoad (store, data) {
+
+  store.dispatch(DataLoadedCreator(data))
+
+  let state = store.getState()
+  const categories = DefaultCategoryComputations.initialState(state.data, state.schema)
+  store.dispatch(SetInitialCategoryStateCreator(categories))
+
+  state = store.getState()
+  const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
+
+  store.dispatch(SetFromRouterStateCreator({
+    columns: routerState.columns,
+    categories: routerState.categories,
+    showEmptyCategories: routerState.showEmptyCategories,
+    pinnedIncidents: routerState.pinnedIncidents,
+    language: routerState.language,
+    screenshotMode: RouteComputations.screenshotMode(document.location)
+  }))
+}
+
+
+
+
+
+function validatePresence (name, incident, errors) {
+  if (incident[name] === undefined || incident[name] === null) {
+    errors.push({message: `Absent value for ${name}.`, incident: incident})
+  }
+  else {
+    return incident[name]
+  }
+}
+
+function validateNumeric (name, incident, errors) {
+  const numericData = parseFloat(incident[name])
+  
+  if (isNaN(numericData)) {
+    errors.push({message: `Bad numeric value for ${name}.`, incident: incident})
+  }
+  else {
+    return numericData
+  }
+}
+
+function validateIdInSet (name, incident, set, errors) {
+  if (set.get(incident[name]) === undefined) {
+    errors.push({message: `Value for ${name} not in schema.`, incident: incident})
+  }
+  else {
+    return incident[name]
+  }
+}
+
+function validateListIdsInSet (name, incident, set, errors) {
+  let items
+  try {
+    items = incident[name].split(',')
+  }
+  catch (e) {
+    errors.push({message: `Absent value for ${name}`, incident: incident})
+    return
+  }
+
+  for (const item of items) {
+    if (set.get(item) === undefined) {
+      errors.push({message: `List value ${item} for ${name} not in schema.`, incident: incident})
+      return
+    }
+  }
+
+  return items
+}
+
+function validateBoolean (name, incident, errors) {
+  if (incident[name] === true || incident[name] === false) {
+    return incident[name]
+  }
+  else {
+    errors.push({message: `Non-boolean value for ${name}`, incident: incident})
+  }
+}
+
+function validateDate (name, incident, errors) {
+  const date = Moment(incident[name])
+
+  if (date.isValid()) {
+    return date
+  } 
+  else {
+    errors.push({message: `Bad date value for ${name}`, incident: incident})
+  }
+}
+
+function validateVolumeCategory(incident, errors) {
+
+  const volumeString = incident.ApproximateVolumeM3
+
+  if (volumeString === 'Not Applicable') {
+    return '1'
+  }
+  else if (volumeString === 'Not Provided') {
+    return '2'
+  }
+
+  const volume = parseFloat(volumeString)
+  
+  if (isNaN(volume) || volume < 0) {
+    errors.push({message: 'Bad numeric volume', incident: incident})
+    return
+  }
+
+  if (volume < 1) {
+    // 'Less Than 1 m³'
+    return '3'
+  }
+  else if (volume < 1000) {
+    // '1 m³ to 1,000 m³'
+    return '4'
+  } 
+  else if (volume < 1000000) {
+    // '1,000 m³ to 1,000,000 m³'
+    return '5'
+  }
+  else {
+    // 'More than 1,000,000 m³'
+    return '6'
+  }
+
+}
+
+
 
 const DataLoader = {
 
   // Load the application data from a single remote CSV file
-  loadDataCsv: function (store) {
+  loadDataCsv (store) {
+
+    const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
 
     const options = {
-      uri: `${document.location.origin}/${Constants.get('appPath')}/data/2017-09-13 ERS TEST-joined.csv`,
+      uri: `${appRoot}data/2017-09-13 ERS TEST-joined.csv`,
     }
 
     Request(options)
       .then(function (response) {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
-        store.dispatch(DataLoadedCreator(data))
 
-        let state = store.getState()
-        const categories = DefaultCategoryComputations.initialState(state.data)
-        store.dispatch(SetInitialCategoryStateCreator(categories))
-
-        state = store.getState()
-        const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
-
-
-        store.dispatch(SetFromRouterStateCreator({
-          columns: routerState.columns,
-          categories: routerState.categories,
-          showEmptyCategories: routerState.showEmptyCategories,
-          pinnedIncidents: routerState.pinnedIncidents,
-          selectedIncident: routerState.selectedIncident,
-          language: routerState.language,
-          screenshotMode: RouteComputations.screenshotMode(document.location),
-        }))
-
-
-
+        afterLoad(store, data)
 
       })
       .catch(function (error) {
         throw error
       })
 
+  },
+
+
+  // Load the application data from the data service.
+  loadFromDataService (store) {
+
+    const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
+
+    const schemaOptions = {
+      uri: `${appRoot}data/CategorySchema.json`,
+      json: true
+    }
+
+    const schemaPromise = Request(schemaOptions)
+      .then( response => {
+        const schema = Immutable.fromJS(response.body)
+        store.dispatch(SetSchemaCreator(schema))
+        return schema
+      })
+
+    const dataOptions = {
+      // TODO: This should be replaced with the location of the NEB's data
+      // service
+      uri: `${appRoot}data/data-dummy.json`,
+      json: true
+    }
+
+    const dataRequest = Request(dataOptions)
+
+    Promise.join(schemaPromise, dataRequest)
+      .then(function ([schema, dataResponse]) {
+
+        const incidents = [] 
+
+        for (const incident of dataResponse.body) {
+
+          const errors = []
+
+          const incidentRecord = {
+            incidentNumber: validatePresence('IncidentNumber', incident, errors),
+            nearestPopulatedCentre: validatePresence('NearestPopulationCenter_EN', incident, errors),
+
+            latitude: validateNumeric('Latitude', incident, errors),
+            longitude: validateNumeric('Longitude', incident, errors),
+            approximateVolumeReleased: validateNumeric('ApproximateVolumeM3', incident, errors),
+
+            affectsCompanyProperty: validateBoolean('AffectsCompanyProperty', incident, errors),
+            offCompanyProperty: validateBoolean('OffCompanyProperty', incident, errors),
+            affectsPipelineRightOfWay: validateBoolean('AffectsPipelineRightOfWay', incident, errors),
+            affectsOffPipelineRightOfWay: validateBoolean('AffectsOffPipelineRightOfWay', incident, errors),
+
+            reportedDate: validateDate('ReportedDate', incident, errors),
+            year: validatePresence('ReportedYear', incident, errors),
+
+            status: validateIdInSet('Status_ID', incident, schema.get('status'), errors),
+            company: validateIdInSet('Company_ID', incident, schema.get('company'), errors),
+            province: validateIdInSet('Province_ID', incident, schema.get('province'), errors),
+            substance: validateIdInSet('Substance_ID', incident, schema.get('substance'), errors),
+            pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
+
+            incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
+            whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
+            whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
+            pipelineSystemComponentsInvolved: validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
+
+
+            // TODO: change this depending how volume category works out from
+            // our endpoint
+            volumeCategory: validateVolumeCategory(incident, errors),
+
+            // TODO: change this depending how release type works out
+            releaseType: validateIdInSet('ReleaseType', incident, schema.get('releaseType'), errors),
+
+
+
+            // TODO: will it be yes/no, t/f, 0,1, what? 
+            // TODO: unused, and unclear if needed... 
+            // werePipelineSystemComponentsInvolved: 
+            // substanceCategory
+
+          }
+
+          if(errors.length > 0) {
+            console.warn('Incident record with errors:', incident, errors)
+          }
+          else {
+            incidents.push(incidentRecord)
+          }
+
+        }
+
+        afterLoad(store, Immutable.fromJS(incidents))
+
+      })
+      .catch(function (error) {
+        // TODO: something nicer than this ...
+        throw error
+      })
+
+
+    
   }
 
-  // TODO: in the future, other loader functions will be present for the NEB
-  // data service.
 
 }
 
@@ -213,7 +427,7 @@ const DataLoader = {
 
 
 
-
+window.dl = DataLoader
 
 
 module.exports = DataLoader

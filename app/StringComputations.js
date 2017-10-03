@@ -42,9 +42,7 @@ const StringComputations = {
   },
 
   splitHeading(label, charLimit = Constants.get('categoryLabelLineLength')) {
-    if (label === undefined) {
-      console.log('grr')
-    }
+
     // Split the label at every space and dash
     const splitPieces = StringComputations.splitWithSeparators(label)
 

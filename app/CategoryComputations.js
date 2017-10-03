@@ -70,7 +70,6 @@ CategoryComputations.itemsInSimpleCategory = function (data, columnName, categor
   return data.filter( item => {
     return item.get(columnName) === categoryName
   }).count()
-  
 }
 
 // data: the incident data from the store
@@ -85,8 +84,8 @@ CategoryComputations.itemsInMultipleCategory = function (data, columnName, categ
 
 // Returns a map of category names to Chroma colours
 // categories: the category display data from the store
-CategoryComputations.coloursForColumn = function (data, columnName) {
-  const categoryInfo = DefaultCategoryComputations.initialState(data).get(columnName)
+CategoryComputations.coloursForColumn = function (data, columnName, schema) {
+  const categoryInfo = DefaultCategoryComputations.initialState(data, schema).get(columnName)
   const colourInfo = Constants.getIn(['columnBaseColors', columnName])
 
   const chromaColours = Chroma.scale([
@@ -160,8 +159,7 @@ CategoryComputations.emptyCategoriesForColumn = function(data, columns, categori
   case 'releaseType':
   case 'pipelinePhase':
   case 'volumeCategory':
-  case 'year': 
-  case 'substanceCategory': {
+  case 'year': {
     return visibleCategoryInfo.filter( (visible, categoryName) => {
       const result = filteredData.find( item => {
         return item.get(columnName) === categoryName
@@ -223,8 +221,8 @@ CategoryComputations.relatedHiddenCategories = function (data, columns, categori
   case 'releaseType':
   case 'pipelinePhase':
   case 'volumeCategory':
-  case 'substanceCategory':
   case 'map':
+  
     // These columns will never have related hidden categories, each incident is
     // only in one category at a time
     return Immutable.Map()
@@ -260,7 +258,10 @@ CategoryComputations.relatedHiddenCategories = function (data, columns, categori
 
   }
 
+  default: 
+    throw new Error(`Bad columnName passed to CategoryComputations.relatedHiddenCategories: "${columnName}"`)
   }
+
 
 }
 
@@ -396,41 +397,7 @@ CategoryComputations.mapAdjacentColumns = function(columns) {
 
 }
 
-// Computes the source and destination category paths in place, given
-// a source and a destination column.
-CategoryComputations.ComputeSourceAndDestinationColumnPaths = function(sourceColumn, destinationColumn, data) {
-  sourceColumn.categories.forEach((sourceCategory) => {
-    destinationColumn.categories.forEach((destinationCategory) => {
-      const mutualIncidentCount = CategoryComputations.itemsInBothCategories(
-        data, 
-        sourceColumn.name, 
-        sourceCategory.categoryName, 
-        destinationColumn.name, destinationCategory.categoryName)
 
-      if(mutualIncidentCount !== 0) {
-        sourceCategory.totalOutgoingIncidents += mutualIncidentCount
-        destinationCategory.totalIncomingIncidents += mutualIncidentCount
-
-        sourceCategory.outgoingCategories.push({'key': destinationCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-        destinationCategory.incomingCategories.push({'key': sourceCategory.key, 'mutualIncidentCount': mutualIncidentCount})
-      }
-
-      const multipleDestinationCategoryIncidents = (destinationCategory.totalIncomingIncidents > destinationCategory.count)? 
-        destinationCategory.totalIncomingIncidents - 
-        destinationCategory.count : 0
-      destinationCategory.intersectionThreshold = multipleDestinationCategoryIncidents / 
-        (destinationCategory.incomingCategories.length - 1) * 
-        destinationCategory.height / destinationCategory.count
-
-      const multipeSourceCategoryIncidents = (sourceCategory.totalOutgoingIncidents > sourceCategory.count)? 
-        sourceCategory.totalOutgoingIncidents - 
-        sourceCategory.count : 0
-      sourceCategory.intersectionThreshold = multipeSourceCategoryIncidents / 
-        (sourceCategory.outgoingCategories.length - 1) * 
-        sourceCategory.height / sourceCategory.count
-    })
-  })
-}
 
 const MemoizedComputations = {}
 

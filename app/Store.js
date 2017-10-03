@@ -6,7 +6,6 @@ const ColumnsReducer = require('./reducers/ColumnsReducer.js')
 const DataReducer = require('./reducers/DataReducer.js')
 const CategoriesReducer = require('./reducers/CategoriesReducer.js')
 const EmptyCategoriesReducer = require('./reducers/EmptyCategoriesReducer.js')
-const IncidentSelectionStateReducer = require('./reducers/IncidentSelectionStateReducer.js')
 const PinnedIncidentReducer = require('./reducers/PinnedIncidentReducer.js')
 const CategoryHoverStateReducer = require('./reducers/CategoryHoverStateReducer.js')
 const SidebarColumnHoverReducer = require('./reducers/SidebarColumnHoverReducer.js')
@@ -18,6 +17,12 @@ const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationS
 const HistoryReducer = require('./reducers/HistoryReducer.js')
 const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
 const ScreenshotModeReducer = require('./reducers/ScreenshotModeReducer.js')
+const SchemaReducer = require('./reducers/SchemaReducer.js')
+const IncidentListScrollPositionReducer = require('./reducers/IncidentListScrollPositionReducer.js')
+const SelectedIncidentsReducer = require('./reducers/SelectedIncidentsReducer.js')
+const HoveredIncidentReducer = require('./reducers/HoveredIncidentReducer.js')
+const ShowIncidentListReducer = require('./reducers/ShowIncidentListReducer.js')
+
 
 const RouterMiddleware = require('./RouterMiddleware.js')
 
@@ -27,7 +32,6 @@ const reducers = Redux.combineReducers({
   data: DataReducer,
   categories: CategoriesReducer,
   showEmptyCategories: EmptyCategoriesReducer,
-  selectedIncident: IncidentSelectionStateReducer,
   pinnedIncidents: PinnedIncidentReducer,
   categoryHoverState: CategoryHoverStateReducer,
   sidebarColumnHover: SidebarColumnHoverReducer,
@@ -39,6 +43,11 @@ const reducers = Redux.combineReducers({
   categoryDragStatus: CategoryDragReducer,
   history: HistoryReducer,
   screenshotMode: ScreenshotModeReducer,
+  schema: SchemaReducer,
+  incidentListScrollPosition: IncidentListScrollPositionReducer,
+  selectedIncidents: SelectedIncidentsReducer,
+  hoveredIncident: HoveredIncidentReducer,
+  showIncidentList: ShowIncidentListReducer,
 })
 
 module.exports = function () {

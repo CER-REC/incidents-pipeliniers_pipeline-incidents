@@ -46,17 +46,13 @@ const TranslationTable = Immutable.fromJS({
       en: 'APPROX VOL RELEASED',
       fr: 'VOLUME APPROX. REJETÉ/DÉVERSÉ',
     },
-    substanceCategory: {
-      en: 'SUBSTANCE CATEGORY',
-      fr: 'CATÉGORIE DE SUBSTANCE',
-    },
     pipelineSystemComponentsInvolved: {
       en: 'SYS. COMP. INVOLVED',
       fr: 'COMPOSANTES EN CAUSE',
     },
     map: {
-      en: 'MAP OVERVIEW',
-      fr: 'APERÇU DE LA CARTE',
+      en: 'MAP',
+      fr: 'CARTE',
     }
   },
 
@@ -92,13 +88,71 @@ const TranslationTable = Immutable.fromJS({
   },
 
   seeEmptyCategories: {
-    en: 'See empty categories',
+    en: 'see empty categories',
     fr: 'Voir les catégories vides',
   },
   hideEmptyCategories: {
-    en: 'Hide empty categories',
+    en: 'hide empty categories',
     fr: 'Cacher les catégories vides',
   },
+
+
+  applicationPath: {
+    en: '/incident-visualization/',
+    fr: '/incident-visualization/',
+    // TODO: for now, use the same path, as the IIS app has not been prepared
+    // with this alternate path. eventually, we should use something
+    // properly localized for this path fragment.
+    // fr: '/visualisation-des-incidents/',
+  },
+
+
+  mainHeading: {
+    en: 'Incidents at NEB-regulated pipelines and facilities',
+    fr: 'Incidents impliquant des installations et des pipelines réglementés par l’Office'
+  },
+
+  mainSubheading: {
+    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations  and the Processing Plant Regulations. New data is added on a quaterly basis.',
+    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du  Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données sont ajoutées tous les trois mois.',
+  },
+
+  noCategorySelection: {
+    en: 'No category selected. Select a category from a column to see related incidents.',
+    fr: 'Vous n’avez pas choisi de catégorie. Choisissez une catégorie dans une colonne pour voir les incidents reliés. ',
+  },
+
+  resetAll: {
+    en: 'Reset All',
+    fr: 'Réinitialiser',
+  },
+
+  hideIncidentList: {
+    en: 'hide incident list',
+    fr: 'Cacher la liste des incidents',
+  },
+
+  showIncidentList: {
+    en: 'show incident list',
+    fr: 'Voir la list des incidents'
+  },
+
+  storiesAboutIncidents: {
+    en: 'Stories About Pipeline Incidents',
+    fr: 'Description des incidents pipeliniers',
+  },
+
+  incidentsRelatedTo: {
+    en: 'incidents related to',
+    fr: 'incidents liés a la catégorie',
+  },
+
+  methodology: { 
+    en: 'METHODOLOGY',
+    fr: 'MÉTHODOLOGIE',
+  },
+
+
 
 
   categories: {
@@ -267,7 +321,7 @@ const TranslationTable = Immutable.fromJS({
       },
       morphysorb: {
         en: 'Morphysorb',
-        fr: 'MorphysorbR',
+        fr: 'Morphysorb',
       },
       oilWellEffluent: {
         en: 'Oil Well Effluent',
@@ -493,34 +547,6 @@ const TranslationTable = Immutable.fromJS({
       abandonment: {
         en: 'Abandonment',
         fr: "Cessation d'exploitation"
-      },
-    },
-    substanceCategory: {
-      lowVapourPressureProduct: {
-        en: 'Low Vapour Pressure Product',
-        fr: 'Produit à faible pression de vapeur'
-      },
-      highVapourPressureProduct: {
-        en: 'High Vapour Pressure Product',
-        fr: 'Produit à haute pression de vapeur'
-      },
-      miscellaneous: {
-        en: 'Miscellaneous',
-        fr: 'Diverses substances'
-      },
-      notApplicable: {
-        en: 'Not Applicable',
-        fr: 'Sans objet'
-      },
-      commodity: {
-        en: 'Commodity',
-        fr: 'Produit'
-      },
-
-      // NB: Unclear if used/needed
-      naturalGas: {
-        en: 'Natural Gas',
-        fr: 'Gaz naturel',
       },
     },
     pipelineSystemComponentsInvolved: {

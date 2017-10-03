@@ -24,6 +24,10 @@ const routableStateActions = [
   'DeactivateAllCategoriesExceptOne',
   'SnapCategory',
   'ResetVisualization',
+
+  // These now impact the pinned incident selection
+  'ActivateFilterbox',
+  'HideFilterbox',
 ]
 
 
@@ -42,7 +46,6 @@ const RouterMiddleware = store => next => action => {
       state.categories,
       state.showEmptyCategories,
       state.pinnedIncidents,
-      state.selectedIncident,
       state.language
     )
 
