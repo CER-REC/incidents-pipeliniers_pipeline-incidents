@@ -1,0 +1,14 @@
+// Use this file to maintain sanity while using z-index
+
+// Container for the incident list
+$incident-container-z: 4;
+
+// When dragging the map column, it is layered above the workspace
+$map-container-drag-z: 3;
+
+// Workspace is where the bulk of columns and paths appear
+$workspace-z: 2;
+
+// The map canvas container has no interactive elements, so it is fine to layer
+// it behind the workspace SVG (which is opaque to mouse clicks, etc.)
+$map-container-z: 1;

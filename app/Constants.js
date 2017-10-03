@@ -256,9 +256,7 @@ const Constants = Immutable.fromJS({
   emptyCategoryHeight: 20, // px
   
   map: {
-    widthHeightRatio: 500 / 450,
-    // widthHeightRatio: 510 / 375,
-    // widthHeightRatio: 410 / 375,
+    widthHeightRatio: 550 / 450,
     
     // NB: Must match dimensions of canada.svg
     coordinateSpace: {
