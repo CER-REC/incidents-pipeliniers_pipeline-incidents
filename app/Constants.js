@@ -66,6 +66,11 @@ const Constants = Immutable.fromJS({
     labelPadding: 15,
     labelIconPadding: -7,
     columnHeightPadding: 25,
+    chevron90Rotation: 90,
+    chevron270Rotation:270,
+    hideIncidentListX: 10,
+    hideIncidentListY: 5,
+    showIncidentListXY: -2,
   },
 
   columnWideWidth: 62,

@@ -12,10 +12,12 @@ require('../styles/Common.scss')
 class IncidentListShowHide extends React.Component {
 
   rotateImage() {
+    const rotateHideImage = `rotate(${Constants.getIn(['pinColumn','chevron90Rotation'])} ${Constants.getIn(['pinColumn','hideIncidentListX'])} ${Constants.getIn(['pinColumn','hideIncidentListY'])})`
+    const rotateSeeImage = `rotate(${Constants.getIn(['pinColumn','chevron270Rotation'])} ${Constants.getIn(['pinColumn','showIncidentListXY'])} ${Constants.getIn(['pinColumn','showIncidentListXY'])})`
     if(this.props.showIncidentList) {
-      return 'rotate(90 10,5)'
+      return rotateHideImage
     } else {
-      return 'rotate(270 -2,-2)'
+      return rotateSeeImage
     }
   }
 
