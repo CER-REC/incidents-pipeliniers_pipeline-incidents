@@ -252,8 +252,7 @@ class Column extends React.Component {
       return <SelectedColumnPaths 
         columnName={this.props.columnName}
       />
-    }
-    else {
+    } else {
       return null
     }
   }
