@@ -63,13 +63,16 @@ class Workspace extends React.Component {
       Constants.getIn(['socialBar', 'width']) -
       Constants.getIn(['socialBar', 'leftMargin'])
 
-
-
     const clipContainerStyle = {
       width: `${scrollPaneWidth}px`
     }
 
-    return <div className='workspace'>
+    const workspaceStyle = {
+      width: this.props.viewport.get('x'),
+      height: this.props.viewport.get('y'),
+    }
+
+    return <div className='workspace' style = { workspaceStyle }>
       <div 
         className = 'workspaceOverlay'
         style = { {height: `${Constants.getIn(['topBar', 'height'])}px`} }

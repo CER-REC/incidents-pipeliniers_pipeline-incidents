@@ -3,6 +3,10 @@
 
 .workspace {
 
+  // Position relative is important for sizing of heading elements
+  position: relative;
+  margin-bottom: 50px;
+
   .workspaceClipContainer {
     overflow-x: hidden;
   }
@@ -16,7 +20,9 @@
   }
 
   .workspaceOverlay {
-    position: absolute
+    position: absolute;
+    z-index: $workspace-overlay-z;
+    width: 100%;
   }
 
   .workspaceSvg {

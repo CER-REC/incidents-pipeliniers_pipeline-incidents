@@ -53,6 +53,7 @@ class Header extends React.Component {
 
 
     return <svg
+      className = 'rightButtons'
       width = { this.props.viewport.get('x')}
       height = { Constants.getIn(['topBar', 'height'])}
     >
@@ -139,9 +140,9 @@ class Header extends React.Component {
 
 
   render() {
-    return <div>
-      { this.leftHeading() }
+    return <div className = 'headingContainer'>
       { this.rightButtons() }
+      { this.leftHeading() }
     </div>
   }
 }
