@@ -3,6 +3,8 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const Request = require('client-request/promise')
 
+const DataLoader = require('../DataLoader.js')
+
 require('../styles/Common.scss')
 require('../styles/Colours.scss')
 require('./SocialBar.scss')
@@ -57,15 +59,7 @@ function downloadImageClick() {
 }
 
 function downloadFileClick() {
-  console.log('download file clicked')
-  const fileName = 'incidents_data.csv'
-  //const uriContent = ${appRoot}data/2017-09-13 ERS TEST-joined.csv
-
-  window.open('data:text/csv;charset=utf-8,data/' + escape())
-
-// ${appRoot}data/2017-09-13 ERS TEST-joined.csv`
-//app/root
-//public/data/2017-09-13 ERS TEST-joined.csv
+  window.open('/incident-visualization/data/2017-09-13 ERS TEST-joined.csv', 'data:text/csv;charset=utf-8,data/' + escape())
 }
 
 class SocialBar extends React.Component {
