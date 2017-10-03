@@ -3,6 +3,7 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 const Header = require('./header.jsx')
 const EmptyCategories = require('./EmptyCategories.jsx')
+const IncidentListShowHide = require('./IncidentListShowHide.jsx')
 const SocialBar = require('./SocialBar.jsx')
 
 require('./Workspace.scss')
@@ -70,6 +71,7 @@ class Workspace extends React.Component {
           height = { horizontalPositions.getIn(['workspace', 'height']) }
         >
           <Header />
+          <IncidentListShowHide />
           <EmptyCategories />
           <IncidentListHeadings />
           <SideBar/>

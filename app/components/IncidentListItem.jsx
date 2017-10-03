@@ -84,12 +84,14 @@ class IncidentListItem extends React.Component {
       onMouseEnter = { this.mouseEnter.bind(this) }
       onMouseLeave = { this.mouseLeave.bind(this) }
     >
+
       <div 
         className = "starContainer"
         onClick = { this.incidentStarClick.bind(this) }
       >
         <img src = { this.starImage() } ></img>
       </div>
+
 
       <div className = "incidentContainer">
         <p className = { this.incidentDetailClass() }>{ this.props.incident.get('incidentNumber') }</p>
