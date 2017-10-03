@@ -102,7 +102,7 @@ class Header extends React.Component {
             width = {Constants.getIn(['socialBar', 'iconSize']) }
             y = { Constants.getIn(['headerBar', 'tellMeAStoryHeight'])}
             onClick = { this.tellMeAStoryClick.bind(this) }
-            xlinkHref = 'images/methodology-icon-white.svg'
+            xlinkHref = 'images/tell_me_a_story.svg'
           ></image>
 
           <image 
@@ -111,7 +111,7 @@ class Header extends React.Component {
             width = {Constants.getIn(['socialBar', 'iconSize']) }
             y = { Constants.getIn(['headerBar', 'aboutThisProjectHeight'])}
             onClick = { this.aboutThisProjectClick.bind(this) }
-            xlinkHref = 'images/methodology-icon-white.svg'
+            xlinkHref = 'images/about_this_project.svg'
           ></image>
 
           <image 
@@ -120,7 +120,7 @@ class Header extends React.Component {
             width = {Constants.getIn(['socialBar', 'iconSize']) }
             y = { Constants.getIn(['headerBar', 'methodologyHeight'])}
             onClick = { this.methodologyClick.bind(this) }
-            xlinkHref = 'images/methodology-icon-white.svg'
+            xlinkHref = 'images/methodology_new.svg'
           ></image>
 
           <image 
