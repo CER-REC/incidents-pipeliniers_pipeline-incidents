@@ -12,6 +12,9 @@ const SelectedIncidentsReducer = (state = Immutable.List(), action) => {
       return state
     }
 
+  case 'ResetVisualization':
+    return Immutable.List()
+
   case 'RemoveSelectedIncident':
     return state.filter( incident => incident !== action.incident)
 
