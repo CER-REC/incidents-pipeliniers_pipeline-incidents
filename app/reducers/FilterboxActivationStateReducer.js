@@ -15,6 +15,12 @@ const FilterboxActivationStateReducer = (state = defaultState, action) => {
       categoryName: action.categoryName,
     })
 
+  case 'ResetVisualization':
+    return Immutable.Map({
+      columnName: null,
+      categoryName: null,
+    })
+
   case 'HideFilterbox':
     return Immutable.Map({
       columnName: null,
