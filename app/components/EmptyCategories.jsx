@@ -19,7 +19,7 @@ class EmptyCategories extends React.Component {
     const transformShowImage = `translate(0, ${-Constants.getIn(['showHideEmptyCategories','fontSize'])})`
 
     if (this.props.showEmptyCategories) {
-      return <rect 
+      return <rect className="emptyCategories"
         y = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
         x = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
         height = {height} 
@@ -27,7 +27,7 @@ class EmptyCategories extends React.Component {
         transform = {transformShowImage} 
         fill = '#666'></rect>
     } else {
-      return <rect 
+      return <rect className="emptyCategories"
         y = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
         x = { Constants.getIn(['showHideEmptyCategories','checkboxPadding']) }
         height = {height - Constants.getIn(['showHideEmptyCategories','checkboxStrokePadding'])} 

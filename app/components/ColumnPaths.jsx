@@ -34,6 +34,7 @@ class ColumnPaths extends React.Component {
         fill = '#f0f0f0'
         fillOpacity = '0.4'
       />)
+
     })
 
     return paths

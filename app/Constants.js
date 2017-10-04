@@ -123,16 +123,16 @@ const Constants = Immutable.fromJS({
   maxColumnsWithoutScrollWithMap: -1,
 
   columnNames: [
+    'status',
+    'pipelinePhase',
     'incidentTypes',
     'year',
     'company',
-    'status',
     'province',
     'substance',
     'releaseType',
     'whatHappened',
     'whyItHappened',
-    'pipelinePhase',
     'volumeCategory',
     'pipelineSystemComponentsInvolved',
     'map',
@@ -173,7 +173,7 @@ const Constants = Immutable.fromJS({
     defaultColumn: '#ccc',
     columnHovered: '#666666',
     notColumnHovered: '#e6e6e6',
-
+    lastColumnOpacity: 0.3,
   },
 
   filterbox: {
@@ -308,6 +308,7 @@ const Constants = Immutable.fromJS({
   categoryDefaultOpacity: 1,
   categoryFadeOpacity: 0.4,
   categoryStrokeWidth: 1,
+  categorySelectionStrokeWidth: 2,
   categoryDefaultStrokeColour: '#ffffff',
   categoryHoverStrokeColour: '#000000',
 
