@@ -29,6 +29,7 @@ class MapContainer extends React.Component {
       opacity = 0.6
     }
 
+
     return {
       width: `${mapPositions.get('width')}px`,
       height: `${mapPositions.get('height')}px`,
@@ -36,13 +37,21 @@ class MapContainer extends React.Component {
       top: `${mapPositions.get('y')}px`,
       opacity: opacity,
     }
+
   }
 
   render() {
+    let className = 'mapContainer'
+    if (this.props.columnDragStatus.get('isStarted') === true &&
+      this.props.columnDragStatus.get('columnName') === 'map') {
+      className += ' dragged'
+    }
+
     return <div 
-      className='mapContainer'>
-      <div className='innerContainer'
-        style = {this.mapContainerStyle()}>
+      className = { className }>
+      <div 
+        className = 'innerContainer'
+        style = { this.mapContainerStyle() }>
         <MapComponent />
       </div>
     </div>

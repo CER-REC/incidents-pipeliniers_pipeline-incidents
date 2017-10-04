@@ -67,10 +67,10 @@ class IncidentListItem extends React.Component {
 
   starImage() {
     if (this.props.pinned === true) {
-      return 'images/star-selected.svg'
+      return 'images/star_selected.svg'
     }
     else {
-      return 'images/star-not_selected.svg'
+      return 'images/star_notselected.svg'
     }
   }
 

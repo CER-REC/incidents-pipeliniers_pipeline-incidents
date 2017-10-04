@@ -90,7 +90,14 @@ const Constants = Immutable.fromJS({
   },
 
   headerBar: {
-    height: 47,
+    // top and bottom spacing of 3px plus 23px for 4 icons
+    height: 3 * 2 + 23 * 4,
+    // 16px of height + 7px of vertical spacing between icons
+    tellMeAStoryHeight: 3,
+    aboutThisProjectHeight: 26,
+    methodologyHeight: 49,
+    resetAllHeight: 72,
+    headerLabelFontSize: 13,
   },
 
   socialBar: {
@@ -99,6 +106,7 @@ const Constants = Immutable.fromJS({
     iconSize: 16,
     leftMargin: 5,
     iconSideMargin: 3.5,
+    // 16px of height + 7px of vertical spacing between icons
     emailIconPadding: 3,
     facebookIconPadding: 26,
     linkedinIconPadding: 49,
@@ -263,9 +271,7 @@ const Constants = Immutable.fromJS({
   emptyCategoryHeight: 20, // px
   
   map: {
-    widthHeightRatio: 500 / 450,
-    // widthHeightRatio: 510 / 375,
-    // widthHeightRatio: 410 / 375,
+    widthHeightRatio: 550 / 450,
     
     // NB: Must match dimensions of canada.svg
     coordinateSpace: {

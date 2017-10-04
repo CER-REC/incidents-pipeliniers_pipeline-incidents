@@ -19,14 +19,7 @@ WorkspaceComputations.mapDisplayed = function(columns) {
 // The height of top bar, containing a heading, subheading, and home icon
 // NB: Thanks to memoize-immutable, this function is effectively always memoized
 WorkspaceComputations.topBarHeight = function () {
-  let height = Constants.get('topOuterMargin')
-  const lineHeight = Constants.getIn(['topBar', 'headingLineHeight'])
-
-  height += Constants.getIn(['topBar', 'headingFontSize']) * lineHeight
-  height += Constants.getIn(['topBar', 'subheadingFontSize']) * 2 * lineHeight
-  height += Constants.getIn(['topBar', 'topBarBottomMargin'])
-
-  return height
+  return Constants.getIn(['topBar', 'height'])
 }
 
 // This is the entire height of the column, including all its decorations
@@ -359,8 +352,6 @@ WorkspaceComputations.mapDimensions = function(showEmptyCategories, viewport, da
     columns,
     categories)
 
-  // TODO: The map seems way too big!
-
   return Immutable.Map({
     width: height * Constants.getIn(['map', 'widthHeightRatio']),
     height: height,
@@ -527,18 +518,6 @@ WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategori
   cumulativeX += measurements.getIn(['sideBar', 'width'])
 
 
-  // Social Bar
-  measurements = measurements.set('socialBar', Immutable.fromJS({
-    width: Constants.getIn(['socialBar', 'width']) + Constants.getIn(['socialBar', 'leftMargin']),
-    innerWidth: Constants.getIn(['socialBar', 'width']),
-    height: Constants.getIn(['socialBar', 'height']),
-    x: cumulativeX,
-    y: topBarHeight,
-  }))
-  cumulativeX += measurements.getIn(['socialBar', 'width'])
-
-
-
   // Workspace
   measurements = measurements.set('workspace', Immutable.fromJS({
     width: cumulativeX,
@@ -554,7 +533,9 @@ WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategori
 // for laying out elements is different. 
 WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns) {
 
-  const workspaceWidth = viewport.get('x')
+  const socialBarMeasurements = WorkspaceComputations.socialBarMeasurements(viewport)
+
+  const workspaceWidth = viewport.get('x') - socialBarMeasurements.get('width')
   const columnHeight = WorkspaceComputations.columnHeight(viewport)
   const topBarHeight = WorkspaceComputations.columnY()
 
@@ -562,7 +543,7 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
 
 
   // First, address the elements with fixed widths surrounding the columns
-  // in the middle: pin column, sidebar, social bar
+  // in the middle: pin column, sidebar
 
   // Pin column
   measurements = measurements.set('pinColumn', Immutable.fromJS({
@@ -573,14 +554,6 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
     y: topBarHeight,
   }))
 
-  // Social bar
-  measurements = measurements.set('socialBar', Immutable.fromJS({
-    width: Constants.getIn(['socialBar', 'width']) + Constants.getIn(['socialBar', 'leftMargin']),
-    innerWidth: Constants.getIn(['socialBar', 'width']),
-    height: Constants.getIn(['socialBar', 'height']),
-    x: workspaceWidth - Constants.getIn(['socialBar', 'width']) - Constants.getIn(['socialBar', 'leftMargin']),
-    y: topBarHeight,
-  }))
 
   // Sidebar
   measurements = measurements.set('sideBar', Immutable.fromJS({
@@ -590,7 +563,6 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   }))
   measurements = measurements.setIn(['sideBar', 'x'],
     workspaceWidth
-    - measurements.getIn(['socialBar', 'width'])
     - measurements.getIn(['sideBar', 'width'])
   )
 
@@ -598,7 +570,6 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   // Sum up how much space is available for the columns and paths.
   let remainingSpace = workspaceWidth
   remainingSpace -= measurements.getIn(['pinColumn', 'width'])
-  remainingSpace -= measurements.getIn(['socialBar', 'width'])
   remainingSpace -= measurements.getIn(['sideBar', 'width'])
 
 
@@ -646,6 +617,21 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   }))
 
   return measurements
+}
+
+
+// NB: The social bar is no longer a part of the ordinary workspace
+WorkspaceComputations.socialBarMeasurements = function(viewport) {
+
+  return Immutable.fromJS({
+    width: Constants.getIn(['socialBar', 'width']) +
+      Constants.getIn(['socialBar', 'leftMargin']),
+    innerWidth: Constants.getIn(['socialBar', 'width']),
+    height: Constants.getIn(['socialBar', 'height']),
+    x: viewport.get('x') - Constants.getIn(['socialBar', 'width']),
+    y: WorkspaceComputations.columnY(),
+  })
+
 }
 
 // Returns an immutable list of the columns in the sidebar.
