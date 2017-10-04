@@ -94,7 +94,7 @@ WorkspaceComputations.dragArrowX = function (columns, xCoordinate) {
   return xCoordinate + columnWidth / 2 - dragArrowWidth / 2
 }
 
-// NB: Also used to position the show empty categories label
+// NB: Also used to position the show empty categories label and show incidents label
 WorkspaceComputations.dragArrowY = function (viewport) {
   return WorkspaceComputations.columnY() + 
          WorkspaceComputations.columnHeight(viewport) +

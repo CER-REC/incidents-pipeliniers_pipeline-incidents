@@ -8,7 +8,7 @@ const ShowIncidentListReducer = (state = false, action) => {
     return !state
 
   case 'ResetVisualization':
-    return false
+    return true
 
   default:
     return state
