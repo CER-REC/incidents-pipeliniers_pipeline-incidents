@@ -126,8 +126,8 @@ const TranslationTable = Immutable.fromJS({
     fr: 'Voir les catégories vides',
   },
   hideEmptyCategories: {
-    en: 'hide empty categories',
-    fr: 'Cacher les catégories vides',
+    en: 'Show empty categories',
+    fr: 'Montrer les catégories vides',
   },
 
 
@@ -142,23 +142,23 @@ const TranslationTable = Immutable.fromJS({
 
 
   mainHeading: {
-    en: 'Incidents at NEB-regulated pipelines and facilities',
+    en: 'Incidents At NEB-Regulated Pipelines And Facilities',
     fr: 'Incidents impliquant des installations et des pipelines réglementés par l’Office'
   },
 
   mainSubheading: {
-    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations  and the Processing Plant Regulations. New data is added on a quaterly basis. ',
-    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du  Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données sont ajoutées tous les trois mois. ',
+    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulations. New data has been added on yyyy-mm-dd. ',
+    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données ont été ajoutées le aaaa-mm-jj. ',
   },
 
   dataDisclaimer: {
     en: 'Data disclaimer',
-    fr: '<TODO>'
+    fr: 'Avertissement concernant les données'
   },
 
   disclaimerText: {
-    en: 'The incident data shown represents a single point in time and is subject to change. As investigations are completed or as new information becomes available, the incident record is updated. This may results in changes to the incident record including whether the incident remains reportable under the applicable regulations.',
-    fr: '<TODO>'
+    en: 'The incident data shown represents a single point in time and is subject to change. As investigations are completed or as new information becomes available, the incident record is updated. This may result in changes to the incident record including whether the incident remains reportable under the applicable regulations.',
+    fr: 'Les données portant sur les incidents correspondent à un événement ponctuel et peuvent changer. À mesure que des enquêtes sont conclues ou que de nouveaux renseignements sont accessibles, le dossier d’incident est mis à jour. Dans ce cas, certains éléments peuvent être modifiés, notamment le caractère obligatoire du signalement de l’incident aux termes des règlements applicables.'
   },
 
   noCategorySelection: {
@@ -198,17 +198,17 @@ const TranslationTable = Immutable.fromJS({
 
   storiesBarHeading: {
     en: 'STORIES ABOUT PIPELINE INCIDENTS',
-    fr: '<TODO>',
+    fr: 'DESCRIPTION DES INCIDENTS PIPELINIERS',
   },
 
   tellMeAStory: {
     en: 'Tell me a story',
-    fr: '<TODO>',
+    fr: 'Une histoire à raconter?',
   },
 
   aboutThisProject: {
     en: 'About this project',
-    fr: '<TODO>',
+    fr: 'Le projet',
   },
 
   categories: {
