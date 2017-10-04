@@ -165,7 +165,7 @@ const Constants = Immutable.fromJS({
     defaultColumn: '#ccc',
     columnHovered: '#666666',
     notColumnHovered: '#e6e6e6',
-
+    lastColumnOpacity: 0.3,
   },
 
   filterbox: {
