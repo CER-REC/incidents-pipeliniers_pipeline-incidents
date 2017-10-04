@@ -36,8 +36,10 @@ class Header extends React.Component {
         className = 'heading'
       >{ Tr.getIn(['mainHeading', this.props.language]).toUpperCase() }</h1>
       <p
-        className = 'subpop'
-      >{ Tr.getIn(['mainSubheading', this.props.language]) }</p>
+        className = 'subpop'>
+        { Tr.getIn(['mainSubheading', this.props.language]) }
+        <a href="#">{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
+      </p>
     </div>
   }
 

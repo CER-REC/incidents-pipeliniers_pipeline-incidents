@@ -139,6 +139,15 @@ const Constants = Immutable.fromJS({
     downloadIconPadding: 128,
   },
 
+  disclaimer: {
+    windowMaxWidth: 700,
+    windowMinWidth: 400,
+    textMaxWidth: 635,
+    textMinWidth: 335,
+    disclaimerWorkspaceRatio: 0.75,
+    closeButtonSize: 10,
+    closeButtonMargin: 30,
+  },
 
   maxColumnsWithoutScroll: 5,
 

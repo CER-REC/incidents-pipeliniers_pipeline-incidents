@@ -5,6 +5,7 @@ const Header = require('./header.jsx')
 const EmptyCategories = require('./EmptyCategories.jsx')
 const IncidentListShowHide = require('./IncidentListShowHide.jsx')
 const SocialBar = require('./SocialBar.jsx')
+const Disclaimer = require('./Disclaimer.jsx')
 
 require('./Workspace.scss')
 
@@ -107,6 +108,7 @@ class Workspace extends React.Component {
       </div>
       <StoryWindow/>
       <StoryBar/>
+      <Disclaimer/>
     </div>
   }
 }

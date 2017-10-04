@@ -147,8 +147,18 @@ const TranslationTable = Immutable.fromJS({
   },
 
   mainSubheading: {
-    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations  and the Processing Plant Regulations. New data is added on a quaterly basis.',
-    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du  Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données sont ajoutées tous les trois mois.',
+    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations  and the Processing Plant Regulations. New data is added on a quaterly basis. ',
+    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du  Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données sont ajoutées tous les trois mois. ',
+  },
+
+  dataDisclaimer: {
+    en: 'Data disclaimer',
+    fr: '<TODO>'
+  },
+
+  disclaimerText: {
+    en: 'The incident data shown represents a single point in time and is subject to change. As investigations are completed or as new information becomes available, the incident record is updated. This may results in changes to the incident record including whether the incident remains reportable under the applicable regulations.',
+    fr: '<TODO>'
   },
 
   noCategorySelection: {

@@ -30,6 +30,15 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   padding: 0;
 }
 
+//subheading and incident popover text
+.disclaimer {
+  font-family: $fira-sans-extra-condensed;
+  font-size: 12px;
+  fill: $black;
+  margin: 0 0 0 0;
+  padding: 0;
+}
+
 .activeCategoryLabels {
   font-family: $fira-sans-extra-condensed-medium;
   font-size: 13px;
