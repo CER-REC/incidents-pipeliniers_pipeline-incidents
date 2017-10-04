@@ -4,7 +4,6 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const ResetVisualizationCreator = require('../actionCreators/ResetVisualizationCreator.js')
 const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
-const IncidentComputations = require('../IncidentComputations.js')
 const Tr = require('../TranslationTable.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 
