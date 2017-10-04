@@ -245,6 +245,18 @@ function validateListIdsInSet (name, incident, set, errors) {
   return items
 }
 
+function validatePipelineListIdsInSet (name, incident, set, errors) {
+  // Special case for pipeline system components involved: if the returned
+  // value is null we interpret this as an empty list
+  if (incident[name] === null) {
+    return []
+  }
+  else {
+    return validateListIdsInSet(name, incident, set, errors)
+  }
+}
+
+
 function validateBoolean (name, incident, errors) {
   let value
   switch (incident[name]) {
@@ -275,6 +287,24 @@ function validateDate (name, incident, errors) {
   }
 }
 
+function validateVolumeReleased(incident, errors) {
+
+  const volumeString = incident.ApproximateVolumeM3
+  if (volumeString === 'Not Applicable' || volumeString === 'Not Provided') {
+    return volumeString
+  }
+
+  const volume = parseFloat(volumeString)
+  
+  if (isNaN(volume) || volume < 0) {
+    errors.push({message: 'Bad approximate volume value', incident: incident, value: incident.ApproximateVolumeM3})
+    return
+  }
+
+  return volumeString
+}
+
+
 function validateVolumeCategory(incident, errors) {
 
   const volumeString = incident.ApproximateVolumeM3
@@ -289,9 +319,7 @@ function validateVolumeCategory(incident, errors) {
   const volume = parseFloat(volumeString)
   
   if (isNaN(volume) || volume < 0) {
-    // errors.push({message: 'Bad numeric volume', incident: incident, value: incident.ApproximateVolumeM3})
-    // TODO: we should really be able to return an error here ... 
-    return '1'
+    errors.push({message: 'Bad numeric volume', incident: incident, value: incident.ApproximateVolumeM3})
   }
 
   if (volume < 1) {
@@ -371,13 +399,14 @@ const DataLoader = {
 
         const incidents = [] 
 
+        console.log('Validating incidents: ', dataResponse.body.length)
         for (const incident of dataResponse.body) {
 
           const errors = []
 
           const incidentRecord = {
             incidentNumber: validatePresence('IncidentNumber', incident, errors),
-            nearestPopulatedCentre: validatePresence('NearestPopulatedCenter_EN', incident, errors),
+            nearestPopulatedCentre: validatePresence('NearestPopulationCenter_EN', incident, errors),
 
             latitude: validateNumeric('Latitude', incident, errors),
             longitude: validateNumeric('Longitude', incident, errors),
@@ -394,34 +423,29 @@ const DataLoader = {
             company: validateIdInSet('Company_ID', incident, schema.get('company'), errors),
             province: validateIdInSet('Province_ID', incident, schema.get('province'), errors),
             substance: validateIdInSet('Substance_ID', incident, schema.get('substance'), errors),
-            pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
-
-            // incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
-
-
-            // whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
-            // whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
-            // pipelineSystemComponentsInvolved: validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
-
-
-            // TODO: temporary, pending fix to data ervice
-            approximateVolumeReleased:  incident.ApproximateVolumeM3,
-            // approximateVolumeReleased: validateNumeric('ApproximateVolumeM3', incident, errors),
-
-
-            // TODO: change this depending how volume category works out from
-            // our endpoint
+            approximateVolumeReleased: validateVolumeReleased(incident, errors),
             volumeCategory: validateVolumeCategory(incident, errors),
 
-            // TODO: change this depending how release type works out
             releaseType: validateIdInSet('ReleaseType_EN', incident, schema.get('releaseType'), errors),
 
+            werePipelineSystemComponentsInvolved: validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors),
+
+            pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
 
 
-            // TODO: will it be yes/no, t/f, 0,1, what? 
-            // TODO: unused, and unclear if needed... 
-            // werePipelineSystemComponentsInvolved: 
-            // substanceCategory
+
+            // TODO: below here: attributes which still have issues
+
+            // TODO: spaces in incident type ID list, -1 for some values
+            // incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
+
+            // TODO: IDs unknown for what happened / whyithappened
+            // whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
+            // whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
+
+            // TODO: data not aggregated correctly yet ... 
+            // pipelineSystemComponentsInvolved: validatePipelineListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
+
 
           }
 
@@ -437,6 +461,7 @@ const DataLoader = {
 
         }
 
+        console.log('Incidents after validation', incidents.length)
         afterLoad(store, Immutable.fromJS(incidents))
 
       })
