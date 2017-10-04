@@ -15,6 +15,11 @@ const SelectedIncidentsReducer = (state = Immutable.List(), action) => {
   case 'RemoveSelectedIncident':
     return state.filter( incident => incident !== action.incident)
 
+  case 'DeactivateAllCategoriesExceptOne': {
+    return state.push(action.incident)
+  }
+
+
   // When the user changes the currently selected category, we clear the
   // set of selected incidents.
   case 'ActivateFilterbox':
