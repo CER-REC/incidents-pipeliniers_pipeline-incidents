@@ -507,22 +507,22 @@ class Column extends React.Component {
   render() {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
-      return <g>
+      return <g
+        onMouseDown = { this.handleSidebarDragStart.bind(this) }
+        onMouseMove = { this.handleSidebarDragMove.bind(this) }
+        onMouseUp = { this.handleSidebarDragEnd.bind(this) }
+        onMouseEnter = { this.handleMouseEnter.bind(this) }
+        onMouseLeave = { this.handleMouseLeave.bind(this) }
+      >
         <g transform={this.sidebarColumnTransform()}>
           { this.sidebarShadow() }
           <g
             className="sidebar"
             id={this.props.columnName}
-            onMouseDown={this.handleSidebarDragStart.bind(this)}
-            onMouseMove={this.handleSidebarDragMove.bind(this)}
-            onMouseUp={this.handleSidebarDragEnd.bind(this)}
-            onMouseEnter={this.handleMouseEnter.bind(this)}
-            onMouseLeave={this.handleMouseLeave.bind(this)}>
+          >
             {this.sideBarColumn()}
           </g>
-        </g>
-        <g>
-          <text>
+          <text className='Column'>
             { this.sidebarHeading() }
           </text>
         </g>

@@ -66,88 +66,78 @@ class SocialBar extends React.Component {
 
     const iconSize = Constants.getIn(['socialBar', 'iconSize'])
 
-    // TODO: an issue with the social bar: it is intended to 'float along' to 
-    // the left of the SVG content.
-    // Doing this inside the SVG itself would be really, really hard. We may
-    // just end up placing a second svg adjacent to the first, in a container
-    // floated left ... 
+    const measurements = WorkspaceComputations.socialBarMeasurements(this.props.viewport)
 
-    const measurements = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-      .get('socialBar')
+    const transformSocialIcons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
 
+    const containerStyle = {
+      position: 'absolute',
+      left: measurements.get('x'), 
+      top: measurements.get('y'), 
+    }
 
-    let transformContainer = `translate(${measurements.get('x') + Constants.getIn(['socialBar', 'leftMargin'])},${measurements.get('y')})`
-    let transformSocialIcons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
-
-    return <g transform = {transformContainer}>
-      <rect
-        width={ measurements.get('innerWidth') }
-        height={ measurements.get('height') }
-        fill='#555556'
-      />
-      <g transform = {transformSocialIcons}>
-        <image 
-          height = {iconSize} 
-          width = {iconSize}        
-          y = {Constants.getIn(['socialBar', 'emailIconPadding'])}
-          xlinkHref='images/email.svg'
-          className="socialBar"
-          onClick = {emailClick}></image>
-        <image 
-          height = {iconSize} 
-          width = {iconSize}
-          y = {Constants.getIn(['socialBar', 'facebookIconPadding'])}
-          xlinkHref='images/facebook.svg'
-          className="socialBar"
-          onClick = {facebookClick}></image>
-        <image 
-          height = {iconSize} 
-          width = {iconSize} 
-          y = {Constants.getIn(['socialBar', 'linkedinIconPadding'])}
-          xlinkHref='images/linkedin.svg'
-          className="socialBar"
-          onClick = {linkedinClick}></image>
-        <image 
-          height = {iconSize} 
-          width = {iconSize} 
-          y = {Constants.getIn(['socialBar', 'twitterIconPadding'])}
-          xlinkHref='images/twitter.svg'
-          className="socialBar"
-          onClick = {twitterClick}></image>
-        <line x1={0} y1={Constants.getIn(['socialBar', 'dividerLine'])}
-          x2={iconSize} y2={Constants.getIn(['socialBar', 'dividerLine'])}
-          strokeWidth="1" stroke = "white" />
-        <image 
-          height = {iconSize} 
-          width = {iconSize} 
-          y = {Constants.getIn(['socialBar', 'downloadImageIconPadding'])}
-          xlinkHref='images/download_image.svg'
-          className="socialBar"
-          onClick = {downloadImageClick}></image>
-        <image 
-          height = {iconSize} 
-          width = {iconSize} 
-          y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
-          xlinkHref='images/download_file.svg'
-          className="socialBar"
-          onClick = {downloadFileClick}></image>
-      </g>
-    </g>
+    return <div style = { containerStyle }>
+      <svg>
+        <rect
+          width={ measurements.get('innerWidth') }
+          height={ measurements.get('height') }
+          className = 'socialBarBackground'
+        />
+        <g transform = {transformSocialIcons}>
+          <image 
+            height = {iconSize} 
+            width = {iconSize}        
+            y = {Constants.getIn(['socialBar', 'emailIconPadding'])}
+            xlinkHref='images/email.svg'
+            className="socialBarButton"
+            onClick = {emailClick}></image>
+          <image 
+            height = {iconSize} 
+            width = {iconSize}
+            y = {Constants.getIn(['socialBar', 'facebookIconPadding'])}
+            xlinkHref='images/facebook.svg'
+            className="socialBarButton"
+            onClick = {facebookClick}></image>
+          <image 
+            height = {iconSize} 
+            width = {iconSize} 
+            y = {Constants.getIn(['socialBar', 'linkedinIconPadding'])}
+            xlinkHref='images/linkedin.svg'
+            className="socialBarButton"
+            onClick = {linkedinClick}></image>
+          <image 
+            height = {iconSize} 
+            width = {iconSize} 
+            y = {Constants.getIn(['socialBar', 'twitterIconPadding'])}
+            xlinkHref='images/twitter.svg'
+            className="socialBarButton"
+            onClick = {twitterClick}></image>
+          <line x1={0} y1={Constants.getIn(['socialBar', 'dividerLine'])}
+            x2={iconSize} y2={Constants.getIn(['socialBar', 'dividerLine'])}
+            strokeWidth="1" stroke = "white" />
+          <image 
+            height = {iconSize} 
+            width = {iconSize} 
+            y = {Constants.getIn(['socialBar', 'downloadImageIconPadding'])}
+            xlinkHref='images/download_image.svg'
+            className="socialBarButton"
+            onClick = {downloadImageClick}></image>
+          <image 
+            height = {iconSize} 
+            width = {iconSize} 
+            y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
+            xlinkHref='images/download_file.svg'
+            className="socialBarButton"
+            onClick = {downloadFileClick}></image>
+        </g>
+      </svg>
+    </div>
   }
 }
 
 const mapStateToProps = state => {
   return {
-    showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-    data: state.data,
-    columns: state.columns,
-    categories: state.categories,
   }
 }
 

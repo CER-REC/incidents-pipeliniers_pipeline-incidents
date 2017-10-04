@@ -116,24 +116,8 @@ class MapColumn extends React.Component {
 
   render() {
 
-    const measurements = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-      .getIn(['columns', 'map'])
-
     return <g
       transform={this.columnTransform()}>
-      <rect
-        x={ measurements.get('x') }
-        y={ measurements.get('y') }
-        width={ measurements.get('width') }
-        height={ measurements.get('height') }
-        fill='#fff'
-        opacity='0'
-      />
       {this.dragArrow()}
     </g>
   }
