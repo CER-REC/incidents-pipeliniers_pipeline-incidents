@@ -179,7 +179,7 @@ function afterLoad (store, data) {
 
 function validatePresence (name, incident, errors) {
   if (incident[name] === undefined || incident[name] === null) {
-    errors.push({message: `Absent value for ${name}.`, incident: incident})
+    errors.push({message: `Absent value for ${name}.`, incident: incident, value: incident[name]})
   }
   else {
     return incident[name]
@@ -187,22 +187,41 @@ function validatePresence (name, incident, errors) {
 }
 
 function validateNumeric (name, incident, errors) {
-  const numericData = parseFloat(incident[name])
-  
-  if (isNaN(numericData)) {
-    errors.push({message: `Bad numeric value for ${name}.`, incident: incident})
+  if (isNaN(incident[name])) {
+    errors.push({message: `Bad numeric value for ${name}.`, incident: incident, value: incident[name]})
   }
   else {
-    return numericData
+    return incident[name]
   }
 }
 
 function validateIdInSet (name, incident, set, errors) {
-  if (set.get(incident[name]) === undefined) {
-    errors.push({message: `Value for ${name} not in schema.`, incident: incident})
+  // Within the application, all of our keys are strings, but the service
+  // returns JSON numbers
+  const value = String(incident[name])
+  if (set.get(value) === undefined) {
+    errors.push({message: `Value for ${name} not in schema.`, incident: incident, value: incident[name]})
   }
   else {
-    return incident[name]
+    return value
+  }
+}
+
+function validateIdInStatusSet (name, incident, set, errors) {
+  // Within the application, all of our keys are strings, but  the service
+  // returns JSON numbers
+  let value = String(incident[name])
+  // We consider incidents which are submitted and which are under review to 
+  // both have the same status: submitted
+  if (value === '4') {
+    value = '3'
+  }
+
+  if (set.get(value) === undefined) {
+    errors.push({message: `Value for ${name} not in schema.`, incident: incident, value: incident[name]})
+  }
+  else {
+    return value
   }
 }
 
@@ -212,13 +231,13 @@ function validateListIdsInSet (name, incident, set, errors) {
     items = incident[name].split(',')
   }
   catch (e) {
-    errors.push({message: `Absent value for ${name}`, incident: incident})
+    errors.push({message: `Absent value for ${name}`, incident: incident, value: incident[name]})
     return
   }
 
   for (const item of items) {
     if (set.get(item) === undefined) {
-      errors.push({message: `List value ${item} for ${name} not in schema.`, incident: incident})
+      errors.push({message: `List value ${item} for ${name} not in schema.`, incident: incident, value: incident[name]})
       return
     }
   }
@@ -227,11 +246,21 @@ function validateListIdsInSet (name, incident, set, errors) {
 }
 
 function validateBoolean (name, incident, errors) {
-  if (incident[name] === true || incident[name] === false) {
-    return incident[name]
+  let value
+  switch (incident[name]) {
+  case 'Yes':
+    value = true
+    break
+  case 'No':
+    value = false
+    break
+  }
+
+  if (value === true || value === false) {
+    return value
   }
   else {
-    errors.push({message: `Non-boolean value for ${name}`, incident: incident})
+    errors.push({message: `Non 'Yes'/'No' value for ${name}`, incident: incident, value: incident[name]})
   }
 }
 
@@ -242,7 +271,7 @@ function validateDate (name, incident, errors) {
     return date
   } 
   else {
-    errors.push({message: `Bad date value for ${name}`, incident: incident})
+    errors.push({message: `Bad date value for ${name}`, incident: incident, value: incident[name]})
   }
 }
 
@@ -260,8 +289,9 @@ function validateVolumeCategory(incident, errors) {
   const volume = parseFloat(volumeString)
   
   if (isNaN(volume) || volume < 0) {
-    errors.push({message: 'Bad numeric volume', incident: incident})
-    return
+    // errors.push({message: 'Bad numeric volume', incident: incident, value: incident.ApproximateVolumeM3})
+    // TODO: we should really be able to return an error here ... 
+    return '1'
   }
 
   if (volume < 1) {
@@ -347,11 +377,10 @@ const DataLoader = {
 
           const incidentRecord = {
             incidentNumber: validatePresence('IncidentNumber', incident, errors),
-            nearestPopulatedCentre: validatePresence('NearestPopulationCenter_EN', incident, errors),
+            nearestPopulatedCentre: validatePresence('NearestPopulatedCenter_EN', incident, errors),
 
             latitude: validateNumeric('Latitude', incident, errors),
             longitude: validateNumeric('Longitude', incident, errors),
-            approximateVolumeReleased: validateNumeric('ApproximateVolumeM3', incident, errors),
 
             affectsCompanyProperty: validateBoolean('AffectsCompanyProperty', incident, errors),
             offCompanyProperty: validateBoolean('OffCompanyProperty', incident, errors),
@@ -361,16 +390,23 @@ const DataLoader = {
             reportedDate: validateDate('ReportedDate', incident, errors),
             year: validatePresence('ReportedYear', incident, errors),
 
-            status: validateIdInSet('Status_ID', incident, schema.get('status'), errors),
+            status: validateIdInStatusSet('IncidentStatus_ID', incident, schema.get('status'), errors),
             company: validateIdInSet('Company_ID', incident, schema.get('company'), errors),
             province: validateIdInSet('Province_ID', incident, schema.get('province'), errors),
             substance: validateIdInSet('Substance_ID', incident, schema.get('substance'), errors),
             pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
 
-            incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
-            whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
-            whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
-            pipelineSystemComponentsInvolved: validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
+            // incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
+
+
+            // whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
+            // whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
+            // pipelineSystemComponentsInvolved: validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
+
+
+            // TODO: temporary, pending fix to data ervice
+            approximateVolumeReleased:  incident.ApproximateVolumeM3,
+            // approximateVolumeReleased: validateNumeric('ApproximateVolumeM3', incident, errors),
 
 
             // TODO: change this depending how volume category works out from
@@ -378,7 +414,7 @@ const DataLoader = {
             volumeCategory: validateVolumeCategory(incident, errors),
 
             // TODO: change this depending how release type works out
-            releaseType: validateIdInSet('ReleaseType', incident, schema.get('releaseType'), errors),
+            releaseType: validateIdInSet('ReleaseType_EN', incident, schema.get('releaseType'), errors),
 
 
 
@@ -390,7 +426,10 @@ const DataLoader = {
           }
 
           if(errors.length > 0) {
-            console.warn('Incident record with errors:', incident, errors)
+            // console.warn('Incident record with errors:', incident, errors)
+            for (const error of errors) {
+              console.log(`${incident.IncidentNumber}: ${error.message} "${error.value}"`)
+            }
           }
           else {
             incidents.push(incidentRecord)
