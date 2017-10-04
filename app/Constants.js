@@ -9,7 +9,7 @@ const Constants = Immutable.fromJS({
   // See: DataLoader.js, data/CategorySchema.json
   // TODO: might be good to make this a .env file option, or a URL param,
   // rather than hard coding it
-  dataMode: 'csvFile',
+  dataMode: 'dataService',
 
   workspace: {
     maxWidth: 1138,

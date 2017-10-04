@@ -330,7 +330,7 @@ const DataLoader = {
     const dataOptions = {
       // TODO: This should be replaced with the location of the NEB's data
       // service
-      uri: `${appRoot}data/data-dummy.json`,
+      uri: `${appRoot}data/incidents.json`,
       json: true
     }
 

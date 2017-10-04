@@ -23,7 +23,7 @@ window.store = store
 
 switch (Constants.get('dataMode')) {
 case 'dataService': 
-  DataLoader.loadFromDataService (store)
+  DataLoader.loadFromDataService(store)
   break
 case 'csvFile': 
   DataLoader.loadDataCsv(store)
