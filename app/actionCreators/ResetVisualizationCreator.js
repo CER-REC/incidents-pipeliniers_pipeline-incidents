@@ -1,9 +1,8 @@
-function ResetVisualizationCreator (categories, incident) {
+function ResetVisualizationCreator (categories) {
 
   return {
     type: 'ResetVisualization',
     categories: categories,
-    incident: incident,
   }
 
 }

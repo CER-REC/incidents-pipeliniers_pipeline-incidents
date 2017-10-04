@@ -217,15 +217,6 @@ IncidentComputations.incidentsInCategorySelection = function (data, categoryHove
 
 }
 
-IncidentComputations.initialState = function (data, filterboxActivationState) {
-  if(filterboxActivationState.get('columnName') !== null && 
-    filterboxActivationState.get('categoryName') !== null){
-
-    return null
-    
-  }
-}
-
 
 
 const MemoizedComputations = {}

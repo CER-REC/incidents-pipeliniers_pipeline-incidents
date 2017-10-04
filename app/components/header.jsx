@@ -27,7 +27,6 @@ class Header extends React.Component {
 
   resetAllClick() {
     const categories = DefaultCategoryComputations.initialState(this.props.data)
-    //const incident = IncidentComputations.initialState(this.props.data, this.props.filterboxActivationState)
     this.props.resetVisualization(categories)
   }
 
@@ -159,8 +158,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    resetVisualization: (categories, incident) => {
-      dispatch(ResetVisualizationCreator(categories, incident))
+    resetVisualization: (categories) => {
+      dispatch(ResetVisualizationCreator(categories))
     }
   }
 }
