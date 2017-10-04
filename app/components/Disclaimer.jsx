@@ -49,12 +49,14 @@ class Disclaimer extends React.Component {
         {Tr.getIn(['disclaimerText', this.props.language])}
       </p>
       <svg 
-        width={Constants.getIn(['disclaimer', 'closeButtonMargin'])}
-        height={Constants.getIn(['disclaimer', 'closeButtonSize'])}>
+        width={Constants.getIn(['disclaimer', 'closeButtonRightMargin'])}
+        height={Constants.getIn(['disclaimer', 'closeButtonSize']) + 
+          Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}>
         <image 
           className='disclaimerCloseButton'
           width ={Constants.getIn(['disclaimer', 'closeButtonSize'])} 
           height = {Constants.getIn(['disclaimer', 'closeButtonSize'])}
+          y={Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}
           onClick = { this.closeButtonClick.bind(this) }
           xlinkHref = 'images/close-2.svg'>
         </image>

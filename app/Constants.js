@@ -146,7 +146,8 @@ const Constants = Immutable.fromJS({
     textMinWidth: 335,
     disclaimerWorkspaceRatio: 0.75,
     closeButtonSize: 10,
-    closeButtonMargin: 30,
+    closeButtonRightMargin: 30,
+    closeButtonTopMargin:10,
   },
 
   maxColumnsWithoutScroll: 5,
