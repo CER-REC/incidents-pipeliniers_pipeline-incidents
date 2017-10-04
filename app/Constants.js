@@ -51,7 +51,7 @@ const Constants = Immutable.fromJS({
     headerIconWidth: 18,
     headerIconHeight: 20,
     width: 860,
-    height: 100,
+    height: 120,
     xHeading: 35,
     yHeading: 18,
     xSubpop: 35,

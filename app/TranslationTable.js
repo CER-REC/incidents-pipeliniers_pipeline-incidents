@@ -151,6 +151,16 @@ const TranslationTable = Immutable.fromJS({
     fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données ont été ajoutées le aaaa-mm-jj. ',
   },
 
+  dataCollectionSubheading: {
+    en: ' on how data collection has evolved since the NEB was established in 1959.',
+    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de l’Office en 1959. '
+  },
+
+  learnMore: {
+    en: 'Learn more',
+    fr: 'Obtenez plus d’information'
+  },
+
   dataDisclaimer: {
     en: 'Data disclaimer',
     fr: 'Avertissement concernant les données'
