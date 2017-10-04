@@ -1,7 +1,8 @@
+@import '../styles/zIndex.scss';
 
 .storyWindow {
 	position:absolute;
-	z-index:2;
+	z-index:$story-window-z;
 	top:25px;
 }
 

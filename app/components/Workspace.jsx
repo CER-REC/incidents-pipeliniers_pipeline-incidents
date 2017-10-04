@@ -103,10 +103,10 @@ class Workspace extends React.Component {
             {this.columns()}
             <IncidentListShowHide />
           </svg>
-          <StoryWindow/>
         </div>
-        <StoryBar/>
       </div>
+      <StoryWindow/>
+      <StoryBar/>
     </div>
   }
 }
