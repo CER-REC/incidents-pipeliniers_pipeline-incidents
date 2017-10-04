@@ -59,7 +59,7 @@ class IncidentListShowHide extends React.Component {
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
     return ( 
-      <g transform = {transformShowHide} onClick={this.props.onClick}> 
+      <g transform = {transformShowHide} onClick={this.props.onClick} className="emptyCategories"> 
         {this.showImage()}
         {this.showText()}
       </g>
