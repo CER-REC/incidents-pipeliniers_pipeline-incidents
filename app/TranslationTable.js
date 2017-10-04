@@ -122,13 +122,14 @@ const TranslationTable = Immutable.fromJS({
   },
 
   seeEmptyCategories: {
-    en: 'See empty categories',
+    en: 'see empty categories',
     fr: 'Voir les catégories vides',
   },
   hideEmptyCategories: {
-    en: 'Hide empty categories',
+    en: 'hide empty categories',
     fr: 'Cacher les catégories vides',
   },
+
 
   applicationPath: {
     en: '/incident-visualization/',
@@ -161,12 +162,12 @@ const TranslationTable = Immutable.fromJS({
   },
 
   hideIncidentList: {
-    en: 'Hide incident list',
+    en: 'hide incident list',
     fr: 'Cacher la liste des incidents',
   },
 
   showIncidentList: {
-    en: 'Show incident list',
+    en: 'show incident list',
     fr: 'Voir la list des incidents'
   },
 
@@ -187,6 +188,16 @@ const TranslationTable = Immutable.fromJS({
 
   storiesBarHeading: {
     en: 'STORIES ABOUT PIPELINE INCIDENTS',
+    fr: '<TODO>',
+  },
+
+  tellMeAStory: {
+    en: 'Tell me a story',
+    fr: '<TODO>',
+  },
+
+  aboutThisProject: {
+    en: 'About this project',
     fr: '<TODO>',
   },
 

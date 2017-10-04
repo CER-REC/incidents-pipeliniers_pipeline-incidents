@@ -65,13 +65,19 @@ const Constants = Immutable.fromJS({
 
   showHideEmptyCategories: {
     xShowImage: 10,
-    yShowImage: 10,
+    yShowImage: 8,
     xShowText: 20,
-    showHideIconHeight: 15,
-    showHideIconWidth: 15,
+    showHideIconHeight: 11,
+    showHideIconWidth: 11,
     fontSize: 12,
+    checkboxPadding: 2,
+    checkboxWidth: 1,
+    dividerLineLength: 124,
+    dividerLinePadding: -17,
+    checkboxStrokePadding: 1, 
   },
 
+  //incident list
   pinColumn: {
     horizontalMargins: 11, // both left and right
     width: 155,
@@ -79,6 +85,15 @@ const Constants = Immutable.fromJS({
     textWidth: 79,
     connectorDotSize: 6,
     connectorLength: 5,
+    labelIconSize: 15,
+    labelPadding: 15,
+    labelIconPadding: -7,
+    columnHeightPadding: 25,
+    chevron90Rotation: 90,
+    chevron270Rotation:270,
+    hideIncidentListX: 10,
+    hideIncidentListY: 5,
+    showIncidentListXY: -2,
   },
 
   columnWideWidth: 62,
@@ -98,7 +113,14 @@ const Constants = Immutable.fromJS({
   },
 
   headerBar: {
-    height: 47,
+    // top and bottom spacing of 3px plus 23px for 4 icons
+    height: 3 * 2 + 23 * 4,
+    // 16px of height + 7px of vertical spacing between icons
+    tellMeAStoryHeight: 3,
+    aboutThisProjectHeight: 26,
+    methodologyHeight: 49,
+    resetAllHeight: 72,
+    headerLabelFontSize: 13,
   },
 
   socialBar: {
@@ -107,6 +129,7 @@ const Constants = Immutable.fromJS({
     iconSize: 16,
     leftMargin: 5,
     iconSideMargin: 3.5,
+    // 16px of height + 7px of vertical spacing between icons
     emailIconPadding: 3,
     facebookIconPadding: 26,
     linkedinIconPadding: 49,
@@ -271,9 +294,7 @@ const Constants = Immutable.fromJS({
   emptyCategoryHeight: 20, // px
   
   map: {
-    widthHeightRatio: 500 / 450,
-    // widthHeightRatio: 510 / 375,
-    // widthHeightRatio: 410 / 375,
+    widthHeightRatio: 550 / 450,
     
     // NB: Must match dimensions of canada.svg
     coordinateSpace: {

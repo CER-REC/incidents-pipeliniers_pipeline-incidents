@@ -3,6 +3,7 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 const Header = require('./header.jsx')
 const EmptyCategories = require('./EmptyCategories.jsx')
+const IncidentListShowHide = require('./IncidentListShowHide.jsx')
 const SocialBar = require('./SocialBar.jsx')
 
 require('./Workspace.scss')
@@ -62,26 +63,50 @@ class Workspace extends React.Component {
       this.props.columns,
       this.props.categories)
 
+    const scrollPaneWidth = this.props.viewport.get('x') - 
+      Constants.getIn(['socialBar', 'width']) -
+      Constants.getIn(['socialBar', 'leftMargin'])
 
-    return <div>
-      <div className='workspace'>
-        { this.mapContainer() }
-        <IncidentContainer />
-        <svg 
-          className = 'workspaceSvg'
-          width = { horizontalPositions.getIn(['workspace', 'width']) }
-          height = { horizontalPositions.getIn(['workspace', 'height']) }
-        >
-          <Header />
-          <EmptyCategories />
-          <IncidentListHeadings />
-          <SideBar/>
-          {this.columns()}
-          <SocialBar/>
-        </svg>
-        <StoryWindow/>
+    const clipContainerStyle = {
+      width: `${scrollPaneWidth}px`
+    }
+
+    const workspaceStyle = {
+      width: this.props.viewport.get('x'),
+      height: this.props.viewport.get('y'),
+    }
+
+    return <div className='workspace' style = { workspaceStyle }>
+      <div 
+        className = 'workspaceOverlay'
+        style = { {height: `${Constants.getIn(['topBar', 'height'])}px`} }
+      >
+        <Header />
+        <SocialBar/>
       </div>
-      <StoryBar/>
+
+      <div
+        className = 'workspaceClipContainer'
+        style = { clipContainerStyle }
+      >
+        <div
+          className = 'workspaceScrollPane'>
+          { this.mapContainer() }
+          <IncidentContainer />
+          <svg 
+            className = 'workspaceSvg'
+            width = { horizontalPositions.getIn(['workspace', 'width']) }
+            height = { horizontalPositions.getIn(['workspace', 'height']) }>
+            <EmptyCategories />
+            <IncidentListHeadings />
+            <SideBar/>
+            {this.columns()}
+            <IncidentListShowHide />
+          </svg>
+          <StoryWindow/>
+        </div>
+        <StoryBar/>
+      </div>
     </div>
   }
 }
