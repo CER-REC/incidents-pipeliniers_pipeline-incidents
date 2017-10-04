@@ -17,6 +17,29 @@ const Constants = Immutable.fromJS({
     emptyCategoryOffsetRatio: 0.06,
   },
 
+  storyThumbnailDimensions: {
+    widthPercentage: 0.32,
+    heightPercentage: 0.21,
+    borderStroke: 1,
+    titleBackgroundWidth: '100%',
+    titleBackgroundHeight: '43%',
+    titleBackgroundYOffset: 0.57,
+    iconOffset: 50,
+
+    windowYOffset: 25,
+    windowShadowOffset: 10,
+    windowCloseButtonSize: 30,
+    windowCloseButtonOffset: 15,
+  },
+
+  stories: {
+    firstRow: {
+      leftStory: 'provinces-and-pipeline-incident',
+      middleStory: 'how-big-are-most-gas-releases',
+      rightStory: 'when-do-incidents-usually-occur',
+    },
+  },
+
   // All in px
   leftOuterMargin: 5,
   topOuterMargin: 5,
@@ -28,7 +51,7 @@ const Constants = Immutable.fromJS({
     headerIconWidth: 18,
     headerIconHeight: 20,
     width: 860,
-    height: 100,
+    height: 120,
     xHeading: 35,
     yHeading: 18,
     xSubpop: 35,
@@ -116,6 +139,16 @@ const Constants = Immutable.fromJS({
     downloadIconPadding: 128,
   },
 
+  disclaimer: {
+    windowMaxWidth: 700,
+    windowMinWidth: 400,
+    textMaxWidth: 635,
+    textMinWidth: 335,
+    disclaimerWorkspaceRatio: 0.75,
+    closeButtonSize: 10,
+    closeButtonRightMargin: 30,
+    closeButtonTopMargin:10,
+  },
 
   maxColumnsWithoutScroll: 5,
 

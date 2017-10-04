@@ -5,6 +5,7 @@ const Header = require('./header.jsx')
 const EmptyCategories = require('./EmptyCategories.jsx')
 const IncidentListShowHide = require('./IncidentListShowHide.jsx')
 const SocialBar = require('./SocialBar.jsx')
+const Disclaimer = require('./Disclaimer.jsx')
 
 require('./Workspace.scss')
 
@@ -16,6 +17,9 @@ const MapContainer = require('./MapContainer.jsx')
 const Constants = require('../Constants.js')
 const IncidentListHeadings = require('./IncidentListHeadings.jsx')
 const IncidentContainer = require('./IncidentContainer.jsx')
+const IncidentList = require('./IncidentList.jsx')
+const StoryBar = require('./StoryBar.jsx')
+const StoryWindow = require('./StoryWindow.jsx')
 
 class Workspace extends React.Component {
 
@@ -87,15 +91,13 @@ class Workspace extends React.Component {
         style = { clipContainerStyle }
       >
         <div
-          className = 'workspaceScrollPane'
-        >
+          className = 'workspaceScrollPane'>
           { this.mapContainer() }
           <IncidentContainer />
           <svg 
             className = 'workspaceSvg'
             width = { horizontalPositions.getIn(['workspace', 'width']) }
-            height = { horizontalPositions.getIn(['workspace', 'height']) }
-          >
+            height = { horizontalPositions.getIn(['workspace', 'height']) }>
             <EmptyCategories />
             <IncidentListHeadings />
             <SideBar/>
@@ -104,8 +106,9 @@ class Workspace extends React.Component {
           </svg>
         </div>
       </div>
-
-
+      <StoryWindow/>
+      <StoryBar/>
+      <Disclaimer/>
     </div>
   }
 }

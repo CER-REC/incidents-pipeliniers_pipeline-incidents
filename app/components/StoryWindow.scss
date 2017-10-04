@@ -1,0 +1,11 @@
+@import '../styles/zIndex.scss';
+
+.storyWindow {
+	position:absolute;
+	z-index:$story-window-z;
+	top:25px;
+}
+
+.closeButton {
+	cursor: pointer;
+}

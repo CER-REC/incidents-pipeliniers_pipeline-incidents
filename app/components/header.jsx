@@ -3,6 +3,7 @@ const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
 const ResetVisualizationCreator = require('../actionCreators/ResetVisualizationCreator.js')
+const DisclaimerSummonedCreator = require('../actionCreators/DisclaimerSummonedCreator.js')
 const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
 const Tr = require('../TranslationTable.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
@@ -29,6 +30,9 @@ class Header extends React.Component {
     this.props.resetVisualization(categories)
   }
 
+  disclaimerClick() {
+    this.props.summonDisclaimer()
+  }
 
   leftHeading() {
     return <div className = 'leftHeader'>
@@ -36,8 +40,14 @@ class Header extends React.Component {
         className = 'heading'
       >{ Tr.getIn(['mainHeading', this.props.language]).toUpperCase() }</h1>
       <p
-        className = 'subpop'
-      >{ Tr.getIn(['mainSubheading', this.props.language]) }</p>
+        className = 'subpop'>
+        { Tr.getIn(['mainSubheading', this.props.language]) }
+        <a onClick = {this.disclaimerClick.bind(this)}>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
+      </p>
+      <p className = 'subpop'>
+        <a href="#">{Tr.getIn(['learnMore', this.props.language])}</a>
+        {Tr.getIn(['dataCollectionSubheading', this.props.language])}
+      </p>
     </div>
   }
 
@@ -159,6 +169,9 @@ const mapDispatchToProps = dispatch => {
   return {
     resetVisualization: (categories) => {
       dispatch(ResetVisualizationCreator(categories))
+    },
+    summonDisclaimer: () => {
+      dispatch(DisclaimerSummonedCreator())
     }
   }
 }
