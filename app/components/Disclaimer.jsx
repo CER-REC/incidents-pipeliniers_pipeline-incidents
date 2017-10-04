@@ -6,12 +6,12 @@ require('./Disclaimer.scss')
 
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
-const StorySelectedCreator = require('../actionCreators/StorySelectedCreator.js')
+const DisclaimerDismissedCreator = require('../actionCreators/DisclaimerDismissedCreator.js')
 
 class Disclaimer extends React.Component {
 
   closeButtonClick() {
-    
+    this.props.disclaimerDismissed()
   }
 
   windowStyle() {
@@ -38,6 +38,9 @@ class Disclaimer extends React.Component {
   }
 
   render() {
+    // Only render when summoned.
+    if(!this.props.disclaimer) return null
+
     return <div 
       className='disclaimerWindow'
       style={this.windowStyle()}>
@@ -49,6 +52,7 @@ class Disclaimer extends React.Component {
         width={Constants.getIn(['disclaimer', 'closeButtonMargin'])}
         height={Constants.getIn(['disclaimer', 'closeButtonSize'])}>
         <image 
+          className='disclaimerCloseButton'
           width ={Constants.getIn(['disclaimer', 'closeButtonSize'])} 
           height = {Constants.getIn(['disclaimer', 'closeButtonSize'])}
           onClick = { this.closeButtonClick.bind(this) }
@@ -63,7 +67,16 @@ const mapStateToProps = state => {
   return {
     language: state.language,
     viewport: state.viewport,
+    disclaimer: state.disclaimer,
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(Disclaimer)
+const mapDispatchToProps = dispatch => {
+  return {
+    disclaimerDismissed: () => {
+      dispatch(DisclaimerDismissedCreator())
+    }
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Disclaimer)
