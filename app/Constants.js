@@ -325,8 +325,6 @@ const Constants = Immutable.fromJS({
 
   screenshotPath: 'screenshot',
 
-  // TODO: obviously not adequate! 
-  screenshotServiceUrl: 'http://localhost:3002/screenshot',
   screenshotHeight: 1000,
 
   nearBlack: '#333333',

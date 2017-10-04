@@ -1,5 +1,6 @@
-const Webpack = require('webpack')
+// const Webpack = require('webpack')
 const Path = require('path')
+const DotenvWebpack = require('dotenv-webpack')
 
 const BUILD_DIR = Path.resolve(__dirname, 'public/script')
 
@@ -48,8 +49,13 @@ module.exports = {
     extensions: ['.js', '.jsx', '.json']
   },
 
+  // NB: Plugins object is *replaced* in production!
+  // See webpack.prod.config.js
   plugins: [
-    new Webpack.HotModuleReplacementPlugin()
+    // new Webpack.HotModuleReplacementPlugin(),
     // new Webpack.NoErrorsPlugin()
+    new DotenvWebpack({
+      path: './.env.dev'
+    })
   ],
 }
