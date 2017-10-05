@@ -147,18 +147,28 @@ const TranslationTable = Immutable.fromJS({
   },
 
   mainSubheading: {
-    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulations. New data has been added on yyyy-mm-dd. ',
-    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données ont été ajoutées le aaaa-mm-jj. ',
+    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulations. New data is added quarterly. The last update was: yyyy-mm-dd. ',
+    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données sont ajoutées tous les trois mois. De nouvelles données ont été ajoutées le aaaa-mm-jj. ',
   },
 
   dataCollectionSubheading: {
     en: ' on how data collection has evolved since the NEB was established in 1959.',
-    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de l’Office en 1959. '
+    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de l’Office en 1959.'
+  },
+
+  incidentResponseSubheading: {
+    en: ' the NEB responds to incidents at the pipelines and facilities it regulates.',
+    fr: ' l’Office intervient en cas d’incident lié à des installations ou à des pipelines soumis à sa réglementation.'
   },
 
   learnMore: {
     en: 'Learn more',
     fr: 'Obtenez plus d’information'
+  },
+
+  discoverHow: {
+    en: 'Discover how',
+    fr: 'Découvrez comment'
   },
 
   dataDisclaimer: {
