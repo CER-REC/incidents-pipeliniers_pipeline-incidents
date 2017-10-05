@@ -42,11 +42,12 @@ class Header extends React.Component {
     return <div className = 'leftHeader'>
       <h1
         className = 'heading'
+        id = 'incidentVisualizationHeading'
       >{ Tr.getIn(['mainHeading', this.props.language]).toUpperCase() }</h1>
       <p
         className = 'subpop'>
         { Tr.getIn(['mainSubheading', this.props.language]) }
-        <a onClick = {this.disclaimerClick.bind(this)}>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
+        <a href="#" onClick = {this.disclaimerClick.bind(this)}>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
       </p>
       <p className = 'subpop'>
         <a href="#">{Tr.getIn(['learnMore', this.props.language])}</a>

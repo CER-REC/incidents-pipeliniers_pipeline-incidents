@@ -13,12 +13,15 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
 
 //heading
-.heading {
+.workspace .heading#incidentVisualizationHeading {
   font-family: $fira-sans-extra-condensed-semibold;
   font-size: 22px;
   fill: $black;
   margin: 0.5em 0 0 0;
   padding: 0;
+
+  // WET Override
+  border: none;
 }
 
 //subheading and incident popover text
