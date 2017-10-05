@@ -8,6 +8,7 @@ const HoveredIncidentReducer = (state = null, action) => {
     return action.incident
 
   case 'UnhoverIncident':
+  case 'RemovePinnedIncident':
     return null
 
   default:
