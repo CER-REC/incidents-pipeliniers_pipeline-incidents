@@ -3,6 +3,8 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const Request = require('client-request/promise')
 
+const RouteComputations = require('../RouteComputations.js')
+
 require('../styles/Common.scss')
 require('../styles/Colours.scss')
 require('./SocialBar.scss')
@@ -52,12 +54,14 @@ function twitterClick() {
   })
 }
 
-function downloadFileClick() {
-  console.log('download file clicked')
-}
-
 function downloadImageClick() {
   console.log('download image clicked')
+}
+
+function downloadFileClick() {
+
+  const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
+  window.open(`${appRoot}data/2017-09-13 ERS TEST-joined.csv`, 'data:text/csv;charset=utf-8,data/' + escape())
 }
 
 class SocialBar extends React.Component {
@@ -132,6 +136,7 @@ class SocialBar extends React.Component {
         </g>
       </svg>
     </div>
+
   }
 }
 
