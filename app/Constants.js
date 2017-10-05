@@ -383,6 +383,21 @@ const Constants = Immutable.fromJS({
 
   },
 
+
+  // This is the order we are to use for display of provinces.
+  // It's not clear where exactly this order comes from, my guess is that it is
+  // the result of an Object.keys() call on a provinces category object 
+  // somewhere, but we have been asked to preserve this order going forward!
+
+  provinceOrder: {
+    dataService: [
+      '7', '10', '4', '5', '3', '6', '9', '13', '1', '8', '12', '2', '11'
+    ],
+    csvFile: [
+      'NS','PE','NB','NL','MB','NT','ON','YT','AB','NU','SK','BC','QC'
+    ],
+  },
+
 })
 
 
