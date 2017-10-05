@@ -14,21 +14,29 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
 //heading
 .heading {
-  position: fixed;
-  padding-top: 13px;
   font-family: $fira-sans-extra-condensed-semibold;
   font-size: 22px;
   fill: $black;
-  text-align: left;
+  margin: 0.5em 0 0 0;
+  padding: 0;
 }
 
 //subheading and incident popover text
 .subpop {
-  position: fixed;
   font-family: $fira-sans-extra-condensed;
   font-size: 12px;
   fill: $black;
-  text-align: left;
+  margin: 0.5em 0 0 0;
+  padding: 0;
+}
+
+//subheading and incident popover text
+.disclaimer {
+  font-family: $fira-sans-extra-condensed;
+  font-size: 12px;
+  fill: $black;
+  margin: 0 0 0 0;
+  padding: 0;
 }
 
 .activeCategoryLabels {
@@ -40,7 +48,7 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
 .inactiveCategoryLabels {
   font-family: $fira-sans-extra-condensed-medium;
-  fill: $label-grey;
+  fill: $dark-grey;
   font-size: 13px;
   font-style: medium;
   text-align: left;
@@ -60,11 +68,11 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   text-align: left;
 }
 
-.headerButtons {
+.headerButtonLabel {
   font-family: $fira-sans-extra-condensed-semibold;
-  font-size: 13px;
+  // NB: fontSize set via constants, to stay consistent with other measurements
   text-align: left;
-  fill: #555556;
+  fill: $socialBarBackground;
 }
 
 .sidebars {
@@ -87,4 +95,19 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   font-size: 10.5px;
   text-align:left;
   color: $near-black;
+}
+
+.storiesHeading {
+  font-family: $fira-sans-extra-condensed;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+  color: $black;
+}
+
+.storiesTitle {
+  font-family: $fira-sans-light;
+  font-weight: bold;
+  font-size: 18px;
+  color: $black;
 }

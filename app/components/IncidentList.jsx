@@ -6,8 +6,11 @@ const Constants = require('../Constants.js')
 const IncidentComputations = require('../IncidentComputations.js')
 const IncidentListItem = require('./IncidentListItem.jsx')
 const SetIncidentListScrollCreator = require('../actionCreators/SetIncidentListScrollCreator.js')
+const ShowIncidentListCreator = require('../actionCreators/ShowIncidentListCreator.js')
+
 const Tr = require('../TranslationTable.js')
 const IncidentListComputations = require('../IncidentListComputations.js')
+
 
 require('./IncidentList.scss')
 
@@ -38,6 +41,10 @@ class IncidentList extends React.Component {
   }
 
   incidentList() {
+    if (!this.props.showIncidentList) {
+      return null
+    }
+
     if (this.props.filterboxActivationState.get('columnName') === null) {
       return null
     }
@@ -112,7 +119,9 @@ class IncidentList extends React.Component {
     )
 
     return {
-      maxHeight: `${incidentListHeight}px`,
+
+      maxHeight: `${incidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
+
     }
   }
 
@@ -122,8 +131,9 @@ class IncidentList extends React.Component {
 
   componentDidUpdate() {
     if (this.scrollPane !== undefined && this.scrollPane !== null) {
+
       this.scrollPane.scrollTop = this.props.incidentListScrollPosition
-    }
+    } 
   }
 
   render() {
@@ -151,6 +161,7 @@ const mapStateToProps = state => {
     language: state.language,
     pinnedIncidents: state.pinnedIncidents,
     incidentListScrollPosition: state.incidentListScrollPosition,
+    showIncidentList: state.showIncidentList,
     selectedIncidents: state.selectedIncidents,
   }
 }
@@ -159,6 +170,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setListScroll: (scrollTop) => {
       dispatch(SetIncidentListScrollCreator(scrollTop))
+    },
+    onClick: () => {
+      dispatch(ShowIncidentListCreator())
     }
   }
 }

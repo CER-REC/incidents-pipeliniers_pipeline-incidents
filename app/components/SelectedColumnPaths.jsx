@@ -2,7 +2,7 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const IncidentPathComputations = require('../IncidentPathComputations.js')
-
+const Constants = require('../Constants.js')
 
 
 class ColumnPaths extends React.Component {
@@ -31,12 +31,17 @@ class ColumnPaths extends React.Component {
       this.props.columnName
     )
 
+    let fillOpacity
+    if (this.props.columnName === this.props.columns.last()) {
+      fillOpacity = Constants.getIn(['columnPaths','lastColumnOpacity'])
+    }
+
     pathCurves.forEach( pathCurve => {
       paths.push(<path
         d = { pathCurve.get('d') }
         key = { pathCurve.get('sourceCategory') + pathCurve.get('destinationCategory') }
         fill = '#bcbcbc'
-        fillOpacity = '0.6'
+        fillOpacity = {fillOpacity}
       />)
     })
 

@@ -4,20 +4,25 @@ const MemoizeImmutable = require('memoize-immutable')
 
 const Constants = require('./Constants.js')
 const CategoryConstants = require('./CategoryConstants.js')
+const IncidentComputations = require('./IncidentComputations.js')
 
 
 
 const DefaultCategoryComputations = {
 
-  initialState: function (data, schema) {
+  initialState: function (data, schema, language) {
 
+    let unsortedCategories
     switch (Constants.get('dataMode')) {
     case 'dataService': 
-      return DefaultCategoryComputations.initialStateFromCategorySchema(data, schema)
+      unsortedCategories = DefaultCategoryComputations.initialStateFromCategorySchema(data, schema)
+      break
     case 'csvFile': 
-      return DefaultCategoryComputations.initialStateFromCsv(data)
+      unsortedCategories = DefaultCategoryComputations.initialStateFromCsv(data)
+      break
     }
 
+    return DefaultCategoryComputations.sortCategories(data, unsortedCategories, schema, language)
   },
 
 
@@ -169,6 +174,82 @@ const DefaultCategoryComputations = {
     })
 
     return categories
+
+  },
+
+
+  sortCategories: function (data, unsortedCategories, schema, language) {
+
+    let sortedCategories = unsortedCategories
+
+    // Sort categories in these columns by number of items
+    const sizeColumns = [
+      'incidentTypes',
+      'substance',
+      'releaseType',
+      'whatHappened',
+      'whyItHappened',
+      'volumeCategory',
+      'pipelineSystemComponentsInvolved',
+      'status',
+      'pipelinePhase',
+    ]
+    for (const columnName of sizeColumns) {
+      const categoryCountArray = []
+
+      sortedCategories.get(columnName).forEach( (visible, categoryName) => {
+        categoryCountArray.push([categoryName, IncidentComputations.categorySubset(data, columnName, categoryName).count()])
+      })
+
+      const categoryCounts = Immutable.OrderedMap(categoryCountArray)
+
+      // Sort descending, hence the reverse() call
+      // We want a map of categories => visible, not categories => count
+      const sorted = categoryCounts.sort().reverse().map( () => true)
+
+      sortedCategories = sortedCategories.set(columnName, sorted)
+    }
+
+
+    // Sort companies alphabetically
+    let labels
+    if (Constants.get('dataMode') === 'csvFile') {
+      // When using csv files as the source, the category keys are the 
+      // labels
+      labels = sortedCategories.get('company').keySeq()
+    }
+    else {
+      // When using the data service, get the name from the schema for the
+      // current language
+      labels = schema.get('company').map( names => {
+        return names.get(language)
+      })
+    }
+    labels = labels.sort()
+    const sortedCompanies = Immutable.OrderedMap(labels.map( name => {
+      return [name, true]
+    }))
+    sortedCategories = sortedCategories.set('company', sortedCompanies)
+
+
+    // Sort provinces according to a special predefined order
+    const provinceOrder = Constants.getIn(['provinceOrder', Constants.get('dataMode')])
+    const orderedProvinces = Immutable.OrderedMap(
+      provinceOrder.map( provinceName => {
+        return [provinceName, true]
+      }).toArray()
+    )
+    sortedCategories = sortedCategories.set('province', orderedProvinces)
+
+
+    // Sort years chronologically, descending
+    let years = sortedCategories.get('year').keySeq()
+    years = years.sort().reverse()
+    const sorted = Immutable.OrderedMap(years.map( year => [year, true] ))
+    sortedCategories.set('year', sorted)
+
+
+    return sortedCategories
 
   }
 
