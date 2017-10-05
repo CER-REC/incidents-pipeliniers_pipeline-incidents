@@ -39,7 +39,8 @@ class Column extends React.Component {
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
       this.props.columnName,
-      this.props.schema)
+      this.props.schema,
+      this.props.language)
     const categoryHeights = WorkspaceComputations.categoryHeights(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -103,7 +104,10 @@ class Column extends React.Component {
       return <tspan className='barsHeading' 
         key={word}
         x={columnMeasurements.get('x')} 
-        y={currentY}>
+        y={currentY}
+        onMouseDown={this.handleDragStart.bind(this)}
+        onMouseMove={this.handleDragMove.bind(this)}
+        onMouseUp={this.handleDragEnd.bind(this)}>
         {word}
       </tspan>
     })
@@ -174,7 +178,8 @@ class Column extends React.Component {
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
       this.props.columnName,
-      this.props.schema)
+      this.props.schema,
+      this.props.language)
 
     const baselineHeight = WorkspaceComputations.baselineHeight(
       this.props.showEmptyCategories,
@@ -252,8 +257,7 @@ class Column extends React.Component {
       return <SelectedColumnPaths 
         columnName={this.props.columnName}
       />
-    }
-    else {
+    } else {
       return null
     }
   }
@@ -408,7 +412,8 @@ class Column extends React.Component {
     const categoryColours = CategoryComputations.coloursForColumn(
       this.props.data,
       this.props.columnName,
-      this.props.schema)
+      this.props.schema,
+      this.props.language)
 
     const categoryHeights = WorkspaceComputations.sideBarCategoryHeights(
       this.props.columnHeight,
@@ -507,22 +512,22 @@ class Column extends React.Component {
   render() {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
-      return <g>
+      return <g
+        onMouseDown = { this.handleSidebarDragStart.bind(this) }
+        onMouseMove = { this.handleSidebarDragMove.bind(this) }
+        onMouseUp = { this.handleSidebarDragEnd.bind(this) }
+        onMouseEnter = { this.handleMouseEnter.bind(this) }
+        onMouseLeave = { this.handleMouseLeave.bind(this) }
+      >
         <g transform={this.sidebarColumnTransform()}>
           { this.sidebarShadow() }
           <g
             className="sidebar"
             id={this.props.columnName}
-            onMouseDown={this.handleSidebarDragStart.bind(this)}
-            onMouseMove={this.handleSidebarDragMove.bind(this)}
-            onMouseUp={this.handleSidebarDragEnd.bind(this)}
-            onMouseEnter={this.handleMouseEnter.bind(this)}
-            onMouseLeave={this.handleMouseLeave.bind(this)}>
+          >
             {this.sideBarColumn()}
           </g>
-        </g>
-        <g>
-          <text>
+          <text className='Column'>
             { this.sidebarHeading() }
           </text>
         </g>

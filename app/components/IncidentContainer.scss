@@ -1,8 +1,9 @@
+@import '../styles/zIndex.scss';
+
 .incidentContainer {
 
   // NB: necessary to establish stacking context for z-index
   position: relative;
-
-  z-index: 2;
+  z-index: $incident-container-z;
 
 }

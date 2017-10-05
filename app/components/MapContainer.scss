@@ -1,11 +1,10 @@
-
+@import '../styles/zIndex.scss';
 
 .mapContainer {
 
   // NB: necessary to establish stacking context for z-index
   position: relative;
-
-  z-index: 2;
+  z-index: $map-container-z;
 
   .innerContainer {
     position: absolute;
@@ -15,4 +14,9 @@
     display: block;
   }
 
+
+}
+
+.mapContainer.dragged {
+  z-index: $map-container-drag-z;
 }
