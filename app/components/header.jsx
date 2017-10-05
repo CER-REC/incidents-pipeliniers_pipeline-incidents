@@ -12,9 +12,14 @@ require('./Header.scss')
 
 
 class Header extends React.Component {
-
   tellMeAStoryClick() {
-    
+    const scrollOptions = {
+      behavior: 'smooth', 
+      block: 'start', 
+      inline: 'nearest'
+    }
+    document.getElementById(Constants.get('storyBarID'))
+      .scrollIntoView(scrollOptions)
   }
 
   aboutThisProjectClick() {
