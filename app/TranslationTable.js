@@ -12,6 +12,18 @@ const TranslationTable = Immutable.fromJS({
         en: 'images/stories/provinces-and-pipeline-incident-EN.jpg',
         fr: '<TODO>',
       },
+      tutorialImages: {
+        en: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
+        fr: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
+      },
     },
     'how-big-are-most-gas-releases': {
       title: {
@@ -22,6 +34,18 @@ const TranslationTable = Immutable.fromJS({
         en: 'images/stories/how-big-are-most-gas-releases-EN.jpg',
         fr: '<TODO>',
       },
+      tutorialImages: {
+        en: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
+        fr: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
+      },
     },
     'when-do-incidents-usually-occur': {
       title: {
@@ -31,6 +55,18 @@ const TranslationTable = Immutable.fromJS({
       backgroundImage: {
         en: 'images/stories/when-do-incidents-usually-occur-EN.jpg',
         fr: '<TODO>',
+      },
+      tutorialImages: {
+        en: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
+        fr: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
       },
     },
   },
