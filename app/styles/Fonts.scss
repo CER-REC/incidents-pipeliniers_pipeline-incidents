@@ -13,6 +13,8 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
 
 //heading
+// NB: The additional CSS ID here is necessary to overcome some default WET styles which
+// are applied to heading elements.
 .workspace .heading#incidentVisualizationHeading {
   font-family: $fira-sans-extra-condensed-semibold;
   font-size: 22px;
