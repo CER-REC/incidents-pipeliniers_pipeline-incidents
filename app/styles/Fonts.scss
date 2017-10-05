@@ -13,12 +13,17 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
 
 //heading
-.heading {
+// NB: The additional CSS ID here is necessary to overcome some default WET styles which
+// are applied to heading elements.
+.workspace .heading#incidentVisualizationHeading {
   font-family: $fira-sans-extra-condensed-semibold;
   font-size: 22px;
   fill: $black;
   margin: 0.5em 0 0 0;
   padding: 0;
+
+  // WET Override
+  border: none;
 }
 
 //subheading and incident popover text
