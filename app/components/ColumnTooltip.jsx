@@ -18,14 +18,14 @@ class ColumnTooltip extends React.Component {
   title() {
     return <p
       className='PopupHeading'>
-      COMPANY
+      {Tr.getIn(['tooltips', this.props.columnTooltip.get('columnName'), 'title', this.props.language])}
     </p>
   }
 
   description() {
     return <p
       className='PopupOverview'>
-      There are 39 companies that NEB deals with.
+      {Tr.getIn(['tooltips', this.props.columnTooltip.get('columnName'), 'description', this.props.language])}
     </p>
   }
 
@@ -33,16 +33,22 @@ class ColumnTooltip extends React.Component {
     return <hr className='separator'/>
   }
 
+  listSymbol(item) {
+    let sym = '+'
+    if(item.get('expanded') === null) sym = ''
+    return <span
+      className='PopupPlusSign'>
+      {sym}
+    </span>
+  }
+
   listText() {
-    const items = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
+    const items = Tr.getIn(['tooltips', this.props.columnTooltip.get('columnName'), 'detail', this.props.language])
     return items.map(item => {
       return <p style={{marginBottom:'-10px'}}>
-        <span
-          className='PopupPlusSign'>
-          + 
-        </span>
+        {this.listSymbol(item)}
         <span className='PopupText'>
-         Test
+          {item.get('overview')}
         </span>
       </p>
     })
@@ -60,9 +66,11 @@ class ColumnTooltip extends React.Component {
       this.props.data,
       this.props.columns,
       this.props.categories)
-      .getIn(['columns', 'province'])
 
-    return columnMeasurements.get('x')
+    if(this.props.columnTooltip.get('columnName') === 'pinColumn')
+      return columnMeasurements.get('pinColumn').get('x')
+    else
+      return columnMeasurements.getIn(['columns', this.props.columnTooltip.get('columnName')]).get('x')
   }
 
   tooltipStyle() {
@@ -73,6 +81,9 @@ class ColumnTooltip extends React.Component {
   }
 
   render() {
+    // Only render if a tooltip has been summoned
+    if(!this.props.columnTooltip.get('isActive')) return null
+
     return <div 
       className='tooltip'
       style={this.tooltipStyle()}>
@@ -94,6 +105,7 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    columnTooltip: state.columnTooltip,
   }
 }
 

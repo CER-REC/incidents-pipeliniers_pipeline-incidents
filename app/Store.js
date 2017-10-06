@@ -23,6 +23,7 @@ const HoveredIncidentReducer = require('./reducers/HoveredIncidentReducer.js')
 const ShowIncidentListReducer = require('./reducers/ShowIncidentListReducer.js')
 const StoryReducer = require('./reducers/StoryReducer.js')
 const DisclaimerReducer = require('./reducers/DisclaimerReducer.js')
+const ColumnTooltipReducer = require('./reducers/ColumnTooltipReducer.js')
 
 const RouterMiddleware = require('./RouterMiddleware.js')
 
@@ -49,6 +50,7 @@ const reducers = Redux.combineReducers({
   showIncidentList: ShowIncidentListReducer,
   story: StoryReducer,
   disclaimer: DisclaimerReducer,
+  columnTooltip: ColumnTooltipReducer,
 })
 
 module.exports = function () {

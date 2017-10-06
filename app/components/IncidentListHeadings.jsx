@@ -5,6 +5,10 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 const IncidentComputations = require('../IncidentComputations.js')
+const StringComputations = require('../StringComputations.js')
+const ColumnTooltipSummonedCreator = require('../actionCreators/ColumnTooltipSummonedCreator.js')
+
+require('./IncidentListHeadings.scss')
 
 class IncidentListHeadings extends React.Component {
 
@@ -77,6 +81,37 @@ class IncidentListHeadings extends React.Component {
 
   }
 
+  questionMark() {
+    const columnName = 'pinColumn'
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories
+    ).get(columnName)
+
+    let isActive = 'inactive'
+    if(this.props.columnTooltip.get('isActive') &&
+      this.props.columnTooltip.get('columnName') === columnName) 
+      isActive = 'active'
+
+    return <image 
+      className={'questionMark ' + isActive}
+      xlinkHref="images/large_qmark.svg" 
+      width={Constants.getIn(['questionMark', 'size'])} 
+      height={Constants.getIn(['questionMark', 'size'])} 
+      x={columnMeasurements.get('x') + 
+        StringComputations.questionMarkOffset(Tr.getIn(['columnHeadings', columnName, this.props.language]), 12)} 
+      y={WorkspaceComputations.topBarHeight() + 
+        Constants.getIn(['questionMark', 'yOffset'])}
+      onClick={this.questionMarkClick.bind(this)}/>
+  }
+
+  questionMarkClick() {
+    this.props.onQuestionMarkClick('pinColumn')
+  }
+
   render() {
 
     return <g>
@@ -84,6 +119,7 @@ class IncidentListHeadings extends React.Component {
         { this.incidentHeadingLabel() }
         { this.incidentCountLabel() }
       </text>
+      {this.questionMark()}
     </g>
     
   }
@@ -100,7 +136,16 @@ const mapStateToProps = state => {
     categories: state.categories,
     filterboxActivationState: state.filterboxActivationState,
     language: state.language,
+    columnTooltip: state.columnTooltip,
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(IncidentListHeadings)
+const mapDispatchToProps = dispatch => {
+  return {
+    onQuestionMarkClick: (columnName) => {
+      dispatch(ColumnTooltipSummonedCreator(columnName))
+    },
+  }
+}
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentListHeadings)

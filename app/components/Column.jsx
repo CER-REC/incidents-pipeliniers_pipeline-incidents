@@ -17,6 +17,7 @@ const DragSidebarColumnStartedCreator = require('../actionCreators/DragSidebarCo
 const DragSidebarColumnEndedCreator = require('../actionCreators/DragSidebarColumnEndedCreator.js')
 const DragSidebarColumnCreator = require('../actionCreators/DragSidebarColumnCreator.js')
 const AddColumnAtPositionCreator = require('../actionCreators/AddColumnAtPositionCreator.js')
+const ColumnTooltipSummonedCreator = require('../actionCreators/ColumnTooltipSummonedCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
 const SelectedColumnPaths = require('./SelectedColumnPaths.jsx')
 const Category = require('./Category.jsx')
@@ -122,15 +123,25 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
+    let isActive = 'inactive'
+    if(this.props.columnTooltip.get('isActive') &&
+      this.props.columnTooltip.get('columnName') === this.props.columnName) 
+      isActive = 'active'
+
     return <image 
-      className="questionMark inactive"
+      className={'questionMark ' + isActive}
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 
       x={columnMeasurements.get('x') + 
         StringComputations.questionMarkOffset(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12)} 
       y={WorkspaceComputations.topBarHeight() + 
-        Constants.getIn(['questionMark', 'yOffset'])}/>
+        Constants.getIn(['questionMark', 'yOffset'])}
+      onClick={this.questionMarkClick.bind(this)}/>
+  }
+
+  questionMarkClick() {
+    this.props.onQuestionMarkClick(this.props.columnName)
   }
 
   barSubHeading() {
@@ -593,6 +604,7 @@ const mapStateToProps = state => {
     sidebarDragStatus: state.sidebarDragStatus,
     sidebarColumnHover: state.sidebarColumnHover,
     schema: state.schema,
+    columnTooltip: state.columnTooltip,
   }
 }
 
@@ -630,7 +642,10 @@ const mapDispatchToProps = dispatch => {
     },
     onSidebarColumnSnap: (columnName, oldX, newX, viewport) => {
       dispatch(AddColumnAtPositionCreator(columnName, oldX, newX, viewport))
-    }
+    },
+    onQuestionMarkClick: (columnName) => {
+      dispatch(ColumnTooltipSummonedCreator(columnName))
+    },
   }
 }
 
