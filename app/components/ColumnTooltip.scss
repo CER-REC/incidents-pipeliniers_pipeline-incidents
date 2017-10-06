@@ -1,0 +1,15 @@
+@import "../styles/Colours.scss";
+@import '../styles/zIndex.scss';
+
+.tooltip {
+  position:absolute; 
+  z-index:$column-tooltip; 
+  min-width:322px;
+  max-width:322px;
+  min-height:110px;
+  max-height:342px;
+  overflow:scroll;
+  border:1px solid #ccc;
+  background-color: #fff;
+  opacity: 1;
+}

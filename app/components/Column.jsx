@@ -113,6 +113,26 @@ class Column extends React.Component {
     })
   }
 
+  questionMark() {
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columns', this.props.columnName])
+
+    return <image 
+      className="questionMark inactive"
+      xlinkHref="images/large_qmark.svg" 
+      width={Constants.getIn(['questionMark', 'size'])} 
+      height={Constants.getIn(['questionMark', 'size'])} 
+      x={columnMeasurements.get('x') + 
+        StringComputations.questionMarkOffset(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12)} 
+      y={WorkspaceComputations.topBarHeight() + 
+        Constants.getIn(['questionMark', 'yOffset'])}/>
+  }
+
   barSubHeading() {
     // Only render the sub-heading if filters are on.
     if(!CategoryComputations.columnFiltered(this.props.categories, this.props.columnName)) {
@@ -538,10 +558,13 @@ class Column extends React.Component {
       return <g
         transform={this.columnTransform()}
       >
-        <text>
-          {this.barHeading()}
-          {this.barSubHeading()}
-        </text>
+        <g>
+          <text>
+            {this.barHeading()}
+            {this.barSubHeading()}
+          </text>
+          {this.questionMark()}
+        </g>
         { this.columnPaths() }
         { this.selectedColumnPaths() }
         <SelectedIncidentPaths 

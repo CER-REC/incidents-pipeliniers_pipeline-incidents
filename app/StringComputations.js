@@ -41,6 +41,13 @@ const StringComputations = {
 
   },
 
+  questionMarkOffset(label, charLimit) {
+    const firstLine = StringComputations.splitHeading(label, charLimit)[0]
+    return (firstLine.length * 
+      Constants.getIn(['questionMark', 'pixelsPerCharacter'])) + 
+      Constants.getIn(['questionMark', 'xOffset'])
+  },
+
   splitHeading(label, charLimit = Constants.get('categoryLabelLineLength')) {
 
     // Split the label at every space and dash
