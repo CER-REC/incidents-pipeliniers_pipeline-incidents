@@ -237,6 +237,8 @@ const RouteComputations = {
   // of the visualization, and also encode it for use as a URL parameter itself.
   // The server will make the request of localhost, we only need to construct
   // the remainder of the path
+  // NB: Location.pathname includes the leading slash in the url, e.g.:
+  // In 'foo.com/bar', pathname is '/bar'
   screenshotParameter: function(location) {
     return encodeURIComponent(`${location.pathname}screenshot${location.search}`)
   },

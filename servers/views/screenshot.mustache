@@ -1,5 +1,6 @@
 
 <head>
+  <!-- NB: Do NOT add anything to this file which could cause it to make a network request for a resource that is not on the app server. Fonts, images, WET stylesheets, or anything else. The screenshot server is firewalled, and it will wait to timeout for every resource it can't load.  -->
   <meta charset="utf-8">
 
   <style type="text/css">
@@ -14,11 +15,7 @@
 
 <body>
 
-  {{! <main role="main" property="mainContentOfPage" class="container"> }}
-
-    {{> app_body }}
-
-  {{! </main> }}
+  {{> app_body }}
 
 </body>
 </html>
