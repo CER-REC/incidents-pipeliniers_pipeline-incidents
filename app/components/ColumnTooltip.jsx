@@ -16,52 +16,35 @@ class ColumnTooltip extends React.Component {
   }
 
   title() {
-    return  <text
-      className='PopupHeading'
-      x={Constants.getIn(['columnTooltip', 'leftMargin'])}
-      y={Constants.getIn(['columnTooltip', 'titleTopMargin'])}>
+    return <p
+      className='PopupHeading'>
       COMPANY
-    </text>
+    </p>
   }
 
   description() {
-    return <text
-      className='PopupOverview'
-      x={Constants.getIn(['columnTooltip', 'leftMargin'])}
-      y={Constants.getIn(['columnTooltip', 'descriptionTopMargin'])}>
+    return <p
+      className='PopupOverview'>
       There are 39 companies that NEB deals with.
-    </text>
+    </p>
   }
 
   separator() {
-    return <line
-      stroke='#000'
-      strokeWidth='0.5'
-      x1={Constants.getIn(['columnTooltip', 'leftMargin'])}
-      y1={Constants.getIn(['columnTooltip', 'separatorLineY'])}
-      x2={Constants.getIn(['columnTooltip', 'separatorLineRightMargin'])}
-      y2={Constants.getIn(['columnTooltip', 'separatorLineY'])}/>
+    return <hr className='separator'/>
   }
 
   listText() {
     const items = [1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10]
-    let initialY = 44
     return items.map(item => {
-      initialY += 14
-      return <g>
-        <text
-          className='PopupPlusSign'
-          x={10}
-          y={initialY}>
-          +
-        </text>
-        <text 
-          className='PopupText'
-          x={24}
-          y={initialY - 3}>
-          2193914 Canada Limited
-        </text>           
-      </g>
+      return <p style={{marginBottom:'-10px'}}>
+        <span
+          className='PopupPlusSign'>
+          + 
+        </span>
+        <span className='PopupText'>
+         Test
+        </span>
+      </p>
     })
   }
 
@@ -89,24 +72,16 @@ class ColumnTooltip extends React.Component {
     }
   }
 
-  svgHeight() {
-    return 604
-  }
-
   render() {
     return <div 
       className='tooltip'
       style={this.tooltipStyle()}>
-      <svg 
-        x={this.tooltipX()} 
-        y={this.tooltipY()}
-        width={Constants.getIn(['columnTooltip', 'width'])}
-        height={this.svgHeight()}>
-        {this.title()}
-        {this.description()}
-        {this.separator()}
+      {this.title()}
+      {this.description()}
+      {this.separator()}
+      <div className='listContainer'>
         {this.listText()}
-      </svg>
+      </div>
     </div>
   }
 }

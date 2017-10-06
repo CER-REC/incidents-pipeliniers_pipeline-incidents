@@ -122,7 +122,7 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   font-size: 10pt;
   font-weight: bold;
   fill: $black;
-  margin: 0.5em 0 0 0;
+  margin: 0.5em 0 0 10px;
   padding: 0;
 
   // WET Override
@@ -134,7 +134,7 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   font-size: 9pt;
   font-weight: bold;
   fill: $black;
-  margin: 0.5em 0 0 0;
+  margin: -3px 0 0 10px;
   padding: 0;
 
   // WET Override
@@ -146,6 +146,7 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   font-weight: bold;
   font-size: 20px;
   color: $black;
+  margin-right: 4px;
 }
 
 .PopupText {
@@ -153,4 +154,7 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   font-weight: bold;
   font-size: 12px;
   color: $black;
+  position: relative;
+  bottom: 3px;
+
 }

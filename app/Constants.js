@@ -412,7 +412,6 @@ const Constants = Immutable.fromJS({
     descriptionTopMargin: 35,
 
     separatorLineY: 42,
-    separatorLineRightMargin: 312,
   },
 
 })
