@@ -26,6 +26,14 @@ class IncidentListHeadings extends React.Component {
 
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
+
+    if(this.props.language === 'fr') {
+      return <tspan className='barsHeading' 
+        x = { columnMeasurements.get('x') }
+        y = { y - Constants.get('columnHeadingHeightFr')}
+      >INCIDENTS</tspan>
+    }
+
     return <tspan className='barsHeading' 
       x = { columnMeasurements.get('x') }
       y = { y }

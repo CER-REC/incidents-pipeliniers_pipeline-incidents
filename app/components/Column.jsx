@@ -99,6 +99,21 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
+    if(this.props.language === 'fr') {
+      return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
+        currentY += Constants.get('columnHeadingLineOffset')
+        return <tspan className='barsHeading' 
+          key={word}
+          x={columnMeasurements.get('x')} 
+          y={currentY - Constants.get('columnHeadingHeightFr')}
+          onMouseDown={this.handleDragStart.bind(this)}
+          onMouseMove={this.handleDragMove.bind(this)}
+          onMouseUp={this.handleDragEnd.bind(this)}>
+          {word}
+        </tspan>
+      })
+    }
+
     return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
       currentY += Constants.get('columnHeadingLineOffset')
       return <tspan className='barsHeading' 
