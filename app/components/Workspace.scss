@@ -1,19 +1,36 @@
 @import "../styles/Colours.scss";
+@import '../styles/zIndex.scss';
 
 .workspace {
-  // This places scrollbar chrome below the visualization, at all times. As an
-  // option, we could program the workspace to not set the style that enables
-  // scrolling unless we detect that the displayed data is large enough to
-  // warrant it, which would let us hide the chrome some of the time.
 
-  overflow-x: scroll;
-
-  // NB: necessary to establish stacking context for z-index
+  // Position relative is important for sizing of heading elements
   position: relative;
+  margin-bottom: 50px;
+
+  .workspaceClipContainer {
+    overflow-x: hidden;
+  }
+
+  .workspaceScrollPane {
+    // This places scrollbar chrome below the visualization, at all times. As an
+    // option, we could program the workspace to not set the style that enables
+    // scrolling unless we detect that the displayed data is large enough to
+    // warrant it, which would let us hide the chrome some of the time.
+    overflow-x: scroll;
+  }
+
+  .workspaceOverlay {
+    position: absolute;
+    z-index: $workspace-overlay-z;
+    width: 100%;
+  }
 
   .workspaceSvg {
-    z-index: 1;
+    // NB: necessary to establish stacking context for z-index
+    position: relative;
+    z-index: $workspace-z;
   }
+
 
 }
 
@@ -23,7 +40,7 @@
   position: relative;
 
   .workspaceSvg {
-    z-index: 1;
+    z-index: $workspace-z;
   }
 
 }

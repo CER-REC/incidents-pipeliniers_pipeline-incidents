@@ -223,7 +223,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onShowOnlyClick: (columnName, categoryName) => {
-      dispatch(HideFilterboxCreator())
       dispatch(DeactivateAllCategoriesExceptOneCreator(columnName, categoryName))
     },
     onHideClick: (columnName, categoryName) => {

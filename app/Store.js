@@ -22,7 +22,8 @@ const IncidentListScrollPositionReducer = require('./reducers/IncidentListScroll
 const SelectedIncidentsReducer = require('./reducers/SelectedIncidentsReducer.js')
 const HoveredIncidentReducer = require('./reducers/HoveredIncidentReducer.js')
 const ShowIncidentListReducer = require('./reducers/ShowIncidentListReducer.js')
-
+const StoryReducer = require('./reducers/StoryReducer.js')
+const DisclaimerReducer = require('./reducers/DisclaimerReducer.js')
 
 const RouterMiddleware = require('./RouterMiddleware.js')
 
@@ -48,6 +49,8 @@ const reducers = Redux.combineReducers({
   selectedIncidents: SelectedIncidentsReducer,
   hoveredIncident: HoveredIncidentReducer,
   showIncidentList: ShowIncidentListReducer,
+  story: StoryReducer,
+  disclaimer: DisclaimerReducer,
 })
 
 module.exports = function () {

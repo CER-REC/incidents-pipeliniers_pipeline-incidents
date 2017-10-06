@@ -5,6 +5,7 @@ const Header = require('./header.jsx')
 const EmptyCategories = require('./EmptyCategories.jsx')
 const IncidentListShowHide = require('./IncidentListShowHide.jsx')
 const SocialBar = require('./SocialBar.jsx')
+const Disclaimer = require('./Disclaimer.jsx')
 
 require('./Workspace.scss')
 
@@ -16,6 +17,8 @@ const MapContainer = require('./MapContainer.jsx')
 const Constants = require('../Constants.js')
 const IncidentListHeadings = require('./IncidentListHeadings.jsx')
 const IncidentContainer = require('./IncidentContainer.jsx')
+const StoryBar = require('./StoryBar.jsx')
+const StoryWindow = require('./StoryWindow.jsx')
 
 class Workspace extends React.Component {
 
@@ -100,23 +103,51 @@ class Workspace extends React.Component {
       this.props.columns,
       this.props.categories)
 
+    const scrollPaneWidth = this.props.viewport.get('x') - 
+      Constants.getIn(['socialBar', 'width']) -
+      Constants.getIn(['socialBar', 'leftMargin'])
 
-    return <div>
-      <div className = { this.workspaceClass() } >
-        { this.mapContainer() }
-        { this.incidentListHtml() }
-        <svg 
-          className = 'workspaceSvg'
-          width = { horizontalPositions.getIn(['workspace', 'width']) }
-          height = { horizontalPositions.getIn(['workspace', 'height']) }
-        >
-          <Header />
-          { this.incidentListSvg() }
-          <SideBar/>
-          { this.columns() }
-          { this.socialbar() }
-        </svg>
+
+    const clipContainerStyle = {
+      width: `${scrollPaneWidth}px`
+    }
+
+    const workspaceStyle = {
+      width: this.props.viewport.get('x'),
+      height: this.props.viewport.get('y'),
+    }
+
+    return <div className = { this.workspaceClass() } style = { workspaceStyle }>
+      <div 
+        className = 'workspaceOverlay'
+        style = { {height: `${Constants.getIn(['topBar', 'height'])}px`} }
+      >
+        <Header />
+        <SocialBar/>
       </div>
+
+      <div
+        className = 'workspaceClipContainer'
+        style = { clipContainerStyle }
+      >
+        <div
+          className = 'workspaceScrollPane'>
+          { this.mapContainer() }
+          { this.incidentListHtml() }
+          <svg 
+            className = 'workspaceSvg'
+            width = { horizontalPositions.getIn(['workspace', 'width']) }
+            height = { horizontalPositions.getIn(['workspace', 'height']) }>
+            { this.incidentListSvg() }
+
+            <SideBar/>
+            {this.columns()}
+          </svg>
+        </div>
+      </div>
+      <StoryWindow/>
+      <StoryBar/>
+      <Disclaimer/>
     </div>
   }
 }

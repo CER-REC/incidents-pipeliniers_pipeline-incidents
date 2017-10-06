@@ -17,6 +17,29 @@ const Constants = Immutable.fromJS({
     emptyCategoryOffsetRatio: 0.06,
   },
 
+  storyThumbnailDimensions: {
+    widthPercentage: 0.32,
+    heightPercentage: 0.21,
+    borderStroke: 1,
+    titleBackgroundWidth: '100%',
+    titleBackgroundHeight: '43%',
+    titleBackgroundYOffset: 0.57,
+    iconOffset: 50,
+
+    windowYOffset: 25,
+    windowShadowOffset: 10,
+    windowCloseButtonSize: 30,
+    windowCloseButtonOffset: 15,
+  },
+
+  stories: {
+    firstRow: {
+      leftStory: 'provinces-and-pipeline-incident',
+      middleStory: 'how-big-are-most-gas-releases',
+      rightStory: 'when-do-incidents-usually-occur',
+    },
+  },
+
   // All in px
   leftOuterMargin: 5,
   topOuterMargin: 5,
@@ -28,7 +51,7 @@ const Constants = Immutable.fromJS({
     headerIconWidth: 18,
     headerIconHeight: 20,
     width: 860,
-    height: 100,
+    height: 120,
     xHeading: 35,
     yHeading: 18,
     xSubpop: 35,
@@ -90,7 +113,14 @@ const Constants = Immutable.fromJS({
   },
 
   headerBar: {
-    height: 47,
+    // top and bottom spacing of 3px plus 23px for 4 icons
+    height: 3 * 2 + 23 * 4,
+    // 16px of height + 7px of vertical spacing between icons
+    tellMeAStoryHeight: 3,
+    aboutThisProjectHeight: 26,
+    methodologyHeight: 49,
+    resetAllHeight: 72,
+    headerLabelFontSize: 13,
   },
 
   socialBar: {
@@ -99,6 +129,7 @@ const Constants = Immutable.fromJS({
     iconSize: 16,
     leftMargin: 5,
     iconSideMargin: 3.5,
+    // 16px of height + 7px of vertical spacing between icons
     emailIconPadding: 3,
     facebookIconPadding: 26,
     linkedinIconPadding: 49,
@@ -108,6 +139,16 @@ const Constants = Immutable.fromJS({
     downloadIconPadding: 128,
   },
 
+  disclaimer: {
+    windowMaxWidth: 700,
+    windowMinWidth: 400,
+    textMaxWidth: 635,
+    textMinWidth: 335,
+    disclaimerWorkspaceRatio: 0.75,
+    closeButtonSize: 10,
+    closeButtonRightMargin: 30,
+    closeButtonTopMargin:10,
+  },
 
   maxColumnsWithoutScroll: 5,
 
@@ -115,16 +156,16 @@ const Constants = Immutable.fromJS({
   maxColumnsWithoutScrollWithMap: -1,
 
   columnNames: [
+    'status',
+    'pipelinePhase',
     'incidentTypes',
     'year',
     'company',
-    'status',
     'province',
     'substance',
     'releaseType',
     'whatHappened',
     'whyItHappened',
-    'pipelinePhase',
     'volumeCategory',
     'pipelineSystemComponentsInvolved',
     'map',
@@ -165,7 +206,7 @@ const Constants = Immutable.fromJS({
     defaultColumn: '#ccc',
     columnHovered: '#666666',
     notColumnHovered: '#e6e6e6',
-
+    lastColumnOpacity: 0.3,
   },
 
   filterbox: {
@@ -263,9 +304,7 @@ const Constants = Immutable.fromJS({
   emptyCategoryHeight: 20, // px
   
   map: {
-    widthHeightRatio: 500 / 450,
-    // widthHeightRatio: 510 / 375,
-    // widthHeightRatio: 410 / 375,
+    widthHeightRatio: 550 / 450,
     
     // NB: Must match dimensions of canada.svg
     coordinateSpace: {
@@ -302,6 +341,7 @@ const Constants = Immutable.fromJS({
   categoryDefaultOpacity: 1,
   categoryFadeOpacity: 0.4,
   categoryStrokeWidth: 1,
+  categorySelectionStrokeWidth: 2,
   categoryDefaultStrokeColour: '#ffffff',
   categoryHoverStrokeColour: '#000000',
 
@@ -347,6 +387,20 @@ const Constants = Immutable.fromJS({
 
   },
 
+
+  // This is the order we are to use for display of provinces.
+  // It's not clear where exactly this order comes from, my guess is that it is
+  // the result of an Object.keys() call on a provinces category object 
+  // somewhere, but we have been asked to preserve this order going forward!
+
+  provinceOrder: {
+    dataService: [
+      '7', '10', '4', '5', '3', '6', '9', '13', '1', '8', '12', '2', '11'
+    ],
+    csvFile: [
+      'NS','PE','NB','NL','MB','NT','ON','YT','AB','NU','SK','BC','QC'
+    ],
+  },
 
 })
 

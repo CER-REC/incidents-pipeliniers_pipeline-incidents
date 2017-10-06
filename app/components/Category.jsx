@@ -244,6 +244,18 @@ class Category extends React.Component {
     }
   }
 
+  strokeWidth() {
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'WORKSPACE'])) {
+      return null
+    }
+    if (this.filterboxActive()) {
+      return Constants.get('categorySelectionStrokeWidth') 
+    } 
+    else {
+      return Constants.get('categoryStrokeWidth') 
+    }
+  }
+
   render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
     
@@ -268,7 +280,7 @@ class Category extends React.Component {
           fill={this.props.colour}
           onClick = { this.categoryLabelClick.bind(this) }
           stroke={this.strokeColour()}
-          strokeWidth={Constants.get('categoryStrokeWidth')}
+          strokeWidth={ this.strokeWidth() }
           className = 'categoryRect'
           ref={ (element) => this.rect = element }
         />

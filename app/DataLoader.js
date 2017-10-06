@@ -162,7 +162,11 @@ function afterLoad (store, data) {
     store.dispatch(DataLoadedCreator(data))
 
     let state = store.getState()
-    const categories = DefaultCategoryComputations.initialState(state.data, state.schema)
+    const categories = DefaultCategoryComputations.initialState(
+      state.data,
+      state.schema,
+      state.language
+    )
     store.dispatch(SetInitialCategoryStateCreator(categories))
 
     state = store.getState()

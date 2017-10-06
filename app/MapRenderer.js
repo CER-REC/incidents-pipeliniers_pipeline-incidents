@@ -225,7 +225,7 @@ const RenderRoutines = {
     if (props.hoveredIncident === incident){
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
-    else if (props.pinnedIncidents.contains(incident)) {
+    else if (props.selectedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -242,7 +242,7 @@ const RenderRoutines = {
     if (props.hoveredIncident === incident){
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
-    else if (props.pinnedIncidents.contains(incident)) {
+    else if (props.selectedIncidents.contains(incident)) {
       return Constants.getIn(['map', 'selectedLightGrey'])
     }
     else {
@@ -686,7 +686,7 @@ const RenderRoutines = {
       return true
     }
 
-    if (props.pinnedIncidents.contains(incident)) {
+    if (props.selectedIncidents.contains(incident)) {
       return true
     }
 
@@ -719,7 +719,7 @@ const RenderRoutines = {
     // happens to be next to the map
     // TODO: Convince the team that we should have a 'not applicable' category
     // for system components so that this is not necessary!
-    const colour = CategoryComputations.coloursForColumn(props.data, columnName, props.schema).get(category) || '#444'
+    const colour = CategoryComputations.coloursForColumn(props.data, columnName, props.schema, props.language).get(category) || '#444'
 
     if (RenderRoutines.incidentHasFocus(incident, props)) {
       return colour
