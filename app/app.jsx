@@ -59,7 +59,7 @@ function resizeScreenHandler () {
   let h
 
   if (store.getState().screenshotMode) {
-    h = Constants.get('screenshotHeight')
+    h = Constants.get('screenshotHeight') - Constants.getIn(['topBar', 'height'])
   }
   else {
     h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])

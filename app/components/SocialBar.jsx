@@ -57,10 +57,11 @@ class SocialBar extends React.Component {
   }
 
   downloadFileClick() {
-    const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
+    const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     window.open(`${appRoot}data/2017-09-13 ERS TEST-joined.csv`, 'data:text/csv;charset=utf-8,data/' + escape())  }
 
   downloadImageClick() {
+
 
     const horizontalPositions = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories, 
@@ -80,6 +81,9 @@ class SocialBar extends React.Component {
 
 
   render() {
+    if (this.props.screenshotMode === true) {
+      return null
+    }
 
     const iconSize = Constants.getIn(['socialBar', 'iconSize'])
 
@@ -157,6 +161,12 @@ class SocialBar extends React.Component {
 const mapStateToProps = state => {
   return {
     viewport: state.viewport,
+    screenshotMode: state.screenshotMode,
+    data: state.data, 
+    columns: state.columns, 
+    categories: state.categories,
+    showEmptyCategories: state.showEmptyCategories,
+    language: state.language,
   }
 }
 

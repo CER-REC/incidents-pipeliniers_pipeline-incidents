@@ -78,6 +78,18 @@ class Workspace extends React.Component {
     }
   }
 
+  storyContent() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+
+    return <div>
+      <StoryWindow/>
+      <StoryBar/>
+      <Disclaimer/>
+    </div>
+  }
+
   workspaceClass() {
     if (!this.props.screenshotMode) {
       return 'workspace'
@@ -145,9 +157,7 @@ class Workspace extends React.Component {
           </svg>
         </div>
       </div>
-      <StoryWindow/>
-      <StoryBar/>
-      <Disclaimer/>
+      { this.storyContent() }
     </div>
   }
 }
