@@ -4,17 +4,11 @@ const ReactRedux = require('react-redux')
 
 require('./ColumnTooltip.scss')
 
-const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
-const DisclaimerDismissedCreator = require('../actionCreators/DisclaimerDismissedCreator.js')
+const ColumnTooltipListItem = require('./ColumnTooltipListItem.jsx')
 
 class ColumnTooltip extends React.Component {
-
-  closeButtonClick() {
-    this.props.disclaimerDismissed()
-  }
-
   title() {
     return <p
       className='PopupHeading'>
@@ -45,12 +39,7 @@ class ColumnTooltip extends React.Component {
   listText() {
     const items = Tr.getIn(['tooltips', this.props.columnTooltip.get('columnName'), 'detail', this.props.language])
     return items.map(item => {
-      return <p style={{marginBottom:'-10px'}}>
-        {this.listSymbol(item)}
-        <span className='PopupText'>
-          {item.get('overview')}
-        </span>
-      </p>
+      return <ColumnTooltipListItem item={item} columnName={this.props.columnTooltip.get('columnName')}/>
     })
   }
 
@@ -84,20 +73,8 @@ const mapStateToProps = state => {
   return {
     language: state.language,
     viewport: state.viewport,
-    showEmptyCategories: state.showEmptyCategories,
-    data: state.data,
-    columns: state.columns,
-    categories: state.categories,
     columnTooltip: state.columnTooltip,
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    disclaimerDismissed: () => {
-      dispatch(DisclaimerDismissedCreator())
-    }
-  }
-}
-
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(ColumnTooltip)
+module.exports = ReactRedux.connect(mapStateToProps)(ColumnTooltip)

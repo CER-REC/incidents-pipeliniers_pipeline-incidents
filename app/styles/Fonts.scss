@@ -157,3 +157,22 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   position: relative;
   bottom: 3px;
 }
+
+.PopupText_Active {
+  font-family: $fira-sans-extra-condensed;
+  font-weight: bold;
+  font-size: 12px;
+  color: $black;
+  position: relative;
+  bottom: 3px;  
+}
+
+.PopupDetailText {
+  font-family: $fira-sans-extra-condensed;
+  font-weight: bold;
+  font-size: 12px;
+  color: $black;
+  position: relative;
+  bottom: 3px;
+  display: block;
+}
