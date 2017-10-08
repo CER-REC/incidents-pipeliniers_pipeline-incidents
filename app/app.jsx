@@ -12,6 +12,9 @@ const Store = require('./Store.js')
 const DataLoader = require('./DataLoader.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
+const StoryDismissedCreator = require('./actionCreators/StoryDismissedCreator.js')
+const ColumnTooltipDetailClickCreator = require('./actionCreators/ColumnTooltipDetailClickCreator.js')
+const ColumnTooltipDismissedCreator = require('./actionCreators/ColumnTooltipDismissedCreator.js')
 
 
 const store = Store()
@@ -37,6 +40,7 @@ DomReady( () => {
 
   resizeScreenHandler()
   window.addEventListener('resize', resizeScreenHandler)
+  window.addEventListener('click', windowClickHandler)
 
   const app = <ReactRedux.Provider store={store}>
     <Root />
@@ -52,6 +56,12 @@ function resizeScreenHandler () {
   store.dispatch(Resized(w,h))
 }
 
+// Handles closing any open tooltips.
+function windowClickHandler () {
+  store.dispatch(StoryDismissedCreator())
+  store.dispatch(ColumnTooltipDismissedCreator())
+  store.dispatch(ColumnTooltipDetailClickCreator(null, null))
+}
 
 function locationChangeHandler (location, action) {
 

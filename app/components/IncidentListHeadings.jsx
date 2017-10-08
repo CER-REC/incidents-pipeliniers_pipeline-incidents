@@ -109,7 +109,9 @@ class IncidentListHeadings extends React.Component {
       onClick={this.questionMarkClick.bind(this)}/>
   }
 
-  questionMarkClick() {
+  questionMarkClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
     this.props.onQuestionMarkClick('pinColumn')
   }
 

@@ -11,7 +11,9 @@ const ColumnTooltipDetailClickCreator = require('../actionCreators/ColumnTooltip
 
 class ColumnTooltipListItem extends React.Component {
 
-  detailClick() {
+  detailClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
     this.props.onDetailClicked(this.props.columnName, this.props.item.get('overview'))
   }
 

@@ -141,7 +141,9 @@ class Column extends React.Component {
       onClick={this.questionMarkClick.bind(this)}/>
   }
 
-  questionMarkClick() {
+  questionMarkClick(e) {
+    e.stopPropagation(e)
+    e.preventDefault(e)
     this.props.onQuestionMarkClick(this.props.columnName)
   }
 

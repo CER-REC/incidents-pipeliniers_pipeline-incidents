@@ -39,7 +39,10 @@ class ColumnTooltip extends React.Component {
   listText() {
     const items = Tr.getIn(['tooltips', this.props.columnTooltip.get('columnName'), 'detail', this.props.language])
     return items.map(item => {
-      return <ColumnTooltipListItem item={item} columnName={this.props.columnTooltip.get('columnName')}/>
+      return <ColumnTooltipListItem
+        key={item.get('overview')} 
+        item={item} 
+        columnName={this.props.columnTooltip.get('columnName')}/>
     })
   }
 
