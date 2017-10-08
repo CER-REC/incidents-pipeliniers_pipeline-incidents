@@ -7,6 +7,11 @@ const TranslationTable = Immutable.fromJS({
     fr: 'data/Incident Data Methodology_FR.pdf',
   },
 
+  learnMoreLinks: {
+    en: 'neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
+    fr: 'neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
+  },
+
   stories: {
     'provinces-and-pipeline-incident': {
       title: {

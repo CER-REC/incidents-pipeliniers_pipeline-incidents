@@ -52,7 +52,7 @@ class Header extends React.Component {
         <a onClick = {this.disclaimerClick.bind(this)}>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
       </p>
       <p className = 'subpop'>
-        <a href="#">{Tr.getIn(['learnMore', this.props.language])}</a>
+        <a href={Tr.getIn(['learnMoreLinks', this.props.language])}>{Tr.getIn(['learnMore', this.props.language])}</a>
         {Tr.getIn(['dataCollectionSubheading', this.props.language])}
       </p>
     </div>
