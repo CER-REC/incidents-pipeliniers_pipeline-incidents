@@ -2,6 +2,11 @@ const Immutable = require('immutable')
 
 const TranslationTable = Immutable.fromJS({ 
 
+  methodologyLinks: {
+    en: 'data/Incident Data Methodology_EN.pdf',
+    fr: 'data/Incident Data Methodology_FR.pdf',
+  },
+
   stories: {
     'provinces-and-pipeline-incident': {
       title: {

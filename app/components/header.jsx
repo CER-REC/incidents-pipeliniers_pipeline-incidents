@@ -7,6 +7,7 @@ const DisclaimerSummonedCreator = require('../actionCreators/DisclaimerSummonedC
 const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
 const Tr = require('../TranslationTable.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const RouteComputations = require('../RouteComputations.js')
 
 require('./Header.scss')
 
@@ -27,7 +28,8 @@ class Header extends React.Component {
   }
 
   methodologyClick() {
-
+    const appRoot = RouteComputations.appRoot(document.location, this.props.language)
+    window.open(`${appRoot}${Tr.getIn(['methodologyLinks', this.props.language])}`)
   }
 
   resetAllClick() {
