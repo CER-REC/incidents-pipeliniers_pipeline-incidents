@@ -54,29 +54,12 @@ class ColumnTooltip extends React.Component {
     })
   }
 
-  tooltipY() {
-    return WorkspaceComputations.topBarHeight() + 
-      Constants.getIn(['questionMark', 'yOffset'])
-  }
-
-  tooltipX() {
-    const columnMeasurements = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories,
-      this.props.viewport,
-      this.props.data,
-      this.props.columns,
-      this.props.categories)
-
-    if(this.props.columnTooltip.get('columnName') === 'pinColumn')
-      return columnMeasurements.get('pinColumn').get('x')
-    else
-      return columnMeasurements.getIn(['columns', this.props.columnTooltip.get('columnName')]).get('x')
-  }
-
   tooltipStyle() {
     return {
-      top:this.tooltipY(),
-      left:this.tooltipX(),
+      top:WorkspaceComputations.columnTooltipY(),
+      left:WorkspaceComputations.columnTooltipX(
+        this.props.columnTooltip, 
+        this.props.viewport),
     }
   }
 

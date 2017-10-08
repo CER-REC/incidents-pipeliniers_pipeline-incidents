@@ -97,6 +97,7 @@ class IncidentListHeadings extends React.Component {
       isActive = 'active'
 
     return <image 
+      id='pinColumn-QuestionMark'
       className={'questionMark ' + isActive}
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 
