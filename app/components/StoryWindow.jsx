@@ -25,17 +25,23 @@ class StoryWindow extends React.Component {
     </defs>    
   }
 
-  closeButtonClick() {
+  closeButtonClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
     this.props.onCloseButtonClicked()
   }
 
-  nextButtonClick() {
+  nextButtonClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     this.props.onNextTutorialImageClick(imageList.length)
   }
 
-  backButtonClick() {
+  backButtonClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     this.props.onPreviousTutorialImageClick(imageList.length)
