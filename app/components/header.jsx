@@ -4,6 +4,7 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const ResetVisualizationCreator = require('../actionCreators/ResetVisualizationCreator.js')
 const DisclaimerSummonedCreator = require('../actionCreators/DisclaimerSummonedCreator.js')
+const AboutSummonedCreator = require('../actionCreators/AboutSummonedCreator.js')
 const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
 const Tr = require('../TranslationTable.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
@@ -24,7 +25,7 @@ class Header extends React.Component {
   }
 
   aboutThisProjectClick() {
-
+    this.props.summonAboutWindow()
   }
 
   methodologyClick() {
@@ -179,7 +180,10 @@ const mapDispatchToProps = dispatch => {
     },
     summonDisclaimer: () => {
       dispatch(DisclaimerSummonedCreator())
-    }
+    },
+    summonAboutWindow: () => {
+      dispatch(AboutSummonedCreator())
+    },
   }
 }
 
