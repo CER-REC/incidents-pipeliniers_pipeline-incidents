@@ -56,9 +56,6 @@ class ColumnTooltip extends React.Component {
   }
 
   render() {
-    // Only render if a tooltip has been summoned
-    if(!this.props.columnTooltip.get('isActive')) return null
-
     return <div 
       className='tooltip'
       style={this.tooltipStyle()}>

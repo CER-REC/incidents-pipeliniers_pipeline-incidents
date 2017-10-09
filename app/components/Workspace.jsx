@@ -49,6 +49,11 @@ class Workspace extends React.Component {
     }
   }
 
+  columnTooltip() {
+    // Only render if a tooltip has been summoned
+    if(this.props.columnTooltip.get('isActive')) return <ColumnTooltip/>
+  }
+
   render() {
 
     // Many of the downstream computations require that the data be loaded
@@ -110,7 +115,7 @@ class Workspace extends React.Component {
       <StoryWindow/>
       <StoryBar/>
       <Disclaimer/>
-      <ColumnTooltip/>
+      {this.columnTooltip()}
     </div>
   }
 }
@@ -122,6 +127,7 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    columnTooltip: state.columnTooltip,
   }
 }
 
