@@ -8,14 +8,11 @@ const defaults = Immutable.fromJS({
 const ColumnTooltipDetailClickReducer = (state = defaults, action) => {
   switch(action.type) {
 
-  case 'ColumnTooltipDetailClick':
-  {
-    if(action.columnName === state.get('columnName') &&
-      action.itemOverview === state.get('itemOverview')) {
-      return state.merge({columnName:null, itemOverview:null})
-    }
+  case 'ColumnTooltipDetailExpand':
     return state.merge({columnName:action.columnName, itemOverview:action.itemOverview})
-  }
+
+  case 'ColumnTooltipDetailCollapse':
+    return state.merge({columnName:null, itemOverview:null})
 
   default:
     return state

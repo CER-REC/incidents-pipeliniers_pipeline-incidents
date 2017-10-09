@@ -13,7 +13,7 @@ const DataLoader = require('./DataLoader.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const StoryDismissedCreator = require('./actionCreators/StoryDismissedCreator.js')
-const ColumnTooltipDetailClickCreator = require('./actionCreators/ColumnTooltipDetailClickCreator.js')
+const ColumnTooltipDetailCollapseCreator = require('./actionCreators/ColumnTooltipDetailCollapseCreator.js')
 const ColumnTooltipDismissedCreator = require('./actionCreators/ColumnTooltipDismissedCreator.js')
 
 
@@ -60,7 +60,7 @@ function resizeScreenHandler () {
 function windowClickHandler () {
   store.dispatch(StoryDismissedCreator())
   store.dispatch(ColumnTooltipDismissedCreator())
-  store.dispatch(ColumnTooltipDetailClickCreator(null, null))
+  store.dispatch(ColumnTooltipDetailCollapseCreator())
 }
 
 function locationChangeHandler (location, action) {

@@ -4,17 +4,20 @@ const ReactRedux = require('react-redux')
 
 require('./ColumnTooltipListItem.scss')
 
-const Constants = require('../Constants.js')
-const Tr = require('../TranslationTable.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const ColumnTooltipDetailClickCreator = require('../actionCreators/ColumnTooltipDetailClickCreator.js')
+const ColumnTooltipDetailExpandCreator = require('../actionCreators/ColumnTooltipDetailExpandCreator.js')
+const ColumnTooltipDetailCollapseCreator = require('../actionCreators/ColumnTooltipDetailCollapseCreator.js')
 
 class ColumnTooltipListItem extends React.Component {
 
   detailClick(e) {
     e.stopPropagation()
     e.preventDefault()
-    this.props.onDetailClicked(this.props.columnName, this.props.item.get('overview'))
+
+    if(this.props.columnTooltipClick.get('columnName') === this.props.columnName &&
+       this.props.columnTooltipClick.get('itemOverview') === this.props.item.get('overview'))
+      this.props.onDetailCollapse()
+    else
+      this.props.onDetailExpand(this.props.columnName, this.props.item.get('overview'))
   }
 
   listSymbol() {
@@ -82,9 +85,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDetailClicked: (columnName, itemOverview) => {
-      dispatch(ColumnTooltipDetailClickCreator(columnName, itemOverview))
-    }
+    onDetailExpand: (columnName, itemOverview) => {
+      dispatch(ColumnTooltipDetailExpandCreator(columnName, itemOverview))
+    },
+    onDetailCollapse: () => {
+      dispatch(ColumnTooltipDetailCollapseCreator())
+    },
   }
 }
 
