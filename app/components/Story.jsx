@@ -13,6 +13,7 @@ class Story extends React.Component {
   storyClicked(e) {
     e.stopPropagation()
     e.preventDefault()
+    console.log(this.props.id)
     this.props.onStoryClicked(this.props.id)
   }
 
