@@ -5,6 +5,9 @@ const AboutReducer = (state = false, action) => {
   case 'AboutSummoned':
     return true
 
+  case 'PopupDismissed':
+  	return false
+
   default:
     return state
   }

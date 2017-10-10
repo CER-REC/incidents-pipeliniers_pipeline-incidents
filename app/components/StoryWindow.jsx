@@ -7,7 +7,7 @@ require('./StoryWindow.scss')
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
-const StoryDismissedCreator = require('../actionCreators/StoryDismissedCreator.js')
+const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
 const StoryPreviousImageCreator = require('../actionCreators/StoryPreviousImageCreator.js')
 
@@ -140,7 +140,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onCloseButtonClicked: () => {
-      dispatch(StoryDismissedCreator())
+      dispatch(PopupDismissedCreator())
     },
     onNextTutorialImageClick: (count) => {
       dispatch(StoryNextImageCreator(count))

@@ -5,7 +5,7 @@ const ReactRedux = require('react-redux')
 require('./AboutWindow.scss')
 
 const Tr = require('../TranslationTable.js')
-const StoryDismissedCreator = require('../actionCreators/StoryDismissedCreator.js')
+const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 
 
 class AboutWindow extends React.Component {
@@ -135,7 +135,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onCloseButtonClicked: () => {
-      dispatch(StoryDismissedCreator())
+      dispatch(PopupDismissedCreator())
     },
   }
 }
