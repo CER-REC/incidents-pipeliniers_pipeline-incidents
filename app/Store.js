@@ -12,7 +12,6 @@ const SidebarColumnHoverReducer = require('./reducers/SidebarColumnHoverReducer.
 const ColumnDragReducer = require('./reducers/ColumnDragReducer.js')
 const SidebarColumnDragReducer = require('./reducers/SidebarColumnDragReducer.js')
 const LanguageReducer = require('./reducers/LanguageReducer.js')
-const IncidentDragStateReducer = require('./reducers/IncidentDragStateReducer.js')
 const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationStateReducer.js')
 const HistoryReducer = require('./reducers/HistoryReducer.js')
 const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
@@ -38,7 +37,6 @@ const reducers = Redux.combineReducers({
   columnDragStatus: ColumnDragReducer,
   sidebarDragStatus: SidebarColumnDragReducer,
   language: LanguageReducer,
-  incidentDragState: IncidentDragStateReducer,
   filterboxActivationState: FilterboxActivationStateReducer,
   categoryDragStatus: CategoryDragReducer,
   history: HistoryReducer,
