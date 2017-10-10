@@ -448,7 +448,14 @@ class Column extends React.Component {
       this.props.categories, 
       this.props.columnName)
 
-    let categoryY = this.props.columnY
+    let categoryY = this.props.columnY + 15
+    // if(this.props.language === 'fr') {
+    //   categoryY = this.props.columnY + 15
+    // } else {
+    //   categoryY = this.props.columnY 
+    // }
+
+
     return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
@@ -469,13 +476,22 @@ class Column extends React.Component {
   }
 
   sidebarMapColumn() {
+    let yRect= this.props.columnY + 15
+    let yImage= this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding']) + 15
+    // if(this.props.language === 'fr') {
+    //   yRect = this.props.columnY + 15
+    //   yImage = this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding']) + 15
+    // } else {
+    //   yRect = this.props.columnY
+    //   yImage = this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding'])
+    // }
     return <g>
       <rect
         height={ this.props.columnHeight }
         className='Column'
         width={ this.props.columnWidth }
         x={ this.props.columnX }
-        y={ this.props.columnY }
+        y={ yRect }
         fill='#1CD1C8'
         stroke='#1CD1C8'></rect>
       <image
@@ -484,13 +500,19 @@ class Column extends React.Component {
         className='Column'
         width={ this.props.columnWidth - Constants.getIn(['sidebarMapColumn','widthPadding'])}
         x={ this.props.columnX + Constants.getIn(['sidebarMapColumn','xPadding'])}
-        y={ this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding'])}>
+        y={ yImage }>
       </image>
     </g>
   }
 
   sidebarHeading() {
-    let currentY = this.props.columnY
+    let currentY = this.props.columnY + 15
+    // if(this.props.language === 'fr') {
+    //   currentY = this.props.columnY + 15
+    // } else {
+    //   currentY = this.props.columnY
+    // }
+
     return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength'])).map((word) => {
       // Terminating space.
       if(word === '') return null

@@ -185,7 +185,7 @@ WorkspaceComputations.categoryVerticalPositions = function (showEmptyCategories,
 
   const displayedCategories = CategoryComputations.displayedCategories(data, columns, categories, columnName)
 
-  let categoryY = WorkspaceComputations.columnY(language)
+  let categoryY = WorkspaceComputations.columnY() + 15
 
   return displayedCategories.map( (visible, categoryName) => {
     const currentY = categoryY
