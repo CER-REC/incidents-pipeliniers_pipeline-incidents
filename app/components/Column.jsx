@@ -51,7 +51,7 @@ class Column extends React.Component {
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     // TODO: use the new WorkspaceComputations.categoryVerticalPositions
-    let categoryY = WorkspaceComputations.columnY()
+    let categoryY = WorkspaceComputations.columnY(this.props.language)
 
     const displayedCategories = CategoryComputations.displayedCategories(
       this.props.data,
@@ -124,10 +124,11 @@ class Column extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories)
+      this.props.categories,
+      this.props.language)
       .getIn(['columns', this.props.columnName])
 
-    const currentY = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset')
+    const currentY = WorkspaceComputations.columnY(this.props.language)
 
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,
@@ -151,10 +152,11 @@ class Column extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories)
+      this.props.categories,
+      this.props.language)
       .getIn(['columns', this.props.columnName])
 
-    let dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
+    let dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport, this.props.language)
 
     return <image xlinkHref='images/horizontal_drag.svg' 
       className = 'dragArrow'
@@ -431,7 +433,7 @@ class Column extends React.Component {
       this.props.categories, 
       this.props.columnName)
 
-    let categoryY = this.props.columnY 
+    let categoryY = this.props.columnY
 
     return displayedCategories
       .map( (visible, categoryName) => {
@@ -453,15 +455,13 @@ class Column extends React.Component {
   }
 
   sidebarMapColumn() {
-    let yRect= this.props.columnY
-    let yImage= this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding'])
     return <g>
       <rect
         height={ this.props.columnHeight }
         className='Column'
         width={ this.props.columnWidth }
         x={ this.props.columnX }
-        y={ yRect }
+        y={ this.props.columnY }
         fill='#1CD1C8'
         stroke='#1CD1C8'></rect>
       <image
@@ -470,18 +470,13 @@ class Column extends React.Component {
         className='Column'
         width={ this.props.columnWidth - Constants.getIn(['sidebarMapColumn','widthPadding'])}
         x={ this.props.columnX + Constants.getIn(['sidebarMapColumn','xPadding'])}
-        y={ yImage }>
+        y={ this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding']) }>
       </image>
     </g>
   }
 
   sidebarHeading() {
     let currentY = this.props.columnY 
-    // if(this.props.language === 'fr') {
-    //   currentY = this.props.columnY + 15
-    // } else {
-    //   currentY = this.props.columnY
-    // }
 
     return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength'])).map((word) => {
       // Terminating space.

@@ -20,7 +20,8 @@ class Sidebar extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories)
+      this.props.categories,
+      this.props.language)
       .get('sideBar')
 
     const numberOfColumnsInSidebar = WorkspaceComputations.numberOfColumnsInSidebar(this.props.columns)
@@ -51,7 +52,7 @@ class Sidebar extends React.Component {
         }
         const columnY = ((index-1) * 
                         Constants.getIn(['sidebar', 'labelHeight'])) + 
-                        measurements.get('y')
+                        measurements.get('y') 
 
         return <Column 
           columnName={columnName} 

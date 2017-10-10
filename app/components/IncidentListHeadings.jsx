@@ -6,6 +6,8 @@ const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 const IncidentComputations = require('../IncidentComputations.js')
 
+require('./IncidentListHeadings.scss')
+
 class IncidentListHeadings extends React.Component {
 
   incidentHeadingLabel() {
@@ -23,7 +25,7 @@ class IncidentListHeadings extends React.Component {
 
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
-    return <tspan className='barsHeading' 
+    return <tspan className='incidentListHeading' 
       x = { columnMeasurements.get('x') }
       y = { y }
     >INCIDENTS</tspan>
@@ -45,12 +47,13 @@ class IncidentListHeadings extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories
+      this.props.categories,
+      this.props.language
     ).get('pinColumn')
 
     // TODO: This is replicating math found in Column.jsx for laying out 
     // text headings. We need to pull this into a computation file.
-    const y = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset')  
+    const y = WorkspaceComputations.columnY(this.props.language) 
 
    
     const filteredData = IncidentComputations.filteredIncidents(

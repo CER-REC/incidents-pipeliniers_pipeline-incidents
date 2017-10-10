@@ -24,11 +24,19 @@ WorkspaceComputations.topBarHeight = function () {
 
 // This is the entire height of the column, including all its decorations
 // viewport: the viewport state
-WorkspaceComputations.columnHeight = function (viewport) {
-  return viewport.get('y') - 
+WorkspaceComputations.columnHeight = function (viewport, language) {
+  if(language === 'fr') {
+    console.log('asg')
+    return viewport.get('y') - 
+         WorkspaceComputations.topBarHeight() - 
+         Constants.get('bottomOuterMargin') -
+         Constants.get('columnHeadingHeight') + 18
+  } else {
+    return viewport.get('y') - 
          WorkspaceComputations.topBarHeight() - 
          Constants.get('bottomOuterMargin') -
          Constants.get('columnHeadingHeight')
+  }
 }
 
 
@@ -44,9 +52,14 @@ WorkspaceComputations.columnWidth = function (columns) {
 }
 
 
-WorkspaceComputations.columnY = function() {
-  return WorkspaceComputations.topBarHeight() +
+WorkspaceComputations.columnY = function(language) {
+  if(language === 'fr') {
+    return WorkspaceComputations.topBarHeight() +
+         Constants.get('columnHeadingHeight') + 18
+  } else {
+    return WorkspaceComputations.topBarHeight() +
          Constants.get('columnHeadingHeight') 
+  }
 }
 
 // columns: the columns state
@@ -163,12 +176,7 @@ WorkspaceComputations.categoryVerticalPositions = function (showEmptyCategories,
 
   const displayedCategories = CategoryComputations.displayedCategories(data, columns, categories, columnName)
 
-  let categoryY
-  if(language === 'fr') {
-    categoryY = WorkspaceComputations.columnY()
-  } else {
-    categoryY = WorkspaceComputations.columnY()
-  }
+  let categoryY = WorkspaceComputations.columnY(language)
 
   return displayedCategories.map( (visible, categoryName) => {
     const currentY = categoryY
@@ -381,12 +389,12 @@ WorkspaceComputations.shouldRenderColumnPath = function (columns, columnName) {
 //   workspace - with width and height for the entire workspace
 
 
-WorkspaceComputations.horizontalPositions = function(showEmptyCategories, viewport, data, columns, categories) {
+WorkspaceComputations.horizontalPositions = function(showEmptyCategories, viewport, data, columns, categories, language) {
   if (WorkspaceComputations.useScrollingWorkspace(columns)) {
-    return WorkspaceComputations.horizontalPositionsWithScroll(showEmptyCategories, viewport, data, columns, categories)
+    return WorkspaceComputations.horizontalPositionsWithScroll(showEmptyCategories, viewport, data, columns, categories, language)
   }
   else {
-    return WorkspaceComputations.horizontalPositionsFixedWidth(viewport, columns)
+    return WorkspaceComputations.horizontalPositionsFixedWidth(viewport, columns, language)
   }
 }
 
@@ -437,8 +445,15 @@ WorkspaceComputations.stepWidthWithScroll = function() {
 
 WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategories, viewport, data, columns, categories, language) {
 
-  const columnHeight = WorkspaceComputations.columnHeight(viewport)
-  const topBarHeight = WorkspaceComputations.columnY(language)
+  const columnHeight = WorkspaceComputations.columnHeight(viewport, language)
+  //const topBarHeight = WorkspaceComputations.columnY(language)
+
+  let topBarHeight
+  if(language === 'fr') {
+    topBarHeight = WorkspaceComputations.columnY(language) + 18
+  } else {
+    topBarHeight = WorkspaceComputations.columnY(language)
+  }
 
   // Move through each element left to right
 
@@ -524,7 +539,7 @@ WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategori
   // Workspace
   measurements = measurements.set('workspace', Immutable.fromJS({
     width: cumulativeX,
-    height: viewport.get('y'),
+    height: viewport.get('y') + 18,
   }))
 
 
@@ -539,9 +554,9 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   const socialBarMeasurements = WorkspaceComputations.socialBarMeasurements(viewport)
 
   const workspaceWidth = viewport.get('x') - socialBarMeasurements.get('width')
-  const columnHeight = WorkspaceComputations.columnHeight(viewport)
+  const columnHeight = WorkspaceComputations.columnHeight(viewport, language)
   const topBarHeight = WorkspaceComputations.columnY(language)
-
+  
   let measurements = Immutable.Map()
 
 
@@ -616,7 +631,7 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   // Workspace
   measurements = measurements.set('workspace', Immutable.fromJS({
     width: workspaceWidth,
-    height: viewport.get('y'),
+    height: viewport.get('y') + 18,
   }))
 
   return measurements

@@ -62,7 +62,8 @@ class Workspace extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories)
+      this.props.categories,
+      this.props.language)
 
     const scrollPaneWidth = this.props.viewport.get('x') - 
       Constants.getIn(['socialBar', 'width']) -
