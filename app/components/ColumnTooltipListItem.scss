@@ -1,0 +1,24 @@
+@import "../styles/Colours.scss";
+@import '../styles/zIndex.scss';
+
+.PopupPlusSign {
+  cursor: pointer;
+}
+
+.listContainer {
+  position:relative;
+  margin:-48px 0 0 10px;
+  padding-left: 5px;
+  text-indent: -4px;
+}
+
+.listItem {
+  margin-bottom:-10px;
+}
+
+.detailContainer {
+  top: -7px;
+  position: relative;
+  padding-left: 8px;
+  text-indent: 0px;
+}

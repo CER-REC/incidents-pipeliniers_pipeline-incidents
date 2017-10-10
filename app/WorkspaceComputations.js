@@ -7,7 +7,30 @@ const IncidentComputations = require('./IncidentComputations.js')
 
 const WorkspaceComputations = {}
 
+// The vertical coordinate of the column tooltip
+WorkspaceComputations.columnTooltipY = function() {
+  return WorkspaceComputations.topBarHeight() + 
+    Constants.getIn(['questionMark', 'yOffset']) + 
+    Constants.getIn(['questionMark', 'size'])/2
+}
 
+// The horizontal coordinate of teh column tooltip
+// columnTooltip: the column tooltip state
+// viewport: the viewport state
+WorkspaceComputations.columnTooltipX = function(columnTooltip, viewport) {
+  let horizontalPosition = document.getElementById(columnTooltip.get('columnName') + '-QuestionMark').getBoundingClientRect().left - 
+    (window.innerWidth - viewport.get('x'))/2 + 
+    Constants.getIn(['questionMark', 'size'])/2
+
+  // Align the tooltip box to the right if the space to the right isn't 
+  // enough to display the full width of the tooltip.
+  if(horizontalPosition + 
+     Constants.getIn(['columnTooltip', 'width']) > viewport.get('x'))
+    horizontalPosition = horizontalPosition - 
+      Constants.getIn(['columnTooltip', 'width'])
+  
+  return horizontalPosition
+}
 
 // Is the map on display?
 // columns: the columns state

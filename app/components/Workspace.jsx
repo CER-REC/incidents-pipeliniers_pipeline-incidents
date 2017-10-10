@@ -20,6 +20,7 @@ const IncidentContainer = require('./IncidentContainer.jsx')
 const StoryBar = require('./StoryBar.jsx')
 const StoryWindow = require('./StoryWindow.jsx')
 const AboutWindow = require('./AboutWindow.jsx')
+const ColumnTooltip = require('./ColumnTooltip.jsx')
 
 class Workspace extends React.Component {
 
@@ -100,6 +101,11 @@ class Workspace extends React.Component {
     }
   }
 
+  columnTooltip() {
+    // Only render if a tooltip has been summoned
+    if(this.props.columnTooltip.get('isActive')) return <ColumnTooltip/>
+  }
+
   render() {
 
     // Many of the downstream computations require that the data be loaded
@@ -160,6 +166,7 @@ class Workspace extends React.Component {
       </div>
       { this.storyContent() }
       <AboutWindow/>
+      {this.columnTooltip()}
     </div>
   }
 }
@@ -172,6 +179,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     screenshotMode: state.screenshotMode,
+    columnTooltip: state.columnTooltip,
   }
 }
 
