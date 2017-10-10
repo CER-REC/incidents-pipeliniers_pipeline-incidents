@@ -101,7 +101,7 @@ const TranslationTable = Immutable.fromJS({
       },
       description: {
         en: 'The company that holds the regulatory instrument on the pipeline/facility where the incident took place.',
-        fr: '',
+        fr: 'La société détentrice de l’instrument réglementaire pour le pipeline/l’installation où l’incident s’est produit.',
       },
       detail: {
         en: [
