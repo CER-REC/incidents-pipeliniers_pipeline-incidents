@@ -77,7 +77,9 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'p1', this.props.language])}
-          <a href={Tr.getIn(['aboutText', 'safetyPerformancePortalLink', this.props.language])}>
+          <a 
+            href={Tr.getIn(['aboutText', 'safetyPerformancePortalLink', this.props.language])}
+            target="_blank">
             {Tr.getIn(['aboutText', 'safetyPerformancePortalText', this.props.language])}
           </a>
           {Tr.getIn(['aboutText', 'p1_2', this.props.language])}
@@ -86,7 +88,9 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'p2', this.props.language])}
-          <a href={Tr.getIn(['aboutText', 'openCanadaLink', this.props.language])}>
+          <a 
+            href={Tr.getIn(['aboutText', 'openCanadaLink', this.props.language])}
+            target="_blank">
             {Tr.getIn(['aboutText', 'openCanadaText', this.props.language])}
           </a>
           .
