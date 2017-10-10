@@ -74,7 +74,7 @@ class StoryWindow extends React.Component {
     const active = (currentImageIndex < 1)? 'inactive' : 'active'
     return <image
       className={active}
-      xlinkHref={'images/left-arrow-' + active + '.svg'}
+      xlinkHref={`images/left-arrow-${active}.svg`}
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
@@ -86,7 +86,7 @@ class StoryWindow extends React.Component {
     const active = (currentImageIndex >= imageList.length-1)? 'inactive' : 'active'
     return <image
       className={active}
-      xlinkHref={'images/right-arrow-' + active + '.svg'}
+      xlinkHref={`images/right-arrow-${active}.svg`}
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       x={StoryComputations.storyCloseButtonX(this.props.viewport)}
