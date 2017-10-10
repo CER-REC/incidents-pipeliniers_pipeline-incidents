@@ -19,6 +19,7 @@ const IncidentListHeadings = require('./IncidentListHeadings.jsx')
 const IncidentContainer = require('./IncidentContainer.jsx')
 const StoryBar = require('./StoryBar.jsx')
 const StoryWindow = require('./StoryWindow.jsx')
+const AboutWindow = require('./AboutWindow.jsx')
 
 class Workspace extends React.Component {
 
@@ -158,6 +159,7 @@ class Workspace extends React.Component {
         </div>
       </div>
       { this.storyContent() }
+      <AboutWindow/>
     </div>
   }
 }

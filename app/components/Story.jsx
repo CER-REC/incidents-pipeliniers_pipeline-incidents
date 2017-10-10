@@ -10,7 +10,9 @@ const StorySelectedCreator = require('../actionCreators/StorySelectedCreator.js'
 
 class Story extends React.Component {
 
-  storyClicked() {
+  storyClicked(e) {
+    e.stopPropagation()
+    e.preventDefault()
     this.props.onStoryClicked(this.props.id)
   }
 

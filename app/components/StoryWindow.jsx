@@ -5,7 +5,11 @@ const ReactRedux = require('react-redux')
 require('./StoryWindow.scss')
 
 const Constants = require('../Constants.js')
+const Tr = require('../TranslationTable.js')
+const StoryComputations = require('../StoryComputations.js')
 const StoryDismissedCreator = require('../actionCreators/StoryDismissedCreator.js')
+const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
+const StoryPreviousImageCreator = require('../actionCreators/StoryPreviousImageCreator.js')
 
 class StoryWindow extends React.Component {
 
@@ -21,42 +25,104 @@ class StoryWindow extends React.Component {
     </defs>    
   }
 
-  closeButtonClick() {
+  closeButtonClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
     this.props.onCloseButtonClicked()
+  }
+
+  nextButtonClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    this.props.onNextTutorialImageClick(imageList.length)
+  }
+
+  backButtonClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    this.props.onPreviousTutorialImageClick(imageList.length)
+  }
+
+  border() {
+    return <rect 
+      width = { this.props.viewport.get('x') - 
+        Constants.getIn(['storyThumbnailDimensions', 'windowShadowOffset'])} 
+      height = { this.props.viewport.get('y') - 
+        Constants.getIn(['storyThumbnailDimensions', 'windowYOffset'])}
+      fill = '#fff'
+      stroke = '#000'
+      strokeWidth = '1'
+      filter='url(#shadowFilter)'/>
+  }
+
+  closeButton() {
+    return <image 
+      className='active'
+      xlinkHref='images/close.svg'
+      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      x={StoryComputations.storyCloseButtonX(this.props.viewport)}
+      y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
+      onClick = {this.closeButtonClick.bind(this)}/>
+  }
+
+  leftArrow(currentImageIndex) {
+    const active = (currentImageIndex < 1)? 'inactive' : 'active'
+    return <image
+      className={active}
+      xlinkHref={'images/left-arrow-' + active + '.svg'}
+      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
+      y={StoryComputations.storyArrowButtonY(this.props.viewport)}
+      onClick={this.backButtonClick.bind(this)}/>
+  }
+
+  rightArrow(currentImageIndex, imageList) {
+    const active = (currentImageIndex >= imageList.length-1)? 'inactive' : 'active'
+    return <image
+      className={active}
+      xlinkHref={'images/right-arrow-' + active + '.svg'}
+      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      x={StoryComputations.storyCloseButtonX(this.props.viewport)}
+      y={StoryComputations.storyArrowButtonY(this.props.viewport)}
+      onClick={this.nextButtonClick.bind(this)}/>
+  }
+
+  tutorialImage(currentImageIndex, imageList) {
+    return <image
+      width={StoryComputations.storyTutorialImageWidth(this.props.viewport)}
+      height={StoryComputations.storyTutorialImageHeight(this.props.viewport)}
+      x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
+        Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
+        Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      xlinkHref={imageList[currentImageIndex]}/>
   }
 
   render() {
     // Only render if a story has been selected.
     if(!this.props.story.get('isActive')) return null
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    const currentImageIndex = this.props.storyImage
 
     return <div 
       className='storyWindow'>
       <svg 
         width = { this.props.viewport.get('x')} 
-        height = { this.props.viewport.get('y') - 
-           Constants.getIn(['storyThumbnailDimensions', 'windowYOffset']) + 
-           Constants.getIn(['storyThumbnailDimensions', 'windowShadowOffset'])}>
+        height = {StoryComputations.storyWindowHeight(this.props.viewport)}>
         {this.shadowFilter()}
-        <rect 
-          width = { this.props.viewport.get('x') - 
-            Constants.getIn(['storyThumbnailDimensions', 'windowShadowOffset'])} 
-          height = { this.props.viewport.get('y') - 
-            Constants.getIn(['storyThumbnailDimensions', 'windowYOffset'])}
-          fill = '#fff'
-          stroke = '#000'
-          strokeWidth = '1'
-          filter='url(#shadowFilter)'/>
-        <image 
-          className='closeButton'
-          xlinkHref='images/close.svg'
-          width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-          height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-          x={this.props.viewport.get('x') - 
-            Constants.getIn(['storyThumbnailDimensions', 'windowShadowOffset']) - 
-            Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize']) - 
-            Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
-          y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
-          onClick = { this.closeButtonClick.bind(this) }/>
+        {this.border()}
+        {this.closeButton()}
+        {this.leftArrow(currentImageIndex)}
+        {this.rightArrow(currentImageIndex, imageList)}
+        {this.tutorialImage(currentImageIndex, imageList)}
       </svg>
     </div>
   }
@@ -67,6 +133,7 @@ const mapStateToProps = state => {
     viewport: state.viewport,
     language: state.language,
     story: state.story,
+    storyImage: state.storyImage,
   }
 }
 
@@ -74,7 +141,13 @@ const mapDispatchToProps = dispatch => {
   return {
     onCloseButtonClicked: () => {
       dispatch(StoryDismissedCreator())
-    }
+    },
+    onNextTutorialImageClick: (count) => {
+      dispatch(StoryNextImageCreator(count))
+    },
+    onPreviousTutorialImageClick: (count) => {
+      dispatch(StoryPreviousImageCreator(count))
+    },
   }
 }
 

@@ -147,3 +147,33 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed Semibold', sans-
   font-size: 18px;
   color: $black;
 }
+
+.aboutHeading {
+  font-family: $fira-sans-extra-condensed;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+  text-transform: uppercase;
+  padding-top: 10px;
+  padding-left: 10px;
+  margin-bottom: -5px;
+  color: $black;
+}
+
+.aboutSubHeading {
+  font-family: $fira-sans-extra-condensed;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+  text-transform: uppercase;
+  padding-top: 10px;
+  margin-bottom: -5px;
+  color: $black;
+}
+
+.aboutContent {
+  font-family: Fira Sans Condensed;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+}
