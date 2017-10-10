@@ -11,7 +11,7 @@ const StoryReducer = (state = defaults, action) => {
   case 'StorySelected':
     return state.merge({isActive:true, storyID: action.storyID})
 
-  case 'StoryDismissed':
+  case 'PopupDismissed':
     return state.merge({isActive:false, storyID: null})
 
   default:

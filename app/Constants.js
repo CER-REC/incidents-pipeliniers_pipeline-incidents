@@ -11,6 +11,8 @@ const Constants = Immutable.fromJS({
   // rather than hard coding it
   dataMode: 'csvFile',
 
+  storyBarID: 'storyBar',
+
   workspace: {
     maxWidth: 1138,
     heightToWidthRatio: 0.66,

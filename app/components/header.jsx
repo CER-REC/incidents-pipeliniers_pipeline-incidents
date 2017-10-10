@@ -4,25 +4,33 @@ const ReactRedux = require('react-redux')
 const Constants = require('../Constants.js')
 const ResetVisualizationCreator = require('../actionCreators/ResetVisualizationCreator.js')
 const DisclaimerSummonedCreator = require('../actionCreators/DisclaimerSummonedCreator.js')
+const AboutSummonedCreator = require('../actionCreators/AboutSummonedCreator.js')
 const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
 const Tr = require('../TranslationTable.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const RouteComputations = require('../RouteComputations.js')
 
 require('./Header.scss')
 
 
 class Header extends React.Component {
-
   tellMeAStoryClick() {
-    
+    const scrollOptions = {
+      behavior: 'smooth', 
+      block: 'start', 
+      inline: 'nearest'
+    }
+    document.getElementById(Constants.get('storyBarID'))
+      .scrollIntoView(scrollOptions)
   }
 
   aboutThisProjectClick() {
-
+    this.props.summonAboutWindow()
   }
 
   methodologyClick() {
-
+    const appRoot = RouteComputations.appRoot(document.location, this.props.language)
+    window.open(`${appRoot}${Tr.getIn(['methodologyLinks', this.props.language])}`)
   }
 
   resetAllClick() {
@@ -50,7 +58,9 @@ class Header extends React.Component {
         <a href="#" onClick = {this.disclaimerClick.bind(this)}>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
       </p>
       <p className = 'subpop'>
-        <a href="#">{Tr.getIn(['learnMore', this.props.language])}</a>
+        <a 
+          href={Tr.getIn(['learnMoreLinks', this.props.language])} 
+          target="_blank">{Tr.getIn(['learnMore', this.props.language])}</a>
         {Tr.getIn(['dataCollectionSubheading', this.props.language])}
       </p>
     </div>
@@ -178,7 +188,10 @@ const mapDispatchToProps = dispatch => {
     },
     summonDisclaimer: () => {
       dispatch(DisclaimerSummonedCreator())
-    }
+    },
+    summonAboutWindow: () => {
+      dispatch(AboutSummonedCreator())
+    },
   }
 }
 

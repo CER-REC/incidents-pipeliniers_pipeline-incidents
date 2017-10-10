@@ -6,11 +6,14 @@ require('./Story.scss')
 
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
+const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const StorySelectedCreator = require('../actionCreators/StorySelectedCreator.js')
 
 class Story extends React.Component {
 
-  storyClicked() {
+  storyClicked(e) {
+    e.stopPropagation()
+    e.preventDefault()
     this.props.onStoryClicked(this.props.id)
   }
 
@@ -73,6 +76,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onStoryClicked: (storyID) => {
+      dispatch(PopupDismissedCreator())
       dispatch(StorySelectedCreator(storyID))
     }
   }
