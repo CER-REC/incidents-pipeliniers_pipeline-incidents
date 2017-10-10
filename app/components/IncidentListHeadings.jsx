@@ -18,12 +18,16 @@ class IncidentListHeadings extends React.Component {
       this.props.categories
     ).get('pinColumn')
 
+    const y = WorkspaceComputations.topBarHeight() +
+      Constants.get('columnHeadingLineOffset')
+
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
     return <tspan className='barsHeading' 
       x = { columnMeasurements.get('x') }
-      y = {WorkspaceComputations.incidentsListLabel(this.props.language)}
+      y = { y }
     >INCIDENTS</tspan>
+
 
   }
 
@@ -46,12 +50,8 @@ class IncidentListHeadings extends React.Component {
 
     // TODO: This is replicating math found in Column.jsx for laying out 
     // text headings. We need to pull this into a computation file.
-    let y
-    if(this.props.language === 'fr') {
-      y = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset') + 15
-    } else {
-      y = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset')  
-    }
+    const y = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset')  
+
    
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,

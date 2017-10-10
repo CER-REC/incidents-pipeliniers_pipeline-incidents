@@ -100,17 +100,10 @@ class IncidentList extends React.Component {
       this.props.categories
     ).get('pinColumn')
 
-    let height
-    if(this.props.language === 'fr') {
-      height = `${pinColumnPositions.get('y') + 18}px`
-    } else {
-      height = `${pinColumnPositions.get('y') + 3 }px`
-    }
-
     return {
       width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
 
-      top: height,
+      top: `${pinColumnPositions.get('y')}px`,
     }
   }
 
@@ -125,16 +118,9 @@ class IncidentList extends React.Component {
       this.props.pinnedIncidents
     )
 
-    let maxHeight
-    if(this.props.language === 'fr') {
-      maxHeight = `${incidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding']) - 35}px`
-    } else {
-      maxHeight = `${incidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding']) - 20}px`
-    }
-
     return {
 
-      maxHeight: maxHeight,
+      maxHeight: `${incidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
 
     }
   }

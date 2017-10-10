@@ -51,13 +51,8 @@ class Column extends React.Component {
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     // TODO: use the new WorkspaceComputations.categoryVerticalPositions
-    let categoryY 
-    if (this.props.language === 'fr') {
-      categoryY = WorkspaceComputations.columnY() + 15
-    } else {
-      categoryY = WorkspaceComputations.columnY()
-    }
-    
+    let categoryY = WorkspaceComputations.columnY()
+
     const displayedCategories = CategoryComputations.displayedCategories(
       this.props.data,
       this.props.columns,
@@ -132,14 +127,7 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    let currentY
-    if (this.props.language === 'fr') {
-      currentY = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset') + 15
-    } else {
-      currentY = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset')
-    }
-    //WorkspaceComputations.topBarHeight() + 
-    //Constants.get('columnSubheadingOffset')
+    const currentY = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset')
 
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,
@@ -166,12 +154,7 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    let dragArrowY
-    if (this.props.language === 'fr') {
-      dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport) + 15
-    } else {
-      dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
-    }
+    let dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
 
     return <image xlinkHref='images/horizontal_drag.svg' 
       className = 'dragArrow'
@@ -448,13 +431,7 @@ class Column extends React.Component {
       this.props.categories, 
       this.props.columnName)
 
-    let categoryY = this.props.columnY + 15
-    // if(this.props.language === 'fr') {
-    //   categoryY = this.props.columnY + 15
-    // } else {
-    //   categoryY = this.props.columnY 
-    // }
-
+    let categoryY = this.props.columnY 
 
     return displayedCategories
       .map( (visible, categoryName) => {
@@ -476,15 +453,8 @@ class Column extends React.Component {
   }
 
   sidebarMapColumn() {
-    let yRect= this.props.columnY + 15
-    let yImage= this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding']) + 15
-    // if(this.props.language === 'fr') {
-    //   yRect = this.props.columnY + 15
-    //   yImage = this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding']) + 15
-    // } else {
-    //   yRect = this.props.columnY
-    //   yImage = this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding'])
-    // }
+    let yRect= this.props.columnY
+    let yImage= this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding'])
     return <g>
       <rect
         height={ this.props.columnHeight }
@@ -506,7 +476,7 @@ class Column extends React.Component {
   }
 
   sidebarHeading() {
-    let currentY = this.props.columnY + 15
+    let currentY = this.props.columnY 
     // if(this.props.language === 'fr') {
     //   currentY = this.props.columnY + 15
     // } else {

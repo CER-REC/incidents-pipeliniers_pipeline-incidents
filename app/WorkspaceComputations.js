@@ -46,30 +46,8 @@ WorkspaceComputations.columnWidth = function (columns) {
 
 WorkspaceComputations.columnY = function() {
   return WorkspaceComputations.topBarHeight() +
-         Constants.get('columnHeadingHeight')
+         Constants.get('columnHeadingHeight') 
 }
-
-WorkspaceComputations.columnYTest = function(language) {
-  if (language === 'fr') {
-    return WorkspaceComputations.topBarHeight() + 
-          Constants.get('columnHeadingHeight') + 15
-  } else {
-    return WorkspaceComputations.topBarHeight() +
-         Constants.get('columnHeadingHeight')
-  }
-}
-
-WorkspaceComputations.incidentsListLabel = function(language) {
-  if (language === 'fr') {
-    return WorkspaceComputations.topBarHeight() + 
-          Constants.get('columnHeadingHeight') - 32
-  } else {
-    return WorkspaceComputations.topBarHeight() +
-         Constants.get('columnHeadingHeight') - 30
-  }
-}
-
-
 
 // columns: the columns state
 WorkspaceComputations.sidebarWidth = function (columns) {
@@ -185,7 +163,12 @@ WorkspaceComputations.categoryVerticalPositions = function (showEmptyCategories,
 
   const displayedCategories = CategoryComputations.displayedCategories(data, columns, categories, columnName)
 
-  let categoryY = WorkspaceComputations.columnY() + 15
+  let categoryY
+  if(language === 'fr') {
+    categoryY = WorkspaceComputations.columnY()
+  } else {
+    categoryY = WorkspaceComputations.columnY()
+  }
 
   return displayedCategories.map( (visible, categoryName) => {
     const currentY = categoryY
