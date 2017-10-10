@@ -50,7 +50,7 @@ class StarredIncidentList extends React.Component {
     )
 
     return {
-      maxHeight: `${starredIncidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
+      maxHeight: `${starredIncidentListHeight}px`,
     }
   }
 

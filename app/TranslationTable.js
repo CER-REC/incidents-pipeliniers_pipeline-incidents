@@ -1266,7 +1266,16 @@ const TranslationTable = Immutable.fromJS({
         fr: 'Véhicule ou équipement mobile',
       },
 
+      notApplicable: {
+        'en': 'Not Applicable',
+        'fr': 'Sans objet'
+      },
+      unknown: {
+        'en': 'Unknown',
+        'fr': 'Inconnu'
+      }
     },
+
     'volumeCategory': {
       notApplicable: {
         en: 'Not Applicable',
