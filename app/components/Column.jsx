@@ -51,8 +51,13 @@ class Column extends React.Component {
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     // TODO: use the new WorkspaceComputations.categoryVerticalPositions
-    let categoryY = WorkspaceComputations.columnY()
-
+    let categoryY 
+    if (this.props.language === 'fr') {
+      categoryY = WorkspaceComputations.columnY() + 15
+    } else {
+      categoryY = WorkspaceComputations.columnY()
+    }
+    
     const displayedCategories = CategoryComputations.displayedCategories(
       this.props.data,
       this.props.columns,
@@ -99,21 +104,6 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    if(this.props.language === 'fr') {
-      return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
-        currentY += Constants.get('columnHeadingLineOffset')
-        return <tspan className='barsHeading' 
-          key={word}
-          x={columnMeasurements.get('x')} 
-          y={currentY - Constants.get('columnHeadingHeightFr')}
-          onMouseDown={this.handleDragStart.bind(this)}
-          onMouseMove={this.handleDragMove.bind(this)}
-          onMouseUp={this.handleDragEnd.bind(this)}>
-          {word}
-        </tspan>
-      })
-    }
-
     return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
       currentY += Constants.get('columnHeadingLineOffset')
       return <tspan className='barsHeading' 
@@ -142,8 +132,14 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    const currentY = WorkspaceComputations.topBarHeight() + 
-      Constants.get('columnSubheadingOffset')
+    let currentY
+    if (this.props.language === 'fr') {
+      currentY = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset') + 15
+    } else {
+      currentY = WorkspaceComputations.topBarHeight() + Constants.get('columnSubheadingOffset')
+    }
+    //WorkspaceComputations.topBarHeight() + 
+    //Constants.get('columnSubheadingOffset')
 
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,
@@ -170,12 +166,19 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
+    let dragArrowY
+    if (this.props.language === 'fr') {
+      dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport) + 15
+    } else {
+      dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
+    }
+
     return <image xlinkHref='images/horizontal_drag.svg' 
       className = 'dragArrow'
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
-      y= {WorkspaceComputations.dragArrowY(this.props.viewport)}
+      y= { dragArrowY }
       onMouseDown={this.handleDragStart.bind(this)}
       onMouseMove={this.handleDragMove.bind(this)}
       onMouseUp={this.handleDragEnd.bind(this)}>

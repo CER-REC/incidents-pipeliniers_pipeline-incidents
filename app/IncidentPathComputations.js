@@ -68,7 +68,6 @@ IncidentPathComputations.incidentHeightInCategory = function(incident, subsetInc
   const heightWithinCategory = (incidentIndex / subsetIncidents.count()) * categoryVerticalPositions.getIn([categoryName, 'height'])
 
   return categoryVerticalPositions.getIn([categoryName, 'y']) + heightWithinCategory
-
 }
 
 

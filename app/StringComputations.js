@@ -1,5 +1,4 @@
 const Constants = require('./Constants.js')
-const WorkspaceComputations = require('./WorkspaceComputations.js')
 
 const StringComputations = {
 
@@ -75,16 +74,6 @@ const StringComputations = {
 
     return labelFragments
 
-  },
-
-  incidentsLabelLanguage(language) {
-    const y = WorkspaceComputations.topBarHeight()
-    if(language === 'fr') {
-      return y
-    }
-    else {
-      return y + Constants.get('columnHeadingLineOffset')
-    }
   }
 
 }

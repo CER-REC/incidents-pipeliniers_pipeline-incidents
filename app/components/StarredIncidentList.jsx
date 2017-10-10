@@ -35,11 +35,9 @@ class StarredIncidentList extends React.Component {
       this.props.pinnedIncidents
     )
 
-    const topOffset = pinColumnPositions.get('y') + incidentListHeight + dividerHeight
-
     return {
       width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
-      top: `${topOffset}px`,
+      top: `${pinColumnPositions.get('y') + incidentListHeight + dividerHeight}px`
     }
   }
 
@@ -50,7 +48,7 @@ class StarredIncidentList extends React.Component {
     )
 
     return {
-      maxHeight: `${starredIncidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
+      maxHeight: `${starredIncidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding']) - 15}px`,
     }
   }
 

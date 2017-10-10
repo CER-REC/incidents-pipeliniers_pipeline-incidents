@@ -88,7 +88,7 @@ const Constants = Immutable.fromJS({
     labelIconSize: 15,
     labelPadding: 15,
     labelIconPadding: -7,
-    columnHeightPadding: 25,
+    columnHeightPadding: 5,
     chevron90Rotation: 90,
     chevron270Rotation:270,
     hideIncidentListX: 10,
@@ -102,7 +102,7 @@ const Constants = Immutable.fromJS({
 
   columnHeadingHeight: 47,
   columnHeadingLineOffset: 15,
-  columnHeadingHeightFr: 15, 
+  columnHeadingHeightFr: 30, 
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 45,
 
