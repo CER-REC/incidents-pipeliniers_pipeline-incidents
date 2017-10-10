@@ -53,6 +53,28 @@ function parseList (record, columnName, value) {
   }
 }
 
+function parseSystemComponentsInvolved (record) {
+
+  const componentsList = parseList(record, 'pipelineSystemComponentsInvolved', record['Pipeline System Components Involved'])
+
+  const wereComponentsInvolved = parseYesNo(record['Were Pipeline System Components Involved?'], record)
+
+  if (componentsList.length > 0) {
+    return componentsList
+  }
+  else if (wereComponentsInvolved === true) {
+    return ['unknown']
+  }
+  else if (wereComponentsInvolved === false) {
+    return ['notApplicable']
+  }
+  else {
+    console.warn('Error parsing system components involved list', record)
+  }
+
+}
+
+
 function volumeCategory(record, volumeString) {
 
   if (volumeString === 'Not Applicable') {
@@ -148,7 +170,7 @@ function csvColumnMapping (d) {
     whyItHappened: parseList(d, 'whyItHappened', d['WhyItHappened']),
     pipelinePhase: readConstrainedVocabularyString(d, 'Pipeline Phase', 'pipelinePhase'),
     werePipelineSystemComponentsInvolved: parseYesNo(d['Were Pipeline System Components Involved?'], d),
-    pipelineSystemComponentsInvolved: parseList(d, 'pipelineSystemComponentsInvolved', d['Pipeline System Components Involved']),
+    pipelineSystemComponentsInvolved: parseSystemComponentsInvolved(d),
   }
 }
 
@@ -289,6 +311,30 @@ function validateVolumeCategory(incident, errors) {
 
 
 
+
+function validateSystemComponentsInvolved (incident, schema, errors) {
+
+  const componentsList = validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors)
+
+  const wereComponentsInvolved = validateBoolean('werePipelineSystemComponentsInvolved', incident, errors)
+
+  if (componentsList && componentsList.length > 0) {
+    return componentsList
+  }
+  else if (wereComponentsInvolved === true) {
+    return ['unknown']
+  }
+  else if (wereComponentsInvolved === false) {
+    return ['notApplicable']
+  }
+  else {
+    errors.push({message: 'Error parsing system components involved list', incident: incident})
+  }
+
+}
+
+
+
 const DataLoader = {
 
   // Load the application data from a single remote CSV file
@@ -374,7 +420,7 @@ const DataLoader = {
             incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
             whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
             whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
-            pipelineSystemComponentsInvolved: validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
+            pipelineSystemComponentsInvolved: validateSystemComponentsInvolved(incident, schema, errors),
 
 
             // TODO: change this depending how volume category works out from
@@ -385,10 +431,9 @@ const DataLoader = {
             releaseType: validateIdInSet('ReleaseType', incident, schema.get('releaseType'), errors),
 
 
+            // TODO: untested, validate that this works
+            werePipelineSystemComponentsInvolved: validateBoolean('werePipelineSystemComponentsInvolved', incident, errors),
 
-            // TODO: will it be yes/no, t/f, 0,1, what? 
-            // TODO: unused, and unclear if needed... 
-            // werePipelineSystemComponentsInvolved: 
             // substanceCategory
 
           }
