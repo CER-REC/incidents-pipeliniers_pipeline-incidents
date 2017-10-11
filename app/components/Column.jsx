@@ -105,6 +105,9 @@ class Column extends React.Component {
         key={word}
         x={columnMeasurements.get('x')} 
         y={currentY}
+        onTouchStart = { this.handleTouchStart.bind(this) }
+        onTouchMove = { this.handleTouchMove.bind(this) }
+        onTouchEnd = { this.handleTouchEnd.bind(this) }
         onMouseDown={this.handleDragStart.bind(this)}
         onMouseMove={this.handleDragMove.bind(this)}
         onMouseUp={this.handleDragEnd.bind(this)}>
@@ -161,6 +164,9 @@ class Column extends React.Component {
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
       y= {WorkspaceComputations.dragArrowY(this.props.viewport)}
+      onTouchStart = { this.handleTouchStart.bind(this) }
+      onTouchMove = { this.handleTouchMove.bind(this) }
+      onTouchEnd = { this.handleTouchEnd.bind(this) }
       onMouseDown={this.handleDragStart.bind(this)}
       onMouseMove={this.handleDragMove.bind(this)}
       onMouseUp={this.handleDragEnd.bind(this)}>
@@ -289,6 +295,35 @@ class Column extends React.Component {
     window.addEventListener('mousemove', columnWindowMoveHandler)
   }
 
+  handleTouchStart(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    console.log('start touch')
+
+    const oldX = WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.getIn(['columns', this.props.columnName, 'x']))
+    const offset = e.touches[0].clientX - oldX
+
+    this.props.onColumnDragStarted(true, this.props.columnName, oldX, e.clientX, offset)
+
+    // These handlers will help keep the dragged column moving
+    // even when the cursor is off the dragging handle. This
+    // is necessary because the dragging handle is too small
+    // making it harder to drag without the cursor leaving 
+    // the handle.
+    columnWindowMoveHandler = this.handleTouchMove.bind(this)
+    columnWindowEndHandler = this.handleTouchEnd.bind(this)
+    window.addEventListener('mouseup', columnWindowEndHandler)
+    window.addEventListener('mousemove', columnWindowMoveHandler)
+  }
+
   handleDragMove(e) {
     e.stopPropagation()
     e.preventDefault()
@@ -299,10 +334,40 @@ class Column extends React.Component {
     this.props.onColumnDrag(e.clientX)
   }
 
+  handleTouchMove(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    console.log('touch move')
+
+    // No need to fire unneeded events if drag hasn't started.
+    if(!this.props.columnDragStatus.get('isStarted')) return 
+
+    this.props.onColumnDrag(e.touches[0].clientX)
+  }
+
   handleDragEnd(e) {
     e.stopPropagation()
     e.preventDefault()
 
+    // No need to fire unneeded evenets if drag hasn't started.
+    if(!this.props.columnDragStatus.get('isStarted')) return
+
+    this.props.onColumnDragEnded(false)
+    const newX = this.props.columnDragStatus.get('newX') - 
+                 this.props.columnDragStatus.get('offset')
+    this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
+
+    // Remove the window event handlers previously attached.
+    window.removeEventListener('mouseup', columnWindowEndHandler)
+    window.removeEventListener('mousemove', columnWindowMoveHandler)
+  }
+
+  handleTouchEnd(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    console.log('end touch')
     // No need to fire unneeded evenets if drag hasn't started.
     if(!this.props.columnDragStatus.get('isStarted')) return
 
@@ -513,6 +578,9 @@ class Column extends React.Component {
     switch(this.props.columnType) {
     case Constants.getIn(['columnTypes', 'SIDEBAR']): {
       return <g
+        onTouchStart = { this.handleTouchStart.bind(this) }
+        onTouchMove = { this.handleTouchMove.bind(this) }
+        onTouchEnd = { this.handleTouchEnd.bind(this) }
         onMouseDown = { this.handleSidebarDragStart.bind(this) }
         onMouseMove = { this.handleSidebarDragMove.bind(this) }
         onMouseUp = { this.handleSidebarDragEnd.bind(this) }
