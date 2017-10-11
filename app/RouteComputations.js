@@ -243,7 +243,9 @@ const RouteComputations = {
     return encodeURIComponent(`${location.pathname}screenshot${location.search}`)
   },
 
-
+  bitlyParameter: function (location) {
+    return encodeURIComponent(location.search)
+  },
 
 }
 

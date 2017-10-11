@@ -13,8 +13,12 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 class SocialBar extends React.Component {
 
   makeBitlyPromise() {
+
+    const root = RouteComputations.appRoot(document.location, this.props.language)
+    const shortenUrl = RouteComputations.bitlyParameter(document.location)
+
     const options = {
-      uri: `${RouteComputations.appRoot(document.location, this.props.language)}bitly_url`,
+      uri: `${root}bitly_url?shortenUrl=${shortenUrl}`,
       json: true
     }
     return Request(options)
