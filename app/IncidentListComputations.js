@@ -39,7 +39,7 @@ const IncidentListComputations = {
       viewport, 
       data, 
       columns, 
-      categories,
+      categories
     ).get('pinColumn')
 
     return pinColumnPositions.get('height') - dividerHeight - starredIncidentListHeight
