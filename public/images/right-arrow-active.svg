@@ -3,16 +3,17 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 400 400" style="enable-background:new 0 0 400 400;" xml:space="preserve">
 <style type="text/css">
-	.st0{clip-path:url(#SVGID_2_);fill:none;stroke:#231F20;stroke-miterlimit:10;}
+	.st0{clip-path:url(#SVGID_2_);fill:none;stroke:#4D4D4D;stroke-width:3.75;stroke-linecap:round;stroke-miterlimit:10;}
+	.st1{clip-path:url(#SVGID_2_);fill:none;stroke:#4D4D4D;stroke-width:1.5;stroke-linecap:round;stroke-miterlimit:10;}
 </style>
-<g transform="scale(14,14) translate(-186,-186)">
+<g transform="scale(14,14) translate(-185.5,-186)">
 	<defs>
-		<rect id="SVGID_1_" x="186" y="192.5" width="28.4" height="14.5"/>
+		<rect id="SVGID_1_" x="187.9" y="188.6" width="24" height="24"/>
 	</defs>
 	<clipPath id="SVGID_2_">
 		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
 	</clipPath>
-	<path class="st0" d="M186.7,199.8c0,0,6.8-6.8,13.5-6.8s13.5,6.8,13.5,6.8s-6.8,6.8-13.5,6.8S186.7,199.8,186.7,199.8z M207,199.8
-		c0,3.7-3,6.8-6.8,6.8c-3.7,0-6.8-3-6.8-6.8s3-6.8,6.8-6.8C203.9,193,207,196,207,199.8z"/>
+	<polyline class="st0" points="198.1,195.4 203.3,200.6 198,205.9 	"/>
+	<circle class="st1" cx="199.9" cy="200.6" r="11.3"/>
 </g>
 </svg>
