@@ -34,7 +34,7 @@ class MapContainer extends React.Component {
       width: `${mapPositions.get('width')}px`,
       height: `${mapPositions.get('height')}px`,
       left: `${leftX}px`,
-      top: `${mapPositions.get('y') + 15}px`,
+      top: `${mapPositions.get('y')}px`,
       opacity: opacity,
     }
 

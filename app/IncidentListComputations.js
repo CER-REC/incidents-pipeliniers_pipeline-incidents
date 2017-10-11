@@ -30,7 +30,7 @@ const IncidentListComputations = {
 
 
 
-  incidentListHeight(showEmptyCategories, viewport, data, columns, categories, pinnedIncidents, language) {
+  incidentListHeight(showEmptyCategories, viewport, data, columns, categories, pinnedIncidents) {
     const dividerHeight = IncidentListComputations.dividerHeight(pinnedIncidents)
     const starredIncidentListHeight = IncidentListComputations.starredIncidentListHeight(pinnedIncidents)
 
@@ -40,7 +40,6 @@ const IncidentListComputations = {
       data, 
       columns, 
       categories,
-      language
     ).get('pinColumn')
 
     return pinColumnPositions.get('height') - dividerHeight - starredIncidentListHeight

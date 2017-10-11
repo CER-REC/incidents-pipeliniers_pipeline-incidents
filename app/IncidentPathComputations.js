@@ -111,7 +111,7 @@ IncidentPathComputations.incidentHeightInCategory = function(incident, subsetInc
 // The source and destination measurements contain y coordinates defining each
 // side of the path (with the x coordinates for each path to be derived from
 // the column positions)
-IncidentPathComputations.pathMeasurements = function (data, columns, categories, showEmptyCategories, viewport, language) {
+IncidentPathComputations.pathMeasurements = function (data, columns, categories, showEmptyCategories, viewport) {
 
   // Do some necessary computations up front:
   const sidebarColumns = WorkspaceComputations.sidebarColumns(columns)
@@ -127,8 +127,7 @@ IncidentPathComputations.pathMeasurements = function (data, columns, categories,
     viewport, 
     filteredData,
     columns,
-    categories,
-    language
+    categories
   )
 
 
@@ -486,7 +485,7 @@ IncidentPathComputations.computeHeightsForColumnPair = function(filteredData, co
 // produces an immutable list of objects with a d path attribute, plus source 
 // and destination category names.
 
-IncidentPathComputations.pathCurves = function (data, columns, categories, showEmptyCategories, viewport, pathMeasurements, columnName, language) {
+IncidentPathComputations.pathCurves = function (data, columns, categories, showEmptyCategories, viewport, pathMeasurements, columnName) {
 
 
   const filteredData = IncidentComputations.filteredIncidents(
@@ -500,8 +499,7 @@ IncidentPathComputations.pathCurves = function (data, columns, categories, showE
     viewport,
     filteredData,
     columns,
-    categories,
-    language
+    categories
   )
 
 
@@ -595,7 +593,7 @@ IncidentPathComputations.curveControlThreshold = function(x1, x2) {
 // different in a number of details. Maintainer beware! 
 
 
-IncidentPathComputations.flowPathMeasurements = function (data, columns, categories, showEmptyCategories, viewport, categoryHoverState, filterboxActivationState, language) {
+IncidentPathComputations.flowPathMeasurements = function (data, columns, categories, showEmptyCategories, viewport, categoryHoverState, filterboxActivationState) {
 
   // Do some necessary computations up front:
   const sidebarColumns = WorkspaceComputations.sidebarColumns(columns)
@@ -611,8 +609,7 @@ IncidentPathComputations.flowPathMeasurements = function (data, columns, categor
     viewport, 
     filteredData,
     columns,
-    categories,
-    language
+    categories
   )
 
   const incidentsInCategorySelection = IncidentComputations.incidentsInCategorySelection(

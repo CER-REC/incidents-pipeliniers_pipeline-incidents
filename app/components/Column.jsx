@@ -154,7 +154,7 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    let dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
+    const dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
 
     return <image xlinkHref='images/horizontal_drag.svg' 
       className = 'dragArrow'
@@ -468,7 +468,7 @@ class Column extends React.Component {
         className='Column'
         width={ this.props.columnWidth - Constants.getIn(['sidebarMapColumn','widthPadding'])}
         x={ this.props.columnX + Constants.getIn(['sidebarMapColumn','xPadding'])}
-        y={ this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding']) }>
+        y={ this.props.columnY + Constants.getIn(['sidebarMapColumn','yPadding'])}>
       </image>
     </g>
   }

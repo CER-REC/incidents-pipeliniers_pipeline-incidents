@@ -224,7 +224,7 @@ WorkspaceComputations.sidebarCategoryVerticalPositions = function (showEmptyCate
 
       return Immutable.Map({
         height: categoryHeights.get(categoryName),
-        y: currentY ,
+        y: currentY,
       })
     })
 
