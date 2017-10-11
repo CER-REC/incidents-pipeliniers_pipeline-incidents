@@ -21,6 +21,7 @@ const IncidentList = require('./IncidentList.jsx')
 const StoryBar = require('./StoryBar.jsx')
 const StoryWindow = require('./StoryWindow.jsx')
 const ColumnTooltip = require('./ColumnTooltip.jsx')
+const AboutWindow = require('./AboutWindow.jsx')
 
 class Workspace extends React.Component {
 
@@ -116,6 +117,7 @@ class Workspace extends React.Component {
       <StoryBar/>
       <Disclaimer/>
       {this.columnTooltip()}
+      <AboutWindow/>
     </div>
   }
 }

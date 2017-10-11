@@ -10,7 +10,8 @@ const StoryRow = require('./StoryRow.jsx')
 
 class StoryBar extends React.Component {
   render() {
-    return <div>
+    return <div
+      id={Constants.get('storyBarID')}>
       <div id='headingMargin'/>
       <div id='heading'>
         <span 

@@ -2,6 +2,113 @@ const Immutable = require('immutable')
 
 const TranslationTable = Immutable.fromJS({ 
 
+  methodologyLinks: {
+    en: 'data/Incident Data Methodology_EN.pdf',
+    fr: 'data/Incident Data Methodology_FR.pdf',
+  },
+
+  learnMoreLinks: {
+    en: 'https://neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
+    fr: 'https://neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
+  },
+
+  aboutText: {
+    title: {
+      en: 'ABOUT THIS PROJECT',
+      fr: 'À PROPOS',
+    },
+    p1: {
+      en: 'This Incidents at NEB-Regulated Pipeline and Facilities interactive online tool is part of the National Energy Board’s (NEB) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the NEB structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found in the ',
+      fr: 'L’outil interactif « Incidents impliquant des installations et des pipelines réglementés » fait partie de l’initiative de visualisation des données de l’Office national de l’énergie. Échelonnée sur trois ans, cette initiative vise à transformer la manière dont l’Office structure et diffuse ses données. Elle a pour objectif de favoriser un processus décisionnel fondé sur la preuve et de faciliter la compréhension des questions liées aux réseaux énergétiques et pipeliniers du Canada, grâce à un outil de visualisation interactif, facile à utiliser. L’outil présente les données recueillies par l’Office de 2008 à aujourd’hui en ce qui concerne les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. Au cours des mois et des années à venir, l’Office utilisera cet outil novateur pour diffuser ses données sur la sécurité des pipelines et sur l’énergie, l’information qu’il possède sur l’infrastructure énergétique et une foule d’autres renseignements spécialisés. Par ailleurs, le portail ',
+    },
+    safetyPerformancePortalText: {
+      en: 'NEB Safety Performance Portal',
+      fr: 'Rendement en matière de sécurité',
+    },
+    safetyPerformancePortalLink: {
+      en: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/index-eng.html',
+      fr: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/index-fra.html',
+    },
+    p1_2: {
+      en: '',
+      fr: ' comporte d’autres outils interactifs en ligne.',
+    },
+    p2: {
+      en: 'If you want to use the data for research and undertake your own review, all the data is downloadable and shareable. The chart images are also downloadable, and if you are interested in the source code for the visualizations, it is available on the government’s Open Government portal: ',
+      fr: 'Si vous souhaitez utiliser les données pour vos recherches ou pour en faire votre propre analyse, vous pouvez les télécharger et les partager. Les graphiques peuvent aussi être téléchargés. Quant au code source des visualisations, il est accessible sur le portail du « gouvernement ouvert » à l’adresse ',
+    },
+    openCanadaText: {
+      en: 'open.canada.ca',
+      fr: 'ouvert.canada.ca',
+    },
+    openCanadaLink: {
+      en: 'http://open.canada.ca/',
+      fr: 'http://ouvert.canada.ca/',
+    },
+    p3: {
+      en: 'We hope we are hitting the mark. Your feedback is essential.',
+      fr: 'Nous espérons avoir atteint notre objectif. Votre rétroaction est essentielle.',
+    },
+    p4: {
+      en: 'Email us with your comments and ideas: ',
+      fr: 'Vous pouvez nous la faire parvenir, ainsi que vos suggestions, à l’adresse ',
+    },
+    emailText: {
+      en: 'energyindesign@neb-one.gc.ca',
+      fr: 'conceptionenergie@neb-one.gc.ca',
+    },
+    emailLink: {
+      en: 'mailto:energyindesign@neb-one.gc.ca',
+      fr: 'mailto:conceptionenergie@neb-one.gc.ca',
+    },
+    p4_2: {
+      en: '. We look forward to hearing from you.',
+      fr: '. Votre opinion compte.',
+    },
+    contributers: {
+      en: 'CONTRIBUTORS',
+      fr: 'LES CONTRIBUTEURS',
+    },
+    dataSourceTitle: {
+      en: 'DATA SOURCE:',
+      fr: 'SOURCE DES DONNÉES',
+    },
+    dataSourceContent: {
+      en: 'Andrew Benson, Karen Duckworth, Randy Cooke',
+      fr: 'Andrew Benson, Karen Duckworth, Randy Cooke',
+    },
+    coordinationTitle: {
+      en: 'COORDINATION:',
+      fr: 'COORDINATION:',
+    },
+    coordinationContent: {
+      en: 'Annette Hester (Concept and Coordination); Katherine Murphy (Project Manager); Faiza Hussain (Administrative support); Stephen Chow (Data Coordination)',
+      fr: 'Annette Hester (conception et coordination); Katherine Murphy (gestionnaire de projet); Faiza Hussain (Soutien administratif); Stephen Chow (coordination des données)',
+    },
+    dataVisualizationTitle: {
+      en: 'DATA VISUALIZATION:',
+      fr: 'VISUALISATION DES DONNÉES',
+    },
+    dataVisualizationContent: {
+      leadDesign: {
+        en: 'Lead Design Research: Sheelagh Carpendale and Wesley Willett, iLab, University of Calgary.',
+        fr: 'Recherche conceptuelle sous la direction de Sheelagh Carpendale et Wesley Willett, iLab, Université de Calgary',
+      },
+      design: {
+        en: 'Design: Jagoda Walny Nix, Bon Ariel Asiniero, Søren Knudsen, Mieka West, Doris Kosminsky, Lien Quach, Peter Buk, Shreya Chopra, Katrina Tabuli and Claudia Maurer',
+        fr: 'Conception : Jagoda Walny Nix, Bon Ariel Asiniero, Søren Knudsen, Mieka West, Doris Kosminsky, Lien Quach, Peter Buk, Shreya Chopra, Katrina Tabuli and Claudia Maurer',
+      },
+      leadTechnical: {
+        en: 'Lead Technical: VizworX',
+        fr: 'Chef technique à VizworX',
+      },
+      technical: {
+        en: 'Technical: Patrick King, Alaa Azazi, Charlie Cheung, Abhishek Sharma, and Ben Cousins',
+        fr: 'Aspect technique : Patrick King, Alaa Azazi, Charlie Cheung, Abhishek Sharma, and Ben Cousins',
+      },
+    },
+  },
+
   stories: {
     'provinces-and-pipeline-incident': {
       title: {
@@ -11,6 +118,18 @@ const TranslationTable = Immutable.fromJS({
       backgroundImage: {
         en: 'images/stories/provinces-and-pipeline-incident-EN.jpg',
         fr: '<TODO>',
+      },
+      tutorialImages: {
+        en: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
+        fr: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
       },
     },
     'how-big-are-most-gas-releases': {
@@ -22,6 +141,18 @@ const TranslationTable = Immutable.fromJS({
         en: 'images/stories/how-big-are-most-gas-releases-EN.jpg',
         fr: '<TODO>',
       },
+      tutorialImages: {
+        en: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
+        fr: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
+      },
     },
     'when-do-incidents-usually-occur': {
       title: {
@@ -31,6 +162,18 @@ const TranslationTable = Immutable.fromJS({
       backgroundImage: {
         en: 'images/stories/when-do-incidents-usually-occur-EN.jpg',
         fr: '<TODO>',
+      },
+      tutorialImages: {
+        en: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
+        fr: [
+          'images/stories/placeholder-1.png',
+          'images/stories/placeholder-2.png',
+          'images/stories/placeholder-3.png',
+        ],
       },
     },
   },
@@ -603,18 +746,28 @@ const TranslationTable = Immutable.fromJS({
   },
 
   mainSubheading: {
-    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulations. New data has been added on yyyy-mm-dd. ',
-    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données ont été ajoutées le aaaa-mm-jj. ',
+    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulations. New data is added quarterly. The last update was: yyyy-mm-dd. ',
+    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données sont ajoutées tous les trois mois. De nouvelles données ont été ajoutées le aaaa-mm-jj. ',
   },
 
   dataCollectionSubheading: {
     en: ' on how data collection has evolved since the NEB was established in 1959.',
-    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de l’Office en 1959. '
+    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de l’Office en 1959.'
+  },
+
+  incidentResponseSubheading: {
+    en: ' the NEB responds to incidents at the pipelines and facilities it regulates.',
+    fr: ' l’Office intervient en cas d’incident lié à des installations ou à des pipelines soumis à sa réglementation.'
   },
 
   learnMore: {
     en: 'Learn more',
     fr: 'Obtenez plus d’information'
+  },
+
+  discoverHow: {
+    en: 'Discover how',
+    fr: 'Découvrez comment'
   },
 
   dataDisclaimer: {
