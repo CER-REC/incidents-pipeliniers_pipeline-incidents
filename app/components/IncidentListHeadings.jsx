@@ -47,13 +47,12 @@ class IncidentListHeadings extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories,
-      this.props.language
+      this.props.categories
     ).get('pinColumn')
 
     // TODO: This is replicating math found in Column.jsx for laying out 
     // text headings. We need to pull this into a computation file.
-    const y = WorkspaceComputations.columnY(this.props.language) 
+    const y = WorkspaceComputations.columnY() 
 
    
     const filteredData = IncidentComputations.filteredIncidents(

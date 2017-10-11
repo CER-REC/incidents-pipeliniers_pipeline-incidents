@@ -8,6 +8,12 @@ const IncidentListItem = require('./IncidentListItem.jsx')
 const SetIncidentListScrollCreator = require('../actionCreators/SetIncidentListScrollCreator.js')
 const ShowIncidentListCreator = require('../actionCreators/ShowIncidentListCreator.js')
 
+
+//import starredIncidentsList
+//if (pinnedColumn.count() >= 3) {
+//   noIncidentsText 
+// }
+
 const Tr = require('../TranslationTable.js')
 const IncidentListComputations = require('../IncidentListComputations.js')
 

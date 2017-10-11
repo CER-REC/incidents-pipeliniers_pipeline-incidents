@@ -51,7 +51,7 @@ class Column extends React.Component {
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     // TODO: use the new WorkspaceComputations.categoryVerticalPositions
-    let categoryY = WorkspaceComputations.columnY(this.props.language)
+    let categoryY = WorkspaceComputations.columnY()
 
     const displayedCategories = CategoryComputations.displayedCategories(
       this.props.data,
@@ -124,11 +124,10 @@ class Column extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories,
-      this.props.language)
+      this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    const currentY = WorkspaceComputations.columnY(this.props.language)
+    const currentY = WorkspaceComputations.columnY()
 
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,
@@ -152,11 +151,10 @@ class Column extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories,
-      this.props.language)
+      this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    let dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport, this.props.language)
+    let dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
 
     return <image xlinkHref='images/horizontal_drag.svg' 
       className = 'dragArrow'

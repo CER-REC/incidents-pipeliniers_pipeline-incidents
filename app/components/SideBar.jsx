@@ -20,8 +20,7 @@ class Sidebar extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories,
-      this.props.language)
+      this.props.categories)
       .get('sideBar')
 
     const numberOfColumnsInSidebar = WorkspaceComputations.numberOfColumnsInSidebar(this.props.columns)
