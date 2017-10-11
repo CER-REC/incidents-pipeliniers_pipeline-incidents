@@ -127,7 +127,7 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    const currentY = WorkspaceComputations.columnY()
+    const currentY = WorkspaceComputations.barSubheading(this.props.language)
 
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,

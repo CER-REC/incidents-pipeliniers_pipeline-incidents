@@ -43,10 +43,17 @@ WorkspaceComputations.columnWidth = function (columns) {
   }
 }
 
-
-WorkspaceComputations.columnY = function() {
+WorkspaceComputations.columnY = function () {
   return WorkspaceComputations.topBarHeight() +
          Constants.get('columnHeadingHeight') + Constants.getIn(['workspace','frenchStringPadding'])
+}
+
+WorkspaceComputations.barSubheading = function (language) {
+  if(language === 'fr') {
+    return WorkspaceComputations.columnY() - Constants.get('columnSubheadingPaddingFr')
+  } else {
+    return WorkspaceComputations.columnY() - Constants.get('columnSubheadingPaddingEn')
+  }
 }
 
 // columns: the columns state
