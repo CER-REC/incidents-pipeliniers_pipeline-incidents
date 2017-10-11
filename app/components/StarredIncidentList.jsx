@@ -37,7 +37,7 @@ class StarredIncidentList extends React.Component {
 
     return {
       width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
-      top: `${pinColumnPositions.get('y') + incidentListHeight + dividerHeight}px`
+      top: `${pinColumnPositions.get('y') + incidentListHeight + dividerHeight + Constants.getIn(['pinColumn','columnHeightPadding'])}px`
     }
   }
 
@@ -48,7 +48,7 @@ class StarredIncidentList extends React.Component {
     )
 
     return {
-      maxHeight: `${starredIncidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
+      maxHeight: `${starredIncidentListHeight - (Constants.getIn(['pinColumn','columnHeightPadding']) * Constants.getIn(['pinColumn','starredListPadding']))}px`,
     }
   }
 

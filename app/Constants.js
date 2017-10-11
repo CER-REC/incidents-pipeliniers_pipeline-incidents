@@ -15,6 +15,8 @@ const Constants = Immutable.fromJS({
     maxWidth: 1138,
     heightToWidthRatio: 0.66,
     emptyCategoryOffsetRatio: 0.06,
+    viewportPadding: 40,
+    frenchStringPadding: 18,
   },
 
   storyThumbnailDimensions: {
@@ -94,6 +96,8 @@ const Constants = Immutable.fromJS({
     hideIncidentListX: 10,
     hideIncidentListY: 5,
     showIncidentListXY: -2,
+    starredListPadding: 5,
+    incidentListPadding: 6,
   },
 
   columnWideWidth: 62,

@@ -8,12 +8,6 @@ const IncidentListItem = require('./IncidentListItem.jsx')
 const SetIncidentListScrollCreator = require('../actionCreators/SetIncidentListScrollCreator.js')
 const ShowIncidentListCreator = require('../actionCreators/ShowIncidentListCreator.js')
 
-
-//import starredIncidentsList
-//if (pinnedColumn.count() >= 3) {
-//   noIncidentsText 
-// }
-
 const Tr = require('../TranslationTable.js')
 const IncidentListComputations = require('../IncidentListComputations.js')
 
@@ -109,7 +103,7 @@ class IncidentList extends React.Component {
     return {
       width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
 
-      top: `${pinColumnPositions.get('y')}px`,
+      top: `${pinColumnPositions.get('y') + Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
     }
   }
 
@@ -126,7 +120,7 @@ class IncidentList extends React.Component {
 
     return {
 
-      maxHeight: `${incidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
+      maxHeight: `${incidentListHeight - (Constants.getIn(['pinColumn','columnHeightPadding']) * Constants.getIn(['pinColumn','incidentListPadding']))}px`,
 
     }
   }

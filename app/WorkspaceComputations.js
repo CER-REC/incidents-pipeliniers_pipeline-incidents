@@ -28,7 +28,7 @@ WorkspaceComputations.columnHeight = function (viewport) {
   return viewport.get('y') - 
          WorkspaceComputations.topBarHeight() - 
          Constants.get('bottomOuterMargin') -
-         Constants.get('columnHeadingHeight') + 18
+         Constants.get('columnHeadingHeight') + Constants.getIn(['workspace','frenchStringPadding'])
 }
 
 
@@ -46,7 +46,7 @@ WorkspaceComputations.columnWidth = function (columns) {
 
 WorkspaceComputations.columnY = function() {
   return WorkspaceComputations.topBarHeight() +
-         Constants.get('columnHeadingHeight') + 18
+         Constants.get('columnHeadingHeight') + Constants.getIn(['workspace','frenchStringPadding'])
 }
 
 // columns: the columns state
@@ -518,7 +518,7 @@ WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategori
   // Workspace
   measurements = measurements.set('workspace', Immutable.fromJS({
     width: cumulativeX,
-    height: viewport.get('y') + 40,
+    height: viewport.get('y') + Constants.getIn(['workspace','viewportPadding']),
   }))
 
 
@@ -610,7 +610,7 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   // Workspace
   measurements = measurements.set('workspace', Immutable.fromJS({
     width: workspaceWidth,
-    height: viewport.get('y') + 40,
+    height: viewport.get('y') + Constants.getIn(['workspace','viewportPadding']),
   }))
 
   return measurements
