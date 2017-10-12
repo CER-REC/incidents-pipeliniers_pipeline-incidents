@@ -2,7 +2,7 @@
 @import '../styles/zIndex.scss';
 
 .tooltip {
-  position:absolute; 
+  position:relative; 
   z-index:$column-tooltip; 
   min-width:322px;
   max-width:322px;

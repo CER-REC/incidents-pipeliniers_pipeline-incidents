@@ -111,12 +111,13 @@ class Workspace extends React.Component {
             {this.columns()}
             <IncidentListShowHide />
           </svg>
+          {this.columnTooltip()}
         </div>
       </div>
       <StoryWindow/>
       <StoryBar/>
       <Disclaimer/>
-      {this.columnTooltip()}
+
       <AboutWindow/>
     </div>
   }
