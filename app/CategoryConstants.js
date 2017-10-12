@@ -133,6 +133,9 @@ const CategoryConstants = Immutable.fromJS({
       'Regulating Facility': 'regulatingFacility',
       'Storage Facility': 'storageFacility',
       'Vehicle/Mobile Equipment': 'vehicleMobileEquipment',
+
+      'Not Applicable': 'notApplicable',
+      'Unknown': 'unknown'
     },
     'volumeCategory': {
       'Not Applicable': 'notApplicable',

@@ -721,12 +721,12 @@ const TranslationTable = Immutable.fromJS({
   },
 
   seeEmptyCategories: {
-    en: 'see empty categories',
-    fr: 'Voir les catégories vides',
-  },
-  hideEmptyCategories: {
     en: 'Show empty categories',
     fr: 'Montrer les catégories vides',
+  },
+  hideEmptyCategories: {
+    en: 'Hide empty categories',
+    fr: 'Cacher les catégories vides',
   },
 
 
@@ -1266,7 +1266,16 @@ const TranslationTable = Immutable.fromJS({
         fr: 'Véhicule ou équipement mobile',
       },
 
+      notApplicable: {
+        'en': 'Not Applicable',
+        'fr': 'Sans objet'
+      },
+      unknown: {
+        'en': 'Unknown',
+        'fr': 'Inconnu'
+      }
     },
+
     'volumeCategory': {
       notApplicable: {
         en: 'Not Applicable',

@@ -74,7 +74,9 @@ class SocialBar extends React.Component {
       this.props.categories
     )
 
-    const screenshotUrl = `${process.env.SCREENSHOT_SERVICE_URL}?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
+    // TODO: this only works in prod, need more logic to generate path to 
+    // correct host in dev
+    const screenshotUrl = `${window.location.origin}/${Constants.get('screenshotPath')}?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
 
     window.open(screenshotUrl) 
   }

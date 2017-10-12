@@ -64,16 +64,6 @@ class EmptyCategories extends React.Component {
 
   render() {
 
-    // TODO: previously, used baseline height. Unclear if we will permanently
-    // move away from this logic. 
-    // const yTransform = WorkspaceComputations.baselineHeight(
-    //   this.props.showEmptyCategories,
-    //   this.props.viewport,
-    //   this.props.data, 
-    //   this.props.columns,
-    //   this.props.categories
-    // ) - Constants.getIn(['showHideEmptyCategories', 'fontSize'])
-
     // TODO: it is a mystery to me why this fudge factor is needed to align
     // this with the drag arrows. 
     const yTransform = WorkspaceComputations.dragArrowY(this.props.viewport) + 
