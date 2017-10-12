@@ -15,7 +15,7 @@ class SocialBar extends React.Component {
   makeBitlyPromise() {
 
     const bitlyEndpoint = RouteComputations.bitlyEndpoint(document.location, this.props.language)
-    const shortenUrl = RouteComputations.bitlyParameter(document.location)
+    const shortenUrl = RouteComputations.bitlyParameter(document.location, this.props.language)
 
     const options = {
       uri: `${bitlyEndpoint}?shortenUrl=${shortenUrl}`,
