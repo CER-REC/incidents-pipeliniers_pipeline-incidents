@@ -43,40 +43,39 @@ class SocialBar extends React.Component {
         //}
 
         if (response.body.status_code !== 200) {
-          throw new Error(response.body.status_txt)
+          // throw new Error(response.body.status_txt)
+          return Constants.get('appHost')
         }
-        return response
+        return response.body.data.url
       })
-      .catch(function (error) {
-        throw error
-      })
+      .catch( () => Constants.get('appHost'))
   }
 
   emailClick() {
-    this.makeBitlyPromise().then(function(response){
-      const emailBody = `${response.body.data.url}%0A%0A TODO`
+    this.makeBitlyPromise().then(function(url){
+      const emailBody = `${url}%0A%0A TODO`
       const emailUrl = `mailto:?subject=TODO &body= ${emailBody}`
       window.location.href = emailUrl
     })
   }
 
   facebookClick() {
-    this.makeBitlyPromise().then(function(response){
-      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${response.body.data.url}`
+    this.makeBitlyPromise().then(function(url){
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
       window.open(facebookUrl , 'targetWindow' , 'width=650,height=650') 
     })
   }
 
   linkedinClick() {
-    this.makeBitlyPromise().then(function(response){
-      const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${response.body.data.url}&summary=${response.body.data.url}`
+    this.makeBitlyPromise().then(function(url){
+      const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${url}`
       window.open(linkedinUrl , 'targetWindow' , 'width=650,height=650') 
     })
   }
 
   twitterClick() {
-    this.makeBitlyPromise().then(function(response){
-      const twitterUrl = `https://twitter.com/intent/tweet?url=${response.body.data.url}`
+    this.makeBitlyPromise().then(function(url){
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${url}`
       window.open(twitterUrl , 'targetWindow' , 'width=650,height=650') 
     })
   }
