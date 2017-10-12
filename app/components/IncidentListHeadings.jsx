@@ -30,7 +30,7 @@ class IncidentListHeadings extends React.Component {
 
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
-    return <tspan className='barsHeading' 
+    return <tspan className='incidentsHeading' 
       x = { columnMeasurements.get('x') }
       y = { y }
     >INCIDENTS</tspan>
@@ -71,7 +71,7 @@ class IncidentListHeadings extends React.Component {
       this.props.filterboxActivationState.get('categoryName')
     )
 
-    const subheadingString = `${categoryData.count()} / ${this.props.data.count()} incidents ${Tr.getIn(['shown', this.props.language])}`
+    const subheadingString = `${categoryData.count()} / ${this.props.data.count()} ${Tr.getIn(['shown', this.props.language])}`
 
     return <tspan className='barsSubHeading' 
       x = { columnMeasurements.get('x')}

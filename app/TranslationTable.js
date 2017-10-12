@@ -693,8 +693,8 @@ const TranslationTable = Immutable.fromJS({
 
 
   shown: {
-    en: 'shown',
-    fr: 'affiché(s)',
+    en: 'incident(s) shown',
+    fr: 'incident(s) affiché(s)',
   },
 
   showOnly: {
