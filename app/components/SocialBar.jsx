@@ -14,15 +14,37 @@ class SocialBar extends React.Component {
 
   makeBitlyPromise() {
 
-    const root = RouteComputations.appRoot(document.location, this.props.language)
+    const bitlyEndpoint = RouteComputations.bitlyEndpoint(document.location, this.props.language)
     const shortenUrl = RouteComputations.bitlyParameter(document.location)
 
     const options = {
-      uri: `${root}bitly_url?shortenUrl=${shortenUrl}`,
+      uri: `${bitlyEndpoint}?shortenUrl=${shortenUrl}`,
       json: true
     }
+
     return Request(options)
       .then(function (response) {
+        // The server proxies our request through to Bitly. If our request
+        // to our server succeeds but the one to bitly fails, the returned
+        // object will detail the error
+
+        // A reponse for a successful request to the bitly shortening service 
+        // is a JSON string like:
+        //{
+        //  "status_code": 200,
+        //  "status_txt": "OK",
+        //  "data": {
+        //    "url": "http://bit.ly/2xzn2HN",
+        //    "hash": "2xzn2HN",
+        //    "global_hash": "46frEb",
+        //    "long_url": "https://www.google.ca/",
+        //    "new_hash": 1
+        //  }
+        //}
+
+        if (response.body.status_code !== 200) {
+          throw new Error(response.body.status_txt)
+        }
         return response
       })
       .catch(function (error) {
@@ -77,9 +99,7 @@ class SocialBar extends React.Component {
       this.props.categories
     )
 
-    // TODO: this only works in prod, need more logic to generate path to 
-    // correct host in dev
-    const screenshotUrl = `${window.location.origin}/${Constants.get('screenshotPath')}?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
+    const screenshotUrl = `${RouteComputations.screenshotOrigin(location)}/${Constants.get('screenshotPath')}?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
 
     window.open(screenshotUrl) 
   }
