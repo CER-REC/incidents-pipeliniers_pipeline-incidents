@@ -24,7 +24,9 @@ class Header extends React.Component {
       .scrollIntoView(scrollOptions)
   }
 
-  aboutThisProjectClick() {
+  aboutThisProjectClick(e) {
+    e.stopPropagation(e)
+    e.preventDefault(e)    
     this.props.summonAboutWindow()
   }
 
