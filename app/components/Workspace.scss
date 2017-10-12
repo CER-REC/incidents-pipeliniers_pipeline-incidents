@@ -34,3 +34,14 @@
 
 }
 
+.screenshotWorkspace {
+
+  // NB: necessary to establish stacking context for z-index
+  position: relative;
+
+  .workspaceSvg {
+    z-index: $workspace-z;
+  }
+
+}
+
