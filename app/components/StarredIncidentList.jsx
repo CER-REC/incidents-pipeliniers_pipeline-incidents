@@ -12,43 +12,29 @@ class StarredIncidentList extends React.Component {
 
 
   innerContainerStyle() {
-    // TODO: if the scrolling list replaces the pin column permanently, we
-    // should rename this chunk of the horizontal positions ... 
-    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
-      this.props.showEmptyCategories, 
-      this.props.viewport, 
-      this.props.data, 
-      this.props.columns, 
-      this.props.categories
-    ).get('pinColumn')
 
-    const incidentListHeight = IncidentListComputations.incidentListHeight(
-      this.props.showEmptyCategories, 
+    const starredIncidentsInnerContainerTop = IncidentListComputations.starredIncidentsInnerContainer(
+      this.props.showEmptyCategories,
       this.props.viewport, 
       this.props.data, 
       this.props.columns, 
       this.props.categories,
-      this.props.pinnedIncidents
-    )
-
-    const dividerHeight = IncidentListComputations.dividerHeight(
-      this.props.pinnedIncidents
-    )
+      this.props.pinnedIncidents)
 
     return {
       width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
-      top: `${pinColumnPositions.get('y') + incidentListHeight + dividerHeight + Constants.getIn(['pinColumn','columnHeightPadding'])}px`
+      top: `${starredIncidentsInnerContainerTop}px`
     }
   }
 
   scrollPaneStyle() {
 
-    const starredIncidentListHeight = IncidentListComputations.starredIncidentListHeight(
+    const starredIncidentScrollPaneStyle = IncidentListComputations.starredIncidentScrollPaneStyle(
       this.props.pinnedIncidents
     )
 
     return {
-      maxHeight: `${starredIncidentListHeight - (Constants.getIn(['pinColumn','columnHeightPadding']) * Constants.getIn(['pinColumn','starredListPadding']))}px`,
+      maxHeight: `${starredIncidentScrollPaneStyle}px`,
     }
   }
 

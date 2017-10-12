@@ -92,24 +92,23 @@ class IncidentList extends React.Component {
   innerContainerStyle() {
     // TODO: if the scrolling list replaces the pin column permanently, we
     // should rename this chunk of the horizontal positions ... 
-    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
+    const pinColumnPositions = IncidentListComputations.incidentListInnerContainer(
       this.props.showEmptyCategories, 
       this.props.viewport, 
       this.props.data, 
       this.props.columns, 
-      this.props.categories
-    ).get('pinColumn')
+      this.props.categories)
 
     return {
       width: `${Constants.getIn(['pinColumn', 'width']) + Constants.getIn(['pinColumn', 'horizontalMargins'])}px`,
 
-      top: `${pinColumnPositions.get('y') + Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
+      top: `${pinColumnPositions}px`,
     }
   }
 
   scrollPaneStyle() {
 
-    const incidentListHeight = IncidentListComputations.incidentListHeight(
+    const maxHeight = IncidentListComputations.incidentScrollPaneStyle(
       this.props.showEmptyCategories, 
       this.props.viewport, 
       this.props.data, 
@@ -120,7 +119,7 @@ class IncidentList extends React.Component {
 
     return {
 
-      maxHeight: `${incidentListHeight - (Constants.getIn(['pinColumn','columnHeightPadding']) * Constants.getIn(['pinColumn','incidentListPadding']))}px`,
+      maxHeight: `${maxHeight}px`,
 
     }
   }

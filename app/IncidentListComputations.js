@@ -47,6 +47,73 @@ const IncidentListComputations = {
 
 
 
+  incidentListInnerContainer(showEmptyCategories, viewport, data, columns, categories) {
+    let pinColumnPositions = WorkspaceComputations.horizontalPositions(
+      showEmptyCategories,
+      viewport,
+      data,
+      columns,
+      categories
+    ).get('pinColumn')
+
+    pinColumnPositions = pinColumnPositions.get('y') + Constants.getIn(['pinColumn','columnHeightPadding'])
+
+    return pinColumnPositions
+  },
+
+
+
+  incidentScrollPaneStyle(showEmptyCategories, viewport, data, columns, categories, pinnedIncidents) {
+    let maxHeight = IncidentListComputations.incidentListHeight(
+      showEmptyCategories, 
+      viewport, 
+      data, 
+      columns, 
+      categories, 
+      pinnedIncidents) 
+    maxHeight = maxHeight - (Constants.getIn(['pinColumn','columnHeightPadding']) * Constants.getIn(['pinColumn','incidentListPadding']))
+
+
+    return maxHeight
+  },
+
+  starredIncidentsInnerContainer(showEmptyCategories, viewport, data, columns, categories, pinnedIncidents) {
+    // TODO: if the scrolling list replaces the pin column permanently, we
+    // should rename this chunk of the horizontal positions ... 
+    const pinColumnPositions = WorkspaceComputations.horizontalPositions(
+      showEmptyCategories,
+      viewport,
+      data,
+      columns,
+      categories
+    ).get('pinColumn')
+
+    const incidentListHeight = IncidentListComputations.incidentListHeight(
+      showEmptyCategories,
+      viewport,
+      data,
+      columns,
+      categories,
+      pinnedIncidents)
+
+    const dividerHeight = IncidentListComputations.dividerHeight(
+      pinnedIncidents)
+
+    const starredIncidentsInnerContainerTop = pinColumnPositions.get('y') + incidentListHeight + dividerHeight + Constants.getIn(['pinColumn','columnHeightPadding'])
+
+    return starredIncidentsInnerContainerTop
+
+  },
+
+  starredIncidentScrollPaneStyle(pinnedIncidents) {
+    let starredIncidentScrollPaneStyle = IncidentListComputations.starredIncidentListHeight(
+      pinnedIncidents)
+
+    starredIncidentScrollPaneStyle = starredIncidentScrollPaneStyle - (Constants.getIn(['pinColumn','columnHeightPadding']) * Constants.getIn(['pinColumn','starredListPadding']))
+
+    return starredIncidentScrollPaneStyle
+  },
+
 
 }
 
