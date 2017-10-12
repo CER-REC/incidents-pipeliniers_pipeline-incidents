@@ -12,6 +12,7 @@ const Store = require('./Store.js')
 const DataLoader = require('./DataLoader.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
+const PopupDismissedCreator = require('./actionCreators/PopupDismissedCreator.js')
 
 
 const store = Store()
@@ -20,38 +21,59 @@ const store = Store()
 window.store = store
 
 
+let dataLoadPromise
 
 switch (Constants.get('dataMode')) {
 case 'dataService': 
-  DataLoader.loadFromDataService (store)
+  dataLoadPromise = DataLoader.loadFromDataService(store)
   break
 case 'csvFile': 
-  DataLoader.loadDataCsv(store)
+  dataLoadPromise = DataLoader.loadDataCsv(store)
   break
 }
 
 
 DomReady( () => {
+  dataLoadPromise.then( () => {
 
-  store.getState().history.listen(locationChangeHandler)
+    store.getState().history.listen(locationChangeHandler)
 
-  resizeScreenHandler()
-  window.addEventListener('resize', resizeScreenHandler)
+    resizeScreenHandler()
+    window.addEventListener('resize', resizeScreenHandler)
+    window.addEventListener('click', windowClickHandler)
 
-  const app = <ReactRedux.Provider store={store}>
-    <Root />
-  </ReactRedux.Provider>
+    const app = <ReactRedux.Provider store={store}>
+      <Root />
+    </ReactRedux.Provider>
 
-  ReactDOM.render(app, document.getElementById('reactRoot'))
+    ReactDOM.render(app, document.getElementById('reactRoot'))
+
+  }).catch( (error) => {
+    // TODO: Render a nicer error message when the loading procedure fails
+    console.error(error)
+    ReactDOM.render(<div> <h1>An Error has Occurred | On a rencontré une erreur</h1> <p>Please try again later | Visiter une autre temps, s'il vous plaît.</p> </div>, document.getElementById('reactRoot'))
+  })
 })
 
 function resizeScreenHandler () {
   // Ensures the width and height of the workspace keep the ratio 900:600
   const w = document.getElementById('reactRoot').clientWidth
-  const h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])
+  let h
+
+  if (store.getState().screenshotMode) {
+    h = Constants.get('screenshotHeight') - Constants.getIn(['topBar', 'height'])
+  }
+  else {
+    h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])
+  }
+
   store.dispatch(Resized(w,h))
 }
 
+// Handles closing any open tooltips.
+function windowClickHandler () {
+  store.dispatch(PopupDismissedCreator())
+}
 
 function locationChangeHandler (location, action) {
 

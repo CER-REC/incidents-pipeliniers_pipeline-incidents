@@ -465,6 +465,15 @@
     "20179": {
       "en": "Vehicle/Mobile Equipment",
       "fr": "Véhicule ou équipement mobile"
+    },
+
+    "notApplicable": {
+      "en": "Not Applicable",
+      "fr": "Sans objet"
+    },
+    "unknown": {
+      "en": "Unknown",
+      "fr": "Inconnu"
     }
   },
 

@@ -12,10 +12,10 @@ const SidebarColumnHoverReducer = require('./reducers/SidebarColumnHoverReducer.
 const ColumnDragReducer = require('./reducers/ColumnDragReducer.js')
 const SidebarColumnDragReducer = require('./reducers/SidebarColumnDragReducer.js')
 const LanguageReducer = require('./reducers/LanguageReducer.js')
-const IncidentDragStateReducer = require('./reducers/IncidentDragStateReducer.js')
 const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationStateReducer.js')
 const HistoryReducer = require('./reducers/HistoryReducer.js')
 const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
+const ScreenshotModeReducer = require('./reducers/ScreenshotModeReducer.js')
 const SchemaReducer = require('./reducers/SchemaReducer.js')
 const IncidentListScrollPositionReducer = require('./reducers/IncidentListScrollPositionReducer.js')
 const SelectedIncidentsReducer = require('./reducers/SelectedIncidentsReducer.js')
@@ -23,6 +23,11 @@ const HoveredIncidentReducer = require('./reducers/HoveredIncidentReducer.js')
 const ShowIncidentListReducer = require('./reducers/ShowIncidentListReducer.js')
 const StoryReducer = require('./reducers/StoryReducer.js')
 const DisclaimerReducer = require('./reducers/DisclaimerReducer.js')
+const StoryImageReducer = require('./reducers/StoryImageReducer.js')
+const AboutReducer = require('./reducers/AboutReducer.js')
+const ColumnTooltipReducer = require('./reducers/ColumnTooltipReducer.js')
+const ColumnTooltipDetailClickReducer = require('./reducers/ColumnTooltipDetailClickReducer.js')
+
 
 const RouterMiddleware = require('./RouterMiddleware.js')
 
@@ -38,10 +43,10 @@ const reducers = Redux.combineReducers({
   columnDragStatus: ColumnDragReducer,
   sidebarDragStatus: SidebarColumnDragReducer,
   language: LanguageReducer,
-  incidentDragState: IncidentDragStateReducer,
   filterboxActivationState: FilterboxActivationStateReducer,
   categoryDragStatus: CategoryDragReducer,
   history: HistoryReducer,
+  screenshotMode: ScreenshotModeReducer,
   schema: SchemaReducer,
   incidentListScrollPosition: IncidentListScrollPositionReducer,
   selectedIncidents: SelectedIncidentsReducer,
@@ -49,6 +54,10 @@ const reducers = Redux.combineReducers({
   showIncidentList: ShowIncidentListReducer,
   story: StoryReducer,
   disclaimer: DisclaimerReducer,
+  columnTooltip: ColumnTooltipReducer,
+  columnTooltipClick: ColumnTooltipDetailClickReducer,
+  storyImage: StoryImageReducer,
+  about: AboutReducer,
 })
 
 module.exports = function () {

@@ -10,7 +10,9 @@ const CategoryConstants = require('./CategoryConstants.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
+const Constants = require('./Constants.js')
 const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
+
 
 function parseYesNo (value, record) {
   if (value === 'Yes' || value === 'yes' || value === '1') {
@@ -52,6 +54,28 @@ function parseList (record, columnName, value) {
     })
   }
 }
+
+function parseSystemComponentsInvolved (record) {
+
+  const componentsList = parseList(record, 'pipelineSystemComponentsInvolved', record['Pipeline System Components Involved'])
+
+  const wereComponentsInvolved = parseYesNo(record['Were Pipeline System Components Involved?'], record)
+
+  if (componentsList.length > 0) {
+    return componentsList
+  }
+  else if (wereComponentsInvolved === true) {
+    return ['unknown']
+  }
+  else if (wereComponentsInvolved === false) {
+    return ['notApplicable']
+  }
+  else {
+    console.warn('Error parsing system components involved list', record)
+  }
+
+}
+
 
 function volumeCategory(record, volumeString) {
 
@@ -148,33 +172,39 @@ function csvColumnMapping (d) {
     whyItHappened: parseList(d, 'whyItHappened', d['WhyItHappened']),
     pipelinePhase: readConstrainedVocabularyString(d, 'Pipeline Phase', 'pipelinePhase'),
     werePipelineSystemComponentsInvolved: parseYesNo(d['Were Pipeline System Components Involved?'], d),
-    pipelineSystemComponentsInvolved: parseList(d, 'pipelineSystemComponentsInvolved', d['Pipeline System Components Involved']),
+    pipelineSystemComponentsInvolved: parseSystemComponentsInvolved(d),
   }
 }
 
 
+// Returns a promise
 function afterLoad (store, data) {
 
-  store.dispatch(DataLoadedCreator(data))
+  return new Promise( (resolve) => {
+    store.dispatch(DataLoadedCreator(data))
 
-  let state = store.getState()
-  const categories = DefaultCategoryComputations.initialState(
-    state.data,
-    state.schema,
-    state.language
-  )
-  store.dispatch(SetInitialCategoryStateCreator(categories))
+    let state = store.getState()
+    const categories = DefaultCategoryComputations.initialState(
+      state.data,
+      state.schema,
+      state.language
+    )
+    store.dispatch(SetInitialCategoryStateCreator(categories))
 
-  state = store.getState()
-  const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
+    state = store.getState()
+    const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
 
-  store.dispatch(SetFromRouterStateCreator({
-    columns: routerState.columns,
-    categories: routerState.categories,
-    showEmptyCategories: routerState.showEmptyCategories,
-    pinnedIncidents: routerState.pinnedIncidents,
-    language: routerState.language,
-  }))
+    store.dispatch(SetFromRouterStateCreator({
+      columns: routerState.columns,
+      categories: routerState.categories,
+      showEmptyCategories: routerState.showEmptyCategories,
+      pinnedIncidents: routerState.pinnedIncidents,
+      language: routerState.language,
+      screenshotMode: RouteComputations.screenshotMode(document.location)
+    }))
+
+    resolve()
+  })
 }
 
 
@@ -289,9 +319,34 @@ function validateVolumeCategory(incident, errors) {
 
 
 
+
+function validateSystemComponentsInvolved (incident, schema, errors) {
+
+  const componentsList = validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors)
+
+  const wereComponentsInvolved = validateBoolean('werePipelineSystemComponentsInvolved', incident, errors)
+
+  if (componentsList && componentsList.length > 0) {
+    return componentsList
+  }
+  else if (wereComponentsInvolved === true) {
+    return ['unknown']
+  }
+  else if (wereComponentsInvolved === false) {
+    return ['notApplicable']
+  }
+  else {
+    errors.push({message: 'Error parsing system components involved list', incident: incident})
+  }
+
+}
+
+
+
 const DataLoader = {
 
   // Load the application data from a single remote CSV file
+  // Returns a promise
   loadDataCsv (store) {
 
     const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
@@ -300,11 +355,11 @@ const DataLoader = {
       uri: `${appRoot}data/2017-09-13 ERS TEST-joined.csv`,
     }
 
-    Request(options)
+    return Request(options)
       .then(function (response) {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
 
-        afterLoad(store, data)
+        return afterLoad(store, data)
 
       })
       .catch(function (error) {
@@ -315,6 +370,7 @@ const DataLoader = {
 
 
   // Load the application data from the data service.
+  // Returns a promise
   loadFromDataService (store) {
 
     const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
@@ -340,7 +396,7 @@ const DataLoader = {
 
     const dataRequest = Request(dataOptions)
 
-    Promise.join(schemaPromise, dataRequest)
+    return Promise.join(schemaPromise, dataRequest)
       .then(function ([schema, dataResponse]) {
 
         const incidents = [] 
@@ -374,7 +430,7 @@ const DataLoader = {
             incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
             whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
             whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
-            pipelineSystemComponentsInvolved: validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
+            pipelineSystemComponentsInvolved: validateSystemComponentsInvolved(incident, schema, errors),
 
 
             // TODO: change this depending how volume category works out from
@@ -385,10 +441,9 @@ const DataLoader = {
             releaseType: validateIdInSet('ReleaseType', incident, schema.get('releaseType'), errors),
 
 
+            // TODO: untested, validate that this works
+            werePipelineSystemComponentsInvolved: validateBoolean('werePipelineSystemComponentsInvolved', incident, errors),
 
-            // TODO: will it be yes/no, t/f, 0,1, what? 
-            // TODO: unused, and unclear if needed... 
-            // werePipelineSystemComponentsInvolved: 
             // substanceCategory
 
           }
@@ -402,7 +457,7 @@ const DataLoader = {
 
         }
 
-        afterLoad(store, Immutable.fromJS(incidents))
+        return afterLoad(store, Immutable.fromJS(incidents))
 
       })
       .catch(function (error) {

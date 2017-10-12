@@ -11,6 +11,8 @@ const Constants = Immutable.fromJS({
   // rather than hard coding it
   dataMode: 'csvFile',
 
+  storyBarID: 'storyBar',
+
   workspace: {
     maxWidth: 1138,
     heightToWidthRatio: 0.66,
@@ -363,6 +365,10 @@ const Constants = Immutable.fromJS({
 
   pathCurveControlFactor: 2.5,
 
+  screenshotPath: 'screenshot',
+
+  screenshotHeight: 1000,
+
   nearBlack: '#333333',
   darkGrey: '#666',
 
@@ -396,6 +402,22 @@ const Constants = Immutable.fromJS({
     csvFile: [
       'NS','PE','NB','NL','MB','NT','ON','YT','AB','NU','SK','BC','QC'
     ],
+  },
+
+  questionMark: {
+    pixelsPerCharacter: 7.4,
+    xOffset: 5,
+    yOffset: 1,
+    size: 16,
+  },
+
+  columnTooltip: {
+    width: 322,
+    leftMargin: 10,
+    titleTopMargin: 20,
+    descriptionTopMargin: 35,
+
+    separatorLineY: 42,
   },
 
 })

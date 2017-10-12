@@ -30,7 +30,6 @@ class IncidentList extends React.Component {
 
   noIncidentsText() {
     if (this.props.filterboxActivationState.get('columnName') === null) {
-
       return <div className='noIncidentsTextBlock'>
         <p className = 'noIncidentsText'>{ Tr.getIn(['noCategorySelection', this.props.language])}</p>
       </div>
@@ -120,7 +119,7 @@ class IncidentList extends React.Component {
 
     return {
 
-      maxHeight: `${incidentListHeight - Constants.getIn(['pinColumn','columnHeightPadding'])}px`,
+      maxHeight: `${incidentListHeight}px`,
 
     }
   }

@@ -1,17 +1,21 @@
 const Webpack = require('webpack')
+const DotenvWebpack = require('dotenv-webpack')
 
 const config = require('./webpack.config.js')
 
-const prodPlugin = new Webpack.DefinePlugin({
-  'process.env': {
-    NODE_ENV: JSON.stringify('production')
-  }
-})
+config.plugins = [
+  new Webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: JSON.stringify('production')
+    }
+  }),
 
-const uglifyPlugin = new Webpack.optimize.UglifyJsPlugin()
+  new Webpack.optimize.UglifyJsPlugin(),
 
-config.plugins.push(prodPlugin)
-config.plugins.push(uglifyPlugin)
+  new DotenvWebpack({
+    path: './.env.prod'
+  }),
+]
 
 module.exports = config
 

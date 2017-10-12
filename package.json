@@ -1,13 +1,10 @@
 {
   "name": "incident-visualization",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Incident Data Visualization for the National Energy Board of Canada",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test",
     "webpack": "webpack --config webpack.prod.config.js",
-    "watch": "webpack -w",
-    "webserver": "webpack-dev-server --inline --hot",
     "start": "node servers/DevelopmentServer/DevelopmentServer.js",
     "debug": "nodemon --debug --inspect servers/DevelopmentServer/DevelopmentServer.js",
     "lint": "eslint --ext .jsx,.js app/**",
@@ -33,6 +30,7 @@
     "d3-geo-projection": "^2.2.0",
     "domready": "^1.0.8",
     "dotenv": "^4.0.0",
+    "dotenv-webpack": "^1.5.4",
     "express": "^4.15.3",
     "flow": "^0.2.3",
     "fs-extra": "^4.0.1",
