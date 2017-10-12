@@ -243,8 +243,8 @@ const RouteComputations = {
     return encodeURIComponent(`${location.pathname}screenshot${location.search}`)
   },
 
-  bitlyParameter: function (location) {
-    return encodeURIComponent(location.search)
+  bitlyParameter: function (location, language) {
+    return `${RouteComputations.appRoot(location, language)}${encodeURIComponent(location.search)}`
   },
 
 
