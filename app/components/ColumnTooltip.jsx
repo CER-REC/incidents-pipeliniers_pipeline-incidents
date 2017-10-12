@@ -5,6 +5,7 @@ const ReactRedux = require('react-redux')
 require('./ColumnTooltip.scss')
 
 const Tr = require('../TranslationTable.js')
+const Constants = require('../Constants.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const ColumnTooltipListItem = require('./ColumnTooltipListItem.jsx')
 
@@ -46,17 +47,65 @@ class ColumnTooltip extends React.Component {
     })
   }
 
+  // Returns the offset (if needed) to ensure that the full tooltip
+  // is visible within the viewport.
+  alignmentOffset() {
+    // Get the absolute x coordinate position of the tooltip.
+    const absoluteX = document.getElementById(this.props.columnTooltip.get('columnName') + '-QuestionMark').getBoundingClientRect().left -
+      (window.innerWidth - this.props.viewport.get('x'))/2 +
+      Constants.getIn(['questionMark', 'size'])/2
+
+    // Check if the tooltip can be fully displayed within the viewport.
+    if(absoluteX + Constants.getIn(['columnTooltip', 'width']) > this.props.viewport.get('x')) 
+      return Constants.getIn(['columnTooltip', 'width'])
+
+    // No offset is needed otherwise.
+    return 0
+  }
+
   tooltipStyle() {
+    const position = WorkspaceComputations.columnTooltipPosition(
+      this.props.columnTooltip, 
+      this.props.language, 
+      this.props.showEmptyCategories, 
+      this.props.viewport, 
+      this.props.data, 
+      this.props.columns, 
+      this.props.categories)
+
     return {
-      top:WorkspaceComputations.columnTooltipY(),
-      left:WorkspaceComputations.columnTooltipX(
-        this.props.columnTooltip, 
-        this.props.viewport),
+      top:position.get('y'),
+      left:position.get('x') - this.alignmentOffset(),
     }
+  }
+
+  // This is necessary to compensate for the empty space
+  // that is left by moving the (relatively positioned) tooltip
+  // to the top of viewport.
+  setupBottomMargin() {
+    const height = document.getElementById('columnTooltip').clientHeight
+    document.getElementById('columnTooltip').style.marginBottom = `${-height}px`
+  }
+
+  componentDidMount() {
+    this.setupBottomMargin()
+
+    // Scroll to the top of the tooltip to make sure
+    // that the tooltip title is fully visible.
+    document.getElementById('columnTooltip').scrollTop = 0
+  }
+
+  componentDidUpdate() {
+    this.setupBottomMargin()
+
+    // Scroll to the top of the tooltip to make sure
+    // that the tooltip title is fully visible.
+    document.getElementById('columnTooltip').scrollTop = 0
   }
 
   render() {
     return <div 
+      id='columnTooltip'
       className='tooltip'
       style={this.tooltipStyle()}>
       {this.title()}
@@ -74,6 +123,10 @@ const mapStateToProps = state => {
     language: state.language,
     viewport: state.viewport,
     columnTooltip: state.columnTooltip,
+    showEmptyCategories: state.showEmptyCategories,
+    data: state.data,
+    columns: state.columns,
+    categories: state.categories,
   }
 }
 

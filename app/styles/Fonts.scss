@@ -148,42 +148,12 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
   color: $black;
 }
 
-.aboutHeading {
-  font-family: $fira-sans-extra-condensed;
-  font-weight: bold;
-  font-size: 18px;
-  text-align: left;
-  text-transform: uppercase;
-  padding-top: 10px;
-  padding-left: 10px;
-  margin-bottom: -5px;
-  color: $black;
-}
-
-.aboutSubHeading {
-  font-family: $fira-sans-extra-condensed;
-  font-weight: bold;
-  font-size: 18px;
-  text-align: left;
-  text-transform: uppercase;
-  padding-top: 10px;
-  margin-bottom: -5px;
-  color: $black;
-}
-
-.aboutContent {
-  font-family: $fira-sans-light;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-size: 12px;
-}
-
 .PopupHeading {
   font-family: $fira-sans-extra-condensed;
   font-size: 10pt;
   font-weight: bold;
   fill: $black;
-  margin: 0.5em 0 0 10px;
+  margin: 5px 0 0 10px;
   padding: 0;
 
   // WET Override
@@ -236,4 +206,34 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
   position: relative;
   bottom: 3px;
   display: block;
+}
+
+.aboutHeading {
+  font-family: $fira-sans-extra-condensed;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+  text-transform: uppercase;
+  padding-top: 10px;
+  padding-left: 10px;
+  margin-bottom: -5px;
+  color: $black;
+}
+
+.aboutSubHeading {
+  font-family: $fira-sans-extra-condensed;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+  text-transform: uppercase;
+  padding-top: 10px;
+  margin-bottom: -5px;
+  color: $black;
+}
+
+.aboutContent {
+  font-family: $fira-sans-light;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
 }

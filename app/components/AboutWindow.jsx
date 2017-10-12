@@ -5,7 +5,7 @@ const ReactRedux = require('react-redux')
 require('./AboutWindow.scss')
 
 const Tr = require('../TranslationTable.js')
-const StoryDismissedCreator = require('../actionCreators/StoryDismissedCreator.js')
+const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 
 
 class AboutWindow extends React.Component {
@@ -77,7 +77,9 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'p1', this.props.language])}
-          <a href={Tr.getIn(['aboutText', 'safetyPerformancePortalLink', this.props.language])}>
+          <a 
+            href={Tr.getIn(['aboutText', 'safetyPerformancePortalLink', this.props.language])}
+            target="_blank">
             {Tr.getIn(['aboutText', 'safetyPerformancePortalText', this.props.language])}
           </a>
           {Tr.getIn(['aboutText', 'p1_2', this.props.language])}
@@ -86,7 +88,9 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'p2', this.props.language])}
-          <a href={Tr.getIn(['aboutText', 'openCanadaLink', this.props.language])}>
+          <a 
+            href={Tr.getIn(['aboutText', 'openCanadaLink', this.props.language])}
+            target="_blank">
             {Tr.getIn(['aboutText', 'openCanadaText', this.props.language])}
           </a>
           .
@@ -135,7 +139,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onCloseButtonClicked: () => {
-      dispatch(StoryDismissedCreator())
+      dispatch(PopupDismissedCreator())
     },
   }
 }

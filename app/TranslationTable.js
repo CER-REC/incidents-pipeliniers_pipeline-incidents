@@ -8,8 +8,8 @@ const TranslationTable = Immutable.fromJS({
   },
 
   learnMoreLinks: {
-    en: 'neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
-    fr: 'neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
+    en: 'https://neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
+    fr: 'https://neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
   },
 
   aboutText: {
@@ -244,7 +244,7 @@ const TranslationTable = Immutable.fromJS({
       },
       description: {
         en: 'The company that holds the regulatory instrument on the pipeline/facility where the incident took place.',
-        fr: '',
+        fr: 'La société détentrice de l’instrument réglementaire pour le pipeline/l’installation où l’incident s’est produit.',
       },
       detail: {
         en: [

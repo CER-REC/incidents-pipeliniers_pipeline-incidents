@@ -7,7 +7,7 @@ require('./StoryWindow.scss')
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
-const StoryDismissedCreator = require('../actionCreators/StoryDismissedCreator.js')
+const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
 const StoryPreviousImageCreator = require('../actionCreators/StoryPreviousImageCreator.js')
 
@@ -74,7 +74,7 @@ class StoryWindow extends React.Component {
     const active = (currentImageIndex < 1)? 'inactive' : 'active'
     return <image
       className={active}
-      xlinkHref={'images/left-arrow-' + active + '.svg'}
+      xlinkHref={`images/left-arrow-${active}.svg`}
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
@@ -86,7 +86,7 @@ class StoryWindow extends React.Component {
     const active = (currentImageIndex >= imageList.length-1)? 'inactive' : 'active'
     return <image
       className={active}
-      xlinkHref={'images/right-arrow-' + active + '.svg'}
+      xlinkHref={`images/right-arrow-${active}.svg`}
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       x={StoryComputations.storyCloseButtonX(this.props.viewport)}
@@ -140,7 +140,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onCloseButtonClicked: () => {
-      dispatch(StoryDismissedCreator())
+      dispatch(PopupDismissedCreator())
     },
     onNextTutorialImageClick: (count) => {
       dispatch(StoryNextImageCreator(count))
