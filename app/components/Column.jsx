@@ -316,14 +316,6 @@ class Column extends React.Component {
     const offset = e.touches[0].clientX - oldX
 
     this.props.onColumnDragStarted(true, this.props.columnName, oldX, e.clientX, offset)
-
-    // These handlers will help keep the dragged column moving
-    // even when the cursor is off the dragging handle. This
-    // is necessary because the dragging handle is too small
-    // making it harder to drag without the cursor leaving 
-    // the handle.
-    columnWindowMoveHandler = this.handleTouchMove.bind(this)
-    columnWindowEndHandler = this.handleTouchEnd.bind(this)
   }
 
   handleDragMove(e) {
