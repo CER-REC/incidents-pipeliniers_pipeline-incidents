@@ -1,5 +1,10 @@
 @import "./Colours.scss";
+@import "./FontVariables.scss";
 
+
+// NB: The fonts stylesheet only needs to be imported into the project once, 
+// at the root. If you want to use font variables, import FontVariables.scss
+// instead.
 
 @font-face {
   font-family: "FiraSansCondensed";
@@ -36,11 +41,6 @@
       url("fonts/FiraSansCompressed-SemiBold.woff") format("woff"),
       url("fonts/FiraSansCompressed-SemiBold.ttf") format("truetype");
 }
-
-$fira-sans-light: 'FiraSansCondensed', sans-serif;
-$fira-sans-extra-condensed: 'FiraSansExtraCondensed', sans-serif;
-$fira-sans-extra-condensed-medium: 'FiraSansExtraCondensedMedium', sans-serif;
-$fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-serif;
 
 
 //heading
@@ -173,32 +173,29 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
   font-family: $fira-sans-light;
   font-size: 20px;
   color: $black;
-  margin-right: 4px;
 }
 
 .PopupText {
-  font-family: $fira-sans-extra-condensed-medium;
-  font-size: 12px;
-  color: $black;
-  position: relative;
-  bottom: 3px;
-}
-
-.PopupText_Active {
   font-family: $fira-sans-extra-condensed;
   font-size: 12px;
   color: $black;
-  position: relative;
-  bottom: 3px;  
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.PopupText.active {
+  font-family: $fira-sans-extra-condensed-medium;
+  margin-bottom: 10px;
 }
 
 .PopupDetailText {
   font-family: $fira-sans-extra-condensed;
   font-size: 12px;
   color: $black;
-  position: relative;
-  bottom: 3px;
   display: block;
+  line-height: 1.25;
+  margin-bottom: 10px;
 }
 
 .aboutHeading {

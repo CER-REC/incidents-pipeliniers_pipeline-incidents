@@ -25,7 +25,13 @@ class ColumnTooltip extends React.Component {
   }
 
   separator() {
-    return <hr className='separator'/>
+    const items = this.listItems()
+    if (items.count() > 0) {
+      return <hr className='separator'/>
+    }
+    else {
+      return null
+    }
   }
 
   listSymbol(item) {
@@ -37,8 +43,13 @@ class ColumnTooltip extends React.Component {
     </span>
   }
 
+  listItems() {
+    return Tr.getIn(['tooltips', this.props.columnTooltip.get('columnName'), 'detail', this.props.language])
+
+  }
+
   listText() {
-    const items = Tr.getIn(['tooltips', this.props.columnTooltip.get('columnName'), 'detail', this.props.language])
+    const items = this.listItems()
     return items.map(item => {
       return <ColumnTooltipListItem
         key={item.get('overview')} 
@@ -76,6 +87,7 @@ class ColumnTooltip extends React.Component {
     return {
       top:position.get('y'),
       left:position.get('x') - this.alignmentOffset(),
+      maxHeight: `${WorkspaceComputations.columnHeight(this.props.viewport)}px`
     }
   }
 
