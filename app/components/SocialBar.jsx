@@ -142,7 +142,7 @@ class SocialBar extends React.Component {
               onClick = {downloadImageClick}></image>
           </g>
           <g>
-            <title>download file</title>
+            <title>download data file</title>
             <image 
               height = {iconSize} 
               width = {iconSize} 
