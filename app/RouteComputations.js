@@ -244,7 +244,7 @@ const RouteComputations = {
   },
 
   bitlyParameter: function (location, language) {
-    return `${RouteComputations.appRoot(location, language)}${encodeURIComponent(location.search)}`
+    return `${Constants.get('appHost')}${Tr.getIn(['applicationPath', language])}${encodeURIComponent(location.search)}`
   },
 
 
