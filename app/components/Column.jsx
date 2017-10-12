@@ -165,8 +165,7 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    const currentY = WorkspaceComputations.topBarHeight() + 
-      Constants.get('columnSubheadingOffset')
+    const currentY = WorkspaceComputations.barSubheading(this.props.language)
 
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,
@@ -197,12 +196,14 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
+    const dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
+
     return <image xlinkHref='images/horizontal_drag.svg' 
       className = 'dragArrow'
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
-      y= {WorkspaceComputations.dragArrowY(this.props.viewport)}
+      y= { dragArrowY }
       onMouseDown={this.handleDragStart.bind(this)}
       onMouseMove={this.handleDragMove.bind(this)}
       onMouseUp={this.handleDragEnd.bind(this)}
@@ -559,6 +560,7 @@ class Column extends React.Component {
       this.props.columnName)
 
     let categoryY = this.props.columnY
+
     return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
@@ -600,7 +602,8 @@ class Column extends React.Component {
   }
 
   sidebarHeading() {
-    let currentY = this.props.columnY
+    let currentY = this.props.columnY 
+
     return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength'])).map((word) => {
       // Terminating space.
       if(word === '') return null

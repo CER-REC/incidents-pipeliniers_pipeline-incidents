@@ -17,6 +17,8 @@ const Constants = Immutable.fromJS({
     maxWidth: 1138,
     heightToWidthRatio: 0.66,
     emptyCategoryOffsetRatio: 0.06,
+    viewportPadding: 40,
+    frenchStringPadding: 18,
   },
 
   storyThumbnailDimensions: {
@@ -90,12 +92,14 @@ const Constants = Immutable.fromJS({
     labelIconSize: 15,
     labelPadding: 15,
     labelIconPadding: -7,
-    columnHeightPadding: 25,
+    columnHeightPadding: 5,
     chevron90Rotation: 90,
     chevron270Rotation:270,
     hideIncidentListX: 10,
     hideIncidentListY: 5,
     showIncidentListXY: -2,
+    starredListPadding: 5,
+    incidentListPadding: 6,
   },
 
   columnWideWidth: 62,
@@ -104,8 +108,11 @@ const Constants = Immutable.fromJS({
 
   columnHeadingHeight: 47,
   columnHeadingLineOffset: 15,
+  columnHeadingHeightFr: 30, 
   columnSubheadingHeight: 10,
-  columnSubheadingOffset: 40,
+  columnSubheadingOffset: 45,
+  columnSubheadingPaddingEn: 2,
+  columnSubheadingPaddingFr: 3,
 
 
   dragArrow: {

@@ -59,7 +59,7 @@ WorkspaceComputations.mapDisplayed = function(columns) {
 // The height of top bar, containing a heading, subheading, and home icon
 // NB: Thanks to memoize-immutable, this function is effectively always memoized
 WorkspaceComputations.topBarHeight = function () {
-  return Constants.getIn(['topBar', 'height'])
+  return Constants.getIn(['topBar', 'height']) 
 }
 
 // This is the entire height of the column, including all its decorations
@@ -68,7 +68,7 @@ WorkspaceComputations.columnHeight = function (viewport) {
   return viewport.get('y') - 
          WorkspaceComputations.topBarHeight() - 
          Constants.get('bottomOuterMargin') -
-         Constants.get('columnHeadingHeight')
+         Constants.get('columnHeadingHeight') + Constants.getIn(['workspace','frenchStringPadding'])
 }
 
 
@@ -83,13 +83,18 @@ WorkspaceComputations.columnWidth = function (columns) {
   }
 }
 
-
-WorkspaceComputations.columnY = function() {
-  return WorkspaceComputations.topBarHeight() + 
-         Constants.get('columnHeadingHeight')
+WorkspaceComputations.columnY = function () {
+  return WorkspaceComputations.topBarHeight() +
+         Constants.get('columnHeadingHeight') + Constants.getIn(['workspace','frenchStringPadding'])
 }
 
-
+WorkspaceComputations.barSubheading = function (language) {
+  if(language === 'fr') {
+    return WorkspaceComputations.columnY() - Constants.get('columnSubheadingPaddingFr')
+  } else {
+    return WorkspaceComputations.columnY() - Constants.get('columnSubheadingPaddingEn')
+  }
+}
 
 // columns: the columns state
 WorkspaceComputations.sidebarWidth = function (columns) {
@@ -476,7 +481,6 @@ WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategori
 
   const columnHeight = WorkspaceComputations.columnHeight(viewport)
   const topBarHeight = WorkspaceComputations.columnY()
-
   // Move through each element left to right
 
   let measurements = Immutable.Map()
@@ -561,7 +565,7 @@ WorkspaceComputations.horizontalPositionsWithScroll = function(showEmptyCategori
   // Workspace
   measurements = measurements.set('workspace', Immutable.fromJS({
     width: cumulativeX,
-    height: viewport.get('y'),
+    height: viewport.get('y') + Constants.getIn(['workspace','viewportPadding']),
   }))
 
 
@@ -578,7 +582,7 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   const workspaceWidth = viewport.get('x') - socialBarMeasurements.get('width')
   const columnHeight = WorkspaceComputations.columnHeight(viewport)
   const topBarHeight = WorkspaceComputations.columnY()
-
+  
   let measurements = Immutable.Map()
 
 
@@ -653,7 +657,7 @@ WorkspaceComputations.horizontalPositionsFixedWidth = function(viewport, columns
   // Workspace
   measurements = measurements.set('workspace', Immutable.fromJS({
     width: workspaceWidth,
-    height: viewport.get('y'),
+    height: viewport.get('y') + Constants.getIn(['workspace','viewportPadding']),
   }))
 
   return measurements
