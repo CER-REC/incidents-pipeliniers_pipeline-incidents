@@ -1,21 +1,53 @@
-//import google fonts
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300);
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed);
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:500);
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans+Extra+Condensed:600);
-
 @import "./Colours.scss";
+
+
+@font-face {
+  font-family: "Fira Sans Condensed";
+  src:url("fonts/FiraSansCondensed-Regular.eot");
+  src:url("fonts/FiraSansCondensed-Regular.eot") format("eot"),
+      url("fonts/FiraSansCondensed-Regular.woff2") format("woff2"),
+      url("fonts/FiraSansCondensed-Regular.woff") format("woff"),
+      url("fonts/FiraSansCondensed-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Fira Sans Extra Condensed";
+  src:url("fonts/FiraSansCompressed-Regular.eot");
+  src:url("fonts/FiraSansCompressed-Regular.eot") format("eot"),
+      url("fonts/FiraSansCompressed-Regular.woff2") format("woff2"),
+      url("fonts/FiraSansCompressed-Regular.woff") format("woff"),
+      url("fonts/FiraSansCompressed-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Fira Sans Extra Condensed Medium";
+  src:url("fonts/FiraSansCompressed-Medium.eot");
+  src:url("fonts/FiraSansCompressed-Medium.eot") format("eot"),
+      url("fonts/FiraSansCompressed-Medium.woff2") format("woff2"),
+      url("fonts/FiraSansCompressed-Medium.woff") format("woff"),
+      url("fonts/FiraSansCompressed-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Fira Sans Extra Condensed Semibold";
+  src:url("fonts/FiraSansCompressed-SemiBold.eot");
+  src:url("fonts/FiraSansCompressed-SemiBold.eot") format("eot"),
+      url("fonts/FiraSansCompressed-SemiBold.woff2") format("woff2"),
+      url("fonts/FiraSansCompressed-SemiBold.woff") format("woff"),
+      url("fonts/FiraSansCompressed-SemiBold.ttf") format("truetype");
+}
 
 $fira-sans-light: 'Fira Sans Condensed', sans-serif;
 $fira-sans-extra-condensed: 'Fira Sans Extra Condensed', sans-serif;
-$fira-sans-extra-condensed-medium: 'Fira Sans Extra Condensed', sans-serif;
-$fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
+$fira-sans-extra-condensed-medium: 'Fira Sans Extra Condensed Medium', sans-serif;
+$fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed Semibold', sans-serif;
 
 
 //heading
 // NB: The additional CSS ID here is necessary to overcome some default WET styles which
 // are applied to heading elements.
-.workspace .heading#incidentVisualizationHeading {
+.workspace .heading#incidentVisualizationHeading,
+.screenshotWorkspace .heading#incidentVisualizationHeading {
   font-family: $fira-sans-extra-condensed-semibold;
   font-size: 22px;
   fill: $black;
@@ -24,6 +56,7 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
   // WET Override
   border: none;
+  font-weight: 400;
 }
 
 //subheading and incident popover text
@@ -55,7 +88,6 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
   font-family: $fira-sans-extra-condensed-medium;
   fill: $dark-grey;
   font-size: 13px;
-  font-style: medium;
   text-align: left;
 }
 
@@ -96,7 +128,6 @@ $fira-sans-extra-condensed-semibold: 'Fira Sans Extra Condensed', sans-serif;
 
 .filterBox {
   font-family: $fira-sans-extra-condensed;
-  font-style: regular;
   font-size: 10.5px;
   text-align:left;
   color: $near-black;

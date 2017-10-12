@@ -68,6 +68,10 @@ class Header extends React.Component {
 
 
   rightButtons() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+
     const socialBarMeasurements = WorkspaceComputations.socialBarMeasurements(this.props.viewport)
 
     let transformContainer = `translate(${socialBarMeasurements.get('x') - Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
@@ -175,6 +179,7 @@ class Header extends React.Component {
 const mapStateToProps = (state) => { 
   return {
     data: state.data,
+    screenshotMode: state.screenshotMode,
     language: state.language,
     viewport: state.viewport,
     schema: state.schema,

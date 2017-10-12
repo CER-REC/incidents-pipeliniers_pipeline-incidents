@@ -8,6 +8,7 @@ function SetFromRouterStateCreator (options) {
     showEmptyCategories: options.showEmptyCategories,
     pinnedIncidents: options.pinnedIncidents,
     language: options.language,
+    screenshotMode: options.screenshotMode,
   }
 
 }
