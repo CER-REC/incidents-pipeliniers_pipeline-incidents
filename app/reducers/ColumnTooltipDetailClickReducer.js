@@ -14,6 +14,9 @@ const ColumnTooltipDetailClickReducer = (state = defaults, action) => {
   case 'ColumnTooltipDetailCollapse':
     return state.merge({columnName:null, itemOverview:null})
 
+  case 'PopupDismissed':
+    return state.merge({columnName:null, itemOverview:null})  
+
   default:
     return state
   }

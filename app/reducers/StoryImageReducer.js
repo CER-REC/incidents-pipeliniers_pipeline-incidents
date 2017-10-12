@@ -18,6 +18,9 @@ const StoryImageReducer = (state = 0, action) => {
   case 'StorySelected':
   	return 0
 
+  case 'PopupDismissed':
+    return 0
+
   default:
     return state
   }

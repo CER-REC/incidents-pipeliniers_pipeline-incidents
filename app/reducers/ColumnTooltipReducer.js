@@ -14,6 +14,9 @@ const ColumnTooltipReducer = (state = defaults, action) => {
   case 'ColumnTooltipDismissed':
     return state.merge({isActive:false, storyID: null})
 
+  case 'PopupDismissed':
+    return state.merge({isActive:false, storyID: null})
+
   default:
     return state
   }
