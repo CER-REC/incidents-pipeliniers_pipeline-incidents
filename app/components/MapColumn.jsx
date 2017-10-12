@@ -46,7 +46,10 @@ class MapColumn extends React.Component {
       y= {WorkspaceComputations.dragArrowY(this.props.viewport)}
       onMouseDown={this.handleDragStart.bind(this)}
       onMouseMove={this.handleDragMove.bind(this)}
-      onMouseUp={this.handleDragEnd.bind(this)}>
+      onMouseUp={this.handleDragEnd.bind(this)}
+      onTouchStart = { this.handleTouchStart.bind(this) }
+      onTouchMove = { this.handleTouchMove.bind(this) }
+      onTouchEnd = { this.handleTouchEnd.bind(this) } >
     </image>
   }
 
@@ -104,6 +107,49 @@ class MapColumn extends React.Component {
     // Remove the window event handlers previously attached.
     window.removeEventListener('mouseup', columnWindowEndHandler)
     window.removeEventListener('mousemove', columnWindowMoveHandler)
+  }
+
+  handleTouchStart(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const measurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+      .getIn(['columns', 'map'])
+
+    const oldX = measurements.get('x') + 
+                       (measurements.get('width') / 2) - 
+                       (Constants.getIn(['dragArrow', 'width']) / 2)
+    const offset = e.touches[0].clientX - oldX
+
+    this.props.onColumnDragStarted(true, 'map', oldX, e.clientX, offset)
+  }
+
+  handleTouchMove(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded events if drag hasn't started.
+    if(!this.props.columnDragStatus.get('isStarted')) return 
+
+    this.props.onColumnDrag(e.touches[0].clientX)
+  }
+
+  handleTouchEnd(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded evenets if drag hasn't started.
+    if(!this.props.columnDragStatus.get('isStarted')) return
+    this.props.onColumnDragEnded(false)
+    const newX = this.props.columnDragStatus.get('newX') - 
+                 this.props.columnDragStatus.get('offset')
+    this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
+
   }
 
   columnTransform() {

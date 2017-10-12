@@ -42,7 +42,7 @@ const IncidentListComputations = {
       categories
     ).get('pinColumn')
 
-    return pinColumnPositions.get('height') - dividerHeight - starredIncidentListHeight
+    return pinColumnPositions.get('height') - dividerHeight - starredIncidentListHeight - Constants.getIn(['pinColumn', 'columnHeightPadding'])
   },
 
 

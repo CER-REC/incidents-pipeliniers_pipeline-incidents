@@ -295,7 +295,6 @@ const mapStateToProps = state => {
   return {
     language: state.language,
     categoryHoverState: state.categoryHoverState,
-    incidentDragState: state.incidentDragState,
     data: state.data,
     columns: state.columns, 
     categories: state.categories,

@@ -19,6 +19,7 @@ const IncidentListHeadings = require('./IncidentListHeadings.jsx')
 const IncidentContainer = require('./IncidentContainer.jsx')
 const StoryBar = require('./StoryBar.jsx')
 const StoryWindow = require('./StoryWindow.jsx')
+const ColumnTooltip = require('./ColumnTooltip.jsx')
 const AboutWindow = require('./AboutWindow.jsx')
 
 class Workspace extends React.Component {
@@ -46,6 +47,15 @@ class Workspace extends React.Component {
     else {
       return null
     }
+  }
+
+  columnTooltip() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+
+    // Only render if a tooltip has been summoned
+    if(this.props.columnTooltip.get('isActive')) return <ColumnTooltip/>
   }
 
   incidentListHtml() {
@@ -159,6 +169,7 @@ class Workspace extends React.Component {
             <SideBar/>
             {this.columns()}
           </svg>
+          {this.columnTooltip()}
         </div>
       </div>
       { this.storyContent() }
@@ -174,6 +185,7 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    columnTooltip: state.columnTooltip,
     screenshotMode: state.screenshotMode,
   }
 }

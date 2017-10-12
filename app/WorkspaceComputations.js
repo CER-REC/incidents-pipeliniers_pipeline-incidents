@@ -2,12 +2,52 @@ const MemoizeImmutable = require('memoize-immutable')
 const Immutable = require('immutable')
 
 const Constants = require('./Constants.js')
+const TranslationTable = require('./TranslationTable.js')
 const CategoryComputations = require('./CategoryComputations.js')
 const IncidentComputations = require('./IncidentComputations.js')
+const StringComputations = require('./StringComputations.js')
 
 const WorkspaceComputations = {}
 
+WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, showEmptyCategories, viewport, data, columns, categories) {
+  const columnMeasurements = WorkspaceComputations.horizontalPositions(
+    showEmptyCategories,
+    viewport,
+    data,
+    columns,
+    categories)
 
+  // Initial column horizontal coordinate.
+  let x = 0
+  switch(columnTooltip.get('columnName')) {
+  case 'pinColumn': 
+    x = columnMeasurements.get('pinColumn').get('x')
+    break
+  default:
+    x = columnMeasurements.getIn(['columns', columnTooltip.get('columnName')]).get('x')
+  }
+
+  // Update the horizontal coordinate with the label + question
+  // mark icon sizes.
+  x += StringComputations.questionMarkOffset(
+    TranslationTable.getIn(['columnHeadings', columnTooltip.get('columnName'), language]), 
+    12) + 
+    (Constants.getIn(['questionMark', 'size']) / 2)
+
+  // Align the horizontal coordinate to avoid extending the tooltip
+  // beyond the workspace width.
+  /*if(x + Constants.getIn(['columnTooltip', 'width']) > viewport.get('x'))
+    x -= Constants.getIn(['columnTooltip', 'width'])*/
+
+  const y = - (columnMeasurements.getIn(['workspace', 'height']) - 
+    WorkspaceComputations.topBarHeight())
+
+  let position = Immutable.Map()
+  position = position.set('x', x)
+  position = position.set('y', y)
+
+  return position
+}
 
 // Is the map on display?
 // columns: the columns state

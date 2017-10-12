@@ -117,7 +117,7 @@ class IncidentList extends React.Component {
     )
 
     return {
-
+      
       maxHeight: `${maxHeight}px`,
 
     }

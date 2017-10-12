@@ -11,3 +11,15 @@
 g {
 	transition: transform 50ms;
 }
+
+.questionMark {
+  cursor: pointer;
+}
+
+.questionMark.inactive {
+	opacity: 0.4;
+}
+
+.questionMark.inactive:hover {
+  opacity: 1;
+}
