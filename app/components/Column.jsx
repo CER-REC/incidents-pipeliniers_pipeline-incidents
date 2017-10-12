@@ -320,8 +320,6 @@ class Column extends React.Component {
     // the handle.
     columnWindowMoveHandler = this.handleTouchMove.bind(this)
     columnWindowEndHandler = this.handleTouchEnd.bind(this)
-    window.addEventListener('mouseup', columnWindowEndHandler)
-    window.addEventListener('mousemove', columnWindowMoveHandler)
   }
 
   handleDragMove(e) {
@@ -373,9 +371,6 @@ class Column extends React.Component {
                  this.props.columnDragStatus.get('offset')
     this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
 
-    // Remove the window event handlers previously attached.
-    window.removeEventListener('mouseup', columnWindowEndHandler)
-    window.removeEventListener('mousemove', columnWindowMoveHandler)
   }
 
   handleSidebarDragStart(e) {
@@ -414,8 +409,6 @@ class Column extends React.Component {
     // the handle.
     sidebarWindowMoveHandler = this.handleSidebarTouchMove.bind(this)
     sidebarWindowEndHandler = this.handleSidebarTouchEnd.bind(this)
-    window.addEventListener('mouseup', sidebarWindowEndHandler)
-    window.addEventListener('mousemove', sidebarWindowMoveHandler)
   }
 
   handleSidebarDragEnd(e) {
@@ -446,10 +439,6 @@ class Column extends React.Component {
     const newX = this.props.sidebarDragStatus.get('newX') - 
                  this.props.sidebarDragStatus.get('offset')
     this.props.onSidebarColumnSnap(this.props.sidebarDragStatus.get('columnName'), this.props.sidebarDragStatus.get('oldX'), newX, this.props.viewport)
-
-    // Remove the window event handlers previously attached.
-    window.removeEventListener('mouseup', sidebarWindowEndHandler)
-    window.removeEventListener('mousemove', sidebarWindowMoveHandler)
   }
 
   handleSidebarDragMove(e) {

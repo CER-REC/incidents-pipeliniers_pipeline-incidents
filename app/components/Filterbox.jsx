@@ -201,8 +201,6 @@ class Filterbox extends React.Component {
     // the handle.
     categoryWindowMoveHandler = this.handleTouchMove.bind(this)
     categoryWindowEndHandler = this.handleTouchEnd.bind(this)
-    window.addEventListener('mouseup', categoryWindowEndHandler)
-    window.addEventListener('mousemove', categoryWindowMoveHandler)
   }
 
   handleTouchMove(e) {
@@ -247,10 +245,6 @@ class Filterbox extends React.Component {
       this.props.categoryDragStatus.get('oldY'), 
       newY, 
       categoryHeights)
-
-    // Remove the window event handlers previously attached.
-    window.removeEventListener('mouseup', categoryWindowEndHandler)
-    window.removeEventListener('mousemove', categoryWindowMoveHandler)
   }
 
   lineToCategory() {
