@@ -372,6 +372,10 @@ const Constants = Immutable.fromJS({
 
   pathCurveControlFactor: 2.5,
 
+  screenshotPath: 'screenshot',
+
+  screenshotHeight: 1000,
+
   nearBlack: '#333333',
   darkGrey: '#666',
 

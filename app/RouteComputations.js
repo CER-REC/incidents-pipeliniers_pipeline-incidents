@@ -220,15 +220,28 @@ const RouteComputations = {
   },
 
 
+  screenshotMode: function(location) {
+    return !!location.pathname.match(`/${Constants.get('screenshotPath')}$`)
+  },
+
   // A string for the root of the application, a suitable place for making rest
   // requests or building other URLs. E.g.:
   // http://localhost:3001/incident-visualization/
   // https://apps2.neb-one.gc.ca/incident-visualization/
   appRoot: function (location, language) {
     return `${location.origin}${Tr.getIn(['applicationPath', language])}`
-  }
+  },
 
 
+  // Based on the current URL, construct a URL to the screenshottable version
+  // of the visualization, and also encode it for use as a URL parameter itself.
+  // The server will make the request of localhost, we only need to construct
+  // the remainder of the path
+  // NB: Location.pathname includes the leading slash in the url, e.g.:
+  // In 'foo.com/bar', pathname is '/bar'
+  screenshotParameter: function(location) {
+    return encodeURIComponent(`${location.pathname}screenshot${location.search}`)
+  },
 
 
 

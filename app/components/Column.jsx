@@ -146,6 +146,10 @@ class Column extends React.Component {
   }
 
   dragArrow() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -571,6 +575,7 @@ const mapStateToProps = state => {
     language: state.language,
     columnDragStatus: state.columnDragStatus,
     sidebarDragStatus: state.sidebarDragStatus,
+    screenshotMode: state.screenshotMode,
     sidebarColumnHover: state.sidebarColumnHover,
     schema: state.schema,
   }

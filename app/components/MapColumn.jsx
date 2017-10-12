@@ -22,6 +22,10 @@ require('./MapColumn.scss')
 class MapColumn extends React.Component {
 
   dragArrow() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+
     const measurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -131,6 +135,7 @@ const mapStateToProps = state => {
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
     columnDragStatus: state.columnDragStatus,
+    screenshotMode: state.screenshotMode,
   }
 }
 
