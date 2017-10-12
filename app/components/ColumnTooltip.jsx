@@ -89,10 +89,18 @@ class ColumnTooltip extends React.Component {
 
   componentDidMount() {
     this.setupBottomMargin()
+
+    // Scroll to the top of the tooltip to make sure
+    // that the tooltip title is fully visible.
+    document.getElementById('columnTooltip').scrollTop = 0
   }
 
   componentDidUpdate() {
     this.setupBottomMargin()
+
+    // Scroll to the top of the tooltip to make sure
+    // that the tooltip title is fully visible.
+    document.getElementById('columnTooltip').scrollTop = 0
   }
 
   render() {
