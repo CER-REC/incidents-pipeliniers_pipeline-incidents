@@ -17,7 +17,6 @@ const MapContainer = require('./MapContainer.jsx')
 const Constants = require('../Constants.js')
 const IncidentListHeadings = require('./IncidentListHeadings.jsx')
 const IncidentContainer = require('./IncidentContainer.jsx')
-const IncidentList = require('./IncidentList.jsx')
 const StoryBar = require('./StoryBar.jsx')
 const StoryWindow = require('./StoryWindow.jsx')
 const ColumnTooltip = require('./ColumnTooltip.jsx')
@@ -51,8 +50,64 @@ class Workspace extends React.Component {
   }
 
   columnTooltip() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+
     // Only render if a tooltip has been summoned
     if(this.props.columnTooltip.get('isActive')) return <ColumnTooltip/>
+  }
+
+  incidentListHtml() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+    else {
+      return <IncidentContainer />
+    }
+  }
+
+  incidentListSvg() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+    else {
+      return <g>
+        <IncidentListShowHide />
+        <EmptyCategories />
+        <IncidentListHeadings />
+      </g>
+    }
+  }
+
+  socialbar() {
+    if (!this.props.screenshotMode) {
+      return <SocialBar/>
+    }
+    else {
+      return null
+    }
+  }
+
+  storyContent() {
+    if (this.props.screenshotMode) {
+      return null
+    }
+
+    return <div>
+      <StoryWindow/>
+      <StoryBar/>
+      <Disclaimer/>
+    </div>
+  }
+
+  workspaceClass() {
+    if (!this.props.screenshotMode) {
+      return 'workspace'
+    }
+    else {
+      return 'screenshotWorkspace'
+    }
   }
 
   render() {
@@ -75,6 +130,7 @@ class Workspace extends React.Component {
       Constants.getIn(['socialBar', 'width']) -
       Constants.getIn(['socialBar', 'leftMargin'])
 
+
     const clipContainerStyle = {
       width: `${scrollPaneWidth}px`
     }
@@ -84,7 +140,7 @@ class Workspace extends React.Component {
       height: this.props.viewport.get('y'),
     }
 
-    return <div className='workspace' style = { workspaceStyle }>
+    return <div className = { this.workspaceClass() } style = { workspaceStyle }>
       <div 
         className = 'workspaceOverlay'
         style = { {height: `${Constants.getIn(['topBar', 'height'])}px`} }
@@ -100,24 +156,20 @@ class Workspace extends React.Component {
         <div
           className = 'workspaceScrollPane'>
           { this.mapContainer() }
-          <IncidentContainer />
+          { this.incidentListHtml() }
           <svg 
             className = 'workspaceSvg'
             width = { horizontalPositions.getIn(['workspace', 'width']) }
             height = { horizontalPositions.getIn(['workspace', 'height']) }>
-            <EmptyCategories />
-            <IncidentListHeadings />
+            { this.incidentListSvg() }
+
             <SideBar/>
             {this.columns()}
-            <IncidentListShowHide />
           </svg>
           {this.columnTooltip()}
         </div>
       </div>
-      <StoryWindow/>
-      <StoryBar/>
-      <Disclaimer/>
-
+      { this.storyContent() }
       <AboutWindow/>
     </div>
   }
@@ -131,6 +183,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     columnTooltip: state.columnTooltip,
+    screenshotMode: state.screenshotMode,
   }
 }
 
