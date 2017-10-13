@@ -142,7 +142,7 @@
 
 .storiesTitle {
   font-family: $fira-sans-light;
-  font-size: 24px;
+  font-size: 20px;
   color: $black;
   line-height: 1.5;
 }
@@ -224,4 +224,8 @@
   padding-left: 10px;
   padding-right: 10px;
   font-size: 12px;
+}
+
+.headingContainer a {
+  color: $link-colour;
 }

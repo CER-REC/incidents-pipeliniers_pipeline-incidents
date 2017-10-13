@@ -123,6 +123,7 @@ const Constants = Immutable.fromJS({
     methodologyHeight: 49,
     resetAllHeight: 72,
     headerLabelFontSize: 13,
+    headerLabelLeftOffset: -10,
   },
 
   socialBar: {
@@ -241,66 +242,33 @@ const Constants = Immutable.fromJS({
   },
 
   columnBaseColors: {
-    'incidentTypes': {
-      start: '#1A548E',
-      middle: '#E66CE2',
-      end: '#FFAEAB',
-    },
-    'year': {
-      start: '#E42236',
-      middle: '#E6A761',
-      end: '#FFFFA9',
-    },
-    'company': {
-      start: '#4E2F2C',
-      middle: '#E6C56A',
-      end: '#FBFFAB',
-    },
-    'status': {
-      start: '#194613',
-      middle: '#86D0E6',
-      end: '#D4EFFF',
-    },
-    'province': {
-      start: '#870E4A',
-      middle: '#E6D65E',
-      end: '#DCFF82',
-    },
-    'substance': {
-      start: '#951379',
-      middle: '#E66364',
-      end: '#FFE0A3',
-    },
-    'releaseType': {
-      start: '#DF0070',
-      middle: '#E66F45',
-      end: '#FCFF96',
-    },
-    'whatHappened': {
-      start: '#55A2E7',
-      middle: '#D69BE7',
-      end: '#FFE0E7',
-    },
-    'whyItHappened': {
-      start: '#F56A39',
-      middle: '#E6E06C',
-      end: '#ABFFAC',
-    },
-    'pipelinePhase': {
-      start: '#84B551',
-      middle: '#7CE6DF',
-      end: '#C7E9FF',
-    },
-    'volumeCategory': { 
-      start: '#64347F',
-      middle: '#E6A1C9',
-      end: '#FFF9E6',
-    },
-    'pipelineSystemComponentsInvolved': {
-      start: '#29836F',
-      middle: '#73ADE6',
-      end: '#E6E0FF',
-    },
+    'incidentTypes': ['#1A548E', '#E66CE2', '#FFAEAB'],
+    'year': ['#E42236', '#E6A761', '#FFFFA9'],
+    'company': ['#4E2F2C', '#E6C56A', '#FBFFAB'],
+    'status': ['#194613', '#86D0E6', '#D4EFFF'],
+    'province': ['#870E4A', '#E6D65E', '#DCFF82'],
+    'substance': ['#951379', '#E66364', '#FFE0A3', '#ec7014', '#7f3b08'],
+    'releaseType': ['#DF0070', '#E66F45', '#FCFF96'],
+    'whatHappened': ['#55A2E7', '#D69BE7', '#FFE0E7'],
+    'whyItHappened': ['#F56A39', '#E6E06C', '#ABFFAC'],
+    'pipelinePhase': ['#84B551', '#7CE6DF', '#C7E9FF'],
+    'volumeCategory': ['#64347F', '#E6A1C9', '#FFF9E6'],
+    'pipelineSystemComponentsInvolved': ['#29836F', '#73ADE6', '#E6E0FF'],
+  },
+
+  columnColourDomains: {
+    'incidentTypes': [0, 0.5, 1],
+    'year': [0, 0.5, 1],
+    'company': [0, 0.5, 1],
+    'status': [0, 0.5, 1],
+    'province': [0, 0.5, 1],
+    'substance': [0, 0.1, 0.2, 0.7, 1],
+    'releaseType': [0, 0.5, 1],
+    'whatHappened': [0, 0.5, 1],
+    'whyItHappened': [0, 0.5, 1],
+    'pipelinePhase': [0, 0.5, 1],
+    'volumeCategory': [0, 0.5, 1],
+    'pipelineSystemComponentsInvolved': [0, 0.5, 1],
   },
 
   emptyCategoryHeight: 20, // px

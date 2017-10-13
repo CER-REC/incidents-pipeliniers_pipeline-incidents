@@ -667,7 +667,7 @@ const TranslationTable = Immutable.fromJS({
     },
     releaseType: {
       en: 'RELEASE TYPE',
-      fr: 'TYPE DE REJET / DÉVERSEMENT',
+      fr: 'TYPE DE REJET',
     },
     whatHappened: {
       en: 'WHAT HAPPENED',
@@ -683,10 +683,10 @@ const TranslationTable = Immutable.fromJS({
     },
     volumeCategory: {
       en: 'APPROX VOL RELEASED',
-      fr: 'VOLUME APPROX. REJETÉ/DÉVERSÉ',
+      fr: 'VOLUME APPROX REJETÉ',
     },
     pipelineSystemComponentsInvolved: {
-      en: 'SYS. COMP. INVOLVED',
+      en: 'SYS COMP INVOLVED',
       fr: 'COMPOSANTES EN CAUSE',
     },
     map: {
