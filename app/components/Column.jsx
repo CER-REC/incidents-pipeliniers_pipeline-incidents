@@ -129,6 +129,10 @@ class Column extends React.Component {
   }
 
   questionMark() {
+    if (this.props.screenshotMode === true) {
+      return null
+    }
+
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
