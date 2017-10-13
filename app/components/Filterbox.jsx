@@ -203,9 +203,12 @@ class Filterbox extends React.Component {
     return <g transform = { transform }>
       { this.buttons() }
       { this.dragButton() }
-      { this.lineToCategory() }
     </g>
   }
+  // TODO: This was not requested by design, but I have disabled the line from
+  // the filter box to the category. Since the filterbox is not always adjacent 
+  // to a category, we can't guarantee that this line will connect to anything.
+  // { this.lineToCategory() }
 }
 
 const mapStateToProps = state => {
