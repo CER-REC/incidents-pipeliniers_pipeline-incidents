@@ -133,6 +133,7 @@ const TranslationTable = Immutable.fromJS({
           'images/stories/the-basics-of-incident-visualization-4-FR.jpg',
         ],
       },
+      config: '?columns=province,year&province=NS,PE,NB,NL,MB,NT,ON,YT,AB,NU,SK,BC,QC&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008&language=en',
     },
     'getting-the-big-picture': {
       title: {
@@ -157,6 +158,7 @@ const TranslationTable = Immutable.fromJS({
           'images/stories/getting-the-big-picture-4-FR.jpg',
         ],
       },
+      config: '?columns=map,releaseType,incidentTypes&releaseType=gas,notApplicable,liquid,miscellaneous&incidentTypes=release,fire,obdl,seriousInjury,environmentalEffects,explosion,fatality&map=&language=en',
     },
     'adding-columns-to-dig-deeper': {
       title: {
@@ -181,6 +183,7 @@ const TranslationTable = Immutable.fromJS({
           'images/stories/adding-columns-to-dig-deeper-4-FR.jpg',
         ],
       },
+      config: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=externalInterference&incidentTypes=fire&whyItHappened=maintenance,engineeringAndPlanning,standardsAndProcedures,humanFactors,toolsAndEquipment,inadequateSupervision,tbd,failureInCommunication,naturalOrEnvironmentalForces,inadequateProcurement&pinnedIncidents=INC2008-084,INC2008-123&language=en'
     },
   },
 
