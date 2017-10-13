@@ -53,7 +53,7 @@ const Constants = Immutable.fromJS({
     headerIconWidth: 18,
     headerIconHeight: 20,
     width: 860,
-    height: 120,
+    height: 150,
     xHeading: 35,
     yHeading: 18,
     xSubpop: 35,
@@ -386,6 +386,10 @@ const Constants = Immutable.fromJS({
 
     separatorLineY: 42,
   },
+
+  // The purpose of the bottom margin is to allow some space for the filterbox
+  // to drop below
+  workspaceBottomMargin: 20,
 
 })
 

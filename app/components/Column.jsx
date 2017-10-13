@@ -136,7 +136,7 @@ class Column extends React.Component {
       height={Constants.getIn(['questionMark', 'size'])} 
       x={columnMeasurements.get('x') + 
         StringComputations.questionMarkOffset(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12)} 
-      y={WorkspaceComputations.topBarHeight()}
+      y={WorkspaceComputations.topBarHeight() - Constants.getIn(['questionMark', 'size']) / 2}
       onClick={this.questionMarkClick.bind(this)}/>
   }
 
