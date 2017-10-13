@@ -29,14 +29,14 @@ class IncidentList extends React.Component {
   // Render Helpers
 
   noIncidentsText() {
-    if (this.props.filterboxActivationState.get('columnName') === null) {
-      return <div className='noIncidentsTextBlock'>
-        <p className = 'noIncidentsText'>{ Tr.getIn(['noCategorySelection', this.props.language])}</p>
-      </div>
-    }
-    else {
+    if (this.props.filterboxActivationState.get('columnName') !== null ||
+      this.props.pinnedIncidents.count() > 0) {
       return null
     }
+
+    return <div className='noIncidentsTextBlock'>
+      <p className = 'noIncidentsText'>{ Tr.getIn(['noCategorySelection', this.props.language])}</p>
+    </div>
   }
 
   incidentList() {
