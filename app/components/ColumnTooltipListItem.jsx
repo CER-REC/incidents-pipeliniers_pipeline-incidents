@@ -43,7 +43,9 @@ class ColumnTooltipListItem extends React.Component {
       textClassName += ' active'
     }
     return <span 
-      className={textClassName}>
+      className={textClassName}
+      onClick={this.detailClick.bind(this)}
+      >
       {this.props.item.get('overview')}
     </span>
   }
