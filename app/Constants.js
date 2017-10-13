@@ -396,7 +396,7 @@ const Constants = Immutable.fromJS({
   // The purpose of the bottom margin is to allow some space for the filterbox
   // to drop below
   workspaceBottomMargin: 20,
-
+ 
 })
 
 

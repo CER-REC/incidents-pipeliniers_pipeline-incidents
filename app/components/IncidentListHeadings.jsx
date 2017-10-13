@@ -26,7 +26,7 @@ class IncidentListHeadings extends React.Component {
     // TODO: This is replicating math found in Column.jsx for laying out 
     // text headings. We need to pull this into a computation file.
     const y = WorkspaceComputations.topBarHeight() +
-      Constants.get('columnHeadingLineOffset')
+      Constants.get('columnHeadingLineOffset') * 2
 
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
@@ -104,7 +104,9 @@ class IncidentListHeadings extends React.Component {
       height={Constants.getIn(['questionMark', 'size'])} 
       x={columnMeasurements.get('x') + 
         StringComputations.questionMarkOffset(Tr.getIn(['columnHeadings', columnName, this.props.language]), 12)} 
-      y={WorkspaceComputations.topBarHeight() - Constants.getIn(['questionMark', 'size']) / 2}
+      y={WorkspaceComputations.topBarHeight() + 
+        Constants.get('columnHeadingLineOffset') - 
+        Constants.getIn(['questionMark', 'size']) / 2}
       onClick={this.questionMarkClick.bind(this)}/>
   }
 
