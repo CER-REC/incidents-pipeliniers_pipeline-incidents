@@ -510,7 +510,9 @@ class Column extends React.Component {
 
   sidebarHeading() {
     let currentY = this.props.columnY
-    return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength'])).map((word) => {
+    const lineLength = Constants.getIn(['sidebar', 'maxLineLength', this.props.language])
+    const headingText = TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language])
+    return StringComputations.splitHeading(headingText, lineLength).map((word) => {
       // Terminating space.
       if(word === '') return null
       currentY += Constants.get('columnHeadingLineOffset')

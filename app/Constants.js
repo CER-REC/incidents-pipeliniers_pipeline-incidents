@@ -180,7 +180,7 @@ const Constants = Immutable.fromJS({
   ],
 
   sidebar: {
-    columWidth: 105,
+    columWidth: 90,
     columnOffset: 10,
 
     verticalStackingOffset: 2,
@@ -191,7 +191,13 @@ const Constants = Immutable.fromJS({
 
     columnHoverOffset: -3,
 
-    maxLineLength: 15,
+    // There are precise reasons for these line lengths
+    // 'What happened' wraps appropriately at 12 characters in English
+    // 'Volume approx rejeté' wraps appropriately at 13 characters, in French
+    maxLineLength: {
+      en: 12,
+      fr: 13,
+    },
 
     dropShadowX: 1,
     dropShadowY: 2,

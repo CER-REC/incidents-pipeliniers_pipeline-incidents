@@ -104,8 +104,7 @@ class IncidentListHeadings extends React.Component {
       height={Constants.getIn(['questionMark', 'size'])} 
       x={columnMeasurements.get('x') + 
         StringComputations.questionMarkOffset(Tr.getIn(['columnHeadings', columnName, this.props.language]), 12)} 
-      y={WorkspaceComputations.topBarHeight() + 
-        Constants.getIn(['questionMark', 'yOffset'])}
+      y={WorkspaceComputations.topBarHeight() - Constants.getIn(['questionMark', 'size']) / 2}
       onClick={this.questionMarkClick.bind(this)}/>
   }
 
