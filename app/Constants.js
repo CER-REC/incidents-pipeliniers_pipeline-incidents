@@ -427,6 +427,8 @@ const Constants = Immutable.fromJS({
     separatorLineY: 42,
   },
 
+  appHost: 'https://apps2.neb-one.gc.ca',
+
 })
 
 
