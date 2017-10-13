@@ -63,7 +63,7 @@ class StoryWindow extends React.Component {
 
     // Get the state from the pre-set url.
     const routerState = RouteComputations.urlParamsToState(
-      Tr.getIn(['stories', this.props.story.get('storyID'), 'config']), 
+      Tr.getIn(['stories', this.props.story.get('storyID'), 'config', this.props.language]), 
       this.props.data, 
       this.props.categories)
 
