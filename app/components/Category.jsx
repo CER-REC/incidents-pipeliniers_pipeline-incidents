@@ -59,7 +59,14 @@ class Category extends React.Component {
       return null
     }
 
-    const labelLines = this.labelLines()
+    let labelLines = this.labelLines()
+
+    // Clip long names, and append an ellipsis
+    if (labelLines.length > 3) {
+      labelLines = [labelLines[0], labelLines[1], labelLines[2]]
+      labelLines[2] += '…'
+    }
+
     const labelLengthExceed = labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height
 
     let labelClassName = 'inactiveCategoryLabels'
