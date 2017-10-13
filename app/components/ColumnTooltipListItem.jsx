@@ -40,10 +40,12 @@ class ColumnTooltipListItem extends React.Component {
     let textClassName = 'PopupText'
     if(this.props.columnTooltipClick.get('columnName') === this.props.columnName &&
             this.props.columnTooltipClick.get('itemOverview') === this.props.item.get('overview')) {
-      textClassName = 'PopupText_Active'
+      textClassName += ' active'
     }
     return <span 
-      className={textClassName}>
+      className={textClassName}
+      onClick={this.detailClick.bind(this)}
+      >
       {this.props.item.get('overview')}
     </span>
   }
@@ -55,15 +57,9 @@ class ColumnTooltipListItem extends React.Component {
       return null
     }
 
-    return <div>
-      <div
-        className='detailContainer'>
-        <span
-          className='PopupDetailText'>
-          {this.props.item.get('expanded')}
-        </span>
-      </div>
-    </div>
+    return <span className='PopupDetailText'>
+      {this.props.item.get('expanded')}
+    </span>
   }
 
   // This is necessary to compensate for the empty space

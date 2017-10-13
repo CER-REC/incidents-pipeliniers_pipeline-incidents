@@ -17,7 +17,7 @@ class StoryWindow extends React.Component {
 
   shadowFilter() {
     return <defs>
-      <filter id="shadowFilter" color-interpolation-filters="sRGB">
+      <filter id="shadowFilter" colorInterpolationFilters="sRGB">
         <feOffset result="offOut" in="SourceAlpha" dx="5" dy="5" />
         <feColorMatrix result="matrixOut" in="offOut" type="matrix" 
           values="0.2 0 0 0 0.6 0 0.2 0 0 0.6 0 0 0.2 0 0.6 0 0 0 1 0" />

@@ -100,24 +100,28 @@ class Header extends React.Component {
         <g transform = { transformText }>
           <text
             className = 'headerButtonLabel'
+            x = { Constants.getIn(['headerBar', 'headerLabelLeftOffset']) }
             y = { Constants.getIn(['headerBar', 'tellMeAStoryHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             fontSize = { Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             onClick = { this.tellMeAStoryClick.bind(this) }
           >{ Tr.getIn(['tellMeAStory', this.props.language]).toUpperCase() }</text>
           <text
             className = 'headerButtonLabel'
+            x = { Constants.getIn(['headerBar', 'headerLabelLeftOffset']) }
             y = { Constants.getIn(['headerBar', 'aboutThisProjectHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize']) }
             fontSize = { Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             onClick = { this.aboutThisProjectClick.bind(this) }
           >{ Tr.getIn(['aboutThisProject', this.props.language]).toUpperCase() }</text>
           <text
             className = 'headerButtonLabel'
+            x = { Constants.getIn(['headerBar', 'headerLabelLeftOffset']) }
             y = { Constants.getIn(['headerBar', 'methodologyHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize']) }
             fontSize = { Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             onClick = { this.methodologyClick.bind(this) }
           >{ Tr.getIn(['methodology', this.props.language]).toUpperCase() }</text>
           <text
             className = 'headerButtonLabel'
+            x = { Constants.getIn(['headerBar', 'headerLabelLeftOffset']) }
             y = { Constants.getIn(['headerBar', 'resetAllHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize']) }
             fontSize = { Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             onClick = { this.resetAllClick.bind(this) }
