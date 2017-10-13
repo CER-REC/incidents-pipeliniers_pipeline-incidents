@@ -102,70 +102,88 @@ const TranslationTable = Immutable.fromJS({
   },
 
   stories: {
-    'provinces-and-pipeline-incident': {
+    'the-basics-of-incident-visualization': {
       title: {
-        en: 'Provinces and Pipeline Incident',
-        fr: '<TODO>',
+        en: 'THE BASICS OF INCIDENT VISUALIZATION',
+        fr: 'INTRODUCTION À LA VISUALISATION DES DONNÉES RELATIVES AUX INCIDENTS',
       },
       backgroundImage: {
-        en: 'images/stories/provinces-and-pipeline-incident-EN.jpg',
-        fr: '<TODO>',
+        en: 'images/stories/the-basics-of-incident-visualization-1-EN.jpg',
+        fr: 'images/stories/the-basics-of-incident-visualization-1-FR.jpg',
       },
       tutorialImages: {
         en: [
-          'images/stories/placeholder-1.png',
-          'images/stories/placeholder-2.png',
-          'images/stories/placeholder-3.png',
+          'images/stories/the-basics-of-incident-visualization-1-EN.jpg',
+          'images/stories/the-basics-of-incident-visualization-2-EN.jpg',
+          'images/stories/the-basics-of-incident-visualization-3-EN.jpg',
+          'images/stories/the-basics-of-incident-visualization-4-EN.jpg',
         ],
         fr: [
-          'images/stories/placeholder-1.png',
-          'images/stories/placeholder-2.png',
-          'images/stories/placeholder-3.png',
+          'images/stories/the-basics-of-incident-visualization-1-FR.jpg',
+          'images/stories/the-basics-of-incident-visualization-2-FR.jpg',
+          'images/stories/the-basics-of-incident-visualization-3-FR.jpg',
+          'images/stories/the-basics-of-incident-visualization-4-FR.jpg',
         ],
+      },
+      config: {
+        en: '?columns=province,year&province=NS,PE,NB,NL,MB,NT,ON,YT,AB,NU,SK,BC,QC&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008&language=en',
+        fr: '?columns=province,year&province=NS,PE,NB,NL,MB,NT,ON,YT,AB,NU,SK,BC,QC&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008&language=fr',
       },
     },
-    'how-big-are-most-gas-releases': {
+    'getting-the-big-picture': {
       title: {
-        en: 'How Big Are Most Gas Releases?',
-        fr: '<TODO>',
+        en: 'GETTING THE BIG PICTURE',
+        fr: 'AVOIR UNE VUE D’ENSEMBLE',
       },
       backgroundImage: {
-        en: 'images/stories/how-big-are-most-gas-releases-EN.jpg',
-        fr: '<TODO>',
+        en: 'images/stories/getting-the-big-picture-1-EN.jpg',
+        fr: 'images/stories/getting-the-big-picture-1-FR.jpg',
       },
       tutorialImages: {
         en: [
-          'images/stories/placeholder-1.png',
-          'images/stories/placeholder-2.png',
-          'images/stories/placeholder-3.png',
+          'images/stories/getting-the-big-picture-1-EN.jpg',
+          'images/stories/getting-the-big-picture-2-EN.jpg',
+          'images/stories/getting-the-big-picture-3-EN.jpg',
+          'images/stories/getting-the-big-picture-4-EN.jpg',
         ],
         fr: [
-          'images/stories/placeholder-1.png',
-          'images/stories/placeholder-2.png',
-          'images/stories/placeholder-3.png',
+          'images/stories/getting-the-big-picture-1-FR.jpg',
+          'images/stories/getting-the-big-picture-2-FR.jpg',
+          'images/stories/getting-the-big-picture-3-FR.jpg',
+          'images/stories/getting-the-big-picture-4-FR.jpg',
         ],
+      },
+      config: {
+        en: '?columns=map,releaseType,incidentTypes&releaseType=gas,notApplicable,liquid,miscellaneous&incidentTypes=release,fire,obdl,seriousInjury,environmentalEffects,explosion,fatality&map=&language=en',
+        fr: '?columns=map,releaseType,incidentTypes&releaseType=gas,notApplicable,liquid,miscellaneous&incidentTypes=release,fire,obdl,seriousInjury,environmentalEffects,explosion,fatality&map=&language=fr',
       },
     },
-    'when-do-incidents-usually-occur': {
+    'adding-columns-to-dig-deeper': {
       title: {
-        en: 'When Do Incidents Usually Occur?',
-        fr: '<TODO>',
+        en: 'ADDING COLUMNS TO DIG DEEPER',
+        fr: 'AJOUTER DES COLONNES POUR APPRONDIR',
       },
       backgroundImage: {
-        en: 'images/stories/when-do-incidents-usually-occur-EN.jpg',
-        fr: '<TODO>',
+        en: 'images/stories/adding-columns-to-dig-deeper-1-EN.jpg',
+        fr: 'images/stories/adding-columns-to-dig-deeper-1-FR.jpg',
       },
       tutorialImages: {
         en: [
-          'images/stories/placeholder-1.png',
-          'images/stories/placeholder-2.png',
-          'images/stories/placeholder-3.png',
+          'images/stories/adding-columns-to-dig-deeper-1-EN.jpg',
+          'images/stories/adding-columns-to-dig-deeper-2-EN.jpg',
+          'images/stories/adding-columns-to-dig-deeper-3-EN.jpg',
+          'images/stories/adding-columns-to-dig-deeper-4-EN.jpg',
         ],
         fr: [
-          'images/stories/placeholder-1.png',
-          'images/stories/placeholder-2.png',
-          'images/stories/placeholder-3.png',
+          'images/stories/adding-columns-to-dig-deeper-1-FR.jpg',
+          'images/stories/adding-columns-to-dig-deeper-2-FR.jpg',
+          'images/stories/adding-columns-to-dig-deeper-3-FR.jpg',
+          'images/stories/adding-columns-to-dig-deeper-4-FR.jpg',
         ],
+      },
+      config: {
+        en: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=externalInterference&incidentTypes=fire&whyItHappened=maintenance,engineeringAndPlanning,standardsAndProcedures,humanFactors,toolsAndEquipment,inadequateSupervision,tbd,failureInCommunication,naturalOrEnvironmentalForces,inadequateProcurement&pinnedIncidents=INC2008-084,INC2008-123&language=en',
+        fr: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=externalInterference&incidentTypes=fire&whyItHappened=maintenance,engineeringAndPlanning,standardsAndProcedures,humanFactors,toolsAndEquipment,inadequateSupervision,tbd,failureInCommunication,naturalOrEnvironmentalForces,inadequateProcurement&pinnedIncidents=INC2008-084,INC2008-123&language=fr',
       },
     },
   },

@@ -38,9 +38,9 @@ const Constants = Immutable.fromJS({
 
   stories: {
     firstRow: {
-      leftStory: 'provinces-and-pipeline-incident',
-      middleStory: 'how-big-are-most-gas-releases',
-      rightStory: 'when-do-incidents-usually-occur',
+      leftStory: 'the-basics-of-incident-visualization',
+      middleStory: 'getting-the-big-picture',
+      rightStory: 'adding-columns-to-dig-deeper',
     },
   },
 
