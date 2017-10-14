@@ -81,6 +81,7 @@ class IncidentListHeadings extends React.Component {
 
   }
 
+  // TODO: Find a way to unify this with the questionmark in Column
   questionMark() {
     const columnName = 'pinColumn'
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
@@ -106,7 +107,8 @@ class IncidentListHeadings extends React.Component {
         StringComputations.questionMarkOffset(Tr.getIn(['columnHeadings', columnName, this.props.language]), 12)} 
       y={WorkspaceComputations.topBarHeight() + 
         Constants.get('columnHeadingLineOffset') - 
-        Constants.getIn(['questionMark', 'size']) / 2}
+        Constants.getIn(['questionMark', 'size']) / 2 + 
+        Constants.getIn(['questionMark', 'yOffset'])}
       onClick={this.questionMarkClick.bind(this)}/>
   }
 
@@ -117,6 +119,9 @@ class IncidentListHeadings extends React.Component {
   }
 
   render() {
+    if (this.props.screenshotMode === true) {
+      return null
+    }
 
     return <g>
       <text>
@@ -141,6 +146,7 @@ const mapStateToProps = state => {
     filterboxActivationState: state.filterboxActivationState,
     language: state.language,
     columnTooltip: state.columnTooltip,
+    screenshotMode: state.screenshotMode,
   }
 }
 

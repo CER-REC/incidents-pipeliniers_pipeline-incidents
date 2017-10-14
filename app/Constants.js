@@ -388,6 +388,7 @@ const Constants = Immutable.fromJS({
   questionMark: {
     pixelsPerCharacter: 7.4,
     xOffset: 5,
+    yOffset: 3,
     size: 16,
   },
 
