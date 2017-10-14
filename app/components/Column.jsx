@@ -90,7 +90,6 @@ class Column extends React.Component {
   }
 
   barHeading() {
-    let currentY = WorkspaceComputations.topBarHeight()
 
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
@@ -100,7 +99,22 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12).map((word) => {
+    const headingPieces = StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength', this.props.language]))
+
+    let currentY
+    if (headingPieces.length === 1) {
+      currentY = WorkspaceComputations.topBarHeight() + 
+        Constants.get('columnHeadingLineOffset')
+    }
+    else if  (headingPieces.length === 2) {
+      currentY = WorkspaceComputations.topBarHeight()
+    }
+    else {
+      currentY = WorkspaceComputations.topBarHeight()
+      console.error('Column heading too long: ', headingPieces)
+    }
+
+    return headingPieces.map((word) => {
       currentY += Constants.get('columnHeadingLineOffset')
       return <tspan className='barsHeading' 
         key={word}
@@ -119,6 +133,10 @@ class Column extends React.Component {
   }
 
   questionMark() {
+    if (this.props.screenshotMode === true) {
+      return null
+    }
+
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -132,6 +150,14 @@ class Column extends React.Component {
       this.props.columnTooltip.get('columnName') === this.props.columnName) 
       isActive = 'active'
 
+    let questionMarkY = WorkspaceComputations.topBarHeight() - Constants.getIn(['questionMark', 'size']) / 2
+
+    const headingPieces = StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength', this.props.language]))
+
+    if (headingPieces.length === 1) {
+      questionMarkY += Constants.get('columnHeadingLineOffset')
+    }
+
     return <image 
       id={this.props.columnName + '-QuestionMark'}
       className={'questionMark ' + isActive}
@@ -139,9 +165,8 @@ class Column extends React.Component {
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 
       x={columnMeasurements.get('x') + 
-        StringComputations.questionMarkOffset(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), 12)} 
-      y={WorkspaceComputations.topBarHeight() + 
-        Constants.getIn(['questionMark', 'yOffset'])}
+        StringComputations.questionMarkOffset(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength', this.props.language]))} 
+      y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}/>
   }
 
@@ -602,9 +627,10 @@ class Column extends React.Component {
   }
 
   sidebarHeading() {
-    let currentY = this.props.columnY 
-
-    return StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength'])).map((word) => {
+    let currentY = this.props.columnY
+    const lineLength = Constants.getIn(['sidebar', 'maxLineLength', this.props.language])
+    const headingText = TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language])
+    return StringComputations.splitHeading(headingText, lineLength).map((word) => {
       // Terminating space.
       if(word === '') return null
       currentY += Constants.get('columnHeadingLineOffset')

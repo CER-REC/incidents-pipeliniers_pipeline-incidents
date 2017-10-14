@@ -1,5 +1,10 @@
 @import "./Colours.scss";
+@import "./FontVariables.scss";
 
+
+// NB: The fonts stylesheet only needs to be imported into the project once, 
+// at the root. If you want to use font variables, import FontVariables.scss
+// instead.
 
 @font-face {
   font-family: "FiraSansCondensed";
@@ -36,11 +41,6 @@
       url("fonts/FiraSansCompressed-SemiBold.woff") format("woff"),
       url("fonts/FiraSansCompressed-SemiBold.ttf") format("truetype");
 }
-
-$fira-sans-light: 'FiraSansCondensed', sans-serif;
-$fira-sans-extra-condensed: 'FiraSansExtraCondensed', sans-serif;
-$fira-sans-extra-condensed-medium: 'FiraSansExtraCondensedMedium', sans-serif;
-$fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-serif;
 
 
 //heading
@@ -91,7 +91,7 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
   text-align: left;
 }
 
-.barsHeading {
+.barsHeading, .incidentsHeading {
   font-family: $fira-sans-extra-condensed-semibold;
   font-size: 15px;
   fill: $black;
@@ -135,7 +135,6 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
 
 .storiesHeading {
   font-family: $fira-sans-extra-condensed;
-  font-weight: bold;
   font-size: 18px;
   text-align: center;
   color: $black;
@@ -143,15 +142,14 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
 
 .storiesTitle {
   font-family: $fira-sans-light;
-  font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
   color: $black;
+  line-height: 1.5;
 }
 
 .PopupHeading {
-  font-family: $fira-sans-extra-condensed;
-  font-size: 10pt;
-  font-weight: bold;
+  font-family: $fira-sans-extra-condensed-medium;
+  font-size: 13px;
   fill: $black;
   margin: 5px 0 0 10px;
   padding: 0;
@@ -162,8 +160,7 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
 
 .PopupOverview {
   font-family: $fira-sans-extra-condensed-medium;
-  font-size: 9pt;
-  font-weight: bold;
+  font-size: 12px;
   fill: $black;
   margin: -3px 0 0 10px;
   padding: 0;
@@ -174,43 +171,36 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
 
 .PopupPlusSign {
   font-family: $fira-sans-light;
-  font-weight: bold;
   font-size: 20px;
   color: $black;
-  margin-right: 4px;
 }
 
 .PopupText {
-  font-family: $fira-sans-light;
-  font-weight: bold;
+  font-family: $fira-sans-extra-condensed;
   font-size: 12px;
   color: $black;
-  position: relative;
-  bottom: 3px;
+  line-height: 1.5;
+  display: block;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
 
-.PopupText_Active {
-  font-family: $fira-sans-extra-condensed;
-  font-weight: bold;
-  font-size: 12px;
-  color: $black;
-  position: relative;
-  bottom: 3px;  
+.PopupText.active {
+  font-family: $fira-sans-extra-condensed-medium;
+  margin-bottom: 10px;
 }
 
 .PopupDetailText {
   font-family: $fira-sans-extra-condensed;
-  font-weight: bold;
   font-size: 12px;
   color: $black;
-  position: relative;
-  bottom: 3px;
   display: block;
+  line-height: 1.25;
+  margin-bottom: 10px;
 }
 
 .aboutHeading {
   font-family: $fira-sans-extra-condensed;
-  font-weight: bold;
   font-size: 18px;
   text-align: left;
   text-transform: uppercase;
@@ -222,7 +212,6 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
 
 .aboutSubHeading {
   font-family: $fira-sans-extra-condensed;
-  font-weight: bold;
   font-size: 18px;
   text-align: left;
   text-transform: uppercase;
@@ -236,4 +225,8 @@ $fira-sans-extra-condensed-semibold: 'FiraSansExtraCondensedSemibold', sans-seri
   padding-left: 10px;
   padding-right: 10px;
   font-size: 12px;
+}
+
+.headingContainer a {
+  color: $link-colour;
 }

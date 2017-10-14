@@ -1,4 +1,4 @@
-@import "../styles/Fonts.scss";
+@import "../styles/FontVariables.scss";
 @import "../styles/Colours.scss";
 
 // NB: horizontalMargins must match Constants > pinColumn > horizontalMargins
@@ -16,7 +16,7 @@ $leftMargin: $horizontalMargins - $padding - $borderWidth;
 
 .incidentListItem {
 
-  margin-bottom: 13px;
+  margin-bottom: 5px;
   margin-left: $leftMargin; 
   padding: $padding;
   border: solid $borderWidth white;
@@ -32,7 +32,7 @@ $leftMargin: $horizontalMargins - $padding - $borderWidth;
   }
 
   .lowEmphasis {
-    color: $light-grey;
+    color: $medium-grey;
   }
 
   .mediumEmphasis {
@@ -48,7 +48,8 @@ $leftMargin: $horizontalMargins - $padding - $borderWidth;
     margin-top: 18px;
     float: left;
     height: 35px;
-    width: 30px;
+    width: 30px * 0.75;
+    margin-left: 30px * 0.125;
   }
 
   .incidentContainer {

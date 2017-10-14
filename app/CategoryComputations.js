@@ -86,13 +86,14 @@ CategoryComputations.itemsInMultipleCategory = function (data, columnName, categ
 // categories: the category display data from the store
 CategoryComputations.coloursForColumn = function (data, columnName, schema, language) {
   const categoryInfo = DefaultCategoryComputations.initialState(data, schema, language).get(columnName)
-  const colourInfo = Constants.getIn(['columnBaseColors', columnName])
+  const colourInfo = Constants.getIn(['columnBaseColors', columnName]).toArray()
+  const colourDomain = Constants.getIn(['columnColourDomains', columnName]).toArray()
 
-  const chromaColours = Chroma.scale([
-    colourInfo.get('start'),
-    colourInfo.get('middle'),
-    colourInfo.get('end'),
-  ]).mode('lab').colors(categoryInfo.count())
+  const chromaColours = Chroma.scale(colourInfo)
+    .mode('lab')
+    .domain(colourDomain)
+    .colors(categoryInfo.count())
+
 
   return Immutable.Map(categoryInfo.keySeq().zip(chromaColours))
 

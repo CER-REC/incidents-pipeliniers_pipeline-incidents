@@ -9,6 +9,7 @@ const RouteComputations = require('../RouteComputations.js')
 require('./SocialBar.scss')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const Tr = require('../TranslationTable.js')
 
 class SocialBar extends React.Component {
 
@@ -52,9 +53,13 @@ class SocialBar extends React.Component {
   }
 
   emailClick() {
+    const self = this
     this.makeBitlyPromise().then(function(url){
-      const emailBody = `${url}%0A%0A TODO`
-      const emailUrl = `mailto:?subject=TODO &body= ${emailBody}`
+
+      const emailBody = `${url}%0A%0A ${Tr.getIn(['shareEmail', 'body', self.props.language])}`
+
+      const emailUrl = `mailto:?subject=${Tr.getIn(['shareEmail', 'subject', self.props.language])} &body= ${emailBody}`
+
       window.location.href = emailUrl
     })
   }
