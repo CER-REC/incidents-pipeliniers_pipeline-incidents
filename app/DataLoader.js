@@ -10,7 +10,6 @@ const CategoryConstants = require('./CategoryConstants.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
-const Constants = require('./Constants.js')
 const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
 
 
@@ -355,7 +354,7 @@ const DataLoader = {
       .then(function (response) {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
 
-        return afterLoad(store, data)
+        return afterLoad(store, data.reverse())
 
       })
       .catch(function (error) {
@@ -455,7 +454,7 @@ const DataLoader = {
 
         }
 
-        return afterLoad(store, Immutable.fromJS(incidents))
+        return afterLoad(store, Immutable.fromJS(incidents).reverse())
 
       })
       .catch(function (error) {

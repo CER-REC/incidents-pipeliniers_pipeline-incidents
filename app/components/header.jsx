@@ -44,7 +44,8 @@ class Header extends React.Component {
     this.props.resetVisualization(categories)
   }
 
-  disclaimerClick() {
+  disclaimerClick(event) {
+    event.preventDefault()
     this.props.summonDisclaimer()
   }
 
