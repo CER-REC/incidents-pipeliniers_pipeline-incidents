@@ -235,8 +235,8 @@ const RouteComputations = {
 
   // A string for the root of the application, a suitable place for making rest
   // requests or building other URLs. E.g.:
-  // http://localhost:3001/incident-visualization/
-  // https://apps2.neb-one.gc.ca/incident-visualization/
+  // http://localhost:3001/pipeline-incidents/
+  // https://apps2.neb-one.gc.ca/incidents-pipeliniers/
   appRoot: function (location, language) {
     return `${location.origin}${Tr.getIn(['applicationPath', language])}`
   },

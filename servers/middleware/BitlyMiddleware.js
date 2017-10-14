@@ -9,10 +9,10 @@ function handler(request, res) {
     status_code: 200,
     status_txt: 'OK',
     data:{
-      url: 'https://apps2.neb-one.gc.ca/incident-visualization',
+      url: 'https://apps2.neb-one.gc.ca/pipeline-incidents',
       hash: 'asdfdsfkl',
       global_hash: 'asdcxb',
-      long_url: 'https://apps2.neb-one.gc.ca/incident-visualization', 
+      long_url: 'https://apps2.neb-one.gc.ca/pipeline-incidents', 
       new_hash: 0
     }
   }))
