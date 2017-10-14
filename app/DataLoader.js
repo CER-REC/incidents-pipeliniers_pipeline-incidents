@@ -384,10 +384,12 @@ const DataLoader = {
       })
 
     const dataOptions = {
-      // TODO: This should be replaced with the location of the NEB's data
-      // service
-      uri: `${appRoot}data/data-dummy.json`,
-      json: true
+      // NB: This is configured to use the production data serivce, even in 
+      // development.
+      // As an alternative, we could download a snapshot of the service output
+      // and store it as a JSON file for offline use.
+      uri: 'https://apps2.neb-one.gc.ca/pipeline-incidents/incidentData',
+      json: true,
     }
 
     const dataRequest = Request(dataOptions)
