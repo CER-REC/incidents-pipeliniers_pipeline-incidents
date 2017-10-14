@@ -188,7 +188,7 @@ function afterLoad (store, data) {
     store.dispatch(SetInitialCategoryStateCreator(categories))
 
     state = store.getState()
-    const routerState = RouteComputations.urlParamsToState(document.location.search, state.data, state.categories)
+    const routerState = RouteComputations.urlParamsToState(document.location, state.data, state.categories)
 
     store.dispatch(SetFromRouterStateCreator({
       columns: routerState.columns,

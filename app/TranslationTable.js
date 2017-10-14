@@ -723,12 +723,8 @@ const TranslationTable = Immutable.fromJS({
 
 
   applicationPath: {
-    en: '/incident-visualization/',
-    fr: '/incident-visualization/',
-    // TODO: for now, use the same path, as the IIS app has not been prepared
-    // with this alternate path. eventually, we should use something
-    // properly localized for this path fragment.
-    // fr: '/visualisation-des-incidents/',
+    en: '/pipeline-incidents/',
+    fr: '/incidents-pipeliniers/',
   },
 
 
