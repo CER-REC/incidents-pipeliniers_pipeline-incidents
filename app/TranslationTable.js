@@ -87,8 +87,8 @@ const TranslationTable = Immutable.fromJS({
         fr: 'Recherche conceptuelle sous la direction de Sheelagh Carpendale et Wesley Willett, iLab, Université de Calgary',
       },
       design: {
-        en: 'Design: Jagoda Walny Nix, Bon Ariel Asiniero, Søren Knudsen, Mieka West, Doris Kosminsky, Lien Quach, Peter Buk, Shreya Chopra, Katrina Tabuli and Claudia Maurer',
-        fr: 'Conception : Jagoda Walny Nix, Bon Ariel Asiniero, Søren Knudsen, Mieka West, Doris Kosminsky, Lien Quach, Peter Buk, Shreya Chopra, Katrina Tabuli and Claudia Maurer',
+        en: 'Design: Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.',
+        fr: 'Conception : Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.',
       },
       leadTechnical: {
         en: 'Lead Technical: VizworX',
