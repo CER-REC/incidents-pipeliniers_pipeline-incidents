@@ -9,7 +9,7 @@ const Constants = Immutable.fromJS({
   // See: DataLoader.js, data/CategorySchema.json
   // TODO: might be good to make this a .env file option, or a URL param,
   // rather than hard coding it
-  dataMode: 'csvFile',
+  dataMode: 'dataService',
 
   storyBarID: 'storyBar',
 
@@ -388,6 +388,7 @@ const Constants = Immutable.fromJS({
   questionMark: {
     pixelsPerCharacter: 7.4,
     xOffset: 5,
+    yOffset: 3,
     size: 16,
   },
 

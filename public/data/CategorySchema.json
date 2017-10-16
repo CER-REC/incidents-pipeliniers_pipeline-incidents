@@ -290,6 +290,10 @@
       "en": "Sulphur",
       "fr": "Soufre"
     },
+    "44": {
+      "en": "Fuel Gas",
+      "fr": "Gaz combustible"
+    },
     "48": {
       "en": "Natural Gas - Sweet",
       "fr": "Gaz Naturel - non sulfureux"
@@ -309,54 +313,54 @@
   },
 
   "releaseType": {
-    "1": {
+    "Gas": {
       "en": "Gas",
       "fr": "Gaz"
     },
-    "2": {
+    "Liquid": {
       "en": "Liquid",
       "fr": "Liquide"
     },
-    "3": {
+    "Miscellaneous": {
       "en": "Miscellaneous",
       "fr": "Divers"
     },
-    "4": {
-      "en": "Not Applicable",
+    "Not applicable": {
+      "en": "Not applicable",
       "fr": "Sans objet"
     }
   },
 
   "whatHappened": {
-    "defectDeterioration": {
-      "en": "Defect & Deterioration",
-      "fr": "Défectuosité et détérioration "
-    },
-    "corrosionCracking": {
+    "1": {
       "en": "Corrosion & Cracking",
       "fr": "Corrosion et fissuration"
     },
-    "equipmentFailure": {
+    "2": {
+      "en": "Defect & Deterioration",
+      "fr": "Défectuosité et détérioration "
+    },
+    "3": {
       "en": "Equipment Failure",
       "fr": "Défaillance d’équipement"
     },
-    "incorrectOperation": { 
-      "en": "Incorrect Operation",
-      "fr": "Erreur d’exploitation"
-    },
-    "externalInterference": {
+    "4": {
       "en": "External interference",
       "fr": "Interférences extérieures "
     },
-    "naturalForceDamage": {
+    "5": { 
+      "en": "Incorrect Operation",
+      "fr": "Erreur d’exploitation"
+    },
+    "6": {
       "en": "Natural Force Damage",
       "fr": "Forces de la nature"
     },
-    "otherCauses": {
+    "14": {
       "en": "Other Causes",
       "fr": "Autres causes"
     },
-    "tbd": {
+    "-1": {
       "en": "To be determined",
       "fr": "À déterminer"
     }
@@ -364,43 +368,43 @@
 
 
   "whyItHappened": {
-    "engineeringAndPlanning": {
+    "7": {
       "en": "Engineering and Planning",
       "fr": "Ingénierie et planification"
     },
-    "maintenance": {
-      "en": "Maintenance",
-      "fr": "Entretien"
-    },
-    "inadequateProcurement": {
-      "en": "Inadequate Procurement",
-      "fr": "Approvisionnement inadéquat"
-    },
-    "toolsAndEquipment": {
-      "en": "Tools and Equipment",
-      "fr": "Outils et équipement"
-    },
-    "standardsAndProcedures": {
-      "en": "Standards and Procedures",
-      "fr": "Normes et procédures"
-    },
-    "failureInCommunication": {
+    "8": {
       "en": "Failure in communication",
       "fr": "Problème de communication"
     },
-    "inadequateSupervision": {
-      "en": "Inadequate Supervision",
-      "fr": "Supervision insuffisante"
-    },
-    "humanFactors": {
+    "9": {
       "en": "Human Factors",
       "fr": "Facteurs humains"
     },
-    "naturalOrEnvironmentalForces": {
+    "10": {
+      "en": "Inadequate Procurement",
+      "fr": "Approvisionnement inadéquat"
+    },
+    "11": {
+      "en": "Inadequate Supervision",
+      "fr": "Supervision insuffisante"
+    },
+    "12": {
+      "en": "Maintenance",
+      "fr": "Entretien"
+    },
+    "13": {
       "en": "Natural or Environmental Forces",
       "fr": "Forces de la nature ou environnement"
     },
-    "tbd": {
+    "15": {
+      "en": "Standards and Procedures",
+      "fr": "Normes et procédures"
+    },
+    "16": {
+      "en": "Tools and Equipment",
+      "fr": "Outils et équipement"
+    },
+    "-1": {
       "en": "To be determined",
       "fr": "À déterminer"
     }
@@ -498,6 +502,10 @@
       "en": "Niagara Gas Transmission Limited",
       "fr": "Niagara Gas Transmission Limited"
     },
+    "3118": { 
+      "en": "Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership",
+      "fr": "Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership"
+    },
     "3137": { 
       "en": "TransCanada PipeLines Limited",
       "fr": "TransCanada PipeLines Limited"
@@ -505,6 +513,10 @@
     "3138": { 
       "en": "Trans-Northern Pipelines Inc.",
       "fr": "Trans-Northern Pipelines Inc."
+    },
+    "3144": { 
+      "en": "Trans Québec and Maritimes Pipeline Inc.",
+      "fr": "Trans Québec and Maritimes Pipeline Inc."
     },
     "3162": { 
       "en": "Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",
@@ -514,6 +526,10 @@
       "en": "Ethane Shippers Joint Venture",
       "fr": "Ethane Shippers Joint Venture"
     },
+    "3180": { 
+      "en": "Imperial Oil Resources Limited",
+      "fr": "Imperial Oil Resources Limited"
+    },
     "3250": { 
       "en": "Centra Transmission Holdings Inc.",
       "fr": "Centra Transmission Holdings Inc."
@@ -521,6 +537,10 @@
     "3276": { 
       "en": "Express Pipeline Ltd.",
       "fr": "Express Pipeline Ltd."
+    },
+    "3285": {
+      "en": "Paramount Resources Ltd.",
+      "fr": "Paramount Resources Ltd."
     },
     "3289": { 
       "en": "NOVA Chemicals (Canada) Ltd.",
@@ -553,6 +573,10 @@
     "3505": { 
       "en": "Plains Marketing Canada, L.P.",
       "fr": "Plains Marketing Canada, L.P."
+    },
+    "4318": { 
+      "en": "Canadian Forest Oil Ltd.",
+      "fr": "Canadian Forest Oil Ltd."
     },
     "4405": { 
       "en": "ExxonMobil Canada Properties",
@@ -590,13 +614,25 @@
       "en": "Spectra Energy Empress Management Inc. as General Partner and agent for Spectra Energy Empress L.P.",
       "fr": "Spectra Energy Empress Management Inc. as General Partner and agent for Spectra Energy Empress L.P."
     },
+    "5226": { 
+      "en": "MGM Energy Corp.",
+      "fr": "MGM Energy Corp."
+    },
     "5228": { 
       "en": "Trans Mountain Pipeline Inc.",
       "fr": "Trans Mountain Pipeline Inc."
     },
+    "5232": { 
+      "en": "Spectra Energy Midstream Canada Partner Corporation",
+      "fr": "Spectra Energy Midstream Canada Partner Corporation"
+    },
     "5235": { 
       "en": "Kinder Morgan Cochin ULC",
       "fr": "Kinder Morgan Cochin ULC"
+    },
+    "5841": { 
+      "en": "Imperial Oil Resources N.W.T. Limited",
+      "fr": "Imperial Oil Resources N.W.T. Limited"
     },
     "5844": { 
       "en": "2193914 Canada Limited",

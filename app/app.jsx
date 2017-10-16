@@ -85,7 +85,7 @@ function locationChangeHandler (location, action) {
 
   const state = store.getState()
 
-  const routerState = RouteComputations.urlParamsToState(location.search, state.data, state.categories)
+  const routerState = RouteComputations.urlParamsToState(document.location, state.data, state.categories)
 
   store.dispatch(SetFromRouterStateCreator({
     columns: routerState.columns,

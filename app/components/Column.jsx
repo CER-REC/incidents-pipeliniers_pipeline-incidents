@@ -150,7 +150,9 @@ class Column extends React.Component {
       this.props.columnTooltip.get('columnName') === this.props.columnName) 
       isActive = 'active'
 
-    let questionMarkY = WorkspaceComputations.topBarHeight() - Constants.getIn(['questionMark', 'size']) / 2
+    let questionMarkY = WorkspaceComputations.topBarHeight() -
+      Constants.getIn(['questionMark', 'size']) / 2 + 
+      Constants.getIn(['questionMark', 'yOffset'])
 
     const headingPieces = StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength', this.props.language]))
 
