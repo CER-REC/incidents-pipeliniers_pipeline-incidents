@@ -59,11 +59,17 @@ class Category extends React.Component {
       return null
     }
 
-    const labelLines = this.labelLines()
+    let labelLines = this.labelLines()
+
+    // Clip long names, and append an ellipsis
+    if (labelLines.length > 3) {
+      labelLines = [labelLines[0], labelLines[1], labelLines[2]]
+      labelLines[2] += '…'
+    }
+
     const labelLengthExceed = labelLines.length * Constants.get('singleLineCategoryLabelHeight') > this.props.height
 
     let labelClassName = 'inactiveCategoryLabels'
-    let filterBoxOffset = 0
 
     if(labelLengthExceed === true && this.checkHoverState() === false && this.filterboxActive() === false) {
       return null
@@ -71,15 +77,9 @@ class Category extends React.Component {
 
     if(this.checkHoverState() === true) {
       labelClassName = 'activeCategoryLabels'
-      filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
     }
 
-    if(this.filterboxActive()) {
-      labelClassName = 'activeCategoryLabels'
-      filterBoxOffset = Constants.getIn(['filterbox', 'filterBoxOffset'])
-    }
-
-    let currentY = (this.props.height/2) - filterBoxOffset
+    let currentY = (this.props.height/2)
     let lineCount = 0
     currentY += (1 - (labelLines.length/2)) * 
                 Constants.get('singleLineCategoryLabelHeight')

@@ -25,11 +25,11 @@ class IncidentListHeadings extends React.Component {
     ).get('pinColumn')
 
     const y = WorkspaceComputations.topBarHeight() +
-      Constants.get('columnHeadingLineOffset')
+      Constants.get('columnHeadingLineOffset') * 2
 
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
-    return <tspan className='incidentListHeading' 
+    return <tspan className='incidentsHeading' 
       x = { columnMeasurements.get('x') }
       y = { y }
     >INCIDENTS</tspan>
@@ -71,7 +71,7 @@ class IncidentListHeadings extends React.Component {
       this.props.filterboxActivationState.get('categoryName')
     )
 
-    const subheadingString = `${categoryData.count()} / ${this.props.data.count()} incidents ${Tr.getIn(['shown', this.props.language])}`
+    const subheadingString = `${categoryData.count()} / ${this.props.data.count()} ${Tr.getIn(['shown', this.props.language])}`
 
     return <tspan className='barsSubHeading' 
       x = { columnMeasurements.get('x')}
@@ -105,7 +105,8 @@ class IncidentListHeadings extends React.Component {
       x={columnMeasurements.get('x') + 
         StringComputations.questionMarkOffset(Tr.getIn(['columnHeadings', columnName, this.props.language]), 12)} 
       y={WorkspaceComputations.topBarHeight() + 
-        Constants.getIn(['questionMark', 'yOffset'])}
+        Constants.get('columnHeadingLineOffset') - 
+        Constants.getIn(['questionMark', 'size']) / 2}
       onClick={this.questionMarkClick.bind(this)}/>
   }
 

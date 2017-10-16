@@ -38,9 +38,9 @@ const Constants = Immutable.fromJS({
 
   stories: {
     firstRow: {
-      leftStory: 'provinces-and-pipeline-incident',
-      middleStory: 'how-big-are-most-gas-releases',
-      rightStory: 'when-do-incidents-usually-occur',
+      leftStory: 'the-basics-of-incident-visualization',
+      middleStory: 'getting-the-big-picture',
+      rightStory: 'adding-columns-to-dig-deeper',
     },
   },
 
@@ -55,7 +55,7 @@ const Constants = Immutable.fromJS({
     headerIconWidth: 18,
     headerIconHeight: 20,
     width: 860,
-    height: 120,
+    height: 150,
     xHeading: 35,
     yHeading: 18,
     xSubpop: 35,
@@ -130,6 +130,7 @@ const Constants = Immutable.fromJS({
     methodologyHeight: 49,
     resetAllHeight: 72,
     headerLabelFontSize: 13,
+    headerLabelLeftOffset: -10,
   },
 
   socialBar: {
@@ -186,7 +187,7 @@ const Constants = Immutable.fromJS({
   ],
 
   sidebar: {
-    columWidth: 105,
+    columWidth: 90,
     columnOffset: 10,
 
     verticalStackingOffset: 2,
@@ -197,7 +198,13 @@ const Constants = Immutable.fromJS({
 
     columnHoverOffset: -3,
 
-    maxLineLength: 15,
+    // There are precise reasons for these line lengths
+    // 'What happened' wraps appropriately at 12 characters in English
+    // 'Volume approx rejeté' wraps appropriately at 13 characters, in French
+    maxLineLength: {
+      en: 12,
+      fr: 13,
+    },
 
     dropShadowX: 1,
     dropShadowY: 2,
@@ -248,66 +255,33 @@ const Constants = Immutable.fromJS({
   },
 
   columnBaseColors: {
-    'incidentTypes': {
-      start: '#1A548E',
-      middle: '#E66CE2',
-      end: '#FFAEAB',
-    },
-    'year': {
-      start: '#E42236',
-      middle: '#E6A761',
-      end: '#FFFFA9',
-    },
-    'company': {
-      start: '#4E2F2C',
-      middle: '#E6C56A',
-      end: '#FBFFAB',
-    },
-    'status': {
-      start: '#194613',
-      middle: '#86D0E6',
-      end: '#D4EFFF',
-    },
-    'province': {
-      start: '#870E4A',
-      middle: '#E6D65E',
-      end: '#DCFF82',
-    },
-    'substance': {
-      start: '#951379',
-      middle: '#E66364',
-      end: '#FFE0A3',
-    },
-    'releaseType': {
-      start: '#DF0070',
-      middle: '#E66F45',
-      end: '#FCFF96',
-    },
-    'whatHappened': {
-      start: '#55A2E7',
-      middle: '#D69BE7',
-      end: '#FFE0E7',
-    },
-    'whyItHappened': {
-      start: '#F56A39',
-      middle: '#E6E06C',
-      end: '#ABFFAC',
-    },
-    'pipelinePhase': {
-      start: '#84B551',
-      middle: '#7CE6DF',
-      end: '#C7E9FF',
-    },
-    'volumeCategory': { 
-      start: '#64347F',
-      middle: '#E6A1C9',
-      end: '#FFF9E6',
-    },
-    'pipelineSystemComponentsInvolved': {
-      start: '#29836F',
-      middle: '#73ADE6',
-      end: '#E6E0FF',
-    },
+    'incidentTypes': ['#1A548E', '#E66CE2', '#FFAEAB'],
+    'year': ['#E42236', '#E6A761', '#FFFFA9'],
+    'company': ['#4E2F2C', '#E6C56A', '#FBFFAB'],
+    'status': ['#194613', '#86D0E6', '#D4EFFF'],
+    'province': ['#870E4A', '#E6D65E', '#DCFF82'],
+    'substance': ['#951379', '#E66364', '#FFE0A3', '#ec7014', '#7f3b08'],
+    'releaseType': ['#DF0070', '#E66F45', '#FCFF96'],
+    'whatHappened': ['#55A2E7', '#D69BE7', '#FFE0E7'],
+    'whyItHappened': ['#F56A39', '#E6E06C', '#ABFFAC'],
+    'pipelinePhase': ['#84B551', '#7CE6DF', '#C7E9FF'],
+    'volumeCategory': ['#64347F', '#E6A1C9', '#FFF9E6'],
+    'pipelineSystemComponentsInvolved': ['#29836F', '#73ADE6', '#E6E0FF'],
+  },
+
+  columnColourDomains: {
+    'incidentTypes': [0, 0.5, 1],
+    'year': [0, 0.5, 1],
+    'company': [0, 0.5, 1],
+    'status': [0, 0.5, 1],
+    'province': [0, 0.5, 1],
+    'substance': [0, 0.1, 0.2, 0.7, 1],
+    'releaseType': [0, 0.5, 1],
+    'whatHappened': [0, 0.5, 1],
+    'whyItHappened': [0, 0.5, 1],
+    'pipelinePhase': [0, 0.5, 1],
+    'volumeCategory': [0, 0.5, 1],
+    'pipelineSystemComponentsInvolved': [0, 0.5, 1],
   },
 
   emptyCategoryHeight: 20, // px
@@ -414,7 +388,6 @@ const Constants = Immutable.fromJS({
   questionMark: {
     pixelsPerCharacter: 7.4,
     xOffset: 5,
-    yOffset: 1,
     size: 16,
   },
 
@@ -427,6 +400,10 @@ const Constants = Immutable.fromJS({
     separatorLineY: 42,
   },
 
+  // The purpose of the bottom margin is to allow some space for the filterbox
+  // to drop below
+  workspaceBottomMargin: 20,
+ 
   appHost: 'https://apps2.neb-one.gc.ca',
 
 })
