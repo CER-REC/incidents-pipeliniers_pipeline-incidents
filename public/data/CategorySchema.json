@@ -290,6 +290,10 @@
       "en": "Sulphur",
       "fr": "Soufre"
     },
+    "44": {
+      "en": "Fuel Gas",
+      "fr": "Gaz combustible"
+    },
     "48": {
       "en": "Natural Gas - Sweet",
       "fr": "Gaz Naturel - non sulfureux"
@@ -321,7 +325,7 @@
       "en": "Miscellaneous",
       "fr": "Divers"
     },
-    "Not Applicable": {
+    "Not applicable": {
       "en": "Not applicable",
       "fr": "Sans objet"
     }
@@ -352,11 +356,11 @@
       "en": "Natural Force Damage",
       "fr": "Forces de la nature"
     },
-    "otherCauses": {
+    "14": {
       "en": "Other Causes",
       "fr": "Autres causes"
     },
-    "tbd": {
+    "-1": {
       "en": "To be determined",
       "fr": "À déterminer"
     }
@@ -400,7 +404,7 @@
       "en": "Tools and Equipment",
       "fr": "Outils et équipement"
     },
-    "tbd": {
+    "-1": {
       "en": "To be determined",
       "fr": "À déterminer"
     }
@@ -498,6 +502,10 @@
       "en": "Niagara Gas Transmission Limited",
       "fr": "Niagara Gas Transmission Limited"
     },
+    "3118": { 
+      "en": "Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership",
+      "fr": "Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership"
+    },
     "3137": { 
       "en": "TransCanada PipeLines Limited",
       "fr": "TransCanada PipeLines Limited"
@@ -505,6 +513,10 @@
     "3138": { 
       "en": "Trans-Northern Pipelines Inc.",
       "fr": "Trans-Northern Pipelines Inc."
+    },
+    "3144": { 
+      "en": "Trans Québec and Maritimes Pipeline Inc.",
+      "fr": "Trans Québec and Maritimes Pipeline Inc."
     },
     "3162": { 
       "en": "Westcoast Energy Inc., carrying on business as Spectra Energy Transmission",
@@ -514,6 +526,10 @@
       "en": "Ethane Shippers Joint Venture",
       "fr": "Ethane Shippers Joint Venture"
     },
+    "3180": { 
+      "en": "Imperial Oil Resources Limited",
+      "fr": "Imperial Oil Resources Limited"
+    },
     "3250": { 
       "en": "Centra Transmission Holdings Inc.",
       "fr": "Centra Transmission Holdings Inc."
@@ -521,6 +537,10 @@
     "3276": { 
       "en": "Express Pipeline Ltd.",
       "fr": "Express Pipeline Ltd."
+    },
+    "3285": {
+      "en": "Paramount Resources Ltd.",
+      "fr": "Paramount Resources Ltd."
     },
     "3289": { 
       "en": "NOVA Chemicals (Canada) Ltd.",
@@ -553,6 +573,10 @@
     "3505": { 
       "en": "Plains Marketing Canada, L.P.",
       "fr": "Plains Marketing Canada, L.P."
+    },
+    "4318": { 
+      "en": "Canadian Forest Oil Ltd.",
+      "fr": "Canadian Forest Oil Ltd."
     },
     "4405": { 
       "en": "ExxonMobil Canada Properties",
@@ -590,13 +614,25 @@
       "en": "Spectra Energy Empress Management Inc. as General Partner and agent for Spectra Energy Empress L.P.",
       "fr": "Spectra Energy Empress Management Inc. as General Partner and agent for Spectra Energy Empress L.P."
     },
+    "5226": { 
+      "en": "MGM Energy Corp.",
+      "fr": "MGM Energy Corp."
+    },
     "5228": { 
       "en": "Trans Mountain Pipeline Inc.",
       "fr": "Trans Mountain Pipeline Inc."
     },
+    "5232": { 
+      "en": "Spectra Energy Midstream Canada Partner Corporation",
+      "fr": "Spectra Energy Midstream Canada Partner Corporation"
+    },
     "5235": { 
       "en": "Kinder Morgan Cochin ULC",
       "fr": "Kinder Morgan Cochin ULC"
+    },
+    "5841": { 
+      "en": "Imperial Oil Resources N.W.T. Limited",
+      "fr": "Imperial Oil Resources N.W.T. Limited"
     },
     "5844": { 
       "en": "2193914 Canada Limited",

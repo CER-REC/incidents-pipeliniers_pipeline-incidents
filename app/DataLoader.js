@@ -208,7 +208,7 @@ function afterLoad (store, data) {
 
 function validatePresence (name, incident, errors) {
   if (incident[name] === undefined || incident[name] === null) {
-    errors.push({message: `Absent value for ${name}.`, incident: incident})
+    errors.push({message: `Absent value for ${name}.`, incident: incident, value: incident[name]})
   }
   else {
     return incident[name]
@@ -216,22 +216,41 @@ function validatePresence (name, incident, errors) {
 }
 
 function validateNumeric (name, incident, errors) {
-  const numericData = parseFloat(incident[name])
-  
-  if (isNaN(numericData)) {
-    errors.push({message: `Bad numeric value for ${name}.`, incident: incident})
+  if (isNaN(incident[name])) {
+    errors.push({message: `Bad numeric value for ${name}.`, incident: incident, value: incident[name]})
   }
   else {
-    return numericData
+    return incident[name]
   }
 }
 
 function validateIdInSet (name, incident, set, errors) {
-  if (set.get(String(incident[name])) === undefined) {
-    errors.push({message: `Value for ${name} not in schema.`, incident: incident})
+  // Within the application, all of our keys are strings, but the service
+  // returns JSON numbers
+  const value = String(incident[name])
+  if (set.get(value) === undefined) {
+    errors.push({message: `Value for ${name} not in schema.`, incident: incident, value: incident[name]})
   }
   else {
-    return incident[name]
+    return value
+  }
+}
+
+function validateIdInStatusSet (name, incident, set, errors) {
+  // Within the application, all of our keys are strings, but  the service
+  // returns JSON numbers
+  let value = String(incident[name])
+  // We consider incidents which are submitted and which are under review to 
+  // both have the same status: submitted
+  if (value === '4') {
+    value = '3'
+  }
+
+  if (set.get(value) === undefined) {
+    errors.push({message: `Value for ${name} not in schema.`, incident: incident, value: incident[name]})
+  }
+  else {
+    return value
   }
 }
 
@@ -241,13 +260,13 @@ function validateListIdsInSet (name, incident, set, errors) {
     items = incident[name].split(',')
   }
   catch (e) {
-    errors.push({message: `Absent value for ${name}`, incident: incident})
+    errors.push({message: `Absent value for ${name}`, incident: incident, value: incident[name]})
     return
   }
 
   for (const item of items) {
     if (set.get(item) === undefined) {
-      errors.push({message: `List value ${item} for ${name} not in schema.`, incident: incident})
+      errors.push({message: `List value ${item} for ${name} not in schema.`, incident: incident, value: incident[name]})
       return
     }
   }
@@ -255,14 +274,34 @@ function validateListIdsInSet (name, incident, set, errors) {
   return items
 }
 
-function validateBoolean (name, incident, errors) {
-  if (incident[name] === 'Yes')
-    return true
-  else if (incident[name] === 'No') {
-    return false
+function validatePipelineListIdsInSet (name, incident, set, errors) {
+  // Special case for pipeline system components involved: if the returned
+  // value is null we interpret this as an empty list
+  if (incident[name] === null) {
+    return []
   }
   else {
-    errors.push({message: `Non-boolean value for ${name}`, incident: incident})
+    return validateListIdsInSet(name, incident, set, errors)
+  }
+}
+
+
+function validateBoolean (name, incident, errors) {
+  let value
+  switch (incident[name]) {
+  case 'Yes':
+    value = true
+    break
+  case 'No':
+    value = false
+    break
+  }
+
+  if (value === true || value === false) {
+    return value
+  }
+  else {
+    errors.push({message: `Non 'Yes'/'No' value for ${name}`, incident: incident, value: incident[name]})
   }
 }
 
@@ -273,9 +312,27 @@ function validateDate (name, incident, errors) {
     return date
   } 
   else {
-    errors.push({message: `Bad date value for ${name}`, incident: incident})
+    errors.push({message: `Bad date value for ${name}`, incident: incident, value: incident[name]})
   }
 }
+
+function validateVolumeReleased(incident, errors) {
+
+  const volumeString = incident.ApproximateVolumeM3
+  if (volumeString === 'Not Applicable' || volumeString === 'Not Provided') {
+    return volumeString
+  }
+
+  const volume = parseFloat(volumeString)
+  
+  if (isNaN(volume) || volume < 0) {
+    errors.push({message: 'Bad approximate volume value', incident: incident, value: incident.ApproximateVolumeM3})
+    return
+  }
+
+  return volumeString
+}
+
 
 function validateVolumeCategory(incident, errors) {
 
@@ -291,8 +348,7 @@ function validateVolumeCategory(incident, errors) {
   const volume = parseFloat(volumeString)
   
   if (isNaN(volume) || volume < 0) {
-    errors.push({message: 'Bad numeric volume', incident: incident})
-    return
+    errors.push({message: 'Bad numeric volume', incident: incident, value: incident.ApproximateVolumeM3})
   }
 
   if (volume < 1) {
@@ -401,6 +457,7 @@ const DataLoader = {
 
         const incidents = [] 
 
+        console.log('Validating incidents: ', dataResponse.body.length)
         for (const incident of dataResponse.body) {
 
           const errors = []
@@ -411,8 +468,6 @@ const DataLoader = {
 
             latitude: validateNumeric('Latitude', incident, errors),
             longitude: validateNumeric('Longitude', incident, errors),
-            approximateVolumeReleased: validatePresence('ApproximateVolumeM3', incident, errors),
-            // approximateVolumeReleased: validateNumeric('ApproximateVolumeM3', incident, errors),
 
             affectsCompanyProperty: validateBoolean('AffectsCompanyProperty', incident, errors),
             offCompanyProperty: validateBoolean('OffCompanyProperty', incident, errors),
@@ -422,28 +477,41 @@ const DataLoader = {
             reportedDate: validateDate('ReportedDate', incident, errors),
             year: validatePresence('ReportedYear', incident, errors),
 
-            status: validateIdInSet('IncidentStatus_ID', incident, schema.get('status'), errors),
+            status: validateIdInStatusSet('IncidentStatus_ID', incident, schema.get('status'), errors),
             company: validateIdInSet('Company_ID', incident, schema.get('company'), errors),
             province: validateIdInSet('Province_ID', incident, schema.get('province'), errors),
             substance: validateIdInSet('Substance_ID', incident, schema.get('substance'), errors),
-            // pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
-
-            incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
-            whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
-            whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
-
-            volumeCategory: validateVolumeCategory(incident, errors),
+            approximateVolumeReleased: validateVolumeReleased(incident, errors),
+            // volumeCategory: validateVolumeCategory(incident, errors),
 
             releaseType: validateIdInSet('ReleaseType_EN', incident, schema.get('releaseType'), errors),
 
             werePipelineSystemComponentsInvolved: validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors),
 
-            // pipelineSystemComponentsInvolved: validateSystemComponentsInvolved(incident, schema, errors),
+
+            whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
+            whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
+
+
+
+            // TODO: below here: attributes which still have issues
+
+            // Lots of -1s
+            // pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
+
+            // TODO: spaces in incident type ID list, -1 for some values
+            incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
+
+            // TODO: data not aggregated correctly yet ... 
+            // pipelineSystemComponentsInvolved: validatePipelineListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
 
           }
 
           if(errors.length > 0) {
-            console.warn('Incident record with errors:', errors)
+            // console.warn('Incident record with errors:', incident, errors)
+            for (const error of errors) {
+              console.log(`${incident.IncidentNumber}: ${error.message} "${error.value}"`)
+            }
           }
           else {
             incidents.push(incidentRecord)
@@ -451,8 +519,8 @@ const DataLoader = {
 
         }
 
+        console.log('Incidents after validation', incidents.length)
         return afterLoad(store, Immutable.fromJS(incidents).reverse())
-
       })
       .catch(function (error) {
         // TODO: something nicer than this ...
