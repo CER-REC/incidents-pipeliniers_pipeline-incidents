@@ -28,10 +28,6 @@ class Sidebar extends React.Component {
     // Don't render any columns if the sidebar is empty.
     if(numberOfColumnsInSidebar < 1) return null
 
-    const columnWidth = measurements.get('width') - 
-                        ((numberOfColumnsInSidebar - 1) * 
-                        Constants.getIn(['sidebar', 'horizontalStackingOffset']))
-
     let index = 0
     return Constants.get('columnNames').map((columnName) => {
       if(this.props.columns.indexOf(columnName) < 0) {
@@ -51,13 +47,13 @@ class Sidebar extends React.Component {
         }
         const columnY = ((index-1) * 
                         Constants.getIn(['sidebar', 'labelHeight'])) + 
-                        measurements.get('y')
+                        measurements.get('y') 
 
         return <Column 
           columnName={columnName} 
           key={columnName} 
           columnType = { Constants.getIn(['columnTypes', 'SIDEBAR']) }
-          columnWidth={columnWidth}
+          columnWidth={Constants.getIn(['sidebar', 'columWidth'])}
           columnHeight={columnHeight}
           columnX={columnX}
           columnY={columnY}/>

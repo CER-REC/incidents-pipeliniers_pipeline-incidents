@@ -1,3 +1,5 @@
+@import "../styles/Colours.scss";
+@import "../styles/Fonts.scss";
 
 .questionMark {
   cursor: pointer;
@@ -9,4 +11,5 @@
 
 .questionMark.inactive:hover {
   opacity: 1;
+
 }

@@ -7,15 +7,17 @@ require('./StoryWindow.scss')
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
+const RouteComputations = require('../RouteComputations.js')
 const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
 const StoryPreviousImageCreator = require('../actionCreators/StoryPreviousImageCreator.js')
+const SetFromRouterStateCreator = require('../actionCreators/SetFromRouterStateCreator.js')
 
 class StoryWindow extends React.Component {
 
   shadowFilter() {
     return <defs>
-      <filter id="shadowFilter" color-interpolation-filters="sRGB">
+      <filter id="shadowFilter" colorInterpolationFilters="sRGB">
         <feOffset result="offOut" in="SourceAlpha" dx="5" dy="5" />
         <feColorMatrix result="matrixOut" in="offOut" type="matrix" 
           values="0.2 0 0 0 0.6 0 0.2 0 0 0.6 0 0 0.2 0 0.6 0 0 0 1 0" />
@@ -45,6 +47,36 @@ class StoryWindow extends React.Component {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     this.props.onPreviousTutorialImageClick(imageList.length)
+  }
+
+  tutorialImageClicked(e) {
+    // Only listen to clicks if this is the last image
+    // in the tutorial.
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    if(this.props.storyImage !== imageList.length - 1) {
+      e.stopPropagation()
+      e.preventDefault()
+      
+      return
+    }
+
+    // Get the state from the pre-set url.
+    const routerState = RouteComputations.urlParamsToState(
+      Tr.getIn(['stories', this.props.story.get('storyID'), 'config', this.props.language]), 
+      this.props.data, 
+      this.props.categories)
+
+    const storyState = {
+      columns: routerState.columns,
+      categories: routerState.categories,
+      showEmptyCategories: routerState.showEmptyCategories,
+      pinnedIncidents: routerState.pinnedIncidents,
+      language: routerState.language,
+      screenshotMode: RouteComputations.screenshotMode(window.location),
+    }
+
+    this.props.updateVisualization(storyState)
   }
 
   border() {
@@ -95,14 +127,21 @@ class StoryWindow extends React.Component {
   }
 
   tutorialImage(currentImageIndex, imageList) {
+    // Set the cursor to input if this is the last
+    // tutorial image.
+    let isActive = ''
+    if(this.props.storyImage === imageList.length - 1) isActive = 'active'
+
     return <image
+      className={isActive}
       width={StoryComputations.storyTutorialImageWidth(this.props.viewport)}
       height={StoryComputations.storyTutorialImageHeight(this.props.viewport)}
       x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
         Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
         Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      xlinkHref={imageList[currentImageIndex]}/>
+      xlinkHref={imageList[currentImageIndex]}
+      onClick={this.tutorialImageClicked.bind(this)}/>
   }
 
   render() {
@@ -134,6 +173,8 @@ const mapStateToProps = state => {
     language: state.language,
     story: state.story,
     storyImage: state.storyImage,
+    categories: state.categories,
+    data: state.data,
   }
 }
 
@@ -147,6 +188,9 @@ const mapDispatchToProps = dispatch => {
     },
     onPreviousTutorialImageClick: (count) => {
       dispatch(StoryPreviousImageCreator(count))
+    },
+    updateVisualization: (storyState) => {
+      dispatch(SetFromRouterStateCreator(storyState))
     },
   }
 }

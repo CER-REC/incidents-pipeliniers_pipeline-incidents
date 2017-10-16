@@ -9,49 +9,78 @@ const RouteComputations = require('../RouteComputations.js')
 require('./SocialBar.scss')
 
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const Tr = require('../TranslationTable.js')
 
 class SocialBar extends React.Component {
 
-
   makeBitlyPromise() {
+
+    const bitlyEndpoint = RouteComputations.bitlyEndpoint(document.location, this.props.language)
+    const shortenUrl = RouteComputations.bitlyParameter(document.location, this.props.language)
+
     const options = {
-      uri: `${document.location.protocol}//${document.location.host}${document.location.pathname}/bitly_url`,
+      uri: `${bitlyEndpoint}?shortenUrl=${shortenUrl}`,
       json: true
     }
+
     return Request(options)
       .then(function (response) {
-        return response
+        // The server proxies our request through to Bitly. If our request
+        // to our server succeeds but the one to bitly fails, the returned
+        // object will detail the error
+
+        // A reponse for a successful request to the bitly shortening service 
+        // is a JSON string like:
+        //{
+        //  "status_code": 200,
+        //  "status_txt": "OK",
+        //  "data": {
+        //    "url": "http://bit.ly/2xzn2HN",
+        //    "hash": "2xzn2HN",
+        //    "global_hash": "46frEb",
+        //    "long_url": "https://www.google.ca/",
+        //    "new_hash": 1
+        //  }
+        //}
+
+        if (response.body.status_code !== 200) {
+          // throw new Error(response.body.status_txt)
+          return Constants.get('appHost')
+        }
+        return response.body.data.url
       })
-      .catch(function (error) {
-        throw error
-      })
+      .catch( () => Constants.get('appHost'))
   }
 
   emailClick() {
-    this.makeBitlyPromise().then(function(response){
-      const emailBody = `${response.body.data.url}%0A%0A TODO`
-      const emailUrl = `mailto:?subject=TODO &body= ${emailBody}`
+    const self = this
+    this.makeBitlyPromise().then(function(url){
+
+      const emailBody = `${url}%0A%0A ${Tr.getIn(['shareEmail', 'body', self.props.language])}`
+
+      const emailUrl = `mailto:?subject=${Tr.getIn(['shareEmail', 'subject', self.props.language])} &body= ${emailBody}`
+
       window.location.href = emailUrl
     })
   }
 
   facebookClick() {
-    this.makeBitlyPromise().then(function(response){
-      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${response.body.data.url}`
+    this.makeBitlyPromise().then(function(url){
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
       window.open(facebookUrl , 'targetWindow' , 'width=650,height=650') 
     })
   }
 
   linkedinClick() {
-    this.makeBitlyPromise().then(function(response){
-      const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${response.body.data.url}&summary=${response.body.data.url}`
+    this.makeBitlyPromise().then(function(url){
+      const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${url}`
       window.open(linkedinUrl , 'targetWindow' , 'width=650,height=650') 
     })
   }
 
   twitterClick() {
-    this.makeBitlyPromise().then(function(response){
-      const twitterUrl = `https://twitter.com/intent/tweet?url=${response.body.data.url}`
+    this.makeBitlyPromise().then(function(url){
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${url}`
       window.open(twitterUrl , 'targetWindow' , 'width=650,height=650') 
     })
   }
@@ -74,9 +103,7 @@ class SocialBar extends React.Component {
       this.props.categories
     )
 
-    // TODO: this only works in prod, need more logic to generate path to 
-    // correct host in dev
-    const screenshotUrl = `${window.location.origin}/${Constants.get('screenshotPath')}?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
+    const screenshotUrl = `${RouteComputations.screenshotOrigin(location)}/${Constants.get('screenshotPath')}/?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
 
     window.open(screenshotUrl) 
   }
@@ -107,51 +134,69 @@ class SocialBar extends React.Component {
           className = 'socialBarBackground'
         />
         <g transform = {transformSocialIcons}>
-          <image 
-            height = {iconSize} 
-            width = {iconSize}        
-            y = {Constants.getIn(['socialBar', 'emailIconPadding'])}
-            xlinkHref='images/email.svg'
-            className="socialBarButton"
-            onClick = { this.emailClick.bind(this) }></image>
-          <image 
-            height = {iconSize} 
-            width = {iconSize}
-            y = {Constants.getIn(['socialBar', 'facebookIconPadding'])}
-            xlinkHref='images/facebook.svg'
-            className="socialBarButton"
-            onClick = { this.facebookClick.bind(this) }></image>
-          <image 
-            height = {iconSize} 
-            width = {iconSize} 
-            y = {Constants.getIn(['socialBar', 'linkedinIconPadding'])}
-            xlinkHref='images/linkedin.svg'
-            className="socialBarButton"
-            onClick = { this.linkedinClick.bind(this) }></image>
-          <image 
-            height = {iconSize} 
-            width = {iconSize} 
-            y = {Constants.getIn(['socialBar', 'twitterIconPadding'])}
-            xlinkHref='images/twitter.svg'
-            className="socialBarButton"
-            onClick = { this.twitterClick.bind(this) }></image>
+          <g>
+            <title>email</title>
+            <image 
+              height = {iconSize} 
+              width = {iconSize}        
+              y = {Constants.getIn(['socialBar', 'emailIconPadding'])}
+              xlinkHref='images/email.svg'
+              className="socialBarButton"
+              onClick = {this.emailClick.bind(this)}></image>
+          </g>
+          <g>
+            <title>facebook</title>
+            <image 
+              height = {iconSize} 
+              width = {iconSize}
+              y = {Constants.getIn(['socialBar', 'facebookIconPadding'])}
+              xlinkHref='images/facebook.svg'
+              className="socialBarButton"
+              onClick = {this.facebookClick.bind(this) }></image>
+          </g>
+          <g>
+            <title>linkedin</title>
+            <image 
+              height = {iconSize} 
+              width = {iconSize} 
+              y = {Constants.getIn(['socialBar', 'linkedinIconPadding'])}
+              xlinkHref='images/linkedin.svg'
+              className="socialBarButton"
+              onClick = {this.linkedinClick.bind(this)}></image>
+          </g>
+          <g>
+            <title>twitter</title>
+            <image 
+              height = {iconSize} 
+              width = {iconSize} 
+              y = {Constants.getIn(['socialBar', 'twitterIconPadding'])}
+              xlinkHref='images/twitter.svg'
+              className="socialBarButton"
+              onClick = {this.twitterClick.bind(this)}></image>
+          </g>
           <line x1={0} y1={Constants.getIn(['socialBar', 'dividerLine'])}
             x2={iconSize} y2={Constants.getIn(['socialBar', 'dividerLine'])}
             strokeWidth="1" stroke = "white" />
-          <image 
-            height = {iconSize} 
-            width = {iconSize} 
-            y = {Constants.getIn(['socialBar', 'downloadImageIconPadding'])}
-            xlinkHref='images/download_image.svg'
-            className="socialBarButton"
-            onClick = { this.downloadImageClick.bind(this) }></image>
-          <image 
-            height = {iconSize} 
-            width = {iconSize} 
-            y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
-            xlinkHref='images/download_file.svg'
-            className="socialBarButton"
-            onClick = { this.downloadFileClick.bind(this) }></image>
+          <g>
+            <title>download image</title>
+            <image 
+              height = {iconSize} 
+              width = {iconSize} 
+              y = {Constants.getIn(['socialBar', 'downloadImageIconPadding'])}
+              xlinkHref='images/download_image.svg'
+              className="socialBarButton"
+              onClick = {this.downloadImageClick.bind(this)}></image>
+          </g>
+          <g>
+            <title>download data file</title>
+            <image 
+              height = {iconSize} 
+              width = {iconSize} 
+              y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
+              xlinkHref='images/download_file.svg'
+              className="socialBarButton"
+              onClick = {this.downloadFileClick.bind(this)}></image>
+          </g>
         </g>
       </svg>
     </div>
