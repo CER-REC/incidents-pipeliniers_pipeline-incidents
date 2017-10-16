@@ -34,16 +34,8 @@ const TranslationTable = Immutable.fromJS({
       fr: ' comporte d’autres outils interactifs en ligne.',
     },
     p2: {
-      en: 'If you want to use the data for research and undertake your own review, all the data is downloadable and shareable. The chart images are also downloadable, and if you are interested in the source code for the visualizations, it is available on the government’s Open Government portal: ',
-      fr: 'Si vous souhaitez utiliser les données pour vos recherches ou pour en faire votre propre analyse, vous pouvez les télécharger et les partager. Les graphiques peuvent aussi être téléchargés. Quant au code source des visualisations, il est accessible sur le portail du « gouvernement ouvert » à l’adresse ',
-    },
-    openCanadaText: {
-      en: 'open.canada.ca',
-      fr: 'ouvert.canada.ca',
-    },
-    openCanadaLink: {
-      en: 'http://open.canada.ca/',
-      fr: 'http://ouvert.canada.ca/',
+      en: 'If you want to use the data for research and undertake your own review, all the data is downloadable and shareable. The chart images are also downloadable',
+      fr: 'Si vous souhaitez utiliser les données pour vos recherches ou pour en faire votre propre analyse, vous pouvez les télécharger et les partager. Les graphiques peuvent aussi être téléchargés.',
     },
     p3: {
       en: 'We hope we are hitting the mark. Your feedback is essential.',

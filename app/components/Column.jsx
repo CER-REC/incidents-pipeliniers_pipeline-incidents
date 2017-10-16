@@ -122,7 +122,11 @@ class Column extends React.Component {
         y={currentY}
         onMouseDown={this.handleDragStart.bind(this)}
         onMouseMove={this.handleDragMove.bind(this)}
-        onMouseUp={this.handleDragEnd.bind(this)}>
+        onMouseUp={this.handleDragEnd.bind(this)}
+        onTouchStart = { this.handleTouchStart.bind(this) }
+        onTouchMove = { this.handleTouchMove.bind(this) }
+        onTouchEnd = { this.handleTouchEnd.bind(this) }
+      >
         {word}
       </tspan>
     })
@@ -186,8 +190,7 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    const currentY = WorkspaceComputations.topBarHeight() + 
-      Constants.get('columnSubheadingOffset')
+    const currentY = WorkspaceComputations.barSubheading(this.props.language)
 
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,
@@ -218,15 +221,21 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
+    const dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
+
     return <image xlinkHref='images/horizontal_drag.svg' 
       className = 'dragArrow'
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
-      y= {WorkspaceComputations.dragArrowY(this.props.viewport)}
+      y= { dragArrowY }
       onMouseDown={this.handleDragStart.bind(this)}
       onMouseMove={this.handleDragMove.bind(this)}
-      onMouseUp={this.handleDragEnd.bind(this)}>
+      onMouseUp={this.handleDragEnd.bind(this)}
+      onTouchStart = { this.handleTouchStart.bind(this) }
+      onTouchMove = { this.handleTouchMove.bind(this) }
+      onTouchEnd = { this.handleTouchEnd.bind(this) }
+    >
     </image>
   }
 
@@ -352,6 +361,23 @@ class Column extends React.Component {
     window.addEventListener('mousemove', columnWindowMoveHandler)
   }
 
+  handleTouchStart(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const columnMeasurements = WorkspaceComputations.horizontalPositions(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    const oldX = WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.getIn(['columns', this.props.columnName, 'x']))
+    const offset = e.touches[0].clientX - oldX
+
+    this.props.onColumnDragStarted(true, this.props.columnName, oldX, e.clientX, offset)
+  }
+
   handleDragMove(e) {
     e.stopPropagation()
     e.preventDefault()
@@ -360,6 +386,16 @@ class Column extends React.Component {
     if(!this.props.columnDragStatus.get('isStarted')) return 
 
     this.props.onColumnDrag(e.clientX)
+  }
+
+  handleTouchMove(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded events if drag hasn't started.
+    if(!this.props.columnDragStatus.get('isStarted')) return 
+
+    this.props.onColumnDrag(e.touches[0].clientX)
   }
 
   handleDragEnd(e) {
@@ -377,6 +413,20 @@ class Column extends React.Component {
     // Remove the window event handlers previously attached.
     window.removeEventListener('mouseup', columnWindowEndHandler)
     window.removeEventListener('mousemove', columnWindowMoveHandler)
+  }
+
+  handleTouchEnd(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded evenets if drag hasn't started.
+    if(!this.props.columnDragStatus.get('isStarted')) return
+
+    this.props.onColumnDragEnded(false)
+    const newX = this.props.columnDragStatus.get('newX') - 
+                 this.props.columnDragStatus.get('offset')
+    this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
+
   }
 
   handleSidebarDragStart(e) {
@@ -399,11 +449,29 @@ class Column extends React.Component {
     window.addEventListener('mousemove', sidebarWindowMoveHandler)
   }
 
+  handleSidebarTouchStart(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const oldX = this.props.columnX
+    const offset = e.touches[0].clientX - oldX
+
+    this.props.onSidebarDragStarted(true, this.props.columnName, oldX, e.clientX, offset)
+
+    // These handlers will help keep the dragged column moving
+    // even when the cursor is off the dragging handle. This
+    // is necessary because the dragging handle is too small
+    // making it harder to drag without the cursor leaving 
+    // the handle.
+    sidebarWindowMoveHandler = this.handleSidebarTouchMove.bind(this)
+    sidebarWindowEndHandler = this.handleSidebarTouchEnd.bind(this)
+  }
+
   handleSidebarDragEnd(e) {
     e.stopPropagation()
     e.preventDefault()
 
-    // No need to fire unneeded evenets if drag hasn't started.
+    // No need to fire unneeded events if drag hasn't started.
     if(!this.props.sidebarDragStatus.get('isStarted')) return
 
     this.props.onSidebarDragEnded(false)
@@ -416,14 +484,37 @@ class Column extends React.Component {
     window.removeEventListener('mousemove', sidebarWindowMoveHandler)
   }
 
+  handleSidebarTouchEnd(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded events if drag hasn't started.
+    if(!this.props.sidebarDragStatus.get('isStarted')) return
+
+    this.props.onSidebarDragEnded(false)
+    const newX = this.props.sidebarDragStatus.get('newX') - 
+                 this.props.sidebarDragStatus.get('offset')
+    this.props.onSidebarColumnSnap(this.props.sidebarDragStatus.get('columnName'), this.props.sidebarDragStatus.get('oldX'), newX, this.props.viewport)
+  }
+
   handleSidebarDragMove(e) {
     e.stopPropagation()
     e.preventDefault()
 
-    // No need to fire unneeded evenets if drag hasn't started.
+    // No need to fire unneeded events if drag hasn't started.
     if(!this.props.sidebarDragStatus.get('isStarted')) return
 
     this.props.onSidebarDrag(e.clientX)
+  }
+
+  handleSidebarTouchMove(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded events if drag hasn't started.
+    if(!this.props.sidebarDragStatus.get('isStarted')) return
+
+    this.props.onSidebarDrag(e.touches[0].clientX)
   }
 
   handleMouseEnter() {
@@ -494,6 +585,7 @@ class Column extends React.Component {
       this.props.columnName)
 
     let categoryY = this.props.columnY
+
     return displayedCategories
       .map( (visible, categoryName) => {
         const currentY = categoryY
@@ -583,6 +675,9 @@ class Column extends React.Component {
         onMouseUp = { this.handleSidebarDragEnd.bind(this) }
         onMouseEnter = { this.handleMouseEnter.bind(this) }
         onMouseLeave = { this.handleMouseLeave.bind(this) }
+        onTouchStart = { this.handleSidebarTouchStart.bind(this) }
+        onTouchMove = { this.handleSidebarTouchMove.bind(this) }
+        onTouchEnd = { this.handleSidebarTouchEnd.bind(this) }
       >
         <g transform={this.sidebarColumnTransform()}>
           { this.sidebarShadow() }

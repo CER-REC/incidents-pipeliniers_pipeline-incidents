@@ -220,7 +220,7 @@ const RouteComputations = {
   },
 
 
-  screenshotMode: function(location) {
+  screenshotMode: function (location) {
     return !!location.pathname.match(`/${Constants.get('screenshotPath')}$`)
   },
 
@@ -239,11 +239,36 @@ const RouteComputations = {
   // the remainder of the path
   // NB: Location.pathname includes the leading slash in the url, e.g.:
   // In 'foo.com/bar', pathname is '/bar'
-  screenshotParameter: function(location) {
+  screenshotParameter: function (location) {
     return encodeURIComponent(`${location.pathname}screenshot${location.search}`)
   },
 
+  bitlyParameter: function (location, language) {
+    return `${Constants.get('appHost')}${Tr.getIn(['applicationPath', language])}${encodeURIComponent(location.search)}`
+  },
 
+
+  screenshotOrigin: function (location) {
+    switch(process.env.NODE_ENV) {
+    case 'development':
+      return 'http://localhost:3002'
+    case 'production':
+      return location.origin
+    }
+  },
+
+  bitlyEndpoint: function (location, language) {
+
+    switch(process.env.NODE_ENV) {
+    case 'development': { 
+      const root = RouteComputations.appRoot(location, language)
+      return `${root}bitly_url`
+    }
+    case 'production':
+      return `${location.origin}/bitlyService/api/bitlyShortlink`
+    }
+
+  }
 
 }
 

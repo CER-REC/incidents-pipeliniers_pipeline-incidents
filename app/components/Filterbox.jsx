@@ -97,6 +97,9 @@ class Filterbox extends React.Component {
         onMouseDown={this.handleDragStart.bind(this)}
         onMouseMove={this.handleDragMove.bind(this)}
         onMouseUp={this.handleDragEnd.bind(this)}
+        onTouchStart={this.handleTouchStart.bind(this)}
+        onTouchMove={this.handleTouchMove.bind(this)}
+        onTouchEnd={this.handleTouchEnd.bind(this)}
       />
     </g> 
      
@@ -174,6 +177,66 @@ class Filterbox extends React.Component {
     // Remove the window event handlers previously attached.
     window.removeEventListener('mouseup', categoryWindowEndHandler)
     window.removeEventListener('mousemove', categoryWindowMoveHandler)
+  }
+
+  handleTouchStart(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    const oldY = this.props.y
+    const offset = e.touches[0].clientY - oldY
+
+    this.props.onCategoryDragStarted(
+      true, 
+      this.props.columnName, 
+      this.props.categoryName, 
+      oldY, 
+      e.clientY, 
+      offset)
+  }
+
+  handleTouchMove(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded events if drag hasn't started.
+    if(!this.props.categoryDragStatus.get('isStarted')) return 
+
+    this.props.onCategoryDrag(e.touches[0].clientY)
+  }
+
+  handleTouchEnd(e) {
+    e.stopPropagation()
+    e.preventDefault()
+
+    // No need to fire unneeded evenets if drag hasn't started.
+    if(!this.props.categoryDragStatus.get('isStarted')) return
+
+    this.props.onCategoryDragEnded(false)
+
+    const filteredData = IncidentComputations.filteredIncidents(
+      this.props.data,
+      this.props.columns,
+      this.props.categories
+    )
+
+    const categoryHeights = WorkspaceComputations.categoryHeights(
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      filteredData,
+      this.props.columns,
+      this.props.categories, 
+      this.props.categoryDragStatus.get('columnName')) 
+
+    const newY = this.props.categoryDragStatus.get('newY') - 
+                 this.props.categoryDragStatus.get('offset')
+
+    this.props.onCategorySnap(
+      this.props.categoryDragStatus.get('columnName'), 
+      this.props.categoryDragStatus.get('categoryName'), 
+      this.props.categoryDragStatus.get('oldY'), 
+      newY, 
+      categoryHeights)
   }
 
   lineToCategory() {

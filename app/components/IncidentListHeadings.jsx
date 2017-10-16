@@ -10,8 +10,9 @@ const ColumnTooltipSummonedCreator = require('../actionCreators/ColumnTooltipSum
 
 require('./IncidentListHeadings.scss')
 
-class IncidentListHeadings extends React.Component {
+require('./IncidentListHeadings.scss')
 
+class IncidentListHeadings extends React.Component {
 
   incidentHeadingLabel() {
 
@@ -23,8 +24,6 @@ class IncidentListHeadings extends React.Component {
       this.props.categories
     ).get('pinColumn')
 
-    // TODO: This is replicating math found in Column.jsx for laying out 
-    // text headings. We need to pull this into a computation file.
     const y = WorkspaceComputations.topBarHeight() +
       Constants.get('columnHeadingLineOffset') * 2
 
@@ -34,6 +33,7 @@ class IncidentListHeadings extends React.Component {
       x = { columnMeasurements.get('x') }
       y = { y }
     >INCIDENTS</tspan>
+
 
   }
 
@@ -56,9 +56,9 @@ class IncidentListHeadings extends React.Component {
 
     // TODO: This is replicating math found in Column.jsx for laying out 
     // text headings. We need to pull this into a computation file.
-    const y = WorkspaceComputations.topBarHeight() +
-      Constants.get('columnSubheadingOffset')
+    const y = WorkspaceComputations.columnY() 
 
+   
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,
       this.props.columns,

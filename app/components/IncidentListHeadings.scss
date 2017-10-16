@@ -1,3 +1,12 @@
+@import "../styles/Colours.scss";
+@import "../styles/Fonts.scss";
+
+.incidentListHeading {
+  font-family: $fira-sans-extra-condensed-semibold;
+  font-size: 15px;
+  fill: $black;
+  text-align: left;
+}
 
 .questionMark {
   cursor: pointer;
@@ -9,4 +18,5 @@
 
 .questionMark.inactive:hover {
   opacity: 1;
+
 }
