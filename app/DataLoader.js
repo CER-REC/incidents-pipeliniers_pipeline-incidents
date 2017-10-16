@@ -227,7 +227,7 @@ function validateNumeric (name, incident, errors) {
 }
 
 function validateIdInSet (name, incident, set, errors) {
-  if (set.get(incident[name]) === undefined) {
+  if (set.get(String(incident[name])) === undefined) {
     errors.push({message: `Value for ${name} not in schema.`, incident: incident})
   }
   else {
@@ -256,8 +256,10 @@ function validateListIdsInSet (name, incident, set, errors) {
 }
 
 function validateBoolean (name, incident, errors) {
-  if (incident[name] === true || incident[name] === false) {
-    return incident[name]
+  if (incident[name] === 'Yes')
+    return true
+  else if (incident[name] === 'No') {
+    return false
   }
   else {
     errors.push({message: `Non-boolean value for ${name}`, incident: incident})
@@ -387,7 +389,8 @@ const DataLoader = {
       // development.
       // As an alternative, we could download a snapshot of the service output
       // and store it as a JSON file for offline use.
-      uri: 'https://apps2.neb-one.gc.ca/pipeline-incidents/incidentData',
+      uri: `${appRoot}data/2017-10-16 PROD incidents.json`,
+      // uri: 'https://apps2.neb-one.gc.ca/pipeline-incidents/incidentData',
       json: true,
     }
 
@@ -408,7 +411,8 @@ const DataLoader = {
 
             latitude: validateNumeric('Latitude', incident, errors),
             longitude: validateNumeric('Longitude', incident, errors),
-            approximateVolumeReleased: validateNumeric('ApproximateVolumeM3', incident, errors),
+            approximateVolumeReleased: validatePresence('ApproximateVolumeM3', incident, errors),
+            // approximateVolumeReleased: validateNumeric('ApproximateVolumeM3', incident, errors),
 
             affectsCompanyProperty: validateBoolean('AffectsCompanyProperty', incident, errors),
             offCompanyProperty: validateBoolean('OffCompanyProperty', incident, errors),
@@ -418,35 +422,28 @@ const DataLoader = {
             reportedDate: validateDate('ReportedDate', incident, errors),
             year: validatePresence('ReportedYear', incident, errors),
 
-            status: validateIdInSet('Status_ID', incident, schema.get('status'), errors),
+            status: validateIdInSet('IncidentStatus_ID', incident, schema.get('status'), errors),
             company: validateIdInSet('Company_ID', incident, schema.get('company'), errors),
             province: validateIdInSet('Province_ID', incident, schema.get('province'), errors),
             substance: validateIdInSet('Substance_ID', incident, schema.get('substance'), errors),
-            pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
+            // pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
 
             incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
             whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
             whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
-            pipelineSystemComponentsInvolved: validateSystemComponentsInvolved(incident, schema, errors),
 
-
-            // TODO: change this depending how volume category works out from
-            // our endpoint
             volumeCategory: validateVolumeCategory(incident, errors),
 
-            // TODO: change this depending how release type works out
-            releaseType: validateIdInSet('ReleaseType', incident, schema.get('releaseType'), errors),
+            releaseType: validateIdInSet('ReleaseType_EN', incident, schema.get('releaseType'), errors),
 
+            werePipelineSystemComponentsInvolved: validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors),
 
-            // TODO: untested, validate that this works
-            werePipelineSystemComponentsInvolved: validateBoolean('werePipelineSystemComponentsInvolved', incident, errors),
-
-            // substanceCategory
+            // pipelineSystemComponentsInvolved: validateSystemComponentsInvolved(incident, schema, errors),
 
           }
 
           if(errors.length > 0) {
-            console.warn('Incident record with errors:', incident, errors)
+            console.warn('Incident record with errors:', errors)
           }
           else {
             incidents.push(incidentRecord)

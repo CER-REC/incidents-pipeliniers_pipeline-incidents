@@ -309,46 +309,46 @@
   },
 
   "releaseType": {
-    "1": {
+    "Gas": {
       "en": "Gas",
       "fr": "Gaz"
     },
-    "2": {
+    "Liquid": {
       "en": "Liquid",
       "fr": "Liquide"
     },
-    "3": {
+    "Miscellaneous": {
       "en": "Miscellaneous",
       "fr": "Divers"
     },
-    "4": {
-      "en": "Not Applicable",
+    "Not Applicable": {
+      "en": "Not applicable",
       "fr": "Sans objet"
     }
   },
 
   "whatHappened": {
-    "defectDeterioration": {
-      "en": "Defect & Deterioration",
-      "fr": "Défectuosité et détérioration "
-    },
-    "corrosionCracking": {
+    "1": {
       "en": "Corrosion & Cracking",
       "fr": "Corrosion et fissuration"
     },
-    "equipmentFailure": {
+    "2": {
+      "en": "Defect & Deterioration",
+      "fr": "Défectuosité et détérioration "
+    },
+    "3": {
       "en": "Equipment Failure",
       "fr": "Défaillance d’équipement"
     },
-    "incorrectOperation": { 
-      "en": "Incorrect Operation",
-      "fr": "Erreur d’exploitation"
-    },
-    "externalInterference": {
+    "4": {
       "en": "External interference",
       "fr": "Interférences extérieures "
     },
-    "naturalForceDamage": {
+    "5": { 
+      "en": "Incorrect Operation",
+      "fr": "Erreur d’exploitation"
+    },
+    "6": {
       "en": "Natural Force Damage",
       "fr": "Forces de la nature"
     },
@@ -364,41 +364,41 @@
 
 
   "whyItHappened": {
-    "engineeringAndPlanning": {
+    "7": {
       "en": "Engineering and Planning",
       "fr": "Ingénierie et planification"
     },
-    "maintenance": {
-      "en": "Maintenance",
-      "fr": "Entretien"
-    },
-    "inadequateProcurement": {
-      "en": "Inadequate Procurement",
-      "fr": "Approvisionnement inadéquat"
-    },
-    "toolsAndEquipment": {
-      "en": "Tools and Equipment",
-      "fr": "Outils et équipement"
-    },
-    "standardsAndProcedures": {
-      "en": "Standards and Procedures",
-      "fr": "Normes et procédures"
-    },
-    "failureInCommunication": {
+    "8": {
       "en": "Failure in communication",
       "fr": "Problème de communication"
     },
-    "inadequateSupervision": {
-      "en": "Inadequate Supervision",
-      "fr": "Supervision insuffisante"
-    },
-    "humanFactors": {
+    "9": {
       "en": "Human Factors",
       "fr": "Facteurs humains"
     },
-    "naturalOrEnvironmentalForces": {
+    "10": {
+      "en": "Inadequate Procurement",
+      "fr": "Approvisionnement inadéquat"
+    },
+    "11": {
+      "en": "Inadequate Supervision",
+      "fr": "Supervision insuffisante"
+    },
+    "12": {
+      "en": "Maintenance",
+      "fr": "Entretien"
+    },
+    "13": {
       "en": "Natural or Environmental Forces",
       "fr": "Forces de la nature ou environnement"
+    },
+    "15": {
+      "en": "Standards and Procedures",
+      "fr": "Normes et procédures"
+    },
+    "16": {
+      "en": "Tools and Equipment",
+      "fr": "Outils et équipement"
     },
     "tbd": {
       "en": "To be determined",
