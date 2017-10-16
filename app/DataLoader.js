@@ -10,7 +10,6 @@ const CategoryConstants = require('./CategoryConstants.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
-const Constants = require('./Constants.js')
 const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
 
 

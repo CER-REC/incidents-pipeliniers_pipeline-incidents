@@ -99,7 +99,7 @@ WorkspaceComputations.barSubheading = function (language) {
 
 // columns: the columns state
 WorkspaceComputations.sidebarWidth = function (columns) {
-  let width = Constants.getIn(['sidebar', 'columWidth'])
+  let width = Constants.getIn(['sidebar', 'columnWidth'])
   const columnCount = (Constants.get('columnNames').count() - columns.count() - 1)
   width += Constants.getIn(['sidebar', 'columnOffset']) * columnCount
   return width

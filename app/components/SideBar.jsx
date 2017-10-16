@@ -53,7 +53,7 @@ class Sidebar extends React.Component {
           columnName={columnName} 
           key={columnName} 
           columnType = { Constants.getIn(['columnTypes', 'SIDEBAR']) }
-          columnWidth={Constants.getIn(['sidebar', 'columWidth'])}
+          columnWidth={Constants.getIn(['sidebar', 'columnWidth'])}
           columnHeight={columnHeight}
           columnX={columnX}
           columnY={columnY}/>
