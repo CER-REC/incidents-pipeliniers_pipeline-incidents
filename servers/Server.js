@@ -1,31 +1,30 @@
 const Express = require('express')
+const Tr = require('../app/TranslationTable.js')
 // Compression = require('compression')
 
 const Server = function(middlewares) {
-  let app, i, len, middleware
-  const rootApp = Express()
-  if (process.env.APP_PATH_PREFIX) {
-    app = Express()
-    rootApp.use(process.env.APP_PATH_PREFIX, app)
-  } else {
-    app = rootApp
-  }
+  let i, len, middleware
 
+  // Prepare the Express app for the incident visualization
+  const app = Express()
   for (i = 0, len = middlewares.length; i < len; i++) {
     middleware = middlewares[i]
     app.use(middleware)
   }
 
-  app.use(function(req, res) {
+  const rootApp = Express()
+  
+  // Host the incident visualization app with both French and English endpoints
+  rootApp.use(Tr.getIn(['applicationPath', 'en']), app)
+  rootApp.use(Tr.getIn(['applicationPath', 'fr']), app)
+
+  rootApp.use(function(req, res) {
     return res.status(404).send('404: Not Found.')
   })
 
   rootApp.listen(process.env.PORT || process.env.PORT_NUMBER, function() {
-    if (process.env.APP_PATH_PREFIX) {
-      console.log(`Ready: ${process.env.HOST}:${process.env.PORT_NUMBER}${process.env.APP_PATH_PREFIX}`)
-    } else {
-      console.log(`Ready: ${process.env.HOST}:${process.env.PORT_NUMBER}`)
-    }
+    console.log(`Ready: ${process.env.HOST}:${process.env.PORT_NUMBER}${Tr.getIn(['applicationPath', 'en'])}`)
+    console.log(`Ready: ${process.env.HOST}:${process.env.PORT_NUMBER}${Tr.getIn(['applicationPath', 'fr'])}`)
     return rootApp.emit('server-online')
   })
   return rootApp

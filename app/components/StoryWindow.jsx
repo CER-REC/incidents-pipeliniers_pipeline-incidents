@@ -12,6 +12,7 @@ const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.j
 const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
 const StoryPreviousImageCreator = require('../actionCreators/StoryPreviousImageCreator.js')
 const SetFromRouterStateCreator = require('../actionCreators/SetFromRouterStateCreator.js')
+const SetUrlFromStringCreator = require('../actionCreators/SetUrlFromStringCreator.js')
 
 class StoryWindow extends React.Component {
 
@@ -61,10 +62,14 @@ class StoryWindow extends React.Component {
       return
     }
 
+    const config = Tr.getIn(['stories', this.props.story.get('storyID'), 'config', this.props.language])
+
+    this.props.updateUrlParameters(config)
+
     // Get the state from the pre-set url.
     const routerState = RouteComputations.urlParamsToState(
-      Tr.getIn(['stories', this.props.story.get('storyID'), 'config', this.props.language]), 
-      this.props.data, 
+      document.location,
+      this.props.data,
       this.props.categories)
 
     const storyState = {
@@ -192,6 +197,9 @@ const mapDispatchToProps = dispatch => {
     updateVisualization: (storyState) => {
       dispatch(SetFromRouterStateCreator(storyState))
     },
+    updateUrlParameters: (searchString) => {
+      dispatch(SetUrlFromStringCreator(searchString))
+    }
   }
 }
 

@@ -3,7 +3,6 @@ const ReactRedux = require('react-redux')
 
 const IncidentListItem = require('./IncidentListItem.jsx')
 const Constants = require('../Constants.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentListComputations = require('../IncidentListComputations.js')
 
 require('./StarredIncidentList.scss')

@@ -1,7 +1,6 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
-const WorkspaceComputations = require('../WorkspaceComputations.js')
 const Constants = require('../Constants.js')
 const IncidentComputations = require('../IncidentComputations.js')
 const IncidentListItem = require('./IncidentListItem.jsx')

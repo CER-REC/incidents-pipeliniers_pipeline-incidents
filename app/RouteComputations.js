@@ -11,11 +11,16 @@ the URL bar. When the app loads, its state is initialized from the URL bar, and
 as the user navigates around the URL bar is kept up to date with the current
 state.
 
+These items are represented as URL parameters:
   columns
   categories
   showEmptyCategories
   pinnedIncidents
-  language
+
+Language is also represented, but is inferred from the application path. 
+  en: /pipeline-incidents
+  fr: /incidents-pipeliniers
+See applicationPath in TranslationTable.js
 
 In each case, the meaning of an element's absence from the URL is specified, and
 the element is not added to the URL bar if the current state matches the
@@ -75,12 +80,6 @@ const RouteComputations = {
       }).join(',')
     }
 
-    // language: represented as a string, 'en' or 'fr'
-    // NB: Absence of the language parameter at page load has special meaning:
-    // before assuming a default, we should check cookies.
-    // Also, unlike the other parameters, we always specify the language.
-    params.language = language
-
     return RouteComputations.paramsToUrlString(params)
   },
 
@@ -91,16 +90,16 @@ const RouteComputations = {
   // paramsString: the 'search' portion of the current location.
   // data: the incidents state
   // categories: the category display state
-  urlParamsToState: function (paramsString, data, categories) {
+  urlParamsToState: function (location, data, categories) {
 
-    const rawParams = QueryString.parse(paramsString)
+    const rawParams = QueryString.parse(location.search)
 
     return {
       columns: RouteComputations.parseUrlColumns(rawParams.columns),
       categories: RouteComputations.parseUrlCategories(rawParams, categories),
       showEmptyCategories: RouteComputations.parseUrlShowEmptyCategories(rawParams.showEmptyCategories),
       pinnedIncidents: RouteComputations.parseUrlPinnedIncidents(rawParams.pinnedIncidents, data),
-      language: RouteComputations.parseUrlLanguage(rawParams.language),
+      language: RouteComputations.parseUrlLanguage(location),
     }
 
   },
@@ -199,11 +198,21 @@ const RouteComputations = {
 
   },
 
-  parseUrlLanguage: function (languageString) {
+  parseUrlLanguage: function (location) {
 
-    if (languageString === 'en' || languageString === 'fr') {
-      return languageString
+    if (location.pathname.match(Tr.getIn(['applicationPath', 'en']))) {
+      return 'en'
     }
+
+    if (location.pathname.match(Tr.getIn(['applicationPath', 'fr']))) {
+      return 'fr'
+    }
+
+    // TODO: it's not clear that it is meaningful to check cookies anymore,
+    // given that the application should always be served from one or the other
+    // of the English and French endpoints. Remove?
+    // TODO: What should we do when the user requests, for example, the English
+    // page with the language cookie set for French?
 
     const gc_lang_cookie = BrowserCookies.get('_gc_lang')
 
@@ -226,8 +235,8 @@ const RouteComputations = {
 
   // A string for the root of the application, a suitable place for making rest
   // requests or building other URLs. E.g.:
-  // http://localhost:3001/incident-visualization/
-  // https://apps2.neb-one.gc.ca/incident-visualization/
+  // http://localhost:3001/pipeline-incidents/
+  // https://apps2.neb-one.gc.ca/incidents-pipeliniers/
   appRoot: function (location, language) {
     return `${location.origin}${Tr.getIn(['applicationPath', language])}`
   },

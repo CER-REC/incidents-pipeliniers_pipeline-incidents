@@ -187,7 +187,7 @@ const Constants = Immutable.fromJS({
   ],
 
   sidebar: {
-    columWidth: 90,
+    columnWidth: 90,
     columnOffset: 10,
 
     verticalStackingOffset: 2,
@@ -388,6 +388,7 @@ const Constants = Immutable.fromJS({
   questionMark: {
     pixelsPerCharacter: 7.4,
     xOffset: 5,
+    yOffset: 3,
     size: 16,
   },
 
@@ -400,12 +401,12 @@ const Constants = Immutable.fromJS({
     separatorLineY: 42,
   },
 
-  appHost: 'https://apps2.neb-one.gc.ca',
-
   // The purpose of the bottom margin is to allow some space for the filterbox
   // to drop below
   workspaceBottomMargin: 20,
  
+  appHost: 'https://apps2.neb-one.gc.ca',
+
 })
 
 
