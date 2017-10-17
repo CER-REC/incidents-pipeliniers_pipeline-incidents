@@ -362,10 +362,18 @@ function validateVolumeCategory(incident, errors) {
 
 
 function validateSystemComponentsInvolved (incident, schema, errors) {
+  const wereComponentsInvolved = validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors)
+
+  if (incident.PipelineComponent_ID_LIST === null) {
+    if (wereComponentsInvolved === true) {
+      return ['unknown']
+    }
+    else if (wereComponentsInvolved === false) {
+      return ['notApplicable']
+    }
+  }
 
   const componentsList = validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors)
-
-  const wereComponentsInvolved = validateBoolean('werePipelineSystemComponentsInvolved', incident, errors)
 
   if (componentsList && componentsList.length > 0) {
     return componentsList
@@ -376,6 +384,7 @@ function validateSystemComponentsInvolved (incident, schema, errors) {
   else if (wereComponentsInvolved === false) {
     return ['notApplicable']
   }
+
   else {
     errors.push({message: 'Error parsing system components involved list', incident: incident})
   }
@@ -433,7 +442,7 @@ const DataLoader = {
       // development.
       // As an alternative, we could download a snapshot of the service output
       // and store it as a JSON file for offline use.
-      uri: `${appRoot}data/2017-10-17 PROD incidents.json`,
+      uri: `${appRoot}data/2017-10-17 2 incidents.json`,
       // uri: 'https://apps2.neb-one.gc.ca/pipeline-incidents/incidentData',
       json: true,
     }
@@ -486,7 +495,7 @@ const DataLoader = {
             // TODO: below here: attributes which still have issues
 
             // TODO: data not aggregated correctly yet ... 
-            pipelineSystemComponentsInvolved: validateSystemComponentsInvolved('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors),
+            pipelineSystemComponentsInvolved: validateSystemComponentsInvolved( incident, schema, errors),
 
             // TODO: Seems like we will not be provided this from the server
             // volumeCategory: validateVolumeCategory(incident, errors),
