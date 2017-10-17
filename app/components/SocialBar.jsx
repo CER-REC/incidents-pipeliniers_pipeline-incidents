@@ -87,7 +87,7 @@ class SocialBar extends React.Component {
 
   downloadFileClick() {
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
-    window.open(`${appRoot}data/2017-09-13 ERS TEST-joined.csv`, 'data:text/csv;charset=utf-8,data/' + escape())  }
+    window.open(`${appRoot}data/2017-10-17 IncidentData.csv`, 'data:text/csv;charset=utf-8,data/' + escape())  }
 
   downloadImageClick() {
 
