@@ -1,1 +1,996 @@
-{}
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"first",
+				"firstCallCheck"
+			],
+			[
+				"fir",
+				"firstCall"
+			],
+			[
+				"fi",
+				"firstCallCheck"
+			],
+			[
+				"st",
+				"starredIncidentScrollPaneStyle"
+			],
+			[
+				"starr",
+				"starredIncidentScrollPaneStyle"
+			],
+			[
+				"star",
+				"starredIncidentListHeight"
+			],
+			[
+				"pin",
+				"pinColumnPositions"
+			],
+			[
+				"incident",
+				"incidentListHeight"
+			],
+			[
+				"incid",
+				"incidentListHeight"
+			],
+			[
+				"pinn",
+				"pinnedIncidents"
+			],
+			[
+				"hand",
+				"handleTouchStart"
+			],
+			[
+				"columnSub",
+				"columnSubheadingPaddingEN"
+			],
+			[
+				"topBar",
+				"topBarHeight"
+			],
+			[
+				"work",
+				"workspace"
+			],
+			[
+				"topbarHeight",
+				"topBarHeightTwo"
+			],
+			[
+				"top",
+				"topBarHeightTwo"
+			],
+			[
+				"fr",
+				"fr"
+			],
+			[
+				"columnpath",
+				"columnPathsHeight"
+			],
+			[
+				"colu",
+				"columnY"
+			],
+			[
+				"cateogr",
+				"categoryY"
+			],
+			[
+				"cator",
+				"categoryY"
+			],
+			[
+				"dragArrow",
+				"dragArrowY"
+			],
+			[
+				"pinColumn",
+				"pinColumnPositions"
+			],
+			[
+				"column",
+				"columnSubheadingOffset"
+			],
+			[
+				"Work",
+				"WorkspaceComputations"
+			],
+			[
+				"bar",
+				"barHeadingFr"
+			],
+			[
+				"defaul",
+				"defaultState"
+			],
+			[
+				"a",
+				"ActivateFilterbox"
+			],
+			[
+				"ini",
+				"InitialIncidentListStateCreator"
+			],
+			[
+				"Rem",
+				"RemoveSelectedIncidentCreator"
+			],
+			[
+				"Remove",
+				"RemovePinnedIncidentCreator"
+			],
+			[
+				"pipel",
+				"pipelineSystem"
+			],
+			[
+				"pipeline",
+				"pipelineSystemComponentsInvolvedString"
+			],
+			[
+				"pipe",
+				"pipelineSystemComponentsInvolvedString"
+			],
+			[
+				"piep",
+				"pipelineInvolvement"
+			],
+			[
+				"pi",
+				"pipelineInvolvement"
+			],
+			[
+				"were",
+				"werePipelineSystemComponentsInvolvedString"
+			],
+			[
+				"fill",
+				"fillOpacity"
+			],
+			[
+				"flo",
+				"flowHeightsForColumnPair"
+			],
+			[
+				"parse",
+				"parseYesNo"
+			],
+			[
+				"not",
+				"notApplicable"
+			],
+			[
+				"destin",
+				"destinationColumn"
+			],
+			[
+				"de",
+				"destPathCategories"
+			],
+			[
+				"Cat",
+				"CategoryComputations"
+			],
+			[
+				"filterbox",
+				"filterboxActivationState"
+			],
+			[
+				"filter",
+				"filterboxActivationState"
+			],
+			[
+				"rotat",
+				"rotateImage"
+			],
+			[
+				"IncidentList",
+				"showIncidentList"
+			],
+			[
+				"showI",
+				"showIncidentList"
+			],
+			[
+				"Incide",
+				"IncidentListShowHide"
+			],
+			[
+				"rect",
+				"rect"
+			],
+			[
+				"color",
+				"colour"
+			],
+			[
+				"to",
+				"toJS"
+			],
+			[
+				"category",
+				"categoryMap"
+			],
+			[
+				"CLA",
+				"className"
+			],
+			[
+				"filt",
+				"filterboxActive"
+			],
+			[
+				"act",
+				"activateFilterbox"
+			],
+			[
+				"categoryLa",
+				"categoryLabelClick"
+			],
+			[
+				"fil",
+				"filterboxActive"
+			],
+			[
+				"colum",
+				"columnName"
+			],
+			[
+				"Category",
+				"CategorySelectStateReducer"
+			],
+			[
+				"social",
+				"socialBar"
+			],
+			[
+				"check",
+				"checkSelectionInCategory"
+			],
+			[
+				"filterbo",
+				"filterboxActive"
+			],
+			[
+				"acti",
+				"activeCategoryLabels"
+			],
+			[
+				"filterb",
+				"filterboxActive"
+			],
+			[
+				"catego",
+				"categoryMap"
+			],
+			[
+				"cat",
+				"categoryLabelClick"
+			],
+			[
+				"categoryL",
+				"categoryLabelClick"
+			],
+			[
+				"active",
+				"activeCategories"
+			],
+			[
+				"stroke",
+				"strokeColour"
+			],
+			[
+				"show",
+				"showFilterbox"
+			],
+			[
+				"uni",
+				"uniqueIncidentNumbers"
+			],
+			[
+				"incide",
+				"incidentNumber"
+			],
+			[
+				"drop",
+				"dropShadow"
+			],
+			[
+				"handleMou",
+				"handleMouseEnter"
+			],
+			[
+				"current",
+				"currentY"
+			],
+			[
+				"Current",
+				"currentY"
+			],
+			[
+				"isC",
+				"isCategorySelected"
+			],
+			[
+				"is",
+				"isCategoryHovered"
+			],
+			[
+				"label",
+				"labelLengthExceed"
+			],
+			[
+				"cateogry",
+				"categoryName"
+			],
+			[
+				"isc",
+				"isCategorySelected"
+			],
+			[
+				"labelL",
+				"labelLengthExceed"
+			],
+			[
+				"should",
+				"shouldLabelBeShown"
+			],
+			[
+				"sele",
+				"selectIncident"
+			],
+			[
+				"categ",
+				"categoryFade"
+			],
+			[
+				"hover",
+				"hoverLogic"
+			],
+			[
+				"source",
+				"sourceCategory"
+			],
+			[
+				"paths",
+				"pathsForCategory"
+			],
+			[
+				"categro",
+				"categoryName"
+			],
+			[
+				"categor",
+				"categoryHoverState"
+			],
+			[
+				"handleMouse",
+				"handleMouseLeave"
+			],
+			[
+				"han",
+				"handleMouseEnter"
+			],
+			[
+				"sourceCol",
+				"sourceColumnY"
+			],
+			[
+				"categoryLabe",
+				"categoryLabelLineLength"
+			],
+			[
+				"all",
+				"allCategoryPaths"
+			],
+			[
+				"sour",
+				"sourceCategory"
+			],
+			[
+				"CategoryHover",
+				"categoryHoverState"
+			],
+			[
+				"map",
+				"mapDispatchToProps"
+			],
+			[
+				"Colu",
+				"ColumnPaths"
+			],
+			[
+				"ca",
+				"CategoryHoverStateCreator"
+			],
+			[
+				"ho",
+				"horizontalLineEnd"
+			],
+			[
+				"horizontal",
+				"horizontalLineEnd"
+			],
+			[
+				"class",
+				"className"
+			],
+			[
+				"hor",
+				"horizontalLineEnd"
+			],
+			[
+				"met",
+				"methodologyURL"
+			],
+			[
+				"xLink",
+				"xlinkHref"
+			],
+			[
+				"in",
+				"incidentPopover"
+			],
+			[
+				"transf",
+				"transformPopoverBody"
+			],
+			[
+				"popov",
+				"popoverX"
+			],
+			[
+				"transfor",
+				"transformLine"
+			],
+			[
+				"trans",
+				"transformHorizontal"
+			],
+			[
+				"transform",
+				"transformHorizontal"
+			],
+			[
+				"categoryY",
+				"categoryYCoordinates"
+			],
+			[
+				"selecte",
+				"selectedIncident"
+			],
+			[
+				"sho",
+				"showEmptyCategories"
+			],
+			[
+				"reporte",
+				"reportedDate"
+			],
+			[
+				"inci",
+				"incidentNumber"
+			],
+			[
+				"In",
+				"IncidentPopover"
+			],
+			[
+				"selec",
+				"selectedIncident"
+			],
+			[
+				"sel",
+				"selectedIncident"
+			],
+			[
+				"linked",
+				"linkedinResponse"
+			],
+			[
+				"email",
+				"emailClick"
+			],
+			[
+				"y",
+				"ySubpop"
+			],
+			[
+				"x",
+				"xSubpop"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"down",
+				"downloadImage"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app/reducers/ShowIncidentListReducer.js",
+			"settings":
+			{
+				"buffer_size": 737,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/components/Column.jsx",
+			"settings":
+			{
+				"buffer_size": 26614,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/Store.js",
+			"settings":
+			{
+				"buffer_size": 3207,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 167.0,
+		"last_filter": "svg ",
+		"selected_items":
+		[
+			[
+				"svg ",
+				"SublimeLinter: Don't Make Warnings Passive"
+			],
+			[
+				"lint sett",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"comment",
+				"Toggle Block Comment"
+			],
+			[
+				"linters",
+				"SublimeLinter: Show All Errors"
+			],
+			[
+				"package inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 629.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/charlie/projects/incident-vizualization",
+		"/Users/charlie/projects/incident-vizualization/app",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators",
+		"/Users/charlie/projects/incident-vizualization/app/components",
+		"/Users/charlie/projects/incident-vizualization/app/reducers",
+		"/Users/charlie/projects/incident-vizualization/app/styles"
+	],
+	"file_history":
+	[
+		"/Users/charlie/projects/incident-vizualization/app/components/Column.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/Constants.js",
+		"/Users/charlie/projects/incident-vizualization/app/TranslationTable.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/Category.scss",
+		"/Users/charlie/projects/incident-vizualization/app/WorkspaceComputations.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentListHeadings.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentListHeadings.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/FilterboxActivationStateReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/CategoriesReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/Column.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/StarredIncidentList.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/PinnedIncidentReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentList.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/IncidentListComputations.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/ColumnsReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/AboutWindow.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/ColumnDragReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/Filterbox.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/MapColumn.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/ShowIncidentListReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/SocialBar.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/Workspace.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/FilterboxButton.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/Category.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/IncidentPathComputations.js",
+		"/Users/charlie/projects/incident-vizualization/app/styles/Fonts.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/MapContainer.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/SideBar.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentList.scss",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/ViewportReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/Store.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/StoryBar.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentListShowHide.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/ColumnPaths.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentContainer.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/EmptyCategories.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/StringComputations.js",
+		"/Users/charlie/projects/incident-vizualization/incident-visualization.sublime-project",
+		"/Users/charlie/projects/incident-vizualization/app/FIlterboxComputations.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/InitialIncidentListStateReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/styles/Colours.scss",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/SelectedIncidentsReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/InitialIncidentListStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/ShowIncidentListCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/RemovePinnedIncidentCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/SetInitialCategoryStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/DataLoader.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/HoveredIncidentReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentListItem.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/HoverIncidentCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/SelectedIncidentPaths.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/SelectedIncidentPath.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentListItem.scss",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/RemoveSelectedIncidentCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/styles/zIndex.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/Disclaimer.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/DeactivateAllCategoriesExceptOneCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/CategoryComputations.js",
+		"/Users/charlie/projects/incident-vizualization/app/DefaultCategoryComputations.js",
+		"/Users/charlie/projects/incident-vizualization/app/RouteComputations.js",
+		"/Users/charlie/projects/incident-vizualization/app/RouterMiddleware.js",
+		"/Users/charlie/projects/incident-vizualization/ApplicationRoot.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/ActivateFilterboxCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/CategoryConstants.js",
+		"/Users/charlie/projects/incident-vizualization/public/data/CategorySchema.json",
+		"/Users/charlie/projects/incident-vizualization/public/data/data-dummy.json",
+		"/Users/charlie/projects/incident-vizualization/app/styles/Common.scss",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/ResetVisualizationCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/header.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/IncidentComputations.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/ResizeScreenCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/SelectedColumnPaths.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/AddPinnedIncidentCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentContainer.scss",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/ShowHideEmptyCategoriesCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/EmptyCategoriesReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentPopover.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/ShowHideIncidentListReducer.js",
+		"/Users/charlie/projects/incident-vizualization/node_modules/postcss-selector-parser/dist/index.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/ShowHideIncidentListCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/HideIncidentListCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/DragColumnStartedCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/EmptyCategories.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentPopover.scss",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/SetLanguageCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/SidebarFilter.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/SideBar.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/Workspace.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/Root.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/components/Header.scss",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/HideFilterboxCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/CategorySelectStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/CategoryDeselectStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/CategorySelectStateReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/CategoryUnhoverStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentBar.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/BeginIncidentDragCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/EndIncidentDragCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/IncidentDragStateReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/IncidentSelectionStateReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/IncidentSelectionStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/CategorySelectionStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/CategoryDeselectionStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/CategoryHoverStateReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/CategorySelectionStateReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/CategoryHoverStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/DataReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/SidebarColumnDragReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/SocialBar.scss",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/UpdateIncidentDragCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/IncidentDeselectionStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/ColumnPaths.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/Filterbox.scss",
+		"/Users/charlie/projects/incident-vizualization/app/MapComputations.js",
+		"/Users/charlie/projects/incident-vizualization/app/MapRenderer.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/Map.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/reducers/SidebarColumnHoverReducer.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/SidebarColumnHoverCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/ComponentA.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/app.jsx",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/AddColumnCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/CategorUnhoverStateCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/RemoveColumnCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/SetColumnsToCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/actionCreators/DataLoadedCreator.js",
+		"/Users/charlie/projects/incident-vizualization/app/components/ComponentA.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/MapContainer.scss",
+		"/Users/charlie/projects/incident-vizualization/app/components/IncidentPopover.js"
+	],
+	"find":
+	{
+		"height": 39.0
+	},
+	"find_in_files":
+	{
+		"height": 101.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"snap",
+			"question",
+			"openCanada",
+			"clientX",
+			"incidentList",
+			"columnY",
+			"topBarHeight",
+			"viewport",
+			"height",
+			"sideBarColumn",
+			"horizontalPositions",
+			"columnY",
+			"incidentsListLabel",
+			"categoryVerticalPositions",
+			"viewport",
+			"workspaceSVG",
+			"workspace",
+			"headingMargin",
+			"columnY"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app/reducers/ShowIncidentListReducer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 737,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								207,
+								207
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/components/Column.jsx",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 26614,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1767,
+								1767
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5088.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/Store.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 3207,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "incident-visualization.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"in",
+				"app/IncidentPathComputations.js"
+			],
+			[
+				"incidentselectionstatecreator",
+				"app/actionCreators/IncidentSelectionStateCreator.js"
+			],
+			[
+				"column",
+				"app/components/Column.jsx"
+			],
+			[
+				"categorycomputations",
+				"app/CategoryComputations.js"
+			],
+			[
+				"incidentselectionstatereducer",
+				"app/reducers/IncidentSelectionStateReducer.js"
+			],
+			[
+				"sublimelint",
+				"~/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings"
+			],
+			[
+				"",
+				"~/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 900.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 326.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
