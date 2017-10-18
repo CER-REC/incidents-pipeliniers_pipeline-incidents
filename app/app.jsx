@@ -13,6 +13,8 @@ const DataLoader = require('./DataLoader.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const PopupDismissedCreator = require('./actionCreators/PopupDismissedCreator.js')
+const SetUpAnalyticsCreator = require('./actionCreators/SetUpAnalyticsCreator.js')
+const AnalyticsReporter = require('./AnalyticsReporter.js')
 
 
 const store = Store()
@@ -34,6 +36,8 @@ case 'csvFile':
 
 
 DomReady( () => {
+  store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
+  
   dataLoadPromise.then( () => {
 
     store.getState().history.listen(locationChangeHandler)
