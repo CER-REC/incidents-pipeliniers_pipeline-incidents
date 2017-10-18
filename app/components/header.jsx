@@ -15,6 +15,7 @@ require('./Header.scss')
 
 class Header extends React.Component {
   tellMeAStoryClick() {
+    this.props.analytics.reportEvent('Menu Buttons', 'Tell Me A Story')
     const scrollOptions = {
       behavior: 'smooth', 
       block: 'start', 
@@ -25,17 +26,20 @@ class Header extends React.Component {
   }
 
   aboutThisProjectClick(e) {
+    this.props.analytics.reportEvent('Menu Buttons', 'About This Project')
     e.stopPropagation(e)
     e.preventDefault(e)    
     this.props.summonAboutWindow()
   }
 
   methodologyClick() {
+    this.props.analytics.reportEvent('Menu Buttons', 'Methodology')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     window.open(`${appRoot}${Tr.getIn(['methodologyLinks', this.props.language])}`)
   }
 
   resetAllClick() {
+    this.props.analytics.reportEvent('Menu Buttons', 'Reset All')
     const categories = DefaultCategoryComputations.initialState(
       this.props.data,
       this.props.schema, 
@@ -45,6 +49,7 @@ class Header extends React.Component {
   }
 
   disclaimerClick(event) {
+    this.props.analytics.reportEvent('Header Links', 'Data Disclaimer')
     event.preventDefault()
     this.props.summonDisclaimer()
   }
@@ -190,6 +195,7 @@ const mapStateToProps = (state) => {
     language: state.language,
     viewport: state.viewport,
     schema: state.schema,
+    analytics: state.analytics,
   } 
 }
 

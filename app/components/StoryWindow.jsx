@@ -29,12 +29,14 @@ class StoryWindow extends React.Component {
   }
 
   closeButtonClick(e) {
+    this.props.analytics.reportEvent('Story','Close Button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
   }
 
   nextButtonClick(e) {
+    this.props.analytics.reportEvent('Story','Next Button')
     e.stopPropagation()
     e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
@@ -43,6 +45,7 @@ class StoryWindow extends React.Component {
   }
 
   backButtonClick(e) {
+    this.props.analytics.reportEvent('Story','Back Button')
     e.stopPropagation()
     e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
@@ -53,6 +56,8 @@ class StoryWindow extends React.Component {
   tutorialImageClicked(e) {
     // Only listen to clicks if this is the last image
     // in the tutorial.
+    this.props.analytics.reportEvent('Story','Tutorial')
+    this.props.analytics.reportEvent('Story', 'Tutorial: ' + this.props.story.get('storyID'))
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     if(this.props.storyImage !== imageList.length - 1) {
@@ -180,6 +185,7 @@ const mapStateToProps = state => {
     storyImage: state.storyImage,
     categories: state.categories,
     data: state.data,
+    analytics: state.analytics,
   }
 }
 

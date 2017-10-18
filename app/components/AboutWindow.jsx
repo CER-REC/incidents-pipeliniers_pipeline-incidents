@@ -11,6 +11,7 @@ const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.j
 class AboutWindow extends React.Component {
 
   closeButtonClick(e) {
+    this.props.analytics.reportEvent('Header Links', 'About This Project Close Button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
@@ -128,6 +129,7 @@ const mapStateToProps = state => {
   return {
     language: state.language,
     about: state.about,
+    analytics: state.analytics,
   }
 }
 

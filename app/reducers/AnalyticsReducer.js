@@ -1,6 +1,3 @@
-//const Analytics = require('event')
-
-
 function AnalyticsReducer (state = null, action) {
 
   switch(action.type) {

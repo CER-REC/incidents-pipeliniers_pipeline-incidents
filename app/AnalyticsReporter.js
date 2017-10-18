@@ -11,6 +11,7 @@ class AnalyticsReporter {
     if (!this.ga) { 
       return 
     }
+    console.log(category, action)
     return this.ga('send', {
       hitType: 'event',
       eventCategory: category,
