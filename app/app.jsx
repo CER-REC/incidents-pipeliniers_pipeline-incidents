@@ -17,8 +17,9 @@ const PopupDismissedCreator = require('./actionCreators/PopupDismissedCreator.js
 
 const store = Store()
 
-// Uncomment for debugging only.
-window.store = store
+if (process.env.NODE_ENV === 'development') {
+  window.store = store
+}
 
 
 let dataLoadPromise

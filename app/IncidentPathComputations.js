@@ -1098,6 +1098,5 @@ for (const name of Object.keys(IncidentPathComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(IncidentPathComputations[name])
 }
 
-window.ipc = MemoizedComputations
 
 module.exports = MemoizedComputations

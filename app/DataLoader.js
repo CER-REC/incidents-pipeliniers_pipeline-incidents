@@ -364,7 +364,7 @@ function validateVolumeCategory(incident, errors) {
 function validateSystemComponentsInvolved (incident, schema, errors) {
   const wereComponentsInvolved = validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors)
 
-  if (incident.PipelineComponent_ID_LIST === null) {
+  if (incident.PipelineComponent_ID_LIST === '-1') {
     if (wereComponentsInvolved === true) {
       return ['unknown']
     }
@@ -442,7 +442,7 @@ const DataLoader = {
       // development.
       // As an alternative, we could download a snapshot of the service output
       // and store it as a JSON file for offline use.
-      uri: `${appRoot}data/2017-10-17 2 incidents.json`,
+      uri: `${appRoot}data/2017-10-19 incidents.json`,
       // uri: 'https://apps2.neb-one.gc.ca/pipeline-incidents/incidentData',
       json: true,
     }
@@ -484,7 +484,6 @@ const DataLoader = {
 
             werePipelineSystemComponentsInvolved: validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors),
 
-
             whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
             whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
 
@@ -492,13 +491,10 @@ const DataLoader = {
 
             pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
 
-            // TODO: below here: attributes which still have issues
+            volumeCategory: validateVolumeCategory(incident, errors),
 
-            // TODO: data not aggregated correctly yet ... 
             pipelineSystemComponentsInvolved: validateSystemComponentsInvolved( incident, schema, errors),
 
-            // TODO: Seems like we will not be provided this from the server
-            // volumeCategory: validateVolumeCategory(incident, errors),
           }
 
           if(errors.length > 0) {
@@ -538,8 +534,6 @@ const DataLoader = {
 
 
 
-
-window.dl = DataLoader
 
 
 module.exports = DataLoader
