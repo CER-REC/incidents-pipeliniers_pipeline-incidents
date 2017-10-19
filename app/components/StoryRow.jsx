@@ -27,7 +27,6 @@ const mapStateToProps = state => {
   return {
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
-    analytics: state.analytics,
   }
 }
 

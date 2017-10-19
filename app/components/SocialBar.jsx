@@ -53,7 +53,7 @@ class SocialBar extends React.Component {
   }
 
   emailClick() {
-    this.props.analytics.reportEvent('Menu Buttons', 'Email')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Email')
     const self = this
     this.makeBitlyPromise().then(function(url){
 
@@ -66,7 +66,7 @@ class SocialBar extends React.Component {
   }
 
   facebookClick() {
-    this.props.analytics.reportEvent('Menu Buttons', 'Facebook')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Facebook')
     this.makeBitlyPromise().then(function(url){
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
       window.open(facebookUrl , 'targetWindow' , 'width=650,height=650') 
@@ -74,7 +74,7 @@ class SocialBar extends React.Component {
   }
 
   linkedinClick() {
-    this.props.analytics.reportEvent('Menu Buttons', 'LinkedIn')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'LinkedIn')
     this.makeBitlyPromise().then(function(url){
       const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${url}`
       window.open(linkedinUrl , 'targetWindow' , 'width=650,height=650') 
@@ -82,7 +82,7 @@ class SocialBar extends React.Component {
   }
 
   twitterClick() {
-    this.props.analytics.reportEvent('Menu Buttons', 'Twitter')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Twitter')
     this.makeBitlyPromise().then(function(url){
       const twitterUrl = `https://twitter.com/intent/tweet?url=${url}`
       window.open(twitterUrl , 'targetWindow' , 'width=650,height=650') 
@@ -90,12 +90,12 @@ class SocialBar extends React.Component {
   }
 
   downloadFileClick() {
-    this.props.analytics.reportEvent('Menu Buttons', 'Download Data File')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Download Data File')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     window.open(`${appRoot}data/2017-10-17 IncidentData.csv`, 'data:text/csv;charset=utf-8,data/' + escape())  }
 
   downloadImageClick() {
-    this.props.analytics.reportEvent('Menu Buttons', 'Download Image')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Download Image')
 
     const horizontalPositions = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories, 

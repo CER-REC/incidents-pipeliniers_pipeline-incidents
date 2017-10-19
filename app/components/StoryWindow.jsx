@@ -29,14 +29,14 @@ class StoryWindow extends React.Component {
   }
 
   closeButtonClick(e) {
-    this.props.analytics.reportEvent('Story','Close Button')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Close Button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
   }
 
   nextButtonClick(e) {
-    this.props.analytics.reportEvent('Story','Next Button')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Next Button')
     e.stopPropagation()
     e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
@@ -45,7 +45,7 @@ class StoryWindow extends React.Component {
   }
 
   backButtonClick(e) {
-    this.props.analytics.reportEvent('Story','Back Button')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Back Button')
     e.stopPropagation()
     e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
@@ -56,8 +56,7 @@ class StoryWindow extends React.Component {
   tutorialImageClicked(e) {
     // Only listen to clicks if this is the last image
     // in the tutorial.
-    this.props.analytics.reportEvent('Story','Tutorial')
-    this.props.analytics.reportEvent('Story', 'Tutorial: ' + this.props.story.get('storyID'))
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`, 'Tutorial Selected: ' + this.props.story.get('storyID'))
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     if(this.props.storyImage !== imageList.length - 1) {

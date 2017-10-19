@@ -15,7 +15,7 @@ require('./Header.scss')
 
 class Header extends React.Component {
   tellMeAStoryClick() {
-    this.props.analytics.reportEvent('Menu Buttons', 'Tell Me A Story')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Tell Me A Story')
     const scrollOptions = {
       behavior: 'smooth', 
       block: 'start', 
@@ -26,20 +26,20 @@ class Header extends React.Component {
   }
 
   aboutThisProjectClick(e) {
-    this.props.analytics.reportEvent('Menu Buttons', 'About This Project')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'About This Project')
     e.stopPropagation(e)
     e.preventDefault(e)    
     this.props.summonAboutWindow()
   }
 
   methodologyClick() {
-    this.props.analytics.reportEvent('Menu Buttons', 'Methodology')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Methodology')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     window.open(`${appRoot}${Tr.getIn(['methodologyLinks', this.props.language])}`)
   }
 
   resetAllClick() {
-    this.props.analytics.reportEvent('Menu Buttons', 'Reset All')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Reset All')
     const categories = DefaultCategoryComputations.initialState(
       this.props.data,
       this.props.schema, 
@@ -49,9 +49,13 @@ class Header extends React.Component {
   }
 
   disclaimerClick(event) {
-    this.props.analytics.reportEvent('Header Links', 'Data Disclaimer')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'Data Disclaimer')
     event.preventDefault()
     this.props.summonDisclaimer()
+  }
+
+  learnMoreAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`,'Learn More')
   }
 
   leftHeading() {
@@ -66,7 +70,7 @@ class Header extends React.Component {
         <a href="#" onClick = {this.disclaimerClick.bind(this)}>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
       </p>
       <p className = 'subpop'>
-        <a 
+        <a onClick = {this.learnMoreAnalytics.bind(this)}
           href={Tr.getIn(['learnMoreLinks', this.props.language])} 
           target="_blank">{Tr.getIn(['learnMore', this.props.language])}</a>
         {Tr.getIn(['dataCollectionSubheading', this.props.language])}

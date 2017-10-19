@@ -173,6 +173,7 @@ class Column extends React.Component {
   }
 
   questionMarkClick(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','questionMark'])}`,this.props.columnName)
     e.stopPropagation(e)
     e.preventDefault(e)
     this.props.onQuestionMarkClick(this.props.columnName)
@@ -401,6 +402,7 @@ class Column extends React.Component {
   }
 
   handleDragEnd(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`,'Column Dragged')
     e.stopPropagation()
     e.preventDefault()
 
@@ -418,6 +420,7 @@ class Column extends React.Component {
   }
 
   handleTouchEnd(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`,'Column Touch Dragged')
     e.stopPropagation()
     e.preventDefault()
 
@@ -470,6 +473,7 @@ class Column extends React.Component {
   }
 
   handleSidebarDragEnd(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,'Column Added To Workspace')
     e.stopPropagation()
     e.preventDefault()
 
@@ -487,6 +491,7 @@ class Column extends React.Component {
   }
 
   handleSidebarTouchEnd(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,'Column Touched To Workspace')
     e.stopPropagation()
     e.preventDefault()
 
@@ -530,6 +535,7 @@ class Column extends React.Component {
     }
   }
   handleMouseClick(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,'Column Selected')
     e.stopPropagation()
     e.preventDefault()
     this.props.onSidebarColumnClicked(this.props.columnName)
@@ -737,6 +743,7 @@ const mapStateToProps = state => {
     sidebarColumnHover: state.sidebarColumnHover,
     schema: state.schema,
     columnTooltip: state.columnTooltip,
+    analytics: state.analytics,
   }
 }
 

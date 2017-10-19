@@ -401,6 +401,19 @@ const Constants = Immutable.fromJS({
     separatorLineY: 42,
   },
 
+  analyticsCategory: {
+    category: 'Category',
+    column: 'Column',
+    filterbox: 'Filterbox',
+    headerLinks: 'Header Links',
+    incidentList: 'Incident List',
+    menuButtons: 'Menu Buttons',
+    questionMark: 'Question Mark',
+    sidebar: 'Sidebar',
+    story: 'Story',
+    emptyCategories: 'Empty Categories',
+  },
+
   // The purpose of the bottom margin is to allow some space for the filterbox
   // to drop below
   workspaceBottomMargin: 20,

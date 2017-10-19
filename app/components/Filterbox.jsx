@@ -142,6 +142,8 @@ class Filterbox extends React.Component {
   }
 
   handleDragEnd(e) {
+
+    this.props.analytics.reportEvent('Filterbox','Drag')
     e.stopPropagation()
     e.preventDefault()
 
@@ -206,6 +208,7 @@ class Filterbox extends React.Component {
   }
 
   handleTouchEnd(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,'Touch Drag')
     e.stopPropagation()
     e.preventDefault()
 
@@ -249,14 +252,17 @@ class Filterbox extends React.Component {
   }
 
   onShowOnlyClick() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,'Show Only')
     this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
   }
 
   onHideClick() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,'Hide')
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
 
   onResetClick() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,'Reset')
     this.props.onResetClick(this.props.columnName)
   }
 
@@ -283,6 +289,7 @@ const mapStateToProps = state => {
     categoryDragStatus: state.categoryDragStatus,
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
+    analytics: state.analytics,
   }
 }
 
