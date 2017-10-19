@@ -143,7 +143,7 @@ class Filterbox extends React.Component {
 
   handleDragEnd(e) {
 
-    this.props.analytics.reportEvent('Filterbox','Drag')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`, this.props.columnName + ' ' + this.props.categoryName + ' ' + 'dragged')
     e.stopPropagation()
     e.preventDefault()
 
@@ -208,7 +208,7 @@ class Filterbox extends React.Component {
   }
 
   handleTouchEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,'Touch Drag')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,this.props.columnName + ' ' + this.props.categoryName + ' ' + 'touch dragged')
     e.stopPropagation()
     e.preventDefault()
 
@@ -252,17 +252,17 @@ class Filterbox extends React.Component {
   }
 
   onShowOnlyClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,'Show Only')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,this.props.columnName + ' ' + this.props.categoryName + ' ' + 'only shown')
     this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
   }
 
   onHideClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,'Hide')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,this.props.columnName + ' ' + this.props.categoryName + ' ' + 'hid')
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
 
   onResetClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,'Reset')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,this.props.columnName + ' ' + 'reset')
     this.props.onResetClick(this.props.columnName)
   }
 
