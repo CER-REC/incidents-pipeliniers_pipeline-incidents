@@ -45,8 +45,7 @@ const RouterMiddleware = store => next => action => {
       state.columns,
       state.categories,
       state.showEmptyCategories,
-      state.pinnedIncidents,
-      state.language
+      state.pinnedIncidents
     )
 
 

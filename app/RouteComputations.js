@@ -41,7 +41,7 @@ const RouteComputations = {
 
   // Returns a string to form the query params of the current URL, i.e.
   // everything from the ? on
-  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents, language) {
+  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents) {
 
     const params = {}
 
