@@ -13,9 +13,11 @@ const DataLoader = require('./DataLoader.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const PopupDismissedCreator = require('./actionCreators/PopupDismissedCreator.js')
+const SetupHistoryCreator = require('./actionCreators/SetupHistoryCreator.js')
 
 
 const store = Store()
+store.dispatch(SetupHistoryCreator())
 
 if (process.env.NODE_ENV === 'development') {
   window.store = store
@@ -26,7 +28,7 @@ let dataLoadPromise
 
 switch (Constants.get('dataMode')) {
 case 'dataService': 
-  dataLoadPromise = DataLoader.loadFromDataService(store)
+  dataLoadPromise = DataLoader.loadFromDataService(store, document.location)
   break
 case 'csvFile': 
   dataLoadPromise = DataLoader.loadDataCsv(store)

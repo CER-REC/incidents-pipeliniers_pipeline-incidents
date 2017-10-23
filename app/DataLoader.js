@@ -173,7 +173,7 @@ function csvColumnMapping (d) {
 
 
 // Returns a promise
-function afterLoad (store, data) {
+function afterLoad (store, data, location) {
 
   return new Promise( (resolve) => {
     store.dispatch(DataLoadedCreator(data))
@@ -187,7 +187,7 @@ function afterLoad (store, data) {
     store.dispatch(SetInitialCategoryStateCreator(categories))
 
     state = store.getState()
-    const routerState = RouteComputations.urlParamsToState(document.location, state.data, state.categories)
+    const routerState = RouteComputations.urlParamsToState(location, state.data, state.categories)
 
     store.dispatch(SetFromRouterStateCreator({
       columns: routerState.columns,
@@ -195,7 +195,7 @@ function afterLoad (store, data) {
       showEmptyCategories: routerState.showEmptyCategories,
       pinnedIncidents: routerState.pinnedIncidents,
       language: routerState.language,
-      screenshotMode: RouteComputations.screenshotMode(document.location)
+      screenshotMode: RouteComputations.screenshotMode(location)
     }))
 
     resolve()
@@ -409,7 +409,7 @@ const DataLoader = {
       .then(function (response) {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
 
-        return afterLoad(store, data.reverse())
+        return afterLoad(store, data.reverse(), document.location)
 
       })
       .catch(function (error) {
@@ -421,9 +421,9 @@ const DataLoader = {
 
   // Load the application data from the data service.
   // Returns a promise
-  loadFromDataService (store) {
+  loadFromDataService (store, location) {
 
-    const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
+    const appRoot = RouteComputations.appRoot(location, store.getState().language)
 
     const schemaOptions = {
       uri: `${appRoot}data/CategorySchema.json`,
@@ -437,20 +437,9 @@ const DataLoader = {
         return schema
       })
 
-    let uri
-    if (process.env.NODE_ENV === 'development') {
-      // In development, read from a local flat file.
-      // NB: At this writing, the contents of this file are a little out of date
-      uri = `${appRoot}data/2017-10-23 incidents.json`
-    }
-    else if (process.env.NODE_ENV === 'production') {
-      // When the web app is bundled for production (which includes the TEST 
-      // environment at NEB) use the local data service
-      uri = `${appRoot}incidentData`
-    }
 
     const dataOptions = {
-      uri: uri,
+      uri: RouteComputations.dataServiceEndpoint(location, store.getState().language),
       json: true,
     }
 
@@ -502,6 +491,8 @@ const DataLoader = {
 
             pipelineSystemComponentsInvolved: validateSystemComponentsInvolved( incident, schema, errors),
 
+
+            originalData: incident,
           }
 
           if(errors.length > 0) {
@@ -517,7 +508,7 @@ const DataLoader = {
         }
 
         console.log('Incidents after validation', incidents.length)
-        return afterLoad(store, Immutable.fromJS(incidents).reverse())
+        return afterLoad(store, Immutable.fromJS(incidents).reverse(), location)
       })
       .catch(function (error) {
         throw error
