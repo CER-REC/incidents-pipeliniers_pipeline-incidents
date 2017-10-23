@@ -145,11 +145,6 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    let isActive = 'inactive'
-    if(this.props.columnTooltip.get('isActive') &&
-      this.props.columnTooltip.get('columnName') === this.props.columnName) 
-      isActive = 'active'
-
     let questionMarkY = WorkspaceComputations.topBarHeight() -
       Constants.getIn(['questionMark', 'size']) / 2 + 
       Constants.getIn(['questionMark', 'yOffset'])
@@ -162,7 +157,7 @@ class Column extends React.Component {
 
     return <image 
       id={this.props.columnName + '-QuestionMark'}
-      className={'questionMark ' + isActive}
+      className= 'questionMark'
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 
