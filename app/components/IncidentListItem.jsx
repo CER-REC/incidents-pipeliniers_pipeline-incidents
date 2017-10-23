@@ -35,7 +35,8 @@ class IncidentListItem extends React.Component {
   }
 
   incidentItemClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,this.props.incident.get('incidentNumber') + ' ' + 'selected/deselected')
+    let incidentItemClickAnalyticsAction = `${this.props.incident.get('incidentNumber') + ' ' + 'selected/deselected'}`
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,incidentItemClickAnalyticsAction)
     if (this.props.selected === true) {
       this.props.removeFromSelectedIncidents(this.props.incident)
     }
@@ -45,7 +46,8 @@ class IncidentListItem extends React.Component {
   }
 
   incidentStarClick(event) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,this.props.incident.get('incidentNumber') + ' ' + 'starred/unstarred')
+    let incidentStarClickAnalyticsAction = `${this.props.incident.get('incidentNumber') + ' ' + 'starred/unstarred'}`
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,incidentStarClickAnalyticsAction)
     // Don't propagate this click event to the parent list item.
     event.stopPropagation()
 
@@ -62,7 +64,8 @@ class IncidentListItem extends React.Component {
   }
 
   mouseLeave() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,this.props.incident.get('incidentNumber') + ' ' + 'hovered')
+    let incidentHoverAnalyticsAction = `${this.props.incident.get('incidentNumber') + ' ' + 'hovered'}`
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,incidentHoverAnalyticsAction)
     if (this.props.hoveredIncident === this.props.incident) {
       this.props.unhoverIncident()
     }

@@ -56,7 +56,8 @@ class StoryWindow extends React.Component {
   tutorialImageClicked(e) {
     // Only listen to clicks if this is the last image
     // in the tutorial.
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`, 'Tutorial Selected: ' + this.props.story.get('storyID'))
+    let tutorialClickAnalyticsAction = `${'Tutorial Selected: ' + this.props.story.get('storyID')}`
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`, tutorialClickAnalyticsAction)
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     if(this.props.storyImage !== imageList.length - 1) {

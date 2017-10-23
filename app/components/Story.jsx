@@ -12,7 +12,8 @@ const StorySelectedCreator = require('../actionCreators/StorySelectedCreator.js'
 class Story extends React.Component {
 
   storyClicked(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Story Selected: ' + this.props.id)
+    let storyClickAnalyticsAction = `${'Story Selected: ' + this.props.id}`
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,storyClickAnalyticsAction)
     e.stopPropagation()
     e.preventDefault()
     this.props.onStoryClicked(this.props.id)

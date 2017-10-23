@@ -12,7 +12,8 @@ const ColumnTooltipDetailCollapseCreator = require('../actionCreators/ColumnTool
 class ColumnTooltipListItem extends React.Component {
 
   detailClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','questionMark'])}`,this.props.item.get('overview') + ' ' + 'detail overview')
+    let detailAnalyticsAction = `${this.props.item.get('overview') + ' ' + 'detail overview'}`
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','questionMark'])}`,detailAnalyticsAction)
     e.stopPropagation()
     e.preventDefault()
 
