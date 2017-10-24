@@ -111,8 +111,8 @@ const Constants = Immutable.fromJS({
   columnHeadingHeightFr: 30, 
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 45,
-  columnSubheadingPaddingEn: 2,
-  columnSubheadingPaddingFr: 3,
+  columnSubheadingPaddingEn: 3,
+  columnSubheadingPaddingFr: 4,
 
 
   dragArrow: {
@@ -404,6 +404,7 @@ const Constants = Immutable.fromJS({
   // The purpose of the bottom margin is to allow some space for the filterbox
   // to drop below
   workspaceBottomMargin: 20,
+  barHeadingSpacing: 15,
  
   appHost: 'https://apps2.neb-one.gc.ca',
 

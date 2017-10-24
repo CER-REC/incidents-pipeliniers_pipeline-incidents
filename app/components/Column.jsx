@@ -103,11 +103,10 @@ class Column extends React.Component {
 
     let currentY
     if (headingPieces.length === 1) {
-      currentY = WorkspaceComputations.topBarHeight() + 
-        Constants.get('columnHeadingLineOffset')
+      currentY = WorkspaceComputations.barHeading()
     }
     else if  (headingPieces.length === 2) {
-      currentY = WorkspaceComputations.topBarHeight()
+      currentY = WorkspaceComputations.barHeading()
     }
     else {
       currentY = WorkspaceComputations.topBarHeight()
