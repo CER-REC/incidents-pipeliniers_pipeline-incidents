@@ -24,8 +24,8 @@ class IncidentListHeadings extends React.Component {
       this.props.categories
     ).get('pinColumn')
 
-    const y = WorkspaceComputations.topBarHeight() +
-      Constants.get('columnHeadingLineOffset') * 2
+    const y = WorkspaceComputations.barHeading() +
+      Constants.get('columnHeadingLineOffset')
 
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
@@ -56,7 +56,7 @@ class IncidentListHeadings extends React.Component {
 
     // TODO: This is replicating math found in Column.jsx for laying out 
     // text headings. We need to pull this into a computation file.
-    const y = WorkspaceComputations.columnY() 
+    const y = WorkspaceComputations.barSubheading(this.props.language) 
 
    
     const filteredData = IncidentComputations.filteredIncidents(
@@ -105,10 +105,9 @@ class IncidentListHeadings extends React.Component {
       height={Constants.getIn(['questionMark', 'size'])} 
       x={columnMeasurements.get('x') + 
         StringComputations.questionMarkOffset(Tr.getIn(['columnHeadings', columnName, this.props.language]), 12)} 
-      y={WorkspaceComputations.topBarHeight() + 
-        Constants.get('columnHeadingLineOffset') - 
-        Constants.getIn(['questionMark', 'size']) / 2 + 
-        Constants.getIn(['questionMark', 'yOffset'])}
+      y={WorkspaceComputations.barHeading() -
+      Constants.getIn(['questionMark', 'size']) / 2 + 
+      Constants.getIn(['questionMark', 'yOffset'])}
       onClick={this.questionMarkClick.bind(this)}/>
   }
 

@@ -388,7 +388,7 @@ const Constants = Immutable.fromJS({
   questionMark: {
     pixelsPerCharacter: 7.4,
     xOffset: 5,
-    yOffset: 3,
+    yOffset: 4,
     size: 16,
   },
 
@@ -404,7 +404,7 @@ const Constants = Immutable.fromJS({
   // The purpose of the bottom margin is to allow some space for the filterbox
   // to drop below
   workspaceBottomMargin: 20,
-  barHeadingSpacing: 15,
+  barHeadingSpacing: 25,
  
   appHost: 'https://apps2.neb-one.gc.ca',
 
