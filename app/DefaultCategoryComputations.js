@@ -226,7 +226,7 @@ const DefaultCategoryComputations = {
       })
     }
     labels = labels.sort()
-    const sortedCompanies = Immutable.OrderedMap(labels.map( name => {
+    const sortedCompanies = Immutable.OrderedMap(labels.keySeq().map( name => {
       return [name, true]
     }))
     sortedCategories = sortedCategories.set('company', sortedCompanies)

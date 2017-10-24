@@ -364,7 +364,7 @@ function validateVolumeCategory(incident, errors) {
 function validateSystemComponentsInvolved (incident, schema, errors) {
   const wereComponentsInvolved = validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors)
 
-  if (incident.PipelineComponent_ID_LIST === null) {
+  if (incident.PipelineComponent_ID_LIST === '-1') {
     if (wereComponentsInvolved === true) {
       return ['unknown']
     }
@@ -437,13 +437,20 @@ const DataLoader = {
         return schema
       })
 
+    let uri
+    if (process.env.NODE_ENV === 'development') {
+      // In development, read from a local flat file.
+      // NB: At this writing, the contents of this file are a little out of date
+      uri = `${appRoot}data/2017-10-23 incidents.json`
+    }
+    else if (process.env.NODE_ENV === 'production') {
+      // When the web app is bundled for production (which includes the TEST 
+      // environment at NEB) use the local data service
+      uri = `${appRoot}incidentData`
+    }
+
     const dataOptions = {
-      // NB: This is configured to use the production data serivce, even in 
-      // development.
-      // As an alternative, we could download a snapshot of the service output
-      // and store it as a JSON file for offline use.
-      uri: `${appRoot}data/2017-10-17 2 incidents.json`,
-      // uri: 'https://apps2.neb-one.gc.ca/pipeline-incidents/incidentData',
+      uri: uri,
       json: true,
     }
 
@@ -484,7 +491,6 @@ const DataLoader = {
 
             werePipelineSystemComponentsInvolved: validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors),
 
-
             whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
             whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
 
@@ -492,13 +498,10 @@ const DataLoader = {
 
             pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
 
-            // TODO: below here: attributes which still have issues
+            volumeCategory: validateVolumeCategory(incident, errors),
 
-            // TODO: data not aggregated correctly yet ... 
             pipelineSystemComponentsInvolved: validateSystemComponentsInvolved( incident, schema, errors),
 
-            // TODO: Seems like we will not be provided this from the server
-            // volumeCategory: validateVolumeCategory(incident, errors),
           }
 
           if(errors.length > 0) {
@@ -517,7 +520,6 @@ const DataLoader = {
         return afterLoad(store, Immutable.fromJS(incidents).reverse())
       })
       .catch(function (error) {
-        // TODO: something nicer than this ...
         throw error
       })
 
@@ -538,8 +540,6 @@ const DataLoader = {
 
 
 
-
-window.dl = DataLoader
 
 
 module.exports = DataLoader
