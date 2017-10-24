@@ -5,11 +5,10 @@
   cursor: pointer;
 }
 
-.questionMark.inactive {
+.questionMark {
   opacity: 0.4;
 }
 
-.questionMark.inactive:hover {
+.questionMark:hover {
   opacity: 1;
-
 }
