@@ -225,5 +225,4 @@ for (const name of Object.keys(IncidentComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(IncidentComputations[name])
 }
 
-window.ic = MemoizedComputations
 module.exports = MemoizedComputations

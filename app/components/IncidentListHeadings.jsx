@@ -8,10 +8,6 @@ const IncidentComputations = require('../IncidentComputations.js')
 const StringComputations = require('../StringComputations.js')
 const ColumnTooltipSummonedCreator = require('../actionCreators/ColumnTooltipSummonedCreator.js')
 
-require('./IncidentListHeadings.scss')
-
-require('./IncidentListHeadings.scss')
-
 class IncidentListHeadings extends React.Component {
 
   incidentHeadingLabel() {
@@ -83,7 +79,10 @@ class IncidentListHeadings extends React.Component {
 
   // TODO: Find a way to unify this with the questionmark in Column
   questionMark() {
+    
+    // TODO: this is NOT an ordinary column! This is highly misleading.
     const columnName = 'pinColumn'
+
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -92,14 +91,10 @@ class IncidentListHeadings extends React.Component {
       this.props.categories
     ).get(columnName)
 
-    let isActive = 'inactive'
-    if(this.props.columnTooltip.get('isActive') &&
-      this.props.columnTooltip.get('columnName') === columnName) 
-      isActive = 'active'
 
     return <image 
       id='pinColumn-QuestionMark'
-      className={'questionMark ' + isActive}
+      className= 'questionMark'
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 

@@ -712,5 +712,4 @@ for (const name of Object.keys(WorkspaceComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(WorkspaceComputations[name])
 }
 
-window.wc = MemoizedComputations
 module.exports = MemoizedComputations

@@ -106,5 +106,4 @@ for (const name of Object.keys(MapComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(MapComputations[name])
 }
 
-window.mc = MemoizedComputations
 module.exports = MemoizedComputations
