@@ -74,3 +74,51 @@ Nous espérons avoir atteint notre objectif. Votre rétroaction est essentielle.
 Vous pouvez nous la faire parvenir, ainsi que vos suggestions, à l’adresse : conceptionenergie@neb-one.gc.ca. Votre opinion compte.
 
 
+## Le référentiel
+
+Le référentiel contient le code et les données nécessaires à l’utilisation d’une version locale de l’application de visualisation des incidents. 
+Vous pouvez télécharger et exécuter le code d’application pour voir comment il a été construit et examiner les données sur votre propre ordinateur. (Si vous voulez simplement explorer les possibilités de visualisation, vous pouvez [voir l’application](http://apps2.neb-one.gc.ca/incidents-pipeliniers) sur le site Web de l’Office.) 
+
+## Produits préalables
+
+- [Node + NPM](https://nodejs.org/fr/) > v6.10
+- Git
+- *facultatif* [Service de prise d’instantané d’écran](https://github.com/NEBGitHub/screenshot-service_service-copie-d-ecran)
+
+## Installation et utilisation
+
+Suivez les instructions à partir de la ligne de commande de votre ordinateur (Powershell ou CMD dans Windows, Terminal dans MacOS, Konsole ou l’équivalent dans GNU/Linux).
+
+- Téléchargez le code source pour en avoir une copie locale : `git clone git@github.com:NEBGitHub/incidents-pipeliniers_pipeline-incidents.git incidents`
+- Passez au répertoire des incidents : `cd incidents`
+- Installez les dépendances : `npm install`
+- Lancez le serveur de développement : `npm run start`
+- Dans votre navigateur, allez à la page [http://localhost:3001/pipeline-incidents]().
+
+## Développement en vue du déploiement
+
+La version de déploiement de l’application de visualisation des incidents est conçue pour être utilisée avec l'environnement hôte de l’Office et pourrait ne pas être d’un grand intérêt pour le public. Dans le dossier du projet, exécutez la commande suivante :
+
+- `npm run build`
+
+Une version de l’application à un seul fichier sera créée (`public/script/bundle.js`). Lorsque ce fichier est présent, le serveur de développement l’utilise de préférence au code sous `app/`.
+
+## Contactez-nous
+
+Nous sommes l’équipe de développement de VizworX qui a réalisé le projet pour le compte de l’Office. Nous ne sommes pas en mesure d’assurer un soutien complet du projet, mais vos questions et vos suggestions sont les bienvenues!
+
+* Patrick King, patrick.king@vizworx.com
+* Alaa Azazi, alaa.azazi@vizworx.com
+* Charlie Cheung, charlie.cheung@vizworx.com
+* Ben Cousins, ben.cousins@vizworx.com
+
+## Licence
+
+Toutes les composantes du projet sont visées par la [licence du gouvernement ouvert – Canada](http://ouvert.canada.ca/fr/licence-du-gouvernement-ouvert-canada).
+
+## Licence accordée par un tiers
+
+Police : Police Fira, en vertu de la licence de police de caractères libre (version 1.1)
+
+[Carte du Canada](http://www.arcgis.com/home/item.html?id=dcbcdf86939548af81efbd2d732336db) © 2003 Gouvernement du Canada, avec la permission de Ressources naturelles Canada
+
