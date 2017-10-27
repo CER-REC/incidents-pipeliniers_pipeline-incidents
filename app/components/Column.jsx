@@ -103,11 +103,11 @@ class Column extends React.Component {
 
     let currentY
     if (headingPieces.length === 1) {
-      currentY = WorkspaceComputations.topBarHeight() + 
-        Constants.get('columnHeadingLineOffset')
+      currentY = WorkspaceComputations.barHeading() 
     }
     else if  (headingPieces.length === 2) {
-      currentY = WorkspaceComputations.topBarHeight()
+      currentY = WorkspaceComputations.barHeading() -
+        Constants.get('columnHeadingLineOffset')
     }
     else {
       currentY = WorkspaceComputations.topBarHeight()
@@ -145,8 +145,8 @@ class Column extends React.Component {
       this.props.categories)
       .getIn(['columns', this.props.columnName])
 
-    let questionMarkY = WorkspaceComputations.topBarHeight() -
-      Constants.getIn(['questionMark', 'size']) / 2 + 
+    let questionMarkY = WorkspaceComputations.barHeading() -
+      Constants.getIn(['questionMark', 'size'])  - 
       Constants.getIn(['questionMark', 'yOffset'])
 
     const headingPieces = StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength', this.props.language]))
