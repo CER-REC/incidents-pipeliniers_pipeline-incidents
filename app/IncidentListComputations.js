@@ -1,5 +1,4 @@
 const MemoizeImmutable = require('memoize-immutable')
-// const Immutable = require('immutable')
 
 const Constants = require('./Constants.js')
 const WorkspaceComputations = require('./WorkspaceComputations.js')
