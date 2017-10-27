@@ -2,9 +2,11 @@ const History = require('history')
 
 
 
-function HistoryReducer (state = History.createBrowserHistory(), action) {
+function HistoryReducer (state = null, action) {
 
   switch(action.type) {
+  case 'SetupHistory':
+    return History.createBrowserHistory()
   case 'SetUrlFromString':
     state.push(`${location.pathname}${action.searchString}`)
     return state
