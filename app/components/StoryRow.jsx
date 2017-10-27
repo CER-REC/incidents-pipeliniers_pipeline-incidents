@@ -12,13 +12,19 @@ class StoryRow extends React.Component {
     return <div>
       <Story 
         id={Constants.getIn(['stories', this.props.rowName, 'leftStory'])} 
-        position='leftStory'/>
+        position='leftStory'
+        className = 'story'
+      />
       <Story 
         id={Constants.getIn(['stories', this.props.rowName, 'middleStory'])} 
-        position='middleStory'/>
+        position='middleStory'
+        className = 'story'
+      />
       <Story 
         id={Constants.getIn(['stories', this.props.rowName, 'rightStory'])}
-        position='rightStory'/>
+        position='rightStory'
+        className = 'story'
+      />
     </div>
   }
 }

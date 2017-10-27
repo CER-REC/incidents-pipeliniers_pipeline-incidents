@@ -15,6 +15,17 @@ require('./Header.scss')
 
 class Header extends React.Component {
   tellMeAStoryClick() {
+    this.tellMeAStoryAction()
+  }
+
+  tellMeAStoryKeyDown (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.tellMeAStoryAction()
+    }
+  }
+
+  tellMeAStoryAction() {
     const scrollOptions = {
       behavior: 'smooth', 
       block: 'start', 
@@ -22,7 +33,9 @@ class Header extends React.Component {
     }
     document.getElementById(Constants.get('storyBarID'))
       .scrollIntoView(scrollOptions)
+    document.querySelector('.story').focus() 
   }
+
 
   aboutThisProjectClick(e) {
     e.stopPropagation(e)
@@ -105,6 +118,10 @@ class Header extends React.Component {
             y = { Constants.getIn(['headerBar', 'tellMeAStoryHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             fontSize = { Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             onClick = { this.tellMeAStoryClick.bind(this) }
+            tabIndex = '0'
+            ariaLabel = { Tr.getIn(['tellMeAStory', this.props.language]) }
+            role = 'button'
+            onKeyDown = { this.tellMeAStoryKeyDown.bind(this) } 
           >{ Tr.getIn(['tellMeAStory', this.props.language]).toUpperCase() }</text>
           <text
             className = 'headerButtonLabel'
@@ -131,7 +148,7 @@ class Header extends React.Component {
         </g>
 
         <g transform = { transformButtons }>
-
+    
           <image 
             className = 'headerButton'
             height = {Constants.getIn(['socialBar', 'iconSize']) }
@@ -176,9 +193,12 @@ class Header extends React.Component {
 
 
   render() {
+    // TODO: ! Changing the order of leftHeading and rightButtons made the links on the heading
+    // elements unclickable! Need to reduce the size of the SVG tag containing right buttons so that
+    // it does not overlap with the left heading anymore.
     return <div className = 'headingContainer'>
-      { this.rightButtons() }
       { this.leftHeading() }
+      { this.rightButtons() }
     </div>
   }
 }

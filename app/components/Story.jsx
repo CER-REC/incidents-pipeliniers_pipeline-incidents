@@ -28,6 +28,7 @@ class Story extends React.Component {
       height: storyHeight,
     }
 
+    // NB: .story class on this div is used for accessibility purposes, see 'tell me a story' event handlers
     return <div 
       className='story'
       style={storyStyle}
