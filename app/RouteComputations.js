@@ -41,7 +41,7 @@ const RouteComputations = {
 
   // Returns a string to form the query params of the current URL, i.e.
   // everything from the ? on
-  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents, language) {
+  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents) {
 
     const params = {}
 
@@ -275,6 +275,22 @@ const RouteComputations = {
     }
     case 'production':
       return `${location.origin}/bitlyService/api/bitlyShortlink`
+    }
+
+  },
+
+  dataServiceEndpoint(location, language) {
+    const appRoot = RouteComputations.appRoot(location, language)
+
+    if (process.env.NODE_ENV === 'development') {
+      // In development, read from a local flat file.
+      // NB: At this writing, the contents of this file are a little out of date
+      return `${appRoot}data/2017-10-23 incidents.json`
+    }
+    else if (process.env.NODE_ENV === 'production') {
+      // When the web app is bundled for production (which includes the TEST 
+      // environment at NEB) use the local data service
+      return `${appRoot}incidentData`
     }
 
   }

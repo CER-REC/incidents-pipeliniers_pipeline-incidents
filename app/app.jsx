@@ -15,19 +15,22 @@ const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCr
 const PopupDismissedCreator = require('./actionCreators/PopupDismissedCreator.js')
 const SetUpAnalyticsCreator = require('./actionCreators/SetUpAnalyticsCreator.js')
 const AnalyticsReporter = require('./AnalyticsReporter.js')
+const SetupHistoryCreator = require('./actionCreators/SetupHistoryCreator.js')
 
 
 const store = Store()
+store.dispatch(SetupHistoryCreator())
 
-// Uncomment for debugging only.
-window.store = store
+if (process.env.NODE_ENV === 'development') {
+  window.store = store
+}
 
 
 let dataLoadPromise
 
 switch (Constants.get('dataMode')) {
 case 'dataService': 
-  dataLoadPromise = DataLoader.loadFromDataService(store)
+  dataLoadPromise = DataLoader.loadFromDataService(store, document.location)
   break
 case 'csvFile': 
   dataLoadPromise = DataLoader.loadDataCsv(store)

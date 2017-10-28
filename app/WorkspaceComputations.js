@@ -72,6 +72,9 @@ WorkspaceComputations.columnHeight = function (viewport) {
          Constants.get('workspaceBottomMargin')
 }
 
+WorkspaceComputations.barHeading = function () {
+  return Constants.getIn(['topBar', 'height']) + Constants.get('barHeadingSpacing')
+}
 
 // NB: this is the width of ordinary columns, not the map column
 // columns: the columns state
@@ -709,5 +712,4 @@ for (const name of Object.keys(WorkspaceComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(WorkspaceComputations[name])
 }
 
-window.wc = MemoizedComputations
 module.exports = MemoizedComputations

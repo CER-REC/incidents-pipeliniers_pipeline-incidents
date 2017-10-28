@@ -8,10 +8,6 @@ const IncidentComputations = require('../IncidentComputations.js')
 const StringComputations = require('../StringComputations.js')
 const ColumnTooltipSummonedCreator = require('../actionCreators/ColumnTooltipSummonedCreator.js')
 
-require('./IncidentListHeadings.scss')
-
-require('./IncidentListHeadings.scss')
-
 class IncidentListHeadings extends React.Component {
 
   incidentHeadingLabel() {
@@ -24,8 +20,8 @@ class IncidentListHeadings extends React.Component {
       this.props.categories
     ).get('pinColumn')
 
-    const y = WorkspaceComputations.topBarHeight() +
-      Constants.get('columnHeadingLineOffset') * 2
+    const y = WorkspaceComputations.barHeading() +
+      Constants.get('columnHeadingLineOffset')
 
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
@@ -56,7 +52,7 @@ class IncidentListHeadings extends React.Component {
 
     // TODO: This is replicating math found in Column.jsx for laying out 
     // text headings. We need to pull this into a computation file.
-    const y = WorkspaceComputations.columnY() 
+    const y = WorkspaceComputations.barSubheading(this.props.language) 
 
    
     const filteredData = IncidentComputations.filteredIncidents(
@@ -83,7 +79,10 @@ class IncidentListHeadings extends React.Component {
 
   // TODO: Find a way to unify this with the questionmark in Column
   questionMark() {
+    
+    // TODO: this is NOT an ordinary column! This is highly misleading.
     const columnName = 'pinColumn'
+
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -92,23 +91,18 @@ class IncidentListHeadings extends React.Component {
       this.props.categories
     ).get(columnName)
 
-    let isActive = 'inactive'
-    if(this.props.columnTooltip.get('isActive') &&
-      this.props.columnTooltip.get('columnName') === columnName) 
-      isActive = 'active'
 
     return <image 
       id='pinColumn-QuestionMark'
-      className={'questionMark ' + isActive}
+      className= 'questionMark'
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 
       x={columnMeasurements.get('x') + 
         StringComputations.questionMarkOffset(Tr.getIn(['columnHeadings', columnName, this.props.language]), 12)} 
-      y={WorkspaceComputations.topBarHeight() + 
-        Constants.get('columnHeadingLineOffset') - 
-        Constants.getIn(['questionMark', 'size']) / 2 + 
-        Constants.getIn(['questionMark', 'yOffset'])}
+      y={WorkspaceComputations.barHeading() -
+      Constants.getIn(['questionMark', 'size']) / 2 + 
+      Constants.getIn(['questionMark', 'yOffset'])}
       onClick={this.questionMarkClick.bind(this)}/>
   }
 

@@ -12,6 +12,7 @@ const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCr
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
 
+// TODO: remove the flat file parsing code once we are confident in the data service.
 
 function parseYesNo (value, record) {
   if (value === 'Yes' || value === 'yes' || value === '1') {
@@ -173,7 +174,7 @@ function csvColumnMapping (d) {
 
 
 // Returns a promise
-function afterLoad (store, data) {
+function afterLoad (store, data, location) {
 
   return new Promise( (resolve) => {
     store.dispatch(DataLoadedCreator(data))
@@ -187,7 +188,7 @@ function afterLoad (store, data) {
     store.dispatch(SetInitialCategoryStateCreator(categories))
 
     state = store.getState()
-    const routerState = RouteComputations.urlParamsToState(document.location, state.data, state.categories)
+    const routerState = RouteComputations.urlParamsToState(location, state.data, state.categories)
 
     store.dispatch(SetFromRouterStateCreator({
       columns: routerState.columns,
@@ -195,7 +196,7 @@ function afterLoad (store, data) {
       showEmptyCategories: routerState.showEmptyCategories,
       pinnedIncidents: routerState.pinnedIncidents,
       language: routerState.language,
-      screenshotMode: RouteComputations.screenshotMode(document.location)
+      screenshotMode: RouteComputations.screenshotMode(location)
     }))
 
     resolve()
@@ -364,7 +365,7 @@ function validateVolumeCategory(incident, errors) {
 function validateSystemComponentsInvolved (incident, schema, errors) {
   const wereComponentsInvolved = validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors)
 
-  if (incident.PipelineComponent_ID_LIST === null) {
+  if (incident.PipelineComponent_ID_LIST === '-1') {
     if (wereComponentsInvolved === true) {
       return ['unknown']
     }
@@ -409,7 +410,7 @@ const DataLoader = {
       .then(function (response) {
         const data = D3.csvParse(response.body.toString(), csvColumnMapping)
 
-        return afterLoad(store, data.reverse())
+        return afterLoad(store, data.reverse(), document.location)
 
       })
       .catch(function (error) {
@@ -421,9 +422,9 @@ const DataLoader = {
 
   // Load the application data from the data service.
   // Returns a promise
-  loadFromDataService (store) {
+  loadFromDataService (store, location) {
 
-    const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
+    const appRoot = RouteComputations.appRoot(location, store.getState().language)
 
     const schemaOptions = {
       uri: `${appRoot}data/CategorySchema.json`,
@@ -437,13 +438,9 @@ const DataLoader = {
         return schema
       })
 
+
     const dataOptions = {
-      // NB: This is configured to use the production data serivce, even in 
-      // development.
-      // As an alternative, we could download a snapshot of the service output
-      // and store it as a JSON file for offline use.
-      uri: `${appRoot}data/2017-10-17 2 incidents.json`,
-      // uri: 'https://apps2.neb-one.gc.ca/pipeline-incidents/incidentData',
+      uri: RouteComputations.dataServiceEndpoint(location, store.getState().language),
       json: true,
     }
 
@@ -484,7 +481,6 @@ const DataLoader = {
 
             werePipelineSystemComponentsInvolved: validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors),
 
-
             whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
             whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
 
@@ -492,13 +488,12 @@ const DataLoader = {
 
             pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
 
-            // TODO: below here: attributes which still have issues
+            volumeCategory: validateVolumeCategory(incident, errors),
 
-            // TODO: data not aggregated correctly yet ... 
             pipelineSystemComponentsInvolved: validateSystemComponentsInvolved( incident, schema, errors),
 
-            // TODO: Seems like we will not be provided this from the server
-            // volumeCategory: validateVolumeCategory(incident, errors),
+
+            originalData: incident,
           }
 
           if(errors.length > 0) {
@@ -514,10 +509,9 @@ const DataLoader = {
         }
 
         console.log('Incidents after validation', incidents.length)
-        return afterLoad(store, Immutable.fromJS(incidents).reverse())
+        return afterLoad(store, Immutable.fromJS(incidents).reverse(), location)
       })
       .catch(function (error) {
-        // TODO: something nicer than this ...
         throw error
       })
 
@@ -538,8 +532,6 @@ const DataLoader = {
 
 
 
-
-window.dl = DataLoader
 
 
 module.exports = DataLoader

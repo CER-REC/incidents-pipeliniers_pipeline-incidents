@@ -9,7 +9,7 @@ const Constants = Immutable.fromJS({
   // See: DataLoader.js, data/CategorySchema.json
   // TODO: might be good to make this a .env file option, or a URL param,
   // rather than hard coding it
-  dataMode: 'csvFile',
+  dataMode: 'dataService',
 
   storyBarID: 'storyBar',
 
@@ -111,8 +111,8 @@ const Constants = Immutable.fromJS({
   columnHeadingHeightFr: 30, 
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 45,
-  columnSubheadingPaddingEn: 2,
-  columnSubheadingPaddingFr: 3,
+  columnSubheadingPaddingEn: 3,
+  columnSubheadingPaddingFr: 4,
 
 
   dragArrow: {
@@ -388,7 +388,7 @@ const Constants = Immutable.fromJS({
   questionMark: {
     pixelsPerCharacter: 7.4,
     xOffset: 5,
-    yOffset: 3,
+    yOffset: 4,
     size: 16,
   },
 
@@ -417,6 +417,7 @@ const Constants = Immutable.fromJS({
   // The purpose of the bottom margin is to allow some space for the filterbox
   // to drop below
   workspaceBottomMargin: 20,
+  barHeadingSpacing: 25,
  
   appHost: 'https://apps2.neb-one.gc.ca',
 
