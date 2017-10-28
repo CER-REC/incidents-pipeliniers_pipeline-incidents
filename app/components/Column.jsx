@@ -402,8 +402,7 @@ class Column extends React.Component {
   }
 
   handleDragEnd(e) {
-    let columnDragAnalyticsAction = `${this.props.columnName + ' ' + 'dragged'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`, columnDragAnalyticsAction )
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`, `${this.props.columnName} dragged` )
     e.stopPropagation()
     e.preventDefault()
 
@@ -421,8 +420,7 @@ class Column extends React.Component {
   }
 
   handleTouchEnd(e) {
-    let columnTouchDragAnalyticsAction = `${this.props.columnName + ' ' + 'touch dragged'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`,columnTouchDragAnalyticsAction)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`,`${this.props.columnName} touch dragged`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -475,8 +473,7 @@ class Column extends React.Component {
   }
 
   handleSidebarDragEnd(e) {
-    let sidebarDragAnalyticsAction = `${this.props.columnName + ' ' + 'column added to workspace'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,sidebarDragAnalyticsAction)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,`${this.props.columnName} column added to workspace`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -494,8 +491,7 @@ class Column extends React.Component {
   }
 
   handleSidebarTouchEnd(e) {
-    let columnToWorkspaceTouchAnalyticsAction = `${this.props.columnName + ' ' + 'column touched to workspace'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,columnToWorkspaceTouchAnalyticsAction)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,`${this.props.columnName} column touched to workspace`)
     e.stopPropagation()
     e.preventDefault()
 

@@ -142,8 +142,7 @@ class Filterbox extends React.Component {
   }
 
   handleDragEnd(e) {
-    let categoryDragAction = `${this.props.columnName + ' ' + this.props.categoryName + ' ' + 'dragged'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`, categoryDragAction)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`, `${this.props.columnName} ${this.props.categoryName} dragged`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -208,8 +207,7 @@ class Filterbox extends React.Component {
   }
 
   handleTouchEnd(e) {
-    let categoryTouchDragAction = `${this.props.columnName + ' ' + this.props.categoryName + ' ' + 'touch dragged'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,categoryTouchDragAction)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} ${this.props.categoryName} touch dragged`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -253,20 +251,17 @@ class Filterbox extends React.Component {
   }
 
   onShowOnlyClick() {
-    let showOnlyAnalyticsAction = `${this.props.columnName + ' ' + this.props.categoryName + ' ' + 'only shown'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,showOnlyAnalyticsAction)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} ${this.props.categoryName} only shown`)
     this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
   }
 
   onHideClick() {
-    let hideAnalyticsAction = `${this.props.columnName + ' ' + this.props.categoryName + ' ' + 'hid'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,hideAnalyticsAction)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} ${this.props.categoryName} hid`)
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
 
   onResetClick() {
-    let resetAnalyticsAction = `${this.props.columnName + ' ' + 'reset'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,resetAnalyticsAction)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} reset`)
     this.props.onResetClick(this.props.columnName)
   }
 

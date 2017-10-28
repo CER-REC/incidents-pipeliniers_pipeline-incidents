@@ -32,7 +32,6 @@ class Category extends React.Component {
   }
 
   filterbox(currentY) {
-    let hoverFilterboxAnalyticsAction = `${this.props.columnName + ' ' + this.props.categoryName + ' ' + 'hovered'}`
     if (this.filterboxActive()) {
       return <g><Filterbox
         width = { this.props.width }
@@ -42,7 +41,7 @@ class Category extends React.Component {
       />
       </g>
     } else if (this.checkHoverState()) {
-      this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','category'])}`,  hoverFilterboxAnalyticsAction )
+      this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','category'])}`,  `${this.props.columnName} ${this.props.categoryName} hovered` )
       return <g><Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
@@ -108,8 +107,7 @@ class Category extends React.Component {
   }
 
   categoryLabelClick() {
-    let categorySelectAnalyticsAction = `${this.props.columnName + ' ' + this.props.categoryName + ' ' + 'selected/deselected'}`
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','category'])}`, categorySelectAnalyticsAction)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','category'])}`, `${this.props.columnName} ${this.props.categoryName} selected/deselected`)
     if (!this.props.enableCategoryHeadingClick) {
       return
     }
