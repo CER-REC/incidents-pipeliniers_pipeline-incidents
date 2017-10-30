@@ -41,8 +41,28 @@ The deployment build of the incident visualization is intended for use with the 
 
 This produces `public/script/bundle.js`, a single file version of the app. If this file is present, it is used pereferentially by the development server rather than the code under `app/`.
 
+## Contributors
+
+### Data Source
+
+Andrew Benson, Karen Duckworth, Randy Cooke
+
+### Coordination
+
+Annette Hester (Concept and Coordination); Katherine Murphy (Project Manager); Faiza Hussain (Administrative support); Stephen Chow (Data Coordination)
+
+### Data Visualization
+
+Lead Design Research: Sheelagh Carpendale and Wesley Willett, iLab, University of Calgary.
+
+Design: Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.
+
+### Lead Technical: Vizworx
+
+Technical: Patrick King, Alaa Azazi, Charlie Cheung, Abhishek Sharma, and Ben Cousins
 
 ## Contact Us
+
 We're the development team with VizworX who put this project together for the NEB. We aren't able to provide extensive support for this project, but you're welcome to reach out with questions and thoughts!
 
 * Patrick King - patrick.king@vizworx.com
@@ -102,6 +122,27 @@ La version de déploiement de l’application de visualisation des incidents est
 - `npm run build`
 
 Une version de l’application à un seul fichier sera créée (`public/script/bundle.js`). Lorsque ce fichier est présent, le serveur de développement l’utilise de préférence au code sous `app/`.
+
+## Les contributeurs
+
+### Source des données
+
+Andrew Benson, Karen Duckworth, Randy Cooke
+
+### Coordination
+
+Annette Hester (conception et coordination); Katherine Murphy (gestionnaire de projet); Faiza Hussain (Soutien administratif); Stephen Chow (coordination des données)
+
+### Visualisation des données
+
+Recherche conceptuelle sous la direction de Sheelagh Carpendale et Wesley Willett, iLab, Université de Calgary
+
+Conception : Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.
+
+### Chef technique à Vizworx
+
+Aspect technique : Patrick King, Alaa Azazi, Charlie Cheung, Abhishek Sharma, and Ben Cousins
+
 
 ## Contactez-nous
 
