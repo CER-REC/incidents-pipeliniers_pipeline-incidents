@@ -42,6 +42,13 @@ class IncidentListItem extends React.Component {
     }
   }
 
+  incidentItemKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.incidentItemClick()
+    }
+  }
+
   incidentStarClick(event) {
     // Don't propagate this click event to the parent list item.
     event.stopPropagation()
@@ -51,6 +58,13 @@ class IncidentListItem extends React.Component {
     }
     else {
       this.props.addToPinnedIncidents(this.props.incident)
+    }
+  }
+
+  incidentStarKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.incidentStarClick(event)
     }
   }
 
@@ -83,11 +97,17 @@ class IncidentListItem extends React.Component {
       onClick = { this.incidentItemClick.bind(this) }
       onMouseEnter = { this.mouseEnter.bind(this) }
       onMouseLeave = { this.mouseLeave.bind(this) }
+      tabIndex = '0'
+      role = 'button'
+      onKeyDown = { this.incidentItemKeyDown.bind(this) } 
     >
 
       <div 
         className = "starContainer"
         onClick = { this.incidentStarClick.bind(this) }
+        tabIndex = '0'
+        role = 'button'
+        onKeyDown = { this.incidentStarKeyDown.bind(this) } 
       >
         <img src = { this.starImage() } ></img>
       </div>

@@ -36,7 +36,6 @@ class Header extends React.Component {
     document.querySelector('.story').focus() 
   }
 
-
   aboutThisProjectClick(e) {
     e.stopPropagation(e)
     e.preventDefault(e)    
@@ -48,6 +47,13 @@ class Header extends React.Component {
     window.open(`${appRoot}${Tr.getIn(['methodologyLinks', this.props.language])}`)
   }
 
+  methodologyKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.methodologyClick()
+    }
+  }
+
   resetAllClick() {
     const categories = DefaultCategoryComputations.initialState(
       this.props.data,
@@ -55,6 +61,13 @@ class Header extends React.Component {
       this.props.language
     )
     this.props.resetVisualization(categories)
+  }
+
+  resetAllKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.resetAllClick()
+    }
   }
 
   disclaimerClick(event) {
@@ -119,7 +132,7 @@ class Header extends React.Component {
             fontSize = { Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             onClick = { this.tellMeAStoryClick.bind(this) }
             tabIndex = '0'
-            ariaLabel = { Tr.getIn(['tellMeAStory', this.props.language]) }
+            aria-label = { Tr.getIn(['tellMeAStory', this.props.language]) }
             role = 'button'
             onKeyDown = { this.tellMeAStoryKeyDown.bind(this) } 
           >{ Tr.getIn(['tellMeAStory', this.props.language]).toUpperCase() }</text>
@@ -136,6 +149,10 @@ class Header extends React.Component {
             y = { Constants.getIn(['headerBar', 'methodologyHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize']) }
             fontSize = { Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             onClick = { this.methodologyClick.bind(this) }
+            tabIndex = '0'
+            aria-label = { Tr.getIn(['methodology', this.props.language]) }
+            role = 'button'
+            onKeyDown = { this.methodologyKeyDown.bind(this) }
           >{ Tr.getIn(['methodology', this.props.language]).toUpperCase() }</text>
           <text
             className = 'headerButtonLabel'
@@ -143,6 +160,10 @@ class Header extends React.Component {
             y = { Constants.getIn(['headerBar', 'resetAllHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize']) }
             fontSize = { Constants.getIn(['headerBar', 'headerLabelFontSize'])}
             onClick = { this.resetAllClick.bind(this) }
+            tabIndex = '0'
+            aria-label = { Tr.getIn(['resetAll', this.props.language]) }
+            role = 'button'
+            onKeyDown = { this.resetAllKeyDown.bind(this) }
           >{ Tr.getIn(['resetAll', this.props.language]).toUpperCase() }</text>
 
         </g>

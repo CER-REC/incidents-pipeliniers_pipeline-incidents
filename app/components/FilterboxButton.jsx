@@ -11,7 +11,9 @@ class FilterboxButton extends React.Component {
     return <g
       className = 'filterBoxButton'
       onClick = { this.props.clickCallback }
+      onKeyDown = {this.props.keyDownCallback}
       transform = { transform }
+      tabIndex ='0'
     >
       <rect
         className = 'filterBoxRect'

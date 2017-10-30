@@ -47,6 +47,9 @@ class Filterbox extends React.Component {
         imageUrl = 'images/filter.svg'
         text = {Tr.getIn(['showOnly', this.props.language])}
         key = 'showOnly'
+        role = 'button'
+        ariaLabel = { Tr.getIn(['showOnly', this.props.language]) }
+        keyDownCallback = { this.onShowOnlyKeyDown.bind(this) } 
       />)
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
     }
@@ -59,6 +62,9 @@ class Filterbox extends React.Component {
         imageUrl = 'images/hide_(close).svg'
         text = {Tr.getIn(['hide', this.props.language])}
         key = 'hide'
+        role = 'button'
+        ariaLabel = { Tr.getIn(['hide', this.props.language]) }
+        keyDownCallback = { this.onHideKeyDown.bind(this) } 
       />)
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
     }
@@ -71,6 +77,9 @@ class Filterbox extends React.Component {
         imageUrl = 'images/reset_arrow.svg'
         text = {Tr.getIn(['reset', this.props.language])}
         key = 'reset'
+        role = 'button'
+        ariaLabel = { Tr.getIn(['reset', this.props.language]) }
+        keyDownCallback = { this.onResetKeyDown.bind(this) } 
       />)
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
     }
@@ -86,6 +95,8 @@ class Filterbox extends React.Component {
         y = '0'
         width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
         height = { this.buttonHeight() }
+        tabIndex = '0'
+        role = 'button'
       />
       <image 
         xlinkHref='images/vertical_drag.svg' 
@@ -252,12 +263,33 @@ class Filterbox extends React.Component {
     this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
   }
 
+  onShowOnlyKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.onShowOnlyClick()
+    }
+  }
+
   onHideClick() {
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
 
+  onHideKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.onHideClick()
+    }
+  }
+
   onResetClick() {
     this.props.onResetClick(this.props.columnName)
+  }
+
+  onResetKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.onResetClick()
+    }
   }
 
   render() {

@@ -53,15 +53,29 @@ class IncidentListShowHide extends React.Component {
     }
   }
 
+  showTextKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.props.onClick()
+    }
+  }
+
   render() {
     // this with the drag arrows. 
     const yTransform = WorkspaceComputations.dragArrowY(this.props.viewport) - Constants.getIn(['pinColumn', 'labelPadding'])
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
     return ( 
-      <g transform = {transformShowHide} onClick={this.props.onClick} className="emptyCategories"> 
-        {this.showImage()}
-        {this.showText()}
+      <g transform = {transformShowHide} onClick={this.props.onClick} className="emptyCategories">
+        <g
+          tabIndex = '0'
+          role = 'button'
+          onKeyDown = { this.showTextKeyDown.bind(this) }> 
+          {this.showText()}
+        </g>
+        <g>
+          {this.showImage()}
+        </g>
       </g>
     )
   }

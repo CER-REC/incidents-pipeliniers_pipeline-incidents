@@ -54,6 +54,13 @@ class EmptyCategories extends React.Component {
     }
   }
 
+  emptyCategoriesKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.props.onClick()
+    }
+  }
+
   dividerLine() {
     const transformDividerLine = `translate(${0},${Constants.getIn(['showHideEmptyCategories','dividerLinePadding'])})`
     return <g className="dividerLine" transform={transformDividerLine} >
@@ -72,11 +79,18 @@ class EmptyCategories extends React.Component {
     // TODO: adapt empty categories to use horizontalComputations
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
-    return ( 
+    return (
       <g transform = {transformShowHide} onClick={this.props.onClick}> 
-        {this.dividerLine()}
-        {this.checkbox()}
-        {this.showText()}
+        <g 
+          tabIndex = '0'
+          role = 'button'
+          onKeyDown = { this.emptyCategoriesKeyDown.bind(this) }> 
+          {this.showText()}
+        </g> 
+        <g >
+          {this.dividerLine()}
+          {this.checkbox()}
+        </g>
       </g>
     )
   }

@@ -64,11 +64,25 @@ class SocialBar extends React.Component {
     })
   }
 
+  emailKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.emailClick()
+    }
+  }
+
   facebookClick() {
     this.makeBitlyPromise().then(function(url){
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
       window.open(facebookUrl , 'targetWindow' , 'width=650,height=650') 
     })
+  }
+
+facebookKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.facebookClick()
+    }
   }
 
   linkedinClick() {
@@ -78,6 +92,13 @@ class SocialBar extends React.Component {
     })
   }
 
+  linkedinKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.linkedinClick()
+    }
+  }
+
   twitterClick() {
     this.makeBitlyPromise().then(function(url){
       const twitterUrl = `https://twitter.com/intent/tweet?url=${url}`
@@ -85,9 +106,24 @@ class SocialBar extends React.Component {
     })
   }
 
+  twitterKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.twitterClick()
+    }
+  }
+
   downloadFileClick() {
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
-    window.open(`${appRoot}data/2017-10-17 IncidentData.csv`, 'data:text/csv;charset=utf-8,data/' + escape())  }
+    window.open(`${appRoot}data/2017-10-17 IncidentData.csv`, 'data:text/csv;charset=utf-8,data/' + escape()) 
+  }
+
+  downloadFileKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.downloadFileClick()
+    }
+  }
 
   downloadImageClick() {
 
@@ -106,6 +142,13 @@ class SocialBar extends React.Component {
     const screenshotUrl = `${RouteComputations.screenshotOrigin(location)}/${Constants.get('screenshotPath')}/?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
 
     window.open(screenshotUrl) 
+  }
+
+  downloadImageKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.downloadImageClick()
+    }
   }
 
 
@@ -142,7 +185,10 @@ class SocialBar extends React.Component {
               y = {Constants.getIn(['socialBar', 'emailIconPadding'])}
               xlinkHref='images/email.svg'
               className="socialBarButton"
-              onClick = {this.emailClick.bind(this)}></image>
+              onClick = {this.emailClick.bind(this)}
+              tabIndex = '0'
+              role = 'button'
+              onKeyDown = { this.emailKeyDown.bind(this) }></image>
           </g>
           <g>
             <title>facebook</title>
@@ -152,7 +198,10 @@ class SocialBar extends React.Component {
               y = {Constants.getIn(['socialBar', 'facebookIconPadding'])}
               xlinkHref='images/facebook.svg'
               className="socialBarButton"
-              onClick = {this.facebookClick.bind(this) }></image>
+              onClick = {this.facebookClick.bind(this) }
+              tabIndex = '0'
+              role = 'button'
+              onKeyDown = { this.facebookKeyDown.bind(this) }></image>
           </g>
           <g>
             <title>linkedin</title>
@@ -162,7 +211,10 @@ class SocialBar extends React.Component {
               y = {Constants.getIn(['socialBar', 'linkedinIconPadding'])}
               xlinkHref='images/linkedin.svg'
               className="socialBarButton"
-              onClick = {this.linkedinClick.bind(this)}></image>
+              onClick = {this.linkedinClick.bind(this)}
+              tabIndex = '0'
+              role = 'button'
+              onKeyDown = { this.linkedinKeyDown.bind(this) }></image>
           </g>
           <g>
             <title>twitter</title>
@@ -172,7 +224,10 @@ class SocialBar extends React.Component {
               y = {Constants.getIn(['socialBar', 'twitterIconPadding'])}
               xlinkHref='images/twitter.svg'
               className="socialBarButton"
-              onClick = {this.twitterClick.bind(this)}></image>
+              onClick = {this.twitterClick.bind(this)}
+              tabIndex = '0'
+              role = 'button'
+              onKeyDown = { this.twitterKeyDown.bind(this) }></image>
           </g>
           <line x1={0} y1={Constants.getIn(['socialBar', 'dividerLine'])}
             x2={iconSize} y2={Constants.getIn(['socialBar', 'dividerLine'])}
@@ -185,7 +240,10 @@ class SocialBar extends React.Component {
               y = {Constants.getIn(['socialBar', 'downloadImageIconPadding'])}
               xlinkHref='images/download_image.svg'
               className="socialBarButton"
-              onClick = {this.downloadImageClick.bind(this)}></image>
+              onClick = {this.downloadImageClick.bind(this)}
+              tabIndex = '0'
+              role = 'button'
+              onKeyDown = { this.downloadImageKeyDown.bind(this) }></image>
           </g>
           <g>
             <title>download data file</title>
@@ -195,7 +253,10 @@ class SocialBar extends React.Component {
               y = {Constants.getIn(['socialBar', 'downloadIconPadding'])}
               xlinkHref='images/download_file.svg'
               className="socialBarButton"
-              onClick = {this.downloadFileClick.bind(this)}></image>
+              onClick = {this.downloadFileClick.bind(this)}
+              tabIndex = '0'
+              role = 'button'
+              onKeyDown = { this.downloadFileKeyDown.bind(this) }></image>
           </g>
         </g>
       </svg>
