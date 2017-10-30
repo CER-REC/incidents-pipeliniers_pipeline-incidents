@@ -41,6 +41,7 @@ class Category extends React.Component {
       />
       </g>
     } else if (this.checkHoverState()) {
+      this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','category'])}`,  `${this.props.columnName} ${this.props.categoryName} hovered` )
       return <g><Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
@@ -106,6 +107,7 @@ class Category extends React.Component {
   }
 
   categoryLabelClick() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','category'])}`, `${this.props.columnName} ${this.props.categoryName} selected/deselected`)
     if (!this.props.enableCategoryHeadingClick) {
       return
     }
@@ -304,6 +306,7 @@ const mapStateToProps = state => {
     categoryDragStatus: state.categoryDragStatus,
     columnDragStatus: state.columnDragStatus,
     schema: state.schema,
+    analytics: state.analytics,
   }
 }
 

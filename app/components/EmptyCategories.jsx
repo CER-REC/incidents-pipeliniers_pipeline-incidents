@@ -61,6 +61,13 @@ class EmptyCategories extends React.Component {
     </g>
   }
 
+  emptyCategoriesAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','emptyCategories'])}`,'Show/Hide Empty Categories')
+    this.props.onClick(
+      this.props.dividerLine,
+      this.props.checkbox,
+      this.props.showText)
+  }
 
   render() {
 
@@ -73,7 +80,7 @@ class EmptyCategories extends React.Component {
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
     return ( 
-      <g transform = {transformShowHide} onClick={this.props.onClick}> 
+      <g transform = {transformShowHide} onClick={this.emptyCategoriesAnalytics.bind(this)}> 
         {this.dividerLine()}
         {this.checkbox()}
         {this.showText()}
@@ -90,6 +97,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     language: state.language,
+    analytics: state.analytics,
   }
 }
 

@@ -1,26 +1,26 @@
 {
-	"folders":
-	[
-		{
-			"file_exclude_patterns":
-			[
-				"incident-visualization.sublime-workspace"
-			],
-			"folder_exclude_patterns":
-			[
-				"devPublic/themes-dist-4.0.20-theme-gcwu-fegc",
-				"devPublic/wet_NEB",
-				"dist",
-				"node_modules",
-			],
-			"path": "."
-		}
-	],
-	"settings":
-	{
+  "folders":
+  [
+    {
+      "file_exclude_patterns":
+      [
+        "incident-visualization.sublime-workspace"
+      ],
+      "folder_exclude_patterns":
+      [
+        "devPublic/themes-dist-4.0.20-theme-gcwu-fegc",
+        "devPublic/wet_NEB",
+        "dist",
+        "node_modules",
+      ],
+      "path": "."
+    }
+  ],
+  "settings":
+  {
     "rulers":
       [
         80
       ]
-	}
+  }
 }
