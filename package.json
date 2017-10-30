@@ -11,7 +11,7 @@
     "build": "node ./build.js"
   },
   "author": "Patrick King, Alaa Azazi, Charlie Cheung",
-  "license": "ISC",
+  "license": "Open Government Licence - Canada",
   "dependencies": {
     "ajv": "^5.2.2",
     "babel-cli": "^6.24.1",
