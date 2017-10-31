@@ -120,12 +120,18 @@ class Column extends React.Component {
         key={word}
         x={columnMeasurements.get('x')} 
         y={currentY}
+        tabIndex = '0'
+        role = 'button'
+        aria-grabbed = {this.ariaColumnGrabbedDragDrop()}
+        aria-dropeffect = {this.ariaColumnDragDropEffect()}
         onMouseDown={this.handleDragStart.bind(this)}
         onMouseMove={this.handleDragMove.bind(this)}
         onMouseUp={this.handleDragEnd.bind(this)}
         onTouchStart = { this.handleTouchStart.bind(this) }
         onTouchMove = { this.handleTouchMove.bind(this) }
         onTouchEnd = { this.handleTouchEnd.bind(this) }
+        onKeyDown = { this.columnDragKeyDown.bind(this) }
+        onKeyUp = {this.columnDragKeyUp.bind(this)}
       >
         {word}
       </tspan>
@@ -226,12 +232,18 @@ class Column extends React.Component {
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
       y= { dragArrowY }
+      tabIndex = '0'
+      role = 'button'
+      aria-grabbed = {this.ariaColumnGrabbedDragDrop()}
+      aria-dropeffect = {this.ariaColumnDragDropEffect()}
       onMouseDown={this.handleDragStart.bind(this)}
       onMouseMove={this.handleDragMove.bind(this)}
       onMouseUp={this.handleDragEnd.bind(this)}
       onTouchStart = { this.handleTouchStart.bind(this) }
       onTouchMove = { this.handleTouchMove.bind(this) }
       onTouchEnd = { this.handleTouchEnd.bind(this) }
+      onKeyDown = { this.columnDragKeyDown.bind(this) }
+      onKeyUp = {this.columnDragKeyUp.bind(this)}
     >
     </image>
   }
@@ -426,6 +438,38 @@ class Column extends React.Component {
 
   }
 
+  ariaColumnGrabbedDragDrop() {
+    if (this.dragKeyDown) {
+      return 'true'
+    } else if(this.dragKeyUp) {
+      return 'null'
+    } else {
+      return 'false'
+    }
+  }
+
+  ariaColumnDragDropEffect() {
+    if (this.dragKeyDown) {
+      return 'move'
+    } else {
+      return 'none'
+    }
+  }
+
+  columnDragKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.handleDragStart()
+    }
+  }
+
+  columnDragKeyUp(event) {
+    if (event.key === null || event.key === null) {
+      event.preventDefault()
+      this.handleDragEnd()
+    }
+  }
+
   handleSidebarDragStart(e) {
     e.stopPropagation()
     e.preventDefault()
@@ -512,6 +556,38 @@ class Column extends React.Component {
     if(!this.props.sidebarDragStatus.get('isStarted')) return
 
     this.props.onSidebarDrag(e.touches[0].clientX)
+  }
+
+  ariaSidebarGrabbedDragDrop() {
+    if (this.sidebarDragKeyDown) {
+      return 'true'
+    } else if(this.sidebarDragKeyUp) {
+      return 'null'
+    } else {
+      return 'false'
+    }
+  }
+
+  ariaSidebarDragDropEffect() {
+    if (this.sidebarDragKeyDown) {
+      return 'move'
+    } else {
+      return 'none'
+    }
+  }
+
+  sidebarDragKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.handleSidebarDragStart()
+    }
+  }
+
+  sidebarDragKeyUp(event) {
+    if (event.key === null || event.key === null) {
+      event.preventDefault()
+      this.handleSidebarDragEnd()
+    }
   }
 
   handleMouseEnter() {
@@ -611,7 +687,14 @@ class Column extends React.Component {
         x={ this.props.columnX }
         y={ this.props.columnY }
         fill='#1CD1C8'
-        stroke='#1CD1C8'></rect>
+        stroke='#1CD1C8'
+        tabIndex = '0'
+        role = 'button'
+        aria-grabbed = {this.ariaSidebarGrabbedDragDrop()}
+        aria-dropeffect = {this.ariaSidebarDragDropEffect()}
+        onKeyDown = { this.sidebarDragKeyDown.bind(this) }
+        onKeyUp = {this.sidebarDragKeyUp.bind(this)}
+      ></rect>
       <image
         xlinkHref='images/mapColumn.png' 
         height={ this.props.columnHeight - Constants.getIn(['sidebarMapColumn','heightPadding']) }
@@ -675,6 +758,12 @@ class Column extends React.Component {
         onTouchStart = { this.handleSidebarTouchStart.bind(this) }
         onTouchMove = { this.handleSidebarTouchMove.bind(this) }
         onTouchEnd = { this.handleSidebarTouchEnd.bind(this) }
+        tabIndex = '0'
+        role = 'button'
+        aria-grabbed = {this.ariaSidebarGrabbedDragDrop()}
+        aria-dropeffect = {this.ariaSidebarDragDropEffect()}
+        onKeyDown = { this.sidebarDragKeyDown.bind(this) }
+        onKeyUp = {this.sidebarDragKeyUp.bind(this)}
       >
         <g transform={this.sidebarColumnTransform()}>
           { this.sidebarShadow() }

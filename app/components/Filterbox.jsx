@@ -97,6 +97,10 @@ class Filterbox extends React.Component {
         height = { this.buttonHeight() }
         tabIndex = '0'
         role = 'button'
+        aria-grabbed = {this.ariaGrabbedDragDrop()}
+        aria-dropeffect = {this.ariaDragDropEffect()}
+        onKeyDown = { this.dragKeyDown.bind(this) }
+        onKeyUp = {this.dragKeyUp.bind(this)}
       />
       <image 
         xlinkHref='images/vertical_drag.svg' 
@@ -140,6 +144,38 @@ class Filterbox extends React.Component {
     categoryWindowEndHandler = this.handleDragEnd.bind(this)
     window.addEventListener('mouseup', categoryWindowEndHandler)
     window.addEventListener('mousemove', categoryWindowMoveHandler)
+  }
+
+  ariaGrabbedDragDrop() {
+    if (this.dragKeyDown) {
+      return 'true'
+    } else if(this.dragKeyUp) {
+      return 'null'
+    } else {
+      return 'false'
+    }
+  }
+
+  ariaDragDropEffect() {
+    if (this.dragKeyDown) {
+      return 'move'
+    } else {
+      return 'none'
+    }
+  }
+
+  dragKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.handleDragStart()
+    }
+  }
+
+  dragKeyUp(event) {
+    if (event.key !== 'Enter' || event.key !== ' ') {
+      event.preventDefault()
+      this.handleDragEnd()
+    }
   }
 
   handleDragMove(e) {

@@ -78,7 +78,7 @@ class SocialBar extends React.Component {
     })
   }
 
-facebookKeyDown(event) {
+  facebookKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       this.facebookClick()
@@ -187,6 +187,7 @@ facebookKeyDown(event) {
               className="socialBarButton"
               onClick = {this.emailClick.bind(this)}
               tabIndex = '0'
+              aria-label = 'email'
               role = 'button'
               onKeyDown = { this.emailKeyDown.bind(this) }></image>
           </g>
@@ -200,6 +201,7 @@ facebookKeyDown(event) {
               className="socialBarButton"
               onClick = {this.facebookClick.bind(this) }
               tabIndex = '0'
+              aria-label = 'facebook'
               role = 'button'
               onKeyDown = { this.facebookKeyDown.bind(this) }></image>
           </g>
@@ -213,6 +215,7 @@ facebookKeyDown(event) {
               className="socialBarButton"
               onClick = {this.linkedinClick.bind(this)}
               tabIndex = '0'
+              aria-label = 'linkedin'
               role = 'button'
               onKeyDown = { this.linkedinKeyDown.bind(this) }></image>
           </g>
@@ -226,6 +229,7 @@ facebookKeyDown(event) {
               className="socialBarButton"
               onClick = {this.twitterClick.bind(this)}
               tabIndex = '0'
+              aria-label = 'twitter'
               role = 'button'
               onKeyDown = { this.twitterKeyDown.bind(this) }></image>
           </g>
@@ -242,6 +246,7 @@ facebookKeyDown(event) {
               className="socialBarButton"
               onClick = {this.downloadImageClick.bind(this)}
               tabIndex = '0'
+              aria-label = 'download image'
               role = 'button'
               onKeyDown = { this.downloadImageKeyDown.bind(this) }></image>
           </g>
@@ -255,6 +260,7 @@ facebookKeyDown(event) {
               className="socialBarButton"
               onClick = {this.downloadFileClick.bind(this)}
               tabIndex = '0'
+              aria-label = 'download data file'
               role = 'button'
               onKeyDown = { this.downloadFileKeyDown.bind(this) }></image>
           </g>
