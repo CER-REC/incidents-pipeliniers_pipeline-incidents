@@ -179,15 +179,15 @@ class MapColumn extends React.Component {
 
   mapDragKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      this.handleDragStart()
+      event.preventDefault(event)
+      this.handleDragStart(event)
     }
   }
 
   mapDragKeyUp(event) {
     if (event.key === null || event.key === null) {
-      event.preventDefault()
-      this.handleDragEnd()
+      event.preventDefault(event)
+      this.handleDragEnd(event)
     }
   }
 

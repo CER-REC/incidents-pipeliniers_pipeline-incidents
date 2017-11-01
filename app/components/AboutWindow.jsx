@@ -16,17 +16,31 @@ class AboutWindow extends React.Component {
     this.props.onCloseButtonClicked()
   }
 
+  closeButtonKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'esc') {
+      event.preventDefault(event)
+      event.stopPropagation(event)
+      this.closeButtonClick(event)
+    }
+  }
+
   closeButton() {
     return <img
       className='closeButton'
       src='images/about_close.svg'
-      onClick={this.closeButtonClick.bind(this)}>
+      onClick={this.closeButtonClick.bind(this)}
+      tabIndex = '0'
+      aria-label = { 'closeButton'}
+      role = 'button'
+      onKeyDown = { this.closeButtonKeyDown.bind(this) } >
     </img>
   }
 
   heading() {
     return <p
-      className='aboutHeading'>
+      className='aboutHeading'
+      tabIndex = '0'
+      aria-label =  {Tr.getIn(['aboutText', 'title', this.props.language])}>
       {Tr.getIn(['aboutText', 'title', this.props.language])}
     </p>
   }

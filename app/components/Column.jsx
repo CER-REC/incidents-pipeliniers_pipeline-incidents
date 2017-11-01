@@ -439,9 +439,9 @@ class Column extends React.Component {
   }
 
   ariaColumnGrabbedDragDrop() {
-    if (this.dragKeyDown) {
+    if (this.columnDragKeyDown) {
       return 'true'
-    } else if(this.dragKeyUp) {
+    } else if(this.columnDragKeyUp) {
       return 'null'
     } else {
       return 'false'
@@ -449,7 +449,7 @@ class Column extends React.Component {
   }
 
   ariaColumnDragDropEffect() {
-    if (this.dragKeyDown) {
+    if (this.columnDragKeyDown) {
       return 'move'
     } else {
       return 'none'
@@ -457,15 +457,15 @@ class Column extends React.Component {
   }
 
   columnDragKeyDown(event) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      this.handleDragStart()
+    if (event.key === 'Right Arrow' || event.key === 'Left Arrow') {
+      event.preventDefault(event)
+      this.handleDragStart(event)
     }
   }
 
   columnDragKeyUp(event) {
     if (event.key === null || event.key === null) {
-      event.preventDefault()
+      event.preventDefault(event)
       this.handleDragEnd()
     }
   }
@@ -558,35 +558,10 @@ class Column extends React.Component {
     this.props.onSidebarDrag(e.touches[0].clientX)
   }
 
-  ariaSidebarGrabbedDragDrop() {
-    if (this.sidebarDragKeyDown) {
-      return 'true'
-    } else if(this.sidebarDragKeyUp) {
-      return 'null'
-    } else {
-      return 'false'
-    }
-  }
-
-  ariaSidebarDragDropEffect() {
-    if (this.sidebarDragKeyDown) {
-      return 'move'
-    } else {
-      return 'none'
-    }
-  }
-
-  sidebarDragKeyDown(event) {
+  sidebarKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      this.handleSidebarDragStart()
-    }
-  }
-
-  sidebarDragKeyUp(event) {
-    if (event.key === null || event.key === null) {
-      event.preventDefault()
-      this.handleSidebarDragEnd()
+      event.preventDefault(event)
+      this.handleMouseClick(event)
     }
   }
 
@@ -690,10 +665,7 @@ class Column extends React.Component {
         stroke='#1CD1C8'
         tabIndex = '0'
         role = 'button'
-        aria-grabbed = {this.ariaSidebarGrabbedDragDrop()}
-        aria-dropeffect = {this.ariaSidebarDragDropEffect()}
-        onKeyDown = { this.sidebarDragKeyDown.bind(this) }
-        onKeyUp = {this.sidebarDragKeyUp.bind(this)}
+        onKeyDown = { this.sidebarKeyDown.bind(this) }
       ></rect>
       <image
         xlinkHref='images/mapColumn.png' 
@@ -760,10 +732,7 @@ class Column extends React.Component {
         onTouchEnd = { this.handleSidebarTouchEnd.bind(this) }
         tabIndex = '0'
         role = 'button'
-        aria-grabbed = {this.ariaSidebarGrabbedDragDrop()}
-        aria-dropeffect = {this.ariaSidebarDragDropEffect()}
-        onKeyDown = { this.sidebarDragKeyDown.bind(this) }
-        onKeyUp = {this.sidebarDragKeyUp.bind(this)}
+        onKeyDown = { this.sidebarKeyDown.bind(this) }
       >
         <g transform={this.sidebarColumnTransform()}>
           { this.sidebarShadow() }

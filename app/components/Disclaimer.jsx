@@ -14,6 +14,13 @@ class Disclaimer extends React.Component {
     this.props.disclaimerDismissed()
   }
 
+  closeKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'esc') {
+      event.preventDefault()
+      this.closeButtonClick()
+    }
+  }
+
   windowStyle() {
     let disclaimerWidth = Constants.getIn(['disclaimer', 'windowMaxWidth'])
     if(disclaimerWidth / this.props.viewport.get('x') >= Constants.getIn(['disclaimer', 'disclaimerWorkspaceRatio'])) {
@@ -37,13 +44,21 @@ class Disclaimer extends React.Component {
     }
   }
 
+  focus() {
+    this.app.window.document.getElementById('dataDisclaimerWindow').focus()
+  }
+
   render() {
     // Only render when summoned.
     if(!this.props.disclaimer) return null
 
-    return <div 
+    return <div id='dataDisclaimerWindow'
       className='disclaimerWindow'
-      style={this.windowStyle()}>
+      style={this.windowStyle()}
+      tabIndex = '-1'
+      role = 'dialog'
+      aria-label = 'dataDisclaimer'
+      aria-activedescendant='dataDisclaimerWindow'>
       <p className='disclaimer star'>*</p>      
       <p className='disclaimer disclaimerText' style={this.textStyle()}>
         {Tr.getIn(['disclaimerText', this.props.language])}
@@ -51,7 +66,9 @@ class Disclaimer extends React.Component {
       <svg 
         width={Constants.getIn(['disclaimer', 'closeButtonRightMargin'])}
         height={Constants.getIn(['disclaimer', 'closeButtonSize']) + 
-          Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}>
+          Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}
+        tabIndex = '0' role = 'button' aria-label='close button' 
+        onKeyDown = {this.closeKeyDown.bind(this)}>
         <image 
           className='disclaimerCloseButton'
           width ={Constants.getIn(['disclaimer', 'closeButtonSize'])} 

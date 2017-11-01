@@ -166,15 +166,15 @@ class Filterbox extends React.Component {
 
   dragKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      this.handleDragStart()
+      event.preventDefault(event)
+      this.handleDragStart(event)
     }
   }
 
   dragKeyUp(event) {
     if (event.key !== 'Enter' || event.key !== ' ') {
-      event.preventDefault()
-      this.handleDragEnd()
+      event.preventDefault(event)
+      this.handleDragEnd(event)
     }
   }
 
