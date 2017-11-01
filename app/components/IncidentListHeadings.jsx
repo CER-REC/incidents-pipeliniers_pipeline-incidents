@@ -26,7 +26,9 @@ class IncidentListHeadings extends React.Component {
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
     return <tspan className='incidentsHeading' 
-      x = { columnMeasurements.get('x') }
+      x = { columnMeasurements.get('x') + 
+            Constants.getIn(['questionMark', 'size']) +
+            Constants.get('columnHeadingXOffset')}
       y = { y }
     >INCIDENTS</tspan>
 
@@ -98,10 +100,9 @@ class IncidentListHeadings extends React.Component {
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 
-      x={columnMeasurements.get('x') + 
-        StringComputations.questionMarkOffset(Tr.getIn(['columnHeadings', columnName, this.props.language]), 12)} 
+      x={columnMeasurements.get('x')} 
       y={WorkspaceComputations.barHeading() -
-      Constants.getIn(['questionMark', 'size']) / 2 + 
+      Constants.getIn(['questionMark', 'size'])/10 + 
       Constants.getIn(['questionMark', 'yOffset'])}
       onClick={this.questionMarkClick.bind(this)}/>
   }
