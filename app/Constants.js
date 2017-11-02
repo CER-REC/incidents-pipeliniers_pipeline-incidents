@@ -100,6 +100,7 @@ const Constants = Immutable.fromJS({
     showIncidentListXY: -2,
     starredListPadding: 5,
     incidentListPadding: 2,
+    incidentListPaddingNoStarredItems:6,
   },
 
   columnWideWidth: 62,
