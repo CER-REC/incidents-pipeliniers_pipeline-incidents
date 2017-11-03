@@ -28,7 +28,7 @@ class IncidentListHeadings extends React.Component {
     return <tspan className='incidentsHeading' 
       x = { columnMeasurements.get('x') + 
             Constants.getIn(['questionMark', 'size']) +
-            Constants.get('columnHeadingXOffset')}
+            Constants.get('columnHeadingXOffset') + Constants.get('columnHeadingLeftPadding')}
       y = { y }
     >INCIDENTS</tspan>
 
@@ -100,7 +100,7 @@ class IncidentListHeadings extends React.Component {
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 
-      x={columnMeasurements.get('x')} 
+      x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftPadding')} 
       y={WorkspaceComputations.barHeading() -
       Constants.getIn(['questionMark', 'size'])/10 + 
       Constants.getIn(['questionMark', 'yOffset'])}

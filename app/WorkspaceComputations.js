@@ -29,10 +29,7 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
 
   // Update the horizontal coordinate with the label + question
   // mark icon sizes.
-  x += StringComputations.questionMarkOffset(
-    TranslationTable.getIn(['columnHeadings', columnTooltip.get('columnName'), language]), 
-    12) + 
-    (Constants.getIn(['questionMark', 'size']) / 2)
+  x += Constants.getIn(['questionMark', 'size']) / 2
 
   // Align the horizontal coordinate to avoid extending the tooltip
   // beyond the workspace width.
