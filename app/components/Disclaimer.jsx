@@ -45,7 +45,7 @@ class Disclaimer extends React.Component {
   }
 
   focus() {
-    this.app.window.document.getElementById('dataDisclaimerWindow').focus()
+    return this.app.window.getElementById('dataDisclaimerWindow').focus()
   }
 
   render() {
@@ -57,8 +57,7 @@ class Disclaimer extends React.Component {
       style={this.windowStyle()}
       tabIndex = '-1'
       role = 'dialog'
-      aria-label = 'dataDisclaimer'
-      aria-activedescendant='dataDisclaimerWindow'>
+      aria-label= 'dataDisclaimerWindow'>
       <p className='disclaimer star'>*</p>      
       <p className='disclaimer disclaimerText' style={this.textStyle()}>
         {Tr.getIn(['disclaimerText', this.props.language])}
@@ -66,15 +65,16 @@ class Disclaimer extends React.Component {
       <svg 
         width={Constants.getIn(['disclaimer', 'closeButtonRightMargin'])}
         height={Constants.getIn(['disclaimer', 'closeButtonSize']) + 
-          Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}
-        tabIndex = '0' role = 'button' aria-label='close button' 
-        onKeyDown = {this.closeKeyDown.bind(this)}>
+          Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}>
         <image 
           className='disclaimerCloseButton'
           width ={Constants.getIn(['disclaimer', 'closeButtonSize'])} 
           height = {Constants.getIn(['disclaimer', 'closeButtonSize'])}
           y={Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}
           onClick = { this.closeButtonClick.bind(this) }
+          aria-labelledby='dataDisclaimerWindow'
+          tabIndex = '0' role = 'button' aria-label='close button' 
+          onKeyDown = {this.closeKeyDown.bind(this)}
           xlinkHref = 'images/close-2.svg'>
         </image>
       </svg>

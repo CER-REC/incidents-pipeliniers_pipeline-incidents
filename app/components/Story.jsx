@@ -17,6 +17,13 @@ class Story extends React.Component {
     this.props.onStoryClicked(this.props.id)
   }
 
+  storyKeyDown(event) {
+    if(event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.storyClicked(event)
+    }
+  }
+
   render() {
     const storyWidth = this.props.viewport.get('x') * 
       Constants.getIn(['storyThumbnailDimensions', 'widthPercentage'])
@@ -33,7 +40,11 @@ class Story extends React.Component {
       className='story'
       style={storyStyle}
       id={this.props.position}
-      onClick = { this.storyClicked.bind(this) }>
+      onClick = { this.storyClicked.bind(this) }
+      tabIndex = '0'
+      role = 'button'
+      aria-label = {Tr.getIn(['stories', this.props.id, 'backgroundImage', this.props.language])}
+      onKeyDown = {this.storyKeyDown.bind(this)} >
       <svg
         width='100%'
         height={storyHeight - 

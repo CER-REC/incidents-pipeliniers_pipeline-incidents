@@ -34,6 +34,13 @@ class StoryWindow extends React.Component {
     this.props.onCloseButtonClicked()
   }
 
+  closeButtonKeyDown(event) {
+    if(event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.closeButtonClick(event)
+    }
+  }
+
   nextButtonClick(e) {
     e.stopPropagation()
     e.preventDefault()
@@ -48,6 +55,13 @@ class StoryWindow extends React.Component {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     this.props.onPreviousTutorialImageClick(imageList.length)
+  }
+
+  tutorialImageKeyDown(event) {
+    if(event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.tutorialImageClicked(event)
+    }
   }
 
   tutorialImageClicked(e) {
@@ -104,7 +118,11 @@ class StoryWindow extends React.Component {
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       x={StoryComputations.storyCloseButtonX(this.props.viewport)}
       y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
-      onClick = {this.closeButtonClick.bind(this)}/>
+      onClick = {this.closeButtonClick.bind(this)}
+      tabIndex = '0'
+      role = 'button'
+      aria-label = 'storyCloseButton'
+      onKeyDown = {this.closeButtonKeyDown.bind(this)}/>
   }
 
   leftArrow(currentImageIndex) {
@@ -146,7 +164,11 @@ class StoryWindow extends React.Component {
       y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
         Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       xlinkHref={imageList[currentImageIndex]}
-      onClick={this.tutorialImageClicked.bind(this)}/>
+      onClick={this.tutorialImageClicked.bind(this)}
+      tabIndex = '0'
+      role = 'button'
+      aria-label = 'explore story'
+      onKeyDown = {this.tutorialImageKeyDown.bind(this)}/>
   }
 
   render() {

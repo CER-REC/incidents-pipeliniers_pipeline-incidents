@@ -457,7 +457,7 @@ class Column extends React.Component {
   }
 
   columnDragKeyDown(event) {
-    if (event.key === 'Right Arrow' || event.key === 'Left Arrow') {
+    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
       event.preventDefault(event)
       this.handleDragStart(event)
     }
