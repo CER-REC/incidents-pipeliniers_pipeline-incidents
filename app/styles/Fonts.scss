@@ -16,30 +16,21 @@
 }
 
 @font-face {
-  font-family: "FiraSansExtraCondensed";
-  src:url("fonts/FiraSansCompressed-Regular.eot");
-  src:url("fonts/FiraSansCompressed-Regular.eot") format("eot"),
-      url("fonts/FiraSansCompressed-Regular.woff2") format("woff2"),
-      url("fonts/FiraSansCompressed-Regular.woff") format("woff"),
-      url("fonts/FiraSansCompressed-Regular.ttf") format("truetype");
+  font-family: "FiraSansCondensedMedium";
+  src:url("fonts/FiraSansCondensed-Medium.eot");
+  src:url("fonts/FiraSansCondensed-Medium.eot") format("eot"),
+      url("fonts/FiraSansCondensed-Medium.woff2") format("woff2"),
+      url("fonts/FiraSansCondensed-Medium.woff") format("woff"),
+      url("fonts/FiraSansCondensed-Medium.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "FiraSansExtraCondensedMedium";
-  src:url("fonts/FiraSansCompressed-Medium.eot");
-  src:url("fonts/FiraSansCompressed-Medium.eot") format("eot"),
-      url("fonts/FiraSansCompressed-Medium.woff2") format("woff2"),
-      url("fonts/FiraSansCompressed-Medium.woff") format("woff"),
-      url("fonts/FiraSansCompressed-Medium.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "FiraSansExtraCondensedSemibold";
-  src:url("fonts/FiraSansCompressed-SemiBold.eot");
-  src:url("fonts/FiraSansCompressed-SemiBold.eot") format("eot"),
-      url("fonts/FiraSansCompressed-SemiBold.woff2") format("woff2"),
-      url("fonts/FiraSansCompressed-SemiBold.woff") format("woff"),
-      url("fonts/FiraSansCompressed-SemiBold.ttf") format("truetype");
+  font-family: "FiraSansCondensedSemibold";
+  src:url("fonts/FiraSansCondensed-SemiBold.eot");
+  src:url("fonts/FiraSansCondensed-SemiBold.eot") format("eot"),
+      url("fonts/FiraSansCondensed-SemiBold.woff2") format("woff2"),
+      url("fonts/FiraSansCondensed-SemiBold.woff") format("woff"),
+      url("fonts/FiraSansCondensed-SemiBold.ttf") format("truetype");
 }
 
 
@@ -48,7 +39,7 @@
 // are applied to heading elements.
 .workspace .heading#incidentVisualizationHeading,
 .screenshotWorkspace .heading#incidentVisualizationHeading {
-  font-family: $fira-sans-extra-condensed-semibold;
+  font-family: $fira-sans-condensed-semibold;
   font-size: 22px;
   fill: $black;
   margin: 0.5em 0 0 0;
@@ -61,7 +52,7 @@
 
 //subheading and incident popover text
 .subpop {
-  font-family: $fira-sans-extra-condensed;
+  font-family: $fira-sans-condensed;
   font-size: 12px;
   fill: $black;
   margin: 0.5em 0 0 0;
@@ -70,7 +61,7 @@
 
 //subheading and incident popover text
 .disclaimer {
-  font-family: $fira-sans-extra-condensed;
+  font-family: $fira-sans-condensed;
   font-size: 12px;
   fill: $black;
   margin: 0 0 0 0;
@@ -78,77 +69,77 @@
 }
 
 .activeCategoryLabels {
-  font-family: $fira-sans-extra-condensed-medium;
+  font-family: $fira-sans-condensed-medium;
   font-size: 13px;
   fill: $black;
   text-align: left;
 }
 
 .inactiveCategoryLabels {
-  font-family: $fira-sans-extra-condensed-medium;
+  font-family: $fira-sans-condensed-medium;
   fill: $dark-grey;
   font-size: 13px;
   text-align: left;
 }
 
 .barsHeading, .incidentsHeading {
-  font-family: $fira-sans-extra-condensed-semibold;
+  font-family: $fira-sans-condensed-semibold;
   font-size: 15px;
   fill: $black;
   text-align: left;
 }
 
 .barsSubHeading {
-  font-family: $fira-sans-extra-condensed;
+  font-family: $fira-sans-condensed;
   font-size: 13px;
   fill: $black;
   text-align: left;
 }
 
 .headerButtonLabel {
-  font-family: $fira-sans-extra-condensed-semibold;
+  font-family: $fira-sans-condensed-semibold;
   // NB: fontSize set via constants, to stay consistent with other measurements
   text-align: left;
   fill: $socialBarBackground;
 }
 
 .sidebars {
-  font-family: $fira-sans-extra-condensed-semibold;
+  font-family: $fira-sans-condensed-semibold;
   font-size: 14px;
   text-align: left;
   fill: $white;
 }
 
 .emptyCategories {
-  font-family: $fira-sans-light;
+  font-family: $fira-sans-condensed;
   font-size: 12px;
   text-align: center;
   color: $black;
 }
 
 .filterBox {
-  font-family: $fira-sans-extra-condensed;
+  font-family: $fira-sans-condensed;
   font-size: 10.5px;
   text-align:left;
   color: $near-black;
 }
 
 .storiesHeading {
-  font-family: $fira-sans-extra-condensed;
+  font-family: $fira-sans-condensed;
   font-size: 18px;
   text-align: center;
   color: $black;
 }
 
 .storiesTitle {
-  font-family: $fira-sans-light;
+  font-family: $fira-sans-condensed;
   font-size: 20px;
   color: $black;
   line-height: 1.5;
 }
 
 .PopupHeading {
-  font-family: $fira-sans-extra-condensed-medium;
+  font-family: $fira-sans-condensed-medium;
   font-size: 13px;
   fill: $black;
   margin: 5px 0 0 10px;
@@ -159,7 +150,7 @@
 }
 
 .PopupOverview {
-  font-family: $fira-sans-extra-condensed-medium;
+  font-family: $fira-sans-condensed-medium;
   font-size: 12px;
   fill: $black;
   margin: -3px 0 0 10px;
@@ -170,13 +161,13 @@
 }
 
 .PopupPlusSign {
-  font-family: $fira-sans-light;
+  font-family: $fira-sans-condensed;
   font-size: 20px;
   color: $black;
 }
 
 .PopupText {
-  font-family: $fira-sans-extra-condensed;
+  font-family: $fira-sans-condensed;
   font-size: 12px;
   color: $black;
   line-height: 1.5;
@@ -186,12 +177,12 @@
 }
 
 .PopupText.active {
-  font-family: $fira-sans-extra-condensed-medium;
+  font-family: $fira-sans-condensed-medium;
   margin-bottom: 10px;
 }
 
 .PopupDetailText {
-  font-family: $fira-sans-extra-condensed;
+  font-family: $fira-sans-condensed;
   font-size: 12px;
   color: $black;
   display: block;
@@ -200,7 +191,7 @@
 }
 
 .aboutHeading {
-  font-family: $fira-sans-extra-condensed;
+  font-family: $fira-sans-condensed;
   font-size: 18px;
   text-align: left;
   text-transform: uppercase;
@@ -211,7 +202,7 @@
 }
 
 .aboutSubHeading {
-  font-family: $fira-sans-extra-condensed;
+  font-family: $fira-sans-condensed;
   font-size: 18px;
   text-align: left;
   text-transform: uppercase;
@@ -221,7 +212,7 @@
 }
 
 .aboutContent {
-  font-family: $fira-sans-light;
+  font-family: $fira-sans-condensed;
   padding-left: 10px;
   padding-right: 10px;
   font-size: 12px;
