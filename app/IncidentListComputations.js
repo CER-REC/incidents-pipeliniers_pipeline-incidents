@@ -70,7 +70,11 @@ const IncidentListComputations = {
       columns, 
       categories, 
       pinnedIncidents) 
-    maxHeight = maxHeight - (Constants.getIn(['pinColumn','columnHeightPadding']) * Constants.getIn(['pinColumn','incidentListPadding']))
+    let padding = Constants.getIn(['pinColumn','incidentListPadding'])
+    if(pinnedIncidents.count() === 0){
+      padding = Constants.getIn(['pinColumn','incidentListPaddingNoStarredItems'])
+    } 
+    maxHeight = maxHeight - (Constants.getIn(['pinColumn','columnHeightPadding']) * padding)
 
 
     return maxHeight
