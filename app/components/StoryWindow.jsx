@@ -57,13 +57,6 @@ class StoryWindow extends React.Component {
     this.props.onPreviousTutorialImageClick(imageList.length)
   }
 
-  tutorialImageKeyDown(event) {
-    if(event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault()
-      this.tutorialImageClicked(event)
-    }
-  }
-
   tutorialImageClicked(e) {
     // Only listen to clicks if this is the last image
     // in the tutorial.
@@ -164,11 +157,7 @@ class StoryWindow extends React.Component {
       y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
         Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       xlinkHref={imageList[currentImageIndex]}
-      onClick={this.tutorialImageClicked.bind(this)}
-      tabIndex = '0'
-      role = 'button'
-      aria-label = 'explore story'
-      onKeyDown = {this.tutorialImageKeyDown.bind(this)}/>
+      onClick={this.tutorialImageClicked.bind(this)}/>
   }
 
   render() {

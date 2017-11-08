@@ -130,8 +130,8 @@ class Column extends React.Component {
         onTouchStart = { this.handleTouchStart.bind(this) }
         onTouchMove = { this.handleTouchMove.bind(this) }
         onTouchEnd = { this.handleTouchEnd.bind(this) }
-        onKeyDown = { this.columnDragKeyDown.bind(this) }
-        onKeyUp = {this.columnDragKeyUp.bind(this)}
+        // onKeyDown = { this.columnDragKeyDown.bind(this) }
+        // onKeyUp = {this.columnDragKeyUp.bind(this)}
       >
         {word}
       </tspan>
@@ -242,8 +242,8 @@ class Column extends React.Component {
       onTouchStart = { this.handleTouchStart.bind(this) }
       onTouchMove = { this.handleTouchMove.bind(this) }
       onTouchEnd = { this.handleTouchEnd.bind(this) }
-      onKeyDown = { this.columnDragKeyDown.bind(this) }
-      onKeyUp = {this.columnDragKeyUp.bind(this)}
+      // onKeyDown = { this.columnDragKeyDown.bind(this) }
+      // onKeyUp = {this.columnDragKeyUp.bind(this)}
     >
     </image>
   }
@@ -665,7 +665,7 @@ class Column extends React.Component {
         stroke='#1CD1C8'
         tabIndex = '0'
         role = 'button'
-        onKeyDown = { this.sidebarKeyDown.bind(this) }
+        //onKeyDown = { this.sidebarKeyDown.bind(this) }
       ></rect>
       <image
         xlinkHref='images/mapColumn.png' 
@@ -732,7 +732,7 @@ class Column extends React.Component {
         onTouchEnd = { this.handleSidebarTouchEnd.bind(this) }
         tabIndex = '0'
         role = 'button'
-        onKeyDown = { this.sidebarKeyDown.bind(this) }
+        //onKeyDown = { this.sidebarKeyDown.bind(this) }
       >
         <g transform={this.sidebarColumnTransform()}>
           { this.sidebarShadow() }
