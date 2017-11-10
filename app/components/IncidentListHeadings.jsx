@@ -93,6 +93,11 @@ class IncidentListHeadings extends React.Component {
       this.props.categories
     ).get(columnName)
 
+    let questionMarkY = WorkspaceComputations.barHeading() -
+      Constants.getIn(['questionMark', 'size']) + 
+      Constants.getIn(['questionMark', 'yOffset'])+
+      Constants.getIn(['pinColumn','questionMarkXOffset'])
+
 
     return <image 
       id='pinColumn-QuestionMark'
@@ -101,9 +106,7 @@ class IncidentListHeadings extends React.Component {
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 
       x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftPadding')} 
-      y={WorkspaceComputations.barHeading() -
-      Constants.getIn(['questionMark', 'size'])/10 + 
-      Constants.getIn(['questionMark', 'yOffset'])}
+      y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}/>
   }
 

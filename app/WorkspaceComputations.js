@@ -21,7 +21,7 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
   let x = 0
   switch(columnTooltip.get('columnName')) {
   case 'pinColumn': 
-    x = columnMeasurements.get('pinColumn').get('x')
+    x = columnMeasurements.get('pinColumn').get('x') + Constants.getIn(['pinColumn', 'columnToolTipXOffset'])
     break
   default:
     x = columnMeasurements.getIn(['columns', columnTooltip.get('columnName')]).get('x')
@@ -29,7 +29,7 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
 
   // Update the horizontal coordinate with the label + question
   // mark icon sizes.
-  x += Constants.getIn(['questionMark', 'size']) / 2
+  x += Constants.getIn(['questionMark', 'size'])
 
   // Align the horizontal coordinate to avoid extending the tooltip
   // beyond the workspace width.
