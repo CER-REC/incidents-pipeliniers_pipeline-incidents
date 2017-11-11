@@ -148,6 +148,15 @@ const RouteComputations = {
       let remainingCategories = categoryVisibility
 
       candidateCategoryNames.forEach( candidateCategoryName => {
+
+        // Years are represented as integers in the categories structure, but
+        // are read as strings from the URL bar.
+        // TODO: Change years to be internally represented as strings,
+        // like every other category type
+        if (columnName === 'year') {
+          candidateCategoryName = parseInt(candidateCategoryName)
+        }
+
         if (typeof categoryVisibility.get(candidateCategoryName) !== 'undefined') {
 
           workingCategories = workingCategories.set(candidateCategoryName, true)
