@@ -53,13 +53,20 @@ class IncidentListShowHide extends React.Component {
     }
   }
 
+  incidentListShowHideAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,'Show/Hide Incident List')
+    this.props.onClick(
+      this.props.showImage,
+      this.props.showText)
+  }
+
   render() {
     // this with the drag arrows. 
     const yTransform = WorkspaceComputations.dragArrowY(this.props.viewport) - Constants.getIn(['pinColumn', 'labelPadding'])
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
     return ( 
-      <g transform = {transformShowHide} onClick={this.props.onClick} className="emptyCategories"> 
+      <g transform = {transformShowHide} onClick={this.incidentListShowHideAnalytics.bind(this)} className="emptyCategories"> 
         {this.showImage()}
         {this.showText()}
       </g>
@@ -72,6 +79,7 @@ const mapStateToProps = state => {
     viewport: state.viewport,
     language: state.language,
     showIncidentList: state.showIncidentList,
+    analytics: state.analytics,
   }
 }
 

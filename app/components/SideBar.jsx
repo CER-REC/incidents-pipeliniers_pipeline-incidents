@@ -43,6 +43,7 @@ class Sidebar extends React.Component {
         // Handle sidebar column hover by offseting its position
         // by the sidebar column hover offset.
         if(this.props.sidebarColumnHover === columnName) {
+          this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`, `${columnName} column hovered`)
           columnX += Constants.getIn(['sidebar', 'columnHoverOffset'])
         }
         const columnY = ((index-1) * 
@@ -76,6 +77,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     sidebarColumnHover: state.sidebarColumnHover,
+    analytics: state.analytics,
   }
 }
 

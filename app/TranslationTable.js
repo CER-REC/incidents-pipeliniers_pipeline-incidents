@@ -125,9 +125,11 @@ const TranslationTable = Immutable.fromJS({
           'images/stories/the-basics-of-incident-visualization-4-FR.jpg',
         ],
       },
+      // TODO: Change story mode configs to no longer store configuration as
+      // URLs. Store configuration that we would like to change to instead.
       config: {
-        en: '?columns=province,year&province=NS,PE,NB,NL,MB,NT,ON,YT,AB,NU,SK,BC,QC&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008&language=en',
-        fr: '?columns=province,year&province=NS,PE,NB,NL,MB,NT,ON,YT,AB,NU,SK,BC,QC&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008&language=fr',
+        en: '?columns=province,year&province=7,10,4,5,3,6,9,13,1,8,12,2,11&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008',
+        fr: '?columns=province,year&province=7,10,4,5,3,6,9,13,1,8,12,2,11&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008',
       },
     },
     'getting-the-big-picture': {
@@ -154,8 +156,8 @@ const TranslationTable = Immutable.fromJS({
         ],
       },
       config: {
-        en: '?columns=map,releaseType,incidentTypes&releaseType=gas,notApplicable,liquid,miscellaneous&incidentTypes=release,fire,obdl,seriousInjury,environmentalEffects,explosion,fatality&map=&language=en',
-        fr: '?columns=map,releaseType,incidentTypes&releaseType=gas,notApplicable,liquid,miscellaneous&incidentTypes=release,fire,obdl,seriousInjury,environmentalEffects,explosion,fatality&map=&language=fr',
+        en: '?columns=map,releaseType,incidentTypes&releaseType=Gas,Not applicable,Liquid,Miscellaneous&incidentTypes=8,7,9,5,10,6,4&map=',
+        fr: '?columns=map,releaseType,incidentTypes&releaseType=Gas,Not applicable,Liquid,Miscellaneous&incidentTypes=8,7,9,5,10,6,4&map=',
       },
     },
     'adding-columns-to-dig-deeper': {
@@ -182,8 +184,8 @@ const TranslationTable = Immutable.fromJS({
         ],
       },
       config: {
-        en: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=externalInterference&incidentTypes=fire&whyItHappened=maintenance,engineeringAndPlanning,standardsAndProcedures,humanFactors,toolsAndEquipment,inadequateSupervision,tbd,failureInCommunication,naturalOrEnvironmentalForces,inadequateProcurement&pinnedIncidents=INC2008-084,INC2008-123&language=en',
-        fr: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=externalInterference&incidentTypes=fire&whyItHappened=maintenance,engineeringAndPlanning,standardsAndProcedures,humanFactors,toolsAndEquipment,inadequateSupervision,tbd,failureInCommunication,naturalOrEnvironmentalForces,inadequateProcurement&pinnedIncidents=INC2008-084,INC2008-123&language=fr',
+        en: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=4&incidentTypes=7&whyItHappened=12,7,15,9,16,11,-1,8,13,10&pinnedIncidents=INC2008-084,INC2008-123',
+        fr: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=4&incidentTypes=7&whyItHappened=12,7,15,9,16,11,-1,8,13,10&pinnedIncidents=INC2008-084,INC2008-123',
       },
     },
   },

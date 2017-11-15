@@ -1,6 +1,8 @@
 
 const React = require('react')
 const ReactRedux = require('react-redux')
+const Constants = require('../Constants.js')
+
 
 require('./ColumnTooltipListItem.scss')
 
@@ -10,6 +12,7 @@ const ColumnTooltipDetailCollapseCreator = require('../actionCreators/ColumnTool
 class ColumnTooltipListItem extends React.Component {
 
   detailClick(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','questionMark'])}`,`${this.props.item.get('overview')} detail overview`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -45,7 +48,7 @@ class ColumnTooltipListItem extends React.Component {
     return <span 
       className={textClassName}
       onClick={this.detailClick.bind(this)}
-      >
+    >
       {this.props.item.get('overview')}
     </span>
   }
@@ -92,6 +95,7 @@ const mapStateToProps = state => {
   return {
     language: state.language,
     columnTooltipClick: state.columnTooltipClick,
+    analytics: state.analytics,
   }
 }
 

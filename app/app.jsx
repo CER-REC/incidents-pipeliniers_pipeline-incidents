@@ -13,6 +13,8 @@ const DataLoader = require('./DataLoader.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const PopupDismissedCreator = require('./actionCreators/PopupDismissedCreator.js')
+const SetUpAnalyticsCreator = require('./actionCreators/SetUpAnalyticsCreator.js')
+const AnalyticsReporter = require('./AnalyticsReporter.js')
 const SetupHistoryCreator = require('./actionCreators/SetupHistoryCreator.js')
 
 
@@ -37,6 +39,8 @@ case 'csvFile':
 
 
 DomReady( () => {
+  store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
+  
   dataLoadPromise.then( () => {
 
     store.getState().history.listen(locationChangeHandler)
@@ -96,7 +100,7 @@ function locationChangeHandler (location, action) {
     showEmptyCategories: routerState.showEmptyCategories,
     pinnedIncidents: routerState.pinnedIncidents,
     language: routerState.language,
-    screenshotMode: routerState.screenshotMode(location), 
+    screenshotMode: RouteComputations.screenshotMode(location), 
   }))
 
 

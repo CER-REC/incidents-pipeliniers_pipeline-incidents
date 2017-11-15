@@ -11,6 +11,7 @@ const DisclaimerDismissedCreator = require('../actionCreators/DisclaimerDismisse
 class Disclaimer extends React.Component {
 
   closeButtonClick() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`,'Data Disclaimer Close Button')
     this.props.disclaimerDismissed()
   }
 
@@ -70,6 +71,7 @@ const mapStateToProps = state => {
     language: state.language,
     viewport: state.viewport,
     disclaimer: state.disclaimer,
+    analytics: state.analytics,
   }
 }
 
