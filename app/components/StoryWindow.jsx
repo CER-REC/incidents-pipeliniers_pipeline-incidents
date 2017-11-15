@@ -91,6 +91,13 @@ class StoryWindow extends React.Component {
     this.props.updateVisualization(storyState)
   }
 
+  tutorialImageKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.tutorialImageClicked()
+    }
+  }
+ 
   border() {
     return <rect 
       width = { this.props.viewport.get('x') - 
@@ -157,7 +164,10 @@ class StoryWindow extends React.Component {
       y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
         Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       xlinkHref={imageList[currentImageIndex]}
-      onClick={this.tutorialImageClicked.bind(this)}/>
+      onClick={this.tutorialImageClicked.bind(this)}
+      tabIndex = '0'
+      role = 'button'
+      onKeyDown = {this.tutorialImageKeyDown.bind(this) }/>
   }
 
   render() {
