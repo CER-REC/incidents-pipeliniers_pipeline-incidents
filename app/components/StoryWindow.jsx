@@ -111,15 +111,49 @@ class StoryWindow extends React.Component {
       onClick = {this.closeButtonClick.bind(this)}/>
   }
 
-  leftArrow(currentImageIndex) {
-    const active = (currentImageIndex < 1)? 'inactive' : 'active'
-    return <image
-      className={active}
-      xlinkHref={`images/left-arrow-${active}.svg`}
+  indicatorDot(currentImageIndex, imageList) {
+
+    let indicatorDotColor = '#d6d5d5'
+    if(this.props.storyImage === currentImageIndex) {
+      indicatorDotColor = '#5e5e5e'
+    }
+
+    dotCount = 0
+
+    // NB: Assume at least four story images
+    let currentX = StoryComputations.storyIndicatorDotX(this.props.viewport)
+    currentX += StoryComputations.storyIndicatorDotX(this.props.viewport) + 5
+
+
+    return <circle 
+        { this.props.storyImage.map((svg) => {
+            currentX += 5
+            dotCount += 1
+
+        })}
+
+      r={ 5 }
+      fill = { indicatorDotColor }
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
-      y={StoryComputations.storyArrowButtonY(this.props.viewport)}
+      cx={StoryComputations.storyIndicatorDotX(this.props.viewport) - 30}
+      cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
+
+
+
+    />
+  }
+
+  leftArrow(currentImageIndex) {
+    const active = (currentImageIndex === true)? 'inactive' : 'active'
+    return <circle
+      className={active}
+      r={ 5 }
+      fill = '#d6d5d5'
+      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      cx={StoryComputations.storyIndicatorDotX(this.props.viewport)}
+      cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
       onClick={this.backButtonClick.bind(this)}/>
   }
 
@@ -131,7 +165,7 @@ class StoryWindow extends React.Component {
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       x={StoryComputations.storyCloseButtonX(this.props.viewport)}
-      y={StoryComputations.storyArrowButtonY(this.props.viewport)}
+      y={StoryComputations.storyIndicatorDotY(this.props.viewport)}
       onClick={this.nextButtonClick.bind(this)}/>
   }
 
@@ -171,6 +205,7 @@ class StoryWindow extends React.Component {
         {this.leftArrow(currentImageIndex)}
         {this.rightArrow(currentImageIndex, imageList)}
         {this.tutorialImage(currentImageIndex, imageList)}
+        {this.indicatorDot(currentImageIndex, imageList)}
       </svg>
     </div>
   }
