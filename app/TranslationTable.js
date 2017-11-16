@@ -102,34 +102,36 @@ const TranslationTable = Immutable.fromJS({
   },
 
   stories: {
-    'the-basics-of-incident-visualization': {
+    'how-to-read-the-visualization': {
+      // TODO: insert French title
       title: {
-        en: 'THE BASICS OF INCIDENT VISUALIZATION',
+        en: 'HOW TO READ THE VISUALIZATION',
         fr: 'INTRODUCTION À LA VISUALISATION DES DONNÉES RELATIVES AUX INCIDENTS',
       },
       backgroundImage: {
-        en: 'images/stories/the-basics-of-incident-visualization-1-EN.jpg',
+        en: 'images/stories/how-to-read-the-visualization-1-EN.png',
         fr: 'images/stories/the-basics-of-incident-visualization-1-FR.jpg',
       },
       tutorialImages: {
         en: [
-          'images/stories/the-basics-of-incident-visualization-1-EN.jpg',
-          'images/stories/the-basics-of-incident-visualization-2-EN.jpg',
-          'images/stories/the-basics-of-incident-visualization-3-EN.jpg',
-          'images/stories/the-basics-of-incident-visualization-4-EN.jpg',
+          'images/stories/how-to-read-the-visualization-1-EN.png',
+          'images/stories/how-to-read-the-visualization-2-EN.png',
+          'images/stories/how-to-read-the-visualization-3-EN.png',
+          'images/stories/how-to-read-the-visualization-4-EN.png',
         ],
+        // TODO: insert French story images
         fr: [
-          'images/stories/the-basics-of-incident-visualization-1-FR.jpg',
-          'images/stories/the-basics-of-incident-visualization-2-FR.jpg',
-          'images/stories/the-basics-of-incident-visualization-3-FR.jpg',
-          'images/stories/the-basics-of-incident-visualization-4-FR.jpg',
+          'images/stories/how-to-read-the-visualization-1-EN.png',
+          'images/stories/how-to-read-the-visualization-2-EN.png',
+          'images/stories/how-to-read-the-visualization-3-EN.png',
+          'images/stories/how-to-read-the-visualization-4-EN.png',
         ],
       },
       // TODO: Change story mode configs to no longer store configuration as
       // URLs. Store configuration that we would like to change to instead.
       config: {
-        en: '?columns=province,year&province=7,10,4,5,3,6,9,13,1,8,12,2,11&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008',
-        fr: '?columns=province,year&province=7,10,4,5,3,6,9,13,1,8,12,2,11&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008',
+        en: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=3,4,5,2,1,-1,14,6&incidentTypes=8,9,7,5,10,6,4&whyItHappened=12,7,15,9,16,-1,11,8,13,10',
+        fr: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=3,4,5,2,1,-1,14,6&incidentTypes=8,9,7,5,10,6,4&whyItHappened=12,7,15,9,16,-1,11,8,13,10',
       },
     },
     'getting-the-big-picture': {
