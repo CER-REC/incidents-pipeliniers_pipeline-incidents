@@ -41,7 +41,7 @@ const RouteComputations = {
 
   // Returns a string to form the query params of the current URL, i.e.
   // everything from the ? on
-  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents) {
+  stateToUrlParams: function (columns, categories, showEmptyCategories, pinnedIncidents, selectedIncidents, filterboxActivation) {
 
     const params = {}
 
@@ -80,6 +80,18 @@ const RouteComputations = {
       }).join(',')
     }
 
+    if (selectedIncidents.count() > 0) {
+      params.selectedIncidents = selectedIncidents.map( incident => {
+        return incident.get('incidentNumber')
+      }).join(',')
+    }
+
+    if(filterboxActivation.count() > 0){
+     filterboxActivation.forEach( (filterName, filter) => {
+        params['fbas_'+filter] = filterName 
+      } )
+    }
+
     return RouteComputations.paramsToUrlString(params)
   },
 
@@ -99,6 +111,8 @@ const RouteComputations = {
       categories: RouteComputations.parseUrlCategories(rawParams, categories),
       showEmptyCategories: RouteComputations.parseUrlShowEmptyCategories(rawParams.showEmptyCategories),
       pinnedIncidents: RouteComputations.parseUrlPinnedIncidents(rawParams.pinnedIncidents, data),
+      selectedIncidents: RouteComputations.parseUrlSelectedIncidents(rawParams.selectedIncidents, data),
+      filterboxActivationState: RouteComputations.parseUrlFilterBoxActivationState(rawParams.fbas_columnName, rawParams.fbas_categoryName),
       language: RouteComputations.parseUrlLanguage(location),
     }
 
@@ -206,6 +220,32 @@ const RouteComputations = {
     }
 
   },
+  parseUrlSelectedIncidents: function (selectedIncidentsString, data) {
+
+    if (typeof selectedIncidentsString !== 'undefined') {
+
+      const incidentNumbers = selectedIncidentsString.split(',')
+
+      // For each candidate incident number, find the corresponding incident
+      // and filter out any find attempts that fail. 
+      const incidents = incidentNumbers.map( incidentNumber => {
+        return data.find( incident => {
+          return incident.get('incidentNumber') === incidentNumber
+        })
+      }).filter( incident => {
+        return typeof incident !== 'undefined'
+      })
+
+      return Immutable.List(incidents)
+
+    }
+    else {
+      // An absent selectedIncidents parameter signifies no selectedIncidents on 
+      // display
+      return Immutable.List()
+    }
+
+  },
 
   parseUrlLanguage: function (location) {
 
@@ -237,6 +277,22 @@ const RouteComputations = {
 
   },
 
+  parseUrlFilterBoxActivationState: function(columnName, categoryName){
+
+    if(typeof columnName !== 'undefined' && typeof categoryName !== 'undefined'){
+    console.log(columnName, categoryName)
+      return Immutable.Map(
+        {
+          columnName: columnName,
+          categoryName: categoryName
+        }
+      )
+    }
+    return Immutable.Map({
+      columnName: null,
+      categoryName: null,
+    })
+  },
 
   screenshotMode: function (location) {
     return !!location.pathname.match(`/${Constants.get('screenshotPath')}$`)
