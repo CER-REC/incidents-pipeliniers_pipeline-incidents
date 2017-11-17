@@ -53,11 +53,20 @@ class IncidentListShowHide extends React.Component {
     }
   }
 
+
   showTextKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       this.props.onClick()
     }
+  }
+
+  incidentListShowHideAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,'Show/Hide Incident List')
+    this.props.onClick(
+      this.props.showImage,
+      this.props.showText)
+
   }
 
   render() {
@@ -66,7 +75,8 @@ class IncidentListShowHide extends React.Component {
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
     return ( 
-      <g transform = {transformShowHide} onClick={this.props.onClick} className="emptyCategories">
+
+      <g transform = {transformShowHide} onClick={this.incidentListShowHideAnalytics.bind(this)} className="emptyCategories">
         <g
           tabIndex = '0'
           role = 'button'
@@ -86,6 +96,7 @@ const mapStateToProps = state => {
     viewport: state.viewport,
     language: state.language,
     showIncidentList: state.showIncidentList,
+    analytics: state.analytics,
   }
 }
 

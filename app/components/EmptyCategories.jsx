@@ -68,6 +68,13 @@ class EmptyCategories extends React.Component {
     </g>
   }
 
+  emptyCategoriesAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','emptyCategories'])}`,'Show/Hide Empty Categories')
+    this.props.onClick(
+      this.props.dividerLine,
+      this.props.checkbox,
+      this.props.showText)
+  }
 
   render() {
 
@@ -79,8 +86,9 @@ class EmptyCategories extends React.Component {
     // TODO: adapt empty categories to use horizontalComputations
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
+
     return (
-      <g transform = {transformShowHide} onClick={this.props.onClick}> 
+      <g transform = {transformShowHide} onClick={this.emptyCategoriesAnalytics.bind(this)}> 
         <g 
           tabIndex = '0'
           role = 'button'
@@ -104,6 +112,7 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     language: state.language,
+    analytics: state.analytics,
   }
 }
 

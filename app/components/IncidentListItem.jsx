@@ -1,6 +1,7 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
 
+const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 const AddPinnedIncidentCreator = require('../actionCreators/AddPinnedIncidentCreator')
 const RemovePinnedIncidentCreator = require('../actionCreators/RemovePinnedIncidentCreator')
@@ -34,6 +35,7 @@ class IncidentListItem extends React.Component {
   }
 
   incidentItemClick() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,`${this.props.incident.get('incidentNumber')} selected/deselected`)
     if (this.props.selected === true) {
       this.props.removeFromSelectedIncidents(this.props.incident)
     }
@@ -50,6 +52,7 @@ class IncidentListItem extends React.Component {
   }
 
   incidentStarClick(event) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,`${this.props.incident.get('incidentNumber')} starred/unstarred`)
     // Don't propagate this click event to the parent list item.
     event.stopPropagation()
 
@@ -73,6 +76,7 @@ class IncidentListItem extends React.Component {
   }
 
   mouseLeave() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,`${this.props.incident.get('incidentNumber')} hovered`)
     if (this.props.hoveredIncident === this.props.incident) {
       this.props.unhoverIncident()
     }
@@ -139,6 +143,7 @@ const mapStateToProps = state => {
   return {
     language: state.language,
     hoveredIncident: state.hoveredIncident,
+    analytics: state.analytics,
   }
 }
 

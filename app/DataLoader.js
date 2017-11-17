@@ -12,6 +12,7 @@ const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCr
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
 
+// TODO: remove the flat file parsing code once we are confident in the data service.
 
 function parseYesNo (value, record) {
   if (value === 'Yes' || value === 'yes' || value === '1') {
@@ -402,7 +403,7 @@ const DataLoader = {
     const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
 
     const options = {
-      uri: `${appRoot}data/2017-10-17 IncidentData.csv`,
+      uri: `${appRoot}data/Incident Visualization Data.csv`,
     }
 
     return Request(options)

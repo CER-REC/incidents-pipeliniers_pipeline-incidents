@@ -101,6 +101,7 @@ class MapColumn extends React.Component {
   }
 
   handleDragEnd(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`,'Map Column Dragged')
     e.stopPropagation()
     e.preventDefault()
 
@@ -147,6 +148,7 @@ class MapColumn extends React.Component {
   }
 
   handleTouchEnd(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`,'Map Column Touch Dragged')
     e.stopPropagation()
     e.preventDefault()
 
@@ -221,6 +223,7 @@ const mapStateToProps = state => {
     showEmptyCategories: state.showEmptyCategories,
     columnDragStatus: state.columnDragStatus,
     screenshotMode: state.screenshotMode,
+    analytics: state.analytics,
   }
 }
 

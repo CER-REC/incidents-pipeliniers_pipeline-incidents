@@ -26,6 +26,7 @@ class Header extends React.Component {
   }
 
   tellMeAStoryAction() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Tell Me A Story')
     const scrollOptions = {
       behavior: 'smooth', 
       block: 'start', 
@@ -37,6 +38,7 @@ class Header extends React.Component {
   }
 
   aboutThisProjectClick(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'About This Project')
     e.stopPropagation(e)
     e.preventDefault(e)    
     this.props.summonAboutWindow()
@@ -51,6 +53,7 @@ class Header extends React.Component {
   }
 
   methodologyClick() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Methodology')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     window.open(`${appRoot}${Tr.getIn(['methodologyLinks', this.props.language])}`)
   }
@@ -63,6 +66,7 @@ class Header extends React.Component {
   }
 
   resetAllClick() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Reset All')
     const categories = DefaultCategoryComputations.initialState(
       this.props.data,
       this.props.schema, 
@@ -79,8 +83,13 @@ class Header extends React.Component {
   }
 
   disclaimerClick(event) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'Data Disclaimer')
     event.preventDefault()
     this.props.summonDisclaimer()
+  }
+
+  learnMoreAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`,'Learn More')
   }
 
   leftHeading() {
@@ -96,7 +105,7 @@ class Header extends React.Component {
           id='dataDisclaimerWindow' aria-labelledby = 'dataDisclaimerWindow'>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
       </p>
       <p className = 'subpop'>
-        <a 
+        <a onClick = {this.learnMoreAnalytics.bind(this)}
           href={Tr.getIn(['learnMoreLinks', this.props.language])} 
           target="_blank">{Tr.getIn(['learnMore', this.props.language])}</a>
         {Tr.getIn(['dataCollectionSubheading', this.props.language])}
@@ -244,6 +253,7 @@ const mapStateToProps = (state) => {
     language: state.language,
     viewport: state.viewport,
     schema: state.schema,
+    analytics: state.analytics,
   } 
 }
 

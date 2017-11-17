@@ -12,6 +12,7 @@ const StorySelectedCreator = require('../actionCreators/StorySelectedCreator.js'
 class Story extends React.Component {
 
   storyClicked(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,`Story Selected: ${this.props.id}`)
     e.stopPropagation()
     e.preventDefault()
     this.props.onStoryClicked(this.props.id)
@@ -82,6 +83,7 @@ const mapStateToProps = state => {
   return {
     language: state.language,
     viewport: state.viewport,
+    analytics: state.analytics,
   }
 }
 

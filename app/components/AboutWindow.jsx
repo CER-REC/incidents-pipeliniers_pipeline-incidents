@@ -1,6 +1,7 @@
 
 const React = require('react')
 const ReactRedux = require('react-redux')
+const Constants = require('../Constants.js')
 
 require('./AboutWindow.scss')
 
@@ -11,6 +12,7 @@ const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.j
 class AboutWindow extends React.Component {
 
   closeButtonClick(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'About This Project Close Button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
@@ -34,6 +36,14 @@ class AboutWindow extends React.Component {
       role = 'button'
       onKeyDown = { this.closeButtonKeyDown.bind(this) } >
     </img>
+  }
+
+  nebPerformancePortalAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'NEB Performance Portal')
+  }
+
+  emailLinkAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'Email Link')
   }
 
   heading() {
@@ -91,7 +101,7 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'p1', this.props.language])}
-          <a 
+          <a onClick = {this.nebPerformancePortalAnalytics.bind(this)}
             href={Tr.getIn(['aboutText', 'safetyPerformancePortalLink', this.props.language])}
             target="_blank">
             {Tr.getIn(['aboutText', 'safetyPerformancePortalText', this.props.language])}
@@ -113,7 +123,8 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'p4', this.props.language])}
-          <a href={Tr.getIn(['aboutText', 'emailLink', this.props.language])}>
+          <a onClick = {this.emailLinkAnalytics.bind(this)}
+            href={Tr.getIn(['aboutText', 'emailLink', this.props.language])}>
             {Tr.getIn(['aboutText', 'emailText', this.props.language])}
           </a>
           {Tr.getIn(['aboutText', 'p4_2', this.props.language])}
@@ -142,6 +153,7 @@ const mapStateToProps = state => {
   return {
     language: state.language,
     about: state.about,
+    analytics: state.analytics,
   }
 }
 

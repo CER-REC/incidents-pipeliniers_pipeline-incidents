@@ -1,7 +1,7 @@
 // Script to produce data for open.canada.ca
 
 // Switch this to 'production' once the prod data service is live
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'production'
 
 // NB: this list omits elements which are not used by the visualization, and
 // which are not really of interest to end uers such as database IDs.
