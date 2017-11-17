@@ -25,6 +25,7 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
     break
   default:
     x = columnMeasurements.getIn(['columns', columnTooltip.get('columnName')]).get('x')
+        + Constants.get('columnHeadingLeftMargin')
   }
 
   // Update the horizontal coordinate with the label + question
