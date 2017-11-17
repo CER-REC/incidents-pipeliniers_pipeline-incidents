@@ -278,9 +278,8 @@ const RouteComputations = {
   },
 
   parseUrlFilterBoxActivationState: function(columnName, categoryName){
-
     if(typeof columnName !== 'undefined' && typeof categoryName !== 'undefined'){
-    console.log(columnName, categoryName)
+    
       return Immutable.Map(
         {
           columnName: columnName,
