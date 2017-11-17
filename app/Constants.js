@@ -119,6 +119,8 @@ const Constants = Immutable.fromJS({
   columnHeadingXOffset:5,
   columnHeadingLeftPadding:19,
 
+  columnHeadingLeftMargin: -20,
+
   dragArrow: {
     width: 24,
     height: 10,
