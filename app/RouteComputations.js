@@ -87,8 +87,10 @@ const RouteComputations = {
     }
 
     if(filterboxActivation.count() > 0){
-     filterboxActivation.forEach( (filterName, filter) => {
-        params['fbas_'+filter] = filterName 
+      filterboxActivation.forEach( (filter, filterName) => {
+        if(filter !== null){
+          params['fbas_'+filterName] = filter
+        } 
       } )
     }
 
@@ -111,7 +113,7 @@ const RouteComputations = {
       categories: RouteComputations.parseUrlCategories(rawParams, categories),
       showEmptyCategories: RouteComputations.parseUrlShowEmptyCategories(rawParams.showEmptyCategories),
       pinnedIncidents: RouteComputations.parseUrlPinnedIncidents(rawParams.pinnedIncidents, data),
-      selectedIncidents: RouteComputations.parseUrlSelectedIncidents(rawParams.selectedIncidents, data),
+      selectedIncidents: RouteComputations.parseUrlSelectedIncidents(rawParams.selectedIncidents, rawParams.fbas_columnName, data),
       filterboxActivationState: RouteComputations.parseUrlFilterBoxActivationState(rawParams.fbas_columnName, rawParams.fbas_categoryName),
       language: RouteComputations.parseUrlLanguage(location),
     }
@@ -220,9 +222,9 @@ const RouteComputations = {
     }
 
   },
-  parseUrlSelectedIncidents: function (selectedIncidentsString, data) {
+  parseUrlSelectedIncidents: function (selectedIncidentsString, columnName, data) {
 
-    if (typeof selectedIncidentsString !== 'undefined') {
+    if (typeof selectedIncidentsString !== 'undefined' && typeof columnName !== 'undefined' && columnName !== null) {
 
       const incidentNumbers = selectedIncidentsString.split(',')
 
@@ -279,7 +281,7 @@ const RouteComputations = {
 
   parseUrlFilterBoxActivationState: function(columnName, categoryName){
     if(typeof columnName !== 'undefined' && typeof categoryName !== 'undefined'){
-    
+
       return Immutable.Map(
         {
           columnName: columnName,
