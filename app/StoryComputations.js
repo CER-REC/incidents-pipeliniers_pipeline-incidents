@@ -38,7 +38,7 @@ const StoryComputations = {
   },
 
   storyIndicatorDotX(viewport) {
-    return viewport.get('x') / 2 - 30
+    return viewport.get('x') / 2
 
   },
 

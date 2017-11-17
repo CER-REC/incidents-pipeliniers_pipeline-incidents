@@ -118,29 +118,25 @@ class StoryWindow extends React.Component {
       indicatorDotColor = '#5e5e5e'
     }
 
-    dotCount = 0
-
-    // NB: Assume at least four story images
     let currentX = StoryComputations.storyIndicatorDotX(this.props.viewport)
-    currentX += StoryComputations.storyIndicatorDotX(this.props.viewport) + 5
+    if (imageList.length === 1) {
+      currentX
+    } else {
+      const imageCount = imageList.length
+      currentX = currentX - (15 * imageCount)
+    }
 
+    for (let i = 0; i < imageList.length; i++) {
+      console.log(imageList[i])
+    }
 
     return <circle 
-        { this.props.storyImage.map((svg) => {
-            currentX += 5
-            dotCount += 1
-
-        })}
-
       r={ 5 }
       fill = { indicatorDotColor }
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      cx={StoryComputations.storyIndicatorDotX(this.props.viewport) - 30}
+      cx={ currentX }
       cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
-
-
-
     />
   }
 
