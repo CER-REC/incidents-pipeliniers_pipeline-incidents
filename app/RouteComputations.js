@@ -80,12 +80,20 @@ const RouteComputations = {
       }).join(',')
     }
 
+    // selectedIncidents: represented as a comma separated list of incident 
+    // numbers.
+    // When there are no pinned incidents, the selectedIncidents URL parameter is
+    // absent.
     if (selectedIncidents.count() > 0) {
       params.selectedIncidents = selectedIncidents.map( incident => {
         return incident.get('incidentNumber')
       }).join(',')
     }
 
+    // fbas_columnName: represented as a selected column for the filter 
+    // fbas_categoryName: represented as a selected category for the filter
+    // When there are no filterboxActivationState selected, then 
+    // fbas_columnName and fbas_categoryName URL parameter is absent.
     if(filterboxActivation.count() > 0){
       filterboxActivation.forEach( (filter, filterName) => {
         if(filter !== null){
@@ -222,6 +230,13 @@ const RouteComputations = {
     }
 
   },
+
+  /**
+   * @selectedIncidentsString  {String} It is a comma seperated value of selected incident
+   * @columnName  {String} column value from the filterBoxActivationState
+   * @data  Incident state
+   * @return {Immutable}
+   */
   parseUrlSelectedIncidents: function (selectedIncidentsString, columnName, data) {
 
     if (typeof selectedIncidentsString !== 'undefined' && typeof columnName !== 'undefined' && columnName !== null) {
@@ -279,6 +294,12 @@ const RouteComputations = {
 
   },
 
+  /**
+   * Function creates a filterBoxActivationState using the URL param
+   * @columnName  {string} selected column value
+   * @categoryName  {string} selected category for the column
+   * @return {ImmutableMap}
+   */
   parseUrlFilterBoxActivationState: function(columnName, categoryName){
     if(typeof columnName !== 'undefined' && typeof categoryName !== 'undefined'){
 
