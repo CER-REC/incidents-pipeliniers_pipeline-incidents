@@ -235,10 +235,11 @@ const RouteComputations = {
    * @selectedIncidentsString  {String} It is a comma seperated value of 
    *                                    selected incident
    * @columnName  {String} It is a columnName from the 
-   *                       filterBoxActivationState. This checks if URL 
-   *                       fbas_columnName param is set or not, as filter 
-   *                       activation state decides whether incident list 
-   *                       is visible or not on the user or not.
+   *                       filterBoxActivationState. This checks if 
+   *                       fbas_columnName in the URL param is set or not, 
+   *                       as filter activation state decides whether 
+   *                       incidents in the list are visible or not on 
+   *                       the user or not.
    * @data  Incident state
    * @return {Immutable}
    */
