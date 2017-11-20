@@ -100,6 +100,8 @@ function locationChangeHandler (location, action) {
     showEmptyCategories: routerState.showEmptyCategories,
     pinnedIncidents: routerState.pinnedIncidents,
     language: routerState.language,
+    selectedIncidents: routerState.selectedIncidents,
+    filterboxActivationState: routerState.filterboxActivationState,
     screenshotMode: RouteComputations.screenshotMode(location), 
   }))
 
