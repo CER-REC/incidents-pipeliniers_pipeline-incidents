@@ -118,7 +118,10 @@ class Column extends React.Component {
       currentY += Constants.get('columnHeadingLineOffset')
       return <tspan className='barsHeading' 
         key={word}
-        x={columnMeasurements.get('x')} 
+        x={columnMeasurements.get('x') + 
+        Constants.getIn(['questionMark', 'size']) +
+        Constants.get('columnHeadingXOffset') +
+        Constants.get('columnHeadingLeftMargin')} 
         y={currentY}
         onMouseDown={this.handleDragStart.bind(this)}
         onMouseMove={this.handleDragMove.bind(this)}
@@ -161,8 +164,7 @@ class Column extends React.Component {
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 
-      x={columnMeasurements.get('x') + 
-        StringComputations.questionMarkOffset(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength', this.props.language]))} 
+      x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftMargin')} 
       y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}/>
   }

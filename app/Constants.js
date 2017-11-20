@@ -99,7 +99,10 @@ const Constants = Immutable.fromJS({
     hideIncidentListY: 5,
     showIncidentListXY: -2,
     starredListPadding: 5,
+
     incidentListPadding: 2,
+    questionMarkXOffset:20,
+    columnToolTipXOffset:20,
     incidentListPaddingNoStarredItems:6,
   },
 
@@ -115,6 +118,10 @@ const Constants = Immutable.fromJS({
   columnSubheadingPaddingEn: 3,
   columnSubheadingPaddingFr: 4,
 
+  columnHeadingXOffset:5,
+  columnHeadingLeftPadding:19,
+
+  columnHeadingLeftMargin: -20,
 
   dragArrow: {
     width: 24,
@@ -389,7 +396,7 @@ const Constants = Immutable.fromJS({
   questionMark: {
     pixelsPerCharacter: 7.4,
     xOffset: 5,
-    yOffset: 4,
+    yOffset: -2,
     size: 16,
   },
 
