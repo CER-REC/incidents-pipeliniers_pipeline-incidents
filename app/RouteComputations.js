@@ -82,7 +82,7 @@ const RouteComputations = {
 
     // selectedIncidents: represented as a comma separated list of incident 
     // numbers.
-    // When there are no pinned incidents, the selectedIncidents URL parameter is
+    // When there are no selected incidents, the selectedIncidents URL parameter is
     // absent.
     if (selectedIncidents.count() > 0) {
       params.selectedIncidents = selectedIncidents.map( incident => {
@@ -94,7 +94,7 @@ const RouteComputations = {
     // fbas_categoryName: represented as a selected category for the filter
     // When there are no filterboxActivationState selected, then 
     // fbas_columnName and fbas_categoryName URL parameter is absent.
-    if(filterboxActivation.count() > 0){
+    if(filterboxActivation.columnName !== null && filterboxActivation.categoryName !== null){
       filterboxActivation.forEach( (filter, filterName) => {
         if(filter !== null){
           params['fbas_'+filterName] = filter
@@ -122,7 +122,7 @@ const RouteComputations = {
       showEmptyCategories: RouteComputations.parseUrlShowEmptyCategories(rawParams.showEmptyCategories),
       pinnedIncidents: RouteComputations.parseUrlPinnedIncidents(rawParams.pinnedIncidents, data),
       selectedIncidents: RouteComputations.parseUrlSelectedIncidents(rawParams.selectedIncidents, rawParams.fbas_columnName, data),
-      filterboxActivationState: RouteComputations.parseUrlFilterBoxActivationState(rawParams.fbas_columnName, rawParams.fbas_categoryName),
+      filterboxActivationState: RouteComputations.parseUrlFilterBoxActivationState(rawParams.fbas_columnName, rawParams.fbas_categoryName, categories),
       language: RouteComputations.parseUrlLanguage(location),
     }
 
@@ -232,8 +232,13 @@ const RouteComputations = {
   },
 
   /**
-   * @selectedIncidentsString  {String} It is a comma seperated value of selected incident
-   * @columnName  {String} column value from the filterBoxActivationState
+   * @selectedIncidentsString  {String} It is a comma seperated value of 
+   *                                    selected incident
+   * @columnName  {String} It is a columnName from the 
+   *                       filterBoxActivationState. This checks if URL 
+   *                       fbas_columnName param is set or not, as filter 
+   *                       activation state decides whether incident list 
+   *                       is visible or not on the user or not.
    * @data  Incident state
    * @return {Immutable}
    */
@@ -298,17 +303,31 @@ const RouteComputations = {
    * Function creates a filterBoxActivationState using the URL param
    * @columnName  {string} selected column value
    * @categoryName  {string} selected category for the column
+   * @categories
    * @return {ImmutableMap}
    */
-  parseUrlFilterBoxActivationState: function(columnName, categoryName){
-    if(typeof columnName !== 'undefined' && typeof categoryName !== 'undefined'){
+  parseUrlFilterBoxActivationState: function(columnName, categoryName, categories){
 
-      return Immutable.Map(
-        {
-          columnName: columnName,
-          categoryName: categoryName
+    if(typeof columnName !== 'undefined' && typeof categoryName !== 'undefined'){
+      //Validate column and category name
+      let isColumnAndCategoryValid = false
+      if(categories.has(columnName)){
+        const categoriesValues = categories.get(columnName)
+        if (columnName === 'year') {
+          categoryName = parseInt(categoryName)
         }
-      )
+        if(categoriesValues.get(categoryName)){
+          isColumnAndCategoryValid = true         
+        }
+      }
+      if(isColumnAndCategoryValid){
+        return Immutable.Map(
+          {
+            columnName: columnName,
+            categoryName: categoryName
+          }
+        )
+      }
     }
     return Immutable.Map({
       columnName: null,
