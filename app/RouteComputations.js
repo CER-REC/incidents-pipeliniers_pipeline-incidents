@@ -317,7 +317,7 @@ const RouteComputations = {
         if (columnName === 'year') {
           categoryName = parseInt(categoryName)
         }
-        if(typeof categoriesValues.get(categoryName) !== 'undefined' && categoriesValues.get(categoryName)){
+        if(typeof categoriesValues.get(categoryName) !== 'undefined' ){
           isColumnAndCategoryValid = true         
         }
       }
