@@ -161,7 +161,6 @@ class Workspace extends React.Component {
             className = 'workspaceSvg'
             width = { horizontalPositions.getIn(['workspace', 'width']) }
             height = { horizontalPositions.getIn(['workspace', 'height']) }>
-            <IncidentListHeadings />
            
             { this.incidentListSvg() }
 
@@ -172,7 +171,7 @@ class Workspace extends React.Component {
         </div>
       </div>
       { this.storyContent() }
-      <AboutWindow/>
+      <AboutWindow />
     </div>
   }
 }

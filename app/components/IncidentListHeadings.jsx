@@ -28,6 +28,8 @@ class IncidentListHeadings extends React.Component {
     return <tspan className='incidentsHeading' 
       x = { columnMeasurements.get('x') }
       y = { y }
+      tabIndex = '0'
+      aria-label = 'incidents'
     >INCIDENTS</tspan>
 
 
@@ -103,13 +105,25 @@ class IncidentListHeadings extends React.Component {
       y={WorkspaceComputations.barHeading() -
       Constants.getIn(['questionMark', 'size']) / 2 + 
       Constants.getIn(['questionMark', 'yOffset'])}
-      onClick={this.questionMarkClick.bind(this)}/>
+      onClick={this.questionMarkClick.bind(this)}
+      tabIndex = '0'
+      aria-label = 'questionMark'
+      role = 'button' 
+      onKeyDown = { this.questionMarKeyDown.bind(this) }/>
   }
 
   questionMarkClick(e) {
     e.stopPropagation()
     e.preventDefault()
     this.props.onQuestionMarkClick('pinColumn')
+  }
+
+  questionMarKeyDown(event) {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.stopPropagation(event)
+      event.preventDefault(event)
+      this.questionMarkClick(event)
+    }
   }
 
   render() {

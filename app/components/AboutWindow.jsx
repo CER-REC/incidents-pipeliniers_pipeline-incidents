@@ -19,11 +19,11 @@ class AboutWindow extends React.Component {
   }
 
   closeButtonKeyDown(event) {
-    if (event.key === 'Enter' || event.key === ' ' || event.key === 'esc') {
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault(event)
       event.stopPropagation(event)
       this.closeButtonClick(event)
-    }
+    } 
   }
 
   closeButton() {
@@ -32,7 +32,7 @@ class AboutWindow extends React.Component {
       src='images/about_close.svg'
       onClick={this.closeButtonClick.bind(this)}
       tabIndex = '0'
-      aria-label = { 'closeButton'}
+      aria-label = 'closeButton'
       role = 'button'
       onKeyDown = { this.closeButtonKeyDown.bind(this) } >
     </img>
@@ -136,17 +136,20 @@ class AboutWindow extends React.Component {
   render() {
     // Only render if the about window has been summoned.
     if(!this.props.about) return null
-
-    return <div
-      className='aboutWindow'>
-      {this.heading()}
-      {this.closeButton()}
-      <hr/>
-      {this.intro()}
-      {this.contributersHeading()}
-      {this.contributersContent()}
-    </div>
+ 
+    return <g>
+      <div tabIndex = '0' autoFocus = {true}
+        className='aboutWindow'>
+        {this.heading()}
+        {this.closeButton()}
+        <hr/>
+        {this.intro()}
+        {this.contributersHeading()}
+        {this.contributersContent()}
+      </div>
+    </g>
   }
+ 
 }
 
 const mapStateToProps = state => {

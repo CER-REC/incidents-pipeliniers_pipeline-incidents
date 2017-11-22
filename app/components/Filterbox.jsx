@@ -1,5 +1,6 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
+const Immutable = require('immutable')
 
 const Constants = require('../Constants.js')
 
@@ -12,9 +13,12 @@ const DragCategoryCreator = require('../actionCreators/DragCategoryCreator.js')
 const DragCategoryEndedCreator = require('../actionCreators/DragCategoryEndedCreator.js')
 const SnapCategoryCreator = require('../actionCreators/SnapCategoryCreator.js')
 
+const Category = require('./Category.jsx')
+const Column = require('./Column.jsx')
 const FilterboxButton = require('./FilterBoxButton.jsx')
 const Tr = require('../TranslationTable.js')
 
+const CategoryComputations = require('../CategoryComputations.js')
 const FilterboxComputations = require('../FilterboxComputations.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
@@ -95,18 +99,18 @@ class Filterbox extends React.Component {
         y = '0'
         width = { Constants.getIn(['filterbox', 'dragButtonWidth']) }
         height = { this.buttonHeight() }
-        tabIndex = '0'
-        role = 'button'
-        aria-grabbed = {this.ariaGrabbedDragDrop()}
-        aria-dropeffect = {this.ariaDragDropEffect()}
-        onKeyDown = { this.dragKeyDown.bind(this) }
-        onKeyUp = {this.dragKeyUp.bind(this)}
       />
       <image 
         xlinkHref='images/vertical_drag.svg' 
         className = 'verticalDrag'
         x = { FilterboxComputations.boxWidth(this.props.language) + Constants.getIn(['filterbox', 'dragIconHorizontalOffset']) }
         y = '0'
+        tabIndex = '0'
+        role = 'button'
+        aria-grabbed = 'true'
+        aria-dropeffect = 'move'
+        onKeyDown={this.dragKeyDown.bind(this)}
+        onKeyUp={this.dragKeyUp.bind(this)}
         width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
         height = { this.buttonHeight() }
         onMouseDown={this.handleDragStart.bind(this)}
@@ -146,36 +150,43 @@ class Filterbox extends React.Component {
     window.addEventListener('mousemove', categoryWindowMoveHandler)
   }
 
-  ariaGrabbedDragDrop() {
-    if (this.dragKeyDown) {
-      return 'true'
-    } else if(this.dragKeyUp) {
-      return 'null'
-    } else {
-      return 'false'
-    }
-  }
-
-  ariaDragDropEffect() {
-    if (this.dragKeyDown) {
-      return 'move'
-    } else {
-      return 'none'
-    }
-  }
 
   dragKeyDown(event) {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault(event)
-      this.handleDragStart(event)
+    if(event.keyCode === 38) {
+      const displayedCategories = CategoryComputations.displayedCategories(
+        this.props.data,
+        this.props.columns,
+        this.props.categories,
+        this.props.columnName) 
+
+      const categoriesReOrder = Immutable.OrderedMap(displayedCategories).toString()
+
+      if (this.props.categoryName === Immutable.OrderedMap(displayedCategories).first()) {
+        console.log('cannot move higher')
+        return
+      } 
+
+      this.props.categoryName
+
+
+
+      
+      console.log(this.props.categoryName, categoriesReOrder)
+
+    } else if(event.keyCode === 40) {
+      const displayedCategories = CategoryComputations.displayedCategories(
+        this.props.data,
+        this.props.columns,
+        this.props.categories,
+        this.props.columnName)
+
+      console.log(this.props.categoryName, 'down', displayedCategories)
     }
   }
 
-  dragKeyUp(event) {
-    if (event.key !== 'Enter' || event.key !== ' ') {
-      event.preventDefault(event)
-      this.handleDragEnd(event)
-    }
+  dragKeyUp(event){
+    event.stopPropagation(event)
+    event.preventDefault(event)
   }
 
   handleDragMove(e) {
@@ -193,7 +204,7 @@ class Filterbox extends React.Component {
     e.stopPropagation()
     e.preventDefault()
 
-    // No need to fire unneeded evenets if drag hasn't started.
+    // No need to fire unneeded events if drag hasn't started.
     if(!this.props.categoryDragStatus.get('isStarted')) return
 
     this.props.onCategoryDragEnded(false)
@@ -258,7 +269,7 @@ class Filterbox extends React.Component {
     e.stopPropagation()
     e.preventDefault()
 
-    // No need to fire unneeded evenets if drag hasn't started.
+    // No need to fire unneeded events if drag hasn't started.
     if(!this.props.categoryDragStatus.get('isStarted')) return
 
     this.props.onCategoryDragEnded(false)

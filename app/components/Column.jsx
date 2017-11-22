@@ -122,16 +122,15 @@ class Column extends React.Component {
         y={currentY}
         tabIndex = '0'
         role = 'button'
-        aria-grabbed = {this.ariaColumnGrabbedDragDrop()}
-        aria-dropeffect = {this.ariaColumnDragDropEffect()}
+        aria-grabbed = 'true'
+        aria-dropeffect = 'move'
         onMouseDown={this.handleDragStart.bind(this)}
         onMouseMove={this.handleDragMove.bind(this)}
         onMouseUp={this.handleDragEnd.bind(this)}
         onTouchStart = { this.handleTouchStart.bind(this) }
         onTouchMove = { this.handleTouchMove.bind(this) }
         onTouchEnd = { this.handleTouchEnd.bind(this) }
-        // onKeyDown = { this.columnDragKeyDown.bind(this) }
-        // onKeyUp = {this.columnDragKeyUp.bind(this)}
+        onKeyDown = { this.columnDragKeyDown.bind(this) }
       >
         {word}
       </tspan>
@@ -170,7 +169,11 @@ class Column extends React.Component {
       x={columnMeasurements.get('x') + 
         StringComputations.questionMarkOffset(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength', this.props.language]))} 
       y={questionMarkY}
-      onClick={this.questionMarkClick.bind(this)}/>
+      onClick={this.questionMarkClick.bind(this)}
+      tabIndex = '0'
+      aria-label = 'questionMark'
+      role = 'button' 
+      onKeyDown = { this.questionMarKeyDown.bind(this) }/>
   }
 
   questionMarkClick(e) {
@@ -178,6 +181,14 @@ class Column extends React.Component {
     e.stopPropagation(e)
     e.preventDefault(e)
     this.props.onQuestionMarkClick(this.props.columnName)
+  }
+
+  questionMarKeyDown(event) {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.stopPropagation(event)
+      event.preventDefault(event)
+      this.questionMarkClick(event)
+    }
   }
 
   barSubHeading() {
@@ -235,16 +246,15 @@ class Column extends React.Component {
       y= { dragArrowY }
       tabIndex = '0'
       role = 'button'
-      aria-grabbed = {this.ariaColumnGrabbedDragDrop()}
-      aria-dropeffect = {this.ariaColumnDragDropEffect()}
+      aria-grabbed = 'true'
+      aria-dropeffect = 'move'
       onMouseDown={this.handleDragStart.bind(this)}
       onMouseMove={this.handleDragMove.bind(this)}
       onMouseUp={this.handleDragEnd.bind(this)}
       onTouchStart = { this.handleTouchStart.bind(this) }
       onTouchMove = { this.handleTouchMove.bind(this) }
       onTouchEnd = { this.handleTouchEnd.bind(this) }
-      // onKeyDown = { this.columnDragKeyDown.bind(this) }
-      // onKeyUp = {this.columnDragKeyUp.bind(this)}
+      onKeyDown = { this.columnDragKeyDown.bind(this) }
     >
     </image>
   }
@@ -441,35 +451,19 @@ class Column extends React.Component {
 
   }
 
-  ariaColumnGrabbedDragDrop() {
-    if (this.columnDragKeyDown) {
-      return 'true'
-    } else if(this.columnDragKeyUp) {
-      return 'null'
-    } else {
-      return 'false'
-    }
-  }
-
-  ariaColumnDragDropEffect() {
-    if (this.columnDragKeyDown) {
-      return 'move'
-    } else {
-      return 'none'
-    }
-  }
-
   columnDragKeyDown(event) {
-    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    if (event.keyCode === 37) {
+      event.stopPropagation(event)
       event.preventDefault(event)
-      this.handleDragStart(event)
-    }
-  }
-
-  columnDragKeyUp(event) {
-    if (event.key === null || event.key === null) {
+      this.handleDragMove(event)
+      this.handleDragEnd(event)
+      console.log('left')
+    } else if (event.keyCode === 39) {
+      event.stopPropagation(event)
       event.preventDefault(event)
-      this.handleDragEnd()
+      this.handleDragMove(event)
+      this.handleDragEnd(event)
+      console.log('right')
     }
   }
 
@@ -670,7 +664,7 @@ class Column extends React.Component {
         stroke='#1CD1C8'
         tabIndex = '0'
         role = 'button'
-        //onKeyDown = { this.sidebarKeyDown.bind(this) }
+        onKeyDown = { this.sidebarKeyDown.bind(this) }
       ></rect>
       <image
         xlinkHref='images/mapColumn.png' 
@@ -737,7 +731,7 @@ class Column extends React.Component {
         onTouchEnd = { this.handleSidebarTouchEnd.bind(this) }
         tabIndex = '0'
         role = 'button'
-        //onKeyDown = { this.sidebarKeyDown.bind(this) }
+        onKeyDown = { this.sidebarKeyDown.bind(this) }
       >
         <g transform={this.sidebarColumnTransform()}>
           { this.sidebarShadow() }

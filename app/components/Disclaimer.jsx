@@ -1,6 +1,7 @@
 
 const React = require('react')
 const ReactRedux = require('react-redux')
+const ReactDOM = require('react-dom')
 
 require('./Disclaimer.scss')
 
@@ -45,20 +46,21 @@ class Disclaimer extends React.Component {
     }
   }
 
-  focus() {
-    return this.app.window.getElementById('dataDisclaimerWindow').focus()
+  componentDidMount() {
+    
   }
 
   render() {
     // Only render when summoned.
     if(!this.props.disclaimer) return null
 
-    return <div id='dataDisclaimerWindow'
+    // if(this.props.disclaimer !== null) {
+    //   this.props.disclaimer.focus()
+    // }
+
+    return <div
       className='disclaimerWindow'
-      style={this.windowStyle()}
-      tabIndex = '-1'
-      role = 'dialog'
-      aria-label= 'dataDisclaimerWindow'>
+      style={this.windowStyle()}>
       <p className='disclaimer star'>*</p>      
       <p className='disclaimer disclaimerText' style={this.textStyle()}>
         {Tr.getIn(['disclaimerText', this.props.language])}
@@ -73,8 +75,7 @@ class Disclaimer extends React.Component {
           height = {Constants.getIn(['disclaimer', 'closeButtonSize'])}
           y={Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}
           onClick = { this.closeButtonClick.bind(this) }
-          aria-labelledby='dataDisclaimerWindow'
-          tabIndex = '0' role = 'button' aria-label='close button' 
+          tabIndex = '0' role = 'dialog' aria-hidden='true' autoFocus = {true}
           onKeyDown = {this.closeKeyDown.bind(this)}
           xlinkHref = 'images/close-2.svg'>
         </image>

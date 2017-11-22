@@ -52,10 +52,9 @@ class MapColumn extends React.Component {
       onTouchEnd = { this.handleTouchEnd.bind(this) } 
       tabIndex = '0'
       role = 'button'
-      aria-grabbed = {this.ariaMapGrabbedDragDrop()}
-      aria-dropeffect = {this.ariaMapDragDropEffect()}
+      aria-grabbed = 'true'
+      aria-dropeffect = 'move'
       onKeyDown = { this.mapDragKeyDown.bind(this) }
-      onKeyUp = {this.mapDragKeyUp.bind(this)}
     >
     </image>
   }
@@ -161,35 +160,17 @@ class MapColumn extends React.Component {
 
   }
 
-  ariaMapGrabbedDragDrop() {
-    if (this.mapDragKeyDown) {
-      return 'true'
-    } else if(this.mapDragKeyUp) {
-      return 'null'
-    } else {
-      return 'false'
-    }
-  }
-
-  ariaMapDragDropEffect() {
-    if (this.mapDragKeyDown) {
-      return 'move'
-    } else {
-      return 'none'
-    }
-  }
-
   mapDragKeyDown(event) {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.keyCode === 37) {
+      event.stopPropagation(event)
       event.preventDefault(event)
-      this.handleDragStart(event)
-    }
-  }
-
-  mapDragKeyUp(event) {
-    if (event.key === null || event.key === null) {
+      console.log('left')
+    } else if (event.keyCode === 39) {
+      event.stopPropagation(event)
       event.preventDefault(event)
+      this.handleDragMove(event)
       this.handleDragEnd(event)
+      console.log('right')
     }
   }
 

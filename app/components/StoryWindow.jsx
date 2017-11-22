@@ -98,7 +98,9 @@ class StoryWindow extends React.Component {
   tutorialImageKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
+      event.stopPropagation()
       this.tutorialImageClicked()
+      this.props.onCloseButtonClicked()
     }
   }
  
@@ -183,7 +185,7 @@ class StoryWindow extends React.Component {
 
     return <div 
       className='storyWindow'>
-      <svg 
+      <svg role = 'button' tabIndex = '0' 
         width = { this.props.viewport.get('x')} 
         height = {StoryComputations.storyWindowHeight(this.props.viewport)}>
         {this.shadowFilter()}
