@@ -20,6 +20,8 @@ class StoryBar extends React.Component {
         </span>
       </div>
       <StoryRow rowName='firstRow'/>
+      
+      <StoryRow rowName='secondRow' />
     </div>
   }
 }

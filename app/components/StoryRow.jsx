@@ -9,17 +9,18 @@ const Story = require('./Story.jsx')
 
 class StoryRow extends React.Component {
   render() {
-    return <div>
+    return <g><div>
       <Story 
         id={Constants.getIn(['stories', this.props.rowName, 'leftStory'])} 
-        position='leftStory'/>
+        position='leftStoryRowOne'/>
       <Story 
         id={Constants.getIn(['stories', this.props.rowName, 'middleStory'])} 
-        position='middleStory'/>
+        position='middleStoryRowOne'/>
       <Story 
         id={Constants.getIn(['stories', this.props.rowName, 'rightStory'])}
-        position='rightStory'/>
+        position='rightStoryRowOne'/>
     </div>
+    </g>
   }
 }
 

@@ -102,6 +102,36 @@ const TranslationTable = Immutable.fromJS({
   },
 
   stories: {
+    'the-basics-of-incident-visualization': {
+      title: {
+        en: 'THE BASICS OF INCIDENT VISUALIZATION',
+        fr: 'INTRODUCTION À LA VISUALISATION DES DONNÉES RELATIVES AUX INCIDENTS',
+      },
+      backgroundImage: {
+        en: 'images/stories/the-basics-of-incident-visualization-1-EN.jpg',
+        fr: 'images/stories/the-basics-of-incident-visualization-1-FR.jpg',
+      },
+      tutorialImages: {
+        en: [
+          'images/stories/the-basics-of-incident-visualization-1-EN.jpg',
+          'images/stories/the-basics-of-incident-visualization-2-EN.jpg',
+          'images/stories/the-basics-of-incident-visualization-3-EN.jpg',
+          'images/stories/the-basics-of-incident-visualization-4-EN.jpg',
+        ],
+        fr: [
+          'images/stories/the-basics-of-incident-visualization-1-FR.jpg',
+          'images/stories/the-basics-of-incident-visualization-2-FR.jpg',
+          'images/stories/the-basics-of-incident-visualization-3-FR.jpg',
+          'images/stories/the-basics-of-incident-visualization-4-FR.jpg',
+        ],
+      },
+      // TODO: Change story mode configs to no longer store configuration as
+      // URLs. Store configuration that we would like to change to instead.
+      config: {
+        en: '?columns=province,year&province=7,10,4,5,3,6,9,13,1,8,12,2,11&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008',
+        fr: '?columns=province,year&province=7,10,4,5,3,6,9,13,1,8,12,2,11&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008',
+      },
+    },
     'how-to-read-the-visualization': {
       // TODO: insert French title
       title: {
