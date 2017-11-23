@@ -44,9 +44,6 @@ const Constants = Immutable.fromJS({
     },
     secondRow: {
       leftStory: 'how-to-read-the-visualization',
-      middleStory:null,
-      rightStory:null,
-
     },
   },
 

@@ -10,18 +10,45 @@ const Story = require('./Story.jsx')
 class StoryRow extends React.Component {
 
   render() {
-    return <div>
-      <Story 
+    if(Constants.getIn(['stories', this.props.rowName, 'middleStory']) === undefined) {
+      return <Story 
         id={Constants.getIn(['stories', this.props.rowName, 'leftStory'])} 
         position='leftStory'/>
-      <Story 
-        id={Constants.getIn(['stories', this.props.rowName, 'middleStory'])} 
-        position='middleStory'/>
-      <Story 
-        id={Constants.getIn(['stories', this.props.rowName, 'rightStory'])}
-        position='rightStory'/>
-    </div>
+    } else if(Constants.getIn(['stories', this.props.rowName, 'rightStory']) === undefined) {
+      return <div>
+        <div>
+          <Story 
+            id={Constants.getIn(['stories', this.props.rowName, 'leftStory'])} 
+            position='leftStory'/>
+        </div>
 
+        <div>
+          <Story 
+            id={Constants.getIn(['stories', this.props.rowName, 'middleStory'])} 
+            position='middleStory'/>
+        </div>
+      </div>
+
+    }
+    return <div> 
+      <div>
+        <Story 
+          id={Constants.getIn(['stories', this.props.rowName, 'leftStory'])} 
+          position='leftStory'/>
+      </div>
+
+      <div>
+        <Story 
+          id={Constants.getIn(['stories', this.props.rowName, 'middleStory'])} 
+          position='middleStory'/>
+      </div>
+      
+      <div>
+        <Story 
+          id={Constants.getIn(['stories', this.props.rowName, 'rightStory'])}
+          position='rightStory'/>
+      </div>
+    </div>
   }
 }
 
