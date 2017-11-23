@@ -27,6 +27,9 @@ const FilterboxActivationStateReducer = (state = defaultState, action) => {
       categoryName: null,
     })
 
+  case 'SetFromRouterState':
+    return action.filterboxActivationState
+
   default:
     return state
   }

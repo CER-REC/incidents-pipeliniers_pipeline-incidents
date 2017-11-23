@@ -28,6 +28,7 @@ const routableStateActions = [
   // These now impact the pinned incident selection
   'ActivateFilterbox',
   'HideFilterbox',
+  'AddSelectedIncident',
 ]
 
 
@@ -41,13 +42,15 @@ const RouterMiddleware = store => next => action => {
   if (routableStateActions.includes(action.type)) {
     
     const state = store.getState()
+    
     const paramString = RouteComputations.stateToUrlParams(
       state.columns,
       state.categories,
       state.showEmptyCategories,
-      state.pinnedIncidents
+      state.pinnedIncidents,
+      state.selectedIncidents,
+      state.filterboxActivationState
     )
-
 
     state.history.push(`${location.pathname}${paramString}`)
 
