@@ -43,7 +43,10 @@ const Constants = Immutable.fromJS({
       rightStory: 'adding-columns-to-dig-deeper',
     },
     secondRow: {
-      leftStory: 'how-to-read-the-visualization'
+      leftStory: 'how-to-read-the-visualization',
+      middleStory:null,
+      rightStory:null,
+
     },
   },
 

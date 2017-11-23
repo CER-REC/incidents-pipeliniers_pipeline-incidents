@@ -63,6 +63,7 @@ class Story extends React.Component {
           {Tr.getIn(['stories', this.props.id, 'title', this.props.language])}
         </p>
       </div>
+
     </div>
   }
 }
