@@ -68,5 +68,5 @@ dataLoadPromise.then( () => {
 
   const outputData = store.getState().data.map( incident => incident.get('originalData'))
 
-  Fs.writeFile('Incident Visualization Data.csv', D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
+  Fs.writeFile('Incident Visualization Data.csv', '\ufeff' + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
 })
