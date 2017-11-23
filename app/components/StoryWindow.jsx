@@ -123,21 +123,30 @@ class StoryWindow extends React.Component {
       currentX
     } else {
       const imageCount = imageList.length
-      currentX = currentX - (15 * imageCount)
+      currentX = currentX - (15 * (imageCount - 1))
     }
 
     for (let i = 0; i < imageList.length; i++) {
-      console.log(imageList[i])
+      console.log(imageList[i], currentImageIndex)
     }
 
-    return <circle 
-      r={ 5 }
-      fill = { indicatorDotColor }
-      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      cx={ currentX }
-      cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
-    />
+    return <g>
+      <svg
+      >
+        {imageList.map((circle) => {
+          currentX += 15
+          return <circle 
+            r={ 5 }
+            fill = { indicatorDotColor }
+            key = {this.props.imageList}
+            width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+            height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+            cx={ currentX }
+            cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
+          />
+        })}
+      </svg>
+    </g>
   }
 
   leftArrow(currentImageIndex) {
