@@ -126,9 +126,7 @@ class StoryWindow extends React.Component {
       currentX = currentX - (15 * (imageCount - 1))
     }
 
-    for (let i = 0; i < imageList.length; i++) {
-      console.log(imageList[i], currentImageIndex)
-    }
+    console.log(currentImageIndex, this.props.storyImage, imageList[0])
 
     return <g>
       <svg
@@ -138,7 +136,6 @@ class StoryWindow extends React.Component {
           return <circle 
             r={ 5 }
             fill = { indicatorDotColor }
-            key = {this.props.imageList}
             width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
             height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
             cx={ currentX }
@@ -147,19 +144,6 @@ class StoryWindow extends React.Component {
         })}
       </svg>
     </g>
-  }
-
-  leftArrow(currentImageIndex) {
-    const active = (currentImageIndex === true)? 'inactive' : 'active'
-    return <circle
-      className={active}
-      r={ 5 }
-      fill = '#d6d5d5'
-      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      cx={StoryComputations.storyIndicatorDotX(this.props.viewport)}
-      cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
-      onClick={this.backButtonClick.bind(this)}/>
   }
 
   rightArrow(currentImageIndex, imageList) {
@@ -207,7 +191,6 @@ class StoryWindow extends React.Component {
         {this.shadowFilter()}
         {this.border()}
         {this.closeButton()}
-        {this.leftArrow(currentImageIndex)}
         {this.rightArrow(currentImageIndex, imageList)}
         {this.tutorialImage(currentImageIndex, imageList)}
         {this.indicatorDot(currentImageIndex, imageList)}
