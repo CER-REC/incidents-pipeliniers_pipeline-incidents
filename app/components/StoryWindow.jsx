@@ -9,8 +9,7 @@ const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
 const RouteComputations = require('../RouteComputations.js')
 const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
-const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
-const StoryPreviousImageCreator = require('../actionCreators/StoryPreviousImageCreator.js')
+const ActivateStoryImageCreator = require('../actionCreators/ActivateStoryImageCreator.js')
 const SetFromRouterStateCreator = require('../actionCreators/SetFromRouterStateCreator.js')
 const SetUrlFromStringCreator = require('../actionCreators/SetUrlFromStringCreator.js')
 
@@ -42,15 +41,6 @@ class StoryWindow extends React.Component {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     this.props.onNextTutorialImageClick(imageList.length)
-  }
-
-  backButtonClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Back Button')
-    e.stopPropagation()
-    e.preventDefault()
-    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
-    this.props.onPreviousTutorialImageClick(imageList.length)
   }
 
   tutorialImageClicked(e) {
@@ -113,49 +103,53 @@ class StoryWindow extends React.Component {
 
   indicatorDot(currentImageIndex, imageList) {
 
-    let indicatorDotColor = '#d6d5d5'
-    if(this.props.storyImage === currentImageIndex) {
-      indicatorDotColor = '#5e5e5e'
-    }
-
     let currentX = StoryComputations.storyIndicatorDotX(this.props.viewport)
     if (imageList.length === 1) {
       currentX
     } else {
       const imageCount = imageList.length
-      currentX = currentX - (15 * (imageCount - 1))
+      currentX = currentX - (Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset']) * (imageCount - 1))
     }
 
-    console.log(currentImageIndex, this.props.storyImage, imageList[0])
+
+    console.log(imageList[currentImageIndex])
 
     return <g>
       <svg
       >
-        {imageList.map((circle) => {
-          currentX += 15
-          return <circle 
-            r={ 5 }
+        {imageList.map((image) => {
+          currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
+
+          let indicatorDotColor = '#d6d5d5'
+          if(imageList[currentImageIndex] === image) {
+            indicatorDotColor = '#5e5e5e'
+          }
+          return <circle
+            className = 'indicatorDot'
+            key = {image}
+            r={ Constants.getIn(['storyThumbnailDimensions', 'indicatorDotRadius']) }
             fill = { indicatorDotColor }
             width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
             height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
             cx={ currentX }
             cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
+            onClick = {this.indicatorDotClick.bind(this)}
           />
         })}
       </svg>
     </g>
   }
 
-  rightArrow(currentImageIndex, imageList) {
-    const active = (currentImageIndex >= imageList.length-1)? 'inactive' : 'active'
-    return <image
-      className={active}
-      xlinkHref={`images/right-arrow-${active}.svg`}
-      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      x={StoryComputations.storyCloseButtonX(this.props.viewport)}
-      y={StoryComputations.storyIndicatorDotY(this.props.viewport)}
-      onClick={this.nextButtonClick.bind(this)}/>
+  indicatorDotClick(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Indicator Dot Clicked')
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    const currentImageIndex = this.props.storyImage
+    this.props.onActivateStoryImageClicked(imageList, this.props.storyImage)
+
+    console.log(imageList[currentImageIndex])
   }
 
   tutorialImage(currentImageIndex, imageList) {
@@ -191,7 +185,6 @@ class StoryWindow extends React.Component {
         {this.shadowFilter()}
         {this.border()}
         {this.closeButton()}
-        {this.rightArrow(currentImageIndex, imageList)}
         {this.tutorialImage(currentImageIndex, imageList)}
         {this.indicatorDot(currentImageIndex, imageList)}
       </svg>
@@ -216,11 +209,8 @@ const mapDispatchToProps = dispatch => {
     onCloseButtonClicked: () => {
       dispatch(PopupDismissedCreator())
     },
-    onNextTutorialImageClick: (count) => {
-      dispatch(StoryNextImageCreator(count))
-    },
-    onPreviousTutorialImageClick: (count) => {
-      dispatch(StoryPreviousImageCreator(count))
+    onActivateStoryImageClicked: (imageList, storyImage) => {
+      dispatch(ActivateStoryImageCreator(imageList, storyImage))
     },
     updateVisualization: (storyState) => {
       dispatch(SetFromRouterStateCreator(storyState))
