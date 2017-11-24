@@ -111,24 +111,21 @@ class StoryWindow extends React.Component {
       currentX = currentX - (Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset']) * (imageCount - 1))
     }
 
-
-    console.log(imageList[currentImageIndex])
-
     return <g>
       <svg
       >
-        {imageList.map((image) => {
+        {imageList.map((indicatorDot, key) => {
           currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
 
-          let indicatorDotColor = '#d6d5d5'
-          if(imageList[currentImageIndex] === image) {
-            indicatorDotColor = '#5e5e5e'
+          let indicatorDotColour = '#d6d5d5'
+          if(imageList[currentImageIndex] === indicatorDot) {
+            indicatorDotColour = '#5e5e5e'
           }
           return <circle
             className = 'indicatorDot'
-            key = {image}
+            data-id = {key}
             r={ Constants.getIn(['storyThumbnailDimensions', 'indicatorDotRadius']) }
-            fill = { indicatorDotColor }
+            fill = { indicatorDotColour }
             width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
             height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
             cx={ currentX }
@@ -144,12 +141,8 @@ class StoryWindow extends React.Component {
     e.stopPropagation()
     e.preventDefault()
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Indicator Dot Clicked')
-    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
-    const currentImageIndex = this.props.storyImage
-    this.props.onActivateStoryImageClicked(imageList, this.props.storyImage)
-
-    console.log(imageList[currentImageIndex])
+    const indicatorDot = e.target.getAttribute('data-id')
+    this.props.onActivateStoryImageClicked(indicatorDot)
   }
 
   tutorialImage(currentImageIndex, imageList) {
@@ -209,8 +202,8 @@ const mapDispatchToProps = dispatch => {
     onCloseButtonClicked: () => {
       dispatch(PopupDismissedCreator())
     },
-    onActivateStoryImageClicked: (imageList, storyImage) => {
-      dispatch(ActivateStoryImageCreator(imageList, storyImage))
+    onActivateStoryImageClicked: (imageList) => {
+      dispatch(ActivateStoryImageCreator(imageList))
     },
     updateVisualization: (storyState) => {
       dispatch(SetFromRouterStateCreator(storyState))

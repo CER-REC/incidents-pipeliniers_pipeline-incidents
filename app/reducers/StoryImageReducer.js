@@ -1,21 +1,19 @@
+const defaultState = 0
 
-const StoryImageReducer = (state = 0, action) => {
+const StoryImageReducer = (state = defaultState, action) => {
   switch(action.type) {
 
   case 'ActivateStoryImage':
-    return Immutable.Map({
-      columnName: action.columnName,
-      categoryName: action.categoryName,
-    })
+    if(action) return action.imageList
 
   case 'StoryDismissed':
-    return 0
+    return defaultState
 
   case 'StorySelected':
-    return 0
+    return defaultState
 
   case 'PopupDismissed':
-    return 0
+    return defaultState
 
   default:
     return state
