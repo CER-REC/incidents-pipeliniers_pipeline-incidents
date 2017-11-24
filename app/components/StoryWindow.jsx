@@ -124,6 +124,7 @@ class StoryWindow extends React.Component {
           return <circle
             className = 'indicatorDot'
             data-id = {key}
+            key = {indicatorDot}
             r={ Constants.getIn(['storyThumbnailDimensions', 'indicatorDotRadius']) }
             fill = { indicatorDotColour }
             width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
@@ -141,7 +142,11 @@ class StoryWindow extends React.Component {
     e.stopPropagation()
     e.preventDefault()
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Indicator Dot Clicked')
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    const currentImageIndex = this.props.storyImage
     const indicatorDot = e.target.getAttribute('data-id')
+    console.log(imageList[currentImageIndex], indicatorDot)
     this.props.onActivateStoryImageClicked(indicatorDot)
   }
 
