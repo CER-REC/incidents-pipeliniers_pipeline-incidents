@@ -73,9 +73,9 @@ class Workspace extends React.Component {
     }
     else {
       return <g>
+        <IncidentListHeadings />
         <IncidentListShowHide />
         <EmptyCategories />
-        <IncidentListHeadings />
       </g>
     }
   }

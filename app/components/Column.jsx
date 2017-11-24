@@ -729,15 +729,15 @@ class Column extends React.Component {
         onTouchStart = { this.handleSidebarTouchStart.bind(this) }
         onTouchMove = { this.handleSidebarTouchMove.bind(this) }
         onTouchEnd = { this.handleSidebarTouchEnd.bind(this) }
-        tabIndex = '0'
-        role = 'button'
-        onKeyDown = { this.sidebarKeyDown.bind(this) }
       >
         <g transform={this.sidebarColumnTransform()}>
           { this.sidebarShadow() }
           <g
             className="sidebar"
             id={this.props.columnName}
+            tabIndex = '0'
+            role = 'button'
+            onKeyDown = { this.sidebarKeyDown.bind(this) }
           >
             {this.sideBarColumn()}
           </g>

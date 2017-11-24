@@ -265,6 +265,12 @@ class Category extends React.Component {
     }
   }
 
+  handleSidebarAccessibility() {
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      return 0
+    }
+  }
+
   render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
     
@@ -288,7 +294,7 @@ class Category extends React.Component {
           height={this.props.height}
           fill={this.props.colour}
           onClick = { this.categoryLabelClick.bind(this) }
-          tabIndex = '0'
+          tabIndex = {this.handleSidebarAccessibility()}
           role = 'button'
           onKeyDown = { this.categoryKeyDown.bind(this) } 
           stroke={this.strokeColour()}
