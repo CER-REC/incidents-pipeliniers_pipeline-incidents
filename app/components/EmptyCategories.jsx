@@ -92,7 +92,9 @@ class EmptyCategories extends React.Component {
         <g 
           tabIndex = '0'
           role = 'button'
-          onKeyDown = { this.emptyCategoriesKeyDown.bind(this) }> 
+          onKeyDown = { this.emptyCategoriesKeyDown.bind(this) }
+          aria-label = {Tr.getIn(['seeEmptyCategories'], this.props.language)}
+        > 
           {this.showText()}
         </g> 
         <g >

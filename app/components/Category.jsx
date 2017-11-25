@@ -296,6 +296,7 @@ class Category extends React.Component {
           onClick = { this.categoryLabelClick.bind(this) }
           tabIndex = {this.handleSidebarAccessibility()}
           role = 'button'
+          aria-label = { this.props.categoryName }
           onKeyDown = { this.categoryKeyDown.bind(this) } 
           stroke={this.strokeColour()}
           strokeWidth={ this.strokeWidth() }

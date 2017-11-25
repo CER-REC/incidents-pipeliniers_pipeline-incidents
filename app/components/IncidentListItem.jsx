@@ -103,6 +103,9 @@ class IncidentListItem extends React.Component {
       onMouseLeave = { this.mouseLeave.bind(this) }
       tabIndex = '0'
       role = 'button'
+      aria-label = { `incident number: ${this.props.incident.get('incidentNumber')}
+        incident nearest population: ${this.props.incident.get('nearestPopulatedCentre') }
+        reported date: ${this.props.incident.get('reportedDate').format('MM/DD/YYYY') }`}
       onKeyDown = { this.incidentItemKeyDown.bind(this) } 
     >
 
@@ -112,6 +115,9 @@ class IncidentListItem extends React.Component {
         tabIndex = '0'
         role = 'button'
         onKeyDown = { this.incidentStarKeyDown.bind(this) } 
+        aria-label = { `star incident number: ${this.props.incident.get('incidentNumber')}
+        incident nearest population: ${this.props.incident.get('nearestPopulatedCentre') }
+        reported date: ${this.props.incident.get('reportedDate').format('MM/DD/YYYY') }`}
       >
         <img src = { this.starImage() } ></img>
       </div>

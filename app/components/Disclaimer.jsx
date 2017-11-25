@@ -54,10 +54,6 @@ class Disclaimer extends React.Component {
     // Only render when summoned.
     if(!this.props.disclaimer) return null
 
-    // if(this.props.disclaimer !== null) {
-    //   this.props.disclaimer.focus()
-    // }
-
     return <div
       className='disclaimerWindow'
       style={this.windowStyle()}>
@@ -75,7 +71,7 @@ class Disclaimer extends React.Component {
           height = {Constants.getIn(['disclaimer', 'closeButtonSize'])}
           y={Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}
           onClick = { this.closeButtonClick.bind(this) }
-          tabIndex = '0' role = 'dialog' aria-hidden='true' autoFocus = {true}
+          tabIndex = '0' aria-label = 'close'
           onKeyDown = {this.closeKeyDown.bind(this)}
           xlinkHref = 'images/close-2.svg'>
         </image>

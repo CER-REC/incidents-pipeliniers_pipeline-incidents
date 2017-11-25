@@ -80,6 +80,7 @@ class IncidentListShowHide extends React.Component {
         <g
           tabIndex = '0'
           role = 'button'
+          aria-label = {Tr.getIn(['showIncidentList', this.props.language])}
           onKeyDown = { this.showTextKeyDown.bind(this) }> 
           {this.showText()}
         </g>

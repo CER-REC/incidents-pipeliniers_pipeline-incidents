@@ -107,7 +107,7 @@ class IncidentListHeadings extends React.Component {
       Constants.getIn(['questionMark', 'yOffset'])}
       onClick={this.questionMarkClick.bind(this)}
       tabIndex = '0'
-      aria-label = 'questionMark'
+      aria-label = 'Question Mark'
       role = 'button' 
       onKeyDown = { this.questionMarKeyDown.bind(this) }/>
   }

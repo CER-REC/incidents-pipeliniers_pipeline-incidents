@@ -2,6 +2,7 @@ const React = require('react')
 const ReactRedux = require('react-redux')
 
 const Constants = require('../Constants.js')
+const Tr = require('../TranslationTable.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCreator.js')
 const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
@@ -54,6 +55,7 @@ class MapColumn extends React.Component {
       role = 'button'
       aria-grabbed = 'true'
       aria-dropeffect = 'move'
+      aria-label = {Tr.getIn(['columnHeadings','map'])}
       onKeyDown = { this.mapDragKeyDown.bind(this) }
     >
     </image>

@@ -52,7 +52,7 @@ class Filterbox extends React.Component {
         text = {Tr.getIn(['showOnly', this.props.language])}
         key = 'showOnly'
         role = 'button'
-        ariaLabel = { Tr.getIn(['showOnly', this.props.language]) }
+        aria-label = { Tr.getIn(['showOnly', this.props.language]) }
         keyDownCallback = { this.onShowOnlyKeyDown.bind(this) } 
       />)
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
@@ -67,7 +67,7 @@ class Filterbox extends React.Component {
         text = {Tr.getIn(['hide', this.props.language])}
         key = 'hide'
         role = 'button'
-        ariaLabel = { Tr.getIn(['hide', this.props.language]) }
+        aria-label = { Tr.getIn(['hide', this.props.language]) }
         keyDownCallback = { this.onHideKeyDown.bind(this) } 
       />)
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
@@ -82,7 +82,7 @@ class Filterbox extends React.Component {
         text = {Tr.getIn(['reset', this.props.language])}
         key = 'reset'
         role = 'button'
-        ariaLabel = { Tr.getIn(['reset', this.props.language]) }
+        aria-label = { Tr.getIn(['reset', this.props.language]) }
         keyDownCallback = { this.onResetKeyDown.bind(this) } 
       />)
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])

@@ -32,7 +32,7 @@ class AboutWindow extends React.Component {
       src='images/about_close.svg'
       onClick={this.closeButtonClick.bind(this)}
       tabIndex = '0'
-      aria-label = 'closeButton'
+      aria-label = 'close'
       role = 'button'
       onKeyDown = { this.closeButtonKeyDown.bind(this) } >
     </img>
@@ -138,7 +138,7 @@ class AboutWindow extends React.Component {
     if(!this.props.about) return null
  
     return <g>
-      <div tabIndex = '0' autoFocus = {true}
+      <div
         className='aboutWindow'>
         {this.heading()}
         {this.closeButton()}
