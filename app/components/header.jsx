@@ -155,7 +155,7 @@ class Header extends React.Component {
             role = 'button'
             onKeyDown = { this.tellMeAStoryKeyDown.bind(this) } 
           >{ Tr.getIn(['tellMeAStory', this.props.language]).toUpperCase() }</text>
-          <g className = 'methodology' id='methodologyID'><text
+          <g className = 'methodology'><text
             className = 'headerButtonLabel'
             x = { Constants.getIn(['headerBar', 'headerLabelLeftOffset']) }
             y = { Constants.getIn(['headerBar', 'aboutThisProjectHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize']) }
@@ -234,7 +234,6 @@ class Header extends React.Component {
       </g>
     </svg>
   }
-
 
   render() {
     // TODO: ! Changing the order of leftHeading and rightButtons made the links on the heading
