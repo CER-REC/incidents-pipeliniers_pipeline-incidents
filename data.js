@@ -37,6 +37,48 @@ const csvHeaderNamesInOrder = [
   'WhyItHappened_FR_LIST',
 ]
 
+const csvHeaderNamesInOrder_FR = [
+  'IncidentNumber',
+  'Latitude',
+  'Longitude',
+  'ApproximateVolumeM3',
+  'ReportedDate',
+  'ReportedYear',
+  'IncidentType_FR_LIST',
+  'IncidentStatus_FR',
+  'CompanyName_FR',
+  'NearestPopulationCenter_FR',
+  'ProvinceName_FR',
+  'SubstanceName_FR',
+  'ReleaseType_FR',
+  'PipelinePhase_FR',
+  'WerePipelineSystemComponentsInvolved',
+  'PipelineComponent_FR_LIST',
+  'WhatHappened_FR_LIST',
+  'WhyItHappened_FR_LIST',
+]
+
+const csvHeaderNamesInOrder_EN = [
+  'IncidentNumber',
+  'Latitude',
+  'Longitude',
+  'ApproximateVolumeM3',
+  'ReportedDate',
+  'ReportedYear',
+  'IncidentType_EN_LIST',
+  'IncidentStatus_EN',
+  'CompanyName_EN',
+  'NearestPopulationCenter_EN',
+  'ProvinceName_EN',
+  'SubstanceName_EN',
+  'ReleaseType_EN',
+  'PipelinePhase_EN',
+  'WerePipelineSystemComponentsInvolved',
+  'PipelineComponent_EN_LIST',
+  'WhatHappened_EN_LIST',
+  'WhyItHappened_EN_LIST',
+]
+
 
 const Fs = require('fs')
 const D3 = require('d3')
@@ -71,5 +113,13 @@ dataLoadPromise.then( () => {
   //Prepend UTF 8 Byte Order Mark during CSV generation so 
   //that programs like Microsft Excel can recognize the encoding
   //and use that encoding while opening the file 
+  
+  
+  //English
+  Fs.writeFile('Incident Visualization Data_EN.csv', '\ufeff' + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder_EN))
+  //French
+  Fs.writeFile('Incident Visualization Data_FR.csv', '\ufeff' + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder_FR))
+
+  //Combine
   Fs.writeFile('Incident Visualization Data.csv', '\ufeff' + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
 })
