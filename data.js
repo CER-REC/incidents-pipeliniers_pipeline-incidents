@@ -68,5 +68,8 @@ dataLoadPromise.then( () => {
 
   const outputData = store.getState().data.map( incident => incident.get('originalData'))
 
-  Fs.writeFile('Incident Visualization Data.csv', D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
+  //Prepend UTF 8 Byte Order Mark during CSV generation so 
+  //that programs like Microsft Excel can recognize the encoding
+  //and use that encoding while opening the file 
+  Fs.writeFile('Incident Visualization Data.csv', '\ufeff' + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
 })
