@@ -112,8 +112,7 @@ class StoryWindow extends React.Component {
     }
 
     return <g>
-      <svg
-      >
+
         {imageList.map((indicatorDot, key) => {
           currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
 
@@ -134,13 +133,11 @@ class StoryWindow extends React.Component {
             onClick = {this.indicatorDotClick.bind(this)}
           />
         })}
-      </svg>
+    
     </g>
   }
 
   indicatorDotClick(e) {
-    e.stopPropagation()
-    e.preventDefault()
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Indicator Dot Clicked')
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
@@ -168,6 +165,10 @@ class StoryWindow extends React.Component {
       onClick={this.tutorialImageClicked.bind(this)}/>
   }
 
+  preventDismissal(e) {
+    e.stopPropagation()
+  }
+
   render() {
     // Only render if a story has been selected.
     if(!this.props.story.get('isActive')) return null
@@ -175,7 +176,7 @@ class StoryWindow extends React.Component {
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     const currentImageIndex = this.props.storyImage
 
-    return <div 
+    return <div onClick = {this.preventDismissal.bind(this)}
       className='storyWindow'>
       <svg 
         width = { this.props.viewport.get('x')} 
