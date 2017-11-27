@@ -92,7 +92,7 @@ class SocialBar extends React.Component {
   downloadFileClick() {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Download Data File')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
-    let fileName = (this.props.language === 'fr')? 'Incident Visualization Data_FR.csv': 'Incident Visualization Data_EN.csv'
+    const fileName = (this.props.language === 'fr')? 'Incident Visualization Data_FR.csv': 'Incident Visualization Data_EN.csv'
     window.open(`${appRoot}data/${fileName}`, 'data:text/csv;charset=utf-8,data/' + escape())  }
 
   downloadImageClick() {
