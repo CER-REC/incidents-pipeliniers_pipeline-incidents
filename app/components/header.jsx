@@ -41,8 +41,15 @@ class Header extends React.Component {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'About This Project')
     e.stopPropagation(e)
     e.preventDefault(e)    
+    
     this.props.summonAboutWindow()
+   // this.aboutThisProjectAction()
   }
+
+  // aboutThisProjectAction() {
+  //   document.getElementById(Constants.get('aboutContentID'))
+  //   document.querySelector('.aboutHeading').focus()
+  // }
 
   aboutThisProjectKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {

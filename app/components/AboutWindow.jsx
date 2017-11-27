@@ -49,6 +49,7 @@ class AboutWindow extends React.Component {
   heading() {
     return <p
       className='aboutHeading'
+      role = 'modal'
       tabIndex = '0'
       aria-label =  {Tr.getIn(['aboutText', 'title', this.props.language])}>
       {Tr.getIn(['aboutText', 'title', this.props.language])}
@@ -133,12 +134,25 @@ class AboutWindow extends React.Component {
     </div>    
   }
 
+  componentDidMount() {
+    document.getElementById(Constants.get('aboutContentID'))
+  }
+
+  componentDidUpdate() {
+    document.getElementById(Constants.get('aboutContentID'))
+    document.querySelector('.aboutHeading').focus()
+  }
+
+  componentWillunmount() {
+    return
+  }
+
   render() {
     // Only render if the about window has been summoned.
     if(!this.props.about) return null
  
     return <g>
-      <div
+      <div id = {Constants.get('aboutContentID')}
         className='aboutWindow'>
         {this.heading()}
         {this.closeButton()}

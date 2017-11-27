@@ -12,6 +12,7 @@ const Constants = Immutable.fromJS({
   dataMode: 'dataService',
 
   storyBarID: 'storyBar',
+  aboutContentID: 'aboutContent',
 
   workspace: {
     maxWidth: 1138,
