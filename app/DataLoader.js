@@ -195,6 +195,8 @@ function afterLoad (store, data, location) {
       categories: routerState.categories,
       showEmptyCategories: routerState.showEmptyCategories,
       pinnedIncidents: routerState.pinnedIncidents,
+      selectedIncidents: routerState.selectedIncidents,
+      filterboxActivationState: routerState.filterboxActivationState,
       language: routerState.language,
       screenshotMode: RouteComputations.screenshotMode(location)
     }))

@@ -55,7 +55,8 @@
   font-family: $fira-sans-condensed;
   font-size: 12px;
   fill: $black;
-  margin: 0.5em 0 0 0;
+  //margin left is composed of value pinColumn->horizontalMargins + columnHeadingXOffset + questionMark->size
+  margin: 0.5em 0 0 4.25em;
   padding: 0;
 }
 

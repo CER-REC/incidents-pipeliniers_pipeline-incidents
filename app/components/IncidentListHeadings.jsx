@@ -26,7 +26,9 @@ class IncidentListHeadings extends React.Component {
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
     return <tspan className='incidentsHeading' 
-      x = { columnMeasurements.get('x') }
+      x = { columnMeasurements.get('x') + 
+            Constants.getIn(['questionMark', 'size']) +
+            Constants.get('columnHeadingXOffset') + Constants.get('columnHeadingLeftPadding')}
       y = { y }
       tabIndex = '0'
       aria-label = 'incidents'
@@ -93,6 +95,11 @@ class IncidentListHeadings extends React.Component {
       this.props.categories
     ).get(columnName)
 
+    let questionMarkY = WorkspaceComputations.barHeading() -
+      Constants.getIn(['questionMark', 'size']) + 
+      Constants.getIn(['questionMark', 'yOffset'])+
+      Constants.getIn(['pinColumn','questionMarkXOffset'])
+
 
     return <image 
       id='pinColumn-QuestionMark'
@@ -100,11 +107,8 @@ class IncidentListHeadings extends React.Component {
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 
       height={Constants.getIn(['questionMark', 'size'])} 
-      x={columnMeasurements.get('x') + 
-        StringComputations.questionMarkOffset(Tr.getIn(['columnHeadings', columnName, this.props.language]), 12)} 
-      y={WorkspaceComputations.barHeading() -
-      Constants.getIn(['questionMark', 'size']) / 2 + 
-      Constants.getIn(['questionMark', 'yOffset'])}
+      x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftPadding')} 
+      y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}
       tabIndex = '0'
       aria-label = 'Question Mark'

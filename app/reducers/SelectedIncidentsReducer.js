@@ -24,6 +24,9 @@ const SelectedIncidentsReducer = (state = Immutable.List(), action) => {
   case 'HideFilterbox':
     return Immutable.List()
 
+  case 'SetFromRouterState':
+    return action.selectedIncidents
+
   default:
     return state
   }
