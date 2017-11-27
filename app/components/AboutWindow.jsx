@@ -141,10 +141,20 @@ class AboutWindow extends React.Component {
   componentDidUpdate() {
     document.getElementById(Constants.get('aboutContentID'))
     document.querySelector('.aboutHeading').focus()
+
+   
+    if(document.querySelector('.aboutHeading').focus() === undefined) {
+      console.log('asdf')
+    }
   }
 
-  componentWillunmount() {
-    return
+  componentWillUnmount() {
+    document.getElementById(Constants.get('methodogolyID'))
+    document.querySelector('.methodology').focus()
+  }
+
+  preventDismissal(e) {
+    e.stopPropagation()
   }
 
   render() {
@@ -153,6 +163,7 @@ class AboutWindow extends React.Component {
  
     return <g>
       <div id = {Constants.get('aboutContentID')}
+        onClick = { this.preventDismissal.bind(this) }
         className='aboutWindow'>
         {this.heading()}
         {this.closeButton()}

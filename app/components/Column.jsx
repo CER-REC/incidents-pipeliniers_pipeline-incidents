@@ -120,8 +120,6 @@ class Column extends React.Component {
         key={word}
         x={columnMeasurements.get('x')} 
         y={currentY}
-        aria-grabbed = 'true'
-        aria-dropeffect = 'move'
         onMouseDown={this.handleDragStart.bind(this)}
         onMouseMove={this.handleDragMove.bind(this)}
         onMouseUp={this.handleDragEnd.bind(this)}
@@ -169,7 +167,7 @@ class Column extends React.Component {
       y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}
       tabIndex = '0'
-      aria-label = {this.props.columnName + 'Question Mark Tool Tip'}
+      aria-label = {`${this.props.columnName} 'Question Mark Tool Tip'`}
       role = 'button' 
       onKeyDown = { this.questionMarKeyDown.bind(this) }/>
   }

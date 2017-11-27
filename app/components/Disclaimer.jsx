@@ -17,7 +17,7 @@ class Disclaimer extends React.Component {
   }
 
   closeKeyDown(event) {
-    if (event.key === 'Enter' || event.key === ' ' || event.key === 'esc') {
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       this.closeButtonClick()
     }
@@ -50,11 +50,15 @@ class Disclaimer extends React.Component {
     
   }
 
+  preventDismissal(e) {
+    e.stopPropagation()
+  }
+
   render() {
     // Only render when summoned.
     if(!this.props.disclaimer) return null
 
-    return <div
+    return <div onClick = {this.preventDismissal.bind(this)}
       className='disclaimerWindow'
       style={this.windowStyle()}>
       <p className='disclaimer star'>*</p>      

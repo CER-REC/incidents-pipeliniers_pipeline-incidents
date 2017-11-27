@@ -115,8 +115,12 @@ class ColumnTooltip extends React.Component {
     document.getElementById('columnTooltip').scrollTop = 0
   }
 
+  preventDismissal(e) {
+    e.stopPropagation()
+  }
+
   render() {
-    return <div 
+    return <div onClick = {this.preventDismissal.bind(this)}
       id='columnTooltip'
       className='tooltip'
       style={this.tooltipStyle()}>

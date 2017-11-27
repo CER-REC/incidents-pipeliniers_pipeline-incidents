@@ -43,13 +43,7 @@ class Header extends React.Component {
     e.preventDefault(e)    
     
     this.props.summonAboutWindow()
-   // this.aboutThisProjectAction()
   }
-
-  // aboutThisProjectAction() {
-  //   document.getElementById(Constants.get('aboutContentID'))
-  //   document.querySelector('.aboutHeading').focus()
-  // }
 
   aboutThisProjectKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -109,7 +103,7 @@ class Header extends React.Component {
         className = 'subpop'>
         { Tr.getIn(['mainSubheading', this.props.language]) }
         <a href="#" onClick = {this.disclaimerClick.bind(this)}
-          id='dataDisclaimerWindow' aria-labelledby = 'dataDisclaimerWindow'>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
+          id='dataDisclaimerWindow'>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
       </p>
       <p className = 'subpop'>
         <a onClick = {this.learnMoreAnalytics.bind(this)}
@@ -161,7 +155,7 @@ class Header extends React.Component {
             role = 'button'
             onKeyDown = { this.tellMeAStoryKeyDown.bind(this) } 
           >{ Tr.getIn(['tellMeAStory', this.props.language]).toUpperCase() }</text>
-          <text
+          <g className = 'methodology' id='methodologyID'><text
             className = 'headerButtonLabel'
             x = { Constants.getIn(['headerBar', 'headerLabelLeftOffset']) }
             y = { Constants.getIn(['headerBar', 'aboutThisProjectHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize']) }
@@ -171,7 +165,7 @@ class Header extends React.Component {
             aria-label = { Tr.getIn(['aboutThisProject', this.props.language]) }
             role = 'button'
             onKeyDown = { this.aboutThisProjectKeyDown.bind(this) } 
-          >{ Tr.getIn(['aboutThisProject', this.props.language]).toUpperCase() }</text>
+          >{ Tr.getIn(['aboutThisProject', this.props.language]).toUpperCase() }</text></g>
           <text
             className = 'headerButtonLabel'
             x = { Constants.getIn(['headerBar', 'headerLabelLeftOffset']) }
