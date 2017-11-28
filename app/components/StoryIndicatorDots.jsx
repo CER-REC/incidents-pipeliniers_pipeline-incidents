@@ -3,36 +3,44 @@ const ReactRedux = require('react-redux')
 
 require('./StoryIndicatorDots.scss')
 
-const StoryWindow = require('./StoryWindow.jsx')
 const Constants = require('../Constants.js')
 const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
-const RouteComputations = require('../RouteComputations.js')
-const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const ActivateStoryImageCreator = require('../actionCreators/ActivateStoryImageCreator.js')
-const SetFromRouterStateCreator = require('../actionCreators/SetFromRouterStateCreator.js')
-const SetUrlFromStringCreator = require('../actionCreators/SetUrlFromStringCreator.js')
 
 class StoryIndicatorDots extends React.Component {
 
+
+  indicatorDotIndex() {
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const currentImageIndex = this.props.storyImage
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+
+    const indicatorDotState = this.props.onActivateStoryImageClicked(indicatorDotIndex)
+
+    console.log(story, currentImageIndex, imageList, this.props.indicatorDotIndex)
+    // make a property so that each dot has the image property ID 
+    // and pass it in each time so that it works
+    // let the 
+
+    // let indicatorDotIndex = whatever dot is equal to the image
+    
+  }
 
   indicatorDotClick(e) {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Indicator Dot Clicked')
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     const currentImageIndex = this.props.storyImage
-    const indicatorDot = e.target.getAttribute('data-id')
-    console.log(imageList[currentImageIndex], indicatorDot)
-    this.props.onActivateStoryImageClicked(indicatorDot)
+    const indicatorDotIndex = e.target.getAttribute('data-id')
+    console.log(imageList[currentImageIndex], indicatorDotIndex)
+    this.props.onActivateStoryImageClicked(indicatorDotIndex)
   }
 
   render() {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const currentImageIndex = this.props.storyImage
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
-
-    // so don't do it like this, make a property so that each dot has the image property ID 
-    // and pass it in each time so that it works
 
     let currentX = StoryComputations.storyIndicatorDotX(this.props.viewport)
      if (imageList.length === 1) {
@@ -44,17 +52,17 @@ class StoryIndicatorDots extends React.Component {
 
    return <g>
 
-       {imageList.map((indicatorDot, key) => {
+       {imageList.map((indicatorDotIndex, key) => {
            currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
 
          let indicatorDotColour = '#d6d5d5'
-           if(imageList[currentImageIndex] === indicatorDot) {
+           if(imageList[currentImageIndex] === indicatorDotIndex) {
              indicatorDotColour = '#5e5e5e'
            }
            return <circle
              className = 'indicatorDot'
              data-id = {key}
-             key = {indicatorDot}
+             key = {this.props.indicatorDotIndex}
              r={ Constants.getIn(['storyThumbnailDimensions', 'indicatorDotRadius']) }
              fill = { indicatorDotColour }
              width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
