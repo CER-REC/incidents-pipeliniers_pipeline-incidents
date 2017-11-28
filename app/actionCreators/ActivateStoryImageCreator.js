@@ -1,8 +1,8 @@
 
-function ActivateStoryImageCreator (imageList) {
+function ActivateStoryImageCreator (storyImageIndex) {
   return {
     type: 'ActivateStoryImage',
-    imageList: imageList,
+    storyImageIndex: storyImageIndex,
   }
 }
 

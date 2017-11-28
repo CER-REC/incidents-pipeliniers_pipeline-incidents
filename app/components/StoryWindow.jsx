@@ -5,6 +5,7 @@ const ReactRedux = require('react-redux')
 require('./StoryWindow.scss')
 
 const Constants = require('../Constants.js')
+const StoryIndicatorDots = require('./StoryIndicatorDots.jsx')
 const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
 const RouteComputations = require('../RouteComputations.js')
@@ -32,15 +33,6 @@ class StoryWindow extends React.Component {
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
-  }
-
-  nextButtonClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Next Button')
-    e.stopPropagation()
-    e.preventDefault()
-    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
-    this.props.onNextTutorialImageClick(imageList.length)
   }
 
   tutorialImageClicked(e) {
@@ -101,52 +93,6 @@ class StoryWindow extends React.Component {
       onClick = {this.closeButtonClick.bind(this)}/>
   }
 
-  indicatorDot(currentImageIndex, imageList) {
-
-    let currentX = StoryComputations.storyIndicatorDotX(this.props.viewport)
-    if (imageList.length === 1) {
-      currentX
-    } else {
-      const imageCount = imageList.length
-      currentX = currentX - (Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset']) * (imageCount - 1))
-    }
-
-    return <g>
-
-        {imageList.map((indicatorDot, key) => {
-          currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
-
-          let indicatorDotColour = '#d6d5d5'
-          if(imageList[currentImageIndex] === indicatorDot) {
-            indicatorDotColour = '#5e5e5e'
-          }
-          return <circle
-            className = 'indicatorDot'
-            data-id = {key}
-            key = {indicatorDot}
-            r={ Constants.getIn(['storyThumbnailDimensions', 'indicatorDotRadius']) }
-            fill = { indicatorDotColour }
-            width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-            height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-            cx={ currentX }
-            cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
-            onClick = {this.indicatorDotClick.bind(this)}
-          />
-        })}
-    
-    </g>
-  }
-
-  indicatorDotClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Indicator Dot Clicked')
-    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
-    const currentImageIndex = this.props.storyImage
-    const indicatorDot = e.target.getAttribute('data-id')
-    console.log(imageList[currentImageIndex], indicatorDot)
-    this.props.onActivateStoryImageClicked(indicatorDot)
-  }
-
   tutorialImage(currentImageIndex, imageList) {
     // Set the cursor to input if this is the last
     // tutorial image.
@@ -185,7 +131,9 @@ class StoryWindow extends React.Component {
         {this.border()}
         {this.closeButton()}
         {this.tutorialImage(currentImageIndex, imageList)}
-        {this.indicatorDot(currentImageIndex, imageList)}
+
+        <StoryIndicatorDots />
+
       </svg>
     </div>
   }
