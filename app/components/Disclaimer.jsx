@@ -19,16 +19,12 @@ class Disclaimer extends React.Component {
   }
 
   closeKeyDown(event) {
-    document.getElementById(Constants.get('disclaimerID'))
-    const disclaimer = document.querySelector('.disclaimerCloseButton')
     if (event.key === 'Enter' || event.key === ' ' || event.keyCode === 27) {
       event.preventDefault()
       this.closeButtonClick()
     }
     if(event.keyCode === 9) {
-      event.stopPropagation()
       event.preventDefault()
-      disclaimer.focus()
     }
   }
 

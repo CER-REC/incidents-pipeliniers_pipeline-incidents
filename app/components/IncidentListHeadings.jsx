@@ -110,6 +110,7 @@ class IncidentListHeadings extends React.Component {
       x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftPadding')} 
       y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}
+      //maybe move this stuff to the actual method call...
       tabIndex = '0'
       aria-label = 'Question Mark'
       role = 'button' 
