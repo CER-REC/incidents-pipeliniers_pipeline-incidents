@@ -83,7 +83,10 @@ class ColumnTooltipListItem extends React.Component {
 
   render() {
     return <div 
-      className='listItem'>
+      className='listItem'
+      tabIndex = '0'
+      role = 'button'
+      aria-labelledby = {this.overviewText()}>
       {this.listSymbol()}
       {this.overviewText()}
       {this.detailText()}

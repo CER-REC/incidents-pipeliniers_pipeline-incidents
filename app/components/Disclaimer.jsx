@@ -19,9 +19,16 @@ class Disclaimer extends React.Component {
   }
 
   closeKeyDown(event) {
+    document.getElementById(Constants.get('disclaimerID'))
+    const disclaimer = document.querySelector('.disclaimerCloseButton')
     if (event.key === 'Enter' || event.key === ' ' || event.keyCode === 27) {
       event.preventDefault()
       this.closeButtonClick()
+    }
+    if(event.keyCode === 9) {
+      event.stopPropagation()
+      event.preventDefault()
+      disclaimer.focus()
     }
   }
 
@@ -55,8 +62,8 @@ class Disclaimer extends React.Component {
   componentDidUpdate() {
     if(this.props.disclaimer) {
       document.getElementById(Constants.get('disclaimerID'))
-      window.scrollTo('0','0')
-      document.querySelector('.disclaimerCloseButton').focus()
+      const disclaimer = document.querySelector('.disclaimerCloseButton')
+      disclaimer.focus()
     }
   }
 
@@ -71,7 +78,8 @@ class Disclaimer extends React.Component {
     return <div onClick = {this.preventDismissal.bind(this)}
       id = {Constants.get('disclaimerID')}
       className='disclaimerWindow'
-      style={this.windowStyle()}>
+      style={this.windowStyle()}
+    >
       <p className='disclaimer star'>*</p>      
       <p className='disclaimer disclaimerText' style={this.textStyle()}>
         {Tr.getIn(['disclaimerText', this.props.language])}

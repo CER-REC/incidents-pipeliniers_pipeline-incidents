@@ -31,7 +31,7 @@ class IncidentListHeadings extends React.Component {
             Constants.get('columnHeadingXOffset') + Constants.get('columnHeadingLeftPadding')}
       y = { y }
       tabIndex = '0'
-      aria-label = 'incidents'
+      aria-labelledby = 'incidents'
     >INCIDENTS</tspan>
 
 
