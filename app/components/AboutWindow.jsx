@@ -16,7 +16,11 @@ class AboutWindow extends React.Component {
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
+
+    document.getElementById(Constants.get('aboutThisProjectID'))
+    document.querySelector('.aboutThisProject').focus()
   }
+
 
   closeButtonKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -49,11 +53,11 @@ class AboutWindow extends React.Component {
   heading() {
     return <p
       className='aboutHeading'
-      role = 'modal'
+      role = 'dialog'
       tabIndex = '0'
-      aria-label =  {Tr.getIn(['aboutText', 'title', this.props.language])}>
+      aria-labelledby =  {Tr.getIn(['aboutText', 'title', this.props.language])}>
       {Tr.getIn(['aboutText', 'title', this.props.language])}
-    </p>
+    </p> 
   }
 
   contributersHeading() {
@@ -125,6 +129,7 @@ class AboutWindow extends React.Component {
         <span>
           {Tr.getIn(['aboutText', 'p4', this.props.language])}
           <a onClick = {this.emailLinkAnalytics.bind(this)}
+            className = 'emailLink' 
             href={Tr.getIn(['aboutText', 'emailLink', this.props.language])}>
             {Tr.getIn(['aboutText', 'emailText', this.props.language])}
           </a>
@@ -134,14 +139,28 @@ class AboutWindow extends React.Component {
     </div>    
   }
 
+
   componentDidMount() {
     document.getElementById(Constants.get('aboutContentID'))
   }
 
   componentDidUpdate() {
-    document.querySelector('.aboutHeading').focus()
+    if(this.props.about) {
+      const first = document.querySelector('.aboutHeading')
+      const last = document.querySelector('.emailLink')
+      first.focus()
+
+    }
   }
-  
+
+  onEscapeKeyDown(event) {
+    if(event.keyCode === 27) {
+      // event.preventDefault()
+      // event.stopPropagation()
+      this.closeButtonClick(event)
+    }
+  }
+
   preventDismissal(e) {
     e.stopPropagation()
   }
@@ -150,16 +169,21 @@ class AboutWindow extends React.Component {
     // Only render if the about window has been summoned.
     if(!this.props.about) return null
  
-    return <g>
-      <div id = {Constants.get('aboutContentID')}
+    return <g> 
+      <div 
         onClick = { this.preventDismissal.bind(this) }
-        className='aboutWindow'>
+        className='aboutWindow'
+        id = {Constants.get('aboutContentID')}
+        onKeyDown = {this.onEscapeKeyDown.bind(this) }
+      >
         {this.heading()}
         {this.closeButton()}
         <hr/>
         {this.intro()}
-        {this.contributersHeading()}
-        {this.contributersContent()}
+        <div id={Constants.get('emailLinkID') }>
+          {this.contributersHeading()}
+          {this.contributersContent()}
+        </div>
       </div>
     </g>
   }

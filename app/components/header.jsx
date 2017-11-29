@@ -155,8 +155,9 @@ class Header extends React.Component {
             role = 'button'
             onKeyDown = { this.tellMeAStoryKeyDown.bind(this) } 
           >{ Tr.getIn(['tellMeAStory', this.props.language]).toUpperCase() }</text>
-          <g className = 'methodology'><text
-            className = 'headerButtonLabel'
+          <text
+            className = 'aboutThisProject'
+            id = {Constants.get('aboutThisProject')}
             x = { Constants.getIn(['headerBar', 'headerLabelLeftOffset']) }
             y = { Constants.getIn(['headerBar', 'aboutThisProjectHeight']) + Constants.getIn(['headerBar', 'headerLabelFontSize']) }
             fontSize = { Constants.getIn(['headerBar', 'headerLabelFontSize'])}
@@ -165,7 +166,7 @@ class Header extends React.Component {
             aria-label = { Tr.getIn(['aboutThisProject', this.props.language]) }
             role = 'button'
             onKeyDown = { this.aboutThisProjectKeyDown.bind(this) } 
-          >{ Tr.getIn(['aboutThisProject', this.props.language]).toUpperCase() }</text></g>
+          >{ Tr.getIn(['aboutThisProject', this.props.language]).toUpperCase() }</text>
           <text
             className = 'headerButtonLabel'
             x = { Constants.getIn(['headerBar', 'headerLabelLeftOffset']) }
