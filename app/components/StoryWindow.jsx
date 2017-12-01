@@ -33,6 +33,9 @@ class StoryWindow extends React.Component {
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
+
+    document.getElementById('heading')
+    document.querySelector('.storiesHeading').focus()
   }
 
   closeButtonKeyDown(event) {
@@ -127,7 +130,7 @@ class StoryWindow extends React.Component {
       onClick = {this.closeButtonClick.bind(this)}
       tabIndex = '0'
       role = 'button'
-      aria-label = 'storyCloseButton'
+      aria-label = 'story close button'
       onKeyDown = {this.closeButtonKeyDown.bind(this)}/>
   }
 
@@ -176,6 +179,22 @@ class StoryWindow extends React.Component {
       onKeyDown = {this.tutorialImageKeyDown.bind(this) }/>
   }
 
+  componentDidMount() {
+    document.getElementById('storyWindowID')
+  }
+
+  componentDidUpdate() {
+    if(this.props.story.get('isActive')) {
+      document.querySelector('.storyWindow').focus()
+    }
+  }
+
+  onEscapeKeyDown(event) {
+    if(event.keyCode === 27) {
+      this.closeButtonClick(event)
+    }
+  }
+
   render() {
     // Only render if a story has been selected.
     if(!this.props.story.get('isActive')) return null
@@ -183,9 +202,10 @@ class StoryWindow extends React.Component {
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     const currentImageIndex = this.props.storyImage
 
-    return <div 
-      className='storyWindow'>
-      <svg role = 'button' tabIndex = '0' 
+    return <div id = 'storyWindowID'
+      className='storyWindow'
+      role = 'button' tabIndex = '0' onKeyDown = {this.onEscapeKeyDown.bind(this)}>
+      <svg  
         width = { this.props.viewport.get('x')} 
         height = {StoryComputations.storyWindowHeight(this.props.viewport)}>
         {this.shadowFilter()}

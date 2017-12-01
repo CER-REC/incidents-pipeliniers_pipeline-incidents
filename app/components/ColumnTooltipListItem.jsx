@@ -23,6 +23,14 @@ class ColumnTooltipListItem extends React.Component {
       this.props.onDetailExpand(this.props.columnName, this.props.item.get('overview'))
   }
 
+  onDetailKeyDown(event) {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.stopPropagation()
+      event.preventDefault()
+      this.detailClick(event)
+    }
+  }
+
   listSymbol() {
     let sym = '+'
     if(this.props.item.get('expanded') === null) {
@@ -47,7 +55,10 @@ class ColumnTooltipListItem extends React.Component {
     }
     return <span 
       className={textClassName}
+      tabIndex='0'
+      role='button'
       onClick={this.detailClick.bind(this)}
+      onKeyDown = {this.onDetailKeyDown.bind(this)}
     >
       {this.props.item.get('overview')}
     </span>
@@ -82,10 +93,8 @@ class ColumnTooltipListItem extends React.Component {
   }
 
   render() {
-    return <div 
-      className='listItem'
-      tabIndex = '0'
-      role = 'button'>
+    return <div id = {Constants.get('CustomToolTipID')}
+      className='listItem'>
       {this.listSymbol()}
       {this.overviewText()}
       {this.detailText()}

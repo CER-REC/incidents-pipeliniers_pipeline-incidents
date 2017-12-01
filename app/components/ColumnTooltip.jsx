@@ -6,10 +6,15 @@ require('./ColumnTooltip.scss')
 
 const Tr = require('../TranslationTable.js')
 const Constants = require('../Constants.js')
+const Store = require('../Store.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const ColumnTooltipListItem = require('./ColumnTooltipListItem.jsx')
 
+const store = Store() 
+
 class ColumnTooltip extends React.Component {
+
   title() {
     return <p
       className='PopupHeading'>
@@ -113,6 +118,15 @@ class ColumnTooltip extends React.Component {
     // Scroll to the top of the tooltip to make sure
     // that the tooltip title is fully visible.
     document.getElementById('columnTooltip').scrollTop = 0
+    document.getElementById('columnTooltip')
+    document.querySelector('.tooltip').focus()
+  }
+
+  onKeyDownHandler(event) {
+    if(event.keyCode === 27) {
+      document.querySelector('.questionMark').focus()
+      store.dispatch(PopupDismissedCreator())
+    }
   }
 
   preventDismissal(e) {
@@ -123,11 +137,15 @@ class ColumnTooltip extends React.Component {
     return <div onClick = {this.preventDismissal.bind(this)}
       id='columnTooltip'
       className='tooltip'
-      style={this.tooltipStyle()}>
+      tabIndex = '0'
+      role = 'dialog'
+      aria-labelledby ={this.title()}
+      style={this.tooltipStyle()}
+      onKeyDown = {this.onKeyDownHandler.bind(this)}>
       {this.title()}
       {this.description()}
       {this.separator()}
-      <div className='listContainer'>
+      <div className='listContainer' tabIndex='0' role='dialog'>
         {this.listText()}
       </div>
     </div>
@@ -145,5 +163,7 @@ const mapStateToProps = state => {
     categories: state.categories,
   }
 }
+
+
 
 module.exports = ReactRedux.connect(mapStateToProps)(ColumnTooltip)

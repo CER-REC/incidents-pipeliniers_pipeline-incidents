@@ -110,7 +110,6 @@ class IncidentListHeadings extends React.Component {
       x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftPadding')} 
       y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}
-      //maybe move this stuff to the actual method call...
       tabIndex = '0'
       aria-label = 'Question Mark'
       role = 'button' 
@@ -127,8 +126,12 @@ class IncidentListHeadings extends React.Component {
     if (event.key === ' ' || event.key === 'Enter') {
       event.stopPropagation(event)
       event.preventDefault(event)
-      this.questionMarkClick(event)
+      this.props.onQuestionMarkClick('pinColumn')
     }
+  }
+
+  componentDidMount() {
+    
   }
 
   render() {

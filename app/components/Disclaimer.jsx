@@ -52,7 +52,7 @@ class Disclaimer extends React.Component {
   }
 
   componentDidMount() {
-    
+
   }
 
   componentDidUpdate() {
@@ -60,6 +60,7 @@ class Disclaimer extends React.Component {
       document.getElementById(Constants.get('disclaimerID'))
       const disclaimer = document.querySelector('.disclaimerCloseButton')
       disclaimer.focus()
+      window.scrollTo(0,0)
     }
   }
 

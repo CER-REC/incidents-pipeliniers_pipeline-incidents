@@ -17,6 +17,7 @@ const Constants = Immutable.fromJS({
   aboutThisProjectID: 'aboutThisProject',
   disclaimerID: 'disclaimer',
   dataDisclaimerID: 'dataDisclaimerWindow',
+  customToolTipID: 'customToolTip',
 
   workspace: {
     maxWidth: 1138,

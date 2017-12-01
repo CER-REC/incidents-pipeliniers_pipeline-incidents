@@ -130,6 +130,7 @@ class AboutWindow extends React.Component {
           {Tr.getIn(['aboutText', 'p4', this.props.language])}
           <a onClick = {this.emailLinkAnalytics.bind(this)}
             className = 'emailLink' 
+            id = 'emailLink'
             href={Tr.getIn(['aboutText', 'emailLink', this.props.language])}>
             {Tr.getIn(['aboutText', 'emailText', this.props.language])}
           </a>
@@ -147,9 +148,7 @@ class AboutWindow extends React.Component {
   componentDidUpdate() {
     if(this.props.about) {
       const first = document.querySelector('.aboutHeading')
-      const last = document.querySelector('.emailLink')
       first.focus()
-
     }
   }
 
@@ -158,6 +157,9 @@ class AboutWindow extends React.Component {
       event.preventDefault()
       event.stopPropagation()
       this.closeButtonClick(event)
+    }
+    if(event.keyCode === 9) {
+      console.log('k')
     }
   }
 
