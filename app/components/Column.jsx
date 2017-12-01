@@ -244,8 +244,6 @@ class Column extends React.Component {
       y= { dragArrowY }
       tabIndex = '0'
       role = 'button'
-      aria-grabbed = 'true'
-      aria-dropeffect = 'move'
       onMouseDown={this.handleDragStart.bind(this)}
       onMouseMove={this.handleDragMove.bind(this)}
       onMouseUp={this.handleDragEnd.bind(this)}
@@ -753,8 +751,6 @@ class Column extends React.Component {
         <g>
           <text tabIndex = '0'
             role = 'button'
-            aria-grabbed = 'true'
-            aria-dropeffect = 'move'
             aria-label = {this.barHeading()}>
             {this.barHeading()}</text>
           `<text>
