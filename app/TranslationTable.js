@@ -1332,6 +1332,12 @@ const TranslationTable = Immutable.fromJS({
     },
   },
 
+  downloadable: {
+    csv: {
+      en: 'Incident Visualization Data_EN.csv',
+      fr: 'Incident Visualization Data_FR.csv'
+    }
+  },
 
 
 

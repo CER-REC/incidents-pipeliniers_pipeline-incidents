@@ -422,13 +422,6 @@ const Constants = Immutable.fromJS({
     emptyCategories: 'Empty Categories',
   },
 
-  downloadable: {
-    english: 'en',
-    french: 'fr',
-    csvEN:'Incident Visualization Data_EN.csv',
-    csvFR:'Incident Visualization Data_FR.csv'
-  },
-
   // The purpose of the bottom margin is to allow some space for the filterbox
   // to drop below
   workspaceBottomMargin: 20,
