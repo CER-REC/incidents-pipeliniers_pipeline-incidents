@@ -124,10 +124,7 @@ dataLoadPromise.then( () => {
   Fs.writeFile('Incident Visualization Data_FR.csv', byteOrderMark + D3.csvFormatRows([frenchHeader]
     .concat((outputData.toJS()).map(function(d) {
       return dataFields.map((dataFieldName)=> {
-        //creating value dynamically using the array
-        //using eval to convert string to variable
-        const ref = `d.${dataFieldName}`
-        return eval(ref)
+        return d[dataFieldName]
       })
     })))
   )
