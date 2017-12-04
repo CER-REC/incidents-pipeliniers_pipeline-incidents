@@ -133,14 +133,13 @@ const TranslationTable = Immutable.fromJS({
       },
     },
     'how-to-read-the-visualization': {
-      // TODO: insert French title
       title: {
         en: 'HOW TO READ THE VISUALIZATION',
-        fr: 'INTRODUCTION À LA VISUALISATION DES DONNÉES RELATIVES AUX INCIDENTS',
+        fr: 'POUR INTERPRÉTER LA VISUALISATION',
       },
       backgroundImage: {
         en: 'images/stories/how-to-read-the-visualization-1-EN.png',
-        fr: 'images/stories/the-basics-of-incident-visualization-1-FR.jpg',
+        fr: 'images/stories/how-to-read-the-visualization-1-FR.png',
       },
       tutorialImages: {
         en: [
@@ -151,10 +150,10 @@ const TranslationTable = Immutable.fromJS({
         ],
         // TODO: insert French story images
         fr: [
-          'images/stories/how-to-read-the-visualization-1-EN.png',
-          'images/stories/how-to-read-the-visualization-2-EN.png',
-          'images/stories/how-to-read-the-visualization-3-EN.png',
-          'images/stories/how-to-read-the-visualization-4-EN.png',
+          'images/stories/how-to-read-the-visualization-1-FR.png',
+          'images/stories/how-to-read-the-visualization-2-FR.png',
+          'images/stories/how-to-read-the-visualization-3-FR.png',
+          'images/stories/how-to-read-the-visualization-4-FR.png',
         ],
       },
       // TODO: Change story mode configs to no longer store configuration as
