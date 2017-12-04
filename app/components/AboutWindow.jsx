@@ -35,9 +35,9 @@ class AboutWindow extends React.Component {
       className='closeButton'
       src='images/about_close.svg'
       onClick={this.closeButtonClick.bind(this)}
-      tabIndex = '0'
       aria-label = 'close'
       role = 'button'
+      tabIndex = '0'
       onKeyDown = { this.closeButtonKeyDown.bind(this) } >
     </img>
   }
@@ -108,7 +108,7 @@ class AboutWindow extends React.Component {
           {Tr.getIn(['aboutText', 'p1', this.props.language])}
           <a onClick = {this.nebPerformancePortalAnalytics.bind(this)}
             href={Tr.getIn(['aboutText', 'safetyPerformancePortalLink', this.props.language])}
-            target="_blank">
+            target="_blank" >
             {Tr.getIn(['aboutText', 'safetyPerformancePortalText', this.props.language])}
           </a>
           {Tr.getIn(['aboutText', 'p1_2', this.props.language])}
@@ -130,7 +130,7 @@ class AboutWindow extends React.Component {
           {Tr.getIn(['aboutText', 'p4', this.props.language])}
           <a onClick = {this.emailLinkAnalytics.bind(this)}
             className = 'emailLink' 
-            id = 'emailLink'
+            id = 'emailLink' 
             href={Tr.getIn(['aboutText', 'emailLink', this.props.language])}>
             {Tr.getIn(['aboutText', 'emailText', this.props.language])}
           </a>
@@ -147,8 +147,7 @@ class AboutWindow extends React.Component {
 
   componentDidUpdate() {
     if(this.props.about) {
-      const first = document.querySelector('.aboutHeading')
-      first.focus()
+      document.querySelector('.aboutHeading').focus()
     }
   }
 
@@ -157,9 +156,6 @@ class AboutWindow extends React.Component {
       event.preventDefault()
       event.stopPropagation()
       this.closeButtonClick(event)
-    }
-    if(event.keyCode === 9) {
-      console.log('k')
     }
   }
 

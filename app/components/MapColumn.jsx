@@ -8,6 +8,7 @@ const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCre
 const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
 const DragColumnEndedCreator = require('../actionCreators/DragColumnEndedCreator.js')
 const SnapColumnCreator = require('../actionCreators/SnapColumnCreator.js')
+const SetColumnsToCreator = require('../actionCreators/SetColumnsToCreator.js')
 
 let columnWindowMoveHandler = null
 let columnWindowEndHandler = null
@@ -53,10 +54,8 @@ class MapColumn extends React.Component {
       onTouchEnd = { this.handleTouchEnd.bind(this) } 
       tabIndex = '0'
       role = 'button'
-      aria-grabbed = 'true'
-      aria-dropeffect = 'move'
       aria-label = {Tr.getIn(['columnHeadings','map'])}
-      onKeyDown = { this.mapDragKeyDown.bind(this) }
+      onKeyDown = { this.mapKeyDown.bind(this) }
     >
     </image>
   }
@@ -162,18 +161,45 @@ class MapColumn extends React.Component {
 
   }
 
-  mapDragKeyDown(event) {
-    if (event.keyCode === 37) {
-      event.stopPropagation(event)
-      event.preventDefault(event)
-      console.log('left')
-    } else if (event.keyCode === 39) {
-      event.stopPropagation(event)
-      event.preventDefault(event)
-      this.handleDragMove(event)
-      this.handleDragEnd(event)
-      console.log('right')
+  mapKeyDown(event) {
+    // put up the guards
+    if((event.key !== 'ArrowLeft') && (event.key !== 'ArrowRight')) {
+      return null
     }
+
+    // prevent horizontal scrolling on the page
+    event.preventDefault()
+
+    let swap = null
+
+    if (event.key === 'ArrowLeft') {
+      swap = -1
+    }
+    else if (event.key === 'ArrowRight') {
+      swap = 1
+    }
+
+    const columnIndex = this.props.columns.indexOf('map')
+
+    if ((columnIndex + swap) < 0) {
+      // Can't move the column to the left any further
+      return
+    }
+    else if ((columnIndex + swap) <= this.props.columns.count()) {
+      // Send the column back to the sidebar
+      console.log(this.props)
+      this.props.onColumnArrowKeyDown(this.props.columns.pop())
+      return
+    }
+
+    // const columnNameToSwap = this.props.columns.get(columnIndex + swap)
+
+    // // Swap the current column with its neighbour
+    // let newColumns = this.props.columns.set(columnIndex, columnNameToSwap)
+    // newColumns = newColumns.set(columnIndex + swap, this.props.columnName)
+
+    // this.props.onColumnArrowKeyDown(newColumns)
+
   }
 
   columnTransform() {
@@ -223,7 +249,10 @@ const mapDispatchToProps = dispatch => {
     },
     onColumnSnap: (columnName, oldX, newX, viewport) => {
       dispatch(SnapColumnCreator(columnName, oldX, newX, viewport))
-    }
+    },
+    onColumnArrowKeyDown: (columnNames) => {
+      dispatch(SetColumnsToCreator(columnNames))
+    },
   }
 }
 

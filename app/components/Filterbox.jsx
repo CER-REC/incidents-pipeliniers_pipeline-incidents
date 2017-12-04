@@ -109,8 +109,7 @@ class Filterbox extends React.Component {
         role = 'button'
         aria-grabbed = 'true'
         aria-dropeffect = 'move'
-        onKeyDown={this.dragKeyDown.bind(this)}
-        onKeyUp={this.dragKeyUp.bind(this)}
+        onKeyDown={this.categoryKeyDown.bind(this)}
         width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
         height = { this.buttonHeight() }
         onMouseDown={this.handleDragStart.bind(this)}
@@ -151,42 +150,37 @@ class Filterbox extends React.Component {
   }
 
 
-  dragKeyDown(event) {
-    if(event.keyCode === 38) {
-      const displayedCategories = CategoryComputations.displayedCategories(
-        this.props.data,
-        this.props.columns,
-        this.props.categories,
-        this.props.columnName) 
-
-      const categoriesReOrder = Immutable.OrderedMap(displayedCategories).toString()
-
-      if (this.props.categoryName === Immutable.OrderedMap(displayedCategories).first()) {
-        console.log('cannot move higher')
-        return
-      } 
-
-      this.props.categoryName
-
-
-
-      
-      console.log(this.props.categoryName, categoriesReOrder)
-
-    } else if(event.keyCode === 40) {
-      const displayedCategories = CategoryComputations.displayedCategories(
-        this.props.data,
-        this.props.columns,
-        this.props.categories,
-        this.props.columnName)
-
-      console.log(this.props.categoryName, 'down', displayedCategories)
+  categoryKeyDown(event) {
+    // put up the guards
+    if(event.key !== 'ArrowUp' && event.key !== 'ArrowDown') {
+      return
     }
-  }
 
-  dragKeyUp(event){
-    event.stopPropagation(event)
-    event.preventDefault(event)
+    // prevent vertical scrolling
+    event.preventDefault()
+
+    let swap = null
+
+    if(event.key === 'ArrowUp') {
+      swap = 1
+    } else if(event.key === 'ArrowDown') {
+      swap = -1
+    }
+
+    const displayedCategories = CategoryComputations.displayedCategories(
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.columnName) 
+
+    const categoryIndex = Immutable.OrderedMap(displayedCategories).toArray(this.props.categoryName)
+
+
+    const categoryCount = displayedCategories.count()
+    console.log(categoryCount)
+    //.keyOf(this.props.categoryName))
+    // Immutable.OrderedMap(displayedCategories).keyOf(this.props.categoryName)
+    console.log(categoryIndex) 
   }
 
   handleDragMove(e) {
