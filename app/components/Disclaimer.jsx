@@ -53,7 +53,7 @@ class Disclaimer extends React.Component {
         width={Constants.getIn(['disclaimer', 'closeButtonRightMargin'])}
         height={Constants.getIn(['disclaimer', 'closeButtonSize']) + 
           Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}>
-        <image 
+        <image viewBox='0 0 30 30' preserveAspectRatio='xMinYMin'
           className='disclaimerCloseButton'
           width ={Constants.getIn(['disclaimer', 'closeButtonSize'])} 
           height = {Constants.getIn(['disclaimer', 'closeButtonSize'])}
