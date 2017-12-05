@@ -37,6 +37,47 @@ const csvHeaderNamesInOrder = [
   'WhyItHappened_FR_LIST',
 ]
 
+const csvHeaderNamesInOrder_FR = {
+  IncidentNumber:'Incidents',
+  Latitude:'Latitude',
+  Longitude:'Longitude',
+  ApproximateVolumeM3:'Volume approx. rejeté',
+  ReportedDate:'Date/année du signalement',
+  IncidentType_FR_LIST:'Type d’incident',
+  IncidentStatus_FR:'État',
+  CompanyName_FR:'Société',
+  NearestPopulationCenter_FR:'Centre de population le plus près',
+  ProvinceName_FR:'Provinces',
+  SubstanceName_FR:'Substance',
+  ReleaseType_FR:' Type de rejet',
+  PipelinePhase_FR:'Étape du cycle de vie',
+  WerePipelineSystemComponentsInvolved:'Des composantes du réseau ont-elles été en cause?',
+  PipelineComponent_FR_LIST:'Composantes en cause',
+  WhatHappened_FR_LIST:'Ce qui s’est passé',
+  WhyItHappened_FR_LIST:'Causes',
+}
+
+const csvHeaderNamesInOrder_EN = [
+  'IncidentNumber',
+  'Latitude',
+  'Longitude',
+  'ApproximateVolumeM3',
+  'ReportedDate',
+  'ReportedYear',
+  'IncidentType_EN_LIST',
+  'IncidentStatus_EN',
+  'CompanyName_EN',
+  'NearestPopulationCenter_EN',
+  'ProvinceName_EN',
+  'SubstanceName_EN',
+  'ReleaseType_EN',
+  'PipelinePhase_EN',
+  'WerePipelineSystemComponentsInvolved',
+  'PipelineComponent_EN_LIST',
+  'WhatHappened_EN_LIST',
+  'WhyItHappened_EN_LIST',
+]
+
 
 const Fs = require('fs')
 const D3 = require('d3')
@@ -71,5 +112,23 @@ dataLoadPromise.then( () => {
   //Prepend UTF 8 Byte Order Mark during CSV generation so 
   //that programs like Microsft Excel can recognize the encoding
   //and use that encoding while opening the file 
-  Fs.writeFile('Incident Visualization Data.csv', '\ufeff' + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
+  
+  const byteOrderMark = '\ufeff'
+  
+  //English
+  Fs.writeFile('Incident Visualization Data_EN.csv', byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder_EN))
+  
+  //French
+  let dataFields = Object.keys(csvHeaderNamesInOrder_FR)
+  const frenchHeader = dataFields.map((index) => csvHeaderNamesInOrder_FR[index])
+  Fs.writeFile('Incident Visualization Data_FR.csv', byteOrderMark + D3.csvFormatRows([frenchHeader]
+    .concat((outputData.toJS()).map(function(d) {
+      return dataFields.map((dataFieldName)=> {
+        return d[dataFieldName]
+      })
+    })))
+  )
+  
+  //Combine
+  Fs.writeFile('Incident Visualization Data.csv', byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
 })
