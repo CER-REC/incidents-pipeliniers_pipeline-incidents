@@ -30,9 +30,8 @@ class Story extends React.Component {
     }
 
     return <div 
-      className='story'
+      className={`${this.props.position} story`}
       style={storyStyle}
-      id={this.props.position}
       onClick = { this.storyClicked.bind(this) }>
       <svg
         width='100%'

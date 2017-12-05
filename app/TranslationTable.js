@@ -148,7 +148,6 @@ const TranslationTable = Immutable.fromJS({
           'images/stories/how-to-read-the-visualization-3-EN.png',
           'images/stories/how-to-read-the-visualization-4-EN.png',
         ],
-        // TODO: insert French story images
         fr: [
           'images/stories/how-to-read-the-visualization-1-FR.png',
           'images/stories/how-to-read-the-visualization-2-FR.png',

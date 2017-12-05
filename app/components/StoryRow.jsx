@@ -9,45 +9,46 @@ const Story = require('./Story.jsx')
 
 class StoryRow extends React.Component {
 
-  render() {
-    if(Constants.getIn(['stories', this.props.rowName, 'middleStory']) === undefined) {
-      return <Story 
-        id={Constants.getIn(['stories', this.props.rowName, 'leftStory'])} 
-        position='leftStory'/>
-    } else if(Constants.getIn(['stories', this.props.rowName, 'rightStory']) === undefined) {
-      return <div>
-        <div>
-          <Story 
-            id={Constants.getIn(['stories', this.props.rowName, 'leftStory'])} 
-            position='leftStory'/>
-        </div>
-
-        <div>
-          <Story 
-            id={Constants.getIn(['stories', this.props.rowName, 'middleStory'])} 
-            position='middleStory'/>
-        </div>
-      </div>
-
+  leftStory() {
+    if (Constants.getIn(['stories', this.props.rowName, 'leftStory']) === undefined) {
+      return null
     }
-    return <div> 
-      <div>
-        <Story 
-          id={Constants.getIn(['stories', this.props.rowName, 'leftStory'])} 
-          position='leftStory'/>
-      </div>
 
-      <div>
-        <Story 
-          id={Constants.getIn(['stories', this.props.rowName, 'middleStory'])} 
-          position='middleStory'/>
-      </div>
-      
-      <div>
-        <Story 
-          id={Constants.getIn(['stories', this.props.rowName, 'rightStory'])}
-          position='rightStory'/>
-      </div>
+    return <Story 
+      id={Constants.getIn(['stories', this.props.rowName, 'leftStory'])} 
+      position='leftStory'/>
+  }
+
+  middleStory() {
+    if (Constants.getIn(['stories', this.props.rowName, 'middleStory']) === undefined) {
+      return null
+    }
+
+    return <Story 
+      id={Constants.getIn(['stories', this.props.rowName, 'middleStory'])} 
+      position='middleStory'/>
+
+  }
+
+  rightStory() {
+    if (Constants.getIn(['stories', this.props.rowName, 'rightStory']) === undefined) {
+      return null
+    }
+
+    return <Story 
+      id={Constants.getIn(['stories', this.props.rowName, 'rightStory'])} 
+      position='rightStory'/>
+
+  }
+
+
+
+
+  render() {
+    return <div>
+      {this.leftStory()}
+      {this.middleStory()}
+      {this.rightStory()}
     </div>
   }
 }
