@@ -138,21 +138,21 @@ const TranslationTable = Immutable.fromJS({
         fr: 'POUR INTERPRÉTER LA VISUALISATION',
       },
       backgroundImage: {
-        en: 'images/stories/how-to-read-the-visualization-1-EN.jpg',
-        fr: 'images/stories/how-to-read-the-visualization-1-FR.jpg',
+        en: 'images/stories/how-to-read-the-visualization-1-EN.PNG',
+        fr: 'images/stories/how-to-read-the-visualization-1-FR.PNG',
       },
       tutorialImages: {
         en: [
-          'images/stories/how-to-read-the-visualization-1-EN.jpg',
-          'images/stories/how-to-read-the-visualization-2-EN.jpg',
-          'images/stories/how-to-read-the-visualization-3-EN.jpg',
-          'images/stories/how-to-read-the-visualization-4-EN.jpg',
+          'images/stories/how-to-read-the-visualization-1-EN.PNG',
+          'images/stories/how-to-read-the-visualization-2-EN.PNG',
+          'images/stories/how-to-read-the-visualization-3-EN.PNG',
+          'images/stories/how-to-read-the-visualization-4-EN.PNG',
         ],
         fr: [
-          'images/stories/how-to-read-the-visualization-1-FR.jpg',
-          'images/stories/how-to-read-the-visualization-2-FR.jpg',
-          'images/stories/how-to-read-the-visualization-3-FR.jpg',
-          'images/stories/how-to-read-the-visualization-4-FR.jpg',
+          'images/stories/how-to-read-the-visualization-1-FR.PNG',
+          'images/stories/how-to-read-the-visualization-2-FR.PNG',
+          'images/stories/how-to-read-the-visualization-3-FR.PNG',
+          'images/stories/how-to-read-the-visualization-4-FR.PNG',
         ],
       },
       // TODO: Change story mode configs to no longer store configuration as
