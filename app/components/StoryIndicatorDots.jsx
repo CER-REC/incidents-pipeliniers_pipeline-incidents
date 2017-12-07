@@ -10,29 +10,15 @@ const ActivateStoryImageCreator = require('../actionCreators/ActivateStoryImageC
 
 class StoryIndicatorDots extends React.Component {
 
-
-  indicatorDotIndex() {
-    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const currentImageIndex = this.props.storyImage
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
-
-    const indicatorDotState = this.props.onActivateStoryImageClicked(indicatorDotIndex)
-
-    console.log(story, currentImageIndex, imageList, this.props.indicatorDotIndex)
-    // make a property so that each dot has the image property ID 
-    // and pass it in each time so that it works
-    // let indicatorDotIndex = whatever dot is equal to the image
-    
-  }
-
   indicatorDotClick(e) {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Indicator Dot Clicked')
+    e.stopPropagation()
+
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     const currentImageIndex = this.props.storyImage
-    const indicatorDotIndex = e.target.getAttribute('data-id')
-    console.log(imageList[currentImageIndex], indicatorDotIndex)
-    this.props.onActivateStoryImageClicked(indicatorDotIndex)
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+
+    this.props.onIndicatorDotClicked(imageList[currentImageIndex])
   }
 
   render() {
@@ -50,7 +36,7 @@ class StoryIndicatorDots extends React.Component {
 
     return <g>
 
-      {imageList.map((indicatorDotIndex, key) => {
+      {imageList.map((indicatorDotIndex) => {
         currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
 
         let indicatorDotColour = '#d6d5d5'
@@ -59,8 +45,7 @@ class StoryIndicatorDots extends React.Component {
         }
         return <circle
           className = 'indicatorDot'
-          data-id = {key}
-          key = {this.props.indicatorDotIndex}
+          key = {indicatorDotIndex}
           r={ Constants.getIn(['storyThumbnailDimensions', 'indicatorDotRadius']) }
           fill = { indicatorDotColour }
           width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
@@ -68,6 +53,7 @@ class StoryIndicatorDots extends React.Component {
           cx={ currentX }
           cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
           onClick = {this.indicatorDotClick.bind(this)}
+          ref= { (element) => this.circle = element}
         />
       })}
     </g>
@@ -78,7 +64,7 @@ const mapStateToProps = state => {
   return {
     viewport: state.viewport,
     story: state.story,
-    storyImage: state.storyImage,
+    indicatorDotIndex: state.indicatorDotIndex,
     analytics: state.analytics,
     language: state.language,
   }
@@ -86,8 +72,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onActivateStoryImageClicked: (storyImageIndex) => {
-      dispatch(ActivateStoryImageCreator(storyImageIndex))
+    onIndicatorDotClicked: (indicatorDot) => {
+      dispatch(ActivateStoryImageCreator(indicatorDot))
     },
   }
 }

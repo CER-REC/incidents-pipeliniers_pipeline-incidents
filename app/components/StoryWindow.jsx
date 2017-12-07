@@ -144,7 +144,7 @@ const mapStateToProps = state => {
     viewport: state.viewport,
     language: state.language,
     story: state.story,
-    storyImage: state.storyImage,
+    indicatorDotIndex: state.indicatorDotIndex,
     categories: state.categories,
     data: state.data,
     analytics: state.analytics,
@@ -156,8 +156,8 @@ const mapDispatchToProps = dispatch => {
     onCloseButtonClicked: () => {
       dispatch(PopupDismissedCreator())
     },
-    onActivateStoryImageClicked: (imageList) => {
-      dispatch(ActivateStoryImageCreator(imageList))
+    onActivateStoryImageClicked: (indicatorDotIndex) => {
+      dispatch(ActivateStoryImageCreator(indicatorDotIndex))
     },
     updateVisualization: (storyState) => {
       dispatch(SetFromRouterStateCreator(storyState))
