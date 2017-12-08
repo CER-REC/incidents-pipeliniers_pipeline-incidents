@@ -80,6 +80,16 @@ Fonts: Fira fonts used under the Open Font License Version 1.1.
 [Map of Canada](http://www.arcgis.com/home/item.html?id=dcbcdf86939548af81efbd2d732336db)
  © 2003 Government of Canada with permission from Natural Resources Canada.
 
+Map: “Map showing provinces and territories reporting 2009 swine flu (H1N1) cases in Canada” by Fonadier from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:H1N1_Canada_map.svg). Licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en). (Re-coloured and rotated from original.)
+
+Tell Me A Story icon: by Bon Adriel Aseniero. Licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+
+Methodology icon: [Process by Rflor](https://thenounproject.com/rflor/collection/infography-circles/?oq=methodology&cidx=0&i=363475) from [thenounproject.com](http://thenounproject.com/). Licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
+
+Reset icon: [Reset by Mooms](https://thenounproject.com/search/?q=reset&i=1033424) from [thenounproject.com](http://thenounproject.com/). Licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
+
+Facebook icon: by Elegant Themes from [www.flaticon.com](https://www.flaticon.com). Licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
+
 
 # [Visualisation des incidents pipeliniers](https://apps2.neb-one.gc.ca/incidents-pipeliniers/)
 
@@ -162,4 +172,15 @@ Toutes les composantes du projet sont visées par la [licence du gouvernement ou
 Police : Police Fira, en vertu de la licence de police de caractères libre (version 1.1)
 
 [Carte du Canada](http://www.arcgis.com/home/item.html?id=dcbcdf86939548af81efbd2d732336db) © 2003 Gouvernement du Canada, avec la permission de Ressources naturelles Canada
+
+Carte : Carte produite par Fonadier illustrant les provinces et territoires selon les signalements de cas de grippe A (H1N1), tirée de [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:H1N1_Canada_map.svg) et portant la licence [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en). (L’original a été recoloré et pivoté.)
+
+Icône Une histoire à raconter? : Créée par Bon Adriel Aseniero et portant la licence [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
+
+Icône Méthodologie : [Créée par Rflor](https://thenounproject.com/rflor/collection/infography-circles/?oq=methodology&cidx=0&i=363475), tirée de [thenounproject.com](http://thenounproject.com/) et portant la licence [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
+
+Icône réinitialiser : [Créée par Mooms](https://thenounproject.com/search/?q=reset&i=1033424), tirée de [thenounproject.com](http://thenounproject.com/) et portant la licence [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
+
+Icône Facebook : Créée par Elegant Themes, tirée de [www.flaticon.com](https://www.flaticon.com) et portant la licence [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
+
 
