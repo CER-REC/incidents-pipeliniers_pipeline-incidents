@@ -420,6 +420,9 @@ const Constants = Immutable.fromJS({
     sidebar: 'Sidebar',
     story: 'Story',
     emptyCategories: 'Empty Categories',
+    wikimediaCommons: 'Wikimedia Commons',
+    ccByThree: 'CC By 3.0',
+    ccBYSAThree: 'CC BY-SA 3.0'
   },
 
   // The purpose of the bottom margin is to allow some space for the filterbox
