@@ -15,10 +15,10 @@ class StoryIndicatorDots extends React.Component {
     e.stopPropagation()
 
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const currentImageIndex = this.props.storyImage
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    const indicatorDotIndex = imageList[]
 
-    this.props.onIndicatorDotClicked(imageList[currentImageIndex])
+    this.props.onIndicatorDotClicked(this.props.indicatorDot.get('id'))
   }
 
   render() {
@@ -46,6 +46,7 @@ class StoryIndicatorDots extends React.Component {
         return <circle
           className = 'indicatorDot'
           key = {indicatorDotIndex}
+          id = {indicatorDotIndex}
           r={ Constants.getIn(['storyThumbnailDimensions', 'indicatorDotRadius']) }
           fill = { indicatorDotColour }
           width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
@@ -64,8 +65,9 @@ const mapStateToProps = state => {
   return {
     viewport: state.viewport,
     story: state.story,
-    indicatorDotIndex: state.indicatorDotIndex,
+    indicatorDot: state.indicatorDot,
     analytics: state.analytics,
+    storyImage: state.storyImage,
     language: state.language,
   }
 }

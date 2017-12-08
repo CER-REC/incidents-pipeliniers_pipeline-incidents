@@ -4,7 +4,7 @@ const StoryImageReducer = (state = defaultState, action) => {
   switch(action.type) {
 
   case 'ActivateStoryImage':
-    return defaultState
+    return action.indicatorDot
 
   case 'StoryDismissed':
     return defaultState

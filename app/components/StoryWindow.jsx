@@ -70,6 +70,22 @@ class StoryWindow extends React.Component {
     this.props.updateVisualization(storyState)
   }
 
+  indicatorDots() {
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const currentImageIndex = this.props.storyImage
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+
+    return <g>
+
+      {imageList.map((indicatorDotIndex) => {
+ 
+        return <StoryIndicatorDots
+          key = {indicatorDotIndex}
+        />
+      })}
+    </g>
+  }
+
   border() {
     return <rect 
       width = { this.props.viewport.get('x') - 
@@ -132,7 +148,7 @@ class StoryWindow extends React.Component {
         {this.closeButton()}
         {this.tutorialImage(currentImageIndex, imageList)}
 
-        <StoryIndicatorDots />
+        {this.indicatorDots()}
 
       </svg>
     </div>
@@ -144,6 +160,7 @@ const mapStateToProps = state => {
     viewport: state.viewport,
     language: state.language,
     story: state.story,
+    storyImage: state.storyImage,
     indicatorDotIndex: state.indicatorDotIndex,
     categories: state.categories,
     data: state.data,
