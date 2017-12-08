@@ -37,24 +37,77 @@ const csvHeaderNamesInOrder = [
   'WhyItHappened_FR_LIST',
 ]
 
+//trKey contains key information for the data stored in translation table 
+//trKey: 'not-applicable' is the one whose translation is not available
 const csvHeaderNamesInOrder_FR = {
-  IncidentNumber:'Incidents',
-  Latitude:'Latitude',
-  Longitude:'Longitude',
-  ApproximateVolumeM3:'Volume approx. rejeté',
-  ReportedDate:'Date/année du signalement',
-  IncidentType_FR_LIST:'Type d’incident',
-  IncidentStatus_FR:'État',
-  CompanyName_FR:'Société',
-  NearestPopulationCenter_FR:'Centre de population le plus près',
-  ProvinceName_FR:'Provinces',
-  SubstanceName_FR:'Substance',
-  ReleaseType_FR:' Type de rejet',
-  PipelinePhase_FR:'Étape du cycle de vie',
-  WerePipelineSystemComponentsInvolved:'Des composantes du réseau ont-elles été en cause?',
-  PipelineComponent_FR_LIST:'Composantes en cause',
-  WhatHappened_FR_LIST:'Ce qui s’est passé',
-  WhyItHappened_FR_LIST:'Causes',
+  IncidentNumber: {
+    header: 'Incidents',
+    trKey: 'not-applicable'
+  },
+  Latitude: {
+    header: 'Latitude',
+    trKey: 'not-applicable'
+  },
+  Longitude:{
+    header: 'Longitude',
+    trKey: 'not-applicable'
+  },
+  ApproximateVolumeM3:{
+    header: 'Volume approx. rejeté',
+    trKey: 'volumeCategory'
+  },
+  ReportedDate:{
+    header: 'Date/année du signalement',
+    trKey: 'not-applicable'
+  },
+  IncidentType_FR_LIST:{
+    header: 'Type d’incident',
+    trKey: 'incidentTypes'
+  },
+  IncidentStatus_FR:{
+    header: 'État',
+    trKey: 'status'
+  },
+  CompanyName_FR:{
+    header: 'Société',
+    trKey: 'not-applicable'
+  },
+  NearestPopulationCenter_FR:{
+    header: 'Centre de population le plus près',
+    trKey: 'not-applicable'
+  },
+  ProvinceName_FR:{
+    header: 'Provinces',
+    trKey: 'province'
+  },
+  SubstanceName_FR:{
+    header: 'Substance',
+    trKey: 'substance'
+  },
+  ReleaseType_FR:{
+    header: ' Type de rejet',
+    trKey: 'releaseType'
+  },
+  PipelinePhase_FR:{
+    header: 'Étape du cycle de vie',
+    trKey: 'pipelinePhase'
+  },
+  WerePipelineSystemComponentsInvolved:{
+    header: 'Des composantes du réseau ont-elles été en cause?',
+    trKey: 'pipelineSystemComponentsInvolved'
+  },
+  PipelineComponent_FR_LIST:{
+    header: 'Composantes en cause',
+    trKey: 'not-applicable'
+  },
+  WhatHappened_FR_LIST:{
+    header: 'Ce qui s’est passé',
+    trKey: 'whatHappened'
+  },
+  WhyItHappened_FR_LIST:{
+    header: 'Causes',
+    trKey: 'whyItHappened'
+  }
 }
 
 const csvHeaderNamesInOrder_EN = [
@@ -84,6 +137,7 @@ const D3 = require('d3')
 
 const DataLoader = require('./app/DataLoader.js')
 const Store = require('./app/Store.js')
+const Tr = require('./app/TranslationTable.js')
 
 
 const store = Store()
@@ -118,13 +172,25 @@ dataLoadPromise.then( () => {
   //English
   Fs.writeFile('Incident Visualization Data_EN.csv', byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder_EN))
   
+  
   //French
   let dataFields = Object.keys(csvHeaderNamesInOrder_FR)
-  const frenchHeader = dataFields.map((index) => csvHeaderNamesInOrder_FR[index])
+  const frenchHeader = dataFields.map((index) => csvHeaderNamesInOrder_FR[index]['header'])
   Fs.writeFile('Incident Visualization Data_FR.csv', byteOrderMark + D3.csvFormatRows([frenchHeader]
     .concat((outputData.toJS()).map(function(d) {
       return dataFields.map((dataFieldName)=> {
-        return d[dataFieldName]
+        let dataValue = d[dataFieldName]
+        const trKey = csvHeaderNamesInOrder_FR[dataFieldName]['trKey']
+        if(trKey !== 'not-applicable')
+        {
+          Tr.getIn(['categories', trKey]).entrySeq().forEach(e => {
+            if(dataValue === e[1].get('en')){
+              dataValue = e[1].get('fr')
+              return
+            }
+          })
+        }
+        return dataValue  
       })
     })))
   )
