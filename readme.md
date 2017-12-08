@@ -88,7 +88,7 @@ Methodology icon: [Process by Rflor](https://thenounproject.com/rflor/collection
 
 Reset icon: [Reset by Mooms](https://thenounproject.com/search/?q=reset&i=1033424) from [thenounproject.com](http://thenounproject.com/). Licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
 
-Facebook icon: by Elegant Themes from [www.flaticon.com](https://www.flaticon.com). Licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
+Facebook icon: By Elegant Themes from [www.flaticon.com](https://www.flaticon.com). Licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
 
 
 # [Visualisation des incidents pipeliniers](https://apps2.neb-one.gc.ca/incidents-pipeliniers/)
