@@ -177,9 +177,9 @@ dataLoadPromise.then( () => {
   let dataFields = Object.keys(csvHeaderNamesInOrder_FR)
   const frenchHeader = dataFields.map((index) => csvHeaderNamesInOrder_FR[index]['header'])
   Fs.writeFile('Incident Visualization Data_FR.csv', byteOrderMark + D3.csvFormatRows([frenchHeader]
-    .concat((outputData.toJS()).map(function(d) {
+    .concat((outputData.toJS()).map(function(columns) {
       return dataFields.map((dataFieldName)=> {
-        let dataValue = d[dataFieldName]
+        let dataValue = columns[dataFieldName]
         const trKey = csvHeaderNamesInOrder_FR[dataFieldName]['trKey']
         if(trKey !== 'not-applicable')
         {
