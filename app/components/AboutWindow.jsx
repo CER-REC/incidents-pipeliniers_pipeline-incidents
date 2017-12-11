@@ -34,6 +34,18 @@ class AboutWindow extends React.Component {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'Email Link')
   }
 
+  wikimediaLinkAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`, 'Wikimedia Commons')
+  }
+
+  ccByThreeLinkAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','ccByThree'])}`, 'CC By 3.0')
+  }
+
+  ccBySAThreeLinkAnalytics() {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`, 'CC BY-SA 3.0')
+  }
+
   heading() {
     return <p
       className='aboutHeading'>
@@ -119,6 +131,160 @@ class AboutWindow extends React.Component {
     </div>    
   }
 
+  thirdPartyLicenseHeading() {
+    return <p
+      className='aboutHeading'>
+      {Tr.getIn(['aboutText', 'thirdPartyLicensesTitle', this.props.language])}
+    </p>    
+  }
+
+  thirdPartyLicensesMap() {
+    return <div className='aboutContent'>
+      <p className='aboutSubHeading'>
+        {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'map', 'title', this.props.language])}
+      </p>
+      <p>
+        <span>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'map', 'map_1', this.props.language])}
+          <a onClick = {this.wikimediaLinkAnalytics.bind(this)}
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'map', 'map_2_link', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'map', 'map_2_text', this.props.language])}
+          </a>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'licenceUnder', this.props.language])}
+          
+          <a onClick = {this.ccByThreeLinkAnalytics.bind(this)}
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThreeLink', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThree', this.props.language])}
+          </a>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'map', 'map_3', this.props.language])}
+        </span>
+      </p>
+    </div>
+  }
+
+  thirdPartyLicensestellMeAStoryIcon() {
+    return <div className='aboutContent'>
+      <p className='aboutSubHeading'>
+        {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'tellMeAStoryIcon', 'title', this.props.language])}
+      </p>
+      <p>
+        <span>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'tellMeAStoryIcon', 'content', this.props.language])}
+          <a onClick = {this.ccBySAThreeLinkAnalytics.bind(this)}
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'tellMeAStoryIcon', 'link', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'tellMeAStoryIcon', 'link_text', this.props.language])}
+          </a>
+        </span>
+      </p>
+    </div>
+  }
+
+  thirdPartyLicensesMethodIcon() {
+    return <div className='aboutContent'>
+      <p className='aboutSubHeading'>
+        {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'methodologyIcon', 'title', this.props.language])}
+      </p>
+      <p>
+        <span>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'methodologyIcon', 'content', this.props.language])}
+          <a 
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'methodologyIcon', 'text1Link', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'methodologyIcon', 'text1', this.props.language])}
+          </a>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'from', this.props.language])}
+          <a 
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'theNounProjectLink', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'theNounProject', this.props.language])}
+          </a>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'licenceUnder', this.props.language])}
+          
+          <a onClick = {this.ccByThreeLinkAnalytics.bind(this)}
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThreeLink', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThree', this.props.language])}
+          </a>
+        </span>
+      </p>
+    </div>
+  }
+
+  thirdPartyLicensesResetIcon() {
+    return <div className='aboutContent'>
+      <p className='aboutSubHeading'>
+        {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'resetIcon', 'title', this.props.language])}
+      </p>
+      <p>
+        <span>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'resetIcon', 'content', this.props.language])}
+          <a 
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'resetIcon', 'text1Link', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'resetIcon', 'text1', this.props.language])}
+          </a>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'from', this.props.language])}
+          <a 
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'theNounProjectLink', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'theNounProject', this.props.language])}
+          </a>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'licenceUnder', this.props.language])}
+          
+          <a onClick = {this.ccByThreeLinkAnalytics.bind(this)}
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThreeLink', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThree', this.props.language])}
+          </a>
+        </span>
+      </p>
+    </div>
+  }
+
+  thirdPartyLicensesFacebookIcon() {
+    return <div className='aboutContent'>
+      <p className='aboutSubHeading'>
+        {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'facebookIcon', 'title', this.props.language])}
+      </p>
+      <p>
+        <span>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'facebookIcon', 'text1', this.props.language])}
+          <a 
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'facebookIcon', 'text2Link', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'facebookIcon', 'text2', this.props.language])}
+          </a>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'from', this.props.language])}
+          <a 
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'theNounProjectLink', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'theNounProject', this.props.language])}
+          </a>
+          {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'licenceUnder', this.props.language])}
+          
+          <a onClick = {this.ccByThreeLinkAnalytics.bind(this)}
+            href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThreeLink', this.props.language])}
+            target="_blank">
+            {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThree', this.props.language])}
+          </a>
+        </span>
+      </p>
+    </div>
+  }
+
+  thirdPartyLicensesContent() {
+    return <div>
+      {this.thirdPartyLicensesMap()}
+      {this.thirdPartyLicensestellMeAStoryIcon()}
+      {this.thirdPartyLicensesMethodIcon()}
+      {this.thirdPartyLicensesResetIcon()}
+      {this.thirdPartyLicensesFacebookIcon()}
+    </div>     
+  }
+
   render() {
     // Only render if the about window has been summoned.
     if(!this.props.about) return null
@@ -131,6 +297,8 @@ class AboutWindow extends React.Component {
       {this.intro()}
       {this.contributersHeading()}
       {this.contributersContent()}
+      {this.thirdPartyLicenseHeading()}
+      {this.thirdPartyLicensesContent()}
     </div>
   }
 }
