@@ -183,9 +183,9 @@ dataLoadPromise.then( () => {
         const trKey = csvHeaderNamesInOrder_FR[dataFieldName]['trKey']
         if(trKey !== 'not-applicable')
         {
-          Tr.getIn(['categories', trKey]).entrySeq().forEach(e => {
-            if(dataValue === e[1].get('en')){
-              dataValue = e[1].get('fr')
+          Tr.getIn(['categories', trKey]).entrySeq().forEach(category => {
+            if(dataValue === category[1].get('en')){
+              dataValue = category[1].get('fr')
               return
             }
           })
