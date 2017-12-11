@@ -207,7 +207,10 @@ class Filterbox extends React.Component {
   }
 
   handleTouchEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} ${this.props.categoryName} touch dragged`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','filterbox'])}`,
+      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])} touch dragged`
+    )
     e.stopPropagation()
     e.preventDefault()
 
@@ -251,17 +254,26 @@ class Filterbox extends React.Component {
   }
 
   onShowOnlyClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} ${this.props.categoryName} only shown`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','filterbox'])}`,
+      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])} only shown`
+    )
     this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
   }
 
   onHideClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} ${this.props.categoryName} hid`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','filterbox'])}`,
+      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])} hid`
+    )
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
 
   onResetClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} reset`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','filterbox'])}`,
+      `${this.props.columnName} reset`
+    )
     this.props.onResetClick(this.props.columnName)
   }
 
