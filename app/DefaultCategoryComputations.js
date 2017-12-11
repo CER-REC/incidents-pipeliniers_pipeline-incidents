@@ -12,15 +12,7 @@ const DefaultCategoryComputations = {
 
   initialState: function (data, schema, language) {
 
-    let unsortedCategories
-    switch (Constants.get('dataMode')) {
-    case 'dataService': 
-      unsortedCategories = DefaultCategoryComputations.initialStateFromCategorySchema(data, schema)
-      break
-    case 'csvFile': 
-      unsortedCategories = DefaultCategoryComputations.initialStateFromCsv(data)
-      break
-    }
+    const unsortedCategories = DefaultCategoryComputations.initialStateFromCategorySchema(data, schema);
 
     return DefaultCategoryComputations.sortCategories(data, unsortedCategories, schema, language)
   },
@@ -117,7 +109,7 @@ const DefaultCategoryComputations = {
 
         let activeCategories = Immutable.OrderedMap()
 
-        CategoryConstants.getIn(['dataLoaderCategoryNames', columnName]).forEach( (categoryName, csvHeading) => {
+        CategoryConstants.getIn(['dataLoaderCategoryNames', columnName]).forEach( (categoryName) => {
           activeCategories = activeCategories.set(categoryName, true)
 
         })
@@ -211,21 +203,10 @@ const DefaultCategoryComputations = {
     }
 
 
-    // Sort companies alphabetically
-    let labels
-    if (Constants.get('dataMode') === 'csvFile') {
-      // When using csv files as the source, the category keys are the 
-      // labels
-      labels = sortedCategories.get('company').keySeq()
-    }
-    else {
-      // When using the data service, get the name from the schema for the
-      // current language
-      labels = schema.get('company').map( names => {
-        return names.get(language)
-      })
-    }
-    labels = labels.sort()
+    // Get the name from the schema for the current language, and sort alphabetically
+    const labels = schema.get('company')
+      .map(names => names.get(language))
+      .sort();
     const sortedCompanies = Immutable.OrderedMap(labels.keySeq().map( name => {
       return [name, true]
     }))

@@ -146,33 +146,6 @@ function readConstrainedVocabularyString(record, heading, categoryName) {
 }
 
 
-// Map from the column names to a friendlier internal format
-function csvColumnMapping (d) {
-
-  return {
-    incidentNumber: d['Incident Number'],
-    incidentTypes: parseList(d, 'incidentTypes', d['Incident Types']),
-    reportedDate: Moment(d['Reported Date'], 'MM-DD-YYYY'),
-    nearestPopulatedCentre: d['Nearest Populated Centre'],
-    province: readConstrainedVocabularyString(d, 'Province', 'province'),
-    company: d['Company'],
-    status: readConstrainedVocabularyString(d, 'Status', 'status'),
-    latitude: readFloat(d, 'Latitude'),
-    longitude: readFloat(d, 'Longitude'), 
-    approximateVolumeReleased: d['Approximate Volume Released (m³)'],
-    volumeCategory: volumeCategory(d, d['Approximate Volume Released (m³)']),
-    substance: readConstrainedVocabularyString(d, 'Substance', 'substance'),
-    releaseType: readConstrainedVocabularyString(d, 'Release Type', 'releaseType'),
-    year: d['Year'],
-    whatHappened: parseList(d, 'whatHappened', d['WhatHappened']),
-    whyItHappened: parseList(d, 'whyItHappened', d['WhyItHappened']),
-    pipelinePhase: readConstrainedVocabularyString(d, 'Pipeline Phase', 'pipelinePhase'),
-    werePipelineSystemComponentsInvolved: parseYesNo(d['Were Pipeline System Components Involved?'], d),
-    pipelineSystemComponentsInvolved: parseSystemComponentsInvolved(d),
-  }
-}
-
-
 // Returns a promise
 function afterLoad (store, data, location) {
 
@@ -397,29 +370,6 @@ function validateSystemComponentsInvolved (incident, schema, errors) {
 
 
 const DataLoader = {
-
-  // Load the application data from a single remote CSV file
-  // Returns a promise
-  loadDataCsv (store) {
-
-    const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
-
-    const options = {
-      uri: `${appRoot}data/Incident Visualization Data.csv`,
-    }
-
-    return Request(options)
-      .then(function (response) {
-        const data = D3.csvParse(response.body.toString(), csvColumnMapping)
-
-        return afterLoad(store, data.reverse(), document.location)
-
-      })
-      .catch(function (error) {
-        throw error
-      })
-
-  },
 
 
   // Load the application data from the data service.

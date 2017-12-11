@@ -2,7 +2,7 @@ const Immutable = require('immutable')
 
 const CategoryConstants = Immutable.fromJS({
 
-  // The data loader uses these category names while parsing the data CSV
+  // The data loader uses these category names while parsing the data JSON
   // It's important for the spelling of the column heading to match exactly.
   // column heading: internal identifier
 

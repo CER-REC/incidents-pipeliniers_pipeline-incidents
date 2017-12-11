@@ -5,7 +5,6 @@ const Constants = Immutable.fromJS({
 
   // Data mode controls how the application loads up its data. Values are:
   //   'dataService': initialize the data and schema from REST requests
-  //   'csvFile': initialize the data and schema from a flat CSV file
   // See: DataLoader.js, data/CategorySchema.json
   // TODO: might be good to make this a .env file option, or a URL param,
   // rather than hard coding it
@@ -387,9 +386,6 @@ const Constants = Immutable.fromJS({
   provinceOrder: {
     dataService: [
       '7', '10', '4', '5', '3', '6', '9', '13', '1', '8', '12', '2', '11'
-    ],
-    csvFile: [
-      'NS','PE','NB','NL','MB','NT','ON','YT','AB','NU','SK','BC','QC'
     ],
   },
 
