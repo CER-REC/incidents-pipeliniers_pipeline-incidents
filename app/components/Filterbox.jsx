@@ -162,25 +162,56 @@ class Filterbox extends React.Component {
     let swap = null
 
     if(event.key === 'ArrowUp') {
-      swap = 1
-    } else if(event.key === 'ArrowDown') {
       swap = -1
+    } else if(event.key === 'ArrowDown') {
+      swap = 1
     }
 
     const displayedCategories = CategoryComputations.displayedCategories(
       this.props.data,
       this.props.columns,
       this.props.categories,
-      this.props.columnName) 
+      this.props.columnName)
 
-    const categoryIndex = Immutable.OrderedMap(displayedCategories).toArray(this.props.categoryName)
+    const categoryIndex = displayedCategories
+      .keySeq()
+      .findIndex(k => k === this.props.categoryName)
+
+    if((categoryIndex + swap) < 0) {
+      // Can't move category upwards any more
+      return
+    } else if ((categoryIndex + swap) >= displayedCategories.count()) {
+      // Can't move category downwards any more
+      return
+    }
+
+    // the new index of the swapped category
+    const newCategoryIndex = displayedCategories
+      .keySeq()
+      .findIndex(k => k === this.props.categoryName) + swap
+
+    // index of category to get swapped
+    const categoryToSwap = categoryIndex + swap
+
+    console.log('original category order', displayedCategories)
+
+    // new ordered map for the swapping categories
+    let newOrderedCategories = Immutable.OrderedMap(displayedCategories)
+    newOrderedCategories = newOrderedCategories
+      .keySeq()
+
+    console.log('new order',newOrderedCategories)
+
+    //newOrderedCategories = newOrderedCategories.set(categoryIndex, newCategoryIndex)
+
+    //this.props.onCategoryDragArrowKeyDown(newOrderedCategories)
+    //  reducer is probably CategoriesReducer.js 
 
 
-    const categoryCount = displayedCategories.count()
-    console.log(categoryCount)
-    //.keyOf(this.props.categoryName))
-    // Immutable.OrderedMap(displayedCategories).keyOf(this.props.categoryName)
-    console.log(categoryIndex) 
+    // let newColumns = this.props.columns.set(columnIndex, columnNameToSwap)
+    // newColumns = newColumns.set(columnIndex + swap, this.props.columnName)
+
+
   }
 
   handleDragMove(e) {
@@ -388,7 +419,10 @@ const mapDispatchToProps = dispatch => {
     },
     onCategorySnap: (columnName, categoryName, oldY, newY, categoryHeights) => {
       dispatch(SnapCategoryCreator(columnName, categoryName, oldY, newY, categoryHeights))
-    }
+    },
+    // onCategoryArrowKeyDown: (categoryNames) => {
+    //   dispatch()
+    // }
   }
 }
 

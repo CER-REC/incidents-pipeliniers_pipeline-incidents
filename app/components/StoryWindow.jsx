@@ -184,9 +184,9 @@ class StoryWindow extends React.Component {
   }
 
   componentDidUpdate() {
-    if(this.props.story.get('isActive')) {
-      document.querySelector('.storyWindow').focus()
-    }
+    // if(this.props.story.get('isActive')) {
+    //   document.querySelector('.storyWindow').focus()
+    // }
   }
 
   onEscapeKeyDown(event) {

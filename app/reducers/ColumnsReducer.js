@@ -102,7 +102,7 @@ const ColumnsReducer = (state = defaults, action) => {
 
   case 'SetColumnsTo': {
     const columnNames = Constants.get('columnNames')
-
+    // console.log(action.columnNames.toJS())
     // Only permit valid column names
     const validatedColumnNames = action.columnNames.filter( columnName => {
       return columnNames.contains(columnName)      

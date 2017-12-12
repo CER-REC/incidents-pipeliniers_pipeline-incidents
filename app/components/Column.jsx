@@ -773,10 +773,9 @@ class Column extends React.Component {
         transform={this.columnTransform()}
       >
         <g>
-          <text tabIndex = '0'
-            role = 'button'
+          <text tabIndex = '0' 
             aria-label = {this.barHeading()}
-            onKeyDown = {this.columnKeyDown.bind(this) }>
+            onKeyDown = {this.columnKeyDown.bind(this)}>
             {this.barHeading()}</text>
           `<text>
             {this.barSubHeading()}

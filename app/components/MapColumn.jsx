@@ -185,20 +185,19 @@ class MapColumn extends React.Component {
       // Can't move the column to the left any further
       return
     }
-    else if ((columnIndex + swap) <= this.props.columns.count()) {
+    else if ((columnIndex + swap) >= this.props.columns.count()) {
       // Send the column back to the sidebar
-      console.log(this.props)
       this.props.onColumnArrowKeyDown(this.props.columns.pop())
       return
     }
 
-    // const columnNameToSwap = this.props.columns.get(columnIndex + swap)
+    const columnNameToSwap = this.props.columns.get(columnIndex + swap)
 
-    // // Swap the current column with its neighbour
-    // let newColumns = this.props.columns.set(columnIndex, columnNameToSwap)
-    // newColumns = newColumns.set(columnIndex + swap, this.props.columnName)
+    // Swap the current column with its neighbour
+    let newColumns = this.props.columns.set(columnIndex, columnNameToSwap)
+    newColumns = newColumns.set(columnIndex + swap, 'map')
 
-    // this.props.onColumnArrowKeyDown(newColumns)
+    this.props.onColumnArrowKeyDown(newColumns)
 
   }
 
