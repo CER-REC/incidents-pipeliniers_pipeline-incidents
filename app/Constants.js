@@ -38,12 +38,12 @@ const Constants = Immutable.fromJS({
 
   stories: {
     firstRow: {
-      leftStory: 'the-basics-of-incident-visualization',
+      leftStory: 'how-to-read-the-visualization',
       middleStory: 'getting-the-big-picture',
       rightStory: 'adding-columns-to-dig-deeper',
     },
     secondRow: {
-      leftStory: 'how-to-read-the-visualization',
+      
     },
   },
 
