@@ -1,8 +1,8 @@
 
-function ActivateStoryImageCreator (indicatorDot) {
+function ActivateStoryImageCreator (storyImage) {
   return {
     type: 'ActivateStoryImage',
-    indicatorDot: indicatorDot,
+    storyImage: storyImage,
   }
 }
 

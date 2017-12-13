@@ -66,7 +66,6 @@ class StoryWindow extends React.Component {
       language: routerState.language,
       screenshotMode: RouteComputations.screenshotMode(window.location),
     }
-
     this.props.updateVisualization(storyState)
   }
 
@@ -75,15 +74,14 @@ class StoryWindow extends React.Component {
     const currentImageIndex = this.props.storyImage
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
 
-    return <g>
-
-      {imageList.map((indicatorDotIndex) => {
+    return imageList.map((indicatorDotIndex) => {
  
-        return <StoryIndicatorDots
-          key = {indicatorDotIndex}
-        />
-      })}
-    </g>
+      return <StoryIndicatorDots
+        indicatorDot = {indicatorDotIndex}
+        key = {indicatorDotIndex}
+      />
+    })
+   
   }
 
   border() {

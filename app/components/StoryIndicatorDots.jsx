@@ -16,9 +16,8 @@ class StoryIndicatorDots extends React.Component {
 
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
-    const indicatorDotIndex = imageList[]
 
-    this.props.onIndicatorDotClicked(this.props.indicatorDot.get('id'))
+    this.props.onIndicatorDotClicked(this.props.indicatorDot)
   }
 
   render() {
