@@ -12,7 +12,7 @@ const DragCategoryCreator = require('../actionCreators/DragCategoryCreator.js')
 const DragCategoryEndedCreator = require('../actionCreators/DragCategoryEndedCreator.js')
 const SnapCategoryCreator = require('../actionCreators/SnapCategoryCreator.js')
 
-const FilterboxButton = require('./FilterBoxButton.jsx')
+const FilterboxButton = require('./FilterboxButton.jsx')
 const Tr = require('../TranslationTable.js')
 
 const FilterboxComputations = require('../FilterboxComputations.js')
