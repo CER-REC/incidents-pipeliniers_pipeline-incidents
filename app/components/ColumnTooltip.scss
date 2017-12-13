@@ -1,7 +1,7 @@
 @import "../styles/Colours.scss";
 @import '../styles/zIndex.scss';
 
-.tooltip {
+#columnTooltip, .tooltip {
   position:relative; 
   z-index:$column-tooltip; 
   width:322px;

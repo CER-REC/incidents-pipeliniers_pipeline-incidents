@@ -37,12 +37,107 @@ const csvHeaderNamesInOrder = [
   'WhyItHappened_FR_LIST',
 ]
 
+//trKey contains key information for the data stored in translation table 
+//trKey: 'not-applicable' is the one whose translation is not available
+const csvHeaderNamesInOrder_FR = {
+  IncidentNumber: {
+    header: 'Incidents',
+    trKey: 'not-applicable'
+  },
+  Latitude: {
+    header: 'Latitude',
+    trKey: 'not-applicable'
+  },
+  Longitude:{
+    header: 'Longitude',
+    trKey: 'not-applicable'
+  },
+  ApproximateVolumeM3:{
+    header: 'Volume approx. rejeté',
+    trKey: 'volumeCategory'
+  },
+  ReportedDate:{
+    header: 'Date/année du signalement',
+    trKey: 'not-applicable'
+  },
+  IncidentType_FR_LIST:{
+    header: 'Type d’incident',
+    trKey: 'incidentTypes'
+  },
+  IncidentStatus_FR:{
+    header: 'État',
+    trKey: 'status'
+  },
+  CompanyName_FR:{
+    header: 'Société',
+    trKey: 'not-applicable'
+  },
+  NearestPopulationCenter_FR:{
+    header: 'Centre de population le plus près',
+    trKey: 'not-applicable'
+  },
+  ProvinceName_FR:{
+    header: 'Provinces',
+    trKey: 'province'
+  },
+  SubstanceName_FR:{
+    header: 'Substance',
+    trKey: 'substance'
+  },
+  ReleaseType_FR:{
+    header: ' Type de rejet',
+    trKey: 'releaseType'
+  },
+  PipelinePhase_FR:{
+    header: 'Étape du cycle de vie',
+    trKey: 'pipelinePhase'
+  },
+  WerePipelineSystemComponentsInvolved:{
+    header: 'Des composantes du réseau ont-elles été en cause?',
+    trKey: 'pipelineSystemComponentsInvolved'
+  },
+  PipelineComponent_FR_LIST:{
+    header: 'Composantes en cause',
+    trKey: 'not-applicable'
+  },
+  WhatHappened_FR_LIST:{
+    header: 'Ce qui s’est passé',
+    trKey: 'whatHappened'
+  },
+  WhyItHappened_FR_LIST:{
+    header: 'Causes',
+    trKey: 'whyItHappened'
+  }
+}
+
+const csvHeaderNamesInOrder_EN = [
+  'IncidentNumber',
+  'Latitude',
+  'Longitude',
+  'ApproximateVolumeM3',
+  'ReportedDate',
+  'ReportedYear',
+  'IncidentType_EN_LIST',
+  'IncidentStatus_EN',
+  'CompanyName_EN',
+  'NearestPopulationCenter_EN',
+  'ProvinceName_EN',
+  'SubstanceName_EN',
+  'ReleaseType_EN',
+  'PipelinePhase_EN',
+  'WerePipelineSystemComponentsInvolved',
+  'PipelineComponent_EN_LIST',
+  'WhatHappened_EN_LIST',
+  'WhyItHappened_EN_LIST',
+]
+
 
 const Fs = require('fs')
 const D3 = require('d3')
 
 const DataLoader = require('./app/DataLoader.js')
 const Store = require('./app/Store.js')
+const Tr = require('./app/TranslationTable.js')
 
 
 const store = Store()
@@ -68,5 +163,38 @@ dataLoadPromise.then( () => {
 
   const outputData = store.getState().data.map( incident => incident.get('originalData'))
 
-  Fs.writeFile('Incident Visualization Data.csv', D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
+  //Prepend UTF 8 Byte Order Mark during CSV generation so 
+  //that programs like Microsft Excel can recognize the encoding
+  //and use that encoding while opening the file 
+  
+  const byteOrderMark = '\ufeff'
+  
+  //English
+  Fs.writeFile('Incident Visualization Data_EN.csv', byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder_EN))
+  
+  
+  //French
+  let dataFields = Object.keys(csvHeaderNamesInOrder_FR)
+  const frenchHeader = dataFields.map((index) => csvHeaderNamesInOrder_FR[index]['header'])
+  Fs.writeFile('Incident Visualization Data_FR.csv', byteOrderMark + D3.csvFormatRows([frenchHeader]
+    .concat((outputData.toJS()).map(function(columns) {
+      return dataFields.map((dataFieldName)=> {
+        let dataValue = columns[dataFieldName]
+        const trKey = csvHeaderNamesInOrder_FR[dataFieldName]['trKey']
+        if(trKey !== 'not-applicable')
+        {
+          Tr.getIn(['categories', trKey]).entrySeq().forEach(category => {
+            if(dataValue === category[1].get('en')){
+              dataValue = category[1].get('fr')
+              return
+            }
+          })
+        }
+        return dataValue  
+      })
+    })))
+  )
+  
+  //Combine
+  Fs.writeFile('Incident Visualization Data.csv', byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
 })
