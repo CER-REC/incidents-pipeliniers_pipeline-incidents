@@ -46,7 +46,7 @@ class Story extends React.Component {
       role = 'button'
       aria-label = {Tr.getIn(['stories', this.props.id, 'backgroundImage', this.props.language])}
       onKeyDown = {this.storyKeyDown.bind(this)}
-      ref={ (story) => this.story = story } >
+      ref={ (story) => this.storySelect = story } >
       <svg
         width='100%'
         height={storyHeight - 

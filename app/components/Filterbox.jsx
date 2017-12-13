@@ -13,8 +13,6 @@ const DragCategoryCreator = require('../actionCreators/DragCategoryCreator.js')
 const DragCategoryEndedCreator = require('../actionCreators/DragCategoryEndedCreator.js')
 const SnapCategoryCreator = require('../actionCreators/SnapCategoryCreator.js')
 
-const Category = require('./Category.jsx')
-const Column = require('./Column.jsx')
 const FilterboxButton = require('./FilterBoxButton.jsx')
 const Tr = require('../TranslationTable.js')
 
@@ -197,20 +195,16 @@ class Filterbox extends React.Component {
 
     // new ordered map for the swapping categories
     let newOrderedCategories = Immutable.OrderedMap(displayedCategories)
-    newOrderedCategories = newOrderedCategories
-      .keySeq()
+    newOrderedCategories = newOrderedCategories.slice(newCategoryIndex)
+      .concat(newOrderedCategories.slice(categoryToSwap))
+
+      // 8, 9, 7, 5, 10, 6, 4
+      // should be 9, 8, 7, 5,...
+
 
     console.log('new order',newOrderedCategories)
 
-    //newOrderedCategories = newOrderedCategories.set(categoryIndex, newCategoryIndex)
-
-    //this.props.onCategoryDragArrowKeyDown(newOrderedCategories)
-    //  reducer is probably CategoriesReducer.js 
-
-
-    // let newColumns = this.props.columns.set(columnIndex, columnNameToSwap)
-    // newColumns = newColumns.set(columnIndex + swap, this.props.columnName)
-
+    // this.props.onCategoryArrowKeyDown(newOrderedCategories)
 
   }
 
@@ -420,9 +414,9 @@ const mapDispatchToProps = dispatch => {
     onCategorySnap: (columnName, categoryName, oldY, newY, categoryHeights) => {
       dispatch(SnapCategoryCreator(columnName, categoryName, oldY, newY, categoryHeights))
     },
-    // onCategoryArrowKeyDown: (categoryNames) => {
-    //   dispatch()
-    // }
+    onCategoryArrowKeyDown: (columnName) => {
+      dispatch(ActivateAllCategoriesForColumnCreator(columnName))
+    }
   }
 }
 

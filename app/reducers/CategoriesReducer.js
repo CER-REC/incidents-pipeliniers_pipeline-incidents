@@ -40,6 +40,7 @@ const CategoriesReducer = (state = defaultState, action) => {
   case 'SetFromRouterState':
     return action.categories
 
+
   case 'SnapCategory': {
     const currentIndex = state.get(action.columnName)
       .keySeq()
