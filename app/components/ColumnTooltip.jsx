@@ -60,19 +60,14 @@ class ColumnTooltip extends React.Component {
 
   // Returns the offset (if needed) to ensure that the full tooltip
   // is visible within the viewport.
-  alignmentOffset() {
+  alignmentOffset(leftEdge) {
     // Calculate the width of the left header, which tooltips need to be within.
     const regionWidth = this.props.viewport.get('x') * 0.8 // 80% viewport width
-    // Get the absolute x coordinate position of the tooltip.
-    const absoluteX = document.getElementById(this.props.columnTooltip.get('columnName') + '-QuestionMark').getBoundingClientRect().left -
-      (window.innerWidth - this.props.viewport.get('x'))/2 +
-      Constants.getIn(['questionMark', 'size'])/2
 
     // Check if the tooltip can be fully displayed within the viewport.
-    const rightTooltipEdge = absoluteX + Constants.getIn(['columnTooltip', 'width'])
-    if (rightTooltipEdge > regionWidth) {
-      return rightTooltipEdge - regionWidth
-    }
+    if (leftEdge < 0) { return leftEdge }
+    const rightEdge = leftEdge + Constants.getIn(['columnTooltip', 'width'])
+    if (rightEdge > regionWidth) { return rightEdge - regionWidth }
 
     // No offset is needed otherwise.
     return 0
@@ -90,7 +85,7 @@ class ColumnTooltip extends React.Component {
 
     return {
       bottom: position.get('y'),
-      left: position.get('x') - this.alignmentOffset(),
+      left: position.get('x') - this.alignmentOffset(position.get('x')),
       maxHeight: WorkspaceComputations.topBarHeight(),
       position: 'absolute',
     }

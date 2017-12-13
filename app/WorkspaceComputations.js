@@ -18,24 +18,13 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
     categories)
 
   // Initial column horizontal coordinate.
-  let x = 0
-  switch(columnTooltip.get('columnName')) {
-  case 'pinColumn': 
-    x = columnMeasurements.get('pinColumn').get('x') + Constants.getIn(['pinColumn', 'columnToolTipXOffset'])
-    break
-  default:
-    x = columnMeasurements.getIn(['columns', columnTooltip.get('columnName')]).get('x')
-        + Constants.get('columnHeadingLeftMargin')
-  }
+  const columnMeasurement = (columnTooltip.get('columnName') === 'pinColumn')
+    ? columnMeasurements.get('pinColumn')
+    : columnMeasurements.getIn(['columns', columnTooltip.get('columnName')])
 
-  // Update the horizontal coordinate with the label + question
-  // mark icon sizes.
-  x += Constants.getIn(['questionMark', 'size'])
-
-  // Align the horizontal coordinate to avoid extending the tooltip
-  // beyond the workspace width.
-  /*if(x + Constants.getIn(['columnTooltip', 'width']) > viewport.get('x'))
-    x -= Constants.getIn(['columnTooltip', 'width'])*/
+  // Center the tooltip over the column
+  const x = (columnMeasurement.get('x') + (columnMeasurement.get('width') / 2)) -
+    (Constants.getIn(['columnTooltip', 'width']) / 2)
 
   const y = (
     columnMeasurements.getIn(['workspace', 'height']) -
@@ -48,18 +37,6 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
   let position = Immutable.Map()
   position = position.set('x', x)
   position = position.set('y', y)
-  /*
-  position = position.set('y', (
-    columnMeasurements.getIn(['workspace', 'height']) -
-    WorkspaceComputations.topBarHeight() -
-    Constants.getIn(['headerBar', 'height'])
-  ))
-  console.log({
-    workspaceHeight: columnMeasurements.getIn(['workspace', 'height']),
-    topBarHeight: WorkspaceComputations.topBarHeight(),
-    headerBarHeight: Constants.getIn(['headerBar', 'height']),
-  })
-  */
 
   return position
 }
