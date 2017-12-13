@@ -42,9 +42,6 @@ const Constants = Immutable.fromJS({
       middleStory: 'getting-the-big-picture',
       rightStory: 'adding-columns-to-dig-deeper',
     },
-    secondRow: {
-      
-    },
   },
 
   // All in px

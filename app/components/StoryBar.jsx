@@ -21,7 +21,6 @@ class StoryBar extends React.Component {
       </div>
 
       <StoryRow rowName='firstRow'/> 
-      <StoryRow rowName='secondRow' />
     </div>
     
   }
