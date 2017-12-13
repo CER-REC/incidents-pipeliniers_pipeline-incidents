@@ -77,7 +77,7 @@ class IncidentListShowHide extends React.Component {
     return ( 
 
       <g transform = {transformShowHide} onClick={this.incidentListShowHideAnalytics.bind(this)} className="emptyCategories">
-        <g
+        <g className = 'incidentListShowHide'
           tabIndex = '0'
           role = 'button'
           aria-label = {Tr.getIn(['showIncidentList', this.props.language])}

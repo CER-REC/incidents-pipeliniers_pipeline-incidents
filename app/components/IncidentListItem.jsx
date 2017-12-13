@@ -48,6 +48,8 @@ class IncidentListItem extends React.Component {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       this.incidentItemClick()
+    } else if(event.key === 'Escape') {
+      document.querySelector('.incidentListScrollPane').focus()
     }
   }
 

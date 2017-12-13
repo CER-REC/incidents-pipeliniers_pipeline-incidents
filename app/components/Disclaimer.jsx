@@ -19,11 +19,11 @@ class Disclaimer extends React.Component {
   }
 
   closeKeyDown(event) {
-    if (event.key === 'Enter' || event.key === ' ' || event.keyCode === 27) {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Escape') {
       event.preventDefault()
       this.closeButtonClick()
     }
-    if(event.keyCode === 9) {
+    if(event.key === 'Tab') {
       event.preventDefault()
     }
   }

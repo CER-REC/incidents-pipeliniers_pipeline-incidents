@@ -118,14 +118,13 @@ class ColumnTooltip extends React.Component {
     // Scroll to the top of the tooltip to make sure
     // that the tooltip title is fully visible.
     document.getElementById('columnTooltip').scrollTop = 0
-    document.getElementById('columnTooltip')
     document.querySelector('.tooltip').focus()
+   
   }
 
   onKeyDownHandler(event) {
-    if(event.keyCode === 27) {
-      document.querySelector('.questionMark').focus()
-      store.dispatch(PopupDismissedCreator())
+    if(event.key === 'Escape') {
+      this.columnName.focus() 
     }
   }
 

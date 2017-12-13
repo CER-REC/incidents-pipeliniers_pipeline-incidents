@@ -171,7 +171,8 @@ class Column extends React.Component {
       tabIndex = '0'
       aria-label = {`${this.props.columnName} 'Question Mark Tool Tip'`}
       role = 'button' 
-      onKeyDown = { this.questionMarKeyDown.bind(this) }/>
+      onKeyDown = { this.questionMarKeyDown.bind(this) }
+    />
   }
 
   questionMarkClick(e) {

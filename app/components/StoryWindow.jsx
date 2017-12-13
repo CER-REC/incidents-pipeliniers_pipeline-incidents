@@ -1,6 +1,7 @@
 
 const React = require('react')
 const ReactRedux = require('react-redux')
+const ReactDOM = require('react-dom')
 
 require('./StoryWindow.scss')
 
@@ -34,8 +35,10 @@ class StoryWindow extends React.Component {
     e.preventDefault()
     this.props.onCloseButtonClicked()
 
-    document.getElementById('heading')
-    document.querySelector('.storiesHeading').focus()
+    // const last = the story then return the focus to last?
+    //document.getElementById(this.story).focus()
+    //ReactDOM.findDOMNode(this.story).getElementById('.story').focus()
+    //document.querySelector('.storiesHeading').focus()
   }
 
   closeButtonKeyDown(event) {
@@ -184,13 +187,13 @@ class StoryWindow extends React.Component {
   }
 
   componentDidUpdate() {
-    // if(this.props.story.get('isActive')) {
-    //   document.querySelector('.storyWindow').focus()
-    // }
+    if(this.props.story.get('isActive')) {
+      document.querySelector('.storyWindow').focus()
+    }
   }
 
   onEscapeKeyDown(event) {
-    if(event.keyCode === 27) {
+    if(event.key === 'Escape') {
       this.closeButtonClick(event)
     }
   }

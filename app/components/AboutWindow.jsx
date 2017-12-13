@@ -152,7 +152,7 @@ class AboutWindow extends React.Component {
   }
 
   onEscapeKeyDown(event) {
-    if(event.keyCode === 27) {
+    if(event.key === 'Escape') {
       event.preventDefault()
       event.stopPropagation()
       this.closeButtonClick(event)
