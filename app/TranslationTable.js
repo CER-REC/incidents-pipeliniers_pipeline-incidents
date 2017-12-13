@@ -251,6 +251,36 @@ const TranslationTable = Immutable.fromJS({
         fr: '?columns=province,year&province=7,10,4,5,3,6,9,13,1,8,12,2,11&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008',
       },
     },
+    'how-to-read-the-visualization': {
+      title: {
+        en: 'HOW TO READ THE VISUALIZATION',
+        fr: 'POUR INTERPRÉTER LA VISUALISATION',
+      },
+      backgroundImage: {
+        en: 'images/stories/how-to-read-the-visualization-1-EN.JPG',
+        fr: 'images/stories/how-to-read-the-visualization-1-FR.JPG',
+      },
+      tutorialImages: {
+        en: [
+          'images/stories/how-to-read-the-visualization-1-EN.JPG',
+          'images/stories/how-to-read-the-visualization-2-EN.JPG',
+          'images/stories/how-to-read-the-visualization-3-EN.JPG',
+          'images/stories/how-to-read-the-visualization-4-EN.JPG',
+        ],
+        fr: [
+          'images/stories/how-to-read-the-visualization-1-FR.JPG',
+          'images/stories/how-to-read-the-visualization-2-FR.JPG',
+          'images/stories/how-to-read-the-visualization-3-FR.JPG',
+          'images/stories/how-to-read-the-visualization-4-FR.JPG',
+        ],
+      },
+      // TODO: Change story mode configs to no longer store configuration as
+      // URLs. Store configuration that we would like to change to instead.
+      config: {
+        en: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=3,4,5,2,1,-1,14,6&incidentTypes=8,9,7,5,10,6,4&whyItHappened=12,7,15,9,16,-1,11,8,13,10',
+        fr: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=3,4,5,2,1,-1,14,6&incidentTypes=8,9,7,5,10,6,4&whyItHappened=12,7,15,9,16,-1,11,8,13,10',
+      },
+    },
     'getting-the-big-picture': {
       title: {
         en: 'GETTING THE BIG PICTURE',
