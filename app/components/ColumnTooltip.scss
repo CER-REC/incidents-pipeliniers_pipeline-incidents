@@ -5,7 +5,7 @@
   position:relative; 
   z-index:$column-tooltip; 
   width:322px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   border:1px solid #ccc;
   background-color: #fff;

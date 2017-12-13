@@ -37,12 +37,29 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
   /*if(x + Constants.getIn(['columnTooltip', 'width']) > viewport.get('x'))
     x -= Constants.getIn(['columnTooltip', 'width'])*/
 
-  const y = - (columnMeasurements.getIn(['workspace', 'height']) - 
-    WorkspaceComputations.topBarHeight())
+  const y = (
+    columnMeasurements.getIn(['workspace', 'height']) -
+    200 // TODO: How does the top section work out to 200px?
+    //WorkspaceComputations.topBarHeight() -
+    //Constants.getIn(['headerBar', 'height'])
+  )
 
+  // TODO: Change this to a single instantiation of the map
   let position = Immutable.Map()
   position = position.set('x', x)
   position = position.set('y', y)
+  /*
+  position = position.set('y', (
+    columnMeasurements.getIn(['workspace', 'height']) -
+    WorkspaceComputations.topBarHeight() -
+    Constants.getIn(['headerBar', 'height'])
+  ))
+  console.log({
+    workspaceHeight: columnMeasurements.getIn(['workspace', 'height']),
+    topBarHeight: WorkspaceComputations.topBarHeight(),
+    headerBarHeight: Constants.getIn(['headerBar', 'height']),
+  })
+  */
 
   return position
 }

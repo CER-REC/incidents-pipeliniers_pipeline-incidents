@@ -70,22 +70,6 @@ class ColumnTooltipListItem extends React.Component {
     </span>
   }
 
-  // This is necessary to compensate for the empty space
-  // that is left by moving the (relatively positioned) tooltip
-  // to the top of viewport.
-  setupBottomMargin() {
-    const height = document.getElementById('columnTooltip').clientHeight
-    document.getElementById('columnTooltip').style.marginBottom = `${-height}px`
-  }
-
-  componentDidMount() {
-    this.setupBottomMargin()
-  }
-
-  componentDidUpdate() {
-    this.setupBottomMargin()
-  }
-
   render() {
     return <div 
       className='listItem'>

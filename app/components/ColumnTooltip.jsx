@@ -85,31 +85,20 @@ class ColumnTooltip extends React.Component {
       this.props.categories)
 
     return {
-      top:position.get('y'),
-      left:position.get('x') - this.alignmentOffset(),
-      maxHeight: `${WorkspaceComputations.columnHeight(this.props.viewport)}px`
+      bottom: position.get('y'),
+      left: position.get('x') - this.alignmentOffset(),
+      maxHeight: WorkspaceComputations.topBarHeight(),
+      position: 'absolute',
     }
   }
 
-  // This is necessary to compensate for the empty space
-  // that is left by moving the (relatively positioned) tooltip
-  // to the top of viewport.
-  setupBottomMargin() {
-    const height = document.getElementById('columnTooltip').clientHeight
-    document.getElementById('columnTooltip').style.marginBottom = `${-height}px`
-  }
-
   componentDidMount() {
-    this.setupBottomMargin()
-
     // Scroll to the top of the tooltip to make sure
     // that the tooltip title is fully visible.
     document.getElementById('columnTooltip').scrollTop = 0
   }
 
   componentDidUpdate() {
-    this.setupBottomMargin()
-
     // Scroll to the top of the tooltip to make sure
     // that the tooltip title is fully visible.
     document.getElementById('columnTooltip').scrollTop = 0
