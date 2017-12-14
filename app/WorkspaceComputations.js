@@ -28,7 +28,7 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
 
   const y = (
     columnMeasurements.getIn(['workspace', 'height']) -
-    200 // TODO: How does the top section work out to 200px?
+    195 // TODO: How does the top section work out to 195px?
     //WorkspaceComputations.topBarHeight() -
     //Constants.getIn(['headerBar', 'height'])
   )
@@ -49,7 +49,7 @@ WorkspaceComputations.columnTooltipIndicatorPosition = function(columnTooltip, l
     columns,
     categories)
 
-  // TODO: How does the top section work out to 200px?
+  // TODO: How does the top section work out to 195px?
   const y = columnMeasurements.getIn(['workspace', 'height']) - 215
 
   // Initial column horizontal coordinate.

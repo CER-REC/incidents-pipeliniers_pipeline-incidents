@@ -44,16 +44,12 @@ class TooltipListItem extends React.Component {
             this.props.columnTooltipClick.get('itemOverview') === this.props.item.get('overview')) {
       sym = '-'     
     }
-    return <span
-      className='PopupPlusSign'
-      >
-      {sym}
-    </span>
+    return <span className='expandCollapse' >{sym}</span>
   }
 
   overviewText() {
     const { columnTooltipClick, columnName, item } = this.props;
-    let textClassName = 'PopupText'
+    let textClassName = 'listItemTitle'
     if (columnTooltipClick.get('columnName') === columnName &&
         columnTooltipClick.get('itemOverview') === item.get('overview')) {
       textClassName += ' active'
@@ -74,7 +70,7 @@ class TooltipListItem extends React.Component {
       return null
     }
 
-    return <span className='PopupDetailText'>
+    return <span className='listItemDetail'>
       {item.get('expanded')}
     </span>
   }

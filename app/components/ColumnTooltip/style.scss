@@ -1,5 +1,6 @@
 @import "../../styles/Colours.scss";
 @import "../../styles/zIndex.scss";
+@import "../../styles/FontVariables.scss";
 
 #columnTooltip {
   position: absolute;
@@ -11,11 +12,11 @@
   opacity: 1;
   padding: 10px;
   box-shadow: 2px 2px 5px #777;
-  font-family: "FiraSansCondensed", sans-serif;
+  font-family: $fira-sans-condensed;
   font-size: 14px;
 
   .tooltipTitle {
-    font-family: "FiraSansCondensedSemibold", sans-serif;
+    font-family: $fira-sans-condensed-semibold;
     line-height: 20px;
   }
 
@@ -26,12 +27,18 @@
 
   .tooltipItems {
     padding: 0;
-    font-size: 12px;
     line-height: 16px;
 
     li {
       list-style-type: none;
       padding: 0 0 0 25px;
+    }
+
+    .listItemHeading, .listItemTitle { line-height: 22px; }
+    .listItemTitle.active { font-family: $fira-sans-condensed-semibold; }
+    .listItemDetail {
+      font-size: 12px;
+      line-height: 16px;
     }
   }
 
@@ -64,19 +71,20 @@
     height: 12px;
     display: inline-block;
     position: absolute;
-    margin-top: 2px;
+    margin-top: 4px;
     margin-left: -16px;
   }
 
-  .PopupPlusSign {
+  .expandCollapse {
     position: absolute;
     margin-left: -13px;
+    font-family: $fira-sans-condensed-semibold;
   }
 }
 
 #columnTooltipIndicator {
   position: absolute;
   width: 1px;
-  height: 16px;
+  height: 20px;
   border: 1px solid #ccc;
 }

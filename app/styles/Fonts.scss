@@ -139,58 +139,6 @@
   line-height: 1.5;
 }
 
-.PopupHeading {
-  font-family: $fira-sans-condensed-medium;
-  font-size: 13px;
-  fill: $black;
-  margin: 5px 0 0 10px;
-  padding: 0;
-
-  // WET Override
-  border: none;
-}
-
-.PopupOverview {
-  font-family: $fira-sans-condensed-medium;
-  font-size: 12px;
-  fill: $black;
-  margin: -3px 0 0 10px;
-  padding: 0;
-
-  // WET Override
-  border: none;
-}
-
-.PopupPlusSign {
-  font-family: $fira-sans-condensed;
-  font-size: 20px;
-  color: $black;
-}
-
-.PopupText {
-  font-family: $fira-sans-condensed;
-  font-size: 12px;
-  color: $black;
-  line-height: 1.5;
-  display: block;
-  margin-bottom: 5px;
-  cursor: pointer;
-}
-
-.PopupText.active {
-  font-family: $fira-sans-condensed-medium;
-  margin-bottom: 10px;
-}
-
-.PopupDetailText {
-  font-family: $fira-sans-condensed;
-  font-size: 12px;
-  color: $black;
-  display: block;
-  line-height: 1.25;
-  margin-bottom: 10px;
-}
-
 .aboutHeading {
   font-family: $fira-sans-condensed;
   font-size: 18px;
