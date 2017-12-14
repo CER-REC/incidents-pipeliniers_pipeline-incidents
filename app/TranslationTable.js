@@ -365,22 +365,78 @@ const TranslationTable = Immutable.fromJS({
       },
       detail: {
         en: [
-          {overview:'Adverse Environmental Effects', expanded:'When any chemical substance is released at a concentration or volume that has the potential to change the ambient environment in a manner that would cause harm to human life, wildlife or vegetation (e.g., glycol, potassium carbonate, methanol, methanol mix from hydrostatic testing, etc.).'},
-          {overview:'Explosion', expanded:'An unintended explosion'},
-          {overview:'Fatality', expanded:'Any death involving employees, contractors or members of the public related to the construction, operation, maintenance or abandonment of pipelines'},
-          {overview:'Fire', expanded:'An unintended fire'},
-          {overview:'Operation Beyond Design Limits', expanded:'Includes situations, such as: ○ over-pressures – i.e., pressures that are higher than the maximum the equipment was designed to safely handle○ vibration beyond design limits;○ slope movements causing movement in the pipeline beyond design limits;○ pipe exposures in rivers or streams; and○ introduction of an inappropriate product (e.g., sour gas in excess of CSA limits). Operation beyond design limit is typically linked to an over-pressure of the product in the pipe; however, if a pipe was exposed to excessive vibration and was not designed for this, this could be considered operation beyond design limits. Operation beyond design limits does not include equipment contacting the pipe, or corrosion pits, etc.'},
-          {overview:'Release of Substance', expanded:'Any time a product is unintentionally released. (Releases of non-gas low pressure products in volumes of less than 1.5 cubic metres are exempt from reporting.)'},
-          {overview:'Serious Injury (NEB or Transportation Safety Board)', expanded:'Any serious injury involving employees, contractors or members of the public related to the construction, operation or maintenance of pipelines.'},
+          {
+            overview: 'Adverse Environmental Effects',
+            expanded: 'When any chemical substance is released at a concentration or volume that has the potential to change the ambient environment in a manner that would cause harm to human life, wildlife or vegetation (e.g., glycol, potassium carbonate, methanol, methanol mix from hydrostatic testing, etc.).',
+            categoryName: '10'
+          },
+          {
+            overview: 'Explosion',
+            expanded: 'An unintended explosion',
+            categoryName: '6'
+          },
+          {
+            overview: 'Fatality',
+            expanded: 'Any death involving employees, contractors or members of the public related to the construction, operation, maintenance or abandonment of pipelines',
+            categoryName: '4'
+          },
+          {
+            overview: 'Fire',
+            expanded: 'An unintended fire',
+            categoryName: '7'
+          },
+          {
+            overview: 'Operation Beyond Design Limits',
+            expanded: 'Includes situations, such as: ○ over-pressures – i.e., pressures that are higher than the maximum the equipment was designed to safely handle○ vibration beyond design limits;○ slope movements causing movement in the pipeline beyond design limits;○ pipe exposures in rivers or streams; and○ introduction of an inappropriate product (e.g., sour gas in excess of CSA limits). Operation beyond design limit is typically linked to an over-pressure of the product in the pipe; however, if a pipe was exposed to excessive vibration and was not designed for this, this could be considered operation beyond design limits. Operation beyond design limits does not include equipment contacting the pipe, or corrosion pits, etc.',
+            categoryName: '9'
+          },
+          {
+            overview: 'Release of Substance',
+            expanded: 'Any time a product is unintentionally released. (Releases of non-gas low pressure products in volumes of less than 1.5 cubic metres are exempt from reporting.)',
+            categoryName: '8'
+          },
+          {
+            overview: 'Serious Injury (NEB or Transportation Safety Board)',
+            expanded: 'Any serious injury involving employees, contractors or members of the public related to the construction, operation or maintenance of pipelines.',
+            categoryName: '5'
+          }
         ],
         fr: [
-          {overview:'Effets négatifs sur l’environnement', expanded:'Lorsqu’il y a rejet d’une substance chimique à une concentration ou dans une quantité suffisante pour modifier l’environnement ambiant et mettre en danger la vie humaine, la faune ou la végétation (p. ex., glycol, carbonate de potassium, méthanol, mélange de méthanol provenant d’un essai hydrostatique, etc.).'},
-          {overview:'Explosion', expanded:'Une explosion non intentionnelle.'},
-          {overview:'Décès', expanded:'Le décès d’un employé, d’un entrepreneur ou d’un membre du public en rapport avec la construction, le fonctionnement, l’entretien ou la cessation d’exploitation d’un pipeline.'},
-          {overview:'Incendie', expanded:'Un incendie non intentionnel.'},
-          {overview:'Exploitation au-delà des tolérances de conception', expanded:'De telles situations comprennent notamment les suivantes :○ cas de surpression, soit lorsque les pressions sont supérieures aux limites établies pour un fonctionnement sans danger de l’équipement;○ vibration supérieure aux tolérances de conception;○ mouvements du sol à l’origine d’un déplacement du pipeline plus grand que celui autorisé selon les limites de conception;○ affleurement d’une conduite dans une rivière ou un ruisseau;○ présence d’un produit inapproprié (p. ex., gaz acide au-delà des limites établies par les normes CSA).L’exploitation au-delà des tolérances de conception est habituellement liée à une surpression causée par le produit dans la canalisation. Cependant, si cette dernière est soumise à une vibration excessive pour laquelle elle n’a pas été conçue, il pourrait s’agir là encore d’un type d’exploitation au-delà des tolérances de conception, qui n’inclut toutefois pas les chocs avec la conduite, les piqûres de corrosion, etc.'},
-          {overview:'Rejet d’une substance', expanded:'Tout rejet non intentionnel d’un produit. (Les rejets à basse pression de produits autres que du gaz d’un volume inférieur à 1,5 mètre cube n’ont pas à être signalés.)'},
-          {overview:'Blessure grave (Office ou Bureau de la sécurité des transports)', expanded:'Toute blessure grave causée à un employé, un entrepreneur ou un membre du public en rapport avec la construction, l’exploitation ou l’entretien d’un pipeline.'},
+          {
+            overview: 'Effets négatifs sur l’environnement',
+            expanded: 'Lorsqu’il y a rejet d’une substance chimique à une concentration ou dans une quantité suffisante pour modifier l’environnement ambiant et mettre en danger la vie humaine, la faune ou la végétation (p. ex., glycol, carbonate de potassium, méthanol, mélange de méthanol provenant d’un essai hydrostatique, etc.).',
+            categoryName: '10',
+          },
+          {
+            overview: 'Explosion',
+            expanded: 'Une explosion non intentionnelle.',
+            categoryName: '6',
+          },
+          {
+            overview: 'Décès',
+            expanded: 'Le décès d’un employé, d’un entrepreneur ou d’un membre du public en rapport avec la construction, le fonctionnement, l’entretien ou la cessation d’exploitation d’un pipeline.',
+            categoryName: '4',
+          },
+          {
+            overview: 'Incendie',
+            expanded: 'Un incendie non intentionnel.',
+            categoryName: '7',
+          },
+          {
+            overview: 'Exploitation au-delà des tolérances de conception',
+            expanded: 'De telles situations comprennent notamment les suivantes :○ cas de surpression, soit lorsque les pressions sont supérieures aux limites établies pour un fonctionnement sans danger de l’équipement;○ vibration supérieure aux tolérances de conception;○ mouvements du sol à l’origine d’un déplacement du pipeline plus grand que celui autorisé selon les limites de conception;○ affleurement d’une conduite dans une rivière ou un ruisseau;○ présence d’un produit inapproprié (p. ex., gaz acide au-delà des limites établies par les normes CSA).L’exploitation au-delà des tolérances de conception est habituellement liée à une surpression causée par le produit dans la canalisation. Cependant, si cette dernière est soumise à une vibration excessive pour laquelle elle n’a pas été conçue, il pourrait s’agir là encore d’un type d’exploitation au-delà des tolérances de conception, qui n’inclut toutefois pas les chocs avec la conduite, les piqûres de corrosion, etc.',
+            categoryName: '9',
+          },
+          {
+            overview: 'Rejet d’une substance',
+            expanded: 'Tout rejet non intentionnel d’un produit. (Les rejets à basse pression de produits autres que du gaz d’un volume inférieur à 1,5 mètre cube n’ont pas à être signalés.)',
+            categoryName: '8',
+          },
+          {
+            overview: 'Blessure grave (Office ou Bureau de la sécurité des transports)',
+            expanded: 'Toute blessure grave causée à un employé, un entrepreneur ou un membre du public en rapport avec la construction, l’exploitation ou l’entretien d’un pipeline.',
+            categoryName: '5',
+          }
         ],
       },
     },
@@ -409,89 +465,408 @@ const TranslationTable = Immutable.fromJS({
       },
       detail: {
         en: [
-          {overview:'2193914 Canada Limited', expanded:null},
-          {overview:'Alliance Pipeline Ltd.', expanded:null},
-          {overview:'Burlington Resources Canada (Hunter) Ltd.', expanded:null},
-          {overview:'Centra Transmission Holdings Inc.', expanded:null},
-          {overview:'Cochin Pipe Lines Ltd.', expanded:null},
-          {overview:'Emera Brunswick Pipeline Company Ltd.', expanded:null},
-          {overview:'Enbridge G and P Canada Pipelines Inc.', expanded:null},
-          {overview:'Enbridge Pipelines (NW) Inc.', expanded:null},
-          {overview:'Enbridge Pipelines (Westspur) Inc.', expanded:null},
-          {overview:'Enbridge Pipelines Inc.', expanded:null},
-          {overview:'EnCana Corporation', expanded:null},
-          {overview:'Ethane Shippers Joint Venture', expanded:null},
-          {overview:'Express Pipeline Ltd.', expanded:null},
-          {overview:'ExxonMobil Canada Properties', expanded:null},
-          {overview:'Foothills Pipe Lines (Saskatchewan) Ltd.', expanded:null},
-          {overview:'Foothills Pipe Lines Ltd.', expanded:null},
-          {overview:'Husky Oil Limited', expanded:null},
-          {overview:'Kinder Morgan Cochin ULC', expanded:null},
-          {overview:'Many Islands Pipe Lines (Canada) Limited', expanded:null},
-          {overview:'Maritimes & Northeast Pipeline Management Ltd.', expanded:null},
-          {overview:'Niagara Gas Transmission Limited', expanded:null},
-          {overview:'NOVA Chemicals (Canada) Ltd.', expanded:null},
-          {overview:'NOVA Gas Transmission Ltd.', expanded:null},
-          {overview:'Pembina Energy Services Inc.', expanded:null},
-          {overview:'Pembina Prairie Facilities Ltd.', expanded:null},
-          {overview:'Plains Marketing Canada, L.P.', expanded:null},
-          {overview:'Plains Midstream Canada ULC', expanded:null},
-          {overview:'Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership', expanded:null},
-          {overview:'Provident Energy Pipeline Inc.', expanded:null},
-          {overview:'Spectra Energy Empress Management Inc. as General Partner and Agent for Spectra Energy Empress L.P.', expanded:null},
-          {overview:'Trans Mountain Pipeline Inc.', expanded:null},
-          {overview:'Trans Mountain Pipeline ULC', expanded:null},
-          {overview:'Trans Québec and Maritimes Pipeline Inc.', expanded:null},
-          {overview:'TransCanada Keystone Pipeline GP Ltd.', expanded:null},
-          {overview:'TransCanada PipeLines Limited', expanded:null},
-          {overview:'TransCanada PipeLines Limited B.C. System', expanded:null},
-          {overview:'Trans-Northern Pipelines Inc.', expanded:null},
-          {overview:'Tundra Energy Marketing Limited', expanded:null},
-          {overview:'Twin Rivers Paper Company Inc.', expanded:null},
-          {overview:'Westcoast Energy Inc., carrying on business as Spectra Energy Transmission', expanded:null},
+          {
+            'overview': '2193914 Canada Limited',
+            'expanded': null,
+            'categoryName': '5844'
+          },
+          {
+            'overview': 'Alliance Pipeline Ltd.',
+            'expanded': null,
+            'categoryName': '3366'
+          },
+          {
+            'overview': 'Burlington Resources Canada (Hunter) Ltd.',
+            'expanded': null,
+            'categoryName': '5192'
+          },
+          {
+            'overview': 'Centra Transmission Holdings Inc.',
+            'expanded': null,
+            'categoryName': '3250'
+          },
+          {
+            'overview': 'Cochin Pipe Lines Ltd.',
+            'expanded': null,
+            'categoryName': '3005'
+          },
+          {
+            'overview': 'Emera Brunswick Pipeline Company Ltd.',
+            'expanded': null,
+            'categoryName': '5201'
+          },
+          {
+            'overview': 'Enbridge G and P Canada Pipelines Inc.',
+            'expanded': null,
+            'categoryName': '6468'
+          },
+          {
+            'overview': 'Enbridge Pipelines (NW) Inc.',
+            'expanded': null,
+            'categoryName': '3416'
+          },
+          {
+            'overview': 'Enbridge Pipelines (Westspur) Inc.',
+            'expanded': null,
+            'categoryName': '3417'
+          },
+          {
+            'overview': 'Enbridge Pipelines Inc.',
+            'expanded': null,
+            'categoryName': '3415'
+          },
+          {
+            'overview': 'EnCana Corporation',
+            'expanded': null,
+            'categoryName': '5137'
+          },
+          {
+            'overview': 'Ethane Shippers Joint Venture',
+            'expanded': null,
+            'categoryName': '3177'
+          },
+          {
+            'overview': 'Express Pipeline Ltd.',
+            'expanded': null,
+            'categoryName': '3276'
+          },
+          {
+            'overview': 'ExxonMobil Canada Properties',
+            'expanded': null,
+            'categoryName': '4405'
+          },
+          {
+            'overview': 'Foothills Pipe Lines (Saskatchewan) Ltd.',
+            'expanded': null,
+            'categoryName': '3050'
+          },
+          {
+            'overview': 'Foothills Pipe Lines Ltd.',
+            'expanded': null,
+            'categoryName': '3044'
+          },
+          {
+            'overview': 'Husky Oil Limited',
+            'expanded': null,
+            'categoryName': '5129'
+          },
+          {
+            'overview': 'Kinder Morgan Cochin ULC',
+            'expanded': null,
+            'categoryName': '5235'
+          },
+          {
+            'overview': 'Many Islands Pipe Lines (Canada) Limited',
+            'expanded': null,
+            'categoryName': '3079'
+          },
+          {
+            'overview': 'Maritimes & Northeast Pipeline Management Ltd.',
+            'expanded': null,
+            'categoryName': '3351'
+          },
+          {
+            'overview': 'Niagara Gas Transmission Limited',
+            'expanded': null,
+            'categoryName': '3089'
+          },
+          {
+            'overview': 'NOVA Chemicals (Canada) Ltd.',
+            'expanded': null,
+            'categoryName': '3289'
+          },
+          {
+            'overview': 'NOVA Gas Transmission Ltd.',
+            'expanded': null,
+            'categoryName': '4909'
+          },
+          {
+            'overview': 'Pembina Energy Services Inc.',
+            'expanded': null,
+            'categoryName': '6192'
+          },
+          {
+            'overview': 'Pembina Prairie Facilities Ltd.',
+            'expanded': null,
+            'categoryName': '6353'
+          },
+          {
+            'overview': 'Plains Marketing Canada, L.P.',
+            'expanded': null,
+            'categoryName': '3505'
+          },
+          {
+            'overview': 'Plains Midstream Canada ULC',
+            'expanded': null,
+            'categoryName': '5967'
+          },
+          {
+            'overview': 'Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership',
+            'expanded': null,
+            'categoryName': '3118'
+          },
+          {
+            'overview': 'Provident Energy Pipeline Inc.',
+            'expanded': null,
+            'categoryName': '5142'
+          },
+          {
+            'overview': 'Spectra Energy Empress Management Inc. as General Partner and Agent for Spectra Energy Empress L.P.',
+            'expanded': null,
+            'categoryName': '5222'
+          },
+          {
+            'overview': 'Trans Mountain Pipeline Inc.',
+            'expanded': null,
+            'categoryName': '5228'
+          },
+          {
+            'overview': 'Trans Mountain Pipeline ULC',
+            'expanded': null,
+            'categoryName': '5874'
+          },
+          {
+            'overview': 'Trans Québec and Maritimes Pipeline Inc.',
+            'expanded': null,
+            'categoryName': '3144'
+          },
+          {
+            'overview': 'TransCanada Keystone Pipeline GP Ltd.',
+            'expanded': null,
+            'categoryName': '5203'
+          },
+          {
+            'overview': 'TransCanada PipeLines Limited',
+            'expanded': null,
+            'categoryName': '3137'
+          },
+          {
+            'overview': 'TransCanada PipeLines Limited B.C. System',
+            'expanded': null,
+            'categoryName': '3464'
+          },
+          {
+            'overview': 'Trans-Northern Pipelines Inc.',
+            'expanded': null,
+            'categoryName': '3138'
+          },
+          {
+            'overview': 'Tundra Energy Marketing Limited',
+            'expanded': null,
+            'categoryName': '6123'
+          },
+          {
+            'overview': 'Twin Rivers Paper Company Inc.',
+            'expanded': null,
+            'categoryName': '5946'
+          },
+          {
+            'overview': 'Westcoast Energy Inc., carrying on business as Spectra Energy Transmission',
+            'expanded': null,
+            'categoryName': '3162'
+          }
         ],
         fr: [
-          {overview:'2193914 Canada Limited', expanded:null},
-          {overview:'Alliance Pipeline Ltd.', expanded:null},
-          {overview:'Burlington Resources Canada (Hunter) Ltd.', expanded:null},
-          {overview:'Centra Transmission Holdings Inc.', expanded:null},
-          {overview:'Cochin Pipe Lines Ltd.', expanded:null},
-          {overview:'Emera Brunswick Pipeline Company Ltd.', expanded:null},
-          {overview:'Enbridge G and P Canada Pipelines Inc.', expanded:null},
-          {overview:'Enbridge Pipelines (NW) Inc.', expanded:null},
-          {overview:'Enbridge Pipelines (Westspur) Inc.', expanded:null},
-          {overview:'Enbridge Pipelines Inc.', expanded:null},
-          {overview:'EnCana Corporation', expanded:null},
-          {overview:'Ethane Shippers Joint Venture', expanded:null},
-          {overview:'Express Pipeline Ltd.', expanded:null},
-          {overview:'ExxonMobil Canada Properties', expanded:null},
-          {overview:'Foothills Pipe Lines (Saskatchewan) Ltd.', expanded:null},
-          {overview:'Foothills Pipe Lines Ltd.', expanded:null},
-          {overview:'Husky Oil Limited', expanded:null},
-          {overview:'Kinder Morgan Cochin ULC', expanded:null},
-          {overview:'Many Islands Pipe Lines (Canada) Limited', expanded:null},
-          {overview:'Maritimes & Northeast Pipeline Management Ltd.', expanded:null},
-          {overview:'Niagara Gas Transmission Limited', expanded:null},
-          {overview:'NOVA Chemicals (Canada) Ltd.', expanded:null},
-          {overview:'NOVA Gas Transmission Ltd.', expanded:null},
-          {overview:'Pembina Energy Services Inc.', expanded:null},
-          {overview:'Pembina Prairie Facilities Ltd.', expanded:null},
-          {overview:'Plains Marketing Canada, L.P.', expanded:null},
-          {overview:'Plains Midstream Canada ULC', expanded:null},
-          {overview:'Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership', expanded:null},
-          {overview:'Provident Energy Pipeline Inc.', expanded:null},
-          {overview:'Spectra Energy Empress Management Inc. as General Partner and Agent for Spectra Energy Empress L.P.', expanded:null},
-          {overview:'Trans Mountain Pipeline Inc.', expanded:null},
-          {overview:'Trans Mountain Pipeline ULC', expanded:null},
-          {overview:'Trans Québec and Maritimes Pipeline Inc.', expanded:null},
-          {overview:'TransCanada Keystone Pipeline GP Ltd.', expanded:null},
-          {overview:'TransCanada PipeLines Limited', expanded:null},
-          {overview:'TransCanada PipeLines Limited B.C. System', expanded:null},
-          {overview:'Trans-Northern Pipelines Inc.', expanded:null},
-          {overview:'Tundra Energy Marketing Limited', expanded:null},
-          {overview:'Twin Rivers Paper Company Inc.', expanded:null},
-          {overview:'Westcoast Energy Inc., carrying on business as Spectra Energy Transmission', expanded:null},
-
+          {
+            overview: '2193914 Canada Limited',
+            expanded: null,
+            categoryName: '5844',
+          },
+          {
+            overview: 'Alliance Pipeline Ltd.',
+            expanded: null,
+            categoryName: '3366',
+          },
+          {
+            overview: 'Burlington Resources Canada (Hunter) Ltd.',
+            expanded: null,
+            categoryName: '5192',
+          },
+          {
+            overview: 'Centra Transmission Holdings Inc.',
+            expanded: null,
+            categoryName: '3250',
+          },
+          {
+            overview: 'Cochin Pipe Lines Ltd.',
+            expanded: null,
+            categoryName: '3005',
+          },
+          {
+            overview: 'Emera Brunswick Pipeline Company Ltd.',
+            expanded: null,
+            categoryName: '5201',
+          },
+          {
+            overview: 'Enbridge G and P Canada Pipelines Inc.',
+            expanded: null,
+            categoryName: '6468',
+          },
+          {
+            overview: 'Enbridge Pipelines (NW) Inc.',
+            expanded: null,
+            categoryName: '3416',
+          },
+          {
+            overview: 'Enbridge Pipelines (Westspur) Inc.',
+            expanded: null,
+            categoryName: '3417',
+          },
+          {
+            overview: 'Enbridge Pipelines Inc.',
+            expanded: null,
+            categoryName: '3415',
+          },
+          {
+            overview: 'EnCana Corporation',
+            expanded: null,
+            categoryName: '5137',
+          },
+          {
+            overview: 'Ethane Shippers Joint Venture',
+            expanded: null,
+            categoryName: '3177',
+          },
+          {
+            overview: 'Express Pipeline Ltd.',
+            expanded: null,
+            categoryName: '3276',
+          },
+          {
+            overview: 'ExxonMobil Canada Properties',
+            expanded: null,
+            categoryName: '4405',
+          },
+          {
+            overview: 'Foothills Pipe Lines (Saskatchewan) Ltd.',
+            expanded: null,
+            categoryName: '3050',
+          },
+          {
+            overview: 'Foothills Pipe Lines Ltd.',
+            expanded: null,
+            categoryName: '3044',
+          },
+          {
+            overview: 'Husky Oil Limited',
+            expanded: null,
+            categoryName: '5129',
+          },
+          {
+            overview: 'Kinder Morgan Cochin ULC',
+            expanded: null,
+            categoryName: '5235',
+          },
+          {
+            overview: 'Many Islands Pipe Lines (Canada) Limited',
+            expanded: null,
+            categoryName: '3079',
+          },
+          {
+            overview: 'Maritimes & Northeast Pipeline Management Ltd.',
+            expanded: null,
+            categoryName: '3351',
+          },
+          {
+            overview: 'Niagara Gas Transmission Limited',
+            expanded: null,
+            categoryName: '3089',
+          },
+          {
+            overview: 'NOVA Chemicals (Canada) Ltd.',
+            expanded: null,
+            categoryName: '3289',
+          },
+          {
+            overview: 'NOVA Gas Transmission Ltd.',
+            expanded: null,
+            categoryName: '4909',
+          },
+          {
+            overview: 'Pembina Energy Services Inc.',
+            expanded: null,
+            categoryName: '6192',
+          },
+          {
+            overview: 'Pembina Prairie Facilities Ltd.',
+            expanded: null,
+            categoryName: '6353',
+          },
+          {
+            overview: 'Plains Marketing Canada, L.P.',
+            expanded: null,
+            categoryName: '3505',
+          },
+          {
+            overview: 'Plains Midstream Canada ULC',
+            expanded: null,
+            categoryName: '5967',
+          },
+          {
+            overview: 'Pouce Coupé Pipe Line Ltd. as agent and general partner of the Pembina North Limited Partnership',
+            expanded: null,
+            categoryName: '3118',
+          },
+          {
+            overview: 'Provident Energy Pipeline Inc.',
+            expanded: null,
+            categoryName: '5142',
+          },
+          {
+            overview: 'Spectra Energy Empress Management Inc. as General Partner and Agent for Spectra Energy Empress L.P.',
+            expanded: null,
+            categoryName: '5222',
+          },
+          {
+            overview: 'Trans Mountain Pipeline Inc.',
+            expanded: null,
+            categoryName: '5228',
+          },
+          {
+            overview: 'Trans Mountain Pipeline ULC',
+            expanded: null,
+            categoryName: '5874',
+          },
+          {
+            overview: 'Trans Québec and Maritimes Pipeline Inc.',
+            expanded: null,
+            categoryName: '3144',
+          },
+          {
+            overview: 'TransCanada Keystone Pipeline GP Ltd.',
+            expanded: null,
+            categoryName: '5203',
+          },
+          {
+            overview: 'TransCanada PipeLines Limited',
+            expanded: null,
+            categoryName: '3137',
+          },
+          {
+            overview: 'TransCanada PipeLines Limited B.C. System',
+            expanded: null,
+            categoryName: '3464',
+          },
+          {
+            overview: 'Trans-Northern Pipelines Inc.',
+            expanded: null,
+            categoryName: '3138',
+          },
+          {
+            overview: 'Tundra Energy Marketing Limited',
+            expanded: null,
+            categoryName: '6123',
+          },
+          {
+            overview: 'Twin Rivers Paper Company Inc.',
+            expanded: null,
+            categoryName: '5946',
+          },
+          {
+            overview: 'Westcoast Energy Inc., carrying on business as Spectra Energy Transmission',
+            expanded: null,
+            categoryName: '3162',
+          }
         ],
       },
     },
@@ -506,14 +881,38 @@ const TranslationTable = Immutable.fromJS({
       },
       detail: {
         en: [
-          {overview:'Initially Submitted', expanded:'The company has notified the NEB that an incident has occurred and provided preliminary information. An investigation is has been initiated.'},
-          {overview:'Submitted', expanded:'The company has submitted all of the required information and the NEB is reviewing the incident.'},
-          {overview:'Closed', expanded:'The NEB’s incident review has been completed and the file is closed.'},
+          {
+            overview: 'Initially Submitted',
+            expanded: 'The company has notified the NEB that an incident has occurred and provided preliminary information. An investigation is has been initiated.',
+            categoryName: '2'
+          },
+          {
+            overview: 'Submitted',
+            expanded: 'The company has submitted all of the required information and the NEB is reviewing the incident.',
+            categoryName: '3'
+          },
+          {
+            overview: 'Closed',
+            expanded: 'The NEB’s incident review has been completed and the file is closed.',
+            categoryName: '5'
+          }
         ],
         fr: [
-          {overview:'Initialement soumis', expanded:'La société a informé l’Office qu’un incident était survenu et a fourni les renseignements préliminaires sur celui-ci. Une enquête est en cours.'},
-          {overview:'Soumis', expanded:'La société a fourni tous les renseignements exigés et l’Office examine ce qui s’est produit.'},
-          {overview:'Fermé', expanded:'L’Office a terminé l’examen de l’incident et a clos le dossier.'},
+          {
+            overview: 'Initialement soumis',
+            expanded: 'La société a informé l’Office qu’un incident était survenu et a fourni les renseignements préliminaires sur celui-ci. Une enquête est en cours.',
+            categoryName: '2',
+          },
+          {
+            overview: 'Soumis',
+            expanded: 'La société a fourni tous les renseignements exigés et l’Office examine ce qui s’est produit.',
+            categoryName: '3',
+          },
+          {
+            overview: 'Fermé',
+            expanded: 'L’Office a terminé l’examen de l’incident et a clos le dossier.',
+            categoryName: '5',
+          }
         ],
       },
     },
@@ -542,94 +941,438 @@ const TranslationTable = Immutable.fromJS({
       },
       detail: {
         en: [
-          {overview:'Amine', expanded: null},
-          {overview:'Calcium carbonate', expanded: null},
-          {overview:'Casing cement', expanded: null},
-          {overview:'Chlorodifluoromethane', expanded: null},
-          {overview:'Contaminated water', expanded: null},
-          {overview:'Corrosion inhibitor', expanded: null},
-          {overview:'Drilling fluid', expanded: null},
-          {overview:'Drip oil', expanded: null},
-          {overview:'Glycol', expanded: null},
-          {overview:'Grey water (sewage)', expanded: null},
-          {overview:'Hydraulic fluid', expanded: null},
-          {overview:'Hydrogen sulphide', expanded: null},
-          {overview:'Lube oil', expanded: null},
-          {overview:'Methanol', expanded: null},
-          {overview:'Methyl tert-Butyl ether', expanded: null},
-          {overview:'Morphysorb', expanded: null},
-          {overview:'Oil well effluent', expanded: null},
-          {overview:'Polychlorinated biphenyls', expanded: null},
-          {overview:'Potassium carbonate', expanded: null},
-          {overview:'Potassium hydroxide (caustic solution)', expanded: null},
-          {overview:'Produced water', expanded: null},
-          {overview:'Sulphur dioxide', expanded: null},
-          {overview:'Toluene', expanded: null},
-          {overview:'Waste oil', expanded: null},
-          {overview:'Water', expanded: null},
-          {overview:'Butane', expanded: null},
-          {overview:'Mixed HVP hydrocarbons', expanded: null},
-          {overview:'Natural gas liquids', expanded: null},
-          {overview:'Propane', expanded: null},
-          {overview:'Condensate', expanded: null},
-          {overview:'Crude oil - sour', expanded: null},
-          {overview:'Crude oil - sweet', expanded: null},
-          {overview:'Crude oil - synthetic', expanded: null},
-          {overview:'Diesel fuel', expanded: null},
-          {overview:'Gasoline', expanded: null},
-          {overview:'Isooctane', expanded: null},
-          {overview:'Jet fuel', expanded: null},
-          {overview:'Carbon dioxide', expanded: null},
-          {overview:'Sulphur', expanded: null},
-          {overview:'Natural gas - sweet', expanded: null},
-          {overview:'Natural gas - sour', expanded: null},
-          {overview:'Odourant', expanded: null},
-          {overview:'Pulp slurry', expanded: null},
+          {
+            overview: 'Amine',
+            expanded: null,
+            categoryName: '1',
+          },
+          {
+            overview: 'Calcium carbonate',
+            expanded: null,
+            categoryName: '2',
+          },
+          {
+            overview: 'Casing cement',
+            expanded: null,
+            categoryName: '3',
+          },
+          {
+            overview: 'Chlorodifluoromethane',
+            expanded: null,
+            categoryName: '4',
+          },
+          {
+            overview: 'Contaminated water',
+            expanded: null,
+            categoryName: '5',
+          },
+          {
+            overview: 'Corrosion inhibitor',
+            expanded: null,
+            categoryName: '6',
+          },
+          {
+            overview: 'Drilling fluid',
+            expanded: null,
+            categoryName: '7',
+          },
+          {
+            overview: 'Drip oil',
+            expanded: null,
+            categoryName: '8',
+          },
+          {
+            overview: 'Glycol',
+            expanded: null,
+            categoryName: '9',
+          },
+          {
+            overview: 'Grey water (sewage)',
+            expanded: null,
+            categoryName: '10',
+          },
+          {
+            overview: 'Hydraulic fluid',
+            expanded: null,
+            categoryName: '11',
+          },
+          {
+            overview: 'Hydrogen sulphide',
+            expanded: null,
+            categoryName: '12',
+          },
+          {
+            overview: 'Lube oil',
+            expanded: null,
+            categoryName: '13',
+          },
+          {
+            overview: 'Methanol',
+            expanded: null,
+            categoryName: '14',
+          },
+          {
+            overview: 'Methyl tert-Butyl ether',
+            expanded: null,
+            categoryName: '15',
+          },
+          {
+            overview: 'Morphysorb',
+            expanded: null,
+            categoryName: '16',
+          },
+          {
+            overview: 'Oil well effluent',
+            expanded: null,
+            categoryName: '17',
+          },
+          {
+            overview: 'Polychlorinated biphenyls',
+            expanded: null,
+            categoryName: '18',
+          },
+          {
+            overview: 'Potassium carbonate',
+            expanded: null,
+            categoryName: '19',
+          },
+          {
+            overview: 'Potassium hydroxide (caustic solution)',
+            expanded: null,
+            categoryName: '20',
+          },
+          {
+            overview: 'Produced water',
+            expanded: null,
+            categoryName: '21',
+          },
+          {
+            overview: 'Sulphur dioxide',
+            expanded: null,
+            categoryName: '22',
+          },
+          {
+            overview: 'Toluene',
+            expanded: null,
+            categoryName: '23',
+          },
+          {
+            overview: 'Waste oil',
+            expanded: null,
+            categoryName: '24',
+          },
+          {
+            overview: 'Water',
+            expanded: null,
+            categoryName: '25',
+          },
+          {
+            overview: 'Butane',
+            expanded: null,
+            categoryName: '27',
+          },
+          {
+            overview: 'Mixed HVP hydrocarbons',
+            expanded: null,
+            categoryName: '28',
+          },
+          {
+            overview: 'Natural gas liquids',
+            expanded: null,
+            categoryName: '29',
+          },
+          {
+            overview: 'Propane',
+            expanded: null,
+            categoryName: '30',
+          },
+          {
+            overview: 'Condensate',
+            expanded: null,
+            categoryName: '32',
+          },
+          {
+            overview: 'Crude oil - sour',
+            expanded: null,
+            categoryName: '33',
+          },
+          {
+            overview: 'Crude oil - sweet',
+            expanded: null,
+            categoryName: '34',
+          },
+          {
+            overview: 'Crude oil - synthetic',
+            expanded: null,
+            categoryName: '35',
+          },
+          {
+            overview: 'Diesel fuel',
+            expanded: null,
+            categoryName: '36',
+          },
+          {
+            overview: 'Gasoline',
+            expanded: null,
+            categoryName: '37',
+          },
+          {
+            overview: 'Isooctane',
+            expanded: null,
+            categoryName: '38',
+          },
+          {
+            overview: 'Jet fuel',
+            expanded: null,
+            categoryName: '39',
+          },
+          {
+            overview: 'Carbon dioxide',
+            expanded: null,
+            categoryName: '41',
+          },
+          {
+            overview: 'Sulphur',
+            expanded: null,
+            categoryName: '42',
+          },
+          {
+            overview: 'Natural gas - sweet',
+            expanded: null,
+            categoryName: '48',
+          },
+          {
+            overview: 'Natural gas - sour',
+            expanded: null,
+            categoryName: '49',
+          },
+          {
+            overview: 'Odourant',
+            expanded: null,
+            categoryName: '50',
+          },
+          {
+            overview: 'Pulp slurry',
+            expanded: null,
+            categoryName: '51',
+          }
         ],
         fr: [
-          {overview:'Amine', expanded:null},
-          {overview:'Carbonate de calcium', expanded:null},
-          {overview:'Ciment de tubage', expanded:null},
-          {overview:'Chlorodifluorométhane', expanded:null},
-          {overview:'Eau contaminée', expanded:null},
-          {overview:'Inhibiteur de corrosion', expanded:null},
-          {overview:'Fluide de forage', expanded:null},
-          {overview:'Condensat', expanded:null},
-          {overview:'Glycol', expanded:null},
-          {overview:'Eaux grises (eaux usées)', expanded:null},
-          {overview:'Fluide hydraulique', expanded:null},
-          {overview:'sulfure d’hydrogène', expanded:null},
-          {overview:'Huile lubrifiante', expanded:null},
-          {overview:'Méthanol', expanded:null},
-          {overview:'Éther tert-butylique méthylique', expanded:null},
-          {overview:'Morphysorb®', expanded:null},
-          {overview:'Effluents de puits de pétrole', expanded:null},
-          {overview:'Diphényles polychlorés', expanded:null},
-          {overview:'Carbonate de potassium', expanded:null},
-          {overview:'Hydroxyde de potassium (solution caustique)', expanded:null},
-          {overview:'Eau produite', expanded:null},
-          {overview:'Dioxyde de soufre.', expanded:null},
-          {overview:'Toluène', expanded:null},
-          {overview:'Huile usée', expanded:null},
-          {overview:'Eau', expanded:null},
-          {overview:'Butane', expanded:null},
-          {overview:'Mélange d’hydrocarbures à HPV', expanded:null},
-          {overview:'Liquides de gaz naturel', expanded:null},
-          {overview:'Propane', expanded:null},
-          {overview:'Condensats', expanded:null},
-          {overview:'Pétrole brut sulfureux', expanded:null},
-          {overview:'Pétrole brut non corrosif', expanded:null},
-          {overview:'Pétrole brut synthétique', expanded:null},
-          {overview:'Carburant diesel', expanded:null},
-          {overview:'Essence', expanded:null},
-          {overview:'Isooctane', expanded:null},
-          {overview:'Carburéacteur', expanded:null},
-          {overview:'Dioxyde de carbone', expanded:null},
-          {overview:'Soufre', expanded:null},
-          {overview:'Gaz naturel non corrosif', expanded:null},
-          {overview:'Gaz naturel sulfureux', expanded:null},
-          {overview:'Odorisant', expanded:null},
-          {overview:'Pâte liquide au bisulfite', expanded:null},
+          {
+            overview: 'Amine',
+            expanded: null,
+            categoryName: '1',
+          },
+          {
+            overview: 'Carbonate de calcium',
+            expanded: null,
+            categoryName: '2',
+          },
+          {
+            overview: 'Ciment de tubage',
+            expanded: null,
+            categoryName: '3',
+          },
+          {
+            overview: 'Chlorodifluorométhane',
+            expanded: null,
+            categoryName: '4',
+          },
+          {
+            overview: 'Eau contaminée',
+            expanded: null,
+            categoryName: '5',
+          },
+          {
+            overview: 'Inhibiteur de corrosion',
+            expanded: null,
+            categoryName: '6',
+          },
+          {
+            overview: 'Fluide de forage',
+            expanded: null,
+            categoryName: '7',
+          },
+          {
+            overview: 'Condensat',
+            expanded: null,
+            categoryName: '8',
+          },
+          {
+            overview: 'Glycol',
+            expanded: null,
+            categoryName: '9',
+          },
+          {
+            overview: 'Eaux grises (eaux usées)',
+            expanded: null,
+            categoryName: '10',
+          },
+          {
+            overview: 'Fluide hydraulique',
+            expanded: null,
+            categoryName: '11',
+          },
+          {
+            overview: 'sulfure d’hydrogène',
+            expanded: null,
+            categoryName: '12',
+          },
+          {
+            overview: 'Huile lubrifiante',
+            expanded: null,
+            categoryName: '13',
+          },
+          {
+            overview: 'Méthanol',
+            expanded: null,
+            categoryName: '14',
+          },
+          {
+            overview: 'Éther tert-butylique méthylique',
+            expanded: null,
+            categoryName: '15',
+          },
+          {
+            overview: 'Morphysorb®',
+            expanded: null,
+            categoryName: '16',
+          },
+          {
+            overview: 'Effluents de puits de pétrole',
+            expanded: null,
+            categoryName: '17',
+          },
+          {
+            overview: 'Diphényles polychlorés',
+            expanded: null,
+            categoryName: '18',
+          },
+          {
+            overview: 'Carbonate de potassium',
+            expanded: null,
+            categoryName: '19',
+          },
+          {
+            overview: 'Hydroxyde de potassium (solution caustique)',
+            expanded: null,
+            categoryName: '20',
+          },
+          {
+            overview: 'Eau produite',
+            expanded: null,
+            categoryName: '21',
+          },
+          {
+            overview: 'Dioxyde de soufre.',
+            expanded: null,
+            categoryName: '22',
+          },
+          {
+            overview: 'Toluène',
+            expanded: null,
+            categoryName: '23',
+          },
+          {
+            overview: 'Huile usée',
+            expanded: null,
+            categoryName: '24',
+          },
+          {
+            overview: 'Eau',
+            expanded: null,
+            categoryName: '25',
+          },
+          {
+            overview: 'Butane',
+            expanded: null,
+            categoryName: '27',
+          },
+          {
+            overview: 'Mélange d’hydrocarbures à HPV',
+            expanded: null,
+            categoryName: '28',
+          },
+          {
+            overview: 'Liquides de gaz naturel',
+            expanded: null,
+            categoryName: '29',
+          },
+          {
+            overview: 'Propane',
+            expanded: null,
+            categoryName: '30',
+          },
+          {
+            overview: 'Condensats',
+            expanded: null,
+            categoryName: '32',
+          },
+          {
+            overview: 'Pétrole brut sulfureux',
+            expanded: null,
+            categoryName: '33',
+          },
+          {
+            overview: 'Pétrole brut non corrosif',
+            expanded: null,
+            categoryName: '34',
+          },
+          {
+            overview: 'Pétrole brut synthétique',
+            expanded: null,
+            categoryName: '35',
+          },
+          {
+            overview: 'Carburant diesel',
+            expanded: null,
+            categoryName: '36',
+          },
+          {
+            overview: 'Essence',
+            expanded: null,
+            categoryName: '37',
+          },
+          {
+            overview: 'Isooctane',
+            expanded: null,
+            categoryName: '38',
+          },
+          {
+            overview: 'Carburéacteur',
+            expanded: null,
+            categoryName: '39',
+          },
+          {
+            overview: 'Dioxyde de carbone',
+            expanded: null,
+            categoryName: '41',
+          },
+          {
+            overview: 'Soufre',
+            expanded: null,
+            categoryName: '42',
+          },
+          {
+            overview: 'Gaz naturel non corrosif',
+            expanded: null,
+            categoryName: '48',
+          },
+          {
+            overview: 'Gaz naturel sulfureux',
+            expanded: null,
+            categoryName: '49',
+          },
+          {
+            overview: 'Odorisant',
+            expanded: null,
+            categoryName: '50',
+          },
+          {
+            overview: 'Pâte liquide au bisulfite',
+            expanded: null,
+            categoryName: '51',
+          }
         ],
       },
     },
@@ -644,16 +1387,48 @@ const TranslationTable = Immutable.fromJS({
       },
       detail: {
         en: [
-          {overview:'Gas', expanded:'substances such as natural gas, sweet gas, fuel gas, and acid gas'},
-          {overview:'Liquid', expanded:'substances such as low-vapour pressure hydrocarbons, crude oil, natural gas liquids, and jet fuel'},
-          {overview:'Miscellaneous', expanded:'substances such as mechanical pulp slurry, steam, effluent, processed water, and fresh water'},
-          {overview:'Not Applicable', expanded:'incidents that do not involve a release of substance'},
+          {
+            overview: 'Gas',
+            expanded: 'substances such as natural gas, sweet gas, fuel gas, and acid gas',
+            categoryName: 'Gas',
+          },
+          {
+            overview: 'Liquid',
+            expanded: 'substances such as low-vapour pressure hydrocarbons, crude oil, natural gas liquids, and jet fuel',
+            categoryName: 'Liquid',
+          },
+          {
+            overview: 'Miscellaneous',
+            expanded: 'substances such as mechanical pulp slurry, steam, effluent, processed water, and fresh water',
+            categoryName: 'Miscellaneous',
+          },
+          {
+            overview: 'Not Applicable',
+            expanded: 'incidents that do not involve a release of substance',
+            categoryName: 'Not applicable',
+          }
         ],
         fr: [
-          {overview:'Gaz', expanded:'Gaz naturel, non corrosif, combustible, acide, etc.'},
-          {overview:'Liquide', expanded:'Hydrocarbures à BPV, pétrole brut, liquides de gaz naturel, carburéacteur, etc.'},
-          {overview:'Divers', expanded:'Pâte liquide au sulfite résultant d’un procédé mécanique, vapeur, effluents, eau de procédé, eau fraîche, etc.'},
-          {overview:'Sans objet', expanded:'Aucun rejet de substance.'},
+          {
+            overview: 'Gaz',
+            expanded: 'Gaz naturel, non corrosif, combustible, acide, etc.',
+            categoryName: 'Gas',
+          },
+          {
+            overview: 'Liquide',
+            expanded: 'Hydrocarbures à BPV, pétrole brut, liquides de gaz naturel, carburéacteur, etc.',
+            categoryName: 'Liquid',
+          },
+          {
+            overview: 'Divers',
+            expanded: 'Pâte liquide au sulfite résultant d’un procédé mécanique, vapeur, effluents, eau de procédé, eau fraîche, etc.',
+            categoryName: 'Miscellaneous',
+          },
+          {
+            overview: 'Sans objet',
+            expanded: 'Aucun rejet de substance.',
+            categoryName: 'Not applicable',
+          }
         ],
       },
     },
@@ -668,22 +1443,78 @@ const TranslationTable = Immutable.fromJS({
       },
       detail: {
         en: [
-          {overview:'Defect and Deterioration', expanded:'Defects in manufacturing processes or materials, or deterioration as a result of damage or service life limitations, lack of inspection or maintenance'},
-          {overview:'Corrosion and Cracking', expanded:'External corrosion or cracking caused by damage to coating systems or failed coating systems; weld cracking as a result of stress or workmanship issues; or internal corrosion as a result of contaminates in products'},
-          {overview:'Equipment Failure', expanded:'A failure of the pipeline’s equipment components. Examples of equipment include valves, electrical power systems and control systems'},
-          {overview:'Incorrect Operation', expanded:'Typically, personnel fail to follow procedures or use equipment improperly'},
-          {overview:'External interference', expanded:'External activities that cause damage to the pipeline or components. Examples include excavation damage and vandalism'},
-          {overview:'Natural Force Damage', expanded:'Damage caused by natural forces, such as earthquakes, landslides and wash-outs'},
-          {overview:'Other Causes', expanded:'All other causes or when an incident’s circumstances could not be determined'},
+          {
+            overview: 'Defect and Deterioration',
+            expanded: 'Defects in manufacturing processes or materials, or deterioration as a result of damage or service life limitations, lack of inspection or maintenance',
+            categoryName: '2',
+          },
+          {
+            overview: 'Corrosion and Cracking',
+            expanded: 'External corrosion or cracking caused by damage to coating systems or failed coating systems; weld cracking as a result of stress or workmanship issues; or internal corrosion as a result of contaminates in products',
+            categoryName: '1',
+          },
+          {
+            overview: 'Equipment Failure',
+            expanded: 'A failure of the pipeline’s equipment components. Examples of equipment include valves, electrical power systems and control systems',
+            categoryName: '3',
+          },
+          {
+            overview: 'Incorrect Operation',
+            expanded: 'Typically, personnel fail to follow procedures or use equipment improperly',
+            categoryName: '5',
+          },
+          {
+            overview: 'External interference',
+            expanded: 'External activities that cause damage to the pipeline or components. Examples include excavation damage and vandalism',
+            categoryName: '4',
+          },
+          {
+            overview: 'Natural Force Damage',
+            expanded: 'Damage caused by natural forces, such as earthquakes, landslides and wash-outs',
+            categoryName: '6',
+          },
+          {
+            overview: 'Other Causes',
+            expanded: 'All other causes or when an incident’s circumstances could not be determined',
+            categoryName: '14',
+          }
         ],
         fr: [
-          {overview:'Défectuosité et détérioration', expanded:'Défectuosité au niveau des matériaux ou des processus de fabrication et détérioration attribuable à des dommages, au dépassement de la durée de vie utile, à l’absence d’inspection ou à un manque d’entretien.'},
-          {overview:'Corrosion et fissuration', expanded:'Corrosion externe ou fissuration du revêtement, en raison de dommages ou d’une défaillance, fissuration au niveau des soudures attribuable à des problèmes de contrainte ou de fabrication et corrosion interne due à la présence de contaminants dans les produits.'},
-          {overview:'Défaillance d’équipement', expanded:'Défaillance d’une des composantes de l’équipement associées au pipeline comme, par exemple, les vannes, l’alimentation électrique ou les systèmes de contrôle.'},
-          {overview:'Erreur d’exploitation', expanded:'En général, le personnel ne respecte pas les marches à suivre ou utilise l’équipement d’une manière non appropriée.'},
-          {overview:'Interférences extérieures', expanded:'Activités extérieures à l’origine de dommages au pipeline ou à ses composantes comme, par exemple, des travaux d’excavation ou du vandalisme.'},
-          {overview:'Forces de la nature', expanded:'Dommages pouvant être causés, par exemple, par un tremblement de terre, un glissement de terrain ou l’érosion.'},
-          {overview:'Autres causes', expanded:'Toutes les autres causes ou lorsqu’il est impossible de déterminer les circonstances de l’incident.'},
+          {
+            overview: 'Défectuosité et détérioration',
+            expanded: 'Défectuosité au niveau des matériaux ou des processus de fabrication et détérioration attribuable à des dommages, au dépassement de la durée de vie utile, à l’absence d’inspection ou à un manque d’entretien.',
+            categoryName: '2',
+          },
+          {
+            overview: 'Corrosion et fissuration',
+            expanded: 'Corrosion externe ou fissuration du revêtement, en raison de dommages ou d’une défaillance, fissuration au niveau des soudures attribuable à des problèmes de contrainte ou de fabrication et corrosion interne due à la présence de contaminants dans les produits.',
+            categoryName: '1',
+          },
+          {
+            overview: 'Défaillance d’équipement',
+            expanded: 'Défaillance d’une des composantes de l’équipement associées au pipeline comme, par exemple, les vannes, l’alimentation électrique ou les systèmes de contrôle.',
+            categoryName: '3',
+          },
+          {
+            overview: 'Erreur d’exploitation',
+            expanded: 'En général, le personnel ne respecte pas les marches à suivre ou utilise l’équipement d’une manière non appropriée.',
+            categoryName: '5',
+          },
+          {
+            overview: 'Interférences extérieures',
+            expanded: 'Activités extérieures à l’origine de dommages au pipeline ou à ses composantes comme, par exemple, des travaux d’excavation ou du vandalisme.',
+            categoryName: '4',
+          },
+          {
+            overview: 'Forces de la nature',
+            expanded: 'Dommages pouvant être causés, par exemple, par un tremblement de terre, un glissement de terrain ou l’érosion.',
+            categoryName: '6',
+          },
+          {
+            overview: 'Autres causes',
+            expanded: 'Toutes les autres causes ou lorsqu’il est impossible de déterminer les circonstances de l’incident.',
+            categoryName: '14',
+          }
         ],
       },
     },
@@ -709,15 +1540,51 @@ const TranslationTable = Immutable.fromJS({
           {overview:'Natural or Environmental Forces', expanded:'External natural or environmental conditions', categoryName: '13'},
         ],
         fr: [
-          {overview:'Ingénierie et planification', expanded:'Défaillances au niveau de l’évaluation, de la planification ou de la surveillance pouvant être en rapport avec le caractère non approprié des données techniques, des critères de conception, de l’évaluation de changements ou de la mise en œuvre de contrôles.'},
-          {overview:'Entretien', expanded:'Entretien préventif inadéquat ou réparations mal effectuées ainsi qu’usure et détérioration excessives.'},
-          {overview:'Approvisionnement inadéquat', expanded:'Problèmes au niveau des achats, de la manutention des matériaux, de leur transport ou de leur entreposage.'},
-          {overview:'Outils et équipement', expanded:'Outils et équipement qui ne permettent pas d’accomplir la tâche voulue ou dont l’utilisation n’est pas appropriée.'},
-          {overview:'Normes et procédures', expanded:'Élaboration, communication, mise à jour ou surveillance inadéquate des normes et procédures.'},
-          {overview:'Problème de communication', expanded:'Perte de contact avec des dispositifs automatisés, de l’équipement ou des personnes.'},
-          {overview:'Supervision insuffisante', expanded:'Manque de surveillance d’un entrepreneur ou d’un employé pendant les travaux, qu’ils soient de construction ou d’entretien.'},
-          {overview:'Facteurs humains', expanded:'Facteurs liés à la conduite ou aux capacités d’une personne, qui peuvent par ailleurs être physiques ou psychologiques.'},
-          {overview:'Forces de la nature ou environnement', expanded:'Conditions relatives à l’environnement ou au milieu naturel.'},
+          {
+            overview: 'Ingénierie et planification',
+            expanded: 'Défaillances au niveau de l’évaluation, de la planification ou de la surveillance pouvant être en rapport avec le caractère non approprié des données techniques, des critères de conception, de l’évaluation de changements ou de la mise en œuvre de contrôles.',
+            categoryName: '7',
+          },
+          {
+            overview: 'Entretien',
+            expanded: 'Entretien préventif inadéquat ou réparations mal effectuées ainsi qu’usure et détérioration excessives.',
+            categoryName: '12',
+          },
+          {
+            overview: 'Approvisionnement inadéquat',
+            expanded: 'Problèmes au niveau des achats, de la manutention des matériaux, de leur transport ou de leur entreposage.',
+            categoryName: '10',
+          },
+          {
+            overview: 'Outils et équipement',
+            expanded: 'Outils et équipement qui ne permettent pas d’accomplir la tâche voulue ou dont l’utilisation n’est pas appropriée.',
+            categoryName: '16',
+          },
+          {
+            overview: 'Normes et procédures',
+            expanded: 'Élaboration, communication, mise à jour ou surveillance inadéquate des normes et procédures.',
+            categoryName: '15',
+          },
+          {
+            overview: 'Problème de communication',
+            expanded: 'Perte de contact avec des dispositifs automatisés, de l’équipement ou des personnes.',
+            categoryName: '8',
+          },
+          {
+            overview: 'Supervision insuffisante',
+            expanded: 'Manque de surveillance d’un entrepreneur ou d’un employé pendant les travaux, qu’ils soient de construction ou d’entretien.',
+            categoryName: '11',
+          },
+          {
+            overview: 'Facteurs humains',
+            expanded: 'Facteurs liés à la conduite ou aux capacités d’une personne, qui peuvent par ailleurs être physiques ou psychologiques.',
+            categoryName: '9',
+          },
+          {
+            overview: 'Forces de la nature ou environnement',
+            expanded: 'Conditions relatives à l’environnement ou au milieu naturel.',
+            categoryName: '13',
+          }
         ],
       },
     },
@@ -732,16 +1599,48 @@ const TranslationTable = Immutable.fromJS({
       },
       detail: {
         en: [
-          {overview:'Operation', expanded:'typical operation of the pipeline or facility'},
-          {overview:'Construction', expanded:'the building of a pipeline or facility'},
-          {overview:'Maintenance', expanded:'work done to maintain the pipeline or facility'},
-          {overview:'Abandonment', expanded:'the work required to abandon a pipeline or facility'},
+          {
+            overview: 'Operation',
+            expanded: 'Typical operation of the pipeline or facility',
+            categoryName: '2',
+          },
+          {
+            overview: 'Construction',
+            expanded: 'The building of a pipeline or facility',
+            categoryName: '1',
+          },
+          {
+            overview: 'Maintenance',
+            expanded: 'Work done to maintain the pipeline or facility',
+            categoryName: '3',
+          },
+          {
+            overview: 'Abandonment',
+            expanded: 'The work required to abandon a pipeline or facility',
+            categoryName: '4',
+          }
         ],
         fr: [
-          {overview:'Fonctionnement', expanded:'Exploitation normale du pipeline ou de l’installation.'},
-          {overview:'Construction', expanded:'Construction du pipeline ou de l’installation.'},
-          {overview:'Entretien', expanded:'Travaux effectués dans le cadre de l’entretien du pipeline ou de l’installation.'},
-          {overview:'Cessation d’exploitation', expanded:'Travaux requis pour cesser l’exploitation du pipeline ou de l’installation.'},
+          {
+            overview: 'Fonctionnement',
+            expanded: 'Exploitation normale du pipeline ou de l’installation.',
+            categoryName: '2',
+          },
+          {
+            overview: 'Construction',
+            expanded: 'Construction du pipeline ou de l’installation.',
+            categoryName: '1',
+          },
+          {
+            overview: 'Entretien',
+            expanded: 'Travaux effectués dans le cadre de l’entretien du pipeline ou de l’installation.',
+            categoryName: '3',
+          },
+          {
+            overview: 'Cessation d’exploitation',
+            expanded: 'Travaux requis pour cesser l’exploitation du pipeline ou de l’installation.',
+            categoryName: '4',
+          }
         ],
       },
     },
@@ -782,16 +1681,56 @@ const TranslationTable = Immutable.fromJS({
           {overview:'Vehicle/Mobile equipment', expanded:null, categoryName: '20179' },
         ],
         fr: [
-          {overview:'Station de compression', expanded:null},
-          {overview:'Station de comptage', expanded:null},
-          {overview:'Installation de raclage', expanded:null},
-          {overview:'Pipeline', expanded:null},
-          {overview:'Installation de production d’énergie', expanded:null},
-          {overview:'Usine de traitement', expanded:null},
-          {overview:'Station de pompage', expanded:null},
-          {overview:'Installation de régulation', expanded:null},
-          {overview:'Installation de stockage', expanded:null},
-          {overview:'Véhicule ou équipement mobile', expanded:null},
+          {
+            overview: 'Station de compression',
+            expanded: null,
+            categoryName: '52',
+          },
+          {
+            overview: 'Station de comptage',
+            expanded: null,
+            categoryName: '54',
+          },
+          {
+            overview: 'Installation de raclage',
+            expanded: null,
+            categoryName: '55',
+          },
+          {
+            overview: 'Pipeline',
+            expanded: null,
+            categoryName: '43',
+          },
+          {
+            overview: 'Installation de production d’énergie',
+            expanded: null,
+            categoryName: '2342',
+          },
+          {
+            overview: 'Usine de traitement',
+            expanded: null,
+            categoryName: '46',
+          },
+          {
+            overview: 'Station de pompage',
+            expanded: null,
+            categoryName: '51',
+          },
+          {
+            overview: 'Installation de régulation',
+            expanded: null,
+            categoryName: '53',
+          },
+          {
+            overview: 'Installation de stockage',
+            expanded: null,
+            categoryName: '45',
+          },
+          {
+            overview: 'Véhicule ou équipement mobile',
+            expanded: null,
+            categoryName: '20179',
+          }
         ],
       },
     },   
