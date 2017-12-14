@@ -63,7 +63,13 @@ const reducers = Redux.combineReducers({
 })
 
 module.exports = function () {
-  return Redux.createStore(reducers, Redux.applyMiddleware(RouterMiddleware))
+  // Enable Redux Dev Tools if they are installed in the browser
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose
+  return Redux.createStore(
+    reducers,
+    composeEnhancers(Redux.applyMiddleware(RouterMiddleware))
+  )
 }
 
 
