@@ -28,6 +28,17 @@ class ColumnTooltipListItem extends React.Component {
       this.props.onDetailExpand(this.props.columnName, this.props.item.get('overview'))
   }
 
+  listColorBox() {
+    const colour = this.props.categoryColours.get(this.props.categoryName);
+    if (!colour) { return null; }
+    return (
+      <span
+        className="listItemColorBox"
+        style={{ background: colour }}
+      />
+    )
+  }
+
   listSymbol() {
     let sym = '+'
     if(this.props.item.get('expanded') === null) {
@@ -73,6 +84,7 @@ class ColumnTooltipListItem extends React.Component {
   render() {
     return <div 
       className='listItem'>
+      {this.listColorBox()}
       {this.listSymbol()}
       {this.overviewText()}
       {this.detailText()}

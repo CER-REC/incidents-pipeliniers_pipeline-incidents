@@ -7,6 +7,7 @@ require('./ColumnTooltip.scss')
 const Tr = require('../TranslationTable.js')
 const Constants = require('../Constants.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
+const CategoryComputations = require('../CategoryComputations.js')
 const ColumnTooltipListItem = require('./ColumnTooltipListItem.jsx')
 
 class ColumnTooltip extends React.Component {
@@ -50,11 +51,21 @@ class ColumnTooltip extends React.Component {
 
   listText() {
     const items = this.listItems()
+    const categoryColours = CategoryComputations.coloursForColumn(
+      this.props.data,
+      this.props.columnTooltip.get('columnName'),
+      this.props.schema,
+      this.props.language)
     return items.map(item => {
-      return <ColumnTooltipListItem
-        key={item.get('overview')} 
-        item={item} 
-        columnName={this.props.columnTooltip.get('columnName')}/>
+      return (
+        <ColumnTooltipListItem
+          key={item.get('overview')}
+          item={item}
+          columnName={this.props.columnTooltip.get('columnName')}
+          categoryName={item.get('categoryName', '-1')}
+          categoryColours={categoryColours}
+        />
+      )
     })
   }
 
@@ -151,6 +162,7 @@ const mapStateToProps = state => {
     data: state.data,
     columns: state.columns,
     categories: state.categories,
+    schema: state.schema,
   }
 }
 

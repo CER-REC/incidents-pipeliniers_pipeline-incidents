@@ -4,4 +4,12 @@
 
 .listItem {
   padding-left: 35px;
+
+  .listItemColorBox {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    margin-left: -27px;
+    margin-top: 4px;
+  }
 }
