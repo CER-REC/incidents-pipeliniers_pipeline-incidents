@@ -20,13 +20,7 @@ class ListTooltip extends SimpleTooltip {
     return super.getWidth() * 2
   }
 
-  render() {
-    const items = this.getListItems()
-    const categoryColours = CategoryComputations.coloursForColumn(
-      this.props.data,
-      this.props.columnTooltip.get('columnName'),
-      this.props.schema,
-      this.props.language)
+  generateList(items, categoryColours) {
     const renderedItems = items.map(item => {
       return (
         <TooltipListItem
@@ -39,11 +33,22 @@ class ListTooltip extends SimpleTooltip {
         />
       )
     })
+    return <ul>{renderedItems}</ul>
+  }
+
+  render() {
+    const items = this.getListItems()
+    const categoryColours = CategoryComputations.coloursForColumn(
+      this.props.data,
+      this.props.columnTooltip.get('columnName'),
+      this.props.schema,
+      this.props.language)
     
     return this.getTooltipLayout(
-      <ul className="tooltipItems">
-        {renderedItems}
-      </ul>
+      <div className="tooltipItems">
+        {this.generateList(items.slice(0, items.count() / 2), categoryColours)}
+        {this.generateList(items.slice(items.count() / 2), categoryColours)}
+      </div>
     )
   }
 }
