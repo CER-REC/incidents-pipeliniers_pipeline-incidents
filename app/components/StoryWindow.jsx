@@ -5,7 +5,7 @@ const ReactRedux = require('react-redux')
 require('./StoryWindow.scss')
 
 const Constants = require('../Constants.js')
-const StoryIndicatorDots = require('./StoryIndicatorDots.jsx')
+const StoryIndicatorDot = require('./StoryIndicatorDot.jsx')
 const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
 const RouteComputations = require('../RouteComputations.js')
@@ -73,15 +73,32 @@ class StoryWindow extends React.Component {
 
   indicatorDots() {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const currentImageIndex = this.props.storyImage
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    const currentImageIndex = this.props.storyImage
 
-    return imageList.map((indicatorDotIndex) => {
- 
-      return <StoryIndicatorDots
-        indicatorDot = {indicatorDotIndex}
+    let currentX = StoryComputations.storyIndicatorDotX(this.props.viewport)
+    if (imageList.length === 1) {
+      currentX
+    } else {
+      const imageCount = imageList.length
+      currentX = currentX - (Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset']) * (imageCount - 1))
+    }
+
+    return imageList.map((indicatorDotImage, indicatorDotIndex) => {
+      currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
+
+      let indicatorDotColour = '#d6d5d5'
+      if(imageList[currentImageIndex] === indicatorDotIndex) {
+        indicatorDotColour = '#5e5e5e'
+      }
+
+      return <StoryIndicatorDot
+        indicatorDot = {indicatorDotImage}
+        index={indicatorDotIndex}
         key = {indicatorDotIndex}
+        ref= { (element) => this.circle = element}
       />
+
     })
    
   }
