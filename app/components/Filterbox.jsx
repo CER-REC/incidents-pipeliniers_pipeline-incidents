@@ -301,6 +301,7 @@ const mapStateToProps = state => {
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
     analytics: state.analytics,
+    schema: state.schema,
   }
 }
 
