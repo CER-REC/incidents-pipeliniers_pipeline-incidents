@@ -91,6 +91,22 @@ class ColumnTooltip extends React.Component {
     }
   }
 
+  tooltipIndicatorStyle() {
+    const position = WorkspaceComputations.columnTooltipIndicatorPosition(
+      this.props.columnTooltip,
+      this.props.language,
+      this.props.showEmptyCategories,
+      this.props.viewport,
+      this.props.data,
+      this.props.columns,
+      this.props.categories)
+
+    return {
+      bottom: position.get('y'),
+      left: position.get('x'),
+    }
+  }
+
   componentDidMount() {
     // Scroll to the top of the tooltip to make sure
     // that the tooltip title is fully visible.
@@ -104,17 +120,25 @@ class ColumnTooltip extends React.Component {
   }
 
   render() {
-    return <div 
-      id='columnTooltip'
-      className='tooltip'
-      style={this.tooltipStyle()}>
-      {this.title()}
-      {this.description()}
-      {this.separator()}
-      <div className='listContainer'>
-        {this.listText()}
+    return (
+      <div>
+        <div
+          id='columnTooltip'
+          className='tooltip'
+          style={this.tooltipStyle()}>
+          {this.title()}
+          {this.description()}
+          {this.separator()}
+          <div className='listContainer'>
+            {this.listText()}
+          </div>
+        </div>
+        <div
+          id="columnTooltipIndicator"
+          style={this.tooltipIndicatorStyle()}
+        />
       </div>
-    </div>
+    )
   }
 }
 

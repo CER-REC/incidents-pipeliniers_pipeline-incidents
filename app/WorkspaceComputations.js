@@ -41,6 +41,38 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
   return position
 }
 
+WorkspaceComputations.columnTooltipIndicatorPosition = function(columnTooltip, language, showEmptyCategories, viewport, data, columns, categories) {
+  const columnMeasurements = WorkspaceComputations.horizontalPositions(
+    showEmptyCategories,
+    viewport,
+    data,
+    columns,
+    categories)
+
+  // TODO: How does the top section work out to 200px?
+  const y = columnMeasurements.getIn(['workspace', 'height']) - 215
+
+  // Initial column horizontal coordinate.
+  if (columnTooltip.get('columnName') === 'pinColumn') {
+    return new Immutable.Map({
+      x: columnMeasurements.getIn(['pinColumn', 'x']) +
+        Constants.get('columnHeadingLeftPadding') +
+        (Constants.getIn(['questionMark', 'size']) / 2),
+      y,
+    })
+  }
+
+  const columnMeasurement =
+    columnMeasurements.getIn(['columns', columnTooltip.get('columnName')])
+
+  return new Immutable.Map({
+    x: columnMeasurement.get('x') -
+      (Constants.getIn(['questionMark', 'size']) / 2) -
+      Constants.getIn(['questionMark', 'xOffset']),
+    y,
+  })
+}
+
 // Is the map on display?
 // columns: the columns state
 WorkspaceComputations.mapDisplayed = function(columns) {
