@@ -17,5 +17,8 @@ config.plugins = [
   }),
 ]
 
+// Disable sourcemaps for production builds
+config.devtool = false;
+
 module.exports = config
 
