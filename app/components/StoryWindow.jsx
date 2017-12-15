@@ -81,10 +81,8 @@ class StoryWindow extends React.Component {
     return imageList.map((indicatorDotImage, indicatorDotIndex) => {
       currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
 
-      console.log(indicatorDotIndex, this.props.storyImage)
-
       let indicatorDotColour = '#d6d5d5'
-      if(this.props.storyImage === indicatorDotIndex) {
+      if(indicatorDotImage === imageList[currentImageIndex]) {
         indicatorDotColour = '#5e5e5e'
       }
 
@@ -93,7 +91,7 @@ class StoryWindow extends React.Component {
         index={indicatorDotIndex}
         key = {indicatorDotIndex}
         xOffset = {currentX}
-        dotColor = {this.props.storyImage}
+        dotColour = {indicatorDotColour}
         ref= { (element) => this.circle = element}
       />
 

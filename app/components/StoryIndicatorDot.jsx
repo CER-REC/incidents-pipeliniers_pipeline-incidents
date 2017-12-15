@@ -38,7 +38,7 @@ class StoryIndicatorDot extends React.Component {
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
       cx={ currentX + this.props.xOffset }
-      fill = { this.props.dotColor}
+      fill = { this.props.dotColour}
       onClick = {this.indicatorDotClick.bind(this)}
     />
   }
