@@ -176,10 +176,10 @@ class Filterbox extends React.Component {
       .findIndex(k => k === this.props.categoryName)
 
     if((categoryIndex + swap) < 0) {
-      // Can't move category upwards any more
+      // Can't move category up any more
       return
     } else if ((categoryIndex + swap) >= displayedCategories.count()) {
-      // Can't move category downwards any more
+      // Can't move category down any more
       return
     }
 
@@ -193,6 +193,9 @@ class Filterbox extends React.Component {
 
     console.log('original category order', displayedCategories)
 
+    // note to self: might be a good idea to get the original index of the
+    //  category to be swapped with
+
     // new ordered map for the swapping categories
     let newOrderedCategories = Immutable.OrderedMap(displayedCategories)
     newOrderedCategories = newOrderedCategories.slice(newCategoryIndex)
@@ -200,7 +203,6 @@ class Filterbox extends React.Component {
 
       // 8, 9, 7, 5, 10, 6, 4
       // should be 9, 8, 7, 5,...
-
 
     console.log('new order',newOrderedCategories)
 
