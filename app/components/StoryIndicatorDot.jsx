@@ -16,15 +16,15 @@ class StoryIndicatorDot extends React.Component {
 
   render() {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    const imageList = story.getIn(['tutorialImages', this.props.language])
 
     const indicatorDotIndex = this.props.index
 
     let currentX = StoryComputations.storyIndicatorDotX(this.props.viewport)
-    if (imageList.length === 1) {
+    if (imageList.count === 1) {
       currentX
     } else {
-      const imageCount = imageList.length
+      const imageCount = imageList.count()
       currentX = currentX - (Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset']) * (imageCount - 1))
     }
 

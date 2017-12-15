@@ -74,7 +74,7 @@ class StoryWindow extends React.Component {
 
   indicatorDots() {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    const imageList = story.getIn(['tutorialImages', this.props.language])
     const currentImageIndex = this.props.storyImage
 
     let currentX = 0
@@ -83,7 +83,7 @@ class StoryWindow extends React.Component {
       currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
 
       let indicatorDotColour = '#d6d5d5'
-      if(indicatorDotImage === imageList[currentImageIndex]) {
+      if(indicatorDotImage === imageList.get(currentImageIndex)) {
         indicatorDotColour = '#5e5e5e'
       }
 
@@ -95,7 +95,7 @@ class StoryWindow extends React.Component {
         dotColour = {indicatorDotColour}
       />
 
-    })
+    }).toArray()
    
   }
 
