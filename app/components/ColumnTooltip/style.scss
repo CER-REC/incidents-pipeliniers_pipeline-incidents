@@ -5,15 +5,19 @@
 #columnTooltip {
   position: absolute;
   z-index: $column-tooltip;
-  overflow-x: hidden;
-  overflow-y: auto;
   border: 1px solid #ccc;
   background: #fff;
   opacity: 1;
-  padding: 10px;
   box-shadow: 2px 2px 5px #777;
   font-family: $fira-sans-condensed;
   font-size: 14px;
+
+  .tooltipBody {
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 10px;
+    position: relative;
+  }
 
   .tooltipTitle {
     font-family: $fira-sans-condensed-semibold;
@@ -79,6 +83,16 @@
     position: absolute;
     margin-left: -13px;
     font-family: $fira-sans-condensed-semibold;
+  }
+
+  .closeTooltip {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    > img { width: 12px; }
+  }
+  &.scrolling .closeTooltip {
+    right: 20px;
   }
 }
 

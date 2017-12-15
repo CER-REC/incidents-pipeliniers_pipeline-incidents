@@ -5,6 +5,11 @@ const Constants = require('../../Constants.js')
 const WorkspaceComputations = require('../../WorkspaceComputations.js')
 
 class SimpleTooltip extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasScrollbar: false }
+  }
+
   getColumnTranslation() {
     return Tr.getIn(['tooltips', this.props.columnTooltip.get('columnName')])
   }
@@ -59,7 +64,6 @@ class SimpleTooltip extends React.Component {
     return {
       bottom: position.get('y'),
       left: position.get('x') - this.alignmentOffset(position.get('x')),
-      maxHeight: WorkspaceComputations.topBarHeight(),
       width: this.getWidth(),
     }
   }
@@ -80,16 +84,23 @@ class SimpleTooltip extends React.Component {
     }
   }
 
-  componentDidMount() {
+  handleDOMTweaks() {
+		const tooltipBody = document.querySelector('#columnTooltip .tooltipBody')
     // Scroll to the top of the tooltip to make sure
     // that the tooltip title is fully visible.
-    document.getElementById('columnTooltip').scrollTop = 0
+    tooltipBody.scrollTop = 0
+    const hasScrollbar = (tooltipBody.scrollHeight > tooltipBody.clientHeight)
+    if (hasScrollbar !== this.state.hasScrollbar) {
+      this.setState({ hasScrollbar })
+    }
+  }
+
+  componentDidMount() {
+    this.handleDOMTweaks()
   }
 
   componentDidUpdate() {
-    // Scroll to the top of the tooltip to make sure
-    // that the tooltip title is fully visible.
-    document.getElementById('columnTooltip').scrollTop = 0
+    this.handleDOMTweaks()
   }
 
   getTooltipClass() {
@@ -101,19 +112,41 @@ class SimpleTooltip extends React.Component {
     e.preventDefault()
   }
 
+  closeTooltip(e) {
+    e.stopPropagation()
+    e.preventDefault()
+    this.props.ColumnTooltipDismiss()
+  }
+
   getTooltipLayout(content = null) {
+    const scrollClass = this.state.hasScrollbar ? 'scrolling' : ''
     return (
       <div onClick={this.preventClickCloseModal}>
         <div
           id='columnTooltip'
-          className={`tooltip ${this.getTooltipClass()}`}
+          className={`${this.getTooltipClass()} ${scrollClass}`}
           style={this.tooltipStyle()}
         >
-          <div className="tooltipMain">
-            {this.title()}
-            {this.description()}
+          <div
+            className="tooltipBody"
+            style={{ maxHeight: WorkspaceComputations.topBarHeight() }}
+          >
+            <div className="tooltipMain">
+              {this.title()}
+              {this.description()}
+            </div>
+            {content}
           </div>
-          {content}
+          <a
+            aria-label="Close"
+            onClick={this.closeTooltip.bind(this)}
+            className="closeTooltip"
+          >
+            <img
+              src="images/close-2.svg"
+              alt="Close Tooltip"
+            />
+          </a>
         </div>
         <div
           id="columnTooltipIndicator"

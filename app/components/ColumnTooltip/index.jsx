@@ -5,6 +5,8 @@ const SimpleTooltip = require('./Simple')
 const ListTooltip = require('./List')
 const Tr = require('../../TranslationTable')
 
+const ColumnTooltipDismiss = require('../../actionCreators/ColumnTooltipDismissedCreator')
+
 require('./style.scss')
 
 const TooltipWrapper = (props) => {
@@ -28,4 +30,4 @@ module.exports = ReactRedux.connect(state => ({
   columns: state.columns,
   categories: state.categories,
   schema: state.schema,
-}))(TooltipWrapper)
+}), { ColumnTooltipDismiss })(TooltipWrapper)
