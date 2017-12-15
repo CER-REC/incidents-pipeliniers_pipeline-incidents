@@ -76,19 +76,15 @@ class StoryWindow extends React.Component {
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     const currentImageIndex = this.props.storyImage
 
-    let currentX = StoryComputations.storyIndicatorDotX(this.props.viewport)
-    if (imageList.length === 1) {
-      currentX
-    } else {
-      const imageCount = imageList.length
-      currentX = currentX - (Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset']) * (imageCount - 1))
-    }
+    let currentX = 0
 
     return imageList.map((indicatorDotImage, indicatorDotIndex) => {
       currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
 
+      console.log(indicatorDotIndex, this.props.storyImage)
+
       let indicatorDotColour = '#d6d5d5'
-      if(imageList[currentImageIndex] === indicatorDotIndex) {
+      if(this.props.storyImage === indicatorDotIndex) {
         indicatorDotColour = '#5e5e5e'
       }
 
@@ -96,6 +92,8 @@ class StoryWindow extends React.Component {
         indicatorDot = {indicatorDotImage}
         index={indicatorDotIndex}
         key = {indicatorDotIndex}
+        xOffset = {currentX}
+        dotColor = {this.props.storyImage}
         ref= { (element) => this.circle = element}
       />
 

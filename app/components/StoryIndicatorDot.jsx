@@ -29,11 +29,6 @@ class StoryIndicatorDot extends React.Component {
       currentX = currentX - (Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset']) * (imageCount - 1))
     }
 
-    let indicatorDotColour = '#d6d5d5'
-    if(imageList[currentImageIndex] === indicatorDotIndex) {
-      indicatorDotColour = '#5e5e5e'
-    }
-
     return <circle
       className = 'indicatorDot'
       key = {indicatorDotIndex}
@@ -42,8 +37,8 @@ class StoryIndicatorDot extends React.Component {
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       cy={StoryComputations.storyIndicatorDotY(this.props.viewport)}
-      cx={ currentX }
-      fill = { indicatorDotColour }
+      cx={ currentX + this.props.xOffset }
+      fill = { this.props.dotColor}
       onClick = {this.indicatorDotClick.bind(this)}
     />
   }
