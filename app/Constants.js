@@ -401,7 +401,7 @@ const Constants = Immutable.fromJS({
   },
 
   columnTooltip: {
-    width: 322,
+    width: 220,
     leftMargin: 10,
     titleTopMargin: 20,
     descriptionTopMargin: 35,

@@ -48,18 +48,20 @@
 
   &.ListTooltip, &.ExpandingTooltip {
     .tooltipMain {
-      width: 40%;
+      width: 220px;
       float: left;
     }
 
     .tooltipItems {
-      width: 60%;
+      width: calc(100% - 220px);
       float: left;
     }
   }
 
   &.ListTooltip .tooltipItems ul {
     width: 50%;
+    &.colCount3 { width: 33%; }
+    &.colCount4 { width: 25%; }
     float: left;
     li { padding: 0 10px 0 18px; } // Padding left is 1.5x colorBox
   }

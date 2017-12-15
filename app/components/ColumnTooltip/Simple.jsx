@@ -33,7 +33,9 @@ class SimpleTooltip extends React.Component {
   }
 
   getWidth() {
-    return Constants.getIn(['columnTooltip', 'width'])
+    // If this is a simple tooltip, and isn't extended, Double the width
+    const baseWidth = Constants.getIn(['columnTooltip', 'width'])
+    return (this.constructor === SimpleTooltip) ? baseWidth * 2 : baseWidth
   }
 
   // Returns the offset (if needed) to ensure that the full tooltip
@@ -64,7 +66,7 @@ class SimpleTooltip extends React.Component {
     return {
       bottom: position.get('y'),
       left: position.get('x') - this.alignmentOffset(position.get('x')),
-      width: this.getWidth(),
+      maxWidth: this.getWidth(),
     }
   }
 
