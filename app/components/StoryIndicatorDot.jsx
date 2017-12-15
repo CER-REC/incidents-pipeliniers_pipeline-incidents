@@ -16,7 +16,6 @@ class StoryIndicatorDot extends React.Component {
 
   render() {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const currentImageIndex = this.props.storyImage
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
 
     const indicatorDotIndex = this.props.index

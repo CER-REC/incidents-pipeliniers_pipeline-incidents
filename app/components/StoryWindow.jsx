@@ -69,6 +69,7 @@ class StoryWindow extends React.Component {
       screenshotMode: RouteComputations.screenshotMode(window.location),
     }
     this.props.updateVisualization(storyState)
+    this.props.onCloseButtonClicked()
   }
 
   indicatorDots() {
@@ -92,7 +93,6 @@ class StoryWindow extends React.Component {
         key = {indicatorDotIndex}
         xOffset = {currentX}
         dotColour = {indicatorDotColour}
-        ref= { (element) => this.circle = element}
       />
 
     })
