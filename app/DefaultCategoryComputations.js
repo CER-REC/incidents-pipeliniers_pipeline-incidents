@@ -3,7 +3,6 @@ const _ = require('lodash')
 const MemoizeImmutable = require('memoize-immutable')
 
 const Constants = require('./Constants.js')
-const CategoryConstants = require('./CategoryConstants.js')
 const IncidentComputations = require('./IncidentComputations.js')
 
 
