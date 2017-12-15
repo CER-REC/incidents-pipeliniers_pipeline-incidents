@@ -18,6 +18,9 @@ const PinnedIncidentReducer = (state = Immutable.List(), action) => {
   case 'SetFromRouterState':
     return action.pinnedIncidents
 
+  case 'ResetVisualization':
+    return Immutable.List()
+
   default:
     return state
   }
