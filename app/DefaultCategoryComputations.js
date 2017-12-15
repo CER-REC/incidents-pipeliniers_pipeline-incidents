@@ -214,7 +214,7 @@ const DefaultCategoryComputations = {
 
 
     // Sort provinces according to a special predefined order
-    const provinceOrder = Constants.getIn(['provinceOrder', Constants.get('dataMode')])
+    const provinceOrder = Constants.get('provinceOrder')
     const orderedProvinces = Immutable.OrderedMap(
       provinceOrder.map( provinceName => {
         return [provinceName, true]
