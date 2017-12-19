@@ -12,6 +12,7 @@ const DragCategoryStartedCreator = require('../actionCreators/DragCategoryStarte
 const DragCategoryCreator = require('../actionCreators/DragCategoryCreator.js')
 const DragCategoryEndedCreator = require('../actionCreators/DragCategoryEndedCreator.js')
 const SnapCategoryCreator = require('../actionCreators/SnapCategoryCreator.js')
+const SetCategoriesForColumnCreator = require('../actionCreators/SetCategoriesForColumnCreator.js')
 
 const FilterboxButton = require('./FilterBoxButton.jsx')
 const Tr = require('../TranslationTable.js')
@@ -171,42 +172,40 @@ class Filterbox extends React.Component {
       this.props.categories,
       this.props.columnName)
 
-    const categoryIndex = displayedCategories
-      .keySeq()
-      .findIndex(k => k === this.props.categoryName)
 
-    if((categoryIndex + swap) < 0) {
+    const displayedCategoryNames = displayedCategories.keySeq()
+
+    const displayedCategoryIndex = displayedCategoryNames.findIndex(k => k === this.props.categoryName)
+
+    if((displayedCategoryIndex + swap) < 0) {
       // Can't move category up any more
       return
-    } else if ((categoryIndex + swap) >= displayedCategories.count()) {
+    } else if ((displayedCategoryIndex + swap) >= displayedCategories.count()) {
       // Can't move category down any more
       return
     }
 
-    // the new index of the swapped category
-    const newCategoryIndex = displayedCategories
-      .keySeq()
-      .findIndex(k => k === this.props.categoryName) + swap
+    const swapCategoryName = displayedCategoryNames.get(displayedCategoryIndex + swap)
 
-    // index of category to get swapped
-    const categoryToSwap = categoryIndex + swap
+    const columnCategories = this.props.categories.get(this.props.columnName)
+    const oldCategoryNames = columnCategories.keySeq().toList()
 
-    console.log('original category order', displayedCategories)
+    const oldCategoryIndex = oldCategoryNames.findIndex(k => k === this.props.categoryName)
+    const newCategoryIndex = oldCategoryNames.findIndex(k => k === swapCategoryName)
 
-    // note to self: might be a good idea to get the original index of the
-    //  category to be swapped with
+
+    let newCategoryNames = oldCategoryNames.set(oldCategoryIndex, swapCategoryName)
+    newCategoryNames = newCategoryNames.set(newCategoryIndex, this.props.categoryName)
+
 
     // new ordered map for the swapping categories
-    let newOrderedCategories = Immutable.OrderedMap(displayedCategories)
-    newOrderedCategories = newOrderedCategories.slice(newCategoryIndex)
-      .concat(newOrderedCategories.slice(categoryToSwap))
+    let newOrderedCategories = Immutable.OrderedMap()
 
-      // 8, 9, 7, 5, 10, 6, 4
-      // should be 9, 8, 7, 5,...
+    newCategoryNames.forEach( categoryName => {
+      newOrderedCategories = newOrderedCategories.set(categoryName, columnCategories.get(categoryName))
+    })
 
-    console.log('new order',newOrderedCategories)
-
-    // this.props.onCategoryArrowKeyDown(newOrderedCategories)
+    this.props.onCategoryArrowKeyDown(this.props.columnName, newOrderedCategories)
 
   }
 
@@ -416,8 +415,8 @@ const mapDispatchToProps = dispatch => {
     onCategorySnap: (columnName, categoryName, oldY, newY, categoryHeights) => {
       dispatch(SnapCategoryCreator(columnName, categoryName, oldY, newY, categoryHeights))
     },
-    onCategoryArrowKeyDown: (columnName) => {
-      dispatch(ActivateAllCategoriesForColumnCreator(columnName))
+    onCategoryArrowKeyDown: (columnName, categoryName) => {
+      dispatch(SetCategoriesForColumnCreator(columnName, categoryName))
     }
   }
 }
