@@ -107,7 +107,7 @@ class StoryWindow extends React.Component {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
       event.stopPropagation()
-      this.tutorialImageClicked()
+      this.tutorialImageClicked(event)
       this.props.onCloseButtonClicked()
     }
   }
