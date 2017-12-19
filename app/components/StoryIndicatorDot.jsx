@@ -18,8 +18,6 @@ class StoryIndicatorDot extends React.Component {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language])
 
-    //const indicatorDotIndex = this.props.index
-
     let currentX = StoryComputations.storyIndicatorDotX(this.props.viewport)
     if (imageList.count === 1) {
       currentX
@@ -46,8 +44,6 @@ const mapStateToProps = state => {
     viewport: state.viewport,
     story: state.story,
     analytics: state.analytics,
-    //might not need storyImage state...
-    storyImage: state.storyImage,
     language: state.language,
   }
 }
