@@ -3,7 +3,6 @@ const _ = require('lodash')
 const MemoizeImmutable = require('memoize-immutable')
 
 const Constants = require('./Constants.js')
-const CategoryConstants = require('./CategoryConstants.js')
 const IncidentComputations = require('./IncidentComputations.js')
 
 
@@ -12,15 +11,7 @@ const DefaultCategoryComputations = {
 
   initialState: function (data, schema, language) {
 
-    let unsortedCategories
-    switch (Constants.get('dataMode')) {
-    case 'dataService': 
-      unsortedCategories = DefaultCategoryComputations.initialStateFromCategorySchema(data, schema)
-      break
-    case 'csvFile': 
-      unsortedCategories = DefaultCategoryComputations.initialStateFromCsv(data)
-      break
-    }
+    const unsortedCategories = DefaultCategoryComputations.initialStateFromCategorySchema(data, schema);
 
     return DefaultCategoryComputations.sortCategories(data, unsortedCategories, schema, language)
   },
@@ -93,91 +84,6 @@ const DefaultCategoryComputations = {
 
   },
 
-
-  initialStateFromCsv: function (data) {
-
-    let categories = Immutable.Map()
-
-    Constants.get('columnNames').forEach( columnName => {
-      // All of the categories default to being active
-
-      switch(columnName){
-
-      case 'incidentTypes':
-      case 'status': 
-      case 'province': 
-      case 'substance':
-      case 'releaseType':
-      case 'whatHappened':
-      case 'whyItHappened':
-      case 'pipelinePhase':
-      case 'pipelineSystemComponentsInvolved':
-      case 'volumeCategory': {
-        // Most of the columns have a fixed set of categories:
-
-        let activeCategories = Immutable.OrderedMap()
-
-        CategoryConstants.getIn(['dataLoaderCategoryNames', columnName]).forEach( (categoryName, csvHeading) => {
-          activeCategories = activeCategories.set(categoryName, true)
-
-        })
-
-        categories = categories.set(columnName, activeCategories)
-
-        break
-      }
-      case 'company': {
-        // Each unique company name constitutes its own category
-
-        const companyNames = data.map( incident => {
-          return incident.get('company')
-        }).toArray()
-
-        const uniqueCompanyNames = _.uniq(companyNames)
-        // TODO: Need to sort this?
-
-        let activeCategories = Immutable.OrderedMap()
-
-        for(const companyName of uniqueCompanyNames) {
-          activeCategories = activeCategories.set(companyName, true)
-        }
-
-        categories = categories.set('company', activeCategories)
-
-        break
-      }
-      case 'year': {
-        // Each year appearing in the dataset will be a category
-
-        const reportedYears = data.map( incident => {
-          return incident.get('year')
-        }).toArray()
-
-        const uniqueReportedYears = _.uniq(reportedYears).sort().reverse()
-
-        let activeCategories = Immutable.OrderedMap()
-
-        for(const year of uniqueReportedYears) {
-          activeCategories = activeCategories.set(year, true)
-        }
-
-        categories = categories.set('year', activeCategories)
-
-        break
-      }
-      case 'map': 
-        // Uniquely, the map has no categories
-        categories = categories.set('map', Immutable.Map())
-        break
-      }
-
-    })
-
-    return categories
-
-  },
-
-
   sortCategories: function (data, unsortedCategories, schema, language) {
 
     let sortedCategories = unsortedCategories
@@ -211,21 +117,10 @@ const DefaultCategoryComputations = {
     }
 
 
-    // Sort companies alphabetically
-    let labels
-    if (Constants.get('dataMode') === 'csvFile') {
-      // When using csv files as the source, the category keys are the 
-      // labels
-      labels = sortedCategories.get('company').keySeq()
-    }
-    else {
-      // When using the data service, get the name from the schema for the
-      // current language
-      labels = schema.get('company').map( names => {
-        return names.get(language)
-      })
-    }
-    labels = labels.sort()
+    // Get the name from the schema for the current language, and sort alphabetically
+    const labels = schema.get('company')
+      .map(names => names.get(language))
+      .sort();
     const sortedCompanies = Immutable.OrderedMap(labels.keySeq().map( name => {
       return [name, true]
     }))
@@ -233,7 +128,7 @@ const DefaultCategoryComputations = {
 
 
     // Sort provinces according to a special predefined order
-    const provinceOrder = Constants.getIn(['provinceOrder', Constants.get('dataMode')])
+    const provinceOrder = Constants.get('provinceOrder')
     const orderedProvinces = Immutable.OrderedMap(
       provinceOrder.map( provinceName => {
         return [provinceName, true]

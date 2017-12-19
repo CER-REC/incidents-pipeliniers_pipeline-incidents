@@ -152,48 +152,19 @@ class Category extends React.Component {
     case 'whyItHappened':
     case 'pipelinePhase':
     case 'volumeCategory':
-    case 'pipelineSystemComponentsInvolved': { 
+    case 'pipelineSystemComponentsInvolved':
+    case 'company': {
       // These columns draw category names from a defined vocabulary
     
-      let label
-      if (Constants.get('dataMode') === 'dataService') {
-        // When using the data service, the category name is an ID, and the
-        // translation strings are loaded from the schema
-        label = this.props.schema.getIn([
-          this.props.columnName, 
-          this.props.categoryName, 
-          this.props.language
-        ])
-        return StringComputations.splitHeading(label.toUpperCase())
-      }
-      else if (Constants.get('dataMode') === 'csvFile') {
-        // When using a csv data file, we rely on the translation table
-        label = Tr.getIn([
-          'categories', 
-          this.props.columnName, 
-          this.props.categoryName, 
-          this.props.language
-        ])
-      }
+      // When using the data service, the category name is an ID, and the
+      // translation strings are loaded from the schema
+      const label = this.props.schema.getIn([
+        this.props.columnName,
+        this.props.categoryName,
+        this.props.language
+      ])
       return StringComputations.splitHeading(label.toUpperCase())
     }
-
-    case 'company':
-      if (Constants.get('dataMode') === 'dataService') {
-        // When using the data service, the category name is an ID, and the
-        // company name is placed in the schema
-        const label = this.props.schema.getIn([
-          this.props.columnName, 
-          this.props.categoryName, 
-          this.props.language
-        ])
-        return StringComputations.splitHeading(label.toUpperCase())
-      }
-      else if (Constants.get('dataMode') === 'csvFile') {
-        // When reading from CSV, the category name is the company name
-        return StringComputations.splitHeading(this.props.categoryName.toString().toUpperCase())
-      }
-      break
 
     case 'year':
       // Year uses the category name directly

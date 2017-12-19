@@ -2,15 +2,6 @@
 const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
-
-  // Data mode controls how the application loads up its data. Values are:
-  //   'dataService': initialize the data and schema from REST requests
-  //   'csvFile': initialize the data and schema from a flat CSV file
-  // See: DataLoader.js, data/CategorySchema.json
-  // TODO: might be good to make this a .env file option, or a URL param,
-  // rather than hard coding it
-  dataMode: 'dataService',
-
   storyBarID: 'storyBar',
 
   workspace: {
@@ -386,14 +377,9 @@ const Constants = Immutable.fromJS({
   // the result of an Object.keys() call on a provinces category object 
   // somewhere, but we have been asked to preserve this order going forward!
 
-  provinceOrder: {
-    dataService: [
-      '7', '10', '4', '5', '3', '6', '9', '13', '1', '8', '12', '2', '11'
-    ],
-    csvFile: [
-      'NS','PE','NB','NL','MB','NT','ON','YT','AB','NU','SK','BC','QC'
-    ],
-  },
+  provinceOrder: [
+    '7', '10', '4', '5', '3', '6', '9', '13', '1', '8', '12', '2', '11'
+  ],
 
   questionMark: {
     pixelsPerCharacter: 7.4,

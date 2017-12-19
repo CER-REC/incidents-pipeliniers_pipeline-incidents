@@ -194,7 +194,4 @@ dataLoadPromise.then( () => {
       })
     })))
   )
-  
-  //Combine
-  Fs.writeFile('Incident Visualization Data.csv', byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder))
 })
