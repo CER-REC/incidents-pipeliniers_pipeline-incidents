@@ -31,10 +31,15 @@ const StoryComputations = {
       Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])
   },
 
-  storyArrowButtonY(viewport) {
+  storyIndicatorDotY(viewport) {
     return (viewport.get('y') - 
       Constants.getIn(['storyThumbnailDimensions', 'windowYOffset']) -
-      Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize']))/2
+      Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize']))
+  },
+
+  storyIndicatorDotX(viewport) {
+    return viewport.get('x') / 2
+
   },
 
 }

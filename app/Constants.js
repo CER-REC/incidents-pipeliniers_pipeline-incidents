@@ -29,11 +29,13 @@ const Constants = Immutable.fromJS({
     titleBackgroundHeight: '43%',
     titleBackgroundYOffset: 0.57,
     iconOffset: 50,
+    indicatorDotRadius: 5.5,
 
     windowYOffset: 25,
     windowShadowOffset: 10,
     windowCloseButtonSize: 30,
     windowCloseButtonOffset: 15,
+    indicatorDotOffset: 15,
   },
 
   stories: {
