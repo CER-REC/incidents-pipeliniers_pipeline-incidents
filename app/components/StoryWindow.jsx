@@ -9,6 +9,7 @@ const StoryIndicatorDot = require('./StoryIndicatorDot.jsx')
 const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
 const RouteComputations = require('../RouteComputations.js')
+const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
 const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const ActivateStoryImageCreator = require('../actionCreators/ActivateStoryImageCreator.js')
 const SetFromRouterStateCreator = require('../actionCreators/SetFromRouterStateCreator.js')
@@ -42,9 +43,9 @@ class StoryWindow extends React.Component {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     if(this.props.storyImage !== imageList.length - 1) {
+      this.props.onNextTutorialImageClick(imageList.length)
       e.stopPropagation()
       e.preventDefault()
-      
       return
     }
 
@@ -123,10 +124,7 @@ class StoryWindow extends React.Component {
   }
 
   tutorialImage(currentImageIndex, imageList) {
-    // Set the cursor to input if this is the last
-    // tutorial image.
-    let isActive = ''
-    if(this.props.storyImage === imageList.length - 1) isActive = 'active'
+    const isActive = 'active'
 
     return <image
       className={isActive}
@@ -185,6 +183,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onCloseButtonClicked: () => {
       dispatch(PopupDismissedCreator())
+    },
+    onNextTutorialImageClick: (count) => {
+      dispatch(StoryNextImageCreator(count))
     },
     onActivateStoryImageClicked: (indicatorDotIndex) => {
       dispatch(ActivateStoryImageCreator(indicatorDotIndex))
