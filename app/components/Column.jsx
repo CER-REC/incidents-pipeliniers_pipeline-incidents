@@ -758,6 +758,7 @@ class Column extends React.Component {
             id={this.props.columnName}
             tabIndex = '0'
             role = 'button'
+            aria-label = {this.props.columnName}
             onKeyDown = { this.sidebarKeyDown.bind(this) }
           >
             {this.sideBarColumn()}
@@ -775,7 +776,7 @@ class Column extends React.Component {
       >
         <g>
           <text tabIndex = '0' 
-            aria-label = {this.barHeading()}
+            aria-label = {this.props.columnName}
             onKeyDown = {this.columnKeyDown.bind(this)}>
             {this.barHeading()}</text>
           `<text>

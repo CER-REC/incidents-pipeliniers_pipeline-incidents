@@ -124,7 +124,8 @@ class ColumnTooltip extends React.Component {
 
   onKeyDownHandler(event) {
     if(event.key === 'Escape') {
-      this.columnName.focus() 
+      // TODO
+      return 
     }
   }
 
@@ -144,7 +145,7 @@ class ColumnTooltip extends React.Component {
       {this.title()}
       {this.description()}
       {this.separator()}
-      <div className='listContainer' tabIndex='0' role='dialog'>
+      <div className='listContainer' tabIndex='0'>
         {this.listText()}
       </div>
     </div>

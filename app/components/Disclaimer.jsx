@@ -23,9 +23,6 @@ class Disclaimer extends React.Component {
       event.preventDefault()
       this.closeButtonClick()
     }
-    if(event.key === 'Tab') {
-      event.preventDefault()
-    }
   }
 
   closeButton() {

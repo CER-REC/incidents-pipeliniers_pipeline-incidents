@@ -65,7 +65,6 @@ class AboutWindow extends React.Component {
   heading() {
     return <p
       className='aboutHeading'
-      role = 'dialog'
       tabIndex = '0'
       aria-labelledby =  {Tr.getIn(['aboutText', 'title', this.props.language])}>
       {Tr.getIn(['aboutText', 'title', this.props.language])}
@@ -141,8 +140,6 @@ class AboutWindow extends React.Component {
         <span>
           {Tr.getIn(['aboutText', 'p4', this.props.language])}
           <a onClick = {this.emailLinkAnalytics.bind(this)}
-            className = 'emailLink' 
-            id = 'emailLink' 
             href={Tr.getIn(['aboutText', 'emailLink', this.props.language])}>
             {Tr.getIn(['aboutText', 'emailText', this.props.language])}
           </a>
@@ -336,14 +333,13 @@ class AboutWindow extends React.Component {
       <div 
         onClick = { this.preventDismissal.bind(this) }
         className='aboutWindow'
-        id = {Constants.get('aboutContentID')}
         onKeyDown = {this.onEscapeKeyDown.bind(this) }
       >
         {this.heading()}
         {this.closeButton()}
         <hr/>
         {this.intro()}
-        <div id={Constants.get('emailLinkID') }>
+        <div>
           {this.contributersHeading()}
           {this.contributersContent()}
           {this.thirdPartyLicenseHeading()}

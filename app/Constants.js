@@ -3,8 +3,6 @@ const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
   storyBarID: 'storyBar',
-  aboutContentID: 'aboutContent',
-  emailLinkID: 'emailLink',
   aboutThisProjectID: 'aboutThisProject',
   disclaimerID: 'disclaimer',
   dataDisclaimerID: 'dataDisclaimerWindow',
