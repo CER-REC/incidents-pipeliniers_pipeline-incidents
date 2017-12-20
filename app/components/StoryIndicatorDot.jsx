@@ -14,6 +14,13 @@ class StoryIndicatorDot extends React.Component {
     this.props.onIndicatorDotClicked(this.props.index)
   }
 
+  indicatorDotKeyDown(event) {
+    if(event.key === ' ' || event.key === 'Enter') {
+      event.stopPropagation()
+      this.indicatorDotClick(event)
+    }
+  }
+
   render() {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language])
@@ -26,7 +33,7 @@ class StoryIndicatorDot extends React.Component {
       currentX = currentX - (Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset']) * (imageCount - 1))
     }
 
-    return <circle
+    return <circle tabIndex = '0' role = 'button'
       className = 'indicatorDot'
       r={ Constants.getIn(['storyThumbnailDimensions', 'indicatorDotRadius']) }
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
@@ -35,6 +42,7 @@ class StoryIndicatorDot extends React.Component {
       cx={ currentX + this.props.xOffset }
       fill = { this.props.dotColour}
       onClick = {this.indicatorDotClick.bind(this)}
+      onKeyDown = {this.indicatorDotKeyDown.bind(this)}
     />
   }
 }

@@ -106,8 +106,6 @@ class Filterbox extends React.Component {
         y = '0'
         tabIndex = '0'
         role = 'button'
-        aria-grabbed = 'true'
-        aria-dropeffect = 'move'
         onKeyDown={this.categoryKeyDown.bind(this)}
         width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
         height = { this.buttonHeight() }

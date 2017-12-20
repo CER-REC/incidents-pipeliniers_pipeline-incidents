@@ -35,13 +35,6 @@ class StoryWindow extends React.Component {
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
-
-    this.refs.storySelect.focus()
-
-    // const last = the story then return the focus to last?
-    //document.getElementById(this.story).focus()
-    //ReactDOM.findDOMNode(this.props.story).focus()
-    //document.querySelector('.storiesHeading').focus()
   }
 
   closeButtonKeyDown(event) {
@@ -120,7 +113,6 @@ class StoryWindow extends React.Component {
       event.preventDefault()
       event.stopPropagation()
       this.tutorialImageClicked(event)
-      this.props.onCloseButtonClicked()
     }
   }
  
