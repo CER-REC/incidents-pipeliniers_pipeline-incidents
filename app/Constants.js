@@ -2,15 +2,6 @@
 const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
-
-  // Data mode controls how the application loads up its data. Values are:
-  //   'dataService': initialize the data and schema from REST requests
-  //   'csvFile': initialize the data and schema from a flat CSV file
-  // See: DataLoader.js, data/CategorySchema.json
-  // TODO: might be good to make this a .env file option, or a URL param,
-  // rather than hard coding it
-  dataMode: 'dataService',
-
   storyBarID: 'storyBar',
   aboutContentID: 'aboutContent',
   emailLinkID: 'emailLink',
@@ -35,16 +26,18 @@ const Constants = Immutable.fromJS({
     titleBackgroundHeight: '43%',
     titleBackgroundYOffset: 0.57,
     iconOffset: 50,
+    indicatorDotRadius: 5.5,
 
     windowYOffset: 25,
     windowShadowOffset: 10,
     windowCloseButtonSize: 30,
     windowCloseButtonOffset: 15,
+    indicatorDotOffset: 15,
   },
 
   stories: {
     firstRow: {
-      leftStory: 'the-basics-of-incident-visualization',
+      leftStory: 'how-to-read-the-visualization',
       middleStory: 'getting-the-big-picture',
       rightStory: 'adding-columns-to-dig-deeper',
     },
@@ -390,14 +383,9 @@ const Constants = Immutable.fromJS({
   // the result of an Object.keys() call on a provinces category object 
   // somewhere, but we have been asked to preserve this order going forward!
 
-  provinceOrder: {
-    dataService: [
-      '7', '10', '4', '5', '3', '6', '9', '13', '1', '8', '12', '2', '11'
-    ],
-    csvFile: [
-      'NS','PE','NB','NL','MB','NT','ON','YT','AB','NU','SK','BC','QC'
-    ],
-  },
+  provinceOrder: [
+    '7', '10', '4', '5', '3', '6', '9', '13', '1', '8', '12', '2', '11'
+  ],
 
   questionMark: {
     pixelsPerCharacter: 7.4,
@@ -426,6 +414,9 @@ const Constants = Immutable.fromJS({
     sidebar: 'Sidebar',
     story: 'Story',
     emptyCategories: 'Empty Categories',
+    wikimediaCommons: 'Wikimedia Commons',
+    ccByThree: 'CC By 3.0',
+    ccBYSAThree: 'CC BY-SA 3.0'
   },
 
   // The purpose of the bottom margin is to allow some space for the filterbox

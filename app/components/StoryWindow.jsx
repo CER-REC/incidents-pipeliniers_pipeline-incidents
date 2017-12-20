@@ -6,12 +6,13 @@ const ReactDOM = require('react-dom')
 require('./StoryWindow.scss')
 
 const Constants = require('../Constants.js')
+const StoryIndicatorDot = require('./StoryIndicatorDot.jsx')
 const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
 const RouteComputations = require('../RouteComputations.js')
-const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
-const StoryPreviousImageCreator = require('../actionCreators/StoryPreviousImageCreator.js')
+const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
+const ActivateStoryImageCreator = require('../actionCreators/ActivateStoryImageCreator.js')
 const SetFromRouterStateCreator = require('../actionCreators/SetFromRouterStateCreator.js')
 const SetUrlFromStringCreator = require('../actionCreators/SetUrlFromStringCreator.js')
 
@@ -50,34 +51,16 @@ class StoryWindow extends React.Component {
     }
   }
 
-  nextButtonClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Next Button')
-    e.stopPropagation()
-    e.preventDefault()
-    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
-    this.props.onNextTutorialImageClick(imageList.length)
-  }
-
-  backButtonClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Back Button')
-    e.stopPropagation()
-    e.preventDefault()
-    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
-    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
-    this.props.onPreviousTutorialImageClick(imageList.length)
-  }
-
   tutorialImageClicked(e) {
     // Only listen to clicks if this is the last image
     // in the tutorial.
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,  `Tutorial Selected: ${this.props.story.get('storyID')}`)
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,  `Click on last story image: ${this.props.story.get('storyID')}`)
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     if(this.props.storyImage !== imageList.length - 1) {
+      this.props.onNextTutorialImageClick(imageList.length)
       e.stopPropagation()
       e.preventDefault()
-      
       return
     }
 
@@ -97,10 +80,39 @@ class StoryWindow extends React.Component {
       showEmptyCategories: routerState.showEmptyCategories,
       pinnedIncidents: routerState.pinnedIncidents,
       language: routerState.language,
+      selectedIncidents: routerState.selectedIncidents,
+      filterboxActivationState: routerState.filterboxActivationState,
       screenshotMode: RouteComputations.screenshotMode(window.location),
     }
-
     this.props.updateVisualization(storyState)
+    this.props.onCloseButtonClicked()
+  }
+
+  indicatorDots() {
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const imageList = story.getIn(['tutorialImages', this.props.language])
+    const currentImageIndex = this.props.storyImage
+
+    let currentX = 0
+
+    return imageList.map((indicatorDotImage, indicatorDotIndex) => {
+      currentX += Constants.getIn(['storyThumbnailDimensions', 'indicatorDotOffset'])
+
+      let indicatorDotColour = '#d6d5d5'
+      if(indicatorDotImage === imageList.get(currentImageIndex)) {
+        indicatorDotColour = '#5e5e5e'
+      }
+
+      return <StoryIndicatorDot
+        indicatorDot = {indicatorDotImage}
+        index={indicatorDotIndex}
+        key = {indicatorDotIndex}
+        xOffset = {currentX}
+        dotColour = {indicatorDotColour}
+      />
+
+    }).toArray()
+   
   }
 
   tutorialImageKeyDown(event) {
@@ -139,35 +151,8 @@ class StoryWindow extends React.Component {
       onKeyDown = {this.closeButtonKeyDown.bind(this)}/>
   }
 
-  leftArrow(currentImageIndex) {
-    const active = (currentImageIndex < 1)? 'inactive' : 'active'
-    return <image
-      className={active}
-      xlinkHref={`images/left-arrow-${active}.svg`}
-      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
-      y={StoryComputations.storyArrowButtonY(this.props.viewport)}
-      onClick={this.backButtonClick.bind(this)}/>
-  }
-
-  rightArrow(currentImageIndex, imageList) {
-    const active = (currentImageIndex >= imageList.length-1)? 'inactive' : 'active'
-    return <image
-      className={active}
-      xlinkHref={`images/right-arrow-${active}.svg`}
-      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      x={StoryComputations.storyCloseButtonX(this.props.viewport)}
-      y={StoryComputations.storyArrowButtonY(this.props.viewport)}
-      onClick={this.nextButtonClick.bind(this)}/>
-  }
-
   tutorialImage(currentImageIndex, imageList) {
-    // Set the cursor to input if this is the last
-    // tutorial image.
-    let isActive = ''
-    if(this.props.storyImage === imageList.length - 1) isActive = 'active'
+    const isActive = 'active'
 
     return <image
       className={isActive}
@@ -200,6 +185,10 @@ class StoryWindow extends React.Component {
     }
   }
 
+  preventDismissal(e) {
+    e.stopPropagation()
+  }
+
   render() {
     // Only render if a story has been selected.
     if(!this.props.story.get('isActive')) return null
@@ -207,18 +196,19 @@ class StoryWindow extends React.Component {
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     const currentImageIndex = this.props.storyImage
 
-    return <div id = 'storyWindowID'
+    return <div onClick = {this.preventDismissal.bind(this)}
       className='storyWindow'
       role = 'button' tabIndex = '0' onKeyDown = {this.onEscapeKeyDown.bind(this)}>
-      <svg  
+      <svg 
         width = { this.props.viewport.get('x')} 
         height = {StoryComputations.storyWindowHeight(this.props.viewport)}>
         {this.shadowFilter()}
         {this.border()}
         {this.closeButton()}
-        {this.leftArrow(currentImageIndex)}
-        {this.rightArrow(currentImageIndex, imageList)}
         {this.tutorialImage(currentImageIndex, imageList)}
+
+        {this.indicatorDots()}
+
       </svg>
     </div>
   }
@@ -230,6 +220,7 @@ const mapStateToProps = state => {
     language: state.language,
     story: state.story,
     storyImage: state.storyImage,
+    indicatorDotIndex: state.indicatorDotIndex,
     categories: state.categories,
     data: state.data,
     analytics: state.analytics,
@@ -244,8 +235,8 @@ const mapDispatchToProps = dispatch => {
     onNextTutorialImageClick: (count) => {
       dispatch(StoryNextImageCreator(count))
     },
-    onPreviousTutorialImageClick: (count) => {
-      dispatch(StoryPreviousImageCreator(count))
+    onActivateStoryImageClicked: (indicatorDotIndex) => {
+      dispatch(ActivateStoryImageCreator(indicatorDotIndex))
     },
     updateVisualization: (storyState) => {
       dispatch(SetFromRouterStateCreator(storyState))

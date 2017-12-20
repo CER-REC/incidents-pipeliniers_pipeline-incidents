@@ -99,6 +99,125 @@ const TranslationTable = Immutable.fromJS({
         fr: 'Aspect technique : Patrick King, Alaa Azazi, Charlie Cheung, Abhishek Sharma, and Ben Cousins',
       },
     },
+    thirdPartyLicensesTitle:{
+      en: 'THIRD PARTY LICENSES',
+      fr: 'LICENCES DE TIERS'
+    },
+    thirdPartyLicensesContent:{
+      map:{
+        title:{
+          en: 'Map:',
+          fr: 'Carte:'
+        },
+        map_1:{
+          en: '“Map showing provinces and territories reporting 2009 swine flu (H1N1) cases in Canada” by Fonadier from ',
+          fr: 'Carte produite par Fonadier illustrant les provinces et territoires selon les signalements de cas de grippe A (H1N1), tirée de '
+        },
+        map_2_text:{
+          en: 'Wikimedia Commons',
+          fr: 'Wikimedia Commons'
+        },
+        map_2_link:{
+          en: 'https://commons.wikimedia.org/wiki/File:H1N1_Canada_map.svg',
+          fr: 'https://commons.wikimedia.org/wiki/File:H1N1_Canada_map.svg'
+        },
+        map_3:{
+          en: ' (Re-coloured and rotated from original.)' ,
+          fr: ' (L’original a été recoloré et pivoté.)'
+        },
+      },
+      
+      tellMeAStoryIcon:{
+        title:{
+          en: 'Tell Me A Story icon:',
+          fr: 'Icône Une histoire à raconter?:'
+        },
+        content:{
+          en: 'by Bon Adriel Aseniero. Licensed under ',
+          fr: 'Créée par Bon Adriel Aseniero et portant la licence '
+        },
+        link:{
+          en: 'https://creativecommons.org/licenses/by-sa/3.0/',
+          fr: 'https://creativecommons.org/licenses/by-sa/3.0/'
+        },
+        link_text: {
+          en: 'CC BY-SA 3.0',
+          fr: 'CC BY-SA 3.0'
+        }
+      },
+      methodologyIcon:{
+        title:{
+          en: 'Methodology icon:',
+          fr: 'Icône Méthodologie:'
+        },
+        text1:{
+          en: 'Process by Rflor',
+          fr: 'Créée par Rflor'
+        },
+        text1Link:{
+          en: 'https://thenounproject.com/rflor/collection/infography-circles/?oq=methodology&cidx=0&i=363475',
+          fr: 'https://thenounproject.com/rflor/collection/infography-circles/?oq=methodology&cidx=0&i=363475'
+        }
+      },
+      resetIcon:{
+        title:{
+          en:'Reset icon:',
+          fr:'Icône réinitialiser:'
+        },
+        text1:{
+          en:'Reset by Mooms',
+          fr:'Créée par Mooms'
+        },
+        text1Link:{
+          en:'https://thenounproject.com/search/?q=reset&i=1033424',
+          fr:'https://thenounproject.com/search/?q=reset&i=1033424'
+        }
+      },
+      facebookIcon:{
+        title:{
+          en:'Facebook icon:',
+          fr:'Icône Facebook:'
+        },
+        text1:{
+          fr:'Créée par Elegant Themes, tirée de ',
+          en:'By Elegant Themes from '
+        },
+        text2:{
+          en:'www.flaticon.com',
+          fr:'www.flaticon.com'
+        },
+        text2Link:{
+          en:'https://www.flaticon.com/',
+          fr:'https://www.flaticon.com/'
+        }
+      },
+      common:{
+        licenceUnder:{
+          en: '. Licensed under ',
+          fr: ' et portant la licence '
+        },
+        ccByThree:{
+          en: 'CC BY 3.0.',
+          fr: 'CC BY 3.0.'
+        },
+        ccByThreeLink:{
+          en: 'https://creativecommons.org/licenses/by/3.0/deed.en',
+          fr: 'https://creativecommons.org/licenses/by/3.0/deed.en'
+        },
+        from:{
+          en:' from ',
+          fr: ' tirée de '
+        },
+        theNounProject:{
+          en:'thenounproject.com',
+          fr: 'thenounproject.com'
+        },
+        theNounProjectLink:{
+          en:'http://thenounproject.com/',
+          fr: 'http://thenounproject.com/'
+        },  
+      }
+    }
   },
 
   stories: {
@@ -130,6 +249,36 @@ const TranslationTable = Immutable.fromJS({
       config: {
         en: '?columns=province,year&province=7,10,4,5,3,6,9,13,1,8,12,2,11&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008',
         fr: '?columns=province,year&province=7,10,4,5,3,6,9,13,1,8,12,2,11&year=2017,2016,2015,2014,2013,2012,2011,2010,2009,2008',
+      },
+    },
+    'how-to-read-the-visualization': {
+      title: {
+        en: 'HOW TO READ THE VISUALIZATION',
+        fr: 'POUR INTERPRÉTER LA VISUALISATION',
+      },
+      backgroundImage: {
+        en: 'images/stories/how-to-read-the-visualization-1-EN.jpg',
+        fr: 'images/stories/how-to-read-the-visualization-1-FR.jpg',
+      },
+      tutorialImages: {
+        en: [
+          'images/stories/how-to-read-the-visualization-1-EN.jpg',
+          'images/stories/how-to-read-the-visualization-2-EN.jpg',
+          'images/stories/how-to-read-the-visualization-3-EN.jpg',
+          'images/stories/how-to-read-the-visualization-4-EN.jpg',
+        ],
+        fr: [
+          'images/stories/how-to-read-the-visualization-1-FR.jpg',
+          'images/stories/how-to-read-the-visualization-2-FR.jpg',
+          'images/stories/how-to-read-the-visualization-3-FR.jpg',
+          'images/stories/how-to-read-the-visualization-4-FR.jpg',
+        ],
+      },
+      // TODO: Change story mode configs to no longer store configuration as
+      // URLs. Store configuration that we would like to change to instead.
+      config: {
+        en: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=3,4,5,2,1,-1,14,6&incidentTypes=8,9,7,5,10,6,4&whyItHappened=12,7,15,9,16,-1,11,8,13,10',
+        fr: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=3,4,5,2,1,-1,14,6&incidentTypes=8,9,7,5,10,6,4&whyItHappened=12,7,15,9,16,-1,11,8,13,10',
       },
     },
     'getting-the-big-picture': {
@@ -1332,6 +1481,12 @@ const TranslationTable = Immutable.fromJS({
     },
   },
 
+  downloadable: {
+    csv: {
+      en: 'Incident Visualization Data_EN.csv',
+      fr: 'Incident Visualization Data_FR.csv'
+    }
+  },
 
 
 

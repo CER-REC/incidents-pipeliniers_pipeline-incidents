@@ -38,7 +38,7 @@ class Story extends React.Component {
 
     // NB: .story class on this div is used for accessibility purposes, see 'tell me a story' event handlers
     return <div 
-      className='story'
+      className={`${this.props.position} story`}
       style={storyStyle}
       id={this.props.position}
       onClick = { this.storyClicked.bind(this) }
@@ -46,7 +46,8 @@ class Story extends React.Component {
       role = 'button'
       aria-label = {Tr.getIn(['stories', this.props.id, 'backgroundImage', this.props.language])}
       onKeyDown = {this.storyKeyDown.bind(this)}
-      ref={ (story) => this.storySelect = story } >
+      ref={ (story) => this.storySelect = story } 
+      onClick = { this.storyClicked.bind(this) }>
       <svg
         width='100%'
         height={storyHeight - 
@@ -76,6 +77,7 @@ class Story extends React.Component {
           {Tr.getIn(['stories', this.props.id, 'title', this.props.language])}
         </p>
       </div>
+
     </div>
   }
 }

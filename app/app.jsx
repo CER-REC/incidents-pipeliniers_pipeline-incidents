@@ -26,16 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 
-let dataLoadPromise
-
-switch (Constants.get('dataMode')) {
-case 'dataService': 
-  dataLoadPromise = DataLoader.loadFromDataService(store, document.location)
-  break
-case 'csvFile': 
-  dataLoadPromise = DataLoader.loadDataCsv(store)
-  break
-}
+const dataLoadPromise = DataLoader.loadFromDataService(store, document.location);
 
 
 DomReady( () => {

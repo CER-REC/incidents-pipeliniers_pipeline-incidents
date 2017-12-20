@@ -12,6 +12,11 @@ const ColumnTooltipDetailCollapseCreator = require('../actionCreators/ColumnTool
 class ColumnTooltipListItem extends React.Component {
 
   detailClick(e) {
+    // TODO: Currently this reports the overview element in whichever language
+    // it happens to be, but we would like to standardize on reporting analytics
+    // in English. Refactors to the props passed by ColumnTooltip would be
+    // needed.
+
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','questionMark'])}`,`${this.props.item.get('overview')} detail overview`)
     e.stopPropagation()
     e.preventDefault()

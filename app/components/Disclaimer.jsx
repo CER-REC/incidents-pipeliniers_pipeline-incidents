@@ -28,6 +28,14 @@ class Disclaimer extends React.Component {
     }
   }
 
+  closeButton() {
+    return <img
+      className='disclaimerCloseButton'
+      onClick = { this.closeButtonClick.bind(this) }
+      src = 'images/close-2.svg'>
+    </img>
+  }
+
   windowStyle() {
     let disclaimerWidth = Constants.getIn(['disclaimer', 'windowMaxWidth'])
     if(disclaimerWidth / this.props.viewport.get('x') >= Constants.getIn(['disclaimer', 'disclaimerWorkspaceRatio'])) {
@@ -75,8 +83,8 @@ class Disclaimer extends React.Component {
     return <div onClick = {this.preventDismissal.bind(this)}
       id = {Constants.get('disclaimerID')}
       className='disclaimerWindow'
-      style={this.windowStyle()}
-    >
+      style={this.windowStyle()}> 
+      {this.closeButton()}
       <p className='disclaimer star'>*</p>      
       <p className='disclaimer disclaimerText' style={this.textStyle()}>
         {Tr.getIn(['disclaimerText', this.props.language])}
