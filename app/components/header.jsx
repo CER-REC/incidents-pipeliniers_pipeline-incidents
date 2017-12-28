@@ -237,9 +237,6 @@ class Header extends React.Component {
   }
 
   render() {
-    // TODO: ! Changing the order of leftHeading and rightButtons made the links on the heading
-    // elements unclickable! Need to reduce the size of the SVG tag containing right buttons so that
-    // it does not overlap with the left heading anymore.
     return <div className = 'headingContainer'>
       { this.leftHeading() }
       { this.rightButtons() }

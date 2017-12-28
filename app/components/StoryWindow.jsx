@@ -1,7 +1,6 @@
 
 const React = require('react')
 const ReactRedux = require('react-redux')
-const ReactDOM = require('react-dom')
 
 require('./StoryWindow.scss')
 
@@ -138,7 +137,6 @@ class StoryWindow extends React.Component {
       y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
       onClick = {this.closeButtonClick.bind(this)}
       tabIndex = '0'
-      role = 'button'
       aria-label = 'story close button'
       onKeyDown = {this.closeButtonKeyDown.bind(this)}/>
   }

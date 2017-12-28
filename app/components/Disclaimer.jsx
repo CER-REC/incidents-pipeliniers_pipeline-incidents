@@ -1,7 +1,6 @@
 
 const React = require('react')
 const ReactRedux = require('react-redux')
-const ReactDOM = require('react-dom')
 
 require('./Disclaimer.scss')
 
@@ -86,21 +85,6 @@ class Disclaimer extends React.Component {
       <p className='disclaimer disclaimerText' style={this.textStyle()}>
         {Tr.getIn(['disclaimerText', this.props.language])}
       </p>
-      <svg 
-        width={Constants.getIn(['disclaimer', 'closeButtonRightMargin'])}
-        height={Constants.getIn(['disclaimer', 'closeButtonSize']) + 
-          Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}>
-        <image 
-          className='disclaimerCloseButton'
-          width ={Constants.getIn(['disclaimer', 'closeButtonSize'])} 
-          height = {Constants.getIn(['disclaimer', 'closeButtonSize'])}
-          y={Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}
-          onClick = { this.closeButtonClick.bind(this) }
-          tabIndex = '0' aria-label = 'close'
-          onKeyDown = {this.closeKeyDown.bind(this)}
-          xlinkHref = 'images/close-2.svg'>
-        </image>
-      </svg>
     </div>
   }
 }

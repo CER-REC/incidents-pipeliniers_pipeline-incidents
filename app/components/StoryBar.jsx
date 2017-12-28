@@ -15,9 +15,7 @@ class StoryBar extends React.Component {
       <div id='headingMargin'/>
       <div id='heading'>
         <span 
-          className='storiesHeading'
-          tabIndex = '0'
-          aria-label = {Tr.getIn(['storiesBarHeading', this.props.language])}>
+          className='storiesHeading'>
           {Tr.getIn(['storiesBarHeading', this.props.language])}
         </span>
       </div>

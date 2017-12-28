@@ -775,14 +775,14 @@ class Column extends React.Component {
         transform={this.columnTransform()}
       >
         <g>
+          {this.questionMark()}
           <text tabIndex = '0' 
             aria-label = {this.props.columnName}
             onKeyDown = {this.columnKeyDown.bind(this)}>
             {this.barHeading()}</text>
-          `<text>
+          <text>
             {this.barSubHeading()}
           </text>
-          {this.questionMark()}
         </g>
         { this.columnPaths() }
         { this.selectedColumnPaths() }

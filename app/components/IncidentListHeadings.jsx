@@ -31,7 +31,7 @@ class IncidentListHeadings extends React.Component {
             Constants.get('columnHeadingXOffset') + Constants.get('columnHeadingLeftPadding')}
       y = { y }
       tabIndex = '0'
-      aria-labelledby = 'incidents'
+      aria-label = 'incidents'
     >INCIDENTS</tspan>
 
 
@@ -111,9 +111,9 @@ class IncidentListHeadings extends React.Component {
       y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}
       tabIndex = '0'
-      aria-label = 'Question Mark'
+      aria-label = 'Column question mark tool tip'
       role = 'button' 
-      onKeyDown = { this.questionMarKeyDown.bind(this) }/>
+      onKeyDown = { this.questionMarkKeyDown.bind(this) }/>
   }
 
   questionMarkClick(e) {
@@ -122,7 +122,7 @@ class IncidentListHeadings extends React.Component {
     this.props.onQuestionMarkClick('pinColumn')
   }
 
-  questionMarKeyDown(event) {
+  questionMarkKeyDown(event) {
     if (event.key === ' ' || event.key === 'Enter') {
       event.stopPropagation(event)
       event.preventDefault(event)

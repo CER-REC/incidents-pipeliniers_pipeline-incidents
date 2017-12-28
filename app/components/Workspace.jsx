@@ -110,20 +110,6 @@ class Workspace extends React.Component {
     }
   }
 
-  // focus handler
-  // componentDidUpdate() {
-  //   window.document.addEventListener('focus', event => {
-  //     if (this.currentPopover === null) { return }
-
-  //     const popoverElement = this.currentPopover.container()
-  //     if (!popoverElement.contains(event.target)) {
-  //       event.stopPropagation()
-  //       return this.currentPopover.focus()
-  //     }
-
-  //   } , true)
-  // }
-
   render() {
 
     // Many of the downstream computations require that the data be loaded

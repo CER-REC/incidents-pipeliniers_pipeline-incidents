@@ -124,7 +124,8 @@ class ColumnTooltip extends React.Component {
 
   onKeyDownHandler(event) {
     if(event.key === 'Escape') {
-      // TODO
+      // TODO: when escape key is pressed, close the pop up and return
+      //  the focus to the column's question mark icon
       return 
     }
   }

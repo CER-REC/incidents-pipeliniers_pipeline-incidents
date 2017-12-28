@@ -1,3 +1,7 @@
+// This file is a WIP intended to fix up the popovers and is currently
+//  unused. A JIRA ticket has been created to fix this issue and use this
+//  file.
+
 const Immutable = require('immutable')
 
 const defaultState = Immutable.fromJS({
