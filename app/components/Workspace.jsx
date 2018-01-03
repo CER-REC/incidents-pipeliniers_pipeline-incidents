@@ -19,7 +19,7 @@ const IncidentListHeadings = require('./IncidentListHeadings.jsx')
 const IncidentContainer = require('./IncidentContainer.jsx')
 const StoryBar = require('./StoryBar.jsx')
 const StoryWindow = require('./StoryWindow.jsx')
-const ColumnTooltip = require('./ColumnTooltip.jsx')
+const ColumnTooltip = require('./ColumnTooltip/')
 const AboutWindow = require('./AboutWindow.jsx')
 
 class Workspace extends React.Component {
