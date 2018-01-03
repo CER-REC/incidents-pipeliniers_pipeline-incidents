@@ -88,6 +88,7 @@ class SimpleTooltip extends React.Component {
 
   handleDOMTweaks() {
 		const tooltipBody = document.querySelector('#columnTooltip .tooltipBody')
+    if (!tooltipBody) { return }
     // Scroll to the top of the tooltip to make sure
     // that the tooltip title is fully visible.
     tooltipBody.scrollTop = 0
@@ -122,6 +123,12 @@ class SimpleTooltip extends React.Component {
 
   getTooltipLayout(content = null) {
     const scrollClass = this.state.hasScrollbar ? 'scrolling' : ''
+    const heightStyle = {
+      maxHeight: WorkspaceComputations.topBarHeight(),
+    }
+    if (this.getTooltipClass() !== 'SimpleTooltip') {
+      heightStyle.minHeight = WorkspaceComputations.topBarHeight()
+    }
     return (
       <div onClick={this.preventClickCloseModal}>
         <div
@@ -129,16 +136,15 @@ class SimpleTooltip extends React.Component {
           className={`${this.getTooltipClass()} ${scrollClass}`}
           style={this.tooltipStyle()}
         >
-          <div
-            className="tooltipBody"
-            style={{ maxHeight: WorkspaceComputations.topBarHeight() }}
-          >
-            <div className="tooltipMain">
-              {this.title()}
-              {this.description()}
-            </div>
-            {content}
+          <div className="tooltipMain" style={heightStyle}>
+            {this.title()}
+            {this.description()}
           </div>
+          {!content ? null : (
+            <div className="tooltipBody" style={heightStyle}>
+              {content}
+            </div>
+          )}
           <a
             aria-label="Close"
             onClick={this.closeTooltip.bind(this)}

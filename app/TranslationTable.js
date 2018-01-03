@@ -1664,8 +1664,8 @@ const TranslationTable = Immutable.fromJS({
         fr: 'COMPOSANTE DU RÉSEAU EN CAUSE',
       },
       description: {
-        en: 'The type of equipment or components involved in the incident. Data available from 2015 to current. Components in this case refer to a segment of the piping that is designed to maintain pipe pressure but is not the main body of the pipe. Examples include a pipe elbow or flange.',
-        fr: 'Type d’équipement ou composantes qui sont en cause dans l’incident. Données disponibles de 2015 à aujourd’hui. Dans ce cas, les composantes désignent une section de tuyauterie conçue pour supporter la pression à l’intérieur de la conduite, sans être le corps principal de la canalisation comme, par exemple, un coude ou une bride.',
+        en: 'The type of equipment involved in the incident. Data available from 2015 to current.',
+        fr: 'Type d’équipement qui est en cause dans l’incident. Données disponibles de 2015 à aujourd’hui.',
       },
       detail: {
         en: [
