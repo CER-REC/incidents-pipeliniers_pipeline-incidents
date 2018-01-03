@@ -6,12 +6,10 @@ require('./ColumnTooltip.scss')
 
 const Tr = require('../TranslationTable.js')
 const Constants = require('../Constants.js')
-const Store = require('../Store.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const ColumnTooltipListItem = require('./ColumnTooltipListItem.jsx')
 
-const store = Store() 
 
 class ColumnTooltip extends React.Component {
 

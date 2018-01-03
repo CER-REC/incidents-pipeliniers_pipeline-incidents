@@ -146,7 +146,7 @@ class Workspace extends React.Component {
         style = { {height: `${Constants.getIn(['topBar', 'height'])}px`} }
       >
         <Header />
-        <SocialBar/>
+       
       </div>
 
       <div
@@ -169,9 +169,11 @@ class Workspace extends React.Component {
           </svg>
           {this.columnTooltip()}
         </div>
+        <SocialBar/>
       </div>
       { this.storyContent() }
       <AboutWindow />
+
     </div>
   }
 }

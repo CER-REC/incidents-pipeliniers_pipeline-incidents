@@ -31,10 +31,10 @@
     z-index: $workspace-z;
   }
 
-  .focus {
-      outline: auto 5px -webkit-focus-ring-color;
-  }
 
+  :-moz-focusring {
+    outline: 3px solid #72ffff;
+  }
 
 }
 
