@@ -519,12 +519,12 @@ const TranslationTable = Immutable.fromJS({
     },
     province: {
       title: {
-        en: 'PROVINCES',
-        fr: 'PROVINCES',
+        en: 'REGION',
+        fr: 'RÉGION',
       },
       description: {
-        en: 'The province where the incident occurred.',
-        fr: 'La province où l’incident est survenu.',
+        en: 'The region where the incident occurred. ',
+        fr: 'La region où l’incident est sourvenu.',
       },
       detail: {
         en: [],
@@ -819,8 +819,8 @@ const TranslationTable = Immutable.fromJS({
       fr: 'ÉTAT',
     },
     province: {
-      en: 'PROVINCES',
-      fr: 'PROVINCES',
+      en: 'REGION',
+      fr: 'RÉGION',
     },
     substance: {
       en: 'SUBSTANCE',

@@ -173,7 +173,6 @@ class Workspace extends React.Component {
       </div>
       { this.storyContent() }
       <AboutWindow />
-
     </div>
   }
 }

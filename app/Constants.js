@@ -3,9 +3,7 @@ const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
   storyBarID: 'storyBar',
-  aboutThisProjectID: 'aboutThisProject',
   disclaimerID: 'disclaimer',
-  dataDisclaimerID: 'dataDisclaimerWindow',
   customToolTipID: 'customToolTip',
 
   workspace: {
