@@ -579,7 +579,7 @@ class Column extends React.Component {
   }
 
   sidebarKeyDown(event) {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowLeft') {
       event.preventDefault(event)
       this.handleMouseClick(event)
     }
@@ -775,7 +775,6 @@ class Column extends React.Component {
         transform={this.columnTransform()}
       >
         <g>
-          {this.questionMark()}
           <text tabIndex = '0' 
             aria-label = {this.props.columnName}
             onKeyDown = {this.columnKeyDown.bind(this)}>
@@ -783,6 +782,7 @@ class Column extends React.Component {
           <text>
             {this.barSubHeading()}
           </text>
+          {this.questionMark()}
         </g>
         { this.columnPaths() }
         { this.selectedColumnPaths() }

@@ -13,7 +13,6 @@ class Disclaimer extends React.Component {
   closeButtonClick() {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`,'Data Disclaimer Close Button')
     this.props.disclaimerDismissed()
-    document.getElementById(Constants.get('dataDisclaimerWindowID'))
     document.querySelector('.dataDisclaimerText').focus()
   }
 
@@ -55,13 +54,8 @@ class Disclaimer extends React.Component {
     }
   }
 
-  componentDidMount() {
-
-  }
-
   componentDidUpdate() {
     if(this.props.disclaimer) {
-      document.getElementById(Constants.get('disclaimerID'))
       const disclaimer = document.querySelector('.disclaimerCloseButton')
       disclaimer.focus()
       window.scrollTo(0,0)

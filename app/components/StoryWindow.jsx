@@ -137,7 +137,6 @@ class StoryWindow extends React.Component {
       y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
       onClick = {this.closeButtonClick.bind(this)}
       tabIndex = '0'
-      aria-label = 'story close button'
       onKeyDown = {this.closeButtonKeyDown.bind(this)}/>
   }
 
@@ -157,10 +156,6 @@ class StoryWindow extends React.Component {
       tabIndex = '0'
       role = 'button'
       onKeyDown = {this.tutorialImageKeyDown.bind(this) }/>
-  }
-
-  componentDidMount() {
-    document.getElementById('storyWindowID')
   }
 
   componentDidUpdate() {

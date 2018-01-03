@@ -17,7 +17,6 @@ class AboutWindow extends React.Component {
     e.preventDefault()
     this.props.onCloseButtonClicked()
 
-    document.getElementById(Constants.get('aboutThisProjectID'))
     document.querySelector('.aboutThisProject').focus()
   }
 
@@ -147,10 +146,6 @@ class AboutWindow extends React.Component {
         </span>
       </p>
     </div>    
-  }
-
-  componentDidMount() {
-    document.getElementById(Constants.get('aboutContentID'))
   }
 
   componentDidUpdate() {
