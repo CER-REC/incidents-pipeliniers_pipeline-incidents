@@ -923,7 +923,7 @@ const TranslationTable = Immutable.fromJS({
       },
       description: {
         en: 'The region where the incident occurred. ',
-        fr: 'La region où l’incident est sourvenu.',
+        fr: 'La région où l’incident est survenu.',
       },
       detail: {
         en: [],
