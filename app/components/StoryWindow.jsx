@@ -36,6 +36,13 @@ class StoryWindow extends React.Component {
     this.props.onCloseButtonClicked()
   }
 
+  closeButtonKeyDown(event) {
+    if(event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.closeButtonClick(event)
+    }
+  }
+
   tutorialImageClicked(e) {
     // Only listen to clicks if this is the last image
     // in the tutorial.
@@ -100,6 +107,14 @@ class StoryWindow extends React.Component {
    
   }
 
+  tutorialImageKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      event.stopPropagation()
+      this.tutorialImageClicked(event)
+    }
+  }
+ 
   border() {
     return <rect 
       width = { this.props.viewport.get('x') - 
@@ -120,7 +135,9 @@ class StoryWindow extends React.Component {
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       x={StoryComputations.storyCloseButtonX(this.props.viewport)}
       y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
-      onClick = {this.closeButtonClick.bind(this)}/>
+      onClick = {this.closeButtonClick.bind(this)}
+      tabIndex = '0'
+      onKeyDown = {this.closeButtonKeyDown.bind(this)}/>
   }
 
   tutorialImage(currentImageIndex, imageList) {
@@ -135,7 +152,22 @@ class StoryWindow extends React.Component {
       y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
         Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       xlinkHref={imageList[currentImageIndex]}
-      onClick={this.tutorialImageClicked.bind(this)}/>
+      onClick={this.tutorialImageClicked.bind(this)}
+      tabIndex = '0'
+      role = 'button'
+      onKeyDown = {this.tutorialImageKeyDown.bind(this) }/>
+  }
+
+  componentDidUpdate() {
+    if(this.props.story.get('isActive')) {
+      document.querySelector('.storyWindow').focus()
+    }
+  }
+
+  onEscapeKeyDown(event) {
+    if(event.key === 'Escape') {
+      this.closeButtonClick(event)
+    }
   }
 
   preventDismissal(e) {
@@ -150,7 +182,8 @@ class StoryWindow extends React.Component {
     const currentImageIndex = this.props.storyImage
 
     return <div onClick = {this.preventDismissal.bind(this)}
-      className='storyWindow'>
+      className='storyWindow'
+      role = 'button' tabIndex = '0' onKeyDown = {this.onEscapeKeyDown.bind(this)}>
       <svg 
         width = { this.props.viewport.get('x')} 
         height = {StoryComputations.storyWindowHeight(this.props.viewport)}>

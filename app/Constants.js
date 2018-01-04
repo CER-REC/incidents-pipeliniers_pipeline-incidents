@@ -3,6 +3,8 @@ const Immutable = require('immutable')
 
 const Constants = Immutable.fromJS({
   storyBarID: 'storyBar',
+  disclaimerID: 'disclaimer',
+  customToolTipID: 'customToolTip',
 
   workspace: {
     maxWidth: 1138,

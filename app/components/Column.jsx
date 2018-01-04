@@ -18,6 +18,7 @@ const DragSidebarColumnEndedCreator = require('../actionCreators/DragSidebarColu
 const DragSidebarColumnCreator = require('../actionCreators/DragSidebarColumnCreator.js')
 const AddColumnAtPositionCreator = require('../actionCreators/AddColumnAtPositionCreator.js')
 const ColumnTooltipSummonedCreator = require('../actionCreators/ColumnTooltipSummonedCreator.js')
+const SetColumnsToCreator = require('../actionCreators/SetColumnsToCreator.js')
 const ColumnPaths = require('./ColumnPaths.jsx')
 const SelectedColumnPaths = require('./SelectedColumnPaths.jsx')
 const Category = require('./Category.jsx')
@@ -161,7 +162,12 @@ class Column extends React.Component {
       height={Constants.getIn(['questionMark', 'size'])} 
       x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftMargin')} 
       y={questionMarkY}
-      onClick={this.questionMarkClick.bind(this)}/>
+      onClick={this.questionMarkClick.bind(this)}
+      tabIndex = '0'
+      aria-label = {`${this.props.columnName} 'Question Mark Tool Tip'`}
+      role = 'button' 
+      onKeyDown = { this.questionMarKeyDown.bind(this) }
+    />
   }
 
   questionMarkClick(e) {
@@ -169,6 +175,14 @@ class Column extends React.Component {
     e.stopPropagation(e)
     e.preventDefault(e)
     this.props.onQuestionMarkClick(this.props.columnName)
+  }
+
+  questionMarKeyDown(event) {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.stopPropagation(event)
+      event.preventDefault(event)
+      this.questionMarkClick(event)
+    }
   }
 
   barSubHeading() {
@@ -224,12 +238,15 @@ class Column extends React.Component {
       width = {Constants.getIn(['dragArrow', 'width'])}
       x= {WorkspaceComputations.dragArrowX(this.props.columns, columnMeasurements.get('x'))}
       y= { dragArrowY }
+      tabIndex = '0'
+      role = 'button'
       onMouseDown={this.handleDragStart.bind(this)}
       onMouseMove={this.handleDragMove.bind(this)}
       onMouseUp={this.handleDragEnd.bind(this)}
       onTouchStart = { this.handleTouchStart.bind(this) }
       onTouchMove = { this.handleTouchMove.bind(this) }
       onTouchEnd = { this.handleTouchEnd.bind(this) }
+      onKeyDown = { this.columnKeyDown.bind(this) }
     >
     </image>
   }
@@ -398,7 +415,7 @@ class Column extends React.Component {
     e.stopPropagation()
     e.preventDefault()
 
-    // No need to fire unneeded evenets if drag hasn't started.
+    // No need to fire unneeded events if drag hasn't started.
     if(!this.props.columnDragStatus.get('isStarted')) return
 
     this.props.onColumnDragEnded(false)
@@ -416,13 +433,53 @@ class Column extends React.Component {
     e.stopPropagation()
     e.preventDefault()
 
-    // No need to fire unneeded evenets if drag hasn't started.
+    // No need to fire unneeded events if drag hasn't started.
     if(!this.props.columnDragStatus.get('isStarted')) return
 
     this.props.onColumnDragEnded(false)
     const newX = this.props.columnDragStatus.get('newX') - 
                  this.props.columnDragStatus.get('offset')
     this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
+
+  }
+
+  columnKeyDown(event) {
+    if ((event.key !== 'ArrowLeft') && (event.key !== 'ArrowRight')) {
+      return
+    }
+
+    // To avoid horizontal page scroll
+    event.preventDefault()
+
+    let swap = null
+
+    if (event.key === 'ArrowLeft') {
+      swap = -1
+    }
+    else if (event.key === 'ArrowRight') {
+      swap = 1
+    }
+
+    const columnIndex = this.props.columns.indexOf(this.props.columnName)
+
+    if ((columnIndex + swap) < 0) {
+      // Can't move the column to the left any further
+      return
+    }
+    else if ((columnIndex + swap) >= this.props.columns.count()) {
+      // Send the column back to the sidebar
+      this.props.onColumnArrowKeyDown(this.props.columns.pop())
+      return
+    }
+
+    const columnNameToSwap = this.props.columns.get(columnIndex + swap)
+
+    // Swap the current column with its neighbour
+    let newColumns = this.props.columns.set(columnIndex, columnNameToSwap)
+    newColumns = newColumns.set(columnIndex + swap, this.props.columnName)
+
+    this.props.onColumnArrowKeyDown(newColumns)
+
 
   }
 
@@ -514,6 +571,13 @@ class Column extends React.Component {
     if(!this.props.sidebarDragStatus.get('isStarted')) return
 
     this.props.onSidebarDrag(e.touches[0].clientX)
+  }
+
+  sidebarKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowLeft') {
+      event.preventDefault(event)
+      this.handleMouseClick(event)
+    }
   }
 
   handleMouseEnter() {
@@ -613,7 +677,11 @@ class Column extends React.Component {
         x={ this.props.columnX }
         y={ this.props.columnY }
         fill='#1CD1C8'
-        stroke='#1CD1C8'></rect>
+        stroke='#1CD1C8'
+        tabIndex = '0'
+        role = 'button'
+        onKeyDown = { this.sidebarKeyDown.bind(this) }
+      ></rect>
       <image
         xlinkHref='images/mapColumn.png' 
         height={ this.props.columnHeight - Constants.getIn(['sidebarMapColumn','heightPadding']) }
@@ -683,6 +751,10 @@ class Column extends React.Component {
           <g
             className="sidebar"
             id={this.props.columnName}
+            tabIndex = '0'
+            role = 'button'
+            aria-label = {this.props.columnName}
+            onKeyDown = { this.sidebarKeyDown.bind(this) }
           >
             {this.sideBarColumn()}
           </g>
@@ -698,8 +770,11 @@ class Column extends React.Component {
         transform={this.columnTransform()}
       >
         <g>
+          <text tabIndex = '0' 
+            aria-label = {this.props.columnName}
+            onKeyDown = {this.columnKeyDown.bind(this)}>
+            {this.barHeading()}</text>
           <text>
-            {this.barHeading()}
             {this.barSubHeading()}
           </text>
           {this.questionMark()}
@@ -775,6 +850,9 @@ const mapDispatchToProps = dispatch => {
     },
     onQuestionMarkClick: (columnName) => {
       dispatch(ColumnTooltipSummonedCreator(columnName))
+    },
+    onColumnArrowKeyDown: (columnNames) => {
+      dispatch(SetColumnsToCreator(columnNames))
     },
   }
 }

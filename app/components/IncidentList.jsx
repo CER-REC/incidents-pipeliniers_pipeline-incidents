@@ -38,6 +38,12 @@ class IncidentList extends React.Component {
     </div>
   }
 
+  incidentListKeyDown(event) {
+    if(event.key === 'Escape') {
+      document.querySelector('.incidentListShowHide').focus()
+    }
+  }
+
   incidentList() {
     if (!this.props.showIncidentList) {
       return null
@@ -47,11 +53,12 @@ class IncidentList extends React.Component {
       return null
     }
     else {
-      return <div 
+      return <div tabIndex='0'  
         className = 'incidentListScrollPane'
         style = { this.scrollPaneStyle() }
         ref = { element => this.scrollPane = element }
         onScroll = { this.onListScroll.bind(this) }
+        onKeyDown = {this.incidentListKeyDown.bind(this)}
       >
         <ul>{ this.incidents() }</ul>
       </div>

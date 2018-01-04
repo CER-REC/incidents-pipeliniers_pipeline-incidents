@@ -140,6 +140,13 @@ class Category extends React.Component {
     }
   }
 
+  categoryKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.categoryLabelClick()
+    }
+  }
+
   labelLines() {
 
     switch(this.props.columnName) {
@@ -235,6 +242,12 @@ class Category extends React.Component {
     }
   }
 
+  handleSidebarAccessibility() {
+    if(this.props.columnType !== Constants.getIn(['columnTypes', 'SIDEBAR'])) {
+      return 0
+    }
+  }
+
   render() {
     const transformString = `translate(${this.props.x}, ${this.props.y})`
     
@@ -258,6 +271,10 @@ class Category extends React.Component {
           height={this.props.height}
           fill={this.props.colour}
           onClick = { this.categoryLabelClick.bind(this) }
+          tabIndex = {this.handleSidebarAccessibility()}
+          role = 'button'
+          aria-label = {this.props.schema.getIn([this.props.columnName, this.props.categoryName, this.props.language])}
+          onKeyDown = { this.categoryKeyDown.bind(this) } 
           stroke={this.strokeColour()}
           strokeWidth={ this.strokeWidth() }
           className = 'categoryRect'

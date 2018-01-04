@@ -18,6 +18,13 @@ class Story extends React.Component {
     this.props.onStoryClicked(this.props.id)
   }
 
+  storyKeyDown(event) {
+    if(event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.storyClicked(event)
+    }
+  }
+
   render() {
     const storyWidth = this.props.viewport.get('x') * 
       Constants.getIn(['storyThumbnailDimensions', 'widthPercentage'])
@@ -29,9 +36,17 @@ class Story extends React.Component {
       height: storyHeight,
     }
 
+    // NB: .story class on this div is used for accessibility purposes, see 'tell me a story' event handlers
     return <div 
       className={`${this.props.position} story`}
       style={storyStyle}
+      id={this.props.position}
+      onClick = { this.storyClicked.bind(this) }
+      tabIndex = '0'
+      role = 'button'
+      aria-label = {Tr.getIn(['stories', this.props.id, 'backgroundImage', this.props.language])}
+      onKeyDown = {this.storyKeyDown.bind(this)}
+      ref={ (story) => this.storySelect = story } 
       onClick = { this.storyClicked.bind(this) }>
       <svg
         width='100%'

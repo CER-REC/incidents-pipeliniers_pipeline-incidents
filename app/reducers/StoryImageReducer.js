@@ -8,9 +8,9 @@ const StoryImageReducer = (state = defaultState, action) => {
     return action.storyImage
 
   case 'NextImage':
-    if(state < action.count - 1) 
+    if(state < action.count - 1)
       return state+1
-    else
+    else 
       return state
 
   case 'StoryDismissed':

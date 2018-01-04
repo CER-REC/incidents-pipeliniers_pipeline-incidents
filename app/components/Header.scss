@@ -1,4 +1,5 @@
 @import "../styles/Colours.scss";
+@import "../styles/Fonts.scss";
 
 .headerBarBackground {
   fill: $socialBarBackground;
@@ -9,7 +10,14 @@
   fill: $socialBarBackground;
 }
 
-.headerButtonLabel {
+.headerButtonLabel {  
+  cursor: pointer;
+  text-anchor: end;
+}
+
+.aboutThisProject {
+  font-family: $fira-sans-condensed-semibold;
+  fill: $socialBarBackground;
   cursor: pointer;
   text-anchor: end;
 }
@@ -25,6 +33,10 @@
 
 .headingContainer {
   position: relative;
+}
+
+.dataDisclaimerText {
+  
 }
 
 a {

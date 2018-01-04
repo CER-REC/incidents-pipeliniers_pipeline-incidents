@@ -44,6 +44,15 @@ class IncidentListItem extends React.Component {
     }
   }
 
+  incidentItemKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.incidentItemClick()
+    } else if(event.key === 'Escape') {
+      document.querySelector('.incidentListScrollPane').focus()
+    }
+  }
+
   incidentStarClick(event) {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,`${this.props.incident.get('incidentNumber')} starred/unstarred`)
     // Don't propagate this click event to the parent list item.
@@ -54,6 +63,13 @@ class IncidentListItem extends React.Component {
     }
     else {
       this.props.addToPinnedIncidents(this.props.incident)
+    }
+  }
+
+  incidentStarKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.incidentStarClick(event)
     }
   }
 
@@ -87,11 +103,23 @@ class IncidentListItem extends React.Component {
       onClick = { this.incidentItemClick.bind(this) }
       onMouseEnter = { this.mouseEnter.bind(this) }
       onMouseLeave = { this.mouseLeave.bind(this) }
+      tabIndex = '0'
+      role = 'button'
+      aria-label = { `incident number: ${this.props.incident.get('incidentNumber')}
+        incident nearest population: ${this.props.incident.get('nearestPopulatedCentre') }
+        reported date: ${this.props.incident.get('reportedDate').format('MM/DD/YYYY') }`}
+      onKeyDown = { this.incidentItemKeyDown.bind(this) } 
     >
 
       <div 
         className = "starContainer"
         onClick = { this.incidentStarClick.bind(this) }
+        tabIndex = '0'
+        role = 'button'
+        onKeyDown = { this.incidentStarKeyDown.bind(this) } 
+        aria-label = { `star incident number: ${this.props.incident.get('incidentNumber')}
+        incident nearest population: ${this.props.incident.get('nearestPopulatedCentre') }
+        reported date: ${this.props.incident.get('reportedDate').format('MM/DD/YYYY') }`}
       >
         <img src = { this.starImage() } ></img>
       </div>
