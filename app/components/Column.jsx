@@ -151,16 +151,11 @@ class Column extends React.Component {
 
     let questionMarkY = WorkspaceComputations.barHeading() -
       Constants.getIn(['questionMark', 'size'])  - 
-      Constants.getIn(['questionMark', 'yOffset'])
-
-    const headingPieces = StringComputations.splitHeading(TranslationTable.getIn(['columnHeadings', this.props.columnName, this.props.language]), Constants.getIn(['sidebar', 'maxLineLength', this.props.language]))
-
-    if (headingPieces.length === 1) {
-      questionMarkY += Constants.get('columnHeadingLineOffset')
-    }
+      Constants.getIn(['questionMark', 'yOffset']) +
+      Constants.get('columnHeadingLineOffset') // Bottom-align to the text
 
     return <image 
-      id={this.props.columnName + '-QuestionMark'}
+      id={`${this.props.columnName}-QuestionMark`}
       className= 'questionMark'
       xlinkHref="images/large_qmark.svg" 
       width={Constants.getIn(['questionMark', 'size'])} 

@@ -18,33 +18,59 @@ WorkspaceComputations.columnTooltipPosition = function(columnTooltip, language, 
     categories)
 
   // Initial column horizontal coordinate.
-  let x = 0
-  switch(columnTooltip.get('columnName')) {
-  case 'pinColumn': 
-    x = columnMeasurements.get('pinColumn').get('x') + Constants.getIn(['pinColumn', 'columnToolTipXOffset'])
-    break
-  default:
-    x = columnMeasurements.getIn(['columns', columnTooltip.get('columnName')]).get('x')
-        + Constants.get('columnHeadingLeftMargin')
-  }
+  const columnMeasurement = (columnTooltip.get('columnName') === 'pinColumn')
+    ? columnMeasurements.get('pinColumn')
+    : columnMeasurements.getIn(['columns', columnTooltip.get('columnName')])
 
-  // Update the horizontal coordinate with the label + question
-  // mark icon sizes.
-  x += Constants.getIn(['questionMark', 'size'])
+  // Center the tooltip over the column
+  const x = (columnMeasurement.get('x') + (columnMeasurement.get('width') / 2)) -
+    (Constants.getIn(['columnTooltip', 'width']) / 2)
 
-  // Align the horizontal coordinate to avoid extending the tooltip
-  // beyond the workspace width.
-  /*if(x + Constants.getIn(['columnTooltip', 'width']) > viewport.get('x'))
-    x -= Constants.getIn(['columnTooltip', 'width'])*/
+  const y = (
+    columnMeasurements.getIn(['workspace', 'height']) -
+    195 // TODO: How does the top section work out to 195px?
+    //WorkspaceComputations.topBarHeight() -
+    //Constants.getIn(['headerBar', 'height'])
+  )
 
-  const y = - (columnMeasurements.getIn(['workspace', 'height']) - 
-    WorkspaceComputations.topBarHeight())
-
+  // TODO: Change this to a single instantiation of the map
   let position = Immutable.Map()
   position = position.set('x', x)
   position = position.set('y', y)
 
   return position
+}
+
+WorkspaceComputations.columnTooltipIndicatorPosition = function(columnTooltip, language, showEmptyCategories, viewport, data, columns, categories) {
+  const columnMeasurements = WorkspaceComputations.horizontalPositions(
+    showEmptyCategories,
+    viewport,
+    data,
+    columns,
+    categories)
+
+  // TODO: How does the top section work out to 195px?
+  const y = columnMeasurements.getIn(['workspace', 'height']) - 215
+
+  // Initial column horizontal coordinate.
+  if (columnTooltip.get('columnName') === 'pinColumn') {
+    return new Immutable.Map({
+      x: columnMeasurements.getIn(['pinColumn', 'x']) +
+        Constants.get('columnHeadingLeftPadding') +
+        (Constants.getIn(['questionMark', 'size']) / 2),
+      y,
+    })
+  }
+
+  const columnMeasurement =
+    columnMeasurements.getIn(['columns', columnTooltip.get('columnName')])
+
+  return new Immutable.Map({
+    x: columnMeasurement.get('x') -
+      (Constants.getIn(['questionMark', 'size']) / 2) -
+      Constants.getIn(['questionMark', 'xOffset']),
+    y,
+  })
 }
 
 // Is the map on display?
