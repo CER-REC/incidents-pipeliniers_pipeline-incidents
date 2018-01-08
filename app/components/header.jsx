@@ -238,8 +238,8 @@ class Header extends React.Component {
 
   render() {
     return <div className = 'headingContainer'>
-      { this.leftHeading() }
       { this.rightButtons() }
+      { this.leftHeading() }
     </div>
   }
 }

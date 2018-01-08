@@ -42,6 +42,13 @@ const StoryComputations = {
 
   },
 
+  storyArrowButtonY(viewport) {
+    return (viewport.get('y') - 
+      Constants.getIn(['storyThumbnailDimensions', 'windowYOffset']) -
+      Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize']))/2
+  },
+
+
 }
 
 
