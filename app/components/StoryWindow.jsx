@@ -90,6 +90,13 @@ class StoryWindow extends React.Component {
     this.props.onNextTutorialImageClick(imageList.length)
   }
 
+  nextButtonKeyDown(event) {
+    if(event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.nextButtonClick(event)
+    }
+  }
+
   backButtonClick(e) {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Back Button')
     e.stopPropagation()
@@ -97,6 +104,13 @@ class StoryWindow extends React.Component {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     this.props.onPreviousTutorialImageClick(imageList.length)
+  }
+
+  previousButtonKeyDown(event) {
+    if(event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.backButtonClick(event)
+    }
   }
 
   indicatorDots() {
@@ -162,25 +176,31 @@ class StoryWindow extends React.Component {
   leftArrow(currentImageIndex) {
     const active = (currentImageIndex < 1)? 'inactive' : 'active'
     return <image
+      tabIndex = '0'
+      role = 'button'
       className={active}
       xlinkHref={`images/left-arrow-${active}.svg`}
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
       y={StoryComputations.storyArrowButtonY(this.props.viewport)}
-      onClick={this.backButtonClick.bind(this)}/>
+      onClick={this.backButtonClick.bind(this)}
+      onKeyDown = {this.previousButtonKeyDown.bind(this)}/>
   }
 
   rightArrow(currentImageIndex, imageList) {
     const active = (currentImageIndex >= imageList.length-1)? 'inactive' : 'active'
     return <image
+      tabIndex = '0'
+      role = 'button'
       className={active}
       xlinkHref={`images/right-arrow-${active}.svg`}
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       x={StoryComputations.storyCloseButtonX(this.props.viewport)}
       y={StoryComputations.storyArrowButtonY(this.props.viewport)}
-      onClick={this.nextButtonClick.bind(this)}/>
+      onClick={this.nextButtonClick.bind(this)}
+      onKeyDown = {this.nextButtonKeyDown.bind(this)}/>
   }
 
   tutorialImage(currentImageIndex, imageList) {
