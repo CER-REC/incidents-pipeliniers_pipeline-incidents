@@ -10,6 +10,7 @@ const Tr = require('../TranslationTable.js')
 const StoryComputations = require('../StoryComputations.js')
 const RouteComputations = require('../RouteComputations.js')
 const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
+const StoryPreviousImageCreator = require('../actionCreators/StoryPreviousImageCreator.js')
 const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
 const ActivateStoryImageCreator = require('../actionCreators/ActivateStoryImageCreator.js')
 const SetFromRouterStateCreator = require('../actionCreators/SetFromRouterStateCreator.js')
@@ -80,6 +81,24 @@ class StoryWindow extends React.Component {
     this.props.onCloseButtonClicked()
   }
 
+  nextButtonClick(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Next Button')
+    e.stopPropagation()
+    e.preventDefault()
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    this.props.onNextTutorialImageClick(imageList.length)
+  }
+
+  backButtonClick(e) {
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Back Button')
+    e.stopPropagation()
+    e.preventDefault()
+    const story = Tr.getIn(['stories', this.props.story.get('storyID')])
+    const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
+    this.props.onPreviousTutorialImageClick(imageList.length)
+  }
+
   indicatorDots() {
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language])
@@ -140,6 +159,30 @@ class StoryWindow extends React.Component {
       onKeyDown = {this.closeButtonKeyDown.bind(this)}/>
   }
 
+  leftArrow(currentImageIndex) {
+    const active = (currentImageIndex < 1)? 'inactive' : 'active'
+    return <image
+      className={active}
+      xlinkHref={`images/left-arrow-${active}.svg`}
+      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset'])}
+      y={StoryComputations.storyArrowButtonY(this.props.viewport)}
+      onClick={this.backButtonClick.bind(this)}/>
+  }
+
+  rightArrow(currentImageIndex, imageList) {
+    const active = (currentImageIndex >= imageList.length-1)? 'inactive' : 'active'
+    return <image
+      className={active}
+      xlinkHref={`images/right-arrow-${active}.svg`}
+      width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      height={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
+      x={StoryComputations.storyCloseButtonX(this.props.viewport)}
+      y={StoryComputations.storyArrowButtonY(this.props.viewport)}
+      onClick={this.nextButtonClick.bind(this)}/>
+  }
+
   tutorialImage(currentImageIndex, imageList) {
     const isActive = 'active'
 
@@ -191,7 +234,8 @@ class StoryWindow extends React.Component {
         {this.border()}
         {this.closeButton()}
         {this.tutorialImage(currentImageIndex, imageList)}
-
+        {this.leftArrow(currentImageIndex)}
+        {this.rightArrow(currentImageIndex, imageList)}
         {this.indicatorDots()}
 
       </svg>
@@ -222,6 +266,9 @@ const mapDispatchToProps = dispatch => {
     },
     onActivateStoryImageClicked: (indicatorDotIndex) => {
       dispatch(ActivateStoryImageCreator(indicatorDotIndex))
+    },
+    onPreviousTutorialImageClick: (count) => {
+      dispatch(StoryPreviousImageCreator(count))
     },
     updateVisualization: (storyState) => {
       dispatch(SetFromRouterStateCreator(storyState))
