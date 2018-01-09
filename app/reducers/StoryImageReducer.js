@@ -13,6 +13,11 @@ const StoryImageReducer = (state = defaultState, action) => {
     else 
       return state
 
+  case 'PreviousImage':
+    if(state < 1)
+      return 0
+    return state-1
+
   case 'StoryDismissed':
     return defaultState
 
