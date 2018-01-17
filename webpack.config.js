@@ -1,4 +1,4 @@
-// const Webpack = require('webpack')
+const Webpack = require('webpack')
 const Path = require('path')
 const DotenvWebpack = require('dotenv-webpack')
 
@@ -7,14 +7,20 @@ const BUILD_DIR = Path.resolve(__dirname, 'public/script')
 
 module.exports = {
   entry: {
-    bundle: ['./app/app.jsx']
+    bundle: [
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client?path=/pipeline-incidents/script/__webpack_hmr',
+      './app/app.jsx',
+    ],
     // bundle: ['webpack-hot-middleware/client', './app/app.jsx'] // , 'webpack/hot/dev-server'
     // html: './app/app.html'
   },
   output: {
     path: BUILD_DIR,
+    publicPath: '/pipeline-incidents/script/',
     filename: '[name].js',
   },
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
@@ -23,7 +29,8 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react']
+            presets: ['env', 'react'],
+            plugins: ['react-hot-loader/babel'],
           }
         }
       },
@@ -52,8 +59,7 @@ module.exports = {
   // NB: Plugins object is *replaced* in production!
   // See webpack.prod.config.js
   plugins: [
-    // new Webpack.HotModuleReplacementPlugin(),
-    // new Webpack.NoErrorsPlugin()
+    new Webpack.HotModuleReplacementPlugin(),
     new DotenvWebpack({
       path: './.env.dev'
     })

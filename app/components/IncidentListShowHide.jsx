@@ -53,11 +53,20 @@ class IncidentListShowHide extends React.Component {
     }
   }
 
+
+  showTextKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.props.onClick()
+    }
+  }
+
   incidentListShowHideAnalytics() {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,'Show/Hide Incident List')
     this.props.onClick(
       this.props.showImage,
       this.props.showText)
+
   }
 
   render() {
@@ -66,9 +75,18 @@ class IncidentListShowHide extends React.Component {
 
     let transformShowHide = `translate(${Constants.get('showHideLeftMargin')}, ${yTransform})`
     return ( 
-      <g transform = {transformShowHide} onClick={this.incidentListShowHideAnalytics.bind(this)} className="emptyCategories"> 
-        {this.showImage()}
-        {this.showText()}
+
+      <g transform = {transformShowHide} onClick={this.incidentListShowHideAnalytics.bind(this)} className="emptyCategories">
+        <g className = 'incidentListShowHide'
+          tabIndex = '0'
+          role = 'button'
+          aria-label = {Tr.getIn(['showIncidentList', this.props.language])}
+          onKeyDown = { this.showTextKeyDown.bind(this) }> 
+          {this.showText()}
+        </g>
+        <g>
+          {this.showImage()}
+        </g>
       </g>
     )
   }

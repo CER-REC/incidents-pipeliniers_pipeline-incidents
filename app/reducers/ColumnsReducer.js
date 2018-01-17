@@ -102,13 +102,12 @@ const ColumnsReducer = (state = defaults, action) => {
 
   case 'SetColumnsTo': {
     const columnNames = Constants.get('columnNames')
-
     // Only permit valid column names
     const validatedColumnNames = action.columnNames.filter( columnName => {
-      columnNames.contains(columnName)      
+      return columnNames.contains(columnName)      
     })
 
-    return Immutable.List(validatedColumnNames)
+    return validatedColumnNames
   }
 
   case 'SnapColumn': {

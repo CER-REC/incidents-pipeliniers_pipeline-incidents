@@ -4,6 +4,7 @@ const ReactDOM = require('react-dom')
 const DomReady = require('domready')
 const ReactRedux = require('react-redux')
 const React = require('react')
+const ReactHotLoader = require('react-hot-loader')
 
 const Constants = require('./Constants.js')
 const Root = require('./components/Root.jsx')
@@ -26,17 +27,19 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 
-let dataLoadPromise
+const dataLoadPromise = DataLoader.loadFromDataService(store, document.location);
 
-switch (Constants.get('dataMode')) {
-case 'dataService': 
-  dataLoadPromise = DataLoader.loadFromDataService(store, document.location)
-  break
-case 'csvFile': 
-  dataLoadPromise = DataLoader.loadDataCsv(store)
-  break
+function render(Component) {
+  const app = (
+    <ReactHotLoader.AppContainer>
+      <ReactRedux.Provider store={store}>
+        <Component />
+      </ReactRedux.Provider>
+    </ReactHotLoader.AppContainer>
+  )
+
+  ReactDOM.render(app, document.getElementById('reactRoot'))
 }
-
 
 DomReady( () => {
   store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
@@ -49,11 +52,7 @@ DomReady( () => {
     window.addEventListener('resize', resizeScreenHandler)
     window.addEventListener('click', windowClickHandler)
 
-    const app = <ReactRedux.Provider store={store}>
-      <Root />
-    </ReactRedux.Provider>
-
-    ReactDOM.render(app, document.getElementById('reactRoot'))
+    render(Root)
 
   }).catch( (error) => {
     // TODO: Render a nicer error message when the loading procedure fails
@@ -100,9 +99,17 @@ function locationChangeHandler (location, action) {
     showEmptyCategories: routerState.showEmptyCategories,
     pinnedIncidents: routerState.pinnedIncidents,
     language: routerState.language,
+    selectedIncidents: routerState.selectedIncidents,
+    filterboxActivationState: routerState.filterboxActivationState,
     screenshotMode: RouteComputations.screenshotMode(location), 
   }))
 
 
 }
 
+// Webpack Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept('./components/Root.jsx', () => {
+    render(require('./components/Root.jsx'))
+  })
+}

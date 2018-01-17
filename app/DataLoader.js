@@ -1,177 +1,14 @@
 const Request = require('client-request/promise')
-const D3 = require('d3')
 const Moment = require('moment')
 const Immutable = require('immutable')
 const Promise = require('bluebird')
 
 const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
 const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
-const CategoryConstants = require('./CategoryConstants.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
 const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
-
-// TODO: remove the flat file parsing code once we are confident in the data service.
-
-function parseYesNo (value, record) {
-  if (value === 'Yes' || value === 'yes' || value === '1') {
-    return true
-  } 
-  else if (value === 'No' || (value === '' || value === '0')) {
-    // For older incidents, the 'is pipeline system component involved' field is
-    // empty. We're interpret this to mean 'no'.
-    return false
-  }
-  else {
-    console.warn('Error parsing yes/no value. Value "', value, '" Record:', record)
-  }
-}
-
-// TODO: This function requires that there be no space after the comma separating
-// values in a list of items. The export tool was including commas at last run,
-// ensure that the production export tool is altered to not do this.
-// At last writing, this affected the incident types, why it happened, and what 
-// happened columns. It didn't affect pipeline system components involved
-function parseList (record, columnName, value) {
-  if (value === '') {
-    // Calling string.split on an empty string returns an array containing an
-    // empty string, which isn't quite what we want.
-    return []
-  }
-  else {
-    const listItems = value.split(',')
-    return listItems.map( listItem => {
-      const categoryValue = CategoryConstants.getIn(['dataLoaderCategoryNames', columnName, listItem])
-        
-      if (typeof categoryValue === 'undefined') {
-        console.warn(`Error parsing element of list value. Column ${columnName}, Value "${listItem}", Record: `, record)
-        // TODO: This kind of error condition could actually lead to crashes
-        // or other bad behaviour down the line. Should we upgrade the parser
-        // so that it can reject / filter out bad records?
-      }
-      return categoryValue
-    })
-  }
-}
-
-function parseSystemComponentsInvolved (record) {
-
-  const componentsList = parseList(record, 'pipelineSystemComponentsInvolved', record['Pipeline System Components Involved'])
-
-  const wereComponentsInvolved = parseYesNo(record['Were Pipeline System Components Involved?'], record)
-
-  if (componentsList.length > 0) {
-    return componentsList
-  }
-  else if (wereComponentsInvolved === true) {
-    return ['unknown']
-  }
-  else if (wereComponentsInvolved === false) {
-    return ['notApplicable']
-  }
-  else {
-    console.warn('Error parsing system components involved list', record)
-  }
-
-}
-
-
-function volumeCategory(record, volumeString) {
-
-  if (volumeString === 'Not Applicable') {
-    return 'notApplicable'
-  }
-  else if (volumeString === 'Not Provided') {
-    return 'notProvided'
-  }
-
-  const volume = parseFloat(volumeString)
-  
-  if (isNaN(volume) || volume < 0) {
-    console.warn('Bad numeric volume for incident record', record)
-    return 'notProvided'
-  }
-
-  if (volume < 1) {
-    // 'Less Than 1 m³'
-    return 'lessThanOne'
-  }
-  else if (volume < 1000) {
-    // '1 m³ to 1,000 m³'
-    return 'lessThanOneThousand'
-  } 
-  else if (volume < 1000000) {
-    // '1,000 m³ to 1,000,000 m³'
-    return 'lessThanOneMillion'
-  }
-  else {
-    // 'More than 1,000,000 m³'
-    return 'moreThanOneMillion'
-  }
-
-}
-
-function readFloat(record, accessor) {
-
-  const float = parseFloat(record[accessor])
-  
-  if (isNaN(float)) {
-    console.warn(`Bad ${accessor} value for incident record`, record)
-    // TODO: strictly speaking, there are no good return values to use here
-    return 'Not Provided'
-  }
-
-  return float
-
-}
-
-// An entry in a record that should belong to a defined vocabulary
-// For entries:
-// province
-// status
-// substance
-// releaseType
-// pipelinePhase
-function readConstrainedVocabularyString(record, heading, categoryName) {
-
-  const result = CategoryConstants.getIn(['dataLoaderCategoryNames', categoryName, record[heading]])
-
-  if (typeof result === 'undefined') {
-    console.warn(`Bad ${categoryName} value ${record[heading]} for incident record`, record)
-  }
-
-  return result
-
-}
-
-
-// Map from the column names to a friendlier internal format
-function csvColumnMapping (d) {
-
-  return {
-    incidentNumber: d['Incident Number'],
-    incidentTypes: parseList(d, 'incidentTypes', d['Incident Types']),
-    reportedDate: Moment(d['Reported Date'], 'MM-DD-YYYY'),
-    nearestPopulatedCentre: d['Nearest Populated Centre'],
-    province: readConstrainedVocabularyString(d, 'Province', 'province'),
-    company: d['Company'],
-    status: readConstrainedVocabularyString(d, 'Status', 'status'),
-    latitude: readFloat(d, 'Latitude'),
-    longitude: readFloat(d, 'Longitude'), 
-    approximateVolumeReleased: d['Approximate Volume Released (m³)'],
-    volumeCategory: volumeCategory(d, d['Approximate Volume Released (m³)']),
-    substance: readConstrainedVocabularyString(d, 'Substance', 'substance'),
-    releaseType: readConstrainedVocabularyString(d, 'Release Type', 'releaseType'),
-    year: d['Year'],
-    whatHappened: parseList(d, 'whatHappened', d['WhatHappened']),
-    whyItHappened: parseList(d, 'whyItHappened', d['WhyItHappened']),
-    pipelinePhase: readConstrainedVocabularyString(d, 'Pipeline Phase', 'pipelinePhase'),
-    werePipelineSystemComponentsInvolved: parseYesNo(d['Were Pipeline System Components Involved?'], d),
-    pipelineSystemComponentsInvolved: parseSystemComponentsInvolved(d),
-  }
-}
-
 
 // Returns a promise
 function afterLoad (store, data, location) {
@@ -195,6 +32,8 @@ function afterLoad (store, data, location) {
       categories: routerState.categories,
       showEmptyCategories: routerState.showEmptyCategories,
       pinnedIncidents: routerState.pinnedIncidents,
+      selectedIncidents: routerState.selectedIncidents,
+      filterboxActivationState: routerState.filterboxActivationState,
       language: routerState.language,
       screenshotMode: RouteComputations.screenshotMode(location)
     }))
@@ -395,29 +234,6 @@ function validateSystemComponentsInvolved (incident, schema, errors) {
 
 
 const DataLoader = {
-
-  // Load the application data from a single remote CSV file
-  // Returns a promise
-  loadDataCsv (store) {
-
-    const appRoot = RouteComputations.appRoot(document.location, store.getState().language)
-
-    const options = {
-      uri: `${appRoot}data/Incident Visualization Data.csv`,
-    }
-
-    return Request(options)
-      .then(function (response) {
-        const data = D3.csvParse(response.body.toString(), csvColumnMapping)
-
-        return afterLoad(store, data.reverse(), document.location)
-
-      })
-      .catch(function (error) {
-        throw error
-      })
-
-  },
 
 
   // Load the application data from the data service.

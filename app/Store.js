@@ -28,6 +28,7 @@ const AboutReducer = require('./reducers/AboutReducer.js')
 const ColumnTooltipReducer = require('./reducers/ColumnTooltipReducer.js')
 const ColumnTooltipDetailClickReducer = require('./reducers/ColumnTooltipDetailClickReducer.js')
 const AnalyticsReducer = require('./reducers/AnalyticsReducer.js')
+const PopoverReducer = require('./reducers/PopoverReducer.js')
 
 
 const RouterMiddleware = require('./RouterMiddleware.js')
@@ -60,10 +61,17 @@ const reducers = Redux.combineReducers({
   storyImage: StoryImageReducer,
   about: AboutReducer,
   analytics: AnalyticsReducer,
+  popoverReducer: PopoverReducer,
 })
 
 module.exports = function () {
-  return Redux.createStore(reducers, Redux.applyMiddleware(RouterMiddleware))
+  // Enable Redux Dev Tools if they are installed in the browser
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose
+  return Redux.createStore(
+    reducers,
+    composeEnhancers(Redux.applyMiddleware(RouterMiddleware))
+  )
 }
 
 

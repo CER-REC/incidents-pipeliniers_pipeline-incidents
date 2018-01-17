@@ -5,7 +5,7 @@ const Column = require('./Column.jsx')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const Constants = require('../Constants.js')
 
-require('./Sidebar.scss')
+require('./SideBar.scss')
 
 class Sidebar extends React.Component {
 

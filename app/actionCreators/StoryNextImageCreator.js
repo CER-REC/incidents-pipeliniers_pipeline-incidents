@@ -1,4 +1,3 @@
-
 function StoryNextImageCreator (count) {
   return {
     type: 'NextImage',

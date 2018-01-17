@@ -1,5 +1,6 @@
 const React = require('react')
 const ReactRedux = require('react-redux')
+const Immutable = require('immutable')
 
 const Constants = require('../Constants.js')
 
@@ -11,10 +12,12 @@ const DragCategoryStartedCreator = require('../actionCreators/DragCategoryStarte
 const DragCategoryCreator = require('../actionCreators/DragCategoryCreator.js')
 const DragCategoryEndedCreator = require('../actionCreators/DragCategoryEndedCreator.js')
 const SnapCategoryCreator = require('../actionCreators/SnapCategoryCreator.js')
+const SetCategoriesForColumnCreator = require('../actionCreators/SetCategoriesForColumnCreator.js')
 
-const FilterboxButton = require('./FilterBoxButton.jsx')
+const FilterboxButton = require('./FilterboxButton.jsx')
 const Tr = require('../TranslationTable.js')
 
+const CategoryComputations = require('../CategoryComputations.js')
 const FilterboxComputations = require('../FilterboxComputations.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
 const IncidentComputations = require('../IncidentComputations.js')
@@ -47,6 +50,9 @@ class Filterbox extends React.Component {
         imageUrl = 'images/filter.svg'
         text = {Tr.getIn(['showOnly', this.props.language])}
         key = 'showOnly'
+        role = 'button'
+        aria-label = { Tr.getIn(['showOnly', this.props.language]) }
+        keyDownCallback = { this.onShowOnlyKeyDown.bind(this) } 
       />)
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
     }
@@ -59,6 +65,9 @@ class Filterbox extends React.Component {
         imageUrl = 'images/hide_(close).svg'
         text = {Tr.getIn(['hide', this.props.language])}
         key = 'hide'
+        role = 'button'
+        aria-label = { Tr.getIn(['hide', this.props.language]) }
+        keyDownCallback = { this.onHideKeyDown.bind(this) } 
       />)
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
     }
@@ -71,6 +80,9 @@ class Filterbox extends React.Component {
         imageUrl = 'images/reset_arrow.svg'
         text = {Tr.getIn(['reset', this.props.language])}
         key = 'reset'
+        role = 'button'
+        aria-label = { Tr.getIn(['reset', this.props.language]) }
+        keyDownCallback = { this.onResetKeyDown.bind(this) } 
       />)
       currentY += Constants.getIn(['filterbox', 'rectVerticalOffset'])
     }
@@ -92,6 +104,9 @@ class Filterbox extends React.Component {
         className = 'verticalDrag'
         x = { FilterboxComputations.boxWidth(this.props.language) + Constants.getIn(['filterbox', 'dragIconHorizontalOffset']) }
         y = '0'
+        tabIndex = '0'
+        role = 'button'
+        onKeyDown={this.categoryKeyDown.bind(this)}
         width = { Constants.getIn(['filterbox', 'dragIconWidth']) }
         height = { this.buttonHeight() }
         onMouseDown={this.handleDragStart.bind(this)}
@@ -131,6 +146,67 @@ class Filterbox extends React.Component {
     window.addEventListener('mousemove', categoryWindowMoveHandler)
   }
 
+
+  categoryKeyDown(event) {
+    // put up the guards
+    if(event.key !== 'ArrowUp' && event.key !== 'ArrowDown') {
+      return
+    }
+
+    // prevent vertical scrolling
+    event.preventDefault()
+
+    let swap = null
+
+    if(event.key === 'ArrowUp') {
+      swap = -1
+    } else if(event.key === 'ArrowDown') {
+      swap = 1
+    }
+
+    const displayedCategories = CategoryComputations.displayedCategories(
+      this.props.data,
+      this.props.columns,
+      this.props.categories,
+      this.props.columnName)
+
+
+    const displayedCategoryNames = displayedCategories.keySeq()
+
+    const displayedCategoryIndex = displayedCategoryNames.findIndex(k => k === this.props.categoryName)
+
+    if((displayedCategoryIndex + swap) < 0) {
+      // Can't move category up any more
+      return
+    } else if ((displayedCategoryIndex + swap) >= displayedCategories.count()) {
+      // Can't move category down any more
+      return
+    }
+
+    const swapCategoryName = displayedCategoryNames.get(displayedCategoryIndex + swap)
+
+    const columnCategories = this.props.categories.get(this.props.columnName)
+    const oldCategoryNames = columnCategories.keySeq().toList()
+
+    const oldCategoryIndex = oldCategoryNames.findIndex(k => k === this.props.categoryName)
+    const newCategoryIndex = oldCategoryNames.findIndex(k => k === swapCategoryName)
+
+
+    let newCategoryNames = oldCategoryNames.set(oldCategoryIndex, swapCategoryName)
+    newCategoryNames = newCategoryNames.set(newCategoryIndex, this.props.categoryName)
+
+
+    // new ordered map for the swapping categories
+    let newOrderedCategories = Immutable.OrderedMap()
+
+    newCategoryNames.forEach( categoryName => {
+      newOrderedCategories = newOrderedCategories.set(categoryName, columnCategories.get(categoryName))
+    })
+
+    this.props.onCategoryArrowKeyDown(this.props.columnName, newOrderedCategories)
+
+  }
+
   handleDragMove(e) {
     e.stopPropagation()
     e.preventDefault()
@@ -146,7 +222,7 @@ class Filterbox extends React.Component {
     e.stopPropagation()
     e.preventDefault()
 
-    // No need to fire unneeded evenets if drag hasn't started.
+    // No need to fire unneeded events if drag hasn't started.
     if(!this.props.categoryDragStatus.get('isStarted')) return
 
     this.props.onCategoryDragEnded(false)
@@ -207,11 +283,14 @@ class Filterbox extends React.Component {
   }
 
   handleTouchEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} ${this.props.categoryName} touch dragged`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','filterbox'])}`,
+      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])} touch dragged`
+    )
     e.stopPropagation()
     e.preventDefault()
 
-    // No need to fire unneeded evenets if drag hasn't started.
+    // No need to fire unneeded events if drag hasn't started.
     if(!this.props.categoryDragStatus.get('isStarted')) return
 
     this.props.onCategoryDragEnded(false)
@@ -251,18 +330,48 @@ class Filterbox extends React.Component {
   }
 
   onShowOnlyClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} ${this.props.categoryName} only shown`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','filterbox'])}`,
+      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])} only shown`
+    )
     this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
   }
 
+  onShowOnlyKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.onShowOnlyClick()
+    }
+  }
+
   onHideClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} ${this.props.categoryName} hid`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','filterbox'])}`,
+      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])} hid`
+    )
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
 
+  onHideKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.onHideClick()
+    }
+  }
+
   onResetClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`,`${this.props.columnName} reset`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','filterbox'])}`,
+      `${this.props.columnName} reset`
+    )
     this.props.onResetClick(this.props.columnName)
+  }
+
+  onResetKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      this.onResetClick()
+    }
   }
 
   render() {
@@ -289,6 +398,7 @@ const mapStateToProps = state => {
     showEmptyCategories: state.showEmptyCategories,
     viewport: state.viewport,
     analytics: state.analytics,
+    schema: state.schema,
   }
 }
 
@@ -315,6 +425,9 @@ const mapDispatchToProps = dispatch => {
     },
     onCategorySnap: (columnName, categoryName, oldY, newY, categoryHeights) => {
       dispatch(SnapCategoryCreator(columnName, categoryName, oldY, newY, categoryHeights))
+    },
+    onCategoryArrowKeyDown: (columnName, categoryName) => {
+      dispatch(SetCategoriesForColumnCreator(columnName, categoryName))
     }
   }
 }

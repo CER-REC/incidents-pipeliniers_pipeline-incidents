@@ -13,6 +13,22 @@ class Disclaimer extends React.Component {
   closeButtonClick() {
     this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`,'Data Disclaimer Close Button')
     this.props.disclaimerDismissed()
+    document.querySelector('.dataDisclaimerText').focus()
+  }
+
+  closeKeyDown(event) {
+    if (event.key === 'Enter' || event.key === ' ' || event.key === 'Escape') {
+      event.preventDefault()
+      this.closeButtonClick()
+    }
+  }
+
+  closeButton() {
+    return <img
+      className='disclaimerCloseButton'
+      onClick = { this.closeButtonClick.bind(this) }
+      src = 'images/close-2.svg'>
+    </img>
   }
 
   windowStyle() {
@@ -38,30 +54,31 @@ class Disclaimer extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    if(this.props.disclaimer) {
+      const disclaimer = document.querySelector('.disclaimerCloseButton')
+      disclaimer.focus()
+      window.scrollTo(0,0)
+    }
+  }
+
+  preventDismissal(e) {
+    e.stopPropagation()
+  }
+
   render() {
     // Only render when summoned.
     if(!this.props.disclaimer) return null
 
-    return <div 
+    return <div onClick = {this.preventDismissal.bind(this)}
+      id = {Constants.get('disclaimerID')}
       className='disclaimerWindow'
-      style={this.windowStyle()}>
+      style={this.windowStyle()}> 
+      {this.closeButton()}
       <p className='disclaimer star'>*</p>      
       <p className='disclaimer disclaimerText' style={this.textStyle()}>
         {Tr.getIn(['disclaimerText', this.props.language])}
       </p>
-      <svg 
-        width={Constants.getIn(['disclaimer', 'closeButtonRightMargin'])}
-        height={Constants.getIn(['disclaimer', 'closeButtonSize']) + 
-          Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}>
-        <image 
-          className='disclaimerCloseButton'
-          width ={Constants.getIn(['disclaimer', 'closeButtonSize'])} 
-          height = {Constants.getIn(['disclaimer', 'closeButtonSize'])}
-          y={Constants.getIn(['disclaimer', 'closeButtonTopMargin'])}
-          onClick = { this.closeButtonClick.bind(this) }
-          xlinkHref = 'images/close-2.svg'>
-        </image>
-      </svg>
     </div>
   }
 }

@@ -19,7 +19,7 @@ const IncidentListHeadings = require('./IncidentListHeadings.jsx')
 const IncidentContainer = require('./IncidentContainer.jsx')
 const StoryBar = require('./StoryBar.jsx')
 const StoryWindow = require('./StoryWindow.jsx')
-const ColumnTooltip = require('./ColumnTooltip.jsx')
+const ColumnTooltip = require('./ColumnTooltip/')
 const AboutWindow = require('./AboutWindow.jsx')
 
 class Workspace extends React.Component {
@@ -73,9 +73,9 @@ class Workspace extends React.Component {
     }
     else {
       return <g>
+        <IncidentListHeadings />
         <IncidentListShowHide />
         <EmptyCategories />
-        <IncidentListHeadings />
       </g>
     }
   }
@@ -146,7 +146,7 @@ class Workspace extends React.Component {
         style = { {height: `${Constants.getIn(['topBar', 'height'])}px`} }
       >
         <Header />
-        <SocialBar/>
+       
       </div>
 
       <div
@@ -161,19 +161,18 @@ class Workspace extends React.Component {
             className = 'workspaceSvg'
             width = { horizontalPositions.getIn(['workspace', 'width']) }
             height = { horizontalPositions.getIn(['workspace', 'height']) }>
-            <EmptyCategories />
-            <IncidentListHeadings />
            
             { this.incidentListSvg() }
 
-            <SideBar/>
             {this.columns()}
+            <SideBar/>
           </svg>
           {this.columnTooltip()}
         </div>
+        <SocialBar/>
       </div>
       { this.storyContent() }
-      <AboutWindow/>
+      <AboutWindow />
     </div>
   }
 }
