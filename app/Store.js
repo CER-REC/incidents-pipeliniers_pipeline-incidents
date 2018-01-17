@@ -66,8 +66,13 @@ const reducers = Redux.combineReducers({
 
 module.exports = function () {
   // Enable Redux Dev Tools if they are installed in the browser
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose
+  // Also handle the case where the Store is used as an offline script, in
+  // data.js
+  
+  let composeEnhancers = Redux.compose
+  if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  }
   return Redux.createStore(
     reducers,
     composeEnhancers(Redux.applyMiddleware(RouterMiddleware))
