@@ -1,6 +1,10 @@
 // Script to produce data for open.canada.ca
 
 // Switch this to 'production' once the prod data service is live
+// NB: If the latest data is not available from production, you may need to 
+// download it from TEST, put it in a JSON file in public/data, change the
+// downloaded data file in RouteComputations to the new JSON file, and change
+// this environment setting to 'development'
 process.env.NODE_ENV = 'production'
 
 // NB: this list omits elements which are not used by the visualization, and
