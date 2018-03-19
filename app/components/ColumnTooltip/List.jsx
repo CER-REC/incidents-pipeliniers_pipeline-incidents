@@ -34,13 +34,14 @@ class ListTooltip extends SimpleTooltip {
     let i
     for (i = 0; i < columns; i++) {
       const columnItems = items.slice(i * itemsPerColumn, (i + 1) * itemsPerColumn)
+      const columnName = this.props.columnTooltip.get('columnName')
       const renderedItems = columnItems.map(item => {
         return (
           <TooltipListItem
             key={item.get('overview')}
             item={item}
-            columnName={this.props.columnTooltip.get('columnName')}
-            categoryName={item.get('categoryName', '-1')}
+            columnName={columnName}
+            categoryName={this.props.idMap.getIn([columnName, item.get('categoryName')], '-1')}
             categoryColours={categoryColours}
             language={this.props.language}
           />

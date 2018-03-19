@@ -4,6 +4,7 @@ const Redux = require('redux')
 const ViewportReducer = require('./reducers/ViewportReducer.js')
 const ColumnsReducer = require('./reducers/ColumnsReducer.js')
 const DataReducer = require('./reducers/DataReducer.js')
+const IDMapReducer = require('./reducers/IDMapReducer.js')
 const CategoriesReducer = require('./reducers/CategoriesReducer.js')
 const EmptyCategoriesReducer = require('./reducers/EmptyCategoriesReducer.js')
 const PinnedIncidentReducer = require('./reducers/PinnedIncidentReducer.js')
@@ -37,6 +38,7 @@ const reducers = Redux.combineReducers({
   viewport: ViewportReducer,
   columns: ColumnsReducer,
   data: DataReducer,
+  idMap: IDMapReducer,
   categories: CategoriesReducer,
   showEmptyCategories: EmptyCategoriesReducer,
   pinnedIncidents: PinnedIncidentReducer,
