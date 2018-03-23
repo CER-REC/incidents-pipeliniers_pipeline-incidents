@@ -2422,8 +2422,8 @@ const TranslationTable = Immutable.fromJS({
 
   downloadable: {
     csv: {
-      en: 'Incident Visualization Data_EN.csv',
-      fr: 'Incident Visualization Data_FR.csv'
+      en: 'http://www.neb-one.gc.ca/open/incident/pipeline-incidents.csv',
+      fr: 'http://www.neb-one.gc.ca/ouvert/incident/incidents-pipelines.csv',
     }
   },
 
