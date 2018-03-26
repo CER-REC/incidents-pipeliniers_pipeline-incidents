@@ -30,6 +30,7 @@ const ColumnTooltipReducer = require('./reducers/ColumnTooltipReducer.js')
 const ColumnTooltipDetailClickReducer = require('./reducers/ColumnTooltipDetailClickReducer.js')
 const AnalyticsReducer = require('./reducers/AnalyticsReducer.js')
 const PopoverReducer = require('./reducers/PopoverReducer.js')
+const LastUpdateReducer = require('./reducers/LastUpdateReducer.js')
 
 
 const RouterMiddleware = require('./RouterMiddleware.js')
@@ -64,6 +65,7 @@ const reducers = Redux.combineReducers({
   about: AboutReducer,
   analytics: AnalyticsReducer,
   popoverReducer: PopoverReducer,
+  lastUpdate: LastUpdateReducer,
 })
 
 module.exports = function () {
