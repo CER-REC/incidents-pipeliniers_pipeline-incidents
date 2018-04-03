@@ -171,7 +171,12 @@ class Column extends React.Component {
   }
 
   questionMarkClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','questionMark'])}`,this.props.columnName)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','questionMark'])}`,
+      'Selected', 
+      'TODO',  
+      `${this.props.columnName}`,
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     e.stopPropagation(e)
     e.preventDefault(e)
     this.props.onQuestionMarkClick(this.props.columnName)
@@ -411,7 +416,12 @@ class Column extends React.Component {
   }
 
   handleDragEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`, `${this.props.columnName} dragged` )
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','column'])}`,
+      'Dragged', 
+      'TODO',  
+      `${this.props.columnName}`,
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -429,7 +439,12 @@ class Column extends React.Component {
   }
 
   handleTouchEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`,`${this.props.columnName} touch dragged`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','column'])}`,
+      'Touch dragged', 
+      'TODO',  
+      `${this.props.columnName}`,
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -522,7 +537,12 @@ class Column extends React.Component {
   }
 
   handleSidebarDragEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,`${this.props.columnName} column added to workspace`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','sidebar'])}`,
+      'Added to workspace',
+      'TODO',
+      `${this.props.columnName}`,
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -540,7 +560,12 @@ class Column extends React.Component {
   }
 
   handleSidebarTouchEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,`${this.props.columnName} column touched to workspace`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','sidebar'])}`,
+      'Added to workspace on touch',
+      'TODO',
+      `${this.props.columnName}`,
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     e.stopPropagation()
     e.preventDefault()
 

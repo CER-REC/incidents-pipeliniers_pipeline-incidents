@@ -16,7 +16,12 @@ class TooltipListItem extends React.Component {
     // in English. Refactors to the props passed by ColumnTooltip would be
     // needed.
 
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','questionMark'])}`,`${this.props.item.get('overview')} detail overview`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','questionMark'])}`,
+      'Selected',
+      'TODO',
+      `${this.props.item.get('overview')} detail overview`,
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
 
     if(this.props.columnTooltipClick.get('columnName') === this.props.columnName &&
        this.props.columnTooltipClick.get('itemOverview') === this.props.item.get('overview'))

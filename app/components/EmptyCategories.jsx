@@ -69,7 +69,12 @@ class EmptyCategories extends React.Component {
   }
 
   emptyCategoriesAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','emptyCategories'])}`,'Show/Hide Empty Categories')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','emptyCategories'])}`,
+      'Selected',
+      'TODO',
+      'Show/Hide Empty Categories',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     this.props.onClick(
       this.props.dividerLine,
       this.props.checkbox,

@@ -108,7 +108,10 @@ class Category extends React.Component {
   categoryLabelClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','category'])}`,
-      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])} selected/deselected`
+      'Selected',
+      'TODO',
+      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])}`,
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`
     )
     if (!this.props.enableCategoryHeadingClick) {
       return
