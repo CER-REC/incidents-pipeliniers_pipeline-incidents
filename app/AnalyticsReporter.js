@@ -5,13 +5,16 @@ class AnalyticsReporter {
     }
   }
 
-  reportEvent(category, action) {
+  reportEvent(category, action, filter, visualizationName, eventDetail) {
     if (typeof window.dataLayer === 'undefined') { return }
 
     const dataObject = {
       event: 'tagManagerTest',
       category: category,
-      label: action,
+      action: action,
+      filter: filter,
+      visualization: visualizationName,
+      label: eventDetail,
     }
 
     console.log('Sending GA report:', dataObject)

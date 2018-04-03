@@ -26,7 +26,11 @@ class Header extends React.Component {
   }
 
   tellMeAStoryAction() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Tell Me A Story')
+    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 
+      'Selected', 
+      'Filter', 
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`, 
+      'Tell Me A Story')
     const scrollOptions = {
       behavior: 'smooth', 
       block: 'start', 
