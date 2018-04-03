@@ -78,7 +78,6 @@ class IncidentListItem extends React.Component {
   }
 
   mouseLeave() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','incidentList'])}`,`${this.props.incident.get('incidentNumber')} hovered`)
     if (this.props.hoveredIncident === this.props.incident) {
       this.props.unhoverIncident()
     }

@@ -216,7 +216,13 @@ class Filterbox extends React.Component {
   }
 
   handleDragEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','filterbox'])}`, `${this.props.columnName} ${this.props.categoryName} dragged`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','filterbox'])}`,
+      'Dragged', 
+      'TODO', 
+      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])}`,
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}` 
+      )
     e.stopPropagation()
     e.preventDefault()
 

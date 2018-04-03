@@ -41,10 +41,6 @@ class Category extends React.Component {
       />
       </g>
     } else if (this.checkHoverState()) {
-      this.props.analytics.reportEvent(
-        `${Constants.getIn(['analyticsCategory','category'])}`,
-        `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])} hovered`
-      )
       return <g><Filterbox
         width = { this.props.width }
         y = { currentY + Constants.getIn(['filterbox', 'labelOffset']) }
