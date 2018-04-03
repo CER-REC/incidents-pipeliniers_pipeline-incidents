@@ -392,7 +392,7 @@ const RouteComputations = {
     if (process.env.NODE_ENV === 'development') {
       // In development, read from a local flat file.
       // NB: At this writing, the contents of this file are a little out of date
-      return `${appRoot}data/2017-10-23 incidents.json`
+      return `${appRoot}data/2018-01-17 incidents.json`
     }
     else if (process.env.NODE_ENV === 'production') {
       // When the web app is bundled for production (which includes the TEST 
@@ -400,8 +400,21 @@ const RouteComputations = {
       return `${appRoot}incidentData`
     }
 
-  }
+  },
 
+  schemaServiceEndpoint(location, language) {
+    const appRoot = RouteComputations.appRoot(location, language)
+
+    if (process.env.NODE_ENV === 'development') {
+      // In development, read from a local flat file.
+      // NB: At this writing, the contents of this file are a little out of date
+      return `${appRoot}data/CategorySchema.json`
+    }
+
+    // When the web app is bundled for production (which includes the TEST 
+    // environment at NEB) use the local schema service
+    return `${appRoot}schemaData`
+  },
 }
 
 

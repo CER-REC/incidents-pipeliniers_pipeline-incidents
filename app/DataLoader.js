@@ -4,6 +4,8 @@ const Immutable = require('immutable')
 const Promise = require('bluebird')
 
 const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
+const IDMapsLoadedCreator = require('./actionCreators/IDMapsLoadedCreator.js')
+const SetLastUpdateCreator = require('./actionCreators/SetLastUpdateCreator.js')
 const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
 const RouteComputations = require('./RouteComputations.js')
 const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
@@ -11,10 +13,23 @@ const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
 const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
 
 // Returns a promise
-function afterLoad (store, data, location) {
+function afterLoad (store, data, schemaIDMap, location) {
 
   return new Promise( (resolve) => {
     store.dispatch(DataLoadedCreator(data))
+    store.dispatch(IDMapsLoadedCreator(schemaIDMap))
+
+    // Calculate which quarter this data was last updated in
+    const latestPoint = data
+      .map(v => v.get('reportedDate'))
+      .sort((a, b) => a.isBefore(b))
+      .first()
+    const adjustMonth = ((latestPoint.month() + 1) % 3)
+    if (adjustMonth !== 0) {
+      latestPoint.date(1).add((3 - adjustMonth), 'months')
+    }
+    latestPoint.date(latestPoint.daysInMonth())
+    store.dispatch(SetLastUpdateCreator(latestPoint.format('YYYY-MM-DD')))
 
     let state = store.getState()
     const categories = DefaultCategoryComputations.initialState(
@@ -204,7 +219,7 @@ function validateVolumeCategory(incident, errors) {
 function validateSystemComponentsInvolved (incident, schema, errors) {
   const wereComponentsInvolved = validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors)
 
-  if (incident.PipelineComponent_ID_LIST === '-1') {
+  if (incident.PipelineComponent_SK_LIST === '-1') {
     if (wereComponentsInvolved === true) {
       return ['unknown']
     }
@@ -213,7 +228,7 @@ function validateSystemComponentsInvolved (incident, schema, errors) {
     }
   }
 
-  const componentsList = validateListIdsInSet('PipelineComponent_ID_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors)
+  const componentsList = validateListIdsInSet('PipelineComponent_SK_LIST', incident, schema.get('pipelineSystemComponentsInvolved'), errors)
 
   if (componentsList && componentsList.length > 0) {
     return componentsList
@@ -239,12 +254,13 @@ const DataLoader = {
   // Load the application data from the data service.
   // Returns a promise
   loadFromDataService (store, location) {
+    const language = store.getState().language
 
-    const appRoot = RouteComputations.appRoot(location, store.getState().language)
+    const appRoot = RouteComputations.appRoot(location, language)
 
     const schemaOptions = {
-      uri: `${appRoot}data/CategorySchema.json`,
-      json: true
+      uri: RouteComputations.schemaServiceEndpoint(location, language),
+      json: true,
     }
 
     const schemaPromise = Request(schemaOptions)
@@ -256,7 +272,7 @@ const DataLoader = {
 
 
     const dataOptions = {
-      uri: RouteComputations.dataServiceEndpoint(location, store.getState().language),
+      uri: RouteComputations.dataServiceEndpoint(location, language),
       json: true,
     }
 
@@ -287,22 +303,22 @@ const DataLoader = {
             reportedDate: validateDate('ReportedDate', incident, errors),
             year: validatePresence('ReportedYear', incident, errors),
 
-            status: validateIdInStatusSet('IncidentStatus_ID', incident, schema.get('status'), errors),
-            company: validateIdInSet('Company_ID', incident, schema.get('company'), errors),
-            province: validateIdInSet('Province_ID', incident, schema.get('province'), errors),
-            substance: validateIdInSet('Substance_ID', incident, schema.get('substance'), errors),
+            status: validateIdInStatusSet('IncidentStatus_SKey', incident, schema.get('status'), errors),
+            company: validateIdInSet('ReportedCompany_SKey', incident, schema.get('company'), errors),
+            province: validateIdInSet('Province_SKey', incident, schema.get('province'), errors),
+            substance: validateIdInSet('Substance_SKey', incident, schema.get('substance'), errors),
             approximateVolumeReleased: validateVolumeReleased(incident, errors),
 
             releaseType: validateIdInSet('ReleaseType_EN', incident, schema.get('releaseType'), errors),
 
             werePipelineSystemComponentsInvolved: validateBoolean('WerePipelineSystemComponentsInvolved', incident, errors),
 
-            whatHappened: validateListIdsInSet('WhatHappened_ID_LIST', incident, schema.get('whatHappened'), errors),
-            whyItHappened: validateListIdsInSet('WhyItHappened_ID_LIST', incident, schema.get('whyItHappened'), errors),
+            whatHappened: validateListIdsInSet('WhatHappened_SK_LIST', incident, schema.get('whatHappened'), errors),
+            whyItHappened: validateListIdsInSet('WhyItHappened_SK_LIST', incident, schema.get('whyItHappened'), errors),
 
-            incidentTypes: validateListIdsInSet('IncidentType_ID_LIST', incident, schema.get('incidentTypes'), errors),
+            incidentTypes: validateListIdsInSet('IncidentType_SK_LIST', incident, schema.get('incidentTypes'), errors),
 
-            pipelinePhase: validateIdInSet('PipelinePhase_ID', incident, schema.get('pipelinePhase'), errors),
+            pipelinePhase: validateIdInSet('PipelinePhase_SKey', incident, schema.get('pipelinePhase'), errors),
 
             volumeCategory: validateVolumeCategory(incident, errors),
 
@@ -324,8 +340,22 @@ const DataLoader = {
 
         }
 
+        const rawIDMap = schema.get('SKey to ID Mappings')
+        const emptyMap = Immutable.Map()
+        const mapIDs = key => rawIDMap.get(key, emptyMap).flip().mapKeys(k => k.toString())
+        const schemaIDMap = {
+          company: mapIDs('companyIDMap'),
+          incidentTypes: mapIDs('incidentTypeIDMap'),
+          status: mapIDs('statusIDMap'),
+          substance: mapIDs('substanceIDMap'),
+          whatHappened: mapIDs('whatHappenedIDMap'),
+          whyItHappened: mapIDs('whyItHappenedIDMap'),
+          pipelinePhase: mapIDs('pipelinePhaseIDMap'),
+          pipelineSystemComponentsInvolved: mapIDs('pipelineComponentIDMap'),
+        }
+
         console.log('Incidents after validation', incidents.length)
-        return afterLoad(store, Immutable.fromJS(incidents).reverse(), location)
+        return afterLoad(store, Immutable.fromJS(incidents).reverse(), Immutable.fromJS(schemaIDMap), location)
       })
       .catch(function (error) {
         throw error

@@ -132,6 +132,7 @@ class Header extends React.Component {
       <p
         className = 'subpop'>
         { Tr.getIn(['mainSubheading', this.props.language]) }
+        {this.props.lastUpdate}.&nbsp;
         <a href="#" onClick = {this.disclaimerClick.bind(this)}
           id={Constants.get('dataDisclaimerWindowID')} className = 'dataDisclaimerText'>{ Tr.getIn(['dataDisclaimer', this.props.language]) }</a>
       </p>
@@ -282,6 +283,7 @@ const mapStateToProps = (state) => {
     viewport: state.viewport,
     schema: state.schema,
     analytics: state.analytics,
+    lastUpdate: state.lastUpdate,
   } 
 }
 

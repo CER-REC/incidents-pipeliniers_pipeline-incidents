@@ -4,6 +4,7 @@ const Redux = require('redux')
 const ViewportReducer = require('./reducers/ViewportReducer.js')
 const ColumnsReducer = require('./reducers/ColumnsReducer.js')
 const DataReducer = require('./reducers/DataReducer.js')
+const IDMapReducer = require('./reducers/IDMapReducer.js')
 const CategoriesReducer = require('./reducers/CategoriesReducer.js')
 const EmptyCategoriesReducer = require('./reducers/EmptyCategoriesReducer.js')
 const PinnedIncidentReducer = require('./reducers/PinnedIncidentReducer.js')
@@ -29,6 +30,7 @@ const ColumnTooltipReducer = require('./reducers/ColumnTooltipReducer.js')
 const ColumnTooltipDetailClickReducer = require('./reducers/ColumnTooltipDetailClickReducer.js')
 const AnalyticsReducer = require('./reducers/AnalyticsReducer.js')
 const PopoverReducer = require('./reducers/PopoverReducer.js')
+const LastUpdateReducer = require('./reducers/LastUpdateReducer.js')
 
 
 const RouterMiddleware = require('./RouterMiddleware.js')
@@ -37,6 +39,7 @@ const reducers = Redux.combineReducers({
   viewport: ViewportReducer,
   columns: ColumnsReducer,
   data: DataReducer,
+  idMap: IDMapReducer,
   categories: CategoriesReducer,
   showEmptyCategories: EmptyCategoriesReducer,
   pinnedIncidents: PinnedIncidentReducer,
@@ -62,12 +65,18 @@ const reducers = Redux.combineReducers({
   about: AboutReducer,
   analytics: AnalyticsReducer,
   popoverReducer: PopoverReducer,
+  lastUpdate: LastUpdateReducer,
 })
 
 module.exports = function () {
   // Enable Redux Dev Tools if they are installed in the browser
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose
+  // Also handle the case where the Store is used as an offline script, in
+  // data.js
+  
+  let composeEnhancers = Redux.compose
+  if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  }
   return Redux.createStore(
     reducers,
     composeEnhancers(Redux.applyMiddleware(RouterMiddleware))

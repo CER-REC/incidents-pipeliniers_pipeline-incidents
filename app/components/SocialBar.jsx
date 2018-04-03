@@ -146,7 +146,7 @@ class SocialBar extends React.Component {
       `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     const fileName = Tr.getIn(['downloadable', 'csv', this.props.language])
-    window.open(`${appRoot}data/${fileName}`, 'data:text/csv;charset=utf-8,data/' + escape()) 
+    window.open(fileName, 'data:text/csv;charset=utf-8,data/' + escape()) 
   }
 
   downloadFileKeyDown(event) {

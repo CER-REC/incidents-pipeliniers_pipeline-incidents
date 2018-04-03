@@ -30,4 +30,5 @@ module.exports = ReactRedux.connect(state => ({
   columns: state.columns,
   categories: state.categories,
   schema: state.schema,
+  idMap: state.idMap,
 }), { ColumnTooltipDismiss })(TooltipWrapper)
