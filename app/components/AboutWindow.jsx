@@ -12,7 +12,12 @@ const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.j
 class AboutWindow extends React.Component {
 
   closeButtonClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'About This Project Close Button')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','headerLinks'])}`, 
+      'Selected', 
+      'TODO',  
+      'About This Project Close Button',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
@@ -42,23 +47,48 @@ class AboutWindow extends React.Component {
   }
 
   nebPerformancePortalAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'NEB Performance Portal')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
+      'Selected', 
+      'TODO',  
+      'NEB Performance Portal',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
   }
 
   emailLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'Email Link')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
+      'Selected', 
+      'TODO',  
+      'Email Link',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
   }
 
   wikimediaLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`, 'Wikimedia Commons')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`,
+      'Selected', 
+      'TODO',  
+      'Wikimedia Commons'
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
   }
 
   ccByThreeLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','ccByThree'])}`, 'CC By 3.0')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','ccByThree'])}`,
+      'Selected', 
+      'TODO',  
+      'CC By 3.0',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
   }
 
   ccBySAThreeLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`, 'CC BY-SA 3.0')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`,
+      'Selected', 
+      'TODO',   
+      'CC BY-SA 3.0',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
   }
 
   heading() {

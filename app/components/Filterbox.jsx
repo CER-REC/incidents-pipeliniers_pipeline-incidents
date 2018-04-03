@@ -30,8 +30,6 @@ require('./Filterbox.scss')
 
 class Filterbox extends React.Component {
 
-
-
   buttonHeight() {
     return FilterboxComputations.buttonCount(this.props.data, this.props.columns, this.props.categories, this.props.columnName) * Constants.getIn(['filterbox', 'rectVerticalOffset'])
   }

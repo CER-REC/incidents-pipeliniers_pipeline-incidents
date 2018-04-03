@@ -53,7 +53,12 @@ class SocialBar extends React.Component {
   }
 
   emailClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Email')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'Selected', 
+      'TODO',
+      'Email', 
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     const self = this
     this.makeBitlyPromise().then(function(url){
 
@@ -73,7 +78,12 @@ class SocialBar extends React.Component {
   }
 
   facebookClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Facebook')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'Selected', 
+      'TODO',
+      'Facebook',  
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     this.makeBitlyPromise().then(function(url){
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
       window.open(facebookUrl , 'targetWindow' , 'width=650,height=650') 
@@ -88,7 +98,12 @@ class SocialBar extends React.Component {
   }
 
   linkedinClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'LinkedIn')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'Selected', 
+      'TODO',
+      'LinkedIn',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     this.makeBitlyPromise().then(function(url){
       const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${url}`
       window.open(linkedinUrl , 'targetWindow' , 'width=650,height=650') 
@@ -103,7 +118,12 @@ class SocialBar extends React.Component {
   }
 
   twitterClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Twitter')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'Selected', 
+      'TODO',  
+      'Twitter',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     this.makeBitlyPromise().then(function(url){
       const twitterUrl = `https://twitter.com/intent/tweet?url=${url}`
       window.open(twitterUrl , 'targetWindow' , 'width=650,height=650') 
@@ -118,7 +138,12 @@ class SocialBar extends React.Component {
   }
 
   downloadFileClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Download Data File')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'Selected', 
+      'TODO',
+      'Download Data File',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     const fileName = Tr.getIn(['downloadable', 'csv', this.props.language])
     window.open(`${appRoot}data/${fileName}`, 'data:text/csv;charset=utf-8,data/' + escape()) 
@@ -132,7 +157,12 @@ class SocialBar extends React.Component {
   }
 
   downloadImageClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Download Image')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'Selected', 
+      'TODO',
+      'Download Image',
+      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
 
     const horizontalPositions = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories, 

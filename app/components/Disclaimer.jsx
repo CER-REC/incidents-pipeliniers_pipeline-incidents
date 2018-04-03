@@ -11,7 +11,12 @@ const DisclaimerDismissedCreator = require('../actionCreators/DisclaimerDismisse
 class Disclaimer extends React.Component {
 
   closeButtonClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`,'Data Disclaimer Close Button')
+    this.props.analytics.reportEvent(
+    `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
+    'Selected', 
+    'TODO',  
+    'Data Disclaimer Close Button',
+    `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
     this.props.disclaimerDismissed()
     document.querySelector('.dataDisclaimerText').focus()
   }
