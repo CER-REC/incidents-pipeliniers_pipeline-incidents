@@ -220,9 +220,7 @@ class Filterbox extends React.Component {
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
       'Dragged', 
       'TODO', 
-      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}` 
-      )
+      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -291,9 +289,7 @@ class Filterbox extends React.Component {
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
       'Touch dragged', 
       'TODO',
-      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`
-    )
+      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -341,9 +337,7 @@ class Filterbox extends React.Component {
       `${Constants.getIn(['analyticsCategory','filterbox'])}`, 
       'Selected', 
       'TODO',  
-      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])} show only`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`
-    )
+      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])} show only`)
     this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
   }
 
@@ -359,9 +353,7 @@ class Filterbox extends React.Component {
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
       'Selected', 
       'TODO',
-      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])} hide`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`
-    )
+      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])} hide`)
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
 
@@ -377,9 +369,7 @@ class Filterbox extends React.Component {
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
       'Selected', 
       'TODO',
-      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])} reset`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`
-    )
+      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])} reset`)
     this.props.onResetClick(this.props.columnName)
   }
 

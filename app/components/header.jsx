@@ -30,8 +30,7 @@ class Header extends React.Component {
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`, 
       'Selected', 
       'TODO',  
-      'Tell Me A Story', 
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Tell Me A Story')
     const scrollOptions = {
       behavior: 'smooth', 
       block: 'start', 
@@ -47,8 +46,7 @@ class Header extends React.Component {
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'Selected', 
       'TODO', 
-      'About This Project',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'About This Project')
     e.stopPropagation(e)
     e.preventDefault(e)    
     
@@ -68,8 +66,7 @@ class Header extends React.Component {
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'Selected',
       'TODO',
-      'Methodology',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Methodology')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     window.open(`${appRoot}${Tr.getIn(['methodologyLinks', this.props.language])}`)
   }
@@ -86,8 +83,7 @@ class Header extends React.Component {
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'Selected',
       'TODO', 
-      'Reset All',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Reset All')
     const categories = DefaultCategoryComputations.initialState(
       this.props.data,
       this.props.schema, 
@@ -108,8 +104,7 @@ class Header extends React.Component {
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
       'Selected', 
       'TODO', 
-      'Data Disclaimer',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Data Disclaimer')
     event.preventDefault()
     this.props.summonDisclaimer()
   }
@@ -119,8 +114,7 @@ class Header extends React.Component {
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
       'Selected', 
       'TODO', 
-      'Learn More',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Learn More')
   }
 
   leftHeading() {

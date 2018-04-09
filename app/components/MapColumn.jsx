@@ -105,9 +105,7 @@ class MapColumn extends React.Component {
       `${Constants.getIn(['analyticsCategory','column'])}`,
       'Dragged',
       'TODO',
-      'Map',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`
-      )
+      'Map')
     e.stopPropagation()
     e.preventDefault()
 
@@ -158,8 +156,7 @@ class MapColumn extends React.Component {
       `${Constants.getIn(['analyticsCategory','column'])}`,
       'Touch Dragged',
       'TODO',
-      'Map',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Map')
     e.stopPropagation()
     e.preventDefault()
 

@@ -15,8 +15,7 @@ class Disclaimer extends React.Component {
     `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
     'Selected', 
     'TODO',  
-    'Data Disclaimer Close Button',
-    `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+    'Data Disclaimer Close Button')
     this.props.disclaimerDismissed()
     document.querySelector('.dataDisclaimerText').focus()
   }

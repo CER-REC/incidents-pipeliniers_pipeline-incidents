@@ -35,8 +35,7 @@ class StoryWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'Selected', 
       'TODO',  
-      'Close Button',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Close Button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
@@ -56,8 +55,7 @@ class StoryWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'Selected image', 
       'TODO',  
-      `${this.props.story.get('storyID')}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.story.get('storyID')}`)
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
     if(this.props.storyImage !== imageList.length - 1) {
@@ -96,8 +94,7 @@ class StoryWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'Selected', 
       'TODO',  
-      'Next Button',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Next Button')
     e.stopPropagation()
     e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
@@ -117,8 +114,7 @@ class StoryWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'Selected', 
       'TODO',  
-      'Back Button',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Back Button')
     e.stopPropagation()
     e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])

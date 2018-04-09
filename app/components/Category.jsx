@@ -110,9 +110,7 @@ class Category extends React.Component {
       `${Constants.getIn(['analyticsCategory','category'])}`,
       'Selected',
       'TODO',
-      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`
-    )
+      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])}`)
     if (!this.props.enableCategoryHeadingClick) {
       return
     }

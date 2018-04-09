@@ -16,8 +16,7 @@ class Story extends React.Component {
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'Selected', 
       'TODO',  
-      `${this.props.id}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.id}`)
     e.stopPropagation()
     e.preventDefault()
     this.props.onStoryClicked(this.props.id)

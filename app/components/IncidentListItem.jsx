@@ -39,8 +39,7 @@ class IncidentListItem extends React.Component {
       `${Constants.getIn(['analyticsCategory','incidentList'])}`,
       'Selected',
       'TODO',
-      `${this.props.incident.get('incidentNumber')}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.incident.get('incidentNumber')}`)
     if (this.props.selected === true) {
       this.props.removeFromSelectedIncidents(this.props.incident)
     }
@@ -63,8 +62,7 @@ class IncidentListItem extends React.Component {
       `${Constants.getIn(['analyticsCategory','incidentList'])}`,
       'Starred',
       'TODO',
-      `${this.props.incident.get('incidentNumber')}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.incident.get('incidentNumber')}`)
     // Don't propagate this click event to the parent list item.
     event.stopPropagation()
 

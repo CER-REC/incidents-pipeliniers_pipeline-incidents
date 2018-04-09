@@ -5,7 +5,7 @@ class AnalyticsReporter {
     }
   }
 
-  reportEvent(category, action, filter, eventDetail, visualizationName) {
+  reportEvent(category, action, filter, eventDetail) {
     if (typeof window.dataLayer === 'undefined') { return }
 
     const dataObject = {
@@ -14,7 +14,7 @@ class AnalyticsReporter {
       action: action,
       filter: filter,
       label: eventDetail,
-      visualization: visualizationName,
+      visualization: 'Pipeline Incidents',
     }
 
     console.log('Sending GA report:', dataObject)

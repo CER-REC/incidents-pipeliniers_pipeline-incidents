@@ -175,8 +175,7 @@ class Column extends React.Component {
       `${Constants.getIn(['analyticsCategory','questionMark'])}`,
       'Selected', 
       'TODO',  
-      `${this.props.columnName}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.columnName}`)
     e.stopPropagation(e)
     e.preventDefault(e)
     this.props.onQuestionMarkClick(this.props.columnName)
@@ -420,8 +419,7 @@ class Column extends React.Component {
       `${Constants.getIn(['analyticsCategory','column'])}`,
       'Dragged', 
       'TODO',  
-      `${this.props.columnName}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -443,8 +441,7 @@ class Column extends React.Component {
       `${Constants.getIn(['analyticsCategory','column'])}`,
       'Touch dragged', 
       'TODO',  
-      `${this.props.columnName}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -541,8 +538,7 @@ class Column extends React.Component {
       `${Constants.getIn(['analyticsCategory','sidebar'])}`,
       'Added to workspace',
       'TODO',
-      `${this.props.columnName}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -564,8 +560,7 @@ class Column extends React.Component {
       `${Constants.getIn(['analyticsCategory','sidebar'])}`,
       'Added to workspace on touch',
       'TODO',
-      `${this.props.columnName}`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
 

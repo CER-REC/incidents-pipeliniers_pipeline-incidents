@@ -16,8 +16,7 @@ class AboutWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`, 
       'Selected', 
       'TODO',  
-      'About This Project Close Button',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'About This Project Close Button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
@@ -51,8 +50,7 @@ class AboutWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
       'Selected', 
       'TODO',  
-      'NEB Performance Portal',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'NEB Performance Portal')
   }
 
   emailLinkAnalytics() {
@@ -60,8 +58,7 @@ class AboutWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
       'Selected', 
       'TODO',  
-      'Email Link',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Email Link')
   }
 
   wikimediaLinkAnalytics() {
@@ -69,8 +66,7 @@ class AboutWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`,
       'Selected', 
       'TODO',  
-      'Wikimedia Commons'
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'Wikimedia Commons')
   }
 
   ccByThreeLinkAnalytics() {
@@ -78,8 +74,7 @@ class AboutWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','ccByThree'])}`,
       'Selected', 
       'TODO',  
-      'CC By 3.0',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'CC By 3.0')
   }
 
   ccBySAThreeLinkAnalytics() {
@@ -87,8 +82,7 @@ class AboutWindow extends React.Component {
       `${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`,
       'Selected', 
       'TODO',   
-      'CC BY-SA 3.0',
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      'CC BY-SA 3.0')
   }
 
   heading() {

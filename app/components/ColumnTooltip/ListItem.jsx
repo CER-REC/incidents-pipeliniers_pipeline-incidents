@@ -20,8 +20,7 @@ class TooltipListItem extends React.Component {
       `${Constants.getIn(['analyticsCategory','questionMark'])}`,
       'Selected',
       'TODO',
-      `${this.props.item.get('overview')} detail overview`,
-      `${Constants.getIn(['analyticsCategory','pipelineIncidents'])}`)
+      `${this.props.item.get('overview')} detail overview`)
 
     if(this.props.columnTooltipClick.get('columnName') === this.props.columnName &&
        this.props.columnTooltipClick.get('itemOverview') === this.props.item.get('overview'))
