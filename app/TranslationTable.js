@@ -2389,7 +2389,7 @@ const TranslationTable = Immutable.fromJS({
       },
       lessThanOne: {
         en: 'Less Than 1 m³',
-        fr: 'Moins de 1 m3',
+        fr: 'Moins de 1 m³',
       },
       lessThanOneThousand: {
         en: '1 m³ to 1,000 m³',
