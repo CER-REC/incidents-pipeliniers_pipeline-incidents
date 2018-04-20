@@ -144,7 +144,7 @@ class SocialBar extends React.Component {
       this.props.categories
     )
 
-    const screenshotUrl = `${RouteComputations.screenshotOrigin(location)}/${Constants.get('screenshotPath')}/?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
+    const screenshotUrl = `${RouteComputations.screenshotOrigin(location)}/${Constants.get('serviceScreenshotPath')}/?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
 
     window.open(screenshotUrl) 
   }

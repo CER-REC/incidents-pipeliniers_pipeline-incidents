@@ -54,6 +54,9 @@ DomReady( () => {
 
     render(Root)
 
+    // Consumed by the screenshot-service renderer
+    window.visualizationDoneRendering = true
+
   }).catch( (error) => {
     // TODO: Render a nicer error message when the loading procedure fails
     console.error(error)
