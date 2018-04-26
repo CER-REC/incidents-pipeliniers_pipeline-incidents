@@ -9,7 +9,11 @@ const ActivateStoryImageCreator = require('../actionCreators/ActivateStoryImageC
 class StoryIndicatorDot extends React.Component {
 
   indicatorDotClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','story'])}`,'Indicator Dot Clicked')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','story'])}`,
+      'Selected', 
+      'TODO',
+      'Indicator Dot')
     e.stopPropagation()
     this.props.onIndicatorDotClicked(this.props.index)
   }

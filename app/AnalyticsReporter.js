@@ -1,21 +1,24 @@
 class AnalyticsReporter {
   constructor() {
-    if(window.ga) {
-      this.ga = window.ga
-    } else {
-      console.warn('Google analytics object not found.')
+    if (typeof window.dataLayer === 'undefined') {
+      console.warn('Google Tag Manager not found.')
     }
   }
 
-  reportEvent(category, action) {
-    if (!this.ga) { 
-      return 
+  reportEvent(category, action, filter, eventDetail) {
+    if (typeof window.dataLayer === 'undefined') { return }
+
+    const dataObject = {
+      event: 'tagManagerTest',
+      category: category,
+      action: action,
+      filter: filter,
+      label: eventDetail,
+      visualization: 'Pipeline Incidents',
     }
-    return this.ga('send', {
-      hitType: 'event',
-      eventCategory: category,
-      eventAction: action
-    })
+
+    console.log('Sending GA report:', dataObject)
+    return window.dataLayer.push(dataObject)
   }
 }
 

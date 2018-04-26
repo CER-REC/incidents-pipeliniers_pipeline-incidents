@@ -400,6 +400,7 @@ const Constants = Immutable.fromJS({
   },
 
   analyticsCategory: {
+    pipelineIncidents: 'Pipeline Incidents',
     category: 'Category',
     column: 'Column',
     filterbox: 'Filterbox',

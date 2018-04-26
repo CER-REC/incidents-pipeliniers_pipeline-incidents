@@ -12,7 +12,11 @@ const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.j
 class AboutWindow extends React.Component {
 
   closeButtonClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'About This Project Close Button')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','headerLinks'])}`, 
+      'Selected', 
+      'TODO',  
+      'About This Project Close Button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
@@ -42,23 +46,43 @@ class AboutWindow extends React.Component {
   }
 
   nebPerformancePortalAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'NEB Performance Portal')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
+      'Selected', 
+      'TODO',  
+      'NEB Performance Portal')
   }
 
   emailLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'Email Link')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
+      'Selected', 
+      'TODO',  
+      'Email Link')
   }
 
   wikimediaLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`, 'Wikimedia Commons')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`,
+      'Selected', 
+      'TODO',  
+      'Wikimedia Commons')
   }
 
   ccByThreeLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','ccByThree'])}`, 'CC By 3.0')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','ccByThree'])}`,
+      'Selected', 
+      'TODO',  
+      'CC By 3.0')
   }
 
   ccBySAThreeLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`, 'CC BY-SA 3.0')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`,
+      'Selected', 
+      'TODO',   
+      'CC BY-SA 3.0')
   }
 
   heading() {
