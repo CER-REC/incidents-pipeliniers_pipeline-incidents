@@ -173,7 +173,7 @@ class Column extends React.Component {
   questionMarkClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','questionMark'])}`,
-      'Selected', 
+      'selected', 
       'TODO',  
       `${this.props.columnName}`)
     e.stopPropagation(e)
@@ -417,7 +417,7 @@ class Column extends React.Component {
   handleDragEnd(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','column'])}`,
-      'Dragged', 
+      'dragged', 
       'TODO',  
       `${this.props.columnName}`)
     e.stopPropagation()
@@ -439,7 +439,7 @@ class Column extends React.Component {
   handleTouchEnd(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','column'])}`,
-      'Touch dragged', 
+      'touch dragged', 
       'TODO',  
       `${this.props.columnName}`)
     e.stopPropagation()
@@ -536,7 +536,7 @@ class Column extends React.Component {
   handleSidebarDragEnd(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','sidebar'])}`,
-      'Added to workspace',
+      'added to workspace',
       'TODO',
       `${this.props.columnName}`)
     e.stopPropagation()
@@ -558,7 +558,7 @@ class Column extends React.Component {
   handleSidebarTouchEnd(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','sidebar'])}`,
-      'Added to workspace on touch',
+      'added to workspace on touch',
       'TODO',
       `${this.props.columnName}`)
     e.stopPropagation()

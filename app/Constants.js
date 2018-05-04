@@ -400,20 +400,20 @@ const Constants = Immutable.fromJS({
   },
 
   analyticsCategory: {
-    pipelineIncidents: 'Pipeline Incidents',
-    category: 'Category',
-    column: 'Column',
-    filterbox: 'Filterbox',
-    headerLinks: 'Header Links',
-    incidentList: 'Incident List',
-    menuButtons: 'Menu Buttons',
-    questionMark: 'Question Mark',
-    sidebar: 'Sidebar',
-    story: 'Story',
-    emptyCategories: 'Empty Categories',
-    wikimediaCommons: 'Wikimedia Commons',
-    ccByThree: 'CC By 3.0',
-    ccBYSAThree: 'CC BY-SA 3.0'
+    pipelineIncidents: 'pipeline incidents',
+    category: 'category',
+    column: 'column',
+    filterbox: 'filterbox',
+    headerLinks: 'header links',
+    incidentList: 'incident list',
+    menuButtons: 'menu buttons',
+    questionMark: 'question mark',
+    sidebar: 'sidebar',
+    story: 'story',
+    emptyCategories: 'empty categories',
+    wikimediaCommons: 'wikimedia commons',
+    ccByThree: 'cc by 3.0',
+    ccBYSAThree: 'cc by-sa 3.0'
   },
 
   // The purpose of the bottom margin is to allow some space for the filterbox

@@ -76,7 +76,6 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     sidebarColumnHover: state.sidebarColumnHover,
-    analytics: state.analytics,
   }
 }
 

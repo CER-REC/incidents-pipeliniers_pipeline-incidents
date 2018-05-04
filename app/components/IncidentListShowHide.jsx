@@ -64,9 +64,9 @@ class IncidentListShowHide extends React.Component {
   incidentListShowHideAnalytics() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','incidentList'])}`,
-      'Selected',
+      'selected',
       'TODO',
-      'Show/Hide Incident List')
+      'show/hide incident list')
     this.props.onClick(
       this.props.showImage,
       this.props.showText)

@@ -14,7 +14,7 @@ class Story extends React.Component {
   storyClicked(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'Selected', 
+      'selected', 
       'TODO',  
       `${this.props.id}`)
     e.stopPropagation()

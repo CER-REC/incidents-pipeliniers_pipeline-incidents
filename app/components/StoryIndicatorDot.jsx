@@ -11,9 +11,9 @@ class StoryIndicatorDot extends React.Component {
   indicatorDotClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'Selected', 
+      'selected', 
       'TODO',
-      'Indicator Dot')
+      'indicator dot')
     e.stopPropagation()
     this.props.onIndicatorDotClicked(this.props.index)
   }
