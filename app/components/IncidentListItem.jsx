@@ -58,9 +58,13 @@ class IncidentListItem extends React.Component {
   }
 
   incidentStarClick(event) {
+    let actionString = 'starred'
+    if (this.props.pinned) {
+      actionString = 'unstarred'
+    }
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','incidentList'])}`,
-      'starred',
+      `${actionString}`,
       'TODO',
       `${this.props.incident.get('incidentNumber')}`)
     // Don't propagate this click event to the parent list item.

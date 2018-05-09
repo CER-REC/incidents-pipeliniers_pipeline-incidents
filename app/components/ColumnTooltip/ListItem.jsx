@@ -16,9 +16,14 @@ class TooltipListItem extends React.Component {
     // in English. Refactors to the props passed by ColumnTooltip would be
     // needed.
 
+    let actionString = 'selected'
+    if (this.props.columnTooltipClick.get('columnName') === this.props.columnName &&
+       this.props.columnTooltipClick.get('itemOverview') === this.props.item.get('overview')) {
+      actionString = 'deselected'
+    }
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','questionMark'])}`,
-      'selected',
+      `${actionString}`,
       'TODO',
       `${this.props.item.get('overview').toLowerCase()} detail overview`)
 
