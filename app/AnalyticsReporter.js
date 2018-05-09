@@ -1,3 +1,5 @@
+const RouteComputations = require('./RouteComputations.js')
+
 class AnalyticsReporter {
   constructor() {
     if (typeof window.dataLayer === 'undefined') {
