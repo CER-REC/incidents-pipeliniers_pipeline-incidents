@@ -104,7 +104,7 @@ class MapColumn extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','column'])}`,
       'dragged',
-      'TODO',
+      '',
       'dap')
     e.stopPropagation()
     e.preventDefault()
@@ -155,7 +155,7 @@ class MapColumn extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','column'])}`,
       'touch dragged',
-      'TODO',
+      '',
       'map')
     e.stopPropagation()
     e.preventDefault()

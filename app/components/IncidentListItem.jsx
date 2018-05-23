@@ -38,7 +38,7 @@ class IncidentListItem extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','incidentList'])}`,
       'selected',
-      'TODO',
+      '',
       `${this.props.incident.get('incidentNumber')}`)
     if (this.props.selected === true) {
       this.props.removeFromSelectedIncidents(this.props.incident)
@@ -65,7 +65,7 @@ class IncidentListItem extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','incidentList'])}`,
       `${actionString}`,
-      'TODO',
+      '',
       `${this.props.incident.get('incidentNumber')}`)
     // Don't propagate this click event to the parent list item.
     event.stopPropagation()

@@ -120,7 +120,7 @@ class IncidentListHeadings extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','questionMark'])}`, 
       'selected', 
-      'TODO',  
+      '',  
       'incident list')
     e.stopPropagation()
     e.preventDefault()

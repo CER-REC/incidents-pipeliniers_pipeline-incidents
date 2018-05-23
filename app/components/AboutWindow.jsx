@@ -15,7 +15,7 @@ class AboutWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`, 
       'selected', 
-      'TODO',  
+      '',  
       'about this project close button')
     e.stopPropagation()
     e.preventDefault()
@@ -49,7 +49,7 @@ class AboutWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
       'selected', 
-      'TODO',  
+      '',  
       'neb performance portal')
   }
 
@@ -57,7 +57,7 @@ class AboutWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
       'selected', 
-      'TODO',  
+      '',  
       'email link')
   }
 
@@ -65,7 +65,7 @@ class AboutWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`,
       'selected', 
-      'TODO',  
+      '',  
       'wikimedia commons')
   }
 
@@ -73,7 +73,7 @@ class AboutWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','ccByThree'])}`,
       'selected', 
-      'TODO',  
+      '',  
       'cc by 3.0')
   }
 
@@ -81,7 +81,7 @@ class AboutWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`,
       'selected', 
-      'TODO',   
+      '',   
       'cc by-sa 3.0')
   }
 

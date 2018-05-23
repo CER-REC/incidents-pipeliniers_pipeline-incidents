@@ -14,7 +14,7 @@ class Disclaimer extends React.Component {
     this.props.analytics.reportEvent(
     `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
     'selected', 
-    'TODO',  
+    '',  
     'data Ddisclaimer close button')
     this.props.disclaimerDismissed()
     document.querySelector('.dataDisclaimerText').focus()

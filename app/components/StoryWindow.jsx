@@ -34,7 +34,7 @@ class StoryWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'selected', 
-      'TODO',  
+      '',  
       'close button')
     e.stopPropagation()
     e.preventDefault()
@@ -54,7 +54,7 @@ class StoryWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'selected image', 
-      'TODO',  
+      '',  
       `${this.props.story.get('storyID')}`)
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
@@ -93,7 +93,7 @@ class StoryWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'selected', 
-      'TODO',  
+      '',  
       'next button')
     e.stopPropagation()
     e.preventDefault()
@@ -113,7 +113,7 @@ class StoryWindow extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'selected', 
-      'TODO',  
+      '',  
       'back button')
     e.stopPropagation()
     e.preventDefault()

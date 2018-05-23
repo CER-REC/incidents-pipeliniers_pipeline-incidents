@@ -174,7 +174,7 @@ class Column extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','questionMark'])}`,
       'selected', 
-      'TODO',  
+      '',  
       `${this.props.columnName}`)
     e.stopPropagation(e)
     e.preventDefault(e)
@@ -418,7 +418,7 @@ class Column extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','column'])}`,
       'dragged', 
-      'TODO',  
+      '',  
       `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
@@ -440,7 +440,7 @@ class Column extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','column'])}`,
       'touch dragged', 
-      'TODO',  
+      '',  
       `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
@@ -537,7 +537,7 @@ class Column extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','sidebar'])}`,
       'added to workspace',
-      'TODO',
+      '',
       `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
@@ -559,7 +559,7 @@ class Column extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','sidebar'])}`,
       'added to workspace on touch',
-      'TODO',
+      '',
       `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
