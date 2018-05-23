@@ -333,8 +333,8 @@ const TranslationTable = Immutable.fromJS({
         ],
       },
       config: {
-        en: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=4&incidentTypes=7&whyItHappened=12,7,15,9,16,11,-1,8,13,10&pinnedIncidents=INC2008-084,INC2008-123',
-        fr: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=4&incidentTypes=7&whyItHappened=12,7,15,9,16,11,-1,8,13,10&pinnedIncidents=INC2008-084,INC2008-123',
+        en: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=4&incidentTypes=4&whyItHappened=6,1,8,3,9,5,7,2,-1,4&pinnedIncidents=INC2008-084,INC2017-123&fbas_columnName=incidentTypes&fbas_categoryName=4',
+        fr: '?columns=incidentTypes,whatHappened,whyItHappened&whatHappened=4&incidentTypes=4&whyItHappened=6,1,8,3,9,5,7,2,-1,4&pinnedIncidents=INC2008-084,INC2017-123&fbas_columnName=incidentTypes&fbas_categoryName=4',
       },
     },
   },
