@@ -113,7 +113,6 @@ class Category extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','category'])}`,
       `${actionString}`,
-      '',
       `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()}`)
     if (!this.props.enableCategoryHeadingClick) {
       return

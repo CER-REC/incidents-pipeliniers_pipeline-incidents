@@ -29,7 +29,6 @@ class Header extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`, 
       'selected', 
-      '',  
       'tell me a story')
     const scrollOptions = {
       behavior: 'smooth', 
@@ -45,7 +44,6 @@ class Header extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'selected', 
-      '', 
       'about this project')
     e.stopPropagation(e)
     e.preventDefault(e)    
@@ -65,7 +63,6 @@ class Header extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'selected',
-      '',
       'methodology')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     window.open(`${appRoot}${Tr.getIn(['methodologyLinks', this.props.language])}`)
@@ -82,7 +79,6 @@ class Header extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'selected',
-      '', 
       'reset all')
     const categories = DefaultCategoryComputations.initialState(
       this.props.data,
@@ -103,7 +99,6 @@ class Header extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
       'selected', 
-      '', 
       'data disclaimer')
     event.preventDefault()
     this.props.summonDisclaimer()
@@ -112,8 +107,7 @@ class Header extends React.Component {
   learnMoreAnalytics() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
-      'selected', 
-      '', 
+      'selected',
       'learn more')
   }
 

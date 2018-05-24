@@ -15,7 +15,6 @@ class Story extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
       'selected', 
-      '',  
       `${this.props.id}`)
     e.stopPropagation()
     e.preventDefault()

@@ -5,7 +5,7 @@ class AnalyticsReporter {
     }
   }
 
-  reportEvent(category, action, filter, eventDetail) {
+  reportEvent(category, action, eventDetail) {
     if (typeof window.dataLayer === 'undefined') { return }
 
     const dataObject = {

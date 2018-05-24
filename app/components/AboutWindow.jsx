@@ -14,8 +14,7 @@ class AboutWindow extends React.Component {
   closeButtonClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`, 
-      'selected', 
-      '',  
+      'selected',   
       'about this project close button')
     e.stopPropagation()
     e.preventDefault()
@@ -48,40 +47,35 @@ class AboutWindow extends React.Component {
   nebPerformancePortalAnalytics() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
-      'selected', 
-      '',  
+      'selected',  
       'neb performance portal')
   }
 
   emailLinkAnalytics() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
-      'selected', 
-      '',  
+      'selected',  
       'email link')
   }
 
   wikimediaLinkAnalytics() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`,
-      'selected', 
-      '',  
+      'selected',   
       'wikimedia commons')
   }
 
   ccByThreeLinkAnalytics() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','ccByThree'])}`,
-      'selected', 
-      '',  
+      'selected',   
       'cc by 3.0')
   }
 
   ccBySAThreeLinkAnalytics() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`,
-      'selected', 
-      '',   
+      'selected',   
       'cc by-sa 3.0')
   }
 

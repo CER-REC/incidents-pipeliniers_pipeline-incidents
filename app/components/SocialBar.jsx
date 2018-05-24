@@ -56,7 +56,6 @@ class SocialBar extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'selected', 
-      '',
       'email')
     const self = this
     this.makeBitlyPromise().then(function(url){
@@ -80,7 +79,6 @@ class SocialBar extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'selected', 
-      '',
       'facebook')
     this.makeBitlyPromise().then(function(url){
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
@@ -99,7 +97,6 @@ class SocialBar extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'selected', 
-      '',
       'linkedin')
     this.makeBitlyPromise().then(function(url){
       const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${url}`
@@ -118,7 +115,6 @@ class SocialBar extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'selected', 
-      '',  
       'twitter')
     this.makeBitlyPromise().then(function(url){
       const twitterUrl = `https://twitter.com/intent/tweet?url=${url}`
@@ -137,7 +133,6 @@ class SocialBar extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'selected', 
-      '',
       'download data file')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     const fileName = Tr.getIn(['downloadable', 'csv', this.props.language])
@@ -155,7 +150,6 @@ class SocialBar extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
       'selected', 
-      '',
       'download image')
 
     const horizontalPositions = WorkspaceComputations.horizontalPositions(

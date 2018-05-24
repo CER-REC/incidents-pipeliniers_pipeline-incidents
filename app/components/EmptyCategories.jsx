@@ -76,7 +76,6 @@ class EmptyCategories extends React.Component {
     this.props.analytics.reportEvent(
     `${Constants.getIn(['analyticsCategory','emptyCategories'])}`,
     'selected',
-    '',
     `${actionString}`)
     this.props.onClick(
       this.props.dividerLine,

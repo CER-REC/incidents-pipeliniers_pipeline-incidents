@@ -219,7 +219,6 @@ class Filterbox extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
       'dragged', 
-      '', 
       `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()}`)
     e.stopPropagation()
     e.preventDefault()
@@ -288,7 +287,6 @@ class Filterbox extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
       'touch dragged', 
-      '',
       `${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en']).toLowerCase()}`)
     e.stopPropagation()
     e.preventDefault()
@@ -336,7 +334,6 @@ class Filterbox extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`, 
       'selected', 
-      '',  
       `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()} show only`)
     this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
   }
@@ -352,7 +349,6 @@ class Filterbox extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
       'selected', 
-      '',
       `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()} hide`)
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
@@ -368,7 +364,6 @@ class Filterbox extends React.Component {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
       'selected', 
-      '',
       `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()} reset`)
     this.props.onResetClick(this.props.columnName)
   }
