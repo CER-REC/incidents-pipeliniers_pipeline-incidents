@@ -23,7 +23,7 @@ class TooltipListItem extends React.Component {
     }
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','questionMark'])}`,
-      `${actionString}`,
+      actionString,
       `${this.props.item.get('overview').toLowerCase()} detail overview`)
 
     if(this.props.columnTooltipClick.get('columnName') === this.props.columnName &&
