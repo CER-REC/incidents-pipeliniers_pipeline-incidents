@@ -33,9 +33,8 @@ class StoryWindow extends React.Component {
   closeButtonClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'Selected', 
-      'TODO',  
-      'Close Button')
+      'selected', 
+      'close button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
@@ -53,8 +52,7 @@ class StoryWindow extends React.Component {
     // in the tutorial.
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'Selected image', 
-      'TODO',  
+      'selected image',  
       `${this.props.story.get('storyID')}`)
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
@@ -92,9 +90,8 @@ class StoryWindow extends React.Component {
   nextButtonClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'Selected', 
-      'TODO',  
-      'Next Button')
+      'selected',  
+      'next button')
     e.stopPropagation()
     e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
@@ -112,9 +109,8 @@ class StoryWindow extends React.Component {
   backButtonClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'Selected', 
-      'TODO',  
-      'Back Button')
+      'selected',   
+      'back button')
     e.stopPropagation()
     e.preventDefault()
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])

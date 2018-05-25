@@ -218,9 +218,8 @@ class Filterbox extends React.Component {
   handleDragEnd(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
-      'Dragged', 
-      'TODO', 
-      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])}`)
+      'dragged', 
+      `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -287,9 +286,8 @@ class Filterbox extends React.Component {
   handleTouchEnd(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
-      'Touch dragged', 
-      'TODO',
-      `${this.props.columnName} ${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en'])}`)
+      'touch dragged', 
+      `${this.props.schema.getIn(['incidentTypes', this.props.categoryName, 'en']).toLowerCase()}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -335,9 +333,8 @@ class Filterbox extends React.Component {
   onShowOnlyClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`, 
-      'Selected', 
-      'TODO',  
-      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])} show only`)
+      'selected', 
+      `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()} show only`)
     this.props.onShowOnlyClick(this.props.columnName, this.props.categoryName)
   }
 
@@ -351,9 +348,8 @@ class Filterbox extends React.Component {
   onHideClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
-      'Selected', 
-      'TODO',
-      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])} hide`)
+      'selected', 
+      `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()} hide`)
     this.props.onHideClick(this.props.columnName, this.props.categoryName)
   }
 
@@ -367,9 +363,8 @@ class Filterbox extends React.Component {
   onResetClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','filterbox'])}`,
-      'Selected', 
-      'TODO',
-      `${this.props.columnName} ${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en'])} reset`)
+      'selected', 
+      `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()} reset`)
     this.props.onResetClick(this.props.columnName)
   }
 

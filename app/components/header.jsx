@@ -28,9 +28,8 @@ class Header extends React.Component {
   tellMeAStoryAction() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`, 
-      'Selected', 
-      'TODO',  
-      'Tell Me A Story')
+      'selected', 
+      'tell me a story')
     const scrollOptions = {
       behavior: 'smooth', 
       block: 'start', 
@@ -44,9 +43,8 @@ class Header extends React.Component {
   aboutThisProjectClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'Selected', 
-      'TODO', 
-      'About This Project')
+      'selected', 
+      'about this project')
     e.stopPropagation(e)
     e.preventDefault(e)    
     
@@ -64,9 +62,8 @@ class Header extends React.Component {
   methodologyClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'Selected',
-      'TODO',
-      'Methodology')
+      'selected',
+      'methodology')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     window.open(`${appRoot}${Tr.getIn(['methodologyLinks', this.props.language])}`)
   }
@@ -81,9 +78,8 @@ class Header extends React.Component {
   resetAllClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'Selected',
-      'TODO', 
-      'Reset All')
+      'selected',
+      'reset all')
     const categories = DefaultCategoryComputations.initialState(
       this.props.data,
       this.props.schema, 
@@ -102,9 +98,8 @@ class Header extends React.Component {
   disclaimerClick(event) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
-      'Selected', 
-      'TODO', 
-      'Data Disclaimer')
+      'selected', 
+      'data disclaimer')
     event.preventDefault()
     this.props.summonDisclaimer()
   }
@@ -112,9 +107,8 @@ class Header extends React.Component {
   learnMoreAnalytics() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
-      'Selected', 
-      'TODO', 
-      'Learn More')
+      'selected',
+      'learn more')
   }
 
   leftHeading() {

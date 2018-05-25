@@ -119,9 +119,8 @@ class IncidentListHeadings extends React.Component {
   questionMarkClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','questionMark'])}`, 
-      'Selected', 
-      'TODO',  
-      'Incident List')
+      'selected',  
+      'incident list')
     e.stopPropagation()
     e.preventDefault()
     this.props.onQuestionMarkClick('pinColumn')

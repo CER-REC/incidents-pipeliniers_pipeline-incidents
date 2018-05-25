@@ -55,9 +55,8 @@ class SocialBar extends React.Component {
   emailClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'Selected', 
-      'TODO',
-      'Email')
+      'selected', 
+      'email')
     const self = this
     this.makeBitlyPromise().then(function(url){
 
@@ -79,9 +78,8 @@ class SocialBar extends React.Component {
   facebookClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'Selected', 
-      'TODO',
-      'Facebook')
+      'selected', 
+      'facebook')
     this.makeBitlyPromise().then(function(url){
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
       window.open(facebookUrl , 'targetWindow' , 'width=650,height=650') 
@@ -98,9 +96,8 @@ class SocialBar extends React.Component {
   linkedinClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'Selected', 
-      'TODO',
-      'LinkedIn')
+      'selected', 
+      'linkedin')
     this.makeBitlyPromise().then(function(url){
       const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${url}`
       window.open(linkedinUrl , 'targetWindow' , 'width=650,height=650') 
@@ -117,9 +114,8 @@ class SocialBar extends React.Component {
   twitterClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'Selected', 
-      'TODO',  
-      'Twitter')
+      'selected', 
+      'twitter')
     this.makeBitlyPromise().then(function(url){
       const twitterUrl = `https://twitter.com/intent/tweet?url=${url}`
       window.open(twitterUrl , 'targetWindow' , 'width=650,height=650') 
@@ -136,9 +132,8 @@ class SocialBar extends React.Component {
   downloadFileClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'Selected', 
-      'TODO',
-      'Download Data File')
+      'selected', 
+      'download data file')
     const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     const fileName = Tr.getIn(['downloadable', 'csv', this.props.language])
     window.open(fileName, 'data:text/csv;charset=utf-8,data/' + escape()) 
@@ -154,9 +149,8 @@ class SocialBar extends React.Component {
   downloadImageClick() {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'Selected', 
-      'TODO',
-      'Download Image')
+      'selected', 
+      'download image')
 
     const horizontalPositions = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories, 

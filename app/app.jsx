@@ -107,7 +107,6 @@ function locationChangeHandler (location, action) {
     screenshotMode: RouteComputations.screenshotMode(location), 
   }))
 
-
 }
 
 // Webpack Hot Module Replacement API
