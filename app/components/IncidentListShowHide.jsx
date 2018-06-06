@@ -62,10 +62,7 @@ class IncidentListShowHide extends React.Component {
   }
 
   incidentListShowHideAnalytics() {
-    let actionString = 'show incident list'
-    if (this.props.showIncidentList) {
-      actionString = 'hide incident list'
-    }
+    const actionString = this.props.showIncidentList ? 'hide incident list' : 'show incident list'
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','incidentList'])}`,
       'selected',

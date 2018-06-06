@@ -57,10 +57,7 @@ class IncidentListItem extends React.Component {
   }
 
   incidentStarClick(event) {
-    let actionString = 'starred'
-    if (this.props.pinned) {
-      actionString = 'unstarred'
-    }
+    const actionString = this.props.pinned ? 'unstarred' : 'starred'
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','incidentList'])}`,
       actionString,
