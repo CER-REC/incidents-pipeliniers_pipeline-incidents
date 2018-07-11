@@ -1,8 +1,12 @@
+const V1 = require('uuid/v1')
+
 class AnalyticsReporter {
   constructor() {
     if (typeof window.dataLayer === 'undefined') {
       console.warn('Google Tag Manager not found.')
     }
+
+    this.sessionUuid = V1()
   }
 
   reportEvent(category, action, eventDetail) {
@@ -15,8 +19,11 @@ class AnalyticsReporter {
       filter: window.location.href.split('?')[1],
       label: eventDetail,
       visualization: 'pipeline incidents',
+      userID: this.sessionUuid,
     }
-    console.log('Sending GA report:', dataObject)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Sending GA report:', dataObject)
+    }
     return window.dataLayer.push(dataObject)
   }
 }
