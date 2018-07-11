@@ -106,11 +106,13 @@ class Category extends React.Component {
   }
 
   categoryLabelClick() {
-    const actionString = this.filterboxActive() ? 'deselected' : 'selected' 
+    const actionString = this.filterboxActive() ? 'deselected' : 'selected'
+    const eventString = this.props.columnName === 'year' ? `${this.props.categoryName}` : `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()}`
     this.props.analytics.reportEvent(
       this.props.columnName.toLowerCase(),
       actionString,
-      `${this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']).toLowerCase()}`)
+      eventString
+    )
     if (!this.props.enableCategoryHeadingClick) {
       return
     }

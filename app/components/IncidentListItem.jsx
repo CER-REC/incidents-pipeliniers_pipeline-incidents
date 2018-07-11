@@ -35,16 +35,22 @@ class IncidentListItem extends React.Component {
   }
 
   incidentItemClick() {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','incidentList'])}`,
-      'selected',
-      `${this.props.incident.get('incidentNumber')}`)
+    let actionString = 'selected'
     if (this.props.selected === true) {
       this.props.removeFromSelectedIncidents(this.props.incident)
+      actionString = 'deselected'
     }
     else {
       this.props.addToSelectedIncidents(this.props.incident)
     }
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','incidentList'])}`,
+      actionString,
+      `${this.props.incident.get('incidentNumber')}`)
+  }
+
+  generateAnalytics() {
+    
   }
 
   incidentItemKeyDown(event) {
