@@ -49,10 +49,6 @@ class IncidentListItem extends React.Component {
       `${this.props.incident.get('incidentNumber')}`)
   }
 
-  generateAnalytics() {
-    
-  }
-
   incidentItemKeyDown(event) {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault()
