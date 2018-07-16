@@ -1,8 +1,19 @@
+const V1 = require('uuid/v1')
+const BrowserCookies = require('browser-cookies')
+
 class AnalyticsReporter {
   constructor() {
     if (typeof window.dataLayer === 'undefined') {
       console.warn('Google Tag Manager not found.')
     }
+
+    this.userUuid = BrowserCookies.get('incident-UUID')
+
+    if (this.userUuid === null) {
+      this.userUuid = V1()
+      BrowserCookies.set('incident-UUID', this.userUuid)
+    }
+
   }
 
   reportEvent(category, action, eventDetail) {
@@ -15,8 +26,11 @@ class AnalyticsReporter {
       filter: window.location.href.split('?')[1],
       label: eventDetail,
       visualization: 'pipeline incidents',
+      userID: this.userUuid,
     }
-    console.log('Sending GA report:', dataObject)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Sending GA report:', dataObject)
+    }
     return window.dataLayer.push(dataObject)
   }
 }
