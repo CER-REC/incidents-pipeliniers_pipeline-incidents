@@ -12,7 +12,10 @@ const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.j
 class AboutWindow extends React.Component {
 
   closeButtonClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'About This Project Close Button')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','headerLinks'])}`, 
+      'selected',   
+      'about this project close button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
@@ -42,23 +45,38 @@ class AboutWindow extends React.Component {
   }
 
   nebPerformancePortalAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'NEB Performance Portal')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
+      'selected',  
+      'neb performance portal')
   }
 
   emailLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','headerLinks'])}`, 'Email Link')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
+      'selected',  
+      'email link')
   }
 
   wikimediaLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`, 'Wikimedia Commons')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`,
+      'selected',   
+      'wikimedia commons')
   }
 
   ccByThreeLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','ccByThree'])}`, 'CC By 3.0')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','ccByThree'])}`,
+      'selected',   
+      'cc by 3.0')
   }
 
   ccBySAThreeLinkAnalytics() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`, 'CC BY-SA 3.0')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`,
+      'selected',   
+      'cc by-sa 3.0')
   }
 
   heading() {

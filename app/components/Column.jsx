@@ -171,7 +171,10 @@ class Column extends React.Component {
   }
 
   questionMarkClick(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','questionMark'])}`,this.props.columnName)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','questionMark'])}`,
+      'selected',  
+      `${this.props.columnName}`)
     e.stopPropagation(e)
     e.preventDefault(e)
     this.props.onQuestionMarkClick(this.props.columnName)
@@ -411,7 +414,10 @@ class Column extends React.Component {
   }
 
   handleDragEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`, `${this.props.columnName} dragged` )
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','column'])}`,
+      'dragged',  
+      `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -429,7 +435,10 @@ class Column extends React.Component {
   }
 
   handleTouchEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','column'])}`,`${this.props.columnName} touch dragged`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','column'])}`,
+      'touch dragged',  
+      `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -522,7 +531,10 @@ class Column extends React.Component {
   }
 
   handleSidebarDragEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,`${this.props.columnName} column added to workspace`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','sidebar'])}`,
+      'added to workspace',
+      `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
 
@@ -540,7 +552,10 @@ class Column extends React.Component {
   }
 
   handleSidebarTouchEnd(e) {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','sidebar'])}`,`${this.props.columnName} column touched to workspace`)
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','sidebar'])}`,
+      'added to workspace on touch',
+      `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
 

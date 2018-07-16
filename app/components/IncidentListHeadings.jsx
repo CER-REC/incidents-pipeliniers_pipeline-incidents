@@ -117,6 +117,10 @@ class IncidentListHeadings extends React.Component {
   }
 
   questionMarkClick(e) {
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','questionMark'])}`, 
+      'selected',  
+      'incident list')
     e.stopPropagation()
     e.preventDefault()
     this.props.onQuestionMarkClick('pinColumn')
@@ -163,6 +167,7 @@ const mapStateToProps = state => {
     language: state.language,
     columnTooltip: state.columnTooltip,
     screenshotMode: state.screenshotMode,
+    analytics: state.analytics,
   }
 }
 

@@ -116,6 +116,7 @@ class SimpleTooltip extends React.Component {
   }
 
   closeTooltip(e) {
+
     e.stopPropagation()
     e.preventDefault()
     this.props.ColumnTooltipDismiss()
@@ -168,5 +169,7 @@ class SimpleTooltip extends React.Component {
     return this.getTooltipLayout()
   }
 }
+
+
 
 module.exports = SimpleTooltip

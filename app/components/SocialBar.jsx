@@ -53,7 +53,10 @@ class SocialBar extends React.Component {
   }
 
   emailClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Email')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'selected', 
+      'email')
     const self = this
     this.makeBitlyPromise().then(function(url){
 
@@ -73,7 +76,10 @@ class SocialBar extends React.Component {
   }
 
   facebookClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Facebook')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'selected', 
+      'facebook')
     this.makeBitlyPromise().then(function(url){
       const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`
       window.open(facebookUrl , 'targetWindow' , 'width=650,height=650') 
@@ -88,7 +94,10 @@ class SocialBar extends React.Component {
   }
 
   linkedinClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'LinkedIn')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'selected', 
+      'linkedin')
     this.makeBitlyPromise().then(function(url){
       const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}&summary=${url}`
       window.open(linkedinUrl , 'targetWindow' , 'width=650,height=650') 
@@ -103,7 +112,10 @@ class SocialBar extends React.Component {
   }
 
   twitterClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Twitter')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'selected', 
+      'twitter')
     this.makeBitlyPromise().then(function(url){
       const twitterUrl = `https://twitter.com/intent/tweet?url=${url}`
       window.open(twitterUrl , 'targetWindow' , 'width=650,height=650') 
@@ -118,7 +130,11 @@ class SocialBar extends React.Component {
   }
 
   downloadFileClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Download Data File')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'selected', 
+      'download data file')
+    const appRoot = RouteComputations.appRoot(document.location, this.props.language)
     const fileName = Tr.getIn(['downloadable', 'csv', this.props.language])
     window.open(fileName, 'data:text/csv;charset=utf-8,data/' + escape()) 
   }
@@ -131,7 +147,10 @@ class SocialBar extends React.Component {
   }
 
   downloadImageClick() {
-    this.props.analytics.reportEvent(`${Constants.getIn(['analyticsCategory','menuButtons'])}`, 'Download Image')
+    this.props.analytics.reportEvent(
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'selected', 
+      'download image')
 
     const horizontalPositions = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories, 
@@ -144,7 +163,7 @@ class SocialBar extends React.Component {
       this.props.categories
     )
 
-    const screenshotUrl = `${RouteComputations.screenshotOrigin(location)}/${Constants.get('screenshotPath')}/?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
+    const screenshotUrl = `${RouteComputations.screenshotOrigin(location)}/${Constants.get('serviceScreenshotPath')}/?pageUrl=${RouteComputations.screenshotParameter(document.location)}&width=${horizontalPositions.getIn(['workspace', 'width'])}&height=${Constants.get('screenshotHeight')}`
 
     window.open(screenshotUrl) 
   }

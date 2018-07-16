@@ -101,7 +101,6 @@ const RouteComputations = {
         } 
       } )
     }
-
     return RouteComputations.paramsToUrlString(params)
   },
 
@@ -337,7 +336,7 @@ const RouteComputations = {
   },
 
   screenshotMode: function (location) {
-    return !!location.pathname.match(`/${Constants.get('screenshotPath')}$`)
+    return !!location.pathname.match(`/${Constants.get('appScreenshotPath')}$`)
   },
 
   // A string for the root of the application, a suitable place for making rest
