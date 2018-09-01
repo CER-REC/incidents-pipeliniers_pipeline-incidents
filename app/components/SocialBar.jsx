@@ -12,7 +12,19 @@ const WorkspaceComputations = require('../WorkspaceComputations.js')
 const Tr = require('../TranslationTable.js')
 
 class SocialBar extends React.Component {
+  constructor(props){
+    super(props)
+    this.bitlyLink = this.bitlyLink.bind(this)
+    this.state = { screenshotURL: Constants.get('appHost') }
+  }
 
+  componentDidMount() {
+    if (this.props.screenshotMode) {
+      this.makeBitlyPromise().then((url) => {
+        this.setState({ screenshotURL: url })
+      })
+    }
+  }
   makeBitlyPromise() {
 
     const bitlyEndpoint = RouteComputations.bitlyEndpoint(document.location, this.props.language)
@@ -173,26 +185,48 @@ class SocialBar extends React.Component {
       this.downloadImageClick()
     }
   }
+  
+  bitlyLink() {
+    return <g>
+      <text x='750' y='50'>
+        {Tr.getIn(['bitlyShare', this.props.language])}&nbsp;
+        <tspan dx="-13.9em" dy="1.4em">
+          {this.state.screenshotURL}
+        </tspan>
+      </text>          
+    </g>
+  }
 
+  nebLogo() {
+    return <g>
+      <image width={300} xlinkHref="images/logolarge.jpg"
+      ></image>
+    </g>
+  }
 
   render() {
-    if (this.props.screenshotMode === true) {
-      return null
+    if (this.props.screenshotMode) {
+      return <div style={{position: 'absolute',
+        left: '50',
+        top: '200'}}>
+        <svg width="1000">
+          {this.nebLogo()}
+          {this.bitlyLink()}
+        </svg>
+      </div>
     }
-
     const iconSize = Constants.getIn(['socialBar', 'iconSize'])
 
     const measurements = WorkspaceComputations.socialBarMeasurements(this.props.viewport)
 
     const transformSocialIcons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
-
     const containerStyle = {
       position: 'absolute',
-      left: measurements.get('x'), 
-      top: measurements.get('y'), 
+      left: measurements.get('x'),
+      top: measurements.get('y'),
     }
 
-    return <div style = { containerStyle }>
+    return <div style = { containerStyle }>      
       <svg>
         <rect
           width={ measurements.get('innerWidth') }

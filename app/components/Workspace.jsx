@@ -60,7 +60,7 @@ class Workspace extends React.Component {
 
   incidentListHtml() {
     if (this.props.screenshotMode) {
-      return null
+       return null
     }
     else {
       return <IncidentContainer />
@@ -81,19 +81,13 @@ class Workspace extends React.Component {
   }
 
   socialbar() {
-    if (!this.props.screenshotMode) {
-      return <SocialBar/>
-    }
-    else {
-      return null
-    }
+    return <SocialBar/>
   }
 
   storyContent() {
     if (this.props.screenshotMode) {
       return null
     }
-
     return <div>
       <StoryWindow/>
       <StoryBar/>
