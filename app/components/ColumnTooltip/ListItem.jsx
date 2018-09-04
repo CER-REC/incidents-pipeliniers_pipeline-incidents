@@ -5,6 +5,11 @@ const Constants = require('../../Constants.js')
 const ColumnTooltipDetailExpandCreator = require('../../actionCreators/ColumnTooltipDetailExpandCreator.js')
 const ColumnTooltipDetailCollapseCreator = require('../../actionCreators/ColumnTooltipDetailCollapseCreator.js')
 
+
+
+const showSubListItem = (array) => (array.map((item, index) => {
+  return (index !== 0) ? <li key={index} > {item} </li> : null
+}))
 class TooltipListItem extends React.Component {
   detailClick(e) {
     e.stopPropagation()
@@ -69,6 +74,8 @@ class TooltipListItem extends React.Component {
     </span>
   }
 
+
+
   detailText() {
     const { columnTooltipClick, columnName, item } = this.props;
     if (!item.get('expanded')) { return null }
@@ -77,10 +84,17 @@ class TooltipListItem extends React.Component {
         columnTooltipClick.get('itemOverview') !== item.get('overview')) {
       return null
     }
-
-    return <span className='listItemDetail'>
-      {item.get('expanded')}
-    </span>
+    const seperatedArray = item.get('expanded').split('\n')
+    const beginningSentence = seperatedArray[0]
+    const endSentence = (seperatedArray.length > 1) ? (seperatedArray[seperatedArray.length - 1]) : null
+    seperatedArray.shift()
+    seperatedArray.pop()
+    
+    return <ul className='listItemDetail'>
+      {beginningSentence}
+      {showSubListItem(seperatedArray)}
+      {endSentence}
+    </ul>
   }
 
   render() {
