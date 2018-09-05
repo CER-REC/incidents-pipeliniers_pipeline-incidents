@@ -226,7 +226,7 @@ class SocialBar extends React.Component {
       top: measurements.get('y'),
     }
 
-    return <div style = { containerStyle }>      
+    return <div style = { containerStyle }>
       <svg>
         <rect
           width={ measurements.get('innerWidth') }
