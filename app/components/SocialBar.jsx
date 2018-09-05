@@ -188,7 +188,7 @@ class SocialBar extends React.Component {
   
   bitlyLink() {
     return <g>
-      <text x='750' y='50'>
+      <text x='350' y='50'>
         {Tr.getIn(['bitlyShare', this.props.language])}&nbsp;
         <tspan dx="-13.9em" dy="1.4em">
           {this.state.screenshotURL}

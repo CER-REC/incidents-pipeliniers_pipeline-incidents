@@ -55,7 +55,10 @@ DomReady( () => {
     render(Root)
 
     // Consumed by the screenshot-service renderer
-    window.visualizationDoneRendering = true
+    setInterval(() => {
+      if(document.fonts.check('1em FiraSansCondensed')){
+        window.visualizationDoneRendering = true
+      }}, 500)
 
   }).catch( (error) => {
     // TODO: Render a nicer error message when the loading procedure fails
