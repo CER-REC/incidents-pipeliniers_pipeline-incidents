@@ -5,8 +5,6 @@ const Constants = require('../../Constants.js')
 const ColumnTooltipDetailExpandCreator = require('../../actionCreators/ColumnTooltipDetailExpandCreator.js')
 const ColumnTooltipDetailCollapseCreator = require('../../actionCreators/ColumnTooltipDetailCollapseCreator.js')
 
-
-
 const showSubListItem = (array) => (array.map((item, index) => {
   return (index !== 0) ? <li key={index} > {item} </li> : null
 }))
@@ -73,8 +71,6 @@ class TooltipListItem extends React.Component {
       {item.get('overview')}
     </span>
   }
-
-
 
   detailText() {
     const { columnTooltipClick, columnName, item } = this.props;
