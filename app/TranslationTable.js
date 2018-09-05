@@ -6,7 +6,6 @@ const TranslationTable = Immutable.fromJS({
     en: 'Visit this interactive visualization: ',
     fr: 'Visitez cette visualisation interactif: ',
   },
-  
   methodologyLinks: {
     en: 'data/Incident Data Methodology_EN.pdf',
     fr: 'data/Incident Data Methodology_FR.pdf',
