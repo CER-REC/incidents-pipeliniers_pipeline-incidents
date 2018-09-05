@@ -59,25 +59,15 @@ class Workspace extends React.Component {
   }
 
   incidentListHtml() {
-    // if (this.props.screenshotMode) {
-    //    return null
-    // }
-    // else {
-      return <IncidentContainer />
-    // }
+    return <IncidentContainer />
   }
 
   incidentListSvg() {
-    // if (this.props.screenshotMode) {
-    //   return null
-    // }
-    // else {
-      return <g>
-        <IncidentListHeadings />
-        <IncidentListShowHide />
-        <EmptyCategories />
-      </g>
-    // }
+    return <g>
+      <IncidentListHeadings />
+      <IncidentListShowHide />
+      <EmptyCategories />
+    </g>
   }
 
   socialbar() {
