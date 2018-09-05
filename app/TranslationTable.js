@@ -391,7 +391,8 @@ const TranslationTable = Immutable.fromJS({
           },
           {
             overview: 'Operation Beyond Design Limits',
-            expanded: 'Includes situations, such as: \n ○ over-pressures – i.e., pressures that are higher than the maximum the equipment was designed to safely handle○ vibration beyond design limits; \n ○ slope movements causing movement in the pipeline beyond design limits; \n ○ pipe exposures in rivers or streams; and \n ○ introduction of an inappropriate product (e.g., sour gas in excess of CSA limits). \n Operation beyond design limit is typically linked to an over-pressure of the product in the pipe; however, if a pipe was exposed to excessive vibration and was not designed for this, this could be considered operation beyond design limits. Operation beyond design limits does not include equipment contacting the pipe, or corrosion pits, etc.',            categoryName: '9'
+            expanded: 'Includes situations, such as: \n ○ over-pressures – i.e., pressures that are higher than the maximum the equipment was designed to safely handle○ vibration beyond design limits; \n ○ slope movements causing movement in the pipeline beyond design limits;\n ○ pipe exposures in rivers or streams; and \n ○ introduction of an inappropriate product (e.g., sour gas in excess of CSA limits). \n Operation beyond design limit is typically linked to an over-pressure of the product in the pipe; however, if a pipe was exposed to excessive vibration and was not designed for this, this could be considered operation beyond design limits. Operation beyond design limits does not include equipment contacting the pipe, or corrosion pits, etc.',
+            categoryName: '9'
           },
           {
             overview: 'Release of Substance',
