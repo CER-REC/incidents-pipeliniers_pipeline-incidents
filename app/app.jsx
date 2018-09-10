@@ -1,5 +1,3 @@
-require('babel-polyfill')
-
 const ReactDOM = require('react-dom')
 const DomReady = require('domready')
 const ReactRedux = require('react-redux')
