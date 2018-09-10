@@ -39,6 +39,11 @@ function render(Component) {
   ReactDOM.render(app, document.getElementById('reactRoot'))
 }
 
+function testIfScreenshotReady() {
+  window.visualizationDoneRendering =
+    window.visualizationRendered && window.documentLoaded
+}
+
 DomReady( () => {
   store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
   
@@ -51,19 +56,29 @@ DomReady( () => {
     window.addEventListener('click', windowClickHandler)
 
     render(Root)
-
-    // Consumed by the screenshot-service renderer
-    setInterval(() => {
-      if(document.fonts.check('1em FiraSansCondensed')){
-        window.visualizationDoneRendering = true
-      }}, 500)
-
+    window.visualizationRendered = true
+    testIfScreenshotReady()
   }).catch( (error) => {
     // TODO: Render a nicer error message when the loading procedure fails
     console.error(error)
     ReactDOM.render(<div> <h1>An Error has Occurred | On a rencontré une erreur</h1> <p>Please try again later | Visiter une autre temps, s'il vous plaît.</p> </div>, document.getElementById('reactRoot'))
   })
 })
+
+if (document.fonts) {
+  const fontCheck = setInterval(() => {
+    if (document.fonts.check('1em FiraSansCondensed')) {
+      clearInterval(fontCheck)
+      window.documentLoaded = true
+      testIfScreenshotReady()
+    }
+  }, 500)
+} else {
+  window.addEventListener('load', () => setTimeout(() => {
+    window.documentLoaded = true
+    testIfScreenshotReady()
+  }, 500))
+}
 
 function resizeScreenHandler () {
   // Ensures the width and height of the workspace keep the ratio 900:600
