@@ -80,15 +80,13 @@ class TooltipListItem extends React.Component {
         columnTooltipClick.get('itemOverview') !== item.get('overview')) {
       return null
     }
-    const seperatedArray = item.get('expanded').split('\n')
-    const beginningSentence = seperatedArray[0]
-    const endSentence = (seperatedArray.length > 1) ? (seperatedArray[seperatedArray.length - 1]) : null
-    seperatedArray.shift()
-    seperatedArray.pop()
+    const separatedArray = item.get('expanded').split('\n')
+    const beginningSentence = separatedArray.shift()
+    const endSentence = (separatedArray.length > 1) ? separatedArray.pop() : null
     
     return <ul className='listItemDetail'>
       {beginningSentence}
-      {showSubListItem(seperatedArray)}
+      {showSubListItem(separatedArray)}
       {endSentence}
     </ul>
   }
