@@ -8,6 +8,7 @@ const BUILD_DIR = Path.resolve(__dirname, 'public/script')
 module.exports = {
   entry: {
     bundle: [
+      'babel-polyfill',
       'react-hot-loader/patch',
       'webpack-hot-middleware/client?path=/pipeline-incidents/script/__webpack_hmr',
       './app/app.jsx',

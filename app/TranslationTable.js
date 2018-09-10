@@ -2,6 +2,10 @@ const Immutable = require('immutable')
 
 const TranslationTable = Immutable.fromJS({ 
 
+  bitlyShare: {
+    en: 'Visit this interactive visualization: ',
+    fr: 'Visitez cette visualisation interactif: ',
+  },
   methodologyLinks: {
     en: 'data/Incident Data Methodology_EN.pdf',
     fr: 'data/Incident Data Methodology_FR.pdf',
@@ -387,7 +391,7 @@ const TranslationTable = Immutable.fromJS({
           },
           {
             overview: 'Operation Beyond Design Limits',
-            expanded: 'Includes situations, such as: ○ over-pressures – i.e., pressures that are higher than the maximum the equipment was designed to safely handle○ vibration beyond design limits;○ slope movements causing movement in the pipeline beyond design limits;○ pipe exposures in rivers or streams; and○ introduction of an inappropriate product (e.g., sour gas in excess of CSA limits). Operation beyond design limit is typically linked to an over-pressure of the product in the pipe; however, if a pipe was exposed to excessive vibration and was not designed for this, this could be considered operation beyond design limits. Operation beyond design limits does not include equipment contacting the pipe, or corrosion pits, etc.',
+            expanded: 'Includes situations, such as: \n ○ over-pressures – i.e., pressures that are higher than the maximum the equipment was designed to safely handle○ vibration beyond design limits; \n ○ slope movements causing movement in the pipeline beyond design limits;\n ○ pipe exposures in rivers or streams; and \n ○ introduction of an inappropriate product (e.g., sour gas in excess of CSA limits). \n Operation beyond design limit is typically linked to an over-pressure of the product in the pipe; however, if a pipe was exposed to excessive vibration and was not designed for this, this could be considered operation beyond design limits. Operation beyond design limits does not include equipment contacting the pipe, or corrosion pits, etc.',
             categoryName: '9'
           },
           {
@@ -424,7 +428,7 @@ const TranslationTable = Immutable.fromJS({
           },
           {
             overview: 'Exploitation au-delà des tolérances de conception',
-            expanded: 'De telles situations comprennent notamment les suivantes :○ cas de surpression, soit lorsque les pressions sont supérieures aux limites établies pour un fonctionnement sans danger de l’équipement;○ vibration supérieure aux tolérances de conception;○ mouvements du sol à l’origine d’un déplacement du pipeline plus grand que celui autorisé selon les limites de conception;○ affleurement d’une conduite dans une rivière ou un ruisseau;○ présence d’un produit inapproprié (p. ex., gaz acide au-delà des limites établies par les normes CSA).L’exploitation au-delà des tolérances de conception est habituellement liée à une surpression causée par le produit dans la canalisation. Cependant, si cette dernière est soumise à une vibration excessive pour laquelle elle n’a pas été conçue, il pourrait s’agir là encore d’un type d’exploitation au-delà des tolérances de conception, qui n’inclut toutefois pas les chocs avec la conduite, les piqûres de corrosion, etc.',
+            expanded: 'De telles situations comprennent notamment les suivantes :\n○ cas de surpression, soit lorsque les pressions sont supérieures aux limites établies pour un fonctionnement sans danger de l’équipement;\n○ vibration supérieure aux tolérances de conception;\n○ mouvements du sol à l’origine d’un déplacement du pipeline plus grand que celui autorisé selon les limites de conception;\n○ affleurement d’une conduite dans une rivière ou un ruisseau;\n○ présence d’un produit inapproprié (p. ex., gaz acide au-delà des limites établies par les normes CSA).\nL’exploitation au-delà des tolérances de conception est habituellement liée à une surpression causée par le produit dans la canalisation. Cependant, si cette dernière est soumise à une vibration excessive pour laquelle elle n’a pas été conçue, il pourrait s’agir là encore d’un type d’exploitation au-delà des tolérances de conception, qui n’inclut toutefois pas les chocs avec la conduite, les piqûres de corrosion, etc.',
             categoryName: '9',
           },
           {

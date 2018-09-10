@@ -353,7 +353,7 @@ const Constants = Immutable.fromJS({
   appScreenshotPath: 'screenshot',
 
   // the math to use for making a screenshot request of the screenshot server
-  serviceScreenshotPath: 'screenshotv2',
+  serviceScreenshotPath: 'screenshot',
 
   screenshotHeight: 1000,
 
