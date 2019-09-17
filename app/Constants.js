@@ -73,7 +73,7 @@ const Constants = Immutable.fromJS({
     checkboxWidth: 1,
     dividerLineLength: 124,
     dividerLinePadding: -17,
-    checkboxStrokePadding: 1, 
+    checkboxStrokePadding: 1,
   },
 
   //incident list
@@ -107,7 +107,7 @@ const Constants = Immutable.fromJS({
 
   columnHeadingHeight: 47,
   columnHeadingLineOffset: 15,
-  columnHeadingHeightFr: 30, 
+  columnHeadingHeightFr: 30,
   columnSubheadingHeight: 10,
   columnSubheadingOffset: 45,
   columnSubheadingPaddingEn: 3,
@@ -137,7 +137,7 @@ const Constants = Immutable.fromJS({
   },
 
   socialBar: {
-    width: 23, 
+    width: 23,
     height: 148,
     iconSize: 16,
     leftMargin: 5,
@@ -288,10 +288,10 @@ const Constants = Immutable.fromJS({
   },
 
   emptyCategoryHeight: 20, // px
-  
+
   map: {
     widthHeightRatio: 550 / 450,
-    
+
     // NB: Must match dimensions of canada.svg
     coordinateSpace: {
       width: 500,
@@ -365,7 +365,7 @@ const Constants = Immutable.fromJS({
   incidentList: {
     // Begin scrolling the list when we have 4 or more incidents
     maxIncidentsWithoutScroll: 3,
-    
+
     // NB: this is an approximate height based on manually measuring the DOM
     // element. Since we're using HTML, we can't compute the height in advance,
     // but we could possibly measure the elements instead of assuming the
@@ -380,7 +380,7 @@ const Constants = Immutable.fromJS({
 
   // This is the order we are to use for display of provinces.
   // It's not clear where exactly this order comes from, my guess is that it is
-  // the result of an Object.keys() call on a provinces category object 
+  // the result of an Object.keys() call on a provinces category object
   // somewhere, but we have been asked to preserve this order going forward!
 
   provinceOrder: [
@@ -423,11 +423,10 @@ const Constants = Immutable.fromJS({
   // to drop below
   workspaceBottomMargin: 20,
   barHeadingSpacing: 25,
- 
-  appHost: 'https://apps2.neb-one.gc.ca',
+
+  appHost: 'https://apps2.cer-rec.gc.ca',
 
 })
 
 
 module.exports = Constants
-
