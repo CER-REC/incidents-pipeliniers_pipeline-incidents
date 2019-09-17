@@ -6,7 +6,7 @@ const ApplicationRoot = require('../../ApplicationRoot.js')
 
 
 const DevelopmentPageMiddleware = function () {
- 
+
   const app = Express()
 
   // view engine setup
@@ -22,10 +22,6 @@ const DevelopmentPageMiddleware = function () {
     res.render('app', {title: 'WET 4.0.20'})
   })
 
-  router.get('/screenshot', function(req, res) {
-    res.render('screenshot')
-  })
-  
   app.use(router)
 
   // Turn off caching!

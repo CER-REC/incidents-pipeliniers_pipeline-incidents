@@ -48,8 +48,8 @@ class Column extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories, 
-      this.props.columnName) 
+      this.props.categories,
+      this.props.columnName)
 
     // TODO: I'm not very happy computing the vertical layout this way, refactor!
     // TODO: use the new WorkspaceComputations.categoryVerticalPositions
@@ -79,7 +79,7 @@ class Column extends React.Component {
           categoryName={categoryName}
           className="Column"
           key={categoryName}
-          colour={categoryColours.get(categoryName)} 
+          colour={categoryColours.get(categoryName)}
           height={categoryHeights.get(categoryName)}
           width={ columnMeasurements.get('width') }
           x={ columnMeasurements.get('x') }
@@ -104,7 +104,7 @@ class Column extends React.Component {
 
     let currentY
     if (headingPieces.length === 1) {
-      currentY = WorkspaceComputations.barHeading() 
+      currentY = WorkspaceComputations.barHeading()
     }
     else if  (headingPieces.length === 2) {
       currentY = WorkspaceComputations.barHeading() -
@@ -117,12 +117,12 @@ class Column extends React.Component {
 
     return headingPieces.map((word) => {
       currentY += Constants.get('columnHeadingLineOffset')
-      return <tspan className='barsHeading' 
+      return <tspan className='barsHeading'
         key={word}
-        x={columnMeasurements.get('x') + 
+        x={columnMeasurements.get('x') +
         Constants.getIn(['questionMark', 'size']) +
         Constants.get('columnHeadingXOffset') +
-        Constants.get('columnHeadingLeftMargin')} 
+        Constants.get('columnHeadingLeftMargin')}
         y={currentY}
         onMouseDown={this.handleDragStart.bind(this)}
         onMouseMove={this.handleDragMove.bind(this)}
@@ -137,10 +137,6 @@ class Column extends React.Component {
   }
 
   questionMark() {
-    if (this.props.screenshotMode === true) {
-      return null
-    }
-
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -150,22 +146,22 @@ class Column extends React.Component {
       .getIn(['columns', this.props.columnName])
 
     let questionMarkY = WorkspaceComputations.barHeading() -
-      Constants.getIn(['questionMark', 'size'])  - 
+      Constants.getIn(['questionMark', 'size'])  -
       Constants.getIn(['questionMark', 'yOffset']) +
       Constants.get('columnHeadingLineOffset') // Bottom-align to the text
 
-    return <image 
+    return <image
       id={`${this.props.columnName}-QuestionMark`}
       className= 'questionMark'
-      xlinkHref="images/large_qmark.svg" 
-      width={Constants.getIn(['questionMark', 'size'])} 
-      height={Constants.getIn(['questionMark', 'size'])} 
-      x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftMargin')} 
+      xlinkHref="images/large_qmark.svg"
+      width={Constants.getIn(['questionMark', 'size'])}
+      height={Constants.getIn(['questionMark', 'size'])}
+      x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftMargin')}
       y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}
       tabIndex = '0'
       aria-label = {`${this.props.columnName} 'Question Mark Tool Tip'`}
-      role = 'button' 
+      role = 'button'
       onKeyDown = { this.questionMarKeyDown.bind(this) }
     />
   }
@@ -173,7 +169,7 @@ class Column extends React.Component {
   questionMarkClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','questionMark'])}`,
-      'selected',  
+      'selected',
       `${this.props.columnName}`)
     e.stopPropagation(e)
     e.preventDefault(e)
@@ -212,19 +208,15 @@ class Column extends React.Component {
 
     const subheadingString = `${filteredData.count()} / ${this.props.data.count()} ${Tr.getIn(['shown', this.props.language])}`
 
-    return <tspan className='barsSubHeading' 
+    return <tspan className='barsSubHeading'
       key='barSubHeading'
-      x={columnMeasurements.get('x')} 
+      x={columnMeasurements.get('x')}
       y={currentY}>
       { subheadingString }
     </tspan>
   }
 
   dragArrow() {
-    if (this.props.screenshotMode) {
-      return null
-    }
-
     const columnMeasurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -235,7 +227,7 @@ class Column extends React.Component {
 
     const dragArrowY = WorkspaceComputations.dragArrowY(this.props.viewport)
 
-    return <image xlinkHref='images/horizontal_drag.svg' 
+    return <image xlinkHref='images/horizontal_drag.svg'
       className = 'dragArrow'
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
@@ -308,7 +300,7 @@ class Column extends React.Component {
         columnName={this.props.columnName}
         categoryName={categoryName}
         key={categoryName}
-        colour={categoryColours.get(categoryName)} 
+        colour={categoryColours.get(categoryName)}
         height={emptyCategoryHeight}
         width={ columnMeasurements.get('width') }
         x={ columnMeasurements.get('x') }
@@ -326,7 +318,7 @@ class Column extends React.Component {
       this.props.columns,
       this.props.columnName)) {
 
-      return <ColumnPaths 
+      return <ColumnPaths
         columnName={this.props.columnName}
       />
     }
@@ -341,7 +333,7 @@ class Column extends React.Component {
       this.props.columns,
       this.props.columnName)) {
 
-      return <SelectedColumnPaths 
+      return <SelectedColumnPaths
         columnName={this.props.columnName}
       />
     } else {
@@ -368,7 +360,7 @@ class Column extends React.Component {
     // These handlers will help keep the dragged column moving
     // even when the cursor is off the dragging handle. This
     // is necessary because the dragging handle is too small
-    // making it harder to drag without the cursor leaving 
+    // making it harder to drag without the cursor leaving
     // the handle.
     columnWindowMoveHandler = this.handleDragMove.bind(this)
     columnWindowEndHandler = this.handleDragEnd.bind(this)
@@ -398,7 +390,7 @@ class Column extends React.Component {
     e.preventDefault()
 
     // No need to fire unneeded events if drag hasn't started.
-    if(!this.props.columnDragStatus.get('isStarted')) return 
+    if(!this.props.columnDragStatus.get('isStarted')) return
 
     this.props.onColumnDrag(e.clientX)
   }
@@ -408,7 +400,7 @@ class Column extends React.Component {
     e.preventDefault()
 
     // No need to fire unneeded events if drag hasn't started.
-    if(!this.props.columnDragStatus.get('isStarted')) return 
+    if(!this.props.columnDragStatus.get('isStarted')) return
 
     this.props.onColumnDrag(e.touches[0].clientX)
   }
@@ -416,7 +408,7 @@ class Column extends React.Component {
   handleDragEnd(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','column'])}`,
-      'dragged',  
+      'dragged',
       `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
@@ -425,7 +417,7 @@ class Column extends React.Component {
     if(!this.props.columnDragStatus.get('isStarted')) return
 
     this.props.onColumnDragEnded(false)
-    const newX = this.props.columnDragStatus.get('newX') - 
+    const newX = this.props.columnDragStatus.get('newX') -
                  this.props.columnDragStatus.get('offset')
     this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
 
@@ -437,7 +429,7 @@ class Column extends React.Component {
   handleTouchEnd(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','column'])}`,
-      'touch dragged',  
+      'touch dragged',
       `${this.props.columnName}`)
     e.stopPropagation()
     e.preventDefault()
@@ -446,7 +438,7 @@ class Column extends React.Component {
     if(!this.props.columnDragStatus.get('isStarted')) return
 
     this.props.onColumnDragEnded(false)
-    const newX = this.props.columnDragStatus.get('newX') - 
+    const newX = this.props.columnDragStatus.get('newX') -
                  this.props.columnDragStatus.get('offset')
     this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
 
@@ -504,7 +496,7 @@ class Column extends React.Component {
     // These handlers will help keep the dragged column moving
     // even when the cursor is off the dragging handle. This
     // is necessary because the dragging handle is too small
-    // making it harder to drag without the cursor leaving 
+    // making it harder to drag without the cursor leaving
     // the handle.
     sidebarWindowMoveHandler = this.handleSidebarDragMove.bind(this)
     sidebarWindowEndHandler = this.handleSidebarDragEnd.bind(this)
@@ -524,7 +516,7 @@ class Column extends React.Component {
     // These handlers will help keep the dragged column moving
     // even when the cursor is off the dragging handle. This
     // is necessary because the dragging handle is too small
-    // making it harder to drag without the cursor leaving 
+    // making it harder to drag without the cursor leaving
     // the handle.
     sidebarWindowMoveHandler = this.handleSidebarTouchMove.bind(this)
     sidebarWindowEndHandler = this.handleSidebarTouchEnd.bind(this)
@@ -542,7 +534,7 @@ class Column extends React.Component {
     if(!this.props.sidebarDragStatus.get('isStarted')) return
 
     this.props.onSidebarDragEnded(false)
-    const newX = this.props.sidebarDragStatus.get('newX') - 
+    const newX = this.props.sidebarDragStatus.get('newX') -
                  this.props.sidebarDragStatus.get('offset')
     this.props.onSidebarColumnSnap(this.props.sidebarDragStatus.get('columnName'), this.props.sidebarDragStatus.get('oldX'), newX, this.props.viewport)
 
@@ -563,7 +555,7 @@ class Column extends React.Component {
     if(!this.props.sidebarDragStatus.get('isStarted')) return
 
     this.props.onSidebarDragEnded(false)
-    const newX = this.props.sidebarDragStatus.get('newX') - 
+    const newX = this.props.sidebarDragStatus.get('newX') -
                  this.props.sidebarDragStatus.get('offset')
     this.props.onSidebarColumnSnap(this.props.sidebarDragStatus.get('columnName'), this.props.sidebarDragStatus.get('oldX'), newX, this.props.viewport)
   }
@@ -615,20 +607,20 @@ class Column extends React.Component {
     let transformString = 'translate(0,0)'
     if(this.props.sidebarDragStatus.get('isStarted') &&
        this.props.sidebarDragStatus.get('columnName') === this.props.columnName) {
-      const xTransform = this.props.sidebarDragStatus.get('newX') - 
-                         this.props.sidebarDragStatus.get('offset') - 
+      const xTransform = this.props.sidebarDragStatus.get('newX') -
+                         this.props.sidebarDragStatus.get('offset') -
                          this.props.sidebarDragStatus.get('oldX')
       transformString = `translate(${xTransform},0)`
     }
-    return transformString    
+    return transformString
   }
 
   columnTransform() {
     let transformString = 'translate(0,0)'
     if(this.props.columnDragStatus.get('isStarted') &&
        this.props.columnDragStatus.get('columnName') === this.props.columnName) {
-      const xTransform = this.props.columnDragStatus.get('newX') - 
-                         this.props.columnDragStatus.get('offset') - 
+      const xTransform = this.props.columnDragStatus.get('newX') -
+                         this.props.columnDragStatus.get('offset') -
                          this.props.columnDragStatus.get('oldX')
       transformString = `translate(${xTransform},0)`
     }
@@ -653,13 +645,13 @@ class Column extends React.Component {
       this.props.viewport,
       this.props.data,
       this.props.columns,
-      this.props.categories, 
-      this.props.columnName) 
+      this.props.categories,
+      this.props.columnName)
 
     const displayedCategories = CategoryComputations.displayedCategories(
       this.props.data,
       this.props.columns,
-      this.props.categories, 
+      this.props.categories,
       this.props.columnName)
 
     let categoryY = this.props.columnY
@@ -673,7 +665,7 @@ class Column extends React.Component {
           columnType={this.props.columnType}
           categoryName={categoryName}
           key={categoryName}
-          colour={categoryColours.get(categoryName)} 
+          colour={categoryColours.get(categoryName)}
           height={categoryHeights.get(categoryName)}
           width={ this.props.columnWidth }
           x={ this.props.columnX }
@@ -698,7 +690,7 @@ class Column extends React.Component {
         onKeyDown = { this.sidebarKeyDown.bind(this) }
       ></rect>
       <image
-        xlinkHref='images/mapColumn.png' 
+        xlinkHref='images/mapColumn.png'
         height={ this.props.columnHeight - Constants.getIn(['sidebarMapColumn','heightPadding']) }
         className='Column'
         width={ this.props.columnWidth - Constants.getIn(['sidebarMapColumn','widthPadding'])}
@@ -731,7 +723,7 @@ class Column extends React.Component {
     if (this.props.sidebarColumnHover === this.props.columnName) {
 
       const transform = `translate(${Constants.getIn(['sidebar', 'dropShadowX'])},${Constants.getIn(['sidebar', 'dropShadowY'])})`
-      
+
       return <g transform = { transform } >
         <rect
           fill = '#999'
@@ -785,7 +777,7 @@ class Column extends React.Component {
         transform={this.columnTransform()}
       >
         <g>
-          <text tabIndex = '0' 
+          <text tabIndex = '0'
             aria-label = {this.props.columnName}
             onKeyDown = {this.columnKeyDown.bind(this)}>
             {this.barHeading()}</text>
@@ -796,7 +788,7 @@ class Column extends React.Component {
         </g>
         { this.columnPaths() }
         { this.selectedColumnPaths() }
-        <SelectedIncidentPaths 
+        <SelectedIncidentPaths
           columnName = { this.props.columnName }
           categoryName = { this.props.categoryName }
         />
@@ -820,7 +812,6 @@ const mapStateToProps = state => {
     language: state.language,
     columnDragStatus: state.columnDragStatus,
     sidebarDragStatus: state.sidebarDragStatus,
-    screenshotMode: state.screenshotMode,
     sidebarColumnHover: state.sidebarColumnHover,
     schema: state.schema,
     columnTooltip: state.columnTooltip,

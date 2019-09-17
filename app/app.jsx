@@ -39,14 +39,9 @@ function render(Component) {
   ReactDOM.render(app, document.getElementById('reactRoot'))
 }
 
-function testIfScreenshotReady() {
-  window.visualizationDoneRendering =
-    window.visualizationRendered && window.documentLoaded
-}
-
 DomReady( () => {
   store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
-  
+
   dataLoadPromise.then( () => {
 
     store.getState().history.listen(locationChangeHandler)
@@ -56,8 +51,6 @@ DomReady( () => {
     window.addEventListener('click', windowClickHandler)
 
     render(Root)
-    window.visualizationRendered = true
-    testIfScreenshotReady()
   }).catch( (error) => {
     // TODO: Render a nicer error message when the loading procedure fails
     console.error(error)
@@ -65,32 +58,10 @@ DomReady( () => {
   })
 })
 
-if (document.fonts) {
-  const fontCheck = setInterval(() => {
-    if (document.fonts.check('1em FiraSansCondensed')) {
-      clearInterval(fontCheck)
-      window.documentLoaded = true
-      testIfScreenshotReady()
-    }
-  }, 500)
-} else {
-  window.addEventListener('load', () => setTimeout(() => {
-    window.documentLoaded = true
-    testIfScreenshotReady()
-  }, 500))
-}
-
 function resizeScreenHandler () {
   // Ensures the width and height of the workspace keep the ratio 900:600
   const w = document.getElementById('reactRoot').clientWidth
-  let h
-
-  if (store.getState().screenshotMode) {
-    h = Constants.get('screenshotHeight') - Constants.getIn(['topBar', 'height'])
-  }
-  else {
-    h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])
-  }
+  const h = w * Constants.getIn(['workspace', 'heightToWidthRatio'])
 
   store.dispatch(Resized(w,h))
 }
@@ -120,7 +91,6 @@ function locationChangeHandler (location, action) {
     language: routerState.language,
     selectedIncidents: routerState.selectedIncidents,
     filterboxActivationState: routerState.filterboxActivationState,
-    screenshotMode: RouteComputations.screenshotMode(location), 
   }))
 
 }

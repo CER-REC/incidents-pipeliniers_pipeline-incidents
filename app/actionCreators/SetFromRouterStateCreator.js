@@ -10,7 +10,6 @@ function SetFromRouterStateCreator (options) {
     selectedIncidents: options.selectedIncidents,
     filterboxActivationState: options.filterboxActivationState,
     language: options.language,
-    screenshotMode: options.screenshotMode,
   }
 
 }

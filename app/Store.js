@@ -16,7 +16,6 @@ const LanguageReducer = require('./reducers/LanguageReducer.js')
 const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationStateReducer.js')
 const HistoryReducer = require('./reducers/HistoryReducer.js')
 const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
-const ScreenshotModeReducer = require('./reducers/ScreenshotModeReducer.js')
 const SchemaReducer = require('./reducers/SchemaReducer.js')
 const IncidentListScrollPositionReducer = require('./reducers/IncidentListScrollPositionReducer.js')
 const SelectedIncidentsReducer = require('./reducers/SelectedIncidentsReducer.js')
@@ -51,7 +50,6 @@ const reducers = Redux.combineReducers({
   filterboxActivationState: FilterboxActivationStateReducer,
   categoryDragStatus: CategoryDragReducer,
   history: HistoryReducer,
-  screenshotMode: ScreenshotModeReducer,
   schema: SchemaReducer,
   incidentListScrollPosition: IncidentListScrollPositionReducer,
   selectedIncidents: SelectedIncidentsReducer,
@@ -72,7 +70,7 @@ module.exports = function () {
   // Enable Redux Dev Tools if they are installed in the browser
   // Also handle the case where the Store is used as an offline script, in
   // data.js
-  
+
   let composeEnhancers = Redux.compose
   if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ !== undefined) {
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -82,5 +80,3 @@ module.exports = function () {
     composeEnhancers(Redux.applyMiddleware(RouterMiddleware))
   )
 }
-
-
