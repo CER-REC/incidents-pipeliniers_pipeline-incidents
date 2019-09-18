@@ -9,10 +9,10 @@ function handler(request, res) {
     status_code: 200,
     status_txt: 'OK',
     data:{
-      url: 'https://apps2.cer-rec.gc.ca/pipeline-incidents',
+      url: 'https://www.cer-rec.gc.ca/pipeline-incidents',
       hash: 'asdfdsfkl',
       global_hash: 'asdcxb',
-      long_url: 'https://apps2.cer-rec.gc.ca/pipeline-incidents',
+      long_url: 'https://www.cer-rec.gc.ca/pipeline-incidents',
       new_hash: 0
     }
   }))

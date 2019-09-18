@@ -39,7 +39,7 @@ const TranslationTable = Immutable.fromJS({
     },
     p2: {
       en: 'If you want to use the data for research and undertake your own review, all the data is downloadable and shareable. The chart images are also downloadable',
-      fr: 'Si vous souhaitez utiliser les données pour vos recherches ou pour en faire votre propre analyse, vous pouvez les télécharger et les partager. Les graphiques peuvent aussi être téléchargés.',
+      fr: 'Si vous souhaitez utiliser les données pour vos recherches ou pour en faire votre propre analyse, vous pouvez les télécharger et les partager. Les graphiques peuvent aussi être téléchargés',
     },
     p3: {
       en: 'We hope we are hitting the mark. Your feedback is essential.',
@@ -1857,8 +1857,8 @@ const TranslationTable = Immutable.fromJS({
   },
 
   dataCollectionSubheading: {
-    en: ' on how data collection has evolved since the CER was established in 1959.',
-    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de la Régie en 1959.'
+    en: ' on how data collection has evolved since the NEB (now the CER) was established in 1959.',
+    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de l’Office (maintenant la Régie) en 1959.'
   },
 
   incidentResponseSubheading: {

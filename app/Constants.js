@@ -424,7 +424,7 @@ const Constants = Immutable.fromJS({
   workspaceBottomMargin: 20,
   barHeadingSpacing: 25,
 
-  appHost: 'https://apps2.cer-rec.gc.ca',
+  appHost: 'https://www.cer-rec.gc.ca',
 
 })
 
