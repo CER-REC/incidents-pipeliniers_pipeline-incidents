@@ -1,6 +1,6 @@
 const Immutable = require('immutable')
 
-const TranslationTable = Immutable.fromJS({ 
+const TranslationTable = Immutable.fromJS({
 
   bitlyShare: {
     en: 'Visit this interactive visualization: ',
@@ -91,8 +91,8 @@ const TranslationTable = Immutable.fromJS({
         fr: 'Recherche conceptuelle sous la direction de Sheelagh Carpendale et Wesley Willett, iLab, Université de Calgary',
       },
       design: {
-        en: 'Design: Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.',
-        fr: 'Conception : Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.',
+        en: 'Design: Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, Mieka West, and Lindsay MacDonald.',
+        fr: 'Conception : Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, Mieka West, et Lindsay MacDonald.',
       },
       leadTechnical: {
         en: 'Lead Technical: VizworX',
@@ -130,7 +130,7 @@ const TranslationTable = Immutable.fromJS({
           fr: ' (L’original a été recoloré et pivoté.)'
         },
       },
-      
+
       tellMeAStoryIcon:{
         title:{
           en: 'Tell Me A Story icon:',
@@ -219,7 +219,7 @@ const TranslationTable = Immutable.fromJS({
         theNounProjectLink:{
           en:'http://thenounproject.com/',
           fr: 'http://thenounproject.com/'
-        },  
+        },
       }
     }
   },
@@ -1737,7 +1737,7 @@ const TranslationTable = Immutable.fromJS({
           }
         ],
       },
-    },   
+    },
   },
 
   columnHeadings: {
@@ -1916,7 +1916,7 @@ const TranslationTable = Immutable.fromJS({
     fr: 'incidents liés a la catégorie',
   },
 
-  methodology: { 
+  methodology: {
     en: 'METHODOLOGY',
     fr: 'MÉTHODOLOGIE',
   },
@@ -2249,7 +2249,7 @@ const TranslationTable = Immutable.fromJS({
         en: 'Equipment Failure',
         fr: ' Défaillance d’équipement'
       },
-      incorrectOperation: { 
+      incorrectOperation: {
         en: 'Incorrect Operation',
         fr: 'Erreur d’exploitation',
       },
