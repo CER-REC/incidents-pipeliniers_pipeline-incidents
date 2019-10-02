@@ -12,8 +12,8 @@ const TranslationTable = Immutable.fromJS({
   },
 
   learnMoreLinks: {
-    en: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
-    fr: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
+    en: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
+    fr: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
   },
 
   aboutText: {
@@ -30,8 +30,8 @@ const TranslationTable = Immutable.fromJS({
       fr: 'Rendement en matière de sécurité',
     },
     safetyPerformancePortalLink: {
-      en: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/index-eng.html',
-      fr: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/index-fra.html',
+      en: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/index-eng.html',
+      fr: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/index-fra.html',
     },
     p1_2: {
       en: '',
@@ -50,12 +50,12 @@ const TranslationTable = Immutable.fromJS({
       fr: 'Vous pouvez nous la faire parvenir, ainsi que vos suggestions, à l’adresse ',
     },
     emailText: {
-      en: 'energyindesign@neb-one.gc.ca',
-      fr: 'conceptionenergie@neb-one.gc.ca',
+      en: 'energyindesign@cer-rec.gc.ca',
+      fr: 'conceptionenergie@cer-rec.gc.ca',
     },
     emailLink: {
-      en: 'mailto:energyindesign@neb-one.gc.ca',
-      fr: 'mailto:conceptionenergie@neb-one.gc.ca',
+      en: 'mailto:energyindesign@cer-rec.gc.ca',
+      fr: 'mailto:conceptionenergie@cer-rec.gc.ca',
     },
     p4_2: {
       en: '. We look forward to hearing from you.',
@@ -2426,8 +2426,8 @@ const TranslationTable = Immutable.fromJS({
 
   downloadable: {
     csv: {
-      en: 'http://www.neb-one.gc.ca/open/incident/pipeline-incidents.csv',
-      fr: 'http://www.neb-one.gc.ca/ouvert/incident/incidents-pipelines.csv',
+      en: 'http://www.cer-rec.gc.ca/open/incident/pipeline-incidents.csv',
+      fr: 'http://www.cer-rec.gc.ca/ouvert/incident/incidents-pipelines.csv',
     }
   },
 
