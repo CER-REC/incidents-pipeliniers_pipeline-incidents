@@ -138,7 +138,7 @@ const Constants = Immutable.fromJS({
 
   socialBar: {
     width: 23,
-    height: 148,
+    height: 125,
     iconSize: 16,
     leftMargin: 5,
     iconSideMargin: 3.5,
@@ -148,8 +148,7 @@ const Constants = Immutable.fromJS({
     linkedinIconPadding: 49,
     twitterIconPadding: 72,
     dividerLine: 95,
-    downloadImageIconPadding: 105,
-    downloadIconPadding: 128,
+    downloadIconPadding: 105,
   },
 
   disclaimer: {
@@ -349,14 +348,6 @@ const Constants = Immutable.fromJS({
 
   pathCurveControlFactor: 2.5,
 
-  // the path to use for requesting a screenshot from this app
-  appScreenshotPath: 'screenshot',
-
-  // the math to use for making a screenshot request of the screenshot server
-  serviceScreenshotPath: 'screenshot',
-
-  screenshotHeight: 1000,
-
   nearBlack: '#333333',
   darkGrey: '#666',
 
@@ -425,7 +416,6 @@ const Constants = Immutable.fromJS({
   barHeadingSpacing: 25,
 
   appHost: 'https://apps2.cer-rec.gc.ca',
-
 })
 
 

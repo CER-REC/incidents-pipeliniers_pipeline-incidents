@@ -22,18 +22,18 @@ class StoryWindow extends React.Component {
     return <defs>
       <filter id="shadowFilter" colorInterpolationFilters="sRGB">
         <feOffset result="offOut" in="SourceAlpha" dx="5" dy="5" />
-        <feColorMatrix result="matrixOut" in="offOut" type="matrix" 
+        <feColorMatrix result="matrixOut" in="offOut" type="matrix"
           values="0.2 0 0 0 0.6 0 0.2 0 0 0.6 0 0 0.2 0 0.6 0 0 0 1 0" />
         <feGaussianBlur result="blurOut" in="matrixOut" stdDeviation="1.5" />
         <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
       </filter>
-    </defs>    
+    </defs>
   }
 
   closeButtonClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'selected', 
+      'selected',
       'close button')
     e.stopPropagation()
     e.preventDefault()
@@ -52,7 +52,7 @@ class StoryWindow extends React.Component {
     // in the tutorial.
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'selected image',  
+      'selected image',
       `${this.props.story.get('storyID')}`)
     const story = Tr.getIn(['stories', this.props.story.get('storyID')])
     const imageList = story.getIn(['tutorialImages', this.props.language]).toArray()
@@ -81,7 +81,6 @@ class StoryWindow extends React.Component {
       language: routerState.language,
       selectedIncidents: routerState.selectedIncidents,
       filterboxActivationState: routerState.filterboxActivationState,
-      screenshotMode: RouteComputations.screenshotMode(window.location),
     }
     this.props.updateVisualization(storyState)
     this.props.onCloseButtonClicked()
@@ -90,7 +89,7 @@ class StoryWindow extends React.Component {
   nextButtonClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'selected',  
+      'selected',
       'next button')
     e.stopPropagation()
     e.preventDefault()
@@ -109,7 +108,7 @@ class StoryWindow extends React.Component {
   backButtonClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','story'])}`,
-      'selected',   
+      'selected',
       'back button')
     e.stopPropagation()
     e.preventDefault()
@@ -149,7 +148,7 @@ class StoryWindow extends React.Component {
       />
 
     }).toArray()
-   
+
   }
 
   tutorialImageKeyDown(event) {
@@ -159,12 +158,12 @@ class StoryWindow extends React.Component {
       this.tutorialImageClicked(event)
     }
   }
- 
+
   border() {
-    return <rect 
-      width = { this.props.viewport.get('x') - 
-        Constants.getIn(['storyThumbnailDimensions', 'windowShadowOffset'])} 
-      height = { this.props.viewport.get('y') - 
+    return <rect
+      width = { this.props.viewport.get('x') -
+        Constants.getIn(['storyThumbnailDimensions', 'windowShadowOffset'])}
+      height = { this.props.viewport.get('y') -
         Constants.getIn(['storyThumbnailDimensions', 'windowYOffset'])}
       fill = '#fff'
       stroke = '#000'
@@ -173,7 +172,7 @@ class StoryWindow extends React.Component {
   }
 
   closeButton() {
-    return <image 
+    return <image
       className='active'
       xlinkHref='images/close.svg'
       width={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
@@ -222,9 +221,9 @@ class StoryWindow extends React.Component {
       className={isActive}
       width={StoryComputations.storyTutorialImageWidth(this.props.viewport)}
       height={StoryComputations.storyTutorialImageHeight(this.props.viewport)}
-      x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
+      x={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) +
         Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
-      y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) + 
+      y={Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonOffset']) +
         Constants.getIn(['storyThumbnailDimensions', 'windowCloseButtonSize'])}
       xlinkHref={imageList[currentImageIndex]}
       onClick={this.tutorialImageClicked.bind(this)}
@@ -259,8 +258,8 @@ class StoryWindow extends React.Component {
     return <div onClick = {this.preventDismissal.bind(this)}
       className='storyWindow'
       role = 'button' tabIndex = '0' onKeyDown = {this.onEscapeKeyDown.bind(this)}>
-      <svg 
-        width = { this.props.viewport.get('x')} 
+      <svg
+        width = { this.props.viewport.get('x')}
         height = {StoryComputations.storyWindowHeight(this.props.viewport)}>
         {this.shadowFilter()}
         {this.border()}

@@ -24,10 +24,6 @@ require('./MapColumn.scss')
 class MapColumn extends React.Component {
 
   dragArrow() {
-    if (this.props.screenshotMode) {
-      return null
-    }
-
     const measurements = WorkspaceComputations.horizontalPositions(
       this.props.showEmptyCategories,
       this.props.viewport,
@@ -36,11 +32,11 @@ class MapColumn extends React.Component {
       this.props.categories)
       .getIn(['columns', 'map'])
 
-    const dragArrowX = measurements.get('x') + 
-                       (measurements.get('width') / 2) - 
+    const dragArrowX = measurements.get('x') +
+                       (measurements.get('width') / 2) -
                        (Constants.getIn(['dragArrow', 'width']) / 2)
 
-    return <image xlinkHref='images/horizontal_drag.svg' 
+    return <image xlinkHref='images/horizontal_drag.svg'
       className = 'dragArrow'
       height = {Constants.getIn(['dragArrow', 'height'])}
       width = {Constants.getIn(['dragArrow', 'width'])}
@@ -51,7 +47,7 @@ class MapColumn extends React.Component {
       onMouseUp={this.handleDragEnd.bind(this)}
       onTouchStart = { this.handleTouchStart.bind(this) }
       onTouchMove = { this.handleTouchMove.bind(this) }
-      onTouchEnd = { this.handleTouchEnd.bind(this) } 
+      onTouchEnd = { this.handleTouchEnd.bind(this) }
       tabIndex = '0'
       role = 'button'
       aria-label = {Tr.getIn(['columnHeadings','map'])}
@@ -72,8 +68,8 @@ class MapColumn extends React.Component {
       this.props.categories)
       .getIn(['columns', 'map'])
 
-    const oldX = measurements.get('x') + 
-                       (measurements.get('width') / 2) - 
+    const oldX = measurements.get('x') +
+                       (measurements.get('width') / 2) -
                        (Constants.getIn(['dragArrow', 'width']) / 2)
     const offset = e.clientX - oldX
 
@@ -82,7 +78,7 @@ class MapColumn extends React.Component {
     // These handlers will help keep the dragged column moving
     // even when the cursor is off the dragging handle. This
     // is necessary because the dragging handle is too small
-    // making it harder to drag without the cursor leaving 
+    // making it harder to drag without the cursor leaving
     // the handle.
     columnWindowEndHandler = this.handleDragEnd.bind(this)
     columnWindowMoveHandler = this.handleDragMove.bind(this)
@@ -95,7 +91,7 @@ class MapColumn extends React.Component {
     e.preventDefault()
 
     // No need to fire unneeded events if drag hasn't started.
-    if(!this.props.columnDragStatus.get('isStarted')) return 
+    if(!this.props.columnDragStatus.get('isStarted')) return
 
     this.props.onColumnDrag(e.clientX)
   }
@@ -111,7 +107,7 @@ class MapColumn extends React.Component {
     // No need to fire unneeded evenets if drag hasn't started.
     if(!this.props.columnDragStatus.get('isStarted')) return
     this.props.onColumnDragEnded(false)
-    const newX = this.props.columnDragStatus.get('newX') - 
+    const newX = this.props.columnDragStatus.get('newX') -
                  this.props.columnDragStatus.get('offset')
     this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
 
@@ -132,8 +128,8 @@ class MapColumn extends React.Component {
       this.props.categories)
       .getIn(['columns', 'map'])
 
-    const oldX = measurements.get('x') + 
-                       (measurements.get('width') / 2) - 
+    const oldX = measurements.get('x') +
+                       (measurements.get('width') / 2) -
                        (Constants.getIn(['dragArrow', 'width']) / 2)
     const offset = e.touches[0].clientX - oldX
 
@@ -145,7 +141,7 @@ class MapColumn extends React.Component {
     e.preventDefault()
 
     // No need to fire unneeded events if drag hasn't started.
-    if(!this.props.columnDragStatus.get('isStarted')) return 
+    if(!this.props.columnDragStatus.get('isStarted')) return
 
     this.props.onColumnDrag(e.touches[0].clientX)
   }
@@ -161,7 +157,7 @@ class MapColumn extends React.Component {
     // No need to fire unneeded evenets if drag hasn't started.
     if(!this.props.columnDragStatus.get('isStarted')) return
     this.props.onColumnDragEnded(false)
-    const newX = this.props.columnDragStatus.get('newX') - 
+    const newX = this.props.columnDragStatus.get('newX') -
                  this.props.columnDragStatus.get('offset')
     this.props.onColumnSnap(this.props.columnDragStatus.get('columnName'), this.props.columnDragStatus.get('oldX'), newX, this.props.viewport)
 
@@ -211,8 +207,8 @@ class MapColumn extends React.Component {
     let transformString = 'translate(0,0)'
     if(this.props.columnDragStatus.get('isStarted') &&
        this.props.columnDragStatus.get('columnName') === 'map') {
-      const xTransform = this.props.columnDragStatus.get('newX') - 
-                         this.props.columnDragStatus.get('offset') - 
+      const xTransform = this.props.columnDragStatus.get('newX') -
+                         this.props.columnDragStatus.get('offset') -
                          this.props.columnDragStatus.get('oldX')
       transformString = `translate(${xTransform},0)`
     }
@@ -236,7 +232,6 @@ const mapStateToProps = state => {
     data: state.data,
     showEmptyCategories: state.showEmptyCategories,
     columnDragStatus: state.columnDragStatus,
-    screenshotMode: state.screenshotMode,
     analytics: state.analytics,
   }
 }

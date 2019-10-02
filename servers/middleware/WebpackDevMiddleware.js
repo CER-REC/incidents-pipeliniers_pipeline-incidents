@@ -16,9 +16,6 @@ module.exports = function () {
   }))
 
   app.use('/script', WebpackHotMiddleware(compiler))
-  
+
   return app
 }
-
-
-

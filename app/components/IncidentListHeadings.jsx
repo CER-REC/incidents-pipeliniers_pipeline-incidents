@@ -25,8 +25,8 @@ class IncidentListHeadings extends React.Component {
 
     // TODO: Incidents, the same in French and English. Translate this string if
     // it changes!
-    return <tspan className='incidentsHeading' 
-      x = { columnMeasurements.get('x') + 
+    return <tspan className='incidentsHeading'
+      x = { columnMeasurements.get('x') +
             Constants.getIn(['questionMark', 'size']) +
             Constants.get('columnHeadingXOffset') + Constants.get('columnHeadingLeftPadding')}
       y = { y }
@@ -54,11 +54,11 @@ class IncidentListHeadings extends React.Component {
       this.props.categories
     ).get('pinColumn')
 
-    // TODO: This is replicating math found in Column.jsx for laying out 
+    // TODO: This is replicating math found in Column.jsx for laying out
     // text headings. We need to pull this into a computation file.
-    const y = WorkspaceComputations.barSubheading(this.props.language) 
+    const y = WorkspaceComputations.barSubheading(this.props.language)
 
-   
+
     const filteredData = IncidentComputations.filteredIncidents(
       this.props.data,
       this.props.columns,
@@ -73,7 +73,7 @@ class IncidentListHeadings extends React.Component {
 
     const subheadingString = `${categoryData.count()} / ${this.props.data.count()} ${Tr.getIn(['shown', this.props.language])}`
 
-    return <tspan className='barsSubHeading' 
+    return <tspan className='barsSubHeading'
       x = { columnMeasurements.get('x')}
       y = { y }>
       { subheadingString }
@@ -83,7 +83,7 @@ class IncidentListHeadings extends React.Component {
 
   // TODO: Find a way to unify this with the questionmark in Column
   questionMark() {
-    
+
     // TODO: this is NOT an ordinary column! This is highly misleading.
     const columnName = 'pinColumn'
 
@@ -96,30 +96,30 @@ class IncidentListHeadings extends React.Component {
     ).get(columnName)
 
     let questionMarkY = WorkspaceComputations.barHeading() -
-      Constants.getIn(['questionMark', 'size']) + 
+      Constants.getIn(['questionMark', 'size']) +
       Constants.getIn(['questionMark', 'yOffset'])+
       Constants.getIn(['pinColumn','questionMarkXOffset'])
 
 
-    return <image 
+    return <image
       id='pinColumn-QuestionMark'
       className= 'questionMark'
-      xlinkHref="images/large_qmark.svg" 
-      width={Constants.getIn(['questionMark', 'size'])} 
-      height={Constants.getIn(['questionMark', 'size'])} 
-      x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftPadding')} 
+      xlinkHref="images/large_qmark.svg"
+      width={Constants.getIn(['questionMark', 'size'])}
+      height={Constants.getIn(['questionMark', 'size'])}
+      x={columnMeasurements.get('x') + Constants.get('columnHeadingLeftPadding')}
       y={questionMarkY}
       onClick={this.questionMarkClick.bind(this)}
       tabIndex = '0'
       aria-label = 'Column question mark tool tip'
-      role = 'button' 
+      role = 'button'
       onKeyDown = { this.questionMarkKeyDown.bind(this) }/>
   }
 
   questionMarkClick(e) {
     this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','questionMark'])}`, 
-      'selected',  
+      `${Constants.getIn(['analyticsCategory','questionMark'])}`,
+      'selected',
       'incident list')
     e.stopPropagation()
     e.preventDefault()
@@ -135,14 +135,10 @@ class IncidentListHeadings extends React.Component {
   }
 
   componentDidMount() {
-    
+
   }
 
   render() {
-    if (this.props.screenshotMode === true) {
-      return null
-    }
-
     return <g>
       <text>
         { this.incidentHeadingLabel() }
@@ -150,7 +146,6 @@ class IncidentListHeadings extends React.Component {
       </text>
       {this.questionMark()}
     </g>
-    
   }
 
 }
@@ -166,7 +161,6 @@ const mapStateToProps = state => {
     filterboxActivationState: state.filterboxActivationState,
     language: state.language,
     columnTooltip: state.columnTooltip,
-    screenshotMode: state.screenshotMode,
     analytics: state.analytics,
   }
 }

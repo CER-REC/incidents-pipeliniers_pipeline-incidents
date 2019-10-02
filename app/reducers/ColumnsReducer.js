@@ -1,4 +1,3 @@
-const Immutable = require('immutable')
 
 const Constants = require('../Constants.js')
 const WorkspaceComputations = require('../WorkspaceComputations.js')
@@ -37,7 +36,7 @@ const ColumnsReducer = (state = defaults, action) => {
       // Return if this column already exists in the set
       return state
     }
-    else { 
+    else {
       // Add the column to end of the list
       return state.push(action.columnName)
     }
@@ -87,7 +86,7 @@ const ColumnsReducer = (state = defaults, action) => {
         newIndex = (currentIndex - jump < 0)? 0 : currentIndex - jump
       }
 
-      return state.insert(newIndex, action.columnName)      
+      return state.insert(newIndex, action.columnName)
     }
 
   case 'RemoveColumn':
@@ -104,7 +103,7 @@ const ColumnsReducer = (state = defaults, action) => {
     const columnNames = Constants.get('columnNames')
     // Only permit valid column names
     const validatedColumnNames = action.columnNames.filter( columnName => {
-      return columnNames.contains(columnName)      
+      return columnNames.contains(columnName)
     })
 
     return validatedColumnNames
@@ -120,7 +119,7 @@ const ColumnsReducer = (state = defaults, action) => {
     const stepWidth = WorkspaceComputations.stepWidth(state, action.viewport)
     let displacement = Math.abs(action.newX - action.oldX)
 
-    // The step width when dragging the map has to take 
+    // The step width when dragging the map has to take
     // into consideration the width of the map.
     if(action.columnName === 'map') {
       displacement -= (mapWidth / 2)
@@ -168,7 +167,7 @@ const ColumnsReducer = (state = defaults, action) => {
       }
 
       if(newIndex < state.count()) {
-        return state.delete(currentIndex).insert(newIndex, action.columnName)        
+        return state.delete(currentIndex).insert(newIndex, action.columnName)
       }
       else {
         return state.delete(currentIndex)

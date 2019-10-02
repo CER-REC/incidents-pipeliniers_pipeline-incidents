@@ -50,10 +50,6 @@ class Workspace extends React.Component {
   }
 
   columnTooltip() {
-    if (this.props.screenshotMode) {
-      return null
-    }
-
     // Only render if a tooltip has been summoned
     if(this.props.columnTooltip.get('isActive')) return <ColumnTooltip/>
   }
@@ -75,23 +71,11 @@ class Workspace extends React.Component {
   }
 
   storyContent() {
-    if (this.props.screenshotMode) {
-      return null
-    }
     return <div>
       <StoryWindow/>
       <StoryBar/>
       <Disclaimer/>
     </div>
-  }
-
-  workspaceClass() {
-    if (!this.props.screenshotMode) {
-      return 'workspace'
-    }
-    else {
-      return 'screenshotWorkspace'
-    }
   }
 
   render() {
@@ -110,7 +94,7 @@ class Workspace extends React.Component {
       this.props.columns,
       this.props.categories)
 
-    const scrollPaneWidth = this.props.viewport.get('x') - 
+    const scrollPaneWidth = this.props.viewport.get('x') -
       Constants.getIn(['socialBar', 'width']) -
       Constants.getIn(['socialBar', 'leftMargin'])
 
@@ -124,13 +108,13 @@ class Workspace extends React.Component {
       height: this.props.viewport.get('y'),
     }
 
-    return <div className = { this.workspaceClass() } style = { workspaceStyle }>
-      <div 
+    return <div className = "workspace" style = { workspaceStyle }>
+      <div
         className = 'workspaceOverlay'
         style = { {height: `${Constants.getIn(['topBar', 'height'])}px`} }
       >
         <Header />
-       
+
       </div>
 
       <div
@@ -141,11 +125,11 @@ class Workspace extends React.Component {
           className = 'workspaceScrollPane'>
           { this.mapContainer() }
           { this.incidentListHtml() }
-          <svg 
+          <svg
             className = 'workspaceSvg'
             width = { horizontalPositions.getIn(['workspace', 'width']) }
             height = { horizontalPositions.getIn(['workspace', 'height']) }>
-           
+
             { this.incidentListSvg() }
 
             {this.columns()}
@@ -169,7 +153,6 @@ const mapStateToProps = state => {
     columns: state.columns,
     categories: state.categories,
     columnTooltip: state.columnTooltip,
-    screenshotMode: state.screenshotMode,
   }
 }
 

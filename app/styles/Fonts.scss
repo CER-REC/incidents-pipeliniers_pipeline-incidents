@@ -2,7 +2,7 @@
 @import "./FontVariables.scss";
 
 
-// NB: The fonts stylesheet only needs to be imported into the project once, 
+// NB: The fonts stylesheet only needs to be imported into the project once,
 // at the root. If you want to use font variables, import FontVariables.scss
 // instead.
 
@@ -38,7 +38,7 @@
 // NB: The additional CSS ID here is necessary to overcome some default WET styles which
 // are applied to heading elements.
 .workspace .heading#incidentVisualizationHeading,
-.screenshotWorkspace .heading#incidentVisualizationHeading {
+.heading#incidentVisualizationHeading {
   font-family: $fira-sans-condensed-semibold;
   font-size: 22px;
   fill: $black;

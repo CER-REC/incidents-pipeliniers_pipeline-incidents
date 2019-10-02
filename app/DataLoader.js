@@ -50,7 +50,6 @@ function afterLoad (store, data, schemaIDMap, location) {
       selectedIncidents: routerState.selectedIncidents,
       filterboxActivationState: routerState.filterboxActivationState,
       language: routerState.language,
-      screenshotMode: RouteComputations.screenshotMode(location)
     }))
 
     resolve()
@@ -95,7 +94,7 @@ function validateIdInStatusSet (name, incident, set, errors) {
   // Within the application, all of our keys are strings, but  the service
   // returns JSON numbers
   let value = String(incident[name])
-  // We consider incidents which are submitted and which are under review to 
+  // We consider incidents which are submitted and which are under review to
   // both have the same status: submitted
   if (value === '4') {
     value = '3'
@@ -153,7 +152,7 @@ function validateDate (name, incident, errors) {
 
   if (date.isValid()) {
     return date
-  } 
+  }
   else {
     errors.push({message: `Bad date value for ${name}`, incident: incident, value: incident[name]})
   }
@@ -167,7 +166,7 @@ function validateVolumeReleased(incident, errors) {
   }
 
   const volume = parseFloat(volumeString)
-  
+
   if (isNaN(volume) || volume < 0) {
     errors.push({message: 'Bad approximate volume value', incident: incident, value: incident.ApproximateVolumeM3})
     return
@@ -189,7 +188,7 @@ function validateVolumeCategory(incident, errors) {
   }
 
   const volume = parseFloat(volumeString)
-  
+
   if (isNaN(volume) || volume < 0) {
     errors.push({message: 'Bad numeric volume', incident: incident, value: incident.ApproximateVolumeM3})
   }
@@ -201,7 +200,7 @@ function validateVolumeCategory(incident, errors) {
   else if (volume < 1000) {
     // '1 m³ to 1,000 m³'
     return '4'
-  } 
+  }
   else if (volume < 1000000) {
     // '1,000 m³ to 1,000,000 m³'
     return '5'
@@ -281,7 +280,7 @@ const DataLoader = {
     return Promise.join(schemaPromise, dataRequest)
       .then(function ([schema, dataResponse]) {
 
-        const incidents = [] 
+        const incidents = []
 
         console.log('Validating incidents: ', dataResponse.body.length)
         for (const incident of dataResponse.body) {
@@ -362,7 +361,7 @@ const DataLoader = {
       })
 
 
-    
+
   }
 
 
@@ -381,4 +380,3 @@ const DataLoader = {
 
 
 module.exports = DataLoader
-

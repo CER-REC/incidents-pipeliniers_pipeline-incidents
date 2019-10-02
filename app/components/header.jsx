@@ -27,27 +27,27 @@ class Header extends React.Component {
 
   tellMeAStoryAction() {
     this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','menuButtons'])}`, 
-      'selected', 
+      `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
+      'selected',
       'tell me a story')
     const scrollOptions = {
-      behavior: 'smooth', 
-      block: 'start', 
+      behavior: 'smooth',
+      block: 'start',
       inline: 'nearest'
     }
     document.getElementById(Constants.get('storyBarID'))
       .scrollIntoView(scrollOptions)
-    document.querySelector('.story').focus() 
+    document.querySelector('.story').focus()
   }
 
   aboutThisProjectClick(e) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','menuButtons'])}`,
-      'selected', 
+      'selected',
       'about this project')
     e.stopPropagation(e)
-    e.preventDefault(e)    
-    
+    e.preventDefault(e)
+
     this.props.summonAboutWindow()
   }
 
@@ -82,7 +82,7 @@ class Header extends React.Component {
       'reset all')
     const categories = DefaultCategoryComputations.initialState(
       this.props.data,
-      this.props.schema, 
+      this.props.schema,
       this.props.language
     )
     this.props.resetVisualization(categories)
@@ -98,7 +98,7 @@ class Header extends React.Component {
   disclaimerClick(event) {
     this.props.analytics.reportEvent(
       `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
-      'selected', 
+      'selected',
       'data disclaimer')
     event.preventDefault()
     this.props.summonDisclaimer()
@@ -126,7 +126,7 @@ class Header extends React.Component {
       </p>
       <p className = 'subpop'>
         <a onClick = {this.learnMoreAnalytics.bind(this)}
-          href={Tr.getIn(['learnMoreLinks', this.props.language])} 
+          href={Tr.getIn(['learnMoreLinks', this.props.language])}
           target="_blank">{Tr.getIn(['learnMore', this.props.language])}</a>
         {Tr.getIn(['dataCollectionSubheading', this.props.language])}
       </p>
@@ -135,16 +135,12 @@ class Header extends React.Component {
 
 
   rightButtons() {
-    if (this.props.screenshotMode) {
-      return null
-    }
-
     const socialBarMeasurements = WorkspaceComputations.socialBarMeasurements(this.props.viewport)
 
     let transformContainer = `translate(${socialBarMeasurements.get('x') - Constants.getIn(['socialBar', 'iconSideMargin'])}, 0)`
 
     let transformButtons = `translate(${Constants.getIn(['socialBar', 'iconSideMargin']) * 2}, ${Constants.getIn(['socialBar', 'iconSideMargin'])})`
-    
+
     let transformText = `translate(0, ${Constants.getIn(['socialBar', 'iconSideMargin'])})`
 
 
@@ -172,7 +168,7 @@ class Header extends React.Component {
             tabIndex = '0'
             aria-label = { Tr.getIn(['tellMeAStory', this.props.language]) }
             role = 'button'
-            onKeyDown = { this.tellMeAStoryKeyDown.bind(this) } 
+            onKeyDown = { this.tellMeAStoryKeyDown.bind(this) }
           >{ Tr.getIn(['tellMeAStory', this.props.language]).toUpperCase() }</text>
           <text
             className = 'aboutThisProject'
@@ -184,7 +180,7 @@ class Header extends React.Component {
             tabIndex = '0'
             aria-label = { Tr.getIn(['aboutThisProject', this.props.language]) }
             role = 'button'
-            onKeyDown = { this.aboutThisProjectKeyDown.bind(this) } 
+            onKeyDown = { this.aboutThisProjectKeyDown.bind(this) }
           >{ Tr.getIn(['aboutThisProject', this.props.language]).toUpperCase() }</text>
           <text
             className = 'headerButtonLabel'
@@ -212,8 +208,8 @@ class Header extends React.Component {
         </g>
 
         <g transform = { transformButtons }>
-    
-          <image 
+
+          <image
             className = 'headerButton'
             height = {Constants.getIn(['socialBar', 'iconSize']) }
             width = {Constants.getIn(['socialBar', 'iconSize']) }
@@ -222,7 +218,7 @@ class Header extends React.Component {
             xlinkHref = 'images/tell_me_a_story.svg'
           ></image>
 
-          <image 
+          <image
             className = 'headerButton'
             height = {Constants.getIn(['socialBar', 'iconSize']) }
             width = {Constants.getIn(['socialBar', 'iconSize']) }
@@ -231,7 +227,7 @@ class Header extends React.Component {
             xlinkHref = 'images/about_this_project.svg'
           ></image>
 
-          <image 
+          <image
             className = 'headerButton'
             height = {Constants.getIn(['socialBar', 'iconSize']) }
             width = {Constants.getIn(['socialBar', 'iconSize']) }
@@ -240,7 +236,7 @@ class Header extends React.Component {
             xlinkHref = 'images/methodology_new.svg'
           ></image>
 
-          <image 
+          <image
             className = 'headerButton'
             height = {Constants.getIn(['socialBar', 'iconSize'])}
             width = {Constants.getIn(['socialBar', 'iconSize'])}
@@ -263,16 +259,15 @@ class Header extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => { 
+const mapStateToProps = (state) => {
   return {
     data: state.data,
-    screenshotMode: state.screenshotMode,
     language: state.language,
     viewport: state.viewport,
     schema: state.schema,
     analytics: state.analytics,
     lastUpdate: state.lastUpdate,
-  } 
+  }
 }
 
 const mapDispatchToProps = dispatch => {
