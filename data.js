@@ -1,7 +1,7 @@
 // Script to produce data for open.canada.ca
 
 // Switch this to 'production' once the prod data service is live
-// NB: If the latest data is not available from production, you may need to 
+// NB: If the latest data is not available from production, you may need to
 // download it from TEST, put it in a JSON file in public/data, change the
 // downloaded data file in RouteComputations to the new JSON file, and change
 // this environment setting to 'development'
@@ -41,7 +41,7 @@ const csvHeaderNamesInOrder = [
   'WhyItHappened_FR_LIST',
 ]
 
-//trKey contains key information for the data stored in translation table 
+//trKey contains key information for the data stored in translation table
 //trKey: 'not-applicable' is the one whose translation is not available
 const csvHeaderNamesInOrder_FR = {
   IncidentNumber: {
@@ -155,7 +155,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 else if (process.env.NODE_ENV === 'production') {
   location = {
-    origin: 'https://apps2.neb-one.gc.ca',
+    origin: 'https://apps2.cer-rec.gc.ca',
     pathname: '/pipeline-incidents/',
   }
 }
@@ -167,21 +167,26 @@ dataLoadPromise.then( () => {
 
   const outputData = store.getState().data.map( incident => incident.get('originalData'))
 
-  //Prepend UTF 8 Byte Order Mark during CSV generation so 
+  //Prepend UTF 8 Byte Order Mark during CSV generation so
   //that programs like Microsft Excel can recognize the encoding
-  //and use that encoding while opening the file 
-  
+  //and use that encoding while opening the file
+
   const byteOrderMark = '\ufeff'
-  
+
   //English
-  Fs.writeFile('Incident Visualization Data_EN.csv', byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder_EN))
-  
-  
+  Fs.writeFile(
+    'Incident Visualization Data_EN.csv',
+    byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder_EN),
+    () => {}
+  )
+
+
   //French
   let dataFields = Object.keys(csvHeaderNamesInOrder_FR)
   const frenchHeader = dataFields.map((index) => csvHeaderNamesInOrder_FR[index]['header'])
-  Fs.writeFile('Incident Visualization Data_FR.csv', byteOrderMark + D3.csvFormatRows([frenchHeader]
-    .concat((outputData.toJS()).map(function(columns) {
+  Fs.writeFile(
+    'Incident Visualization Data_FR.csv',
+    byteOrderMark + D3.csvFormatRows([frenchHeader].concat((outputData.toJS()).map(function(columns) {
       return dataFields.map((dataFieldName)=> {
         let dataValue = columns[dataFieldName]
         const trKey = csvHeaderNamesInOrder_FR[dataFieldName]['trKey']
@@ -194,8 +199,9 @@ dataLoadPromise.then( () => {
             }
           })
         }
-        return dataValue  
+        return dataValue
       })
-    })))
+    }))),
+    () => {}
   )
 })

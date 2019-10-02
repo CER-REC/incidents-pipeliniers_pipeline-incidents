@@ -1,6 +1,6 @@
 const Immutable = require('immutable')
 
-const TranslationTable = Immutable.fromJS({ 
+const TranslationTable = Immutable.fromJS({
 
   bitlyShare: {
     en: 'Visit this interactive visualization: ',
@@ -12,8 +12,8 @@ const TranslationTable = Immutable.fromJS({
   },
 
   learnMoreLinks: {
-    en: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
-    fr: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
+    en: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
+    fr: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
   },
 
   aboutText: {
@@ -22,16 +22,16 @@ const TranslationTable = Immutable.fromJS({
       fr: 'À PROPOS',
     },
     p1: {
-      en: 'This Incidents at NEB-Regulated Pipeline and Facilities interactive online tool is part of the National Energy Board’s (NEB) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the NEB structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found in the ',
-      fr: 'L’outil interactif « Incidents impliquant des installations et des pipelines réglementés » fait partie de l’initiative de visualisation des données de l’Office national de l’énergie. Échelonnée sur trois ans, cette initiative vise à transformer la manière dont l’Office structure et diffuse ses données. Elle a pour objectif de favoriser un processus décisionnel fondé sur la preuve et de faciliter la compréhension des questions liées aux réseaux énergétiques et pipeliniers du Canada, grâce à un outil de visualisation interactif, facile à utiliser. L’outil présente les données recueillies par l’Office de 2008 à aujourd’hui en ce qui concerne les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. Au cours des mois et des années à venir, l’Office utilisera cet outil novateur pour diffuser ses données sur la sécurité des pipelines et sur l’énergie, l’information qu’il possède sur l’infrastructure énergétique et une foule d’autres renseignements spécialisés. Par ailleurs, le portail ',
+      en: 'This Incidents at CER-Regulated Pipeline and Facilities interactive online tool is part of the Canada Energy Regulator’s (CER) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the CER structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found in the ',
+      fr: 'L’outil interactif « Incidents impliquant des installations et des pipelines réglementés » fait partie de l’initiative de visualisation des données de la Régie de l’énergie du Canada. Échelonnée sur trois ans, cette initiative vise à transformer la manière dont la Régie structure et diffuse ses données. Elle a pour objectif de favoriser un processus décisionnel fondé sur la preuve et de faciliter la compréhension des questions liées aux réseaux énergétiques et pipeliniers du Canada, grâce à un outil de visualisation interactif, facile à utiliser. L’outil présente les données recueillies par la Régie de 2008 à aujourd’hui en ce qui concerne les incidents signalés en application du Règlement de la Régie de l’énergie du Canada sur les pipelines terrestres et du Règlement sur les usines de traitement. Au cours des mois et des années à venir, la Régie utilisera cet outil novateur pour diffuser ses données sur la sécurité des pipelines et sur l’énergie, l’information qu’il possède sur l’infrastructure énergétique et une foule d’autres renseignements spécialisés. Par ailleurs, le portail ',
     },
     safetyPerformancePortalText: {
-      en: 'NEB Safety Performance Portal',
+      en: 'CER Safety Performance Portal',
       fr: 'Rendement en matière de sécurité',
     },
     safetyPerformancePortalLink: {
-      en: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/index-eng.html',
-      fr: 'https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/index-fra.html',
+      en: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/index-eng.html',
+      fr: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/index-fra.html',
     },
     p1_2: {
       en: '',
@@ -50,12 +50,12 @@ const TranslationTable = Immutable.fromJS({
       fr: 'Vous pouvez nous la faire parvenir, ainsi que vos suggestions, à l’adresse ',
     },
     emailText: {
-      en: 'energyindesign@neb-one.gc.ca',
-      fr: 'conceptionenergie@neb-one.gc.ca',
+      en: 'energyindesign@cer-rec.gc.ca',
+      fr: 'conceptionenergie@cer-rec.gc.ca',
     },
     emailLink: {
-      en: 'mailto:energyindesign@neb-one.gc.ca',
-      fr: 'mailto:conceptionenergie@neb-one.gc.ca',
+      en: 'mailto:energyindesign@cer-rec.gc.ca',
+      fr: 'mailto:conceptionenergie@cer-rec.gc.ca',
     },
     p4_2: {
       en: '. We look forward to hearing from you.',
@@ -91,8 +91,8 @@ const TranslationTable = Immutable.fromJS({
         fr: 'Recherche conceptuelle sous la direction de Sheelagh Carpendale et Wesley Willett, iLab, Université de Calgary',
       },
       design: {
-        en: 'Design: Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.',
-        fr: 'Conception : Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.',
+        en: 'Design: Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, Mieka West, and Lindsay MacDonald.',
+        fr: 'Conception : Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, Mieka West, et Lindsay MacDonald.',
       },
       leadTechnical: {
         en: 'Lead Technical: VizworX',
@@ -130,7 +130,7 @@ const TranslationTable = Immutable.fromJS({
           fr: ' (L’original a été recoloré et pivoté.)'
         },
       },
-      
+
       tellMeAStoryIcon:{
         title:{
           en: 'Tell Me A Story icon:',
@@ -219,7 +219,7 @@ const TranslationTable = Immutable.fromJS({
         theNounProjectLink:{
           en:'http://thenounproject.com/',
           fr: 'http://thenounproject.com/'
-        },  
+        },
       }
     }
   },
@@ -350,8 +350,8 @@ const TranslationTable = Immutable.fromJS({
         fr: 'INCIDENTS',
       },
       description: {
-        en: 'The unique identifier – or label – the NEB assigns to each incident.',
-        fr: 'L’identificateur unique, l’étiquette que l’Office appose aux différents incidents.',
+        en: 'The unique identifier – or label – the CER assigns to each incident.',
+        fr: 'L’identificateur unique, l’étiquette que la Régie appose aux différents incidents.',
       },
       detail: {
         en: [],
@@ -400,7 +400,7 @@ const TranslationTable = Immutable.fromJS({
             categoryName: '8'
           },
           {
-            overview: 'Serious Injury (NEB or Transportation Safety Board)',
+            overview: 'Serious Injury (CER or Transportation Safety Board)',
             expanded: 'Any serious injury involving employees, contractors or members of the public related to the construction, operation or maintenance of pipelines.',
             categoryName: '5'
           }
@@ -450,8 +450,8 @@ const TranslationTable = Immutable.fromJS({
         fr: 'ANNÉE DU SIGNALEMENT',
       },
       description: {
-        en: 'The date the company reported the incident to the NEB. This date may differ from when the incident occurred or was discovered.',
-        fr: 'La date à laquelle la société a signalé l’incident à l’Office. Cette date peut être différente de celle à laquelle l’incident en question est survenu ou a été découvert.',
+        en: 'The date the company reported the incident to the CER. This date may differ from when the incident occurred or was discovered.',
+        fr: 'La date à laquelle la société a signalé l’incident à la Régie. Cette date peut être différente de celle à laquelle l’incident en question est survenu ou a été découvert.',
       },
       detail: {
         en: [],
@@ -887,34 +887,34 @@ const TranslationTable = Immutable.fromJS({
         en: [
           {
             overview: 'Initially Submitted',
-            expanded: 'The company has notified the NEB that an incident has occurred and provided preliminary information. An investigation is has been initiated.',
+            expanded: 'The company has notified the CER that an incident has occurred and provided preliminary information. An investigation is has been initiated.',
             categoryName: '2'
           },
           {
             overview: 'Submitted',
-            expanded: 'The company has submitted all of the required information and the NEB is reviewing the incident.',
+            expanded: 'The company has submitted all of the required information and the CER is reviewing the incident.',
             categoryName: '3'
           },
           {
             overview: 'Closed',
-            expanded: 'The NEB’s incident review has been completed and the file is closed.',
+            expanded: 'The CER’s incident review has been completed and the file is closed.',
             categoryName: '5'
           }
         ],
         fr: [
           {
             overview: 'Initialement soumis',
-            expanded: 'La société a informé l’Office qu’un incident était survenu et a fourni les renseignements préliminaires sur celui-ci. Une enquête est en cours.',
+            expanded: 'La société a informé la Régie qu’un incident était survenu et a fourni les renseignements préliminaires sur celui-ci. Une enquête est en cours.',
             categoryName: '2',
           },
           {
             overview: 'Soumis',
-            expanded: 'La société a fourni tous les renseignements exigés et l’Office examine ce qui s’est produit.',
+            expanded: 'La société a fourni tous les renseignements exigés et la Régie examine ce qui s’est produit.',
             categoryName: '3',
           },
           {
             overview: 'Fermé',
-            expanded: 'L’Office a terminé l’examen de l’incident et a clos le dossier.',
+            expanded: 'La Régie a terminé l’examen de l’incident et a clos le dossier.',
             categoryName: '5',
           }
         ],
@@ -1737,7 +1737,7 @@ const TranslationTable = Immutable.fromJS({
           }
         ],
       },
-    },   
+    },
   },
 
   columnHeadings: {
@@ -1847,23 +1847,23 @@ const TranslationTable = Immutable.fromJS({
 
 
   mainHeading: {
-    en: 'Incidents At NEB-Regulated Pipelines And Facilities',
-    fr: 'Incidents impliquant des installations et des pipelines réglementés par l’Office'
+    en: 'Incidents At CER-Regulated Pipelines And Facilities',
+    fr: 'Incidents impliquant des installations et des pipelines réglementés par la Régie'
   },
 
   mainSubheading: {
-    en: 'The information presented here is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulations. New data is added quarterly. The last update was: ',
-    fr: 'L’information présentée ici provient des données de l’Office de 2008 à aujourd’hui et vise les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données sont ajoutées tous les trois mois. De nouvelles données ont été ajoutées le ',
+    en: 'The information presented here is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulations. New data is added quarterly. The last update was: ',
+    fr: 'L’information présentée ici provient des données de la Régie de 2008 à aujourd’hui et vise les incidents signalés en application du Règlement de la Régie de l’énergie du Canada sur les pipelines terrestres et du Règlement sur les usines de traitement. De nouvelles données sont ajoutées tous les trois mois. De nouvelles données ont été ajoutées le ',
   },
 
   dataCollectionSubheading: {
-    en: ' on how data collection has evolved since the NEB was established in 1959.',
-    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de l’Office en 1959.'
+    en: ' on how data collection has evolved since the CER was established in 1959.',
+    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de la Régie en 1959.'
   },
 
   incidentResponseSubheading: {
-    en: ' the NEB responds to incidents at the pipelines and facilities it regulates.',
-    fr: ' l’Office intervient en cas d’incident lié à des installations ou à des pipelines soumis à sa réglementation.'
+    en: ' the CER responds to incidents at the pipelines and facilities it regulates.',
+    fr: ' la Régie intervient en cas d’incident lié à des installations ou à des pipelines soumis à sa réglementation.'
   },
 
   learnMore: {
@@ -1916,7 +1916,7 @@ const TranslationTable = Immutable.fromJS({
     fr: 'incidents liés a la catégorie',
   },
 
-  methodology: { 
+  methodology: {
     en: 'METHODOLOGY',
     fr: 'MÉTHODOLOGIE',
   },
@@ -1955,7 +1955,7 @@ const TranslationTable = Immutable.fromJS({
         fr: 'Incendie'
       },
       seriousInjury: {
-        en: 'Serious Injury (NEB or TSB)',
+        en: 'Serious Injury (CER or TSB)',
         fr: 'Blessure grave (Office ou BST)'
       },
       obdl: {
@@ -2249,7 +2249,7 @@ const TranslationTable = Immutable.fromJS({
         en: 'Equipment Failure',
         fr: ' Défaillance d’équipement'
       },
-      incorrectOperation: { 
+      incorrectOperation: {
         en: 'Incorrect Operation',
         fr: 'Erreur d’exploitation',
       },
@@ -2415,19 +2415,19 @@ const TranslationTable = Immutable.fromJS({
 
   shareEmail: {
     subject: {
-      en: 'NEB Pipeline Incidents Visualization',
-      fr: "Visualisation des incidents pipeliniers de l'ONE",
+      en: 'CER Pipeline Incidents Visualization',
+      fr: "Visualisation des incidents pipeliniers de la Régie",
     },
     body: {
-      en: "This Incidents at NEB-Regulated Pipeline and Facilities interactive online tool is part of the National Energy Board’s (NEB) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the NEB structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation.",
-      fr: "L’outil interactif « Incidents impliquant des installations et des pipelines réglementés » fait partie de l’initiative de visualisation des données de l’Office national de l’énergie. Échelonnée sur trois ans, cette initiative vise à transformer la manière dont l’Office structure et diffuse ses données. Elle a pour objectif de favoriser un processus décisionnel fondé sur la preuve et de faciliter la compréhension des questions liées aux réseaux énergétiques et pipeliniers du Canada, grâce à un outil de visualisation interactif, facile à utiliser. L’outil présente les données recueillies par l’Office de 2008 à aujourd’hui en ce qui concerne les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement.",
+      en: "This Incidents at CER-Regulated Pipeline and Facilities interactive online tool is part of the Canada Energy Regulator’s (CER) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the CER structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation.",
+      fr: "L’outil interactif « Incidents impliquant des installations et des pipelines réglementés » fait partie de l’initiative de visualisation des données de la Régie de l’énergie du Canada. Échelonnée sur trois ans, cette initiative vise à transformer la manière dont la Régie structure et diffuse ses données. Elle a pour objectif de favoriser un processus décisionnel fondé sur la preuve et de faciliter la compréhension des questions liées aux réseaux énergétiques et pipeliniers du Canada, grâce à un outil de visualisation interactif, facile à utiliser. L’outil présente les données recueillies par la Régie de 2008 à aujourd’hui en ce qui concerne les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement.",
     },
   },
 
   downloadable: {
     csv: {
-      en: 'http://www.neb-one.gc.ca/open/incident/pipeline-incidents.csv',
-      fr: 'http://www.neb-one.gc.ca/ouvert/incident/incidents-pipelines.csv',
+      en: 'http://www.cer-rec.gc.ca/open/incident/pipeline-incidents.csv',
+      fr: 'http://www.cer-rec.gc.ca/ouvert/incident/incidents-pipelines.csv',
     }
   },
 

@@ -16,7 +16,6 @@ class SocialBar extends React.Component {
   }
 
   makeBitlyPromise() {
-
     const bitlyEndpoint = RouteComputations.bitlyEndpoint(document.location, this.props.language)
     const shortenUrl = RouteComputations.bitlyParameter(document.location, this.props.language)
 
@@ -47,11 +46,11 @@ class SocialBar extends React.Component {
 
         if (response.body.status_code !== 200) {
           // throw new Error(response.body.status_txt)
-          return Constants.get('appHost')
+          return shortenUrl
         }
         return response.body.data.url
       })
-      .catch( () => Constants.get('appHost'))
+      .catch( () => shortenUrl)
   }
 
   emailClick() {

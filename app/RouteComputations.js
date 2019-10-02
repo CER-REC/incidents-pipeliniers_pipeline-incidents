@@ -338,7 +338,7 @@ const RouteComputations = {
   // A string for the root of the application, a suitable place for making rest
   // requests or building other URLs. E.g.:
   // http://localhost:3001/pipeline-incidents/
-  // https://apps2.neb-one.gc.ca/incidents-pipeliniers/
+  // https://apps2.cer-rec.gc.ca/incidents-pipeliniers/
   appRoot: function (location, language) {
     return `${location.origin}${Tr.getIn(['applicationPath', language])}`
   },
@@ -366,11 +366,11 @@ const RouteComputations = {
     if (process.env.NODE_ENV === 'development') {
       // In development, read from a local flat file.
       // NB: At this writing, the contents of this file are a little out of date
-      return `${appRoot}data/2018-01-17 incidents.json`
+      return `${appRoot}data/2019-10-02 incidents.json`
     }
     else if (process.env.NODE_ENV === 'production') {
       // When the web app is bundled for production (which includes the TEST
-      // environment at NEB) use the local data service
+      // environment at CER) use the local data service
       return `${appRoot}incidentData`
     }
 
@@ -386,7 +386,7 @@ const RouteComputations = {
     }
 
     // When the web app is bundled for production (which includes the TEST
-    // environment at NEB) use the local schema service
+    // environment at CER) use the local schema service
     return `${appRoot}schemaData`
   },
 }
