@@ -15,7 +15,7 @@ Email us with your comments and ideas: energyindesign@cer-rec.gc.ca. We look for
 ## About this Repository
 This repository includes the code and data needed to run a local version of the incident visualization app.
 
-You can download and run the application code to see how it was built and explore the data on your own computer. (If you only want to explore the visualization, you may want to [view the app](https://www.cer-rec.gc.ca/pipeline-incidents) on the CER's website.)
+You can download and run the application code to see how it was built and explore the data on your own computer. (If you only want to explore the visualization, you may want to [view the app](https://apps2.cer-rec.gc.ca/pipeline-incidents) on the CER's website.)
 
 ## Prerequisites
 
@@ -55,7 +55,7 @@ Annette Hester (Concept and Coordination); Katherine Murphy (Project Manager); F
 
 Lead Design Research: Sheelagh Carpendale and Wesley Willett, iLab, University of Calgary.
 
-Design: Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.
+Design: Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, Mieka West, and Lindsay MacDonald.
 
 ### Lead Technical: Vizworx
 
@@ -107,7 +107,7 @@ Vous pouvez nous la faire parvenir, ainsi que vos suggestions, à l’adresse : 
 ## Le référentiel
 
 Le référentiel contient le code et les données nécessaires à l’utilisation d’une version locale de l’application de visualisation des incidents.
-Vous pouvez télécharger et exécuter le code d’application pour voir comment il a été construit et examiner les données sur votre propre ordinateur. (Si vous voulez simplement explorer les possibilités de visualisation, vous pouvez [voir l’application](http://www.cer-rec.gc.ca/incidents-pipeliniers) sur le site Web de la Régie.)
+Vous pouvez télécharger et exécuter le code d’application pour voir comment il a été construit et examiner les données sur votre propre ordinateur. (Si vous voulez simplement explorer les possibilités de visualisation, vous pouvez [voir l’application](http://apps2.cer-rec.gc.ca/incidents-pipeliniers) sur le site Web de la Régie.)
 
 ## Produits préalables
 
@@ -147,7 +147,7 @@ Annette Hester (conception et coordination); Katherine Murphy (gestionnaire de p
 
 Recherche conceptuelle sous la direction de Sheelagh Carpendale et Wesley Willett, iLab, Université de Calgary
 
-Conception : Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, and Mieka West.
+Conception : Bon Adriel Aseniero, Peter Buk, Shreya Chopra, Søren Knudsen, Doris Kosminsky, Claudia Maurer, Lien Quach, Katrina Tabuli, Annie Tat, Jo Vermeulen, Jagoda Walny Nix, Mieka West, et Lindsay MacDonald.
 
 ### Chef technique à Vizworx
 
