@@ -174,14 +174,19 @@ dataLoadPromise.then( () => {
   const byteOrderMark = '\ufeff'
 
   //English
-  Fs.writeFile('Incident Visualization Data_EN.csv', byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder_EN))
+  Fs.writeFile(
+    'Incident Visualization Data_EN.csv',
+    byteOrderMark + D3.csvFormat(outputData.toJS(), csvHeaderNamesInOrder_EN),
+    () => {}
+  )
 
 
   //French
   let dataFields = Object.keys(csvHeaderNamesInOrder_FR)
   const frenchHeader = dataFields.map((index) => csvHeaderNamesInOrder_FR[index]['header'])
-  Fs.writeFile('Incident Visualization Data_FR.csv', byteOrderMark + D3.csvFormatRows([frenchHeader]
-    .concat((outputData.toJS()).map(function(columns) {
+  Fs.writeFile(
+    'Incident Visualization Data_FR.csv',
+    byteOrderMark + D3.csvFormatRows([frenchHeader].concat((outputData.toJS()).map(function(columns) {
       return dataFields.map((dataFieldName)=> {
         let dataValue = columns[dataFieldName]
         const trKey = csvHeaderNamesInOrder_FR[dataFieldName]['trKey']
@@ -196,6 +201,7 @@ dataLoadPromise.then( () => {
         }
         return dataValue
       })
-    })))
+    }))),
+    () => {}
   )
 })
