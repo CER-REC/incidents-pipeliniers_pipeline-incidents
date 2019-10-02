@@ -1,6 +1,6 @@
 La version française suit.
 
-# [Pipeline Incident Visualization](https://www.cer-rec.gc.ca/pipeline-incidents)
+# [Pipeline Incident Visualization](https://apps2.cer-rec.gc.ca/pipeline-incidents)
 
 ## About
 
@@ -91,7 +91,7 @@ Reset icon: [Reset by Mooms](https://thenounproject.com/search/?q=reset&i=103342
 Facebook icon: By Elegant Themes from [www.flaticon.com](https://www.flaticon.com). Licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
 
 
-# [Visualisation des incidents pipeliniers](https://www.cer-rec.gc.ca/incidents-pipeliniers/)
+# [Visualisation des incidents pipeliniers](https://apps2.cer-rec.gc.ca/incidents-pipeliniers/)
 
 ## Le Projet
 
