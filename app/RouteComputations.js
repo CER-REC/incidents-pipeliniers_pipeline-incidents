@@ -391,7 +391,7 @@ const RouteComputations = {
     if (process.env.NODE_ENV === 'development') {
       // In development, read from a local flat file.
       // NB: At this writing, the contents of this file are a little out of date
-      return `${appRoot}data/2018-01-17 incidents.json`
+      return `${appRoot}data/2019-10-02 incidents.json`
     }
     else if (process.env.NODE_ENV === 'production') {
       // When the web app is bundled for production (which includes the TEST
