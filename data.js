@@ -155,7 +155,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 else if (process.env.NODE_ENV === 'production') {
   location = {
-    origin: 'https://www.cer-rec.gc.ca',
+    origin: 'https://apps2.cer-rec.gc.ca',
     pathname: '/pipeline-incidents/',
   }
 }
