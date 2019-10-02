@@ -17,7 +17,7 @@ These items are represented as URL parameters:
   showEmptyCategories
   pinnedIncidents
 
-Language is also represented, but is inferred from the application path. 
+Language is also represented, but is inferred from the application path.
   en: /pipeline-incidents
   fr: /incidents-pipeliniers
 See applicationPath in TranslationTable.js
@@ -51,7 +51,7 @@ const RouteComputations = {
       params.columns = columns.join(',')
     }
 
-    // categories: visibility settings are represented as a top level attribute 
+    // categories: visibility settings are represented as a top level attribute
     // for each column.
     // We store an ordered list of categories, for each column.
     // Only visible columns and their visible categories are represented.
@@ -70,7 +70,7 @@ const RouteComputations = {
       params.showEmptyCategories = true
     }
 
-    // pinnedIncidents: represented as a comma separated list of incident 
+    // pinnedIncidents: represented as a comma separated list of incident
     // numbers.
     // When there are no pinned incidents, the pinnedIncidents URL parameter is
     // absent.
@@ -80,7 +80,7 @@ const RouteComputations = {
       }).join(',')
     }
 
-    // selectedIncidents: represented as a comma separated list of incident 
+    // selectedIncidents: represented as a comma separated list of incident
     // numbers.
     // When there are no selected incidents, the selectedIncidents URL parameter is
     // absent.
@@ -90,15 +90,15 @@ const RouteComputations = {
       }).join(',')
     }
 
-    // fbas_columnName: represented as a selected column for the filter 
+    // fbas_columnName: represented as a selected column for the filter
     // fbas_categoryName: represented as a selected category for the filter
-    // When there are no filterboxActivationState selected, then 
+    // When there are no filterboxActivationState selected, then
     // fbas_columnName and fbas_categoryName URL parameter is absent.
     if(filterboxActivation.columnName !== null && filterboxActivation.categoryName !== null){
       filterboxActivation.forEach( (filter, filterName) => {
         if(filter !== null){
           params['fbas_'+filterName] = filter
-        } 
+        }
       } )
     }
     return RouteComputations.paramsToUrlString(params)
@@ -144,7 +144,7 @@ const RouteComputations = {
       return Immutable.List(columnNames)
     }
     else {
-      // An absent column parameter signifies that no columns are on 
+      // An absent column parameter signifies that no columns are on
       // display. In this case, we revert to the default columns.
       return Constants.get('defaultColumns')
     }
@@ -210,7 +210,7 @@ const RouteComputations = {
       const incidentNumbers = pinnedIncidentsString.split(',')
 
       // For each candidate incident number, find the corresponding incident
-      // and filter out any find attempts that fail. 
+      // and filter out any find attempts that fail.
       const incidents = incidentNumbers.map( incidentNumber => {
         return data.find( incident => {
           return incident.get('incidentNumber') === incidentNumber
@@ -223,7 +223,7 @@ const RouteComputations = {
 
     }
     else {
-      // An absent pinnedIncidents parameter signifies no pinnedIncidents on 
+      // An absent pinnedIncidents parameter signifies no pinnedIncidents on
       // display
       return Immutable.List()
     }
@@ -231,13 +231,13 @@ const RouteComputations = {
   },
 
   /**
-   * @selectedIncidentsString  {String} It is a comma seperated value of 
+   * @selectedIncidentsString  {String} It is a comma seperated value of
    *                                    selected incident
-   * @columnName  {String} It is a columnName from the 
-   *                       filterBoxActivationState. This checks if 
-   *                       fbas_columnName in the URL param is set or not, 
-   *                       as filter activation state decides whether 
-   *                       incidents in the list are visible or not on 
+   * @columnName  {String} It is a columnName from the
+   *                       filterBoxActivationState. This checks if
+   *                       fbas_columnName in the URL param is set or not,
+   *                       as filter activation state decides whether
+   *                       incidents in the list are visible or not on
    *                       the user or not.
    * @data  Incident state
    * @return {Immutable}
@@ -249,7 +249,7 @@ const RouteComputations = {
       const incidentNumbers = selectedIncidentsString.split(',')
 
       // For each candidate incident number, find the corresponding incident
-      // and filter out any find attempts that fail. 
+      // and filter out any find attempts that fail.
       const incidents = incidentNumbers.map( incidentNumber => {
         return data.find( incident => {
           return incident.get('incidentNumber') === incidentNumber
@@ -262,7 +262,7 @@ const RouteComputations = {
 
     }
     else {
-      // An absent selectedIncidents parameter signifies no selectedIncidents on 
+      // An absent selectedIncidents parameter signifies no selectedIncidents on
       // display
       return Immutable.List()
     }
@@ -317,7 +317,7 @@ const RouteComputations = {
           categoryName = parseInt(categoryName)
         }
         if(typeof categoriesValues.get(categoryName) !== 'undefined' ){
-          isColumnAndCategoryValid = true         
+          isColumnAndCategoryValid = true
         }
       }
       if(isColumnAndCategoryValid){
@@ -342,7 +342,7 @@ const RouteComputations = {
   // A string for the root of the application, a suitable place for making rest
   // requests or building other URLs. E.g.:
   // http://localhost:3001/pipeline-incidents/
-  // https://apps2.neb-one.gc.ca/incidents-pipeliniers/
+  // https://apps2.cer-rec.gc.ca/incidents-pipeliniers/
   appRoot: function (location, language) {
     return `${location.origin}${Tr.getIn(['applicationPath', language])}`
   },
@@ -375,7 +375,7 @@ const RouteComputations = {
   bitlyEndpoint: function (location, language) {
 
     switch(process.env.NODE_ENV) {
-    case 'development': { 
+    case 'development': {
       const root = RouteComputations.appRoot(location, language)
       return `${root}bitly_url`
     }
@@ -391,11 +391,11 @@ const RouteComputations = {
     if (process.env.NODE_ENV === 'development') {
       // In development, read from a local flat file.
       // NB: At this writing, the contents of this file are a little out of date
-      return `${appRoot}data/2018-01-17 incidents.json`
+      return `${appRoot}data/2019-10-02 incidents.json`
     }
     else if (process.env.NODE_ENV === 'production') {
-      // When the web app is bundled for production (which includes the TEST 
-      // environment at NEB) use the local data service
+      // When the web app is bundled for production (which includes the TEST
+      // environment at CER) use the local data service
       return `${appRoot}incidentData`
     }
 
@@ -410,8 +410,8 @@ const RouteComputations = {
       return `${appRoot}data/CategorySchema.json`
     }
 
-    // When the web app is bundled for production (which includes the TEST 
-    // environment at NEB) use the local schema service
+    // When the web app is bundled for production (which includes the TEST
+    // environment at CER) use the local schema service
     return `${appRoot}schemaData`
   },
 }

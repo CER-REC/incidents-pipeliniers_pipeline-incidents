@@ -1,7 +1,7 @@
 {
   "name": "incident-visualization",
   "version": "1.4.4",
-  "description": "Incident Data Visualization for the National Energy Board of Canada",
+  "description": "Incident Data Visualization for the Canada Energy Regulator",
   "main": "index.js",
   "scripts": {
     "webpack": "webpack --config webpack.prod.config.js",

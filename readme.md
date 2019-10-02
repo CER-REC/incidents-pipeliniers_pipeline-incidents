@@ -1,21 +1,21 @@
 La version française suit.
 
-# [Pipeline Incident Visualization](https://apps2.neb-one.gc.ca/pipeline-incidents)
+# [Pipeline Incident Visualization](https://apps2.cer-rec.gc.ca/pipeline-incidents)
 
 ## About
 
-This Incidents at NEB-Regulated Pipeline and Facilities interactive online tool is part of the National Energy Board’s (NEB) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the NEB structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on NEB data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found in the [NEB Safety Performance Portal](https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/index-eng.html).
+This Incidents at CER-Regulated Pipeline and Facilities interactive online tool is part of the Canada Energy Regulator’s (CER) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the CER (formerly the National Energy Board) structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found in the [CER Safety Performance Portal](https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/index-eng.html).
 
 If you want to use the data for research and undertake your own review, all the data is downloadable and shareable. The chart images are also downloadable
 
 We hope we are hitting the mark. Your feedback is essential.
 
-Email us with your comments and ideas: energyindesign@neb-one.gc.ca. We look forward to hearing from you.
+Email us with your comments and ideas: energyindesign@cer-rec.gc.ca. We look forward to hearing from you.
 
 ## About this Repository
 This repository includes the code and data needed to run a local version of the incident visualization app.
 
-You can download and run the application code to see how it was built and explore the data on your own computer. (If you only want to explore the visualization, you may want to [view the app](https://apps2.neb-one.gc.ca/pipeline-incidents) on the NEB's website.)
+You can download and run the application code to see how it was built and explore the data on your own computer. (If you only want to explore the visualization, you may want to [view the app](https://apps2.cer-rec.gc.ca/pipeline-incidents) on the CER's website.)
 
 ## Prerequisites
 
@@ -35,7 +35,7 @@ Follow these instructions at the command line tool on your computer (Powershell 
 
 ## Building for deployment
 
-The deployment build of the incident visualization is intended for use with the NEB's hosting environment, and may not be of much interest to the public. In the project folder, run:
+The deployment build of the incident visualization is intended for use with the CER's hosting environment, and may not be of much interest to the public. In the project folder, run:
 
 - `npm run build`
 
@@ -63,7 +63,7 @@ Technical: Patrick King, Alaa Azazi, Charlie Cheung, Abhishek Sharma, and Ben Co
 
 ## Contact Us
 
-We're the development team with VizworX who put this project together for the NEB. We aren't able to provide extensive support for this project, but you're welcome to reach out with questions and thoughts!
+We're the development team with VizworX who put this project together for the CER. We aren't able to provide extensive support for this project, but you're welcome to reach out with questions and thoughts!
 
 * Patrick King - patrick.king@vizworx.com
 * Alaa Azazi - alaa.azazi@vizworx.com
@@ -91,23 +91,23 @@ Reset icon: [Reset by Mooms](https://thenounproject.com/search/?q=reset&i=103342
 Facebook icon: By Elegant Themes from [www.flaticon.com](https://www.flaticon.com). Licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/deed.en).
 
 
-# [Visualisation des incidents pipeliniers](https://apps2.neb-one.gc.ca/incidents-pipeliniers/)
+# [Visualisation des incidents pipeliniers](https://apps2.cer-rec.gc.ca/incidents-pipeliniers/)
 
 ## Le Projet
 
-L’outil interactif « Incidents impliquant des installations et des pipelines réglementés » fait partie de l’initiative de visualisation des données de l’Office national de l’énergie. Échelonnée sur trois ans, cette initiative vise à transformer la manière dont l’Office structure et diffuse ses données. Elle a pour objectif de favoriser un processus décisionnel fondé sur la preuve et de faciliter la compréhension des questions liées aux réseaux énergétiques et pipeliniers du Canada, grâce à un outil de visualisation interactif, facile à utiliser. L’outil présente les données recueillies par l’Office de 2008 à aujourd’hui en ce qui concerne les incidents signalés en application du Règlement de l’Office national de l’énergie sur les pipelines terrestres et du Règlement sur les usines de traitement. Au cours des mois et des années à venir, l’Office utilisera cet outil novateur pour diffuser ses données sur la sécurité des pipelines et sur l’énergie, l’information qu’il possède sur l’infrastructure énergétique et une foule d’autres renseignements spécialisés. Par ailleurs, le portail [Rendement en matière de sécurité](https://www.neb-one.gc.ca/sftnvrnmnt/sft/dshbrd/index-fra.html) comporte d’autres outils interactifs en ligne.
+L’outil interactif « Incidents impliquant des installations et des pipelines réglementés » fait partie de l’initiative de visualisation des données de la Régie de l’énergie du Canada. Échelonnée sur trois ans, cette initiative vise à transformer la manière dont la Régie (anciennement appelée l’Office national de l’énergie) structure et diffuse ses données. Elle a pour objectif de favoriser un processus décisionnel fondé sur la preuve et de faciliter la compréhension des questions liées aux réseaux énergétiques et pipeliniers du Canada, grâce à un outil de visualisation interactif, facile à utiliser. L’outil présente les données recueillies par la Régie de 2008 à aujourd’hui en ce qui concerne les incidents signalés en application du Règlement de la Régie de l’énergie du Canada sur les pipelines terrestres et du Règlement sur les usines de traitement. Au cours des mois et des années à venir, la Régie utilisera cet outil novateur pour diffuser ses données sur la sécurité des pipelines et sur l’énergie, l’information qu’il possède sur l’infrastructure énergétique et une foule d’autres renseignements spécialisés. Par ailleurs, le portail [Rendement en matière de sécurité](https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/index-fra.html) comporte d’autres outils interactifs en ligne.
 
 Si vous souhaitez utiliser les données pour vos recherches ou pour en faire votre propre analyse, vous pouvez les télécharger et les partager. Les graphiques peuvent aussi être téléchargés.
 
 Nous espérons avoir atteint notre objectif. Votre rétroaction est essentielle.
 
-Vous pouvez nous la faire parvenir, ainsi que vos suggestions, à l’adresse : conceptionenergie@neb-one.gc.ca. Votre opinion compte.
+Vous pouvez nous la faire parvenir, ainsi que vos suggestions, à l’adresse : conceptionenergie@cer-rec.gc.ca. Votre opinion compte.
 
 
 ## Le référentiel
 
 Le référentiel contient le code et les données nécessaires à l’utilisation d’une version locale de l’application de visualisation des incidents.
-Vous pouvez télécharger et exécuter le code d’application pour voir comment il a été construit et examiner les données sur votre propre ordinateur. (Si vous voulez simplement explorer les possibilités de visualisation, vous pouvez [voir l’application](http://apps2.neb-one.gc.ca/incidents-pipeliniers) sur le site Web de l’Office.)
+Vous pouvez télécharger et exécuter le code d’application pour voir comment il a été construit et examiner les données sur votre propre ordinateur. (Si vous voulez simplement explorer les possibilités de visualisation, vous pouvez [voir l’application](http://apps2.cer-rec.gc.ca/incidents-pipeliniers) sur le site Web de la Régie.)
 
 ## Produits préalables
 
@@ -127,7 +127,7 @@ Suivez les instructions à partir de la ligne de commande de votre ordinateur (P
 
 ## Développement en vue du déploiement
 
-La version de déploiement de l’application de visualisation des incidents est conçue pour être utilisée avec l'environnement hôte de l’Office et pourrait ne pas être d’un grand intérêt pour le public. Dans le dossier du projet, exécutez la commande suivante :
+La version de déploiement de l’application de visualisation des incidents est conçue pour être utilisée avec l'environnement hôte de la Régie et pourrait ne pas être d’un grand intérêt pour le public. Dans le dossier du projet, exécutez la commande suivante :
 
 - `npm run build`
 
@@ -156,7 +156,7 @@ Aspect technique : Patrick King, Alaa Azazi, Charlie Cheung, Abhishek Sharma, an
 
 ## Contactez-nous
 
-Nous sommes l’équipe de développement de VizworX qui a réalisé le projet pour le compte de l’Office. Nous ne sommes pas en mesure d’assurer un soutien complet du projet, mais vos questions et vos suggestions sont les bienvenues!
+Nous sommes l’équipe de développement de VizworX qui a réalisé le projet pour le compte de la Régie. Nous ne sommes pas en mesure d’assurer un soutien complet du projet, mais vos questions et vos suggestions sont les bienvenues!
 
 * Patrick King, patrick.king@vizworx.com
 * Alaa Azazi, alaa.azazi@vizworx.com
