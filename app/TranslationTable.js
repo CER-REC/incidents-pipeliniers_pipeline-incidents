@@ -1857,8 +1857,8 @@ const TranslationTable = Immutable.fromJS({
   },
 
   dataCollectionSubheading: {
-    en: ' on how data collection has evolved since the CER was established in 1959.',
-    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de la Régie en 1959.'
+    en: ' on how data collection has evolved since the NEB (now the CER) was established in 1959.',
+    fr: ' sur l’évolution des méthodes de collecte de données depuis la création de l’Office (maintenant la Régie) en 1959.'
   },
 
   incidentResponseSubheading: {
