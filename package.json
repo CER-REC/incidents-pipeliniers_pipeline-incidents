@@ -41,7 +41,7 @@
     "moment": "^2.18.1",
     "mustache": "^2.3.0",
     "mustache-express": "^1.2.5",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.13.0",
     "nodemon": "^1.11.0",
     "nsp": "^2.7.0",
     "query-string": "^5.0.0",
