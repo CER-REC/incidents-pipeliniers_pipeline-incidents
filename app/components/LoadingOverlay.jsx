@@ -6,7 +6,7 @@ require('./LoadingOverlay.scss')
 
 class LoadingOverlay extends React.Component {
   render() {
-    const title = Tr.getIn(['loadingOverlayTitle', this.props.language]);
+    const title = Tr.getIn(['loadingOverlayTitle', this.props.language])
     return (
       <div className="workspace-overlay-loading-spinner-bg">
         <div className="workspace-overlay-loading-spinner-container">
@@ -25,4 +25,5 @@ class LoadingOverlay extends React.Component {
   }
 }
 
-module.exports = ReactRedux.connect(state => ({language: state.language}), {})(LoadingOverlay)
+module.exports =
+  ReactRedux.connect(state => ({language: state.language}), {})(LoadingOverlay)
