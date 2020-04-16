@@ -6,6 +6,7 @@ const ReactHotLoader = require('react-hot-loader')
 
 const Constants = require('./Constants.js')
 const Root = require('./components/Root.jsx')
+const LoadingOverlay = require('./components/LoadingOverlay.jsx')
 const Resized = require('./actionCreators/ResizeScreenCreator.js')
 const Store = require('./Store.js')
 const DataLoader = require('./DataLoader.js')
@@ -41,6 +42,9 @@ function render(Component) {
 
 DomReady( () => {
   store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
+
+  // loading indicator
+  render(LoadingOverlay, document.getElementById('reactRoot'));
 
   dataLoadPromise.then( () => {
 
