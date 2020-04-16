@@ -25,5 +25,4 @@ class LoadingOverlay extends React.Component {
   }
 }
 
-module.exports =
-  ReactRedux.connect(state => ({language: state.language}), {})(LoadingOverlay)
+module.exports = ReactRedux.connect(state => ({ language: state.language }))(LoadingOverlay)

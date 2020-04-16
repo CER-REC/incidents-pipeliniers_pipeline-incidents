@@ -41,10 +41,10 @@ function render(Component) {
 }
 
 DomReady( () => {
-  store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
-
   // loading indicator
-  render(LoadingOverlay, document.getElementById('reactRoot'));
+  render(LoadingOverlay, document.getElementById('reactRoot'))
+
+  store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
 
   dataLoadPromise.then( () => {
 
