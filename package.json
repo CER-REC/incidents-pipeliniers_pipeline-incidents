@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "webpack": "webpack --config webpack.prod.config.js",
-    "start": "node servers/DevelopmentServer/DevelopmentServer.js",
-    "debug": "nodemon --debug --inspect servers/DevelopmentServer/DevelopmentServer.js",
+    "start": "babel-node servers/DevelopmentServer/DevelopmentServer.js",
+    "debug": "nodemon --exec babel-node --inspect servers/DevelopmentServer/DevelopmentServer.js",
     "lint": "eslint --ext .jsx,.js app/**",
     "build": "node ./build.js"
   },
@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
     "@hot-loader/react-dom": "^16.13.0",
     "@vizworx/babel-preset": "^1.1.0",
     "babel-loader": "^8.1.0",
