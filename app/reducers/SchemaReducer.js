@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 // The schema is loaded from the CategorySchema.json file, and defines category
 // IDs with English and French translation strings.
@@ -16,4 +16,4 @@ const SchemaReducer = (state = Immutable.Map(), action) => {
 }
 
 
-module.exports = SchemaReducer
+export default SchemaReducer

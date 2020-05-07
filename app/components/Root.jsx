@@ -1,11 +1,11 @@
 
-const React = require('react')
+import React from 'react'
 
-const Workspace = require('./Workspace')
+import Workspace from './Workspace'
 
-require('../styles/Fonts.scss')
-require('../styles/Common.scss')
-require('../styles/QuestionMarkIcon.scss')
+import '../styles/Fonts.scss'
+import '../styles/Common.scss'
+import '../styles/QuestionMarkIcon.scss'
 
 class Root extends React.Component {
   render() {
@@ -16,4 +16,4 @@ class Root extends React.Component {
   }
 }
 
-module.exports = Root
+export default Root

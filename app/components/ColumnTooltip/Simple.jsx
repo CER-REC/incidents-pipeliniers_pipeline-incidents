@@ -1,8 +1,8 @@
-const React = require('react')
+import React from 'react'
 
-const Tr = require('../../TranslationTable')
-const Constants = require('../../Constants.js')
-const WorkspaceComputations = require('../../WorkspaceComputations.js')
+import Tr from '../../TranslationTable'
+import Constants from '../../Constants.js'
+import WorkspaceComputations from '../../WorkspaceComputations.js'
 
 class SimpleTooltip extends React.Component {
   constructor(props) {
@@ -172,4 +172,4 @@ class SimpleTooltip extends React.Component {
 
 
 
-module.exports = SimpleTooltip
+export default SimpleTooltip

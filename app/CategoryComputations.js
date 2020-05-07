@@ -1,10 +1,10 @@
-const Chroma = require('chroma-js')
-const Immutable = require('immutable')
-const MemoizeImmutable = require('memoize-immutable')
+import Chroma from 'chroma-js'
+import Immutable from 'immutable'
+import MemoizeImmutable from 'memoize-immutable'
 
-const Constants = require('./Constants.js')
-const IncidentComputations = require('./IncidentComputations.js')
-const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
+import Constants from './Constants.js'
+import IncidentComputations from './IncidentComputations.js'
+import DefaultCategoryComputations from './DefaultCategoryComputations.js'
 
 const CategoryComputations = {}
 
@@ -406,4 +406,4 @@ for (const name of Object.keys(CategoryComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(CategoryComputations[name])
 }
 
-module.exports = MemoizedComputations
+export default MemoizedComputations

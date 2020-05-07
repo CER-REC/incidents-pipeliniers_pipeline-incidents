@@ -1,12 +1,12 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
-const ShowIncidentListCreator = require('../actionCreators/ShowIncidentListCreator.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const Tr = require('../TranslationTable.js')
+import Constants from '../Constants.js'
+import ShowIncidentListCreator from '../actionCreators/ShowIncidentListCreator.js'
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import Tr from '../TranslationTable.js'
 
-require('../styles/Common.scss')
+import '../styles/Common.scss'
 
 
 class IncidentListShowHide extends React.Component {
@@ -112,6 +112,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentListShowHide)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentListShowHide)
 
 

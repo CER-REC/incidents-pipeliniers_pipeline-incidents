@@ -5,4 +5,4 @@ function StoryDismissedCreator () {
   }
 }
 
-module.exports = StoryDismissedCreator
+export default StoryDismissedCreator

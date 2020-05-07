@@ -1,9 +1,9 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../../Constants.js')
-const ColumnTooltipDetailExpandCreator = require('../../actionCreators/ColumnTooltipDetailExpandCreator.js')
-const ColumnTooltipDetailCollapseCreator = require('../../actionCreators/ColumnTooltipDetailCollapseCreator.js')
+import Constants from '../../Constants.js'
+import ColumnTooltipDetailExpandCreator from '../../actionCreators/ColumnTooltipDetailExpandCreator.js'
+import ColumnTooltipDetailCollapseCreator from '../../actionCreators/ColumnTooltipDetailCollapseCreator.js'
 
 const showSubListItem = (array) => (array.map((item, index) => {
   return (index !== 0) ? <li key={index} > {item} </li> : null
@@ -108,7 +108,7 @@ class TooltipListItem extends React.Component {
   }
 }
 
-module.exports = ReactRedux.connect(
+export default ReactRedux.connect(
   state => ({
     columnTooltipClick: state.columnTooltipClick,
     analytics: state.analytics,

@@ -1,4 +1,4 @@
-const RouteComputations = require('./RouteComputations.js')
+import RouteComputations from './RouteComputations.js'
 
 // NB: This list needs to be kept up to date with the actions which affect the
 // routable state
@@ -61,4 +61,4 @@ const RouterMiddleware = store => next => action => {
 
 
 
-module.exports = RouterMiddleware
+export default RouterMiddleware

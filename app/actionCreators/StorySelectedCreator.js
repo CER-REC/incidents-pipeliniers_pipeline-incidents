@@ -6,4 +6,4 @@ function StorySelectedCreator (storyID) {
   }
 }
 
-module.exports = StorySelectedCreator
+export default StorySelectedCreator

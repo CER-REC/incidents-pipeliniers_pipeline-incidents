@@ -33,4 +33,4 @@ const StoryImageReducer = (state = defaultState, action) => {
 }
 
 
-module.exports = StoryImageReducer
+export default StoryImageReducer

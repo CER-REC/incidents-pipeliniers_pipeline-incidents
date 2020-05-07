@@ -7,4 +7,4 @@ function ColumnTooltipDetailExpandCreator (columnName, itemOverview) {
   }
 }
 
-module.exports = ColumnTooltipDetailExpandCreator
+export default ColumnTooltipDetailExpandCreator

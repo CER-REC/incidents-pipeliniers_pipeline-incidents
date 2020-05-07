@@ -7,4 +7,4 @@ function ResizeScreenCreator (x, y) {
   }
 }
 
-module.exports = ResizeScreenCreator
+export default ResizeScreenCreator

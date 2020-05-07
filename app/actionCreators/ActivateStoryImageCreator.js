@@ -6,4 +6,4 @@ function ActivateStoryImageCreator (storyImage) {
   }
 }
 
-module.exports = ActivateStoryImageCreator
+export default ActivateStoryImageCreator

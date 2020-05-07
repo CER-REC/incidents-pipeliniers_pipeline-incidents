@@ -1,8 +1,8 @@
-const MemoizeImmutable = require('memoize-immutable')
-const Immutable = require('immutable')
+import MemoizeImmutable from 'memoize-immutable'
+import Immutable from 'immutable'
 
-const WorkspaceComputations = require('./WorkspaceComputations.js')
-const Constants = require('./Constants.js')
+import WorkspaceComputations from './WorkspaceComputations.js'
+import Constants from './Constants.js'
 
 const MapComputations = {}
 
@@ -106,4 +106,4 @@ for (const name of Object.keys(MapComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(MapComputations[name])
 }
 
-module.exports = MemoizedComputations
+export default MemoizedComputations

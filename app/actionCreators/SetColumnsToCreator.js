@@ -6,4 +6,4 @@ function SetColumnsToCreator (columnNames) {
   }
 }
 
-module.exports = SetColumnsToCreator
+export default SetColumnsToCreator

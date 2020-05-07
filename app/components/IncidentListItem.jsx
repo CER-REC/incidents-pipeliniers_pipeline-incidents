@@ -1,18 +1,18 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
-const Tr = require('../TranslationTable.js')
-const AddPinnedIncidentCreator = require('../actionCreators/AddPinnedIncidentCreator')
-const RemovePinnedIncidentCreator = require('../actionCreators/RemovePinnedIncidentCreator')
+import Constants from '../Constants.js'
+import Tr from '../TranslationTable.js'
+import AddPinnedIncidentCreator from '../actionCreators/AddPinnedIncidentCreator'
+import RemovePinnedIncidentCreator from '../actionCreators/RemovePinnedIncidentCreator'
 
-const HoverIncidentCreator = require('../actionCreators/HoverIncidentCreator.js')
-const UnhoverIncidentCreator = require('../actionCreators/UnhoverIncidentCreator.js')
+import HoverIncidentCreator from '../actionCreators/HoverIncidentCreator.js'
+import UnhoverIncidentCreator from '../actionCreators/UnhoverIncidentCreator.js'
 
-const AddSelectedIncidentCreator = require('../actionCreators/AddSelectedIncidentCreator.js')
-const RemoveSelectedIncidentCreator = require('../actionCreators/RemoveSelectedIncidentCreator.js')
+import AddSelectedIncidentCreator from '../actionCreators/AddSelectedIncidentCreator.js'
+import RemoveSelectedIncidentCreator from '../actionCreators/RemoveSelectedIncidentCreator.js'
 
-require('./IncidentListItem.scss')
+import './IncidentListItem.scss'
 
 class IncidentListItem extends React.Component {
 
@@ -186,4 +186,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentListItem)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentListItem)

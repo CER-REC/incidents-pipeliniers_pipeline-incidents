@@ -6,4 +6,4 @@ function RemoveSelectedIncidentCreator (incident) {
   }
 }
 
-module.exports = RemoveSelectedIncidentCreator
+export default RemoveSelectedIncidentCreator

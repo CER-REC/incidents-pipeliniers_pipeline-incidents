@@ -1,20 +1,20 @@
-const ReactDOM = require('react-dom')
-const DomReady = require('domready')
-const ReactRedux = require('react-redux')
-const React = require('react')
-const ReactHotLoader = require('react-hot-loader')
+import ReactDOM from 'react-dom'
+import DomReady from 'domready'
+import * as ReactRedux from 'react-redux'
+import React from 'react'
+import * as ReactHotLoader from 'react-hot-loader'
 
-const Constants = require('./Constants.js')
-const Root = require('./components/Root.jsx')
-const Resized = require('./actionCreators/ResizeScreenCreator.js')
-const Store = require('./Store.js')
-const DataLoader = require('./DataLoader.js')
-const RouteComputations = require('./RouteComputations.js')
-const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
-const PopupDismissedCreator = require('./actionCreators/PopupDismissedCreator.js')
-const SetUpAnalyticsCreator = require('./actionCreators/SetUpAnalyticsCreator.js')
-const AnalyticsReporter = require('./AnalyticsReporter.js')
-const SetupHistoryCreator = require('./actionCreators/SetupHistoryCreator.js')
+import Constants from './Constants.js'
+import Root from './components/Root.jsx'
+import Resized from './actionCreators/ResizeScreenCreator.js'
+import Store from './Store.js'
+import DataLoader from './DataLoader.js'
+import RouteComputations from './RouteComputations.js'
+import SetFromRouterStateCreator from './actionCreators/SetFromRouterStateCreator.js'
+import PopupDismissedCreator from './actionCreators/PopupDismissedCreator.js'
+import SetUpAnalyticsCreator from './actionCreators/SetUpAnalyticsCreator.js'
+import AnalyticsReporter from './AnalyticsReporter.js'
+import SetupHistoryCreator from './actionCreators/SetupHistoryCreator.js'
 
 
 const store = Store()
@@ -98,6 +98,6 @@ function locationChangeHandler (location, action) {
 // Webpack Hot Module Replacement API
 if (module.hot) {
   module.hot.accept('./components/Root.jsx', () => {
-    render(require('./components/Root.jsx'))
+    render(Root)
   })
 }

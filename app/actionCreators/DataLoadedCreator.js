@@ -8,4 +8,4 @@ function DataLoadedCreator (data) {
   }
 }
 
-module.exports = DataLoadedCreator
+export default DataLoadedCreator

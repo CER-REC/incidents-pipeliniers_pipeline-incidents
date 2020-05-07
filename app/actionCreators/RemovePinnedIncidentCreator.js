@@ -6,4 +6,4 @@ function RemovePinnedIncidentCreator (incident) {
   }
 }
 
-module.exports = RemovePinnedIncidentCreator
+export default RemovePinnedIncidentCreator

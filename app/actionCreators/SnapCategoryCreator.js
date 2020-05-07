@@ -10,4 +10,4 @@ function SnapCategoryCreator (columnName, categoryName, oldY, newY, categoryHeig
   }
 }
 
-module.exports = SnapCategoryCreator
+export default SnapCategoryCreator

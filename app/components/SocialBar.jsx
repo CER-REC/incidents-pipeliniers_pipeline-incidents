@@ -1,14 +1,14 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
-const Constants = require('../Constants.js')
-const Request = require('client-request/promise')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
+import Constants from '../Constants.js'
+import Request from 'client-request/promise'
 
-const RouteComputations = require('../RouteComputations.js')
+import RouteComputations from '../RouteComputations.js'
 
-require('./SocialBar.scss')
+import './SocialBar.scss'
 
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const Tr = require('../TranslationTable.js')
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import Tr from '../TranslationTable.js'
 
 class SocialBar extends React.Component {
   constructor(props){
@@ -262,4 +262,4 @@ const mapStateToProps = state => {
 
 
 
-module.exports = ReactRedux.connect(mapStateToProps)(SocialBar)
+export default ReactRedux.connect(mapStateToProps)(SocialBar)

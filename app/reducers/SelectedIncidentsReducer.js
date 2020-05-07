@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const SelectedIncidentsReducer = (state = Immutable.List(), action) => {
 
@@ -34,4 +34,4 @@ const SelectedIncidentsReducer = (state = Immutable.List(), action) => {
 }
 
 
-module.exports = SelectedIncidentsReducer
+export default SelectedIncidentsReducer

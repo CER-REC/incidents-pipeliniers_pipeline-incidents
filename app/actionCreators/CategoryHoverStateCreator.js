@@ -6,4 +6,4 @@ function CategoryHoverStateCreator (columnName, categoryName) {
   }
 }
 
-module.exports = CategoryHoverStateCreator
+export default CategoryHoverStateCreator

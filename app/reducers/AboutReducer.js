@@ -14,4 +14,4 @@ const AboutReducer = (state = false, action) => {
 }
 
 
-module.exports = AboutReducer
+export default AboutReducer

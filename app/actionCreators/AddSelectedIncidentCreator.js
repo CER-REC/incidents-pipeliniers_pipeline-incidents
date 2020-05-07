@@ -6,4 +6,4 @@ function AddSelectedIncidentCreator (incident) {
   }
 }
 
-module.exports = AddSelectedIncidentCreator
+export default AddSelectedIncidentCreator

@@ -4,4 +4,4 @@ function UnhoverIncidentCreator () {
   }
 }
 
-module.exports = UnhoverIncidentCreator
+export default UnhoverIncidentCreator

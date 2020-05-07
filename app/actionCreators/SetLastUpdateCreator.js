@@ -5,4 +5,4 @@ function SetLastUpdateCreator (date) {
   }
 }
 
-module.exports = SetLastUpdateCreator
+export default SetLastUpdateCreator

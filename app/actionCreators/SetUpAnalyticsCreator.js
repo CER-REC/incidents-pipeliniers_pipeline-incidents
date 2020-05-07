@@ -6,4 +6,4 @@ const SetUpAnalyticsCreator = function (analytics) {
 
 }
 
-module.exports = SetUpAnalyticsCreator
+export default SetUpAnalyticsCreator

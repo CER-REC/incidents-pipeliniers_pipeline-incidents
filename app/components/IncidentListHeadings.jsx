@@ -1,12 +1,12 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const Constants = require('../Constants.js')
-const Tr = require('../TranslationTable.js')
-const IncidentComputations = require('../IncidentComputations.js')
-const StringComputations = require('../StringComputations.js')
-const ColumnTooltipSummonedCreator = require('../actionCreators/ColumnTooltipSummonedCreator.js')
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import Constants from '../Constants.js'
+import Tr from '../TranslationTable.js'
+import IncidentComputations from '../IncidentComputations.js'
+import StringComputations from '../StringComputations.js'
+import ColumnTooltipSummonedCreator from '../actionCreators/ColumnTooltipSummonedCreator.js'
 
 class IncidentListHeadings extends React.Component {
 
@@ -173,4 +173,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentListHeadings)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentListHeadings)

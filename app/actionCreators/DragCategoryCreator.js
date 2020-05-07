@@ -6,4 +6,4 @@ function DragCategoryCreator (newY) {
   }
 }
 
-module.exports = DragCategoryCreator
+export default DragCategoryCreator

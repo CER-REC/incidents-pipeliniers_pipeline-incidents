@@ -1,21 +1,21 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Filterbox = require('./Filterbox.jsx')
-const Constants = require('../Constants.js')
-const Tr = require('../TranslationTable.js')
-const CategoryHoverStateCreator = require('../actionCreators/CategoryHoverStateCreator.js')
-const CategoryUnhoverStateCreator = require('../actionCreators/CategoryUnhoverStateCreator.js')
+import Filterbox from './Filterbox.jsx'
+import Constants from '../Constants.js'
+import Tr from '../TranslationTable.js'
+import CategoryHoverStateCreator from '../actionCreators/CategoryHoverStateCreator.js'
+import CategoryUnhoverStateCreator from '../actionCreators/CategoryUnhoverStateCreator.js'
 
-const ActivateFilterboxCreator = require('../actionCreators/ActivateFilterboxCreator.js')
-const HideFilterboxCreator = require('../actionCreators/HideFilterboxCreator.js')
+import ActivateFilterboxCreator from '../actionCreators/ActivateFilterboxCreator.js'
+import HideFilterboxCreator from '../actionCreators/HideFilterboxCreator.js'
 
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const CategoryComputations = require('../CategoryComputations.js')
-const FilterboxComputations = require('../FilterboxComputations.js')
-const StringComputations = require('../StringComputations.js')
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import CategoryComputations from '../CategoryComputations.js'
+import FilterboxComputations from '../FilterboxComputations.js'
+import StringComputations from '../StringComputations.js'
 
-require('./Category.scss')
+import './Category.scss'
 
 
 class Category extends React.Component {
@@ -321,4 +321,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Category)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Category)

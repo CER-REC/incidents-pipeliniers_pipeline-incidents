@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const TranslationTable = Immutable.fromJS({
 
@@ -2437,4 +2437,4 @@ const TranslationTable = Immutable.fromJS({
 
 })
 
-module.exports = TranslationTable
+export default TranslationTable

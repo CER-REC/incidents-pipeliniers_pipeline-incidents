@@ -6,4 +6,4 @@ function DragColumnEndedCreator (isStarted) {
   }
 }
 
-module.exports = DragColumnEndedCreator
+export default DragColumnEndedCreator

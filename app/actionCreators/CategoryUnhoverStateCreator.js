@@ -4,4 +4,4 @@ function CategoryUnhoverStateCreator () {
   }
 }
 
-module.exports = CategoryUnhoverStateCreator
+export default CategoryUnhoverStateCreator

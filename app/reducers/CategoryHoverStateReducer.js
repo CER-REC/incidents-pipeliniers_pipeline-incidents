@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const CategoryHoverStateReducer = (state = Immutable.Map({columnName: null, categoryName: null}), action) => {
 
@@ -18,4 +18,4 @@ const CategoryHoverStateReducer = (state = Immutable.Map({columnName: null, cate
 }
 
 
-module.exports = CategoryHoverStateReducer
+export default CategoryHoverStateReducer
