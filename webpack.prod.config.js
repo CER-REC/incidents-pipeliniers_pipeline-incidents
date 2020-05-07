@@ -20,9 +20,11 @@ config.plugins = [
 // Disable sourcemaps for production builds
 config.devtool = false
 // Remove react-hot-loader and webpack-hot-middleware
-config.entry.bundle = ['babel-polyfill', './app/app.jsx']
+config.entry.bundle = ['core-js/stable', './app/app.jsx']
 config.output.publicPath = ''
 config.module.rules[0].use.options.plugins = []
+// Remove react-hot-loader dom patch
+config.resolve.alias = {}
 
 module.exports = config
 
