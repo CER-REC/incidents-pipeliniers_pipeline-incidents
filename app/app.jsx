@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom'
 import DomReady from 'domready'
 import * as ReactRedux from 'react-redux'
 import React from 'react'
-import * as ReactHotLoader from 'react-hot-loader'
 
 import Constants from './Constants.js'
 import Root from './components/Root.jsx'
@@ -29,11 +28,9 @@ const dataLoadPromise = DataLoader.loadFromDataService(store, document.location)
 
 function render(Component) {
   const app = (
-    <ReactHotLoader.AppContainer>
-      <ReactRedux.Provider store={store}>
-        <Component />
-      </ReactRedux.Provider>
-    </ReactHotLoader.AppContainer>
+    <ReactRedux.Provider store={store}>
+      <Component />
+    </ReactRedux.Provider>
   )
 
   ReactDOM.render(app, document.getElementById('reactRoot'))
@@ -93,11 +90,4 @@ function locationChangeHandler (location, action) {
     filterboxActivationState: routerState.filterboxActivationState,
   }))
 
-}
-
-// Webpack Hot Module Replacement API
-if (module.hot) {
-  module.hot.accept('./components/Root.jsx', () => {
-    render(Root)
-  })
 }
