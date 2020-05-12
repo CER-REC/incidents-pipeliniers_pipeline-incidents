@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom'
 import DomReady from 'domready'
 import * as ReactRedux from 'react-redux'
 import React from 'react'
+import * as ReactHotLoaderRoot from 'react-hot-loader/root'
 
 import Constants from './Constants.js'
 import Root from './components/Root.jsx'
@@ -23,14 +24,18 @@ if (process.env.NODE_ENV === 'development') {
   window.store = store
 }
 
-
+const App = ReactHotLoaderRoot.hot(props => (
+  <ReactRedux.Provider store={store}>
+    { props.children }
+  </ReactRedux.Provider>
+))
 const dataLoadPromise = DataLoader.loadFromDataService(store, document.location);
 
 function render(Component) {
   const app = (
-    <ReactRedux.Provider store={store}>
+    <App>
       <Component />
-    </ReactRedux.Provider>
+    </App>
   )
 
   ReactDOM.render(app, document.getElementById('reactRoot'))

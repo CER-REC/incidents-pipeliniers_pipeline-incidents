@@ -1,5 +1,5 @@
+
 import React from 'react'
-import * as ReactHotLoaderRoot from 'react-hot-loader/root'
 
 import Workspace from './Workspace'
 
@@ -16,4 +16,4 @@ class Root extends React.Component {
   }
 }
 
-export default ReactHotLoaderRoot.hot(Root)
+export default Root
