@@ -6,4 +6,4 @@ function ShowHideEmptyCategoriesCreator() {
 }
 
 
-module.exports = ShowHideEmptyCategoriesCreator
+export default ShowHideEmptyCategoriesCreator

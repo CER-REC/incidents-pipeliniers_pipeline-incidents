@@ -9,4 +9,4 @@ const SetIncidentListScrollCreator = function (scrollTop) {
 }
 
 
-module.exports = SetIncidentListScrollCreator
+export default SetIncidentListScrollCreator

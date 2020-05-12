@@ -15,4 +15,4 @@ const EmptyCategoriesReducer = (state = false, action) => {
   }
 }
 
-module.exports = EmptyCategoriesReducer
+export default EmptyCategoriesReducer

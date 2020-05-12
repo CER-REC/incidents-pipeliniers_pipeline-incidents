@@ -7,4 +7,4 @@ function ActivateAllCategoriesForColumnCreator(columnName) {
 }
 
 
-module.exports = ActivateAllCategoriesForColumnCreator
+export default ActivateAllCategoriesForColumnCreator

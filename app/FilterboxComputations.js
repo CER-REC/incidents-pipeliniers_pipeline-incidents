@@ -1,8 +1,8 @@
-const MemoizeImmutable = require('memoize-immutable')
+import MemoizeImmutable from 'memoize-immutable'
 
-const CategoryComputations = require('./CategoryComputations.js')
+import CategoryComputations from './CategoryComputations.js'
 
-const Constants = require('./Constants.js')
+import Constants from './Constants.js'
 
 const FilterboxComputations = {
 
@@ -87,4 +87,4 @@ for (const name of Object.keys(FilterboxComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(FilterboxComputations[name])
 }
 
-module.exports = MemoizedComputations
+export default MemoizedComputations

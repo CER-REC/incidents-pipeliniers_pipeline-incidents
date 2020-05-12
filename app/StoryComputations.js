@@ -1,6 +1,6 @@
-const MemoizeImmutable = require('memoize-immutable')
+import MemoizeImmutable from 'memoize-immutable'
 
-const Constants = require('./Constants.js')
+import Constants from './Constants.js'
 
 const StoryComputations = {
 
@@ -60,4 +60,4 @@ for (const name of Object.keys(StoryComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(StoryComputations[name])
 }
 
-module.exports = MemoizedComputations
+export default MemoizedComputations

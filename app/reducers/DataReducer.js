@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 // NB: The reportedDate objects contained in this dataset are not immutable,
 // but are Moment date objects.
@@ -18,4 +18,4 @@ const DataReducer = (state = Immutable.List(), action) => {
 }
 
 
-module.exports = DataReducer
+export default DataReducer

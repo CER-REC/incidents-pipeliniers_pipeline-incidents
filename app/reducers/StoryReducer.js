@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const defaults = Immutable.fromJS({
   isActive:false,
@@ -20,4 +20,4 @@ const StoryReducer = (state = defaults, action) => {
 }
 
 
-module.exports = StoryReducer
+export default StoryReducer

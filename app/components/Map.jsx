@@ -1,8 +1,8 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const MapRenderer = require('../MapRenderer.js')
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import MapRenderer from '../MapRenderer.js'
 
 class Map extends React.Component {
 
@@ -71,4 +71,4 @@ const mapStateToProps = state => {
 }
 
 
-module.exports = ReactRedux.connect(mapStateToProps)(Map)
+export default ReactRedux.connect(mapStateToProps)(Map)

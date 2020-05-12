@@ -16,4 +16,4 @@ const ShowIncidentListReducer = (state = defaultState, action) => {
   }
 }
 
-module.exports = ShowIncidentListReducer
+export default ShowIncidentListReducer

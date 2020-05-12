@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const defaults = Immutable.fromJS({
   columnName: null,
@@ -22,4 +22,4 @@ const ColumnTooltipDetailClickReducer = (state = defaults, action) => {
   }
 }
 
-module.exports = ColumnTooltipDetailClickReducer
+export default ColumnTooltipDetailClickReducer

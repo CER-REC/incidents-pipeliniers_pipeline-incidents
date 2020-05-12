@@ -6,4 +6,4 @@ function RemoveColumnCreator (columnName) {
   }
 }
 
-module.exports = RemoveColumnCreator
+export default RemoveColumnCreator

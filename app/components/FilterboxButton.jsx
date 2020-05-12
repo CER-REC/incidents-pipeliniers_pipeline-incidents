@@ -1,8 +1,8 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
-const FilterboxComputations = require('../FilterboxComputations.js')
+import Constants from '../Constants.js'
+import FilterboxComputations from '../FilterboxComputations.js'
 
 class FilterboxButton extends React.Component {
 
@@ -53,4 +53,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(FilterboxButton)
+export default ReactRedux.connect(mapStateToProps)(FilterboxButton)

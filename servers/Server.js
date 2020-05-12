@@ -1,6 +1,6 @@
-const Express = require('express')
-const Tr = require('../app/TranslationTable.js')
-// Compression = require('compression')
+import Express from 'express'
+import Tr from '../app/TranslationTable.js'
+// import Compression from 'compression'
 
 const Server = function(middlewares) {
   let i, len, middleware
@@ -13,7 +13,7 @@ const Server = function(middlewares) {
   }
 
   const rootApp = Express()
-  
+
   // Host the incident visualization app with both French and English endpoints
   rootApp.use(Tr.getIn(['applicationPath', 'en']), app)
   rootApp.use(Tr.getIn(['applicationPath', 'fr']), app)
@@ -31,4 +31,4 @@ const Server = function(middlewares) {
 }
 
 
-module.exports = Server
+export default Server

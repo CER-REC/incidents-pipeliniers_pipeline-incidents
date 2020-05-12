@@ -5,4 +5,4 @@ function IDMapsLoadedCreator (idMaps) {
   }
 }
 
-module.exports = IDMapsLoadedCreator
+export default IDMapsLoadedCreator

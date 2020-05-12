@@ -6,4 +6,4 @@ function AddColumnCreator (columnName) {
   }
 }
 
-module.exports = AddColumnCreator
+export default AddColumnCreator

@@ -1,6 +1,6 @@
 
 
-const express = require('express')
+import express from 'express'
 
 //mock endpoint - designed to resemble a bitly request but doesn't actually do so
 function handler(request, res) {
@@ -25,4 +25,4 @@ const BitlyMiddleware = function() {
   return app
 }
 
-module.exports = BitlyMiddleware
+export default BitlyMiddleware

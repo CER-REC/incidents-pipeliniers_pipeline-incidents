@@ -1,17 +1,18 @@
-const Path = require('path')
+import Path from 'path'
+import dotenv from 'dotenv'
 
-const ApplicationRoot = require('../../ApplicationRoot.js')
+import ApplicationRoot from '../../ApplicationRoot.js'
 
-require('dotenv').config({
+dotenv.config({
   path: Path.join(ApplicationRoot, 'servers/DevelopmentServer/.env')
 })
 
-const PublicFilesMiddleware = require('../middleware/PublicFilesMiddleware.js')
-const WebpackDevMiddleware = require('../middleware/WebpackDevMiddleware.js')
-const DevelopmentPageMiddleware = require('../middleware/DevelopmentPageMiddleware.js')
-const BitlyMiddleware = require('../middleware/BitlyMiddleware.js')
+import PublicFilesMiddleware from '../middleware/PublicFilesMiddleware.js'
+import WebpackDevMiddleware from '../middleware/WebpackDevMiddleware.js'
+import DevelopmentPageMiddleware from '../middleware/DevelopmentPageMiddleware.js'
+import BitlyMiddleware from '../middleware/BitlyMiddleware.js'
 
-const Server = require('../Server.js')
+import Server from '../Server.js'
 
 Server([
   PublicFilesMiddleware(),

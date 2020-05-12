@@ -1,7 +1,7 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
+import Constants from '../Constants.js'
 
 class SelectedIncidentPath extends React.Component {
 
@@ -31,4 +31,4 @@ const mapStateToProps = state => {
 }
 
 
-module.exports = ReactRedux.connect(mapStateToProps)(SelectedIncidentPath)
+export default ReactRedux.connect(mapStateToProps)(SelectedIncidentPath)

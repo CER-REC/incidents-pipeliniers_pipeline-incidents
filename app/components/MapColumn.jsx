@@ -1,19 +1,19 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
-const Tr = require('../TranslationTable.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCreator.js')
-const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
-const DragColumnEndedCreator = require('../actionCreators/DragColumnEndedCreator.js')
-const SnapColumnCreator = require('../actionCreators/SnapColumnCreator.js')
-const SetColumnsToCreator = require('../actionCreators/SetColumnsToCreator.js')
+import Constants from '../Constants.js'
+import Tr from '../TranslationTable.js'
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import DragColumnStartedCreator from '../actionCreators/DragColumnStartedCreator.js'
+import DragColumnCreator from '../actionCreators/DragColumnCreator.js'
+import DragColumnEndedCreator from '../actionCreators/DragColumnEndedCreator.js'
+import SnapColumnCreator from '../actionCreators/SnapColumnCreator.js'
+import SetColumnsToCreator from '../actionCreators/SetColumnsToCreator.js'
 
 let columnWindowMoveHandler = null
 let columnWindowEndHandler = null
 
-require('./MapColumn.scss')
+import './MapColumn.scss'
 
 // NB: The 'map column' is not responsible for actually drawing the map. It is
 // just a dummy object to occupy the same space as the actual map canvas.
@@ -256,4 +256,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(MapColumn)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(MapColumn)

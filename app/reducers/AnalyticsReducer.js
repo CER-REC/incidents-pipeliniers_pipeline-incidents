@@ -10,4 +10,4 @@ function AnalyticsReducer (state = null, action) {
 }
 
 
-module.exports = AnalyticsReducer
+export default AnalyticsReducer

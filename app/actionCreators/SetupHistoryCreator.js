@@ -4,4 +4,4 @@ const SetupHistoryCreator = function () {
   }
 }
 
-module.exports = SetupHistoryCreator
+export default SetupHistoryCreator

@@ -5,4 +5,4 @@ function DisclaimerDismissedCreator () {
   }
 }
 
-module.exports = DisclaimerDismissedCreator
+export default DisclaimerDismissedCreator

@@ -1,39 +1,39 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const CategoryComputations = require('../CategoryComputations.js')
-const IncidentComputations = require('../IncidentComputations.js')
-const StringComputations = require('../StringComputations.js')
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import CategoryComputations from '../CategoryComputations.js'
+import IncidentComputations from '../IncidentComputations.js'
+import StringComputations from '../StringComputations.js'
 
 
-const SidebarColumnHoverCreator = require('../actionCreators/SidebarColumnHoverCreator.js')
-const DragColumnStartedCreator = require('../actionCreators/DragColumnStartedCreator.js')
-const DragColumnCreator = require('../actionCreators/DragColumnCreator.js')
-const DragColumnEndedCreator = require('../actionCreators/DragColumnEndedCreator.js')
-const SnapColumnCreator = require('../actionCreators/SnapColumnCreator.js')
-const AddColumnCreator = require('../actionCreators/AddColumnCreator.js')
-const DragSidebarColumnStartedCreator = require('../actionCreators/DragSidebarColumnStartedCreator.js')
-const DragSidebarColumnEndedCreator = require('../actionCreators/DragSidebarColumnEndedCreator.js')
-const DragSidebarColumnCreator = require('../actionCreators/DragSidebarColumnCreator.js')
-const AddColumnAtPositionCreator = require('../actionCreators/AddColumnAtPositionCreator.js')
-const ColumnTooltipSummonedCreator = require('../actionCreators/ColumnTooltipSummonedCreator.js')
-const SetColumnsToCreator = require('../actionCreators/SetColumnsToCreator.js')
-const ColumnPaths = require('./ColumnPaths.jsx')
-const SelectedColumnPaths = require('./SelectedColumnPaths.jsx')
-const Category = require('./Category.jsx')
-const Constants = require('../Constants.js')
-const TranslationTable = require('../TranslationTable.js')
-const SelectedIncidentPaths = require('./SelectedIncidentPaths.jsx')
+import SidebarColumnHoverCreator from '../actionCreators/SidebarColumnHoverCreator.js'
+import DragColumnStartedCreator from '../actionCreators/DragColumnStartedCreator.js'
+import DragColumnCreator from '../actionCreators/DragColumnCreator.js'
+import DragColumnEndedCreator from '../actionCreators/DragColumnEndedCreator.js'
+import SnapColumnCreator from '../actionCreators/SnapColumnCreator.js'
+import AddColumnCreator from '../actionCreators/AddColumnCreator.js'
+import DragSidebarColumnStartedCreator from '../actionCreators/DragSidebarColumnStartedCreator.js'
+import DragSidebarColumnEndedCreator from '../actionCreators/DragSidebarColumnEndedCreator.js'
+import DragSidebarColumnCreator from '../actionCreators/DragSidebarColumnCreator.js'
+import AddColumnAtPositionCreator from '../actionCreators/AddColumnAtPositionCreator.js'
+import ColumnTooltipSummonedCreator from '../actionCreators/ColumnTooltipSummonedCreator.js'
+import SetColumnsToCreator from '../actionCreators/SetColumnsToCreator.js'
+import ColumnPaths from './ColumnPaths.jsx'
+import SelectedColumnPaths from './SelectedColumnPaths.jsx'
+import Category from './Category.jsx'
+import Constants from '../Constants.js'
+import TranslationTable from '../TranslationTable.js'
+import SelectedIncidentPaths from './SelectedIncidentPaths.jsx'
 
-const Tr = require('../TranslationTable.js')
+import Tr from '../TranslationTable.js'
 
 let columnWindowMoveHandler = null
 let columnWindowEndHandler = null
 let sidebarWindowMoveHandler = null
 let sidebarWindowEndHandler = null
 
-require('./Column.scss')
+import './Column.scss'
 
 class Column extends React.Component {
   // Specifically: non-empty AND visible categories
@@ -863,4 +863,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Column)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Column)

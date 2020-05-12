@@ -11,4 +11,4 @@ function DragCategoryStartedCreator (isStarted, columnName, categoryName, oldY, 
   }
 }
 
-module.exports = DragCategoryStartedCreator
+export default DragCategoryStartedCreator

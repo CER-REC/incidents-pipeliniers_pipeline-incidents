@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const PinnedIncidentReducer = (state = Immutable.List(), action) => {
 
@@ -28,4 +28,4 @@ const PinnedIncidentReducer = (state = Immutable.List(), action) => {
 }
 
 
-module.exports = PinnedIncidentReducer
+export default PinnedIncidentReducer

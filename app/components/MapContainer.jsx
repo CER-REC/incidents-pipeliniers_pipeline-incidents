@@ -1,10 +1,10 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const MapComponent = require('./Map.jsx')
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import MapComponent from './Map.jsx'
 
-require('./MapContainer.scss')
+import './MapContainer.scss'
 
 class MapContainer extends React.Component {
 
@@ -69,4 +69,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(MapContainer)
+export default ReactRedux.connect(mapStateToProps)(MapContainer)

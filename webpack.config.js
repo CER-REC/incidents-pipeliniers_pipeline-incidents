@@ -8,7 +8,7 @@ const BUILD_DIR = Path.resolve(__dirname, 'public/script')
 module.exports = {
   entry: {
     bundle: [
-      'babel-polyfill',
+      'core-js/stable',
       'react-hot-loader/patch',
       'webpack-hot-middleware/client?path=/pipeline-incidents/script/__webpack_hmr',
       './app/app.jsx',
@@ -30,7 +30,6 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react'],
             plugins: ['react-hot-loader/babel'],
           }
         }
@@ -51,9 +50,12 @@ module.exports = {
       }
 
     ]
-  
+
   },
   resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom'
+    },
     extensions: ['.js', '.jsx', '.json']
   },
 

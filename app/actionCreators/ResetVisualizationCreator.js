@@ -9,4 +9,4 @@ function ResetVisualizationCreator (categories) {
 
 
 
-module.exports = ResetVisualizationCreator
+export default ResetVisualizationCreator

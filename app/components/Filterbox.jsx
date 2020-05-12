@@ -1,31 +1,31 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
-const Immutable = require('immutable')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
+import Immutable from 'immutable'
 
-const Constants = require('../Constants.js')
+import Constants from '../Constants.js'
 
-const DeactivateAllCategoriesExceptOneCreator = require('../actionCreators/DeactivateAllCategoriesExceptOneCreator.js')
-const DeactivateCategoryCreator = require('../actionCreators/DeactivateCategoryCreator.js')
-const HideFilterboxCreator = require('../actionCreators/HideFilterboxCreator.js')
-const ActivateAllCategoriesForColumnCreator = require('../actionCreators/ActivateAllCategoriesForColumnCreator.js')
-const DragCategoryStartedCreator = require('../actionCreators/DragCategoryStartedCreator.js')
-const DragCategoryCreator = require('../actionCreators/DragCategoryCreator.js')
-const DragCategoryEndedCreator = require('../actionCreators/DragCategoryEndedCreator.js')
-const SnapCategoryCreator = require('../actionCreators/SnapCategoryCreator.js')
-const SetCategoriesForColumnCreator = require('../actionCreators/SetCategoriesForColumnCreator.js')
+import DeactivateAllCategoriesExceptOneCreator from '../actionCreators/DeactivateAllCategoriesExceptOneCreator.js'
+import DeactivateCategoryCreator from '../actionCreators/DeactivateCategoryCreator.js'
+import HideFilterboxCreator from '../actionCreators/HideFilterboxCreator.js'
+import ActivateAllCategoriesForColumnCreator from '../actionCreators/ActivateAllCategoriesForColumnCreator.js'
+import DragCategoryStartedCreator from '../actionCreators/DragCategoryStartedCreator.js'
+import DragCategoryCreator from '../actionCreators/DragCategoryCreator.js'
+import DragCategoryEndedCreator from '../actionCreators/DragCategoryEndedCreator.js'
+import SnapCategoryCreator from '../actionCreators/SnapCategoryCreator.js'
+import SetCategoriesForColumnCreator from '../actionCreators/SetCategoriesForColumnCreator.js'
 
-const FilterboxButton = require('./FilterboxButton.jsx')
-const Tr = require('../TranslationTable.js')
+import FilterboxButton from './FilterboxButton.jsx'
+import Tr from '../TranslationTable.js'
 
-const CategoryComputations = require('../CategoryComputations.js')
-const FilterboxComputations = require('../FilterboxComputations.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const IncidentComputations = require('../IncidentComputations.js')
+import CategoryComputations from '../CategoryComputations.js'
+import FilterboxComputations from '../FilterboxComputations.js'
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import IncidentComputations from '../IncidentComputations.js'
 
 let categoryWindowMoveHandler = null
 let categoryWindowEndHandler = null
 
-require('./Filterbox.scss')
+import './Filterbox.scss'
 
 
 class Filterbox extends React.Component {
@@ -445,4 +445,4 @@ const mapDispatchToProps = dispatch => {
 
 
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Filterbox)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Filterbox)

@@ -1,7 +1,7 @@
-const Express = require('express')
-const Path = require('path')
+import Express from 'express'
+import Path from 'path'
 
-const ApplicationRoot = require('../../ApplicationRoot.js')
+import ApplicationRoot from '../../ApplicationRoot.js'
 
 
 const PublicFilesMiddleware = function() { 
@@ -13,4 +13,4 @@ const PublicFilesMiddleware = function() {
 }
 
 
-module.exports = PublicFilesMiddleware
+export default PublicFilesMiddleware

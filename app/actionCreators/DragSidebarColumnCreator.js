@@ -6,4 +6,4 @@ function DragSidebarColumnCreator (newX) {
   }
 }
 
-module.exports = DragSidebarColumnCreator
+export default DragSidebarColumnCreator

@@ -6,4 +6,4 @@ function DragSidebarColumnEndedCreator (isStarted) {
   }
 }
 
-module.exports = DragSidebarColumnEndedCreator
+export default DragSidebarColumnEndedCreator

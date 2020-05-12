@@ -1,8 +1,8 @@
-const Express = require('express')
-const Path = require('path')
-const MustacheExpress = require('mustache-express')
+import Express from 'express'
+import Path from 'path'
+import MustacheExpress from 'mustache-express'
 
-const ApplicationRoot = require('../../ApplicationRoot.js')
+import ApplicationRoot from '../../ApplicationRoot.js'
 
 
 const DevelopmentPageMiddleware = function () {
@@ -35,4 +35,4 @@ const DevelopmentPageMiddleware = function () {
 
 
 
-module.exports = DevelopmentPageMiddleware
+export default DevelopmentPageMiddleware

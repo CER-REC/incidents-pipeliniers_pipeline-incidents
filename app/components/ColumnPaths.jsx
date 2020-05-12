@@ -1,7 +1,7 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const IncidentPathComputations = require('../IncidentPathComputations.js')
+import IncidentPathComputations from '../IncidentPathComputations.js'
 
 class ColumnPaths extends React.Component {
 
@@ -58,4 +58,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(ColumnPaths)
+export default ReactRedux.connect(mapStateToProps)(ColumnPaths)

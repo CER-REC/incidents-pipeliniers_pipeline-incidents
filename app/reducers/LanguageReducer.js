@@ -14,4 +14,4 @@ const LanguageReducer = (state = 'en', action) => {
   }
 }
 
-module.exports = LanguageReducer
+export default LanguageReducer

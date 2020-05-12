@@ -1,11 +1,11 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
-const D3 = require('d3')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
+import * as D3 from 'd3'
 
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const IncidentPathComputations = require('../IncidentPathComputations.js')
-const Constants = require('../Constants.js')
-const SelectedIncidentPath = require('./SelectedIncidentPath.jsx')
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import IncidentPathComputations from '../IncidentPathComputations.js'
+import Constants from '../Constants.js'
+import SelectedIncidentPath from './SelectedIncidentPath.jsx'
 
 class SelectedIncidentPaths extends React.Component {
 
@@ -147,4 +147,4 @@ const mapStateToProps = state => {
 }
 
 
-module.exports = ReactRedux.connect(mapStateToProps)(SelectedIncidentPaths)
+export default ReactRedux.connect(mapStateToProps)(SelectedIncidentPaths)

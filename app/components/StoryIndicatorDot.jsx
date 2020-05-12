@@ -1,10 +1,10 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
-const Tr = require('../TranslationTable.js')
-const StoryComputations = require('../StoryComputations.js')
-const ActivateStoryImageCreator = require('../actionCreators/ActivateStoryImageCreator.js')
+import Constants from '../Constants.js'
+import Tr from '../TranslationTable.js'
+import StoryComputations from '../StoryComputations.js'
+import ActivateStoryImageCreator from '../actionCreators/ActivateStoryImageCreator.js'
 
 class StoryIndicatorDot extends React.Component {
 
@@ -67,4 +67,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(StoryIndicatorDot)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(StoryIndicatorDot)

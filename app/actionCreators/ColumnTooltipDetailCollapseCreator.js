@@ -5,4 +5,4 @@ function ColumnTooltipDetailCollapseCreator () {
   }
 }
 
-module.exports = ColumnTooltipDetailCollapseCreator
+export default ColumnTooltipDetailCollapseCreator

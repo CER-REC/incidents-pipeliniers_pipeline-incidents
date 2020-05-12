@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const defaults = Immutable.fromJS({
   isStarted:false,
@@ -27,4 +27,4 @@ const CategoryDragReducer = (state = defaults, action) => {
 }
 
 
-module.exports = CategoryDragReducer
+export default CategoryDragReducer

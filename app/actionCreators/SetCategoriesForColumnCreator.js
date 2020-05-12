@@ -8,4 +8,4 @@ const SetCategoriesForColumnCreator = function (columnName, categories) {
   }
 }
 
-module.exports = SetCategoriesForColumnCreator
+export default SetCategoriesForColumnCreator

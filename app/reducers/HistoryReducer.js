@@ -1,4 +1,4 @@
-const History = require('history')
+import * as History from 'history'
 
 
 
@@ -17,5 +17,5 @@ function HistoryReducer (state = null, action) {
 }
 
 
-module.exports = HistoryReducer
+export default HistoryReducer
 

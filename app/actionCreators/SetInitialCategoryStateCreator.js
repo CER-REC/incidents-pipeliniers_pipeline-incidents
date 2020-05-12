@@ -7,4 +7,4 @@ function SetInitialCategoryStateCreator (categories) {
 
 }
 
-module.exports = SetInitialCategoryStateCreator
+export default SetInitialCategoryStateCreator

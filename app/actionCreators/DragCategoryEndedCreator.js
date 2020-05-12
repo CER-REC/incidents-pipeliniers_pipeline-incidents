@@ -6,4 +6,4 @@ function DragCategoryEndedCreator (isStarted) {
   }
 }
 
-module.exports = DragCategoryEndedCreator
+export default DragCategoryEndedCreator

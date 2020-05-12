@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const defaultState = Immutable.Map({
   columnName: null,
@@ -37,6 +37,6 @@ const FilterboxActivationStateReducer = (state = defaultState, action) => {
 }
 
 
-module.exports = FilterboxActivationStateReducer
+export default FilterboxActivationStateReducer
 
 

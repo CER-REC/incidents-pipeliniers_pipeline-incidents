@@ -1,8 +1,8 @@
-const React = require('react')
+import React from 'react'
 
-const SimpleTooltip = require('./Simple')
-const TooltipListItem = require('./ListItem.jsx')
-const CategoryComputations = require('../../CategoryComputations.js')
+import SimpleTooltip from './Simple'
+import TooltipListItem from './ListItem.jsx'
+import CategoryComputations from '../../CategoryComputations.js'
 
 class ListTooltip extends SimpleTooltip {
   getListItems() {
@@ -72,4 +72,4 @@ class ListTooltip extends SimpleTooltip {
   }
 }
 
-module.exports = ListTooltip
+export default ListTooltip

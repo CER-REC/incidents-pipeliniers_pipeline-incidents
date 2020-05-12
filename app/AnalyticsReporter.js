@@ -1,5 +1,5 @@
-const V1 = require('uuid/v1')
-const BrowserCookies = require('browser-cookies')
+import V1 from 'uuid/v1'
+import BrowserCookies from 'browser-cookies'
 
 class AnalyticsReporter {
   constructor() {
@@ -35,4 +35,4 @@ class AnalyticsReporter {
   }
 }
 
-module.exports = AnalyticsReporter
+export default AnalyticsReporter
