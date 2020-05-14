@@ -1,4 +1,4 @@
-const Constants = require('./Constants.js')
+import Constants from './Constants.js'
 
 const StringComputations = {
 
@@ -86,4 +86,4 @@ const StringComputations = {
 }
 
 
-module.exports = StringComputations
+export default StringComputations

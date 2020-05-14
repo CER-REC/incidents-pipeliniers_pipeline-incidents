@@ -9,4 +9,4 @@ function SnapColumnCreator (columnName, oldX, newX, viewport) {
   }
 }
 
-module.exports = SnapColumnCreator
+export default SnapColumnCreator

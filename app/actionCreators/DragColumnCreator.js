@@ -6,4 +6,4 @@ function DragColumnCreator (newX) {
   }
 }
 
-module.exports = DragColumnCreator
+export default DragColumnCreator

@@ -1,10 +1,10 @@
-const React = require('react')
+import React from 'react'
 
-const IncidentList = require('./IncidentList.jsx')
-const StarredIncidentList = require('./StarredIncidentList.jsx')
-const IncidentListDivider = require('./IncidentListDivider.jsx')
+import IncidentList from './IncidentList.jsx'
+import StarredIncidentList from './StarredIncidentList.jsx'
+import IncidentListDivider from './IncidentListDivider.jsx'
 
-require('./IncidentContainer.scss')
+import './IncidentContainer.scss'
 
 
 class IncidentContainer extends React.Component {
@@ -22,4 +22,4 @@ class IncidentContainer extends React.Component {
 }
 
 
-module.exports = IncidentContainer
+export default IncidentContainer

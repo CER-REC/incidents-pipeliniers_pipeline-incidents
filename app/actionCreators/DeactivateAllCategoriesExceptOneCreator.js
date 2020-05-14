@@ -8,4 +8,4 @@ function DeactivateAllCategoriesExceptOneCreator(columnName, categoryName) {
 }
 
 
-module.exports = DeactivateAllCategoriesExceptOneCreator
+export default DeactivateAllCategoriesExceptOneCreator

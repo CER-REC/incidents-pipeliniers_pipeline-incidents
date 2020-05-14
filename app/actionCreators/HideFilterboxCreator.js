@@ -6,4 +6,4 @@ function HideFilterboxCreator() {
 }
 
 
-module.exports = HideFilterboxCreator
+export default HideFilterboxCreator

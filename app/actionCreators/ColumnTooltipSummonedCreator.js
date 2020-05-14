@@ -6,4 +6,4 @@ function ColumnTooltipSummonedCreator (columnName) {
   }
 }
 
-module.exports = ColumnTooltipSummonedCreator
+export default ColumnTooltipSummonedCreator

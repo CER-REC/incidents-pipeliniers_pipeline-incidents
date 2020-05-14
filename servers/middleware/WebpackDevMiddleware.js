@@ -1,15 +1,15 @@
 
-const WebpackHotMiddleware = require('webpack-hot-middleware')
-const WebpackDevMiddleware = require('webpack-dev-middleware')
-const Webpack = require('webpack')
-const Express = require('express')
+import WebpackHotMiddleware from 'webpack-hot-middleware'
+import WebpackDevMiddleware from 'webpack-dev-middleware'
+import Webpack from 'webpack'
+import Express from 'express'
 
-const Config = require('../../webpack.config.js')
+import Config from '../../webpack.config.js'
 
 const compiler = Webpack(Config)
 
 
-module.exports = function () {
+export default function () {
   const app = Express()
   app.use('/script', WebpackDevMiddleware(compiler, {
     // options

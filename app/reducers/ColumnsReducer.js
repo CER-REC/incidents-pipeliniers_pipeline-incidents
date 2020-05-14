@@ -1,6 +1,6 @@
 
-const Constants = require('../Constants.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
+import Constants from '../Constants.js'
+import WorkspaceComputations from '../WorkspaceComputations.js'
 
 const defaults = Constants.get('defaultColumns')
 
@@ -189,4 +189,4 @@ const ColumnsReducer = (state = defaults, action) => {
   }
 }
 
-module.exports = ColumnsReducer
+export default ColumnsReducer

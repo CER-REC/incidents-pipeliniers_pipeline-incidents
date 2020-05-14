@@ -1,5 +1,5 @@
-const MemoizeImmutable = require('memoize-immutable')
-const Immutable = require('immutable')
+import MemoizeImmutable from 'memoize-immutable'
+import Immutable from 'immutable'
 
 const IncidentComputations = {}
 
@@ -225,4 +225,4 @@ for (const name of Object.keys(IncidentComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(IncidentComputations[name])
 }
 
-module.exports = MemoizedComputations
+export default MemoizedComputations

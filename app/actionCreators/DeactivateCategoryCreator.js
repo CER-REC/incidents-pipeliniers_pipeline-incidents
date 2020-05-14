@@ -8,4 +8,4 @@ function DeactivateCategoryCreator(columnName, categoryName) {
 }
 
 
-module.exports = DeactivateCategoryCreator
+export default DeactivateCategoryCreator

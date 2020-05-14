@@ -1,13 +1,13 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
-const ShowHideEmptyCategoriesCreator = require('../actionCreators/ShowHideEmptyCategoriesCreator.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const Tr = require('../TranslationTable.js')
+import Constants from '../Constants.js'
+import ShowHideEmptyCategoriesCreator from '../actionCreators/ShowHideEmptyCategoriesCreator.js'
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import Tr from '../TranslationTable.js'
 
-require('../styles/Common.scss')
-require('./EmptyCategories.scss')
+import '../styles/Common.scss'
+import './EmptyCategories.scss'
 
 
 class EmptyCategories extends React.Component {
@@ -130,6 +130,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(EmptyCategories)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(EmptyCategories)
 
 

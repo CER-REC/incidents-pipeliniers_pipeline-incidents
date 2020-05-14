@@ -5,4 +5,4 @@ function AboutSummonedCreator () {
   }
 }
 
-module.exports = AboutSummonedCreator
+export default AboutSummonedCreator

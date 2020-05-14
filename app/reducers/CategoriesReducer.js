@@ -1,4 +1,4 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const defaultState = Immutable.Map()
 
@@ -124,4 +124,4 @@ const CategoriesReducer = (state = defaultState, action) => {
 }
 
 
-module.exports = CategoriesReducer
+export default CategoriesReducer

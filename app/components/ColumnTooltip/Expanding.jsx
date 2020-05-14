@@ -1,6 +1,6 @@
-const React = require('react')
+import React from 'react'
 
-const ListTooltip = require('./List')
+import ListTooltip from './List'
 
 class ExpandingTooltip extends ListTooltip {
   getTooltipClass() {
@@ -8,4 +8,4 @@ class ExpandingTooltip extends ListTooltip {
   }
 }
 
-module.exports = ExpandingTooltip
+export default ExpandingTooltip

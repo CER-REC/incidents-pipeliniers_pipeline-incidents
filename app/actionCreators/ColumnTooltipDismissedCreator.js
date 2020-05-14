@@ -4,4 +4,4 @@ function ColumnTooltipDismissedCreator () {
   }
 }
 
-module.exports = ColumnTooltipDismissedCreator
+export default ColumnTooltipDismissedCreator

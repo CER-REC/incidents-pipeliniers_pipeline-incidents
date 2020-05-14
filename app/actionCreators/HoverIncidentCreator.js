@@ -5,4 +5,4 @@ function HoverIncidentCreator (incident) {
   }
 }
 
-module.exports = HoverIncidentCreator
+export default HoverIncidentCreator

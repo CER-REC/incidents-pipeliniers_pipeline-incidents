@@ -5,4 +5,4 @@ function ShowIncidentListCreator () {
   }
 }
 
-module.exports = ShowIncidentListCreator
+export default ShowIncidentListCreator

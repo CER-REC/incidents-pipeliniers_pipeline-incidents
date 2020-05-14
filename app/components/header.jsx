@@ -1,16 +1,16 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
-const ResetVisualizationCreator = require('../actionCreators/ResetVisualizationCreator.js')
-const DisclaimerSummonedCreator = require('../actionCreators/DisclaimerSummonedCreator.js')
-const AboutSummonedCreator = require('../actionCreators/AboutSummonedCreator.js')
-const DefaultCategoryComputations = require('../DefaultCategoryComputations.js')
-const Tr = require('../TranslationTable.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const RouteComputations = require('../RouteComputations.js')
+import Constants from '../Constants.js'
+import ResetVisualizationCreator from '../actionCreators/ResetVisualizationCreator.js'
+import DisclaimerSummonedCreator from '../actionCreators/DisclaimerSummonedCreator.js'
+import AboutSummonedCreator from '../actionCreators/AboutSummonedCreator.js'
+import DefaultCategoryComputations from '../DefaultCategoryComputations.js'
+import Tr from '../TranslationTable.js'
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import RouteComputations from '../RouteComputations.js'
 
-require('./Header.scss')
+import './Header.scss'
 
 
 class Header extends React.Component {
@@ -284,4 +284,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Header)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Header)

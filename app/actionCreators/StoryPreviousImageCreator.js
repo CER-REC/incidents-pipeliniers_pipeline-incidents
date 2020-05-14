@@ -6,4 +6,4 @@ function StoryPreviousImageCreator (count) {
   }
 }
 
-module.exports = StoryPreviousImageCreator
+export default StoryPreviousImageCreator

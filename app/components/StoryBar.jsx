@@ -1,12 +1,12 @@
 
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-require('./StoryBar.scss')
+import './StoryBar.scss'
 
-const Constants = require('../Constants.js')
-const Tr = require('../TranslationTable.js')
-const StoryRow = require('./StoryRow.jsx')
+import Constants from '../Constants.js'
+import Tr from '../TranslationTable.js'
+import StoryRow from './StoryRow.jsx'
 
 class StoryBar extends React.Component {
   render() {
@@ -34,4 +34,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(StoryBar)
+export default ReactRedux.connect(mapStateToProps)(StoryBar)

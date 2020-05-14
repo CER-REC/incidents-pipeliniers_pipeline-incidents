@@ -1,20 +1,20 @@
 
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-require('./StoryWindow.scss')
+import './StoryWindow.scss'
 
-const Constants = require('../Constants.js')
-const StoryIndicatorDot = require('./StoryIndicatorDot.jsx')
-const Tr = require('../TranslationTable.js')
-const StoryComputations = require('../StoryComputations.js')
-const RouteComputations = require('../RouteComputations.js')
-const StoryNextImageCreator = require('../actionCreators/StoryNextImageCreator.js')
-const StoryPreviousImageCreator = require('../actionCreators/StoryPreviousImageCreator.js')
-const PopupDismissedCreator = require('../actionCreators/PopupDismissedCreator.js')
-const ActivateStoryImageCreator = require('../actionCreators/ActivateStoryImageCreator.js')
-const SetFromRouterStateCreator = require('../actionCreators/SetFromRouterStateCreator.js')
-const SetUrlFromStringCreator = require('../actionCreators/SetUrlFromStringCreator.js')
+import Constants from '../Constants.js'
+import StoryIndicatorDot from './StoryIndicatorDot.jsx'
+import Tr from '../TranslationTable.js'
+import StoryComputations from '../StoryComputations.js'
+import RouteComputations from '../RouteComputations.js'
+import StoryNextImageCreator from '../actionCreators/StoryNextImageCreator.js'
+import StoryPreviousImageCreator from '../actionCreators/StoryPreviousImageCreator.js'
+import PopupDismissedCreator from '../actionCreators/PopupDismissedCreator.js'
+import ActivateStoryImageCreator from '../actionCreators/ActivateStoryImageCreator.js'
+import SetFromRouterStateCreator from '../actionCreators/SetFromRouterStateCreator.js'
+import SetUrlFromStringCreator from '../actionCreators/SetUrlFromStringCreator.js'
 
 class StoryWindow extends React.Component {
 
@@ -310,4 +310,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(StoryWindow)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(StoryWindow)

@@ -18,4 +18,4 @@ const HoveredIncidentReducer = (state = null, action) => {
 }
 
 
-module.exports = HoveredIncidentReducer
+export default HoveredIncidentReducer

@@ -6,4 +6,4 @@ function AddPinnedIncidentCreator (incident) {
   }
 }
 
-module.exports = AddPinnedIncidentCreator
+export default AddPinnedIncidentCreator

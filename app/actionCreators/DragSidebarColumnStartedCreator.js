@@ -10,4 +10,4 @@ function DragSidebarColumnStartedCreator (isStarted, columnName, oldX, newX, off
   }
 }
 
-module.exports = DragSidebarColumnStartedCreator
+export default DragSidebarColumnStartedCreator

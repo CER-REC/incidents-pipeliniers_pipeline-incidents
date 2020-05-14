@@ -1,16 +1,16 @@
-const Request = require('client-request/promise')
-const Moment = require('moment')
-const Immutable = require('immutable')
-const Promise = require('bluebird')
+import Request from 'client-request/promise'
+import Moment from 'moment'
+import Immutable from 'immutable'
+import Promise from 'bluebird'
 
-const DataLoadedCreator = require('./actionCreators/DataLoadedCreator.js')
-const IDMapsLoadedCreator = require('./actionCreators/IDMapsLoadedCreator.js')
-const SetLastUpdateCreator = require('./actionCreators/SetLastUpdateCreator.js')
-const SetInitialCategoryStateCreator = require('./actionCreators/SetInitialCategoryStateCreator.js')
-const RouteComputations = require('./RouteComputations.js')
-const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
-const DefaultCategoryComputations = require('./DefaultCategoryComputations.js')
-const SetSchemaCreator = require('./actionCreators/SetSchemaCreator.js')
+import DataLoadedCreator from './actionCreators/DataLoadedCreator.js'
+import IDMapsLoadedCreator from './actionCreators/IDMapsLoadedCreator.js'
+import SetLastUpdateCreator from './actionCreators/SetLastUpdateCreator.js'
+import SetInitialCategoryStateCreator from './actionCreators/SetInitialCategoryStateCreator.js'
+import RouteComputations from './RouteComputations.js'
+import SetFromRouterStateCreator from './actionCreators/SetFromRouterStateCreator.js'
+import DefaultCategoryComputations from './DefaultCategoryComputations.js'
+import SetSchemaCreator from './actionCreators/SetSchemaCreator.js'
 
 // Returns a promise
 function afterLoad (store, data, schemaIDMap, location) {
@@ -379,4 +379,4 @@ const DataLoader = {
 
 
 
-module.exports = DataLoader
+export default DataLoader

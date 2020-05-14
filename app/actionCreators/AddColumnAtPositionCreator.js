@@ -9,4 +9,4 @@ function AddColumnAtPositionCreator (columnName, oldX, newX, viewport) {
   }
 }
 
-module.exports = AddColumnAtPositionCreator
+export default AddColumnAtPositionCreator

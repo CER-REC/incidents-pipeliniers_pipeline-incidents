@@ -9,4 +9,4 @@ const SidebarColumnHoverReducer = (state = '', action) => {
   }
 }
 
-module.exports = SidebarColumnHoverReducer
+export default SidebarColumnHoverReducer

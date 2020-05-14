@@ -1,8 +1,8 @@
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const IDMapReducer = (state = Immutable.Map(), action) => {
   if (action.type !== 'IDMapsLoaded') { return state }
   return Immutable.fromJS(action.idMaps)
 }
 
-module.exports = IDMapReducer
+export default IDMapReducer

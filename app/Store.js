@@ -1,38 +1,38 @@
 
-const Redux = require('redux')
+import * as Redux from 'redux'
 
-const ViewportReducer = require('./reducers/ViewportReducer.js')
-const ColumnsReducer = require('./reducers/ColumnsReducer.js')
-const DataReducer = require('./reducers/DataReducer.js')
-const IDMapReducer = require('./reducers/IDMapReducer.js')
-const CategoriesReducer = require('./reducers/CategoriesReducer.js')
-const EmptyCategoriesReducer = require('./reducers/EmptyCategoriesReducer.js')
-const PinnedIncidentReducer = require('./reducers/PinnedIncidentReducer.js')
-const CategoryHoverStateReducer = require('./reducers/CategoryHoverStateReducer.js')
-const SidebarColumnHoverReducer = require('./reducers/SidebarColumnHoverReducer.js')
-const ColumnDragReducer = require('./reducers/ColumnDragReducer.js')
-const SidebarColumnDragReducer = require('./reducers/SidebarColumnDragReducer.js')
-const LanguageReducer = require('./reducers/LanguageReducer.js')
-const FilterboxActivationStateReducer = require('./reducers/FilterboxActivationStateReducer.js')
-const HistoryReducer = require('./reducers/HistoryReducer.js')
-const CategoryDragReducer = require('./reducers/CategoryDragReducer.js')
-const SchemaReducer = require('./reducers/SchemaReducer.js')
-const IncidentListScrollPositionReducer = require('./reducers/IncidentListScrollPositionReducer.js')
-const SelectedIncidentsReducer = require('./reducers/SelectedIncidentsReducer.js')
-const HoveredIncidentReducer = require('./reducers/HoveredIncidentReducer.js')
-const ShowIncidentListReducer = require('./reducers/ShowIncidentListReducer.js')
-const StoryReducer = require('./reducers/StoryReducer.js')
-const DisclaimerReducer = require('./reducers/DisclaimerReducer.js')
-const StoryImageReducer = require('./reducers/StoryImageReducer.js')
-const AboutReducer = require('./reducers/AboutReducer.js')
-const ColumnTooltipReducer = require('./reducers/ColumnTooltipReducer.js')
-const ColumnTooltipDetailClickReducer = require('./reducers/ColumnTooltipDetailClickReducer.js')
-const AnalyticsReducer = require('./reducers/AnalyticsReducer.js')
-const PopoverReducer = require('./reducers/PopoverReducer.js')
-const LastUpdateReducer = require('./reducers/LastUpdateReducer.js')
+import ViewportReducer from './reducers/ViewportReducer.js'
+import ColumnsReducer from './reducers/ColumnsReducer.js'
+import DataReducer from './reducers/DataReducer.js'
+import IDMapReducer from './reducers/IDMapReducer.js'
+import CategoriesReducer from './reducers/CategoriesReducer.js'
+import EmptyCategoriesReducer from './reducers/EmptyCategoriesReducer.js'
+import PinnedIncidentReducer from './reducers/PinnedIncidentReducer.js'
+import CategoryHoverStateReducer from './reducers/CategoryHoverStateReducer.js'
+import SidebarColumnHoverReducer from './reducers/SidebarColumnHoverReducer.js'
+import ColumnDragReducer from './reducers/ColumnDragReducer.js'
+import SidebarColumnDragReducer from './reducers/SidebarColumnDragReducer.js'
+import LanguageReducer from './reducers/LanguageReducer.js'
+import FilterboxActivationStateReducer from './reducers/FilterboxActivationStateReducer.js'
+import HistoryReducer from './reducers/HistoryReducer.js'
+import CategoryDragReducer from './reducers/CategoryDragReducer.js'
+import SchemaReducer from './reducers/SchemaReducer.js'
+import IncidentListScrollPositionReducer from './reducers/IncidentListScrollPositionReducer.js'
+import SelectedIncidentsReducer from './reducers/SelectedIncidentsReducer.js'
+import HoveredIncidentReducer from './reducers/HoveredIncidentReducer.js'
+import ShowIncidentListReducer from './reducers/ShowIncidentListReducer.js'
+import StoryReducer from './reducers/StoryReducer.js'
+import DisclaimerReducer from './reducers/DisclaimerReducer.js'
+import StoryImageReducer from './reducers/StoryImageReducer.js'
+import AboutReducer from './reducers/AboutReducer.js'
+import ColumnTooltipReducer from './reducers/ColumnTooltipReducer.js'
+import ColumnTooltipDetailClickReducer from './reducers/ColumnTooltipDetailClickReducer.js'
+import AnalyticsReducer from './reducers/AnalyticsReducer.js'
+import PopoverReducer from './reducers/PopoverReducer.js'
+import LastUpdateReducer from './reducers/LastUpdateReducer.js'
 
 
-const RouterMiddleware = require('./RouterMiddleware.js')
+import RouterMiddleware from './RouterMiddleware.js'
 
 const reducers = Redux.combineReducers({
   viewport: ViewportReducer,
@@ -66,7 +66,7 @@ const reducers = Redux.combineReducers({
   lastUpdate: LastUpdateReducer,
 })
 
-module.exports = function () {
+export default function () {
   // Enable Redux Dev Tools if they are installed in the browser
   // Also handle the case where the Store is used as an offline script, in
   // data.js

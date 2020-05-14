@@ -1,26 +1,26 @@
 
-const React = require('react')
-const ReactRedux = require('react-redux')
-const Header = require('./header.jsx')
-const EmptyCategories = require('./EmptyCategories.jsx')
-const IncidentListShowHide = require('./IncidentListShowHide.jsx')
-const SocialBar = require('./SocialBar.jsx')
-const Disclaimer = require('./Disclaimer.jsx')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
+import Header from './header.jsx'
+import EmptyCategories from './EmptyCategories.jsx'
+import IncidentListShowHide from './IncidentListShowHide.jsx'
+import SocialBar from './SocialBar.jsx'
+import Disclaimer from './Disclaimer.jsx'
 
-require('./Workspace.scss')
+import './Workspace.scss'
 
-const Column = require('./Column.jsx')
-const MapColumn = require('./MapColumn.jsx')
-const SideBar = require('./SideBar.jsx')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const MapContainer = require('./MapContainer.jsx')
-const Constants = require('../Constants.js')
-const IncidentListHeadings = require('./IncidentListHeadings.jsx')
-const IncidentContainer = require('./IncidentContainer.jsx')
-const StoryBar = require('./StoryBar.jsx')
-const StoryWindow = require('./StoryWindow.jsx')
-const ColumnTooltip = require('./ColumnTooltip/')
-const AboutWindow = require('./AboutWindow.jsx')
+import Column from './Column.jsx'
+import MapColumn from './MapColumn.jsx'
+import SideBar from './SideBar.jsx'
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import MapContainer from './MapContainer.jsx'
+import Constants from '../Constants.js'
+import IncidentListHeadings from './IncidentListHeadings.jsx'
+import IncidentContainer from './IncidentContainer.jsx'
+import StoryBar from './StoryBar.jsx'
+import StoryWindow from './StoryWindow.jsx'
+import ColumnTooltip from './ColumnTooltip/'
+import AboutWindow from './AboutWindow.jsx'
 
 class Workspace extends React.Component {
 
@@ -156,4 +156,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(Workspace)
+export default ReactRedux.connect(mapStateToProps)(Workspace)

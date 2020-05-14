@@ -8,4 +8,4 @@ function ActivateFilterboxCreator(columnName, categoryName) {
 }
 
 
-module.exports = ActivateFilterboxCreator
+export default ActivateFilterboxCreator

@@ -5,4 +5,4 @@ function SetSchemaCreator (schema) {
   }
 }
 
-module.exports = SetSchemaCreator
+export default SetSchemaCreator

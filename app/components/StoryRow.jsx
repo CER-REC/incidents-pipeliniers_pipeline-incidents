@@ -1,11 +1,11 @@
 
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-require('./StoryRow.scss')
+import './StoryRow.scss'
 
-const Constants = require('../Constants.js')
-const Story = require('./Story.jsx')
+import Constants from '../Constants.js'
+import Story from './Story.jsx'
 
 class StoryRow extends React.Component {
 
@@ -60,4 +60,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(StoryRow)
+export default ReactRedux.connect(mapStateToProps)(StoryRow)

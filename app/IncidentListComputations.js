@@ -1,7 +1,7 @@
-const MemoizeImmutable = require('memoize-immutable')
+import MemoizeImmutable from 'memoize-immutable'
 
-const Constants = require('./Constants.js')
-const WorkspaceComputations = require('./WorkspaceComputations.js')
+import Constants from './Constants.js'
+import WorkspaceComputations from './WorkspaceComputations.js'
 
 
 const IncidentListComputations = {
@@ -135,4 +135,4 @@ for (const name of Object.keys(IncidentListComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(IncidentListComputations[name])
 }
 
-module.exports = MemoizedComputations
+export default MemoizedComputations

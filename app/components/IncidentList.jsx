@@ -1,17 +1,17 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
-const IncidentComputations = require('../IncidentComputations.js')
-const IncidentListItem = require('./IncidentListItem.jsx')
-const SetIncidentListScrollCreator = require('../actionCreators/SetIncidentListScrollCreator.js')
-const ShowIncidentListCreator = require('../actionCreators/ShowIncidentListCreator.js')
+import Constants from '../Constants.js'
+import IncidentComputations from '../IncidentComputations.js'
+import IncidentListItem from './IncidentListItem.jsx'
+import SetIncidentListScrollCreator from '../actionCreators/SetIncidentListScrollCreator.js'
+import ShowIncidentListCreator from '../actionCreators/ShowIncidentListCreator.js'
 
-const Tr = require('../TranslationTable.js')
-const IncidentListComputations = require('../IncidentListComputations.js')
+import Tr from '../TranslationTable.js'
+import IncidentListComputations from '../IncidentListComputations.js'
 
 
-require('./IncidentList.scss')
+import './IncidentList.scss'
 
 class IncidentList extends React.Component {
 
@@ -181,4 +181,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentList)
+export default ReactRedux.connect(mapStateToProps, mapDispatchToProps)(IncidentList)

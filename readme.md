@@ -64,10 +64,7 @@ Technical: Patrick King, Alaa Azazi, Charlie Cheung, Abhishek Sharma, and Ben Co
 
 We're the development team with VizworX who put this project together for the CER. We aren't able to provide extensive support for this project, but you're welcome to reach out with questions and thoughts!
 
-* Patrick King - patrick.king@vizworx.com
-* Alaa Azazi - alaa.azazi@vizworx.com
-* Charlie Cheung - charlie.cheung@vizworx.com
-* Ben Cousins - ben.cousins@vizworx.com
+* VizworX - info@vizworx.com
 
 ## License
 All of the project materials are licensed under the [Open Government License - Canada](http://open.canada.ca/en/open-government-licence-canada).
@@ -155,10 +152,7 @@ Aspect technique : Patrick King, Alaa Azazi, Charlie Cheung, Abhishek Sharma, an
 
 Nous sommes l’équipe de développement de VizworX qui a réalisé le projet pour le compte de la Régie. Nous ne sommes pas en mesure d’assurer un soutien complet du projet, mais vos questions et vos suggestions sont les bienvenues!
 
-* Patrick King, patrick.king@vizworx.com
-* Alaa Azazi, alaa.azazi@vizworx.com
-* Charlie Cheung, charlie.cheung@vizworx.com
-* Ben Cousins, ben.cousins@vizworx.com
+* VizworX - info@vizworx.com
 
 ## Licence
 

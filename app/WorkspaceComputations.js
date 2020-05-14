@@ -1,11 +1,11 @@
-const MemoizeImmutable = require('memoize-immutable')
-const Immutable = require('immutable')
+import MemoizeImmutable from 'memoize-immutable'
+import Immutable from 'immutable'
 
-const Constants = require('./Constants.js')
-const TranslationTable = require('./TranslationTable.js')
-const CategoryComputations = require('./CategoryComputations.js')
-const IncidentComputations = require('./IncidentComputations.js')
-const StringComputations = require('./StringComputations.js')
+import Constants from './Constants.js'
+import TranslationTable from './TranslationTable.js'
+import CategoryComputations from './CategoryComputations.js'
+import IncidentComputations from './IncidentComputations.js'
+import StringComputations from './StringComputations.js'
 
 const WorkspaceComputations = {}
 
@@ -736,4 +736,4 @@ for (const name of Object.keys(WorkspaceComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(WorkspaceComputations[name])
 }
 
-module.exports = MemoizedComputations
+export default MemoizedComputations

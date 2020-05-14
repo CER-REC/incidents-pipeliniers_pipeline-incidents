@@ -18,4 +18,4 @@ const IncidentListScrollPositionReducer = function (state = 0, action) {
 
 
 
-module.exports = IncidentListScrollPositionReducer
+export default IncidentListScrollPositionReducer

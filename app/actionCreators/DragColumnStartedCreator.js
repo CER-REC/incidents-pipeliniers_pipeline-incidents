@@ -10,4 +10,4 @@ function DragColumnStartedCreator (isStarted, columnName, oldX, newX, offset) {
   }
 }
 
-module.exports = DragColumnStartedCreator
+export default DragColumnStartedCreator

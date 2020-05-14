@@ -5,4 +5,4 @@ function PopupDismissedCreator () {
   }
 }
 
-module.exports = PopupDismissedCreator
+export default PopupDismissedCreator

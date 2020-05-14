@@ -1,9 +1,9 @@
-const Immutable = require('immutable')
-const _ = require('lodash')
-const MemoizeImmutable = require('memoize-immutable')
+import Immutable from 'immutable'
+import _ from 'lodash'
+import MemoizeImmutable from 'memoize-immutable'
 
-const Constants = require('./Constants.js')
-const IncidentComputations = require('./IncidentComputations.js')
+import Constants from './Constants.js'
+import IncidentComputations from './IncidentComputations.js'
 
 
 
@@ -158,4 +158,4 @@ for (const name of Object.keys(DefaultCategoryComputations)) {
   MemoizedComputations[name] = MemoizeImmutable(DefaultCategoryComputations[name])
 }
 
-module.exports = MemoizedComputations
+export default MemoizedComputations

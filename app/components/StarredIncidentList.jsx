@@ -1,11 +1,11 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const IncidentListItem = require('./IncidentListItem.jsx')
-const Constants = require('../Constants.js')
-const IncidentListComputations = require('../IncidentListComputations.js')
+import IncidentListItem from './IncidentListItem.jsx'
+import Constants from '../Constants.js'
+import IncidentListComputations from '../IncidentListComputations.js'
 
-require('./StarredIncidentList.scss')
+import './StarredIncidentList.scss'
 
 class StarredIncidentList extends React.Component {
 
@@ -93,4 +93,4 @@ const mapStateToProps = state => {
 }
 
 
-module.exports = ReactRedux.connect(mapStateToProps)(StarredIncidentList)
+export default ReactRedux.connect(mapStateToProps)(StarredIncidentList)

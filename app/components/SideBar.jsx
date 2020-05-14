@@ -1,11 +1,11 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Column = require('./Column.jsx')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const Constants = require('../Constants.js')
+import Column from './Column.jsx'
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import Constants from '../Constants.js'
 
-require('./SideBar.scss')
+import './SideBar.scss'
 
 class Sidebar extends React.Component {
 
@@ -79,4 +79,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = ReactRedux.connect(mapStateToProps)(Sidebar)
+export default ReactRedux.connect(mapStateToProps)(Sidebar)

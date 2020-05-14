@@ -6,4 +6,4 @@ function SidebarColumnHoverCreator (columnName) {
   }
 }
 
-module.exports = SidebarColumnHoverCreator
+export default SidebarColumnHoverCreator

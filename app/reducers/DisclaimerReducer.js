@@ -14,4 +14,4 @@ const DisclaimerReducer = (state = false, action) => {
 }
 
 
-module.exports = DisclaimerReducer
+export default DisclaimerReducer

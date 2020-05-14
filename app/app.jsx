@@ -1,21 +1,21 @@
-const ReactDOM = require('react-dom')
-const DomReady = require('domready')
-const ReactRedux = require('react-redux')
-const React = require('react')
-const ReactHotLoader = require('react-hot-loader')
+import ReactDOM from 'react-dom'
+import DomReady from 'domready'
+import * as ReactRedux from 'react-redux'
+import React from 'react'
+import * as ReactHotLoaderRoot from 'react-hot-loader/root'
 
-const Constants = require('./Constants.js')
-const Root = require('./components/Root.jsx')
-const LoadingOverlay = require('./components/LoadingOverlay.jsx')
-const Resized = require('./actionCreators/ResizeScreenCreator.js')
-const Store = require('./Store.js')
-const DataLoader = require('./DataLoader.js')
-const RouteComputations = require('./RouteComputations.js')
-const SetFromRouterStateCreator = require('./actionCreators/SetFromRouterStateCreator.js')
-const PopupDismissedCreator = require('./actionCreators/PopupDismissedCreator.js')
-const SetUpAnalyticsCreator = require('./actionCreators/SetUpAnalyticsCreator.js')
-const AnalyticsReporter = require('./AnalyticsReporter.js')
-const SetupHistoryCreator = require('./actionCreators/SetupHistoryCreator.js')
+import Constants from './Constants.js'
+import Root from './components/Root.jsx'
+import Resized from './actionCreators/ResizeScreenCreator.js'
+import Store from './Store.js'
+import DataLoader from './DataLoader.js'
+import RouteComputations from './RouteComputations.js'
+import SetFromRouterStateCreator from './actionCreators/SetFromRouterStateCreator.js'
+import PopupDismissedCreator from './actionCreators/PopupDismissedCreator.js'
+import SetUpAnalyticsCreator from './actionCreators/SetUpAnalyticsCreator.js'
+import AnalyticsReporter from './AnalyticsReporter.js'
+import SetupHistoryCreator from './actionCreators/SetupHistoryCreator.js'
+import LoadingOverlay from './components/LoadingOverlay.jsx'
 
 
 const store = Store()
@@ -25,16 +25,18 @@ if (process.env.NODE_ENV === 'development') {
   window.store = store
 }
 
-
+const App = ReactHotLoaderRoot.hot(props => (
+  <ReactRedux.Provider store={store}>
+    { props.children }
+  </ReactRedux.Provider>
+))
 const dataLoadPromise = DataLoader.loadFromDataService(store, document.location);
 
 function render(Component) {
   const app = (
-    <ReactHotLoader.AppContainer>
-      <ReactRedux.Provider store={store}>
-        <Component />
-      </ReactRedux.Provider>
-    </ReactHotLoader.AppContainer>
+    <App>
+      <Component />
+    </App>
   )
 
   ReactDOM.render(app, document.getElementById('reactRoot'))
@@ -97,11 +99,4 @@ function locationChangeHandler (location, action) {
     filterboxActivationState: routerState.filterboxActivationState,
   }))
 
-}
-
-// Webpack Hot Module Replacement API
-if (module.hot) {
-  module.hot.accept('./components/Root.jsx', () => {
-    render(require('./components/Root.jsx'))
-  })
 }

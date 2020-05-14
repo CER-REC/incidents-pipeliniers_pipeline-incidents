@@ -1,13 +1,13 @@
-const D3geo = require('d3-geo')
-const Promise = require('bluebird')
-const Immutable = require('immutable')
-const Chroma = require('chroma-js')
+import * as D3geo from 'd3-geo'
+import Promise from 'bluebird'
+import Immutable from 'immutable'
+import Chroma from 'chroma-js'
 
-const Constants = require('./Constants.js')
-const MapComputations = require('./MapComputations.js')
-const IncidentComputations = require('./IncidentComputations.js')
-const WorkspaceComputations = require('./WorkspaceComputations.js')
-const CategoryComputations = require('./CategoryComputations.js')
+import Constants from './Constants.js'
+import MapComputations from './MapComputations.js'
+import IncidentComputations from './IncidentComputations.js'
+import WorkspaceComputations from './WorkspaceComputations.js'
+import CategoryComputations from './CategoryComputations.js'
 
 
 // NB: The configuration of the projection here *must* match the settings used
@@ -747,7 +747,7 @@ const RenderRoutines = {
 // props: the props object from Map, which should include the main 5 state 
 //   items; showEmptyCategories, viewport, data, columns, categories
 //   and also: pinnedIncidents, filterboxActivationState, categoryHoverState
-module.exports = function MapRenderer (renderCanvas, props) {
+export default function MapRenderer (renderCanvas, props) {
 
   // TODO: I hope that making this draw asynchronously isn't a problem... 
   mapPromise.then( (basemapImage) => {

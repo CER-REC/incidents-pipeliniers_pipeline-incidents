@@ -1,9 +1,9 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const Constants = require('../Constants.js')
-const WorkspaceComputations = require('../WorkspaceComputations.js')
-const IncidentListComputations = require('../IncidentListComputations.js')
+import Constants from '../Constants.js'
+import WorkspaceComputations from '../WorkspaceComputations.js'
+import IncidentListComputations from '../IncidentListComputations.js'
 
 class IncidentListDivider extends React.Component {
 
@@ -76,4 +76,4 @@ const mapStateToProps = state => {
 }
 
 
-module.exports = ReactRedux.connect(mapStateToProps)(IncidentListDivider)
+export default ReactRedux.connect(mapStateToProps)(IncidentListDivider)

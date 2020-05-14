@@ -2,7 +2,7 @@
 //  unused. A JIRA ticket has been created to fix this issue and use this
 //  file.
 
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const defaultState = Immutable.fromJS({
   // popoverName: a string set by the caller. Each unique popover should have a
@@ -52,7 +52,7 @@ const PopoverReducer = (state = defaultState, action) => {
 }
 
 
-module.exports = PopoverReducer
+export default PopoverReducer
 
 
 

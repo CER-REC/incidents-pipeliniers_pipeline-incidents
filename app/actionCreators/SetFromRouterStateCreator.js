@@ -14,4 +14,4 @@ function SetFromRouterStateCreator (options) {
 
 }
 
-module.exports = SetFromRouterStateCreator
+export default SetFromRouterStateCreator

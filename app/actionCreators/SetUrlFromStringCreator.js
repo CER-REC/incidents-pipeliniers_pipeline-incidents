@@ -7,4 +7,4 @@ const SetUrlFromStringCreator = function (searchString) {
 
 }
 
-module.exports = SetUrlFromStringCreator
+export default SetUrlFromStringCreator

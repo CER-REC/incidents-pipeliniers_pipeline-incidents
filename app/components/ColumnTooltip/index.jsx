@@ -1,13 +1,13 @@
-const React = require('react')
-const ReactRedux = require('react-redux')
+import React from 'react'
+import * as ReactRedux from 'react-redux'
 
-const SimpleTooltip = require('./Simple')
-const ListTooltip = require('./List')
-const Tr = require('../../TranslationTable')
+import SimpleTooltip from './Simple'
+import ListTooltip from './List'
+import Tr from '../../TranslationTable'
 
-const ColumnTooltipDismiss = require('../../actionCreators/ColumnTooltipDismissedCreator')
+import ColumnTooltipDismiss from '../../actionCreators/ColumnTooltipDismissedCreator'
 
-require('./style.scss')
+import './style.scss'
 
 const TooltipWrapper = (props) => {
   const listItems = Tr.getIn([
@@ -21,7 +21,7 @@ const TooltipWrapper = (props) => {
     : <ListTooltip {...props} />
 }
 
-module.exports = ReactRedux.connect(state => ({
+export default ReactRedux.connect(state => ({
   language: state.language,
   viewport: state.viewport,
   columnTooltip: state.columnTooltip,

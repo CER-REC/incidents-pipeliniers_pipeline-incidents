@@ -1,5 +1,5 @@
 //CONSTANTS
-const Immutable = require('immutable')
+import Immutable from 'immutable'
 
 const Constants = Immutable.fromJS({
   storyBarID: 'storyBar',
@@ -419,4 +419,4 @@ const Constants = Immutable.fromJS({
 })
 
 
-module.exports = Constants
+export default Constants
