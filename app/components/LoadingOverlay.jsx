@@ -1,28 +1,27 @@
-
-const React = require('react')
-const ReactRedux = require('react-redux')
-const Tr = require('../TranslationTable.js')
-require('./LoadingOverlay.scss')
+import React from 'react'
+import RouteComputations from '../RouteComputations.js'
+import Tr from '../TranslationTable.js'
+import './LoadingOverlay.scss'
 
 class LoadingOverlay extends React.Component {
   render() {
-    const title = Tr.getIn(['loadingOverlayTitle', this.props.language])
+    const language = RouteComputations.parseUrlLanguage(document.location);
+    const title = Tr.getIn(['shareEmail', 'subject', language])
+    const subtitle = Tr.getIn(['loadingOverlayTitle', language])
     return (
-      <div className="workspace-overlay-loading-spinner-bg">
-        <div className="workspace-overlay-loading-spinner-container">
-          <div>
-            <svg viewBox="22 22 44 44">
-              <circle
-                className="workspace-overlay-loading-spinner"
-                cx="44" cy="44" r="20.2" fill="none" strokeWidth="3.6"
-              />
-            </svg>
-          </div>
-          <p>{title && title.toUpperCase()}</p>
+      <div className="loading-overley">
+        <h1>{title}</h1>
+        <p>{subtitle} ...</p>
+        <br/>
+
+        <div className="container">
+          <div className="bar" id="loading-overley-b1" />
+          <div className="bar" id="loading-overley-b2" />
+          <div className="bar" id="loading-overley-b3" />
         </div>
       </div>
     )
   }
 }
 
-module.exports = ReactRedux.connect(state => ({ language: state.language }))(LoadingOverlay)
+export default LoadingOverlay

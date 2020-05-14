@@ -44,7 +44,7 @@ function render(Component) {
 
 DomReady( () => {
   // loading indicator
-  render(LoadingOverlay, document.getElementById('reactRoot'))
+  ReactDOM.render(<LoadingOverlay />, document.getElementById('reactRoot'))
 
   store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
 
