@@ -1,62 +1,63 @@
-.loading-overley {
+@import "../styles/FontVariables.scss";
+
+.loading-overlay {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 350px;
-  font: 18px 'Fira Sans Condensed',sans-serif;
+  font-size: 18px;
+  font-family: $fira-sans-condensed-semibold;
   color: #333;
-}
 
-.loading-overley > h1 {
-  text-align: center;
-  font: 28px 'Fira Sans Condensed', sans-serif;
-  font-weight: bold;
-}
+  > h1 {
+    text-align: center;
+    font-weight: bold;
+  }
 
-.loading-overley > .container {
-  position: relative;
-  text-align: center;
-}
-
-.loading-overley .bar {
-    margin: 0 5px;
-    display: inline-block;
-    height: 125px;
-    width: 45px;
+  > .container {
     position: relative;
-    visibility: hidden;
+    text-align: center;
+
+    > .bar {
+      margin: 0 5px;
+      display: inline-block;
+      height: 125px;
+      width: 45px;
+      position: relative;
+      visibility: hidden;
+    }
+
+    > .loading-overlay-b1.bar {
+      background: #E4E46A;
+      animation: loading-overlay-slideleft1 2.5s ease-in-out 0s infinite alternate;
+      z-index: 0;
+    }
+
+    > .loading-overlay-b2.bar {
+      background: #1A548E;
+      animation: loading-overlay-slideleft2 2.5s ease-in-out 0s infinite alternate;
+      z-index: 1;
+    }
+
+    > .loading-overlay-b3.bar {
+      background: #DF0070;
+      animation: loading-overlay-slideleft3 2.5s ease-in-out 0s infinite alternate;
+      z-index: 2;
+    }
+  }
 }
 
-.loading-overley .container > #loading-overley-b1.bar {
-  background: #E4E46A;
-  animation: loading-overley-slideleft1 2.5s ease-in-out 0s infinite alternate;
-  z-index: 0;
-}
-
-.loading-overley .container > #loading-overley-b2.bar {
-  background: #1A548E;
-  animation: loading-overley-slideleft2 2.5s ease-in-out 0s infinite alternate;
-  z-index: 1;
-}
-
-.loading-overley .container > #loading-overley-b3.bar {
-  background: #DF0070;
-  animation: loading-overley-slideleft3 2.5s ease-in-out 0s infinite alternate;
-  z-index: 2;
-}
-
-
-@keyframes loading-overley-slideleft1 {
+@keyframes loading-overlay-slideleft1 {
   0% { visibility:visible; left: 175px; }
   100% { left: 0px; }
 }
 
-@keyframes loading-overley-slideleft2 {
+@keyframes loading-overlay-slideleft2 {
   0% { visibility:visible; left: 130px; top: 15px; }
   100% { left: 0px; top: 0px; }
 }
 
-@keyframes loading-overley-slideleft3 {
+@keyframes loading-overlay-slideleft3 {
   0% { visibility: visible; left: 90px; top: 30px; }
   100% { visibility: visible; left: 0px; top: 0px; }
 }

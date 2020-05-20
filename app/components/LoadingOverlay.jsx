@@ -9,15 +9,15 @@ class LoadingOverlay extends React.Component {
     const title = Tr.getIn(['shareEmail', 'subject', language])
     const subtitle = Tr.getIn(['loadingOverlayTitle', language])
     return (
-      <div className="loading-overley">
+      <div className="loading-overlay">
         <h1>{title}</h1>
         <p>{subtitle} ...</p>
         <br/>
 
         <div className="container">
-          <div className="bar" id="loading-overley-b1" />
-          <div className="bar" id="loading-overley-b2" />
-          <div className="bar" id="loading-overley-b3" />
+          <div className="bar loading-overlay-b1" />
+          <div className="bar loading-overlay-b2" />
+          <div className="bar loading-overlay-b3" />
         </div>
       </div>
     )
