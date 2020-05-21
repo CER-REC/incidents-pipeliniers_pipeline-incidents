@@ -15,6 +15,7 @@ import PopupDismissedCreator from './actionCreators/PopupDismissedCreator.js'
 import SetUpAnalyticsCreator from './actionCreators/SetUpAnalyticsCreator.js'
 import AnalyticsReporter from './AnalyticsReporter.js'
 import SetupHistoryCreator from './actionCreators/SetupHistoryCreator.js'
+import LoadingOverlay from './components/LoadingOverlay.jsx'
 
 
 const store = Store()
@@ -42,6 +43,9 @@ function render(Component) {
 }
 
 DomReady( () => {
+  // loading indicator
+  ReactDOM.render(<LoadingOverlay />, document.getElementById('reactRoot'))
+
   store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
 
   dataLoadPromise.then( () => {
