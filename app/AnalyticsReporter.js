@@ -20,7 +20,7 @@ class AnalyticsReporter {
     if (typeof window.dataLayer === 'undefined') { return }
 
     const dataObject = {
-      event: 'Pipeline interaction',
+      event: 'visualization interaction',
       category: category,
       action: action,
       filter: window.location.href.split('?')[1],
