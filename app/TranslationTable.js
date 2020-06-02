@@ -2434,7 +2434,7 @@ const TranslationTable = Immutable.fromJS({
 
   loadingOverlayTitle: {
     en: 'loading visualization',
-    fr: 'visualisation de chargement',
+    fr: 'visualisation en chargement',
   },
 
 
