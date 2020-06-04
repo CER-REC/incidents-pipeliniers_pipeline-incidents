@@ -5,13 +5,18 @@
   flex-direction: column;
   align-items: center;
   height: 350px;
-  font-size: 18px;
-  font-family: $fira-sans-condensed-semibold;
-  color: #333;
+  color: #000;
+  font-weight: bold;
 
   > h1 {
-    text-align: center;
-    font-weight: bold;
+    font-family: $fira-sans-condensed-semibold;
+    font-size: 22px;
+    text-transform: uppercase;
+  }
+
+  > p {
+    font-family: $fira-sans-condensed;
+    font-size: 16px;
   }
 
   > .container {
