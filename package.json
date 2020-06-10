@@ -1,6 +1,6 @@
 {
   "name": "incident-visualization",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Incident Data Visualization for the Canada Energy Regulator",
   "main": "index.js",
   "scripts": {
