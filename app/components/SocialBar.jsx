@@ -227,7 +227,7 @@ class SocialBar extends React.Component {
             x2={iconSize} y2={Constants.getIn(['socialBar', 'dividerLine'])}
             strokeWidth="1" stroke = "white" />
           <g>
-            <title>download data file</title>
+            <title>{Tr.getIn(['socialBar', 'downloadButton', this.props.language])}</title>
             <image
               height = {iconSize}
               width = {iconSize}
@@ -236,7 +236,7 @@ class SocialBar extends React.Component {
               className="socialBarButton"
               onClick = {this.downloadFileClick.bind(this)}
               tabIndex = '0'
-              aria-label = 'download data file'
+              aria-label = {Tr.getIn(['socialBar', 'downloadButton', this.props.language])}
               role = 'button'
               onKeyDown = { this.downloadFileKeyDown.bind(this) }></image>
           </g>

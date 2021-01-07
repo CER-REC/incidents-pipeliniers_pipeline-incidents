@@ -2437,6 +2437,12 @@ const TranslationTable = Immutable.fromJS({
     fr: 'visualisation en chargement',
   },
 
+  socialBar: {
+    downloadButton: {
+      en:'download data file',
+      fr: 'télécharger le fichier de données'
+    }
+  }
 
 })
 
