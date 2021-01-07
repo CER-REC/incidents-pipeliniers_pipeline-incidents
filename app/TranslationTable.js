@@ -12,8 +12,8 @@ const TranslationTable = Immutable.fromJS({
   },
 
   learnMoreLinks: {
-    en: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
-    fr: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
+    en: 'https://www.cer-rec.gc.ca/en/safety-environment/industry-performance/infographic/index.html',
+    fr: 'https://www.cer-rec.gc.ca/fr/securite-environnement/rendement-lindustrie/infographie/index.html',
   },
 
   aboutText: {
