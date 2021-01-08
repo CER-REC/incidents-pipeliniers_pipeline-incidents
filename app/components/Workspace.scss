@@ -7,6 +7,9 @@
   position: relative;
   margin-bottom: 50px;
 
+  // reset the line height in the new CER template
+  line-height: normal;
+
   .workspaceClipContainer {
     overflow-x: hidden;
   }
