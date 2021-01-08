@@ -12,8 +12,8 @@ const TranslationTable = Immutable.fromJS({
   },
 
   learnMoreLinks: {
-    en: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-eng.html',
-    fr: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/nfgrphc/index-fra.html',
+    en: 'https://www.cer-rec.gc.ca/en/safety-environment/industry-performance/infographic/index.html',
+    fr: 'https://www.cer-rec.gc.ca/fr/securite-environnement/rendement-lindustrie/infographie/index.html',
   },
 
   aboutText: {
@@ -22,19 +22,19 @@ const TranslationTable = Immutable.fromJS({
       fr: 'À PROPOS',
     },
     p1: {
-      en: 'This Incidents at CER-Regulated Pipeline and Facilities interactive online tool is part of the Canada Energy Regulator’s (CER) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the CER structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found in the ',
-      fr: 'L’outil interactif « Incidents impliquant des installations et des pipelines réglementés » fait partie de l’initiative de visualisation des données de la Régie de l’énergie du Canada. Échelonnée sur trois ans, cette initiative vise à transformer la manière dont la Régie structure et diffuse ses données. Elle a pour objectif de favoriser un processus décisionnel fondé sur la preuve et de faciliter la compréhension des questions liées aux réseaux énergétiques et pipeliniers du Canada, grâce à un outil de visualisation interactif, facile à utiliser. L’outil présente les données recueillies par la Régie de 2008 à aujourd’hui en ce qui concerne les incidents signalés en application du Règlement de la Régie de l’énergie du Canada sur les pipelines terrestres et du Règlement sur les usines de traitement. Au cours des mois et des années à venir, la Régie utilisera cet outil novateur pour diffuser ses données sur la sécurité des pipelines et sur l’énergie, l’information qu’il possède sur l’infrastructure énergétique et une foule d’autres renseignements spécialisés. Par ailleurs, le portail ',
+      en: 'This Incidents at CER-Regulated Pipeline and Facilities interactive online tool is part of the Canada Energy Regulator’s (CER) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the CER structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found on the CER\'s ',
+      fr: 'L’outil interactif « Incidents impliquant des installations et des pipelines réglementés » fait partie de l’initiative de visualisation des données de la Régie de l’énergie du Canada. Échelonnée sur trois ans, cette initiative vise à transformer la manière dont la Régie structure et diffuse ses données. Elle a pour objectif de favoriser un processus décisionnel fondé sur la preuve et de faciliter la compréhension des questions liées aux réseaux énergétiques et pipeliniers du Canada, grâce à un outil de visualisation interactif, facile à utiliser. L’outil présente les données recueillies par la Régie de 2008 à aujourd’hui en ce qui concerne les incidents signalés en application du Règlement de la Régie de l’énergie du Canada sur les pipelines terrestres et du Règlement sur les usines de traitement. Au cours des mois et des années à venir, la Régie utilisera cet outil novateur pour diffuser ses données sur la sécurité des pipelines et sur l’énergie, l’information qu’il possède sur l’infrastructure énergétique et une foule d’autres renseignements spécialisés. Par ailleurs, la page Web de la ',
     },
     safetyPerformancePortalText: {
-      en: 'CER Safety Performance Portal',
-      fr: 'Rendement en matière de sécurité',
+      en: 'Industry Performance',
+      fr: 'Régie sur le Rendement de l\'industrie',
     },
     safetyPerformancePortalLink: {
-      en: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/index-eng.html',
-      fr: 'https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/index-fra.html',
+      en: 'https://www.cer-rec.gc.ca/en/safety-environment/industry-performance/index.html',
+      fr: 'https://www.cer-rec.gc.ca/fr/securite-environnement/rendement-lindustrie/index.html',
     },
     p1_2: {
-      en: '',
+      en: ' web page.',
       fr: ' comporte d’autres outils interactifs en ligne.',
     },
     p2: {
@@ -50,12 +50,12 @@ const TranslationTable = Immutable.fromJS({
       fr: 'Vous pouvez nous la faire parvenir, ainsi que vos suggestions, à l’adresse ',
     },
     emailText: {
-      en: 'energyindesign@cer-rec.gc.ca',
-      fr: 'conceptionenergie@cer-rec.gc.ca',
+      en: 'data.donnees@cer-rec.gc.ca',
+      fr: 'data.donnees@cer-rec.gc.ca',
     },
     emailLink: {
-      en: 'mailto:energyindesign@cer-rec.gc.ca',
-      fr: 'mailto:conceptionenergie@cer-rec.gc.ca',
+      en: 'mailto:data.donnees@cer-rec.gc.ca',
+      fr: 'mailto:data.donnees@cer-rec.gc.ca',
     },
     p4_2: {
       en: '. We look forward to hearing from you.',
@@ -2426,8 +2426,8 @@ const TranslationTable = Immutable.fromJS({
 
   downloadable: {
     csv: {
-      en: 'http://www.cer-rec.gc.ca/open/incident/pipeline-incidents.csv',
-      fr: 'http://www.cer-rec.gc.ca/ouvert/incident/incidents-pipelines.csv',
+      en: 'https://www.cer-rec.gc.ca/open/incident/pipeline-incidents-data.csv',
+      fr: ' https://www.cer-rec.gc.ca/ouvert/incident/donnees-incidents-pipelines.csv',
     }
   },
 
@@ -2437,6 +2437,12 @@ const TranslationTable = Immutable.fromJS({
     fr: 'visualisation en chargement',
   },
 
+  socialBar: {
+    downloadButton: {
+      en:'download data file',
+      fr: 'télécharger le fichier de données'
+    }
+  }
 
 })
 

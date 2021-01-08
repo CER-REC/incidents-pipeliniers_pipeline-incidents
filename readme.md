@@ -4,13 +4,13 @@ La version française suit.
 
 ## About
 
-This Incidents at CER-Regulated Pipeline and Facilities interactive online tool is part of the Canada Energy Regulator’s (CER) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the CER (formerly the National Energy Board) structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found in the [CER Safety Performance Portal](https://www.cer-rec.gc.ca/sftnvrnmnt/sft/dshbrd/index-eng.html).
+This Incidents at CER-Regulated Pipeline and Facilities interactive online tool is part of the Canada Energy Regulator’s (CER) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the CER (formerly the National Energy Board) structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data.In addition, other online tools can be found on the CER's [Industry Performance](https://www.cer-rec.gc.ca/en/safety-environment/industry-performance/index.html) web page.
 
 If you want to use the data for research and undertake your own review, all the data is downloadable and shareable.
 
 We hope we are hitting the mark. Your feedback is essential.
 
-Email us with your comments and ideas: energyindesign@cer-rec.gc.ca. We look forward to hearing from you.
+Email us with your comments and ideas: data.donnees@cer-rec.gc.ca. We look forward to hearing from you.
 
 ## About this Repository
 This repository includes the code and data needed to run a local version of the incident visualization app.
