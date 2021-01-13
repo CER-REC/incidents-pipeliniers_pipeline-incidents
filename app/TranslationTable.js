@@ -19,7 +19,7 @@ const TranslationTable = Immutable.fromJS({
   aboutText: {
     title: {
       en: 'ABOUT THIS PROJECT',
-      fr: 'À PROPOS',
+      fr: 'LE PROJET',
     },
     p1: {
       en: 'This Incidents at CER-Regulated Pipeline and Facilities interactive online tool is part of the Canada Energy Regulator’s (CER) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the CER structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found on the CER\'s ',
