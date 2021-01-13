@@ -138,7 +138,7 @@ const TranslationTable = Immutable.fromJS({
         },
         content:{
           en: 'by Bon Adriel Aseniero. Licensed under ',
-          fr: 'Créée par Bon Adriel Aseniero et portant la licence '
+          fr: 'Créé par Bon Adriel Aseniero et portant la licence '
         },
         link:{
           en: 'https://creativecommons.org/licenses/by-sa/3.0/',
@@ -156,7 +156,7 @@ const TranslationTable = Immutable.fromJS({
         },
         text1:{
           en: 'Process by Rflor',
-          fr: 'Créée par Rflor'
+          fr: 'Créé par Rflor'
         },
         text1Link:{
           en: 'https://thenounproject.com/rflor/collection/infography-circles/?oq=methodology&cidx=0&i=363475',
@@ -170,7 +170,7 @@ const TranslationTable = Immutable.fromJS({
         },
         text1:{
           en:'Reset by Mooms',
-          fr:'Créée par Mooms'
+          fr:'Créé par Mooms'
         },
         text1Link:{
           en:'https://thenounproject.com/search/?q=reset&i=1033424',
@@ -183,7 +183,7 @@ const TranslationTable = Immutable.fromJS({
           fr:'Icône Facebook:'
         },
         text1:{
-          fr:'Créée par Elegant Themes, tirée de ',
+          fr:'Créé par Elegant Themes, tirée de ',
           en:'By Elegant Themes from '
         },
         text2:{
