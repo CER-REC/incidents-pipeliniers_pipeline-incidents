@@ -19,7 +19,7 @@ const TranslationTable = Immutable.fromJS({
   aboutText: {
     title: {
       en: 'ABOUT THIS PROJECT',
-      fr: 'À PROPOS',
+      fr: 'LE PROJET',
     },
     p1: {
       en: 'This Incidents at CER-Regulated Pipeline and Facilities interactive online tool is part of the Canada Energy Regulator’s (CER) Data Visualization Initiative (DVI). The DVI is a three-year initiative to transform how the CER structures and shares data. The objective is to enable evidence-based decision making and remove barriers to understanding Canada’s energy and pipeline systems through the use of user-friendly interactive visualizations. This visualization is based on CER data from 2008 to current for incidents reported under the Onshore Pipeline Regulations and the Processing Plant Regulation. In the months and years to come we will use this innovative format to share our pipeline safety data, energy data series, energy infrastructure information, and a host of other topical data. In addition, other online tools can be found on the CER\'s ',
@@ -138,7 +138,7 @@ const TranslationTable = Immutable.fromJS({
         },
         content:{
           en: 'by Bon Adriel Aseniero. Licensed under ',
-          fr: 'Créée par Bon Adriel Aseniero et portant la licence '
+          fr: 'Créé par Bon Adriel Aseniero et portant la licence '
         },
         link:{
           en: 'https://creativecommons.org/licenses/by-sa/3.0/',
@@ -156,7 +156,7 @@ const TranslationTable = Immutable.fromJS({
         },
         text1:{
           en: 'Process by Rflor',
-          fr: 'Créée par Rflor'
+          fr: 'Créé par Rflor'
         },
         text1Link:{
           en: 'https://thenounproject.com/rflor/collection/infography-circles/?oq=methodology&cidx=0&i=363475',
@@ -170,7 +170,7 @@ const TranslationTable = Immutable.fromJS({
         },
         text1:{
           en:'Reset by Mooms',
-          fr:'Créée par Mooms'
+          fr:'Créé par Mooms'
         },
         text1Link:{
           en:'https://thenounproject.com/search/?q=reset&i=1033424',
@@ -183,7 +183,7 @@ const TranslationTable = Immutable.fromJS({
           fr:'Icône Facebook:'
         },
         text1:{
-          fr:'Créée par Elegant Themes, tirée de ',
+          fr:'Créé par Elegant Themes, tirée de ',
           en:'By Elegant Themes from '
         },
         text2:{
