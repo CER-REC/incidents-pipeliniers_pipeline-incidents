@@ -92,7 +92,7 @@ class AnalyticsReporter {
     const dataObject = {
       event: 'virtualPageview',
       pageURL: window.location.href,
-      pageTitle: window.document.title,
+      pageTitle: title,
     }
 
     if (process.env.NODE_ENV === 'development') {

@@ -330,7 +330,6 @@ class Filterbox extends React.Component {
   }
 
   onShowOnlyClick() {
-    // this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']),
     this.props.analytics.reportSubmenuSelection(
       this.props.schema.getIn([this.props.columnName, this.props.categoryName, 'en']),
       'Show'
