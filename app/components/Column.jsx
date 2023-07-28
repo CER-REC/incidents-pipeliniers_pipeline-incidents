@@ -167,10 +167,7 @@ class Column extends React.Component {
   }
 
   questionMarkClick(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','questionMark'])}`,
-      'selected',
-      `${this.props.columnName}`)
+    this.props.analytics.reportQuestionMark(this.props.columnName);
     e.stopPropagation(e)
     e.preventDefault(e)
     this.props.onQuestionMarkClick(this.props.columnName)
@@ -405,11 +402,12 @@ class Column extends React.Component {
     this.props.onColumnDrag(e.touches[0].clientX)
   }
 
+  handleRearrangeAnalytics() {
+    this.props.analytics.reportRearrange(this.props.columnName);
+  }
+
   handleDragEnd(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','column'])}`,
-      'dragged',
-      `${this.props.columnName}`)
+    this.handleRearrangeAnalytics();
     e.stopPropagation()
     e.preventDefault()
 
@@ -427,10 +425,7 @@ class Column extends React.Component {
   }
 
   handleTouchEnd(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','column'])}`,
-      'touch dragged',
-      `${this.props.columnName}`)
+    this.handleRearrangeAnalytics();
     e.stopPropagation()
     e.preventDefault()
 
@@ -522,11 +517,12 @@ class Column extends React.Component {
     sidebarWindowEndHandler = this.handleSidebarTouchEnd.bind(this)
   }
 
+  handleSelectCategoryAnalytics() {
+    this.props.analytics.reportSelectCategory(this.props.columnName);
+  }
+
   handleSidebarDragEnd(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','sidebar'])}`,
-      'added to workspace',
-      `${this.props.columnName}`)
+    this.handleSelectCategoryAnalytics();
     e.stopPropagation()
     e.preventDefault()
 
@@ -544,10 +540,7 @@ class Column extends React.Component {
   }
 
   handleSidebarTouchEnd(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','sidebar'])}`,
-      'added to workspace on touch',
-      `${this.props.columnName}`)
+    this.handleSelectCategoryAnalytics();
     e.stopPropagation()
     e.preventDefault()
 

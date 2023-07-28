@@ -9,10 +9,7 @@ import ActivateStoryImageCreator from '../actionCreators/ActivateStoryImageCreat
 class StoryIndicatorDot extends React.Component {
 
   indicatorDotClick(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','story'])}`,
-      'selected', 
-      'indicator dot')
+    this.props.analytics.reportStoryNavigation(this.props.story.get('storyID'), 'dot');
     e.stopPropagation()
     this.props.onIndicatorDotClicked(this.props.index)
   }

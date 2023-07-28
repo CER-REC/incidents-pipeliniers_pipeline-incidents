@@ -12,10 +12,7 @@ import StorySelectedCreator from '../actionCreators/StorySelectedCreator.js'
 class Story extends React.Component {
 
   storyClicked(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','story'])}`,
-      'selected', 
-      `${this.props.id}`)
+    this.props.analytics.reportStoryTiles(this.props.id);
     e.stopPropagation()
     e.preventDefault()
     this.props.onStoryClicked(this.props.id)

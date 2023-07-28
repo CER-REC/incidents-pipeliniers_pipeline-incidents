@@ -12,10 +12,6 @@ import PopupDismissedCreator from '../actionCreators/PopupDismissedCreator.js'
 class AboutWindow extends React.Component {
 
   closeButtonClick(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','headerLinks'])}`, 
-      'selected',   
-      'about this project close button')
     e.stopPropagation()
     e.preventDefault()
     this.props.onCloseButtonClicked()
@@ -42,41 +38,6 @@ class AboutWindow extends React.Component {
       tabIndex = '0'
       onKeyDown = { this.closeButtonKeyDown.bind(this) } >
     </img>
-  }
-
-  nebPerformancePortalAnalytics() {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
-      'selected',  
-      'neb performance portal')
-  }
-
-  emailLinkAnalytics() {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','headerLinks'])}`,
-      'selected',  
-      'email link')
-  }
-
-  wikimediaLinkAnalytics() {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','wikimediaCommons'])}`,
-      'selected',   
-      'wikimedia commons')
-  }
-
-  ccByThreeLinkAnalytics() {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','ccByThree'])}`,
-      'selected',   
-      'cc by 3.0')
-  }
-
-  ccBySAThreeLinkAnalytics() {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','ccBYSAThree'])}`,
-      'selected',   
-      'cc by-sa 3.0')
   }
 
   heading() {
@@ -134,7 +95,7 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'p1', this.props.language])}
-          <a onClick = {this.nebPerformancePortalAnalytics.bind(this)}
+          <a
             href={Tr.getIn(['aboutText', 'safetyPerformancePortalLink', this.props.language])}
             target="_blank" >
             {Tr.getIn(['aboutText', 'safetyPerformancePortalText', this.props.language])}
@@ -156,7 +117,7 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'p4', this.props.language])}
-          <a onClick = {this.emailLinkAnalytics.bind(this)}
+          <a
             href={Tr.getIn(['aboutText', 'emailLink', this.props.language])}>
             {Tr.getIn(['aboutText', 'emailText', this.props.language])}
           </a>
@@ -199,14 +160,14 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'map', 'map_1', this.props.language])}
-          <a onClick = {this.wikimediaLinkAnalytics.bind(this)}
+          <a
             href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'map', 'map_2_link', this.props.language])}
             target="_blank">
             {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'map', 'map_2_text', this.props.language])}
           </a>
           {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'licenceUnder', this.props.language])}
-          
-          <a onClick = {this.ccByThreeLinkAnalytics.bind(this)}
+
+          <a
             href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThreeLink', this.props.language])}
             target="_blank">
             {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThree', this.props.language])}
@@ -225,7 +186,7 @@ class AboutWindow extends React.Component {
       <p>
         <span>
           {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'tellMeAStoryIcon', 'content', this.props.language])}
-          <a onClick = {this.ccBySAThreeLinkAnalytics.bind(this)}
+          <a
             href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'tellMeAStoryIcon', 'link', this.props.language])}
             target="_blank">
             {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'tellMeAStoryIcon', 'link_text', this.props.language])}
@@ -255,8 +216,8 @@ class AboutWindow extends React.Component {
             {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'theNounProject', this.props.language])}
           </a>
           {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'licenceUnder', this.props.language])}
-          
-          <a onClick = {this.ccByThreeLinkAnalytics.bind(this)}
+
+          <a
             href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThreeLink', this.props.language])}
             target="_blank">
             {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThree', this.props.language])}
@@ -286,8 +247,8 @@ class AboutWindow extends React.Component {
             {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'theNounProject', this.props.language])}
           </a>
           {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'licenceUnder', this.props.language])}
-          
-          <a onClick = {this.ccByThreeLinkAnalytics.bind(this)}
+
+          <a
             href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThreeLink', this.props.language])}
             target="_blank">
             {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThree', this.props.language])}
@@ -317,8 +278,8 @@ class AboutWindow extends React.Component {
             {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'theNounProject', this.props.language])}
           </a>
           {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'licenceUnder', this.props.language])}
-          
-          <a onClick = {this.ccByThreeLinkAnalytics.bind(this)}
+
+          <a
             href={Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThreeLink', this.props.language])}
             target="_blank">
             {Tr.getIn(['aboutText', 'thirdPartyLicensesContent', 'common', 'ccByThree', this.props.language])}

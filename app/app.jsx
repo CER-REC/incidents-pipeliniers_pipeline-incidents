@@ -45,8 +45,9 @@ function render(Component) {
 DomReady( () => {
   // loading indicator
   ReactDOM.render(<LoadingOverlay />, document.getElementById('reactRoot'))
+  const lang = RouteComputations.parseUrlLanguage(document.location)
 
-  store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter()))
+  store.dispatch(SetUpAnalyticsCreator(new AnalyticsReporter(lang)))
 
   dataLoadPromise.then( () => {
 
