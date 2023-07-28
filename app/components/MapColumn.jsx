@@ -96,11 +96,12 @@ class MapColumn extends React.Component {
     this.props.onColumnDrag(e.clientX)
   }
 
+  handleRearrangeAnalytics() {
+    this.props.analytics.reportRearrange('map')
+  }
+
   handleDragEnd(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','column'])}`,
-      'dragged',
-      'map')
+    this.handleRearrangeAnalytics();
     e.stopPropagation()
     e.preventDefault()
 
@@ -147,10 +148,7 @@ class MapColumn extends React.Component {
   }
 
   handleTouchEnd(e) {
-    this.props.analytics.reportEvent(
-      `${Constants.getIn(['analyticsCategory','column'])}`,
-      'touch dragged',
-      'map')
+    this.handleRearrangeAnalytics();
     e.stopPropagation()
     e.preventDefault()
 
